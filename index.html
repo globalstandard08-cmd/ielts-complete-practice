@@ -29,12 +29,23 @@
             flex-direction: column;
         }
 
-        .logo {
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-img {
+            height: 32px;
+            width: auto;
+        }
+
+        .logo-text {
             font-size: 22px;
             font-weight: 700;
             color: #dc2626;
-            padding: 0 20px;
-            margin-bottom: 30px;
         }
 
         .sidebar-menu {
@@ -243,7 +254,10 @@
 
     <!-- SIDEBAR -->
     <div class="sidebar">
-        <div class="logo">Global Standard</div>
+        <div class="logo-container">
+            <img src="ielts-logo.png" alt="IELTS Logo" class="logo-img">
+            <div class="logo-text">Global Standard</div>
+        </div>
         <div class="sidebar-menu">
             <a href="#" class="menu-item">📊 Dashboard</a>
             <a href="#" class="menu-item active">📝 Practice Tests</a>
@@ -274,25 +288,12 @@
         <!-- ALL TESTS -->
         <div class="section-content active" id="all">
             <div class="tests-grid">
-                <!-- Stepwells -->
-                <div class="test-card">
-                    <div class="card-tags"><span class="tag medium">MEDIUM</span></div>
-                    <div class="test-icon">📖</div>
-                    <h3 class="test-title">Stepwells</h3>
-                    <p class="test-desc">Reading passage about ancient stepwells in India, questions 1–13.</p>
-                    <div class="test-meta">
-                        <span>⏱️ 20 min</span>
-                        <span>❓ 13 questions</span>
-                    </div>
-                    <a href="reading/stepwells.html" class="btn-start">Start Practice →</a>
-                </div>
-
-                <!-- Cambridge 10 Test 1 -->
+                <!-- CAMBRIDGE 10 TEST 1 -->
                 <div class="test-card">
                     <div class="card-tags"><span class="tag medium">MEDIUM</span></div>
                     <div class="test-icon">📖</div>
                     <h3 class="test-title">Cambridge 10 Test 1</h3>
-                    <p class="test-desc">Full reading test: 3 passages, 40 questions.</p>
+                    <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
                     <div class="test-meta">
                         <span>⏱️ 60 min</span>
                         <span>❓ 40 questions</span>
@@ -308,19 +309,8 @@
                 <div class="test-card">
                     <div class="card-tags"><span class="tag medium">MEDIUM</span></div>
                     <div class="test-icon">📖</div>
-                    <h3 class="test-title">Stepwells</h3>
-                    <p class="test-desc">Reading passage about ancient stepwells in India, questions 1–13.</p>
-                    <div class="test-meta">
-                        <span>⏱️ 20 min</span>
-                        <span>❓ 13 questions</span>
-                    </div>
-                    <a href="reading/stepwells.html" class="btn-start">Start Practice →</a>
-                </div>
-                <div class="test-card">
-                    <div class="card-tags"><span class="tag medium">MEDIUM</span></div>
-                    <div class="test-icon">📖</div>
                     <h3 class="test-title">Cambridge 10 Test 1</h3>
-                    <p class="test-desc">Full reading test: 3 passages, 40 questions.</p>
+                    <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
                     <div class="test-meta">
                         <span>⏱️ 60 min</span>
                         <span>❓ 40 questions</span>
