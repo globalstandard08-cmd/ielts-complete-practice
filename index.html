@@ -21,18 +21,19 @@
             position: relative;
         }
 
-        /* --- ✅ BACKGROUND1.PNG: REAL IMAGE TAG, TOP RIGHT, 100% VISIBLE --- */
-        .top-right-pic {
+        /* ✅ background1.png: REAL IMAGE, TOP RIGHT, NOT HIDDEN, FULLY VISIBLE */
+        .top-right-decoration {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 260px;
+            top: 10px;
+            right: 10px;
+            width: 250px;
             height: auto;
-            z-index: 10;
-            display: block;
+            z-index: 9999; /* ON TOP OF EVERYTHING */
+            display: block !important;
+            visibility: visible !important;
         }
 
-        /* --- ✅ LOGO: SMALLER, PERFECT SIZE --- */
+        /* ✅ LOGO: EXACTLY AS IT WAS — NO CHANGES, NO RESIZING */
         .top-logo-bar {
             width: 100%;
             background: #ffffff;
@@ -42,7 +43,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            z-index: 20;
+            z-index: 10;
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
         }
 
@@ -53,16 +54,15 @@
             display: block;
         }
 
-        /* --- ✅ COLORED SIDES / FULL THEME --- */
+        /* ✅ COLORED SIDES */
         .content-wrapper {
             display: flex;
             flex: 1;
             position: relative;
-            z-index: 20;
+            z-index: 10;
             background-color: #fef2f2;
         }
 
-        /* Sidebar colored */
         .sidebar {
             width: 220px;
             background: #fef2f2;
@@ -105,7 +105,6 @@
             color: #dc2626;
         }
 
-        /* Main content colored */
         .main-content {
             flex: 1;
             padding: 30px 40px;
@@ -170,7 +169,6 @@
             font-weight: 500;
         }
 
-        /* --- ✅ TABS: NO ALL TESTS BUTTON --- */
         .tabs {
             display: flex;
             gap: 12px;
@@ -201,7 +199,6 @@
             background: #ffffff;
         }
 
-        /* Test cards */
         .tests-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -275,7 +272,7 @@
             background: #b91c1c;
         }
 
-        /* --- ✅ TEACHERS: FAR BOTTOM, STRAIGHT LINE, SHARP CLEAR --- */
+        /* ✅ TEACHERS: FAR BOTTOM, STRAIGHT LINE, SHARP CLEAR PHOTOS */
         .teachers-section {
             width: 100%;
             background: #ffffff;
@@ -283,7 +280,7 @@
             border-top: 2px solid #fecaca;
             margin-top: auto;
             position: relative;
-            z-index: 20;
+            z-index: 10;
         }
 
         .teachers-section h2 {
@@ -309,16 +306,17 @@
             flex-shrink: 0;
         }
 
-        /* ✅ FIXED: NO PIXELATION, SHARP, CORRECT .jpeg/.jpg — NO BAD SETTINGS */
+        /* ✅ FIXED: NO STRETCHING, NO FILTERS — CLEAR, SHARP, ORIGINAL QUALITY */
         .teacher-card img {
-            width: 110px;
-            height: 110px;
-            object-fit: cover;
+            width: auto;
+            height: 110px; /* Keep height fixed, width auto so no distortion */
+            object-fit: contain;
             border-radius: 50%;
             border: 3px solid #dc2626;
             margin-bottom: 8px;
             box-shadow: 0 3px 8px rgba(220, 38, 38, 0.12);
             display: block;
+            image-rendering: auto; /* Default = best clarity */
         }
 
         .teacher-name {
@@ -338,10 +336,10 @@
 </head>
 <body>
 
-    <!-- ✅ background1.png: REAL IMAGE, TOP RIGHT, 100% SHOWING -->
-    <img src="background1.png" alt="Decoration" class="top-right-pic">
+    <!-- ✅ background1.png: REAL IMAGE, TOP RIGHT, 100% SHOWING, NOT HIDDEN -->
+    <img src="background1.png" alt="Decoration" class="top-right-decoration">
 
-    <!-- ✅ LOGO: SMALLER, PERFECT SIZE -->
+    <!-- ✅ LOGO: EXACTLY SAME — NO CHANGES -->
     <div class="top-logo-bar">
         <img src="ielts-logo.png" alt="IELTS Logo" class="logo-img">
     </div>
@@ -372,7 +370,6 @@
                 <button class="tab" data-target="speaking">🎤 Speaking</button>
             </div>
 
-            <!-- ✅ ONLY CAMBRIDGE 10 TEST 1 -->
             <div class="section-content active" id="reading">
                 <div class="tests-grid">
                     <div class="test-card">
@@ -435,7 +432,7 @@
         </div>
     </div>
 
-    <!-- ✅ TEACHERS: FAR BOTTOM, STRAIGHT LINE, CORRECT NAMES & FILES -->
+    <!-- ✅ TEACHERS: FAR BOTTOM, STRAIGHT LINE, CLEAR PHOTOS -->
     <div class="teachers-section">
         <h2>Our Teachers</h2>
         <div class="teachers-grid">
