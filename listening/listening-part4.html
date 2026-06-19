@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Listening - Part 4</title>
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Arial', sans-serif;
+    }
+
+    body {
+        background-color: #f4f6f9;
+        padding: 20px;
+        line-height: 1.7;
+    }
+
+    /* ✅ Same rule as your working reading file */
+    .notes-block, .instruction, .question-line, .content, span, p, h2, h3 {
+        user-select: text;
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+    }
+
+    .input-field {
+        width: 160px;
+        padding: 6px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        background: white;
+        user-select: text;
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+    }
+
+    .input-field:focus {
+        outline: none;
+        border-color: #1f3a5f;
+        box-shadow: 0 0 3px rgba(31, 58, 95, 0.3);
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    .logo-section {
+        text-align: center;
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .logo-section img {
+        height: 120px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .header-bar {
+        background-color: #1f3a5f;
+        color: white;
+        padding: 15px 25px;
+        font-size: 18px;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .audio-player {
+        background: #eef2f7;
+        padding: 18px 25px;
+        margin: 20px;
+        border-radius: 6px;
+        text-align: center;
+    }
+
+    .audio-player h3 {
+        color: #1f3a5f;
+        margin-bottom: 12px;
+        font-size: 17px;
+    }
+
+    audio {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .content {
+        padding: 0 30px 30px;
+    }
+
+    h2 {
+        color: #1f3a5f;
+        margin: 25px 0 15px;
+        font-size: 22px;
+    }
+
+    .instruction {
+        background-color: #f8fbfe;
+        border-left: 4px solid #1f3a5f;
+        padding: 15px;
+        margin-bottom: 25px;
+        border-radius: 4px;
+        font-weight: 500;
+    }
+
+    .notes-block {
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        padding: 25px;
+        margin-bottom: 30px;
+        background-color: #fdfdfd;
+    }
+
+    .notes-title {
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 25px;
+        text-align: center;
+        color: #1f3a5f;
+    }
+
+    .section-heading {
+        font-weight: bold;
+        margin: 22px 0 14px;
+        font-size: 17px;
+        color: #2c4b75;
+    }
+
+    .question-line {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        font-size: 16px;
+    }
+
+    .q-number {
+        font-weight: bold;
+        min-width: 35px;
+        color: #1f3a5f;
+    }
+
+    .answers-section {
+        margin-top: 40px;
+        padding: 20px;
+        background-color: #f0f8ff;
+        border: 1px solid #b0d4f1;
+        border-radius: 6px;
+    }
+
+    .answers-section h3 {
+        color: #1f3a5f;
+        margin-bottom: 15px;
+    }
+
+    .answers-content {
+        display: none;
+        padding: 15px;
+        background: white;
+        border-radius: 4px;
+        line-height: 2;
+        margin-top: 10px;
+    }
+
+    .show-btn {
+        background-color: #1f3a5f;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .show-btn:hover {
+        background-color: #2e568c;
+    }
+
+    .nav-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 40px;
+    }
+
+    .btn {
+        padding: 11px 26px;
+        background-color: #1f3a5f;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background-color: #2e568c;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-section">
+            <img src="ielts-logo.png" alt="IELTS Logo">
+        </div>
+
+        <div class="header-bar">
+            <span>LISTENING TEST - PART 4</span>
+            <span style="font-size:15px; opacity:0.9;">Teaching Mode</span>
+        </div>
+
+        <!-- Working Audio Player -->
+        <div class="audio-player">
+            <h3>Play Recording - Part 4</h3>
+            <audio controls preload="auto">
+                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part4.mp3" type="audio/mpeg">
+                <source src="part4.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            
+        </div>
+
+        <div class="content">
+            <h2>Section 4 – Questions 31–40</h2>
+
+            <div class="instruction">
+                <strong>Questions 31–40:</strong> Complete the notes below.<br>
+                <em>Write ONE WORD ONLY for each answer.</em>
+            </div>
+
+            <div class="notes-block">
+                <div class="notes-title">THE SPIRIT BEAR</div>
+
+                <div class="section-heading">General facts</div>
+
+                <div class="question-line">
+                    <span>• It is a white bear belonging to the black bear family.</span>
+                </div>
+
+                <div class="question-line">
+                    <span>• Its colour comes from an uncommon</span>
+                    <span class="q-number">31.</span>
+                    <input type="text" class="input-field" id="q31" placeholder="__________">
+                </div>
+
+                <div class="question-line">
+                    <span>• Local people believe that it has unusual</span>
+                    <span class="q-number">32.</span>
+                    <input type="text" class="input-field" id="q32" placeholder="__________">
+                </div>
+
+                <div class="question-line">
+                    <span>• They protect the bear from</span>
+                    <span class="q-number">33.</span>
+                    <input type="text" class="input-field" id="q33" placeholder="__________">
+                </div>
+
+                <div class="section-heading">Habitat</div>
+
+                <div class="question-line">
+                    <span>• The bear’s relationship with the forest is complex.</span>
+                </div>
+
+                <div class="question-line">
+                    <span>• Tree roots stop</span>
+                    <span class="q-number">34.</span>
+                    <input type="text" class="input-field" id="q34" placeholder="__________">
+                    <span>along salmon streams.</span>
+                </div>
+
+                <div class="question-line">
+                    <span>• The bears’ feeding habits provide nutrients for forest vegetation.</span>
+                </div>
+
+                <div class="question-line">
+                    <span>• It is currently found on a small number of</span>
+                    <span class="q-number">35.</span>
+                    <input type="text" class="input-field" id="q35" placeholder="__________">
+                </div>
+
+                <div class="section-heading">Threats</div>
+
+                <div class="question-line">
+                    <span>• Habitat is being lost due to deforestation and construction of</span>
+                    <span class="q-number">36.</span>
+                    <input type="text" class="input-field" id="q36" placeholder="__________">
+                    <span>by logging companies.</span>
+                </div>
+
+                <div class="question-line">
+                    <span>• Unrestricted</span>
+                    <span class="q-number">37.</span>
+                    <input type="text" class="input-field" id="q37" placeholder="__________">
+                    <span>is affecting the salmon supply.</span>
+                </div>
+
+                <div class="question-line">
+                    <span>• The bears’ existence is also threatened by their low rate of</span>
+                    <span class="q-number">38.</span>
+                    <input type="text" class="input-field" id="q38" placeholder="__________">
+                </div>
+
+                <div class="section-heading">Going forward</div>
+
+                <div class="question-line">
+                    <span>• Interested parties are working together.</span>
+                </div>
+
+                <div class="question-line">
+                    <span>• Logging companies must improve their</span>
+                    <span class="q-number">39.</span>
+                    <input type="text" class="input-field" id="q39" placeholder="__________">
+                    <span>of logging.</span>
+                </div>
+
+                <div class="question-line">
+                    <span>• Maintenance and</span>
+                    <span class="q-number">40.</span>
+                    <input type="text" class="input-field" id="q40" placeholder="__________">
+                    <span>of the spirit bears’ territory is needed.</span>
+                </div>
+            </div>
+
+            <div class="answers-section">
+                <h3>Answers for Section 4</h3>
+                <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                <div class="answers-content" id="answers">
+                    <strong>Answers:</strong><br>
+                    31. gene<br>
+                    32. power<br>
+                    33. hunters<br>
+                    34. erosion<br>
+                    35. islands<br>
+                    36. roads<br>
+                    37. fishing<br>
+                    38. reproduction<br>
+                    39. methods<br>
+                    40. expansion
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="listening-part3.html" class="btn">← Back to Part 3</a>
+                <a href="listening-part1.html" class="btn">Start Again</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-save answers
+        document.addEventListener('DOMContentLoaded', function() {
+            for (let i = 31; i <= 40; i++) {
+                const field = document.getElementById('q' + i);
+                const saved = localStorage.getItem('listening_c10t1_q' + i);
+                if (saved) field.value = saved;
+
+                field.addEventListener('input', function() {
+                    localStorage.setItem('listening_c10t1_q' + i, this.value.trim());
+                });
+            }
+        });
+
+        // Toggle answers visibility
+        function toggleAnswers() {
+            const ansDiv = document.getElementById('answers');
+            ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

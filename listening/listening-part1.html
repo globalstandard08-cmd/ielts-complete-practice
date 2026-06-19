@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Listening - Part 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            padding: 20px;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .logo-section {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo-section img {
+            height: 120px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-bar {
+            background-color: #1f3a5f;
+            color: white;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .audio-player {
+            background: #eef2f7;
+            padding: 18px 25px;
+            margin: 20px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .audio-player h3 {
+            color: #1f3a5f;
+            margin-bottom: 12px;
+            font-size: 17px;
+        }
+
+        audio {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .content {
+            padding: 0 30px 30px;
+        }
+
+        h2 {
+            color: #1f3a5f;
+            margin: 25px 0 15px;
+            font-size: 22px;
+        }
+
+        .instruction {
+            background-color: #f8fbfe;
+            border-left: 4px solid #1f3a5f;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        /* Single-column box style */
+        .notes-block {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 30px;
+            background-color: #fdfdfd;
+        }
+
+        .notes-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .example-row {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f8f8f8;
+            border-radius: 4px;
+        }
+
+        /* Question line: number directly next to input */
+        .question-line {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .q-number {
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .input-field {
+            width: 160px;
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #1f3a5f;
+            box-shadow: 0 0 3px rgba(31, 58, 95, 0.3);
+        }
+
+        /* Answers section */
+        .answers-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border: 1px solid #b0d4f1;
+            border-radius: 6px;
+        }
+
+        .answers-section h3 {
+            color: #1f3a5f;
+            margin-bottom: 15px;
+        }
+
+        .answers-content {
+            display: none;
+            padding: 15px;
+            background: white;
+            border-radius: 4px;
+            line-height: 2;
+            margin-top: 10px;
+        }
+
+        .show-btn {
+            background-color: #1f3a5f;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .show-btn:hover {
+            background-color: #2e568c;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 11px 26px;
+            background-color: #1f3a5f;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #2e568c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-section">
+            <img src="ielts-logo.png" alt="IELTS Logo">
+        </div>
+
+        <div class="header-bar">
+            <span>LISTENING TEST - PART 1</span>
+            <span style="font-size:15px; opacity:0.9;">Teaching Mode</span>
+        </div>
+
+<!-- Audio Player -->
+<div class="audio-player">
+    <h3>Play Recording - Part 1</h3>
+    <audio controls preload="auto">
+        <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part1.mp3" type="audio/mpeg">
+        <source src="part1.mp3" type="audio/mpeg">
+        Your browser does not support audio playback.
+    
+</div>
+        <div class="content">
+            <h2>Section 1 –Questions 1–10</h2>
+
+            <div class="instruction">
+                <strong>Questions 1–6:</strong> Complete the notes below. Write ONE WORD for each answer.
+            </div>
+
+            <!-- Single-column notes block -->
+            <div class="notes-block">
+                <div class="notes-title">SELF-DRIVE TOURS IN THE USA</div>
+
+                <div class="example-row">
+                    <strong>Example:</strong> Name: Andrea Brown
+                </div>
+
+                <div class="question-line">
+                    <span>Address: 24</span>
+                    <span class="q-number">1.</span>
+                    <input type="text" class="input-field" id="q1" placeholder="_______">
+                    <span>Road</span>
+                </div>
+
+                <div class="question-line">
+                    <span>Postcode: BH5 2OP</span>
+                </div>
+
+                <div class="question-line">
+                    <span>Phone: (mobile) 077 8664 3091</span>
+                </div>
+
+                <div class="question-line">
+                    <span>Heard about company from:</span>
+                    <span class="q-number">2.</span>
+                    <input type="text" class="input-field" id="q2" placeholder="_______">
+                </div>
+
+                <div style="font-weight:bold; margin:15px 0 10px;">Possible self-drive tours</div>
+
+                <div class="question-line">
+                    <span>Trip One – Los Angeles: customer wants to visit some</span>
+                    <span class="q-number">3.</span>
+                    <input type="text" class="input-field" id="q3" placeholder="_______">
+                    <span>parks with her children</span>
+                </div>
+
+                <div class="question-line">
+                    <span>Yosemite Park: customer wants to stay in a lodge, not a</span>
+                    <span class="q-number">4.</span>
+                    <input type="text" class="input-field" id="q4" placeholder="_______">
+                </div>
+
+                <div class="question-line">
+                    <span>Trip Two – Cambria: customer wants to see the</span>
+                    <span class="q-number">5.</span>
+                    <input type="text" class="input-field" id="q5" placeholder="_______">
+                    <span>on the way to Cambria</span>
+                </div>
+
+                <div class="question-line">
+                    <span>San Diego: wants to spend time on the</span>
+                    <span class="q-number">6.</span>
+                    <input type="text" class="input-field" id="q6" placeholder="_______">
+                </div>
+            </div>
+
+            <!-- Questions 7-10 -->
+            <div class="instruction">
+                <strong>Questions 7–10:</strong> Complete the details below. Write ONE WORD AND/OR A NUMBER for each answer.
+            </div>
+
+            <div class="notes-block">
+                <div class="question-line">
+                    <span>Trip One: Total distance</span>
+                    <span class="q-number">7.</span>
+                    <input type="text" class="input-field" id="q7" placeholder="_______">
+                    <span>km</span>
+                </div>
+
+                <div class="question-line">
+                    <span>Trip One includes: accommodation, car, and one</span>
+                    <span class="q-number">8.</span>
+                    <input type="text" class="input-field" id="q8" placeholder="_______">
+                </div>
+
+                <div class="question-line">
+                    <span>Trip Two price per person: £</span>
+                    <span class="q-number">9.</span>
+                    <input type="text" class="input-field" id="q9" placeholder="_______">
+                </div>
+
+                <div class="question-line">
+                    <span>Trip Two includes: accommodation, car, and</span>
+                    <span class="q-number">10.</span>
+                    <input type="text" class="input-field" id="q10" placeholder="_______">
+                </div>
+            </div>
+
+            <!-- Answers section -->
+            <div class="answers-section">
+                <h3>Answers for Section 1</h3>
+                <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                <div class="answers-content" id="answers">
+                    <strong>Answers:</strong><br>
+                    1. River<br>
+                    2. website<br>
+                    3. national<br>
+                    4. hotel<br>
+                    5. castle<br>
+                    6. beach<br>
+                    7. 2020<br>
+                    8. drive<br>
+                    9. 429<br>
+                    10. dinner
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="listening-intro.html" class="btn">← Back</a>
+                <a href="listening-part2.html" class="btn">Next: Part 2 →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-save answers
+        document.addEventListener('DOMContentLoaded', function() {
+            for (let i = 1; i <= 10; i++) {
+                const field = document.getElementById('q' + i);
+                const saved = localStorage.getItem('listening_c10t1_q' + i);
+                if (saved) field.value = saved;
+
+                field.addEventListener('input', function() {
+                    localStorage.setItem('listening_c10t1_q' + i, this.value.trim());
+                });
+            }
+        });
+
+        // Toggle answers
+        function toggleAnswers() {
+            const ansDiv = document.getElementById('answers');
+            ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

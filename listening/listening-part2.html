@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Listening - Part 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            padding: 20px;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .logo-section {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo-section img {
+            height: 120px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-bar {
+            background-color: #1f3a5f;
+            color: white;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .audio-player {
+            background: #eef2f7;
+            padding: 18px 25px;
+            margin: 20px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .audio-player h3 {
+            color: #1f3a5f;
+            margin-bottom: 12px;
+            font-size: 17px;
+        }
+
+        audio {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .content {
+            padding: 0 30px 30px;
+        }
+
+        h2 {
+            color: #1f3a5f;
+            margin: 25px 0 15px;
+            font-size: 22px;
+        }
+
+        .instruction {
+            background-color: #f8fbfe;
+            border-left: 4px solid #1f3a5f;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        /* Single-column box style */
+        .notes-block {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 30px;
+            background-color: #fdfdfd;
+        }
+
+        .notes-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .section-heading {
+            font-weight: bold;
+            margin: 20px 0 12px;
+            font-size: 17px;
+            color: #1f3a5f;
+        }
+
+        /* Question line: number directly next to input */
+        .question-line {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .q-number {
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .input-field {
+            width: 160px;
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #1f3a5f;
+            box-shadow: 0 0 3px rgba(31, 58, 95, 0.3);
+        }
+
+        /* Answers section */
+        .answers-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border: 1px solid #b0d4f1;
+            border-radius: 6px;
+        }
+
+        .answers-section h3 {
+            color: #1f3a5f;
+            margin-bottom: 15px;
+        }
+
+        .answers-content {
+            display: none;
+            padding: 15px;
+            background: white;
+            border-radius: 4px;
+            line-height: 2;
+            margin-top: 10px;
+        }
+
+        .show-btn {
+            background-color: #1f3a5f;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .show-btn:hover {
+            background-color: #2e568c;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 11px 26px;
+            background-color: #1f3a5f;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #2e568c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-section">
+            <img src="ielts-logo.png" alt="IELTS Logo">
+        </div>
+
+        <div class="header-bar">
+            <span>LISTENING TEST - PART 2</span>
+            <span style="font-size:15px; opacity:0.9;">Teaching Mode</span>
+        </div>
+
+        <!-- Audio Player -->
+<div class="audio-player">
+    <h3>Play Recording - Part 2</h3>
+    <audio controls preload="auto">
+        <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part2.mp3" type="audio/mpeg">
+        <source src="part2.mp3" type="audio/mpeg">
+        Your browser does not support audio playback.
+    
+</div>
+
+        <div class="content">
+            <h2>Section 2 – Questions 13–20</h2>
+
+            <div class="instruction">
+                <strong>Questions 13–20:</strong> Complete the notes below. <br>
+                <em>Write NO MORE THAN TWO WORDS for each answer.</em>
+            </div>
+
+            <!-- Single-column notes block -->
+            <div class="notes-block">
+                <div class="notes-title">Joining the leisure club</div>
+
+                <div class="section-heading">Personal Assessment</div>
+
+                <div class="question-line">
+                    <span>New members should describe any</span>
+                    <span class="q-number">13.</span>
+                    <input type="text" class="input-field" id="q13" placeholder="__________">
+                </div>
+
+                <div class="question-line">
+                    <span>The</span>
+                    <span class="q-number">14.</span>
+                    <input type="text" class="input-field" id="q14" placeholder="__________">
+                    <span>will be explained to you before you use the equipment.</span>
+                </div>
+
+                <div class="question-line">
+                    <span>You will be given a six-week</span>
+                    <span class="q-number">15.</span>
+                    <input type="text" class="input-field" id="q15" placeholder="__________">
+                </div>
+
+                <div class="section-heading">Types of membership</div>
+
+                <div class="question-line">
+                    <span>There is a compulsory £90</span>
+                    <span class="q-number">16.</span>
+                    <input type="text" class="input-field" id="q16" placeholder="__________">
+                    <span>fee for members.</span>
+                </div>
+
+                <div class="question-line">
+                    <span>Gold members are given</span>
+                    <span class="q-number">17.</span>
+                    <input type="text" class="input-field" id="q17" placeholder="__________">
+                    <span>to all the LP clubs.</span>
+                </div>
+
+                <div class="question-line">
+                    <span>Premier members are given priority during</span>
+                    <span class="q-number">18.</span>
+                    <input type="text" class="input-field" id="q18" placeholder="__________">
+                    <span>hours.</span>
+                </div>
+
+                <div class="question-line">
+                    <span>Premier members can bring some</span>
+                    <span class="q-number">19.</span>
+                    <input type="text" class="input-field" id="q19" placeholder="__________">
+                    <span>every month.</span>
+                </div>
+
+                <div class="question-line">
+                    <span>Members should always take their</span>
+                    <span class="q-number">20.</span>
+                    <input type="text" class="input-field" id="q20" placeholder="__________">
+                    <span>with them.</span>
+                </div>
+            </div>
+
+            <!-- Answers section -->
+            <div class="answers-section">
+                <h3>Answers for Section 2</h3>
+                <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                <div class="answers-content" id="answers">
+                    <strong>Answers:</strong><br>
+                    13. health problems<br>
+                    14. rules<br>
+                    15. trial period<br>
+                    16. joining / annual<br>
+                    17. access<br>
+                    18. peak<br>
+                    19. guests<br>
+                    20. membership card
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="listening-part1.html" class="btn">← Back to Part 1</a>
+                <a href="listening-part3.html" class="btn">Next: Part 3 →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-save answers
+        document.addEventListener('DOMContentLoaded', function() {
+            for (let i = 13; i <= 20; i++) {
+                const field = document.getElementById('q' + i);
+                const saved = localStorage.getItem('listening_c10t1_q' + i);
+                if (saved) field.value = saved;
+
+                field.addEventListener('input', function() {
+                    localStorage.setItem('listening_c10t1_q' + i, this.value.trim());
+                });
+            }
+        });
+
+        // Toggle answers
+        function toggleAnswers() {
+            const ansDiv = document.getElementById('answers');
+            ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

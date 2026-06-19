@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Listening - Part 3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            padding: 20px;
+            line-height: 1.7;
+            /* Enable text highlighting */
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .logo-section {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo-section img {
+            height: 120px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-bar {
+            background-color: #1f3a5f;
+            color: white;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .audio-player {
+            background: #eef2f7;
+            padding: 18px 25px;
+            margin: 20px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .audio-player h3 {
+            color: #1f3a5f;
+            margin-bottom: 12px;
+            font-size: 17px;
+        }
+
+        audio {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .content {
+            padding: 0 30px 30px;
+        }
+
+        h2 {
+            color: #1f3a5f;
+            margin: 25px 0 15px;
+            font-size: 22px;
+        }
+
+        .section-title {
+            font-size: 19px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-align: center;
+            color: #1f3a5f;
+        }
+
+        .instruction {
+            background-color: #f8fbfe;
+            border-left: 4px solid #1f3a5f;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        /* Multiple Choice Style */
+        .mcq-block {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 30px;
+            background-color: #fdfdfd;
+        }
+
+        .mcq-question {
+            margin-bottom: 22px;
+        }
+
+        .q-number {
+            font-weight: bold;
+            display: inline-block;
+            min-width: 30px;
+        }
+
+        .option {
+            margin: 8px 0 8px 35px;
+            cursor: pointer;
+        }
+
+        /* Notes Completion Style */
+        .notes-block {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 30px;
+            background-color: #fdfdfd;
+        }
+
+        .question-line {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .input-field {
+            width: 160px;
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #1f3a5f;
+            box-shadow: 0 0 3px rgba(31, 58, 95, 0.3);
+        }
+
+        /* Answers Section */
+        .answers-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border: 1px solid #b0d4f1;
+            border-radius: 6px;
+        }
+
+        .answers-section h3 {
+            color: #1f3a5f;
+            margin-bottom: 15px;
+        }
+
+        .answers-content {
+            display: none;
+            padding: 15px;
+            background: white;
+            border-radius: 4px;
+            line-height: 2;
+            margin-top: 10px;
+        }
+
+        .show-btn {
+            background-color: #1f3a5f;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .show-btn:hover {
+            background-color: #2e568c;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 11px 26px;
+            background-color: #1f3a5f;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #2e568c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-section">
+            <img src="ielts-logo.png" alt="IELTS Logo">
+        </div>
+
+        <div class="header-bar">
+            <span>LISTENING TEST - PART 3</span>
+            <span style="font-size:15px; opacity:0.9;">Teaching Mode</span>
+        </div>
+
+        <!-- Working Audio Player -->
+        <div class="audio-player">
+            <h3>Play Recording - Part 3</h3>
+            <audio controls preload="auto">
+                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part3.mp3" type="audio/mpeg">
+                <source src="part3.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            
+        </div>
+
+        <div class="content">
+            <h2>Section 3 – Questions 21–30</h2>
+
+            <!-- Multiple Choice Section -->
+            <div class="mcq-block">
+                <div class="instruction">
+                    <strong>Questions 21–25:</strong> Choose the correct letter, A, B or C.
+                </div>
+
+                <div class="section-title">Global Design Competition</div>
+
+                <div class="mcq-question">
+                    <span class="q-number">21.</span> Students entering the design competition have to<br>
+                    <div class="option"><input type="radio" name="q21" id="q21a"> <label for="q21a">A produce an energy-efficient design.</label></div>
+                    <div class="option"><input type="radio" name="q21" id="q21b"> <label for="q21b">B adapt an existing energy-saving appliance.</label></div>
+                    <div class="option"><input type="radio" name="q21" id="q21c"> <label for="q21c">C develop a new use for current technology.</label></div>
+                </div>
+
+                <div class="mcq-question">
+                    <span class="q-number">22.</span> John chose a dishwasher because he wanted to make dishwashers<br>
+                    <div class="option"><input type="radio" name="q22" id="q22a"> <label for="q22a">A more appealing.</label></div>
+                    <div class="option"><input type="radio" name="q22" id="q22b"> <label for="q22b">B more common.</label></div>
+                    <div class="option"><input type="radio" name="q22" id="q22c"> <label for="q22c">C more economical.</label></div>
+                </div>
+
+                <div class="mcq-question">
+                    <span class="q-number">23.</span> The stone in John’s ‘Rockpool’ design is used<br>
+                    <div class="option"><input type="radio" name="q23" id="q23a"> <label for="q23a">A for decoration.</label></div>
+                    <div class="option"><input type="radio" name="q23" id="q23b"> <label for="q23b">B to switch it on.</label></div>
+                    <div class="option"><input type="radio" name="q23" id="q23c"> <label for="q23c">C to stop water escaping.</label></div>
+                </div>
+
+                <div class="mcq-question">
+                    <span class="q-number">24.</span> In the holding chamber, the carbon dioxide<br>
+                    <div class="option"><input type="radio" name="q24" id="q24a"> <label for="q24a">A changes back to a gas.</label></div>
+                    <div class="option"><input type="radio" name="q24" id="q24b"> <label for="q24b">B dries the dishes.</label></div>
+                    <div class="option"><input type="radio" name="q24" id="q24c"> <label for="q24c">C is allowed to cool.</label></div>
+                </div>
+
+                <div class="mcq-question">
+                    <span class="q-number">25.</span> At the end of the cleaning process, the carbon dioxide<br>
+                    <div class="option"><input type="radio" name="q25" id="q25a"> <label for="q25a">A is released into the air.</label></div>
+                    <div class="option"><input type="radio" name="q25" id="q25b"> <label for="q25b">B is disposed of with the waste.</label></div>
+                    <div class="option"><input type="radio" name="q25" id="q25c"> <label for="q25c">C is collected ready to be re-used.</label></div>
+                </div>
+            </div>
+
+            <!-- Notes Completion Section -->
+            <div class="notes-block">
+                <div class="instruction">
+                    <strong>Questions 26–30:</strong> Complete the notes below.<br>
+                    <em>Write ONE WORD ONLY for each answer.</em>
+                </div>
+
+                <div class="question-line">
+                    <span>• John needs help preparing for his</span>
+                    <span class="q-number">26.</span>
+                    <input type="text" class="input-field" id="q26" placeholder="__________">
+                </div>
+
+                <div class="question-line">
+                    <span>• The professor advises John to make a</span>
+                    <span class="q-number">27.</span>
+                    <input type="text" class="input-field" id="q27" placeholder="__________">
+                    <span>of his design.</span>
+                </div>
+
+                <div class="question-line">
+                    <span>• John’s main problem is getting good quality</span>
+                    <span class="q-number">28.</span>
+                    <input type="text" class="input-field" id="q28" placeholder="__________">
+                </div>
+
+                <div class="question-line">
+                    <span>• The professor suggests John apply for a</span>
+                    <span class="q-number">29.</span>
+                    <input type="text" class="input-field" id="q29" placeholder="__________">
+                </div>
+
+                <div class="question-line">
+                    <span>• The professor will check the</span>
+                    <span class="q-number">30.</span>
+                    <input type="text" class="input-field" id="q30" placeholder="__________">
+                    <span>information in John’s written report.</span>
+                </div>
+            </div>
+
+            <!-- Answers Section -->
+            <div class="answers-section">
+                <h3>Answers for Section 3</h3>
+                <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                <div class="answers-content" id="answers">
+                    <strong>Answers:</strong><br>
+                    21. A<br>
+                    22. C<br>
+                    23. C<br>
+                    24. A<br>
+                    25. C<br>
+                    26. presentation<br>
+                    27. model<br>
+                    28. materials<br>
+                    29. grant<br>
+                    30. technical
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="listening-part2.html" class="btn">← Back to Part 2</a>
+                <a href="listening-part4.html" class="btn">Next: Part 4 →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-save answers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Save multiple choice answers
+            for (let i = 21; i <= 25; i++) {
+                const radios = document.querySelectorAll(`input[name="q${i}"]`);
+                const saved = localStorage.getItem(`listening_c10t1_q${i}`);
+                if (saved) {
+                    document.getElementById(`q${i}${saved.toLowerCase()}`).checked = true;
+                }
+                radios.forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        localStorage.setItem(`listening_c10t1_q${i}`, this.id.slice(-1).toUpperCase());
+                    });
+                });
+            }
+
+            // Save text answers
+            for (let i = 26; i <= 30; i++) {
+                const field = document.getElementById(`q${i}`);
+                const saved = localStorage.getItem(`listening_c10t1_q${i}`);
+                if (saved) field.value = saved;
+
+                field.addEventListener('input', function() {
+                    localStorage.setItem(`listening_c10t1_q${i}`, this.value.trim());
+                });
+            }
+        });
+
+        // Toggle answers visibility
+        function toggleAnswers() {
+            const ansDiv = document.getElementById('answers');
+            ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>
