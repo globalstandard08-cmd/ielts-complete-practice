@@ -21,20 +21,15 @@
             position: relative;
         }
 
-        /* --- ✅ BACKGROUND1.PNG: FORCED VISIBLE, TOP RIGHT --- */
-        body::before {
-            content: "";
+        /* --- ✅ BACKGROUND1.PNG: REAL IMAGE TAG, TOP RIGHT, 100% VISIBLE --- */
+        .top-right-pic {
             position: absolute;
             top: 15px;
             right: 15px;
             width: 260px;
-            height: 360px;
-            background: url('background1.png') no-repeat top right !important;
-            background-size: contain !important;
-            z-index: 1;
-            opacity: 1 !important;
-            display: block !important;
-            visibility: visible !important;
+            height: auto;
+            z-index: 10;
+            display: block;
         }
 
         /* --- ✅ LOGO: SMALLER, PERFECT SIZE --- */
@@ -47,7 +42,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            z-index: 3;
+            z-index: 20;
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
         }
 
@@ -63,9 +58,8 @@
             display: flex;
             flex: 1;
             position: relative;
-            z-index: 3;
+            z-index: 20;
             background-color: #fef2f2;
-            padding: 0;
         }
 
         /* Sidebar colored */
@@ -289,7 +283,7 @@
             border-top: 2px solid #fecaca;
             margin-top: auto;
             position: relative;
-            z-index: 3;
+            z-index: 20;
         }
 
         .teachers-section h2 {
@@ -315,7 +309,7 @@
             flex-shrink: 0;
         }
 
-        /* ✅ FIXED: NO PIXELATION, SHARP, CORRECT .jpeg/.jpg */
+        /* ✅ FIXED: NO PIXELATION, SHARP, CORRECT .jpeg/.jpg — NO BAD SETTINGS */
         .teacher-card img {
             width: 110px;
             height: 110px;
@@ -323,12 +317,6 @@
             border-radius: 50%;
             border: 3px solid #dc2626;
             margin-bottom: 8px;
-            /* MAX QUALITY SETTINGS */
-            image-rendering: -webkit-optimize-contrast !important;
-            image-rendering: crisp-edges !important;
-            image-rendering: high-quality !important;
-            image-rendering: pixelated !important;
-            -ms-interpolation-mode: bicubic !important;
             box-shadow: 0 3px 8px rgba(220, 38, 38, 0.12);
             display: block;
         }
@@ -349,6 +337,9 @@
     </style>
 </head>
 <body>
+
+    <!-- ✅ background1.png: REAL IMAGE, TOP RIGHT, 100% SHOWING -->
+    <img src="background1.png" alt="Decoration" class="top-right-pic">
 
     <!-- ✅ LOGO: SMALLER, PERFECT SIZE -->
     <div class="top-logo-bar">
