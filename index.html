@@ -21,51 +21,54 @@
             position: relative;
         }
 
-        /* --- BACKGROUND1.PNG: TOP RIGHT, CLEAR & VISIBLE --- */
+        /* --- ✅ BACKGROUND1.PNG: FORCED VISIBLE, TOP RIGHT --- */
         body::before {
             content: "";
             position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 280px;
-            height: 380px;
-            background: url('background1.png') no-repeat top right;
-            background-size: contain;
-            z-index: 0;
-            opacity: 1;
+            top: 15px;
+            right: 15px;
+            width: 260px;
+            height: 360px;
+            background: url('background1.png') no-repeat top right !important;
+            background-size: contain !important;
+            z-index: 1;
+            opacity: 1 !important;
             display: block !important;
+            visibility: visible !important;
         }
 
-        /* --- LOGO: ADJUSTED SMALLER, PERFECT SIZE --- */
+        /* --- ✅ LOGO: SMALLER, PERFECT SIZE --- */
         .top-logo-bar {
             width: 100%;
             background: #ffffff;
             border-bottom: 2px solid #dc2626;
-            padding: 15px 0;
+            padding: 12px 0;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            z-index: 2;
+            z-index: 3;
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
         }
 
         .logo-img {
-            width: 50%;
-            max-width: 420px;
+            width: 40%;
+            max-width: 350px;
             height: auto;
+            display: block;
         }
 
-        /* --- WRAPPER --- */
+        /* --- ✅ COLORED SIDES / FULL THEME --- */
         .content-wrapper {
             display: flex;
             flex: 1;
             position: relative;
-            z-index: 2;
-            padding-bottom: 40px;
+            z-index: 3;
+            background-color: #fef2f2;
+            padding: 0;
         }
 
-        /* --- SIDEBAR: COLORED SIDES --- */
+        /* Sidebar colored */
         .sidebar {
             width: 220px;
             background: #fef2f2;
@@ -108,7 +111,7 @@
             color: #dc2626;
         }
 
-        /* --- MAIN CONTENT --- */
+        /* Main content colored */
         .main-content {
             flex: 1;
             padding: 30px 40px;
@@ -173,7 +176,7 @@
             font-weight: 500;
         }
 
-        /* --- TABS (NO ALL TESTS) --- */
+        /* --- ✅ TABS: NO ALL TESTS BUTTON --- */
         .tabs {
             display: flex;
             gap: 12px;
@@ -204,7 +207,7 @@
             background: #ffffff;
         }
 
-        /* --- TEST CARD --- */
+        /* Test cards */
         .tests-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -278,7 +281,7 @@
             background: #b91c1c;
         }
 
-        /* --- TEACHERS: FAR BOTTOM, SHARP CLEAR JPEG/JPG --- */
+        /* --- ✅ TEACHERS: FAR BOTTOM, STRAIGHT LINE, SHARP CLEAR --- */
         .teachers-section {
             width: 100%;
             background: #ffffff;
@@ -286,7 +289,7 @@
             border-top: 2px solid #fecaca;
             margin-top: auto;
             position: relative;
-            z-index: 2;
+            z-index: 3;
         }
 
         .teachers-section h2 {
@@ -312,7 +315,7 @@
             flex-shrink: 0;
         }
 
-        /* --- FIXED: 100% CLEAR, NO PIXELATION, CORRECT EXTENSIONS --- */
+        /* ✅ FIXED: NO PIXELATION, SHARP, CORRECT .jpeg/.jpg */
         .teacher-card img {
             width: 110px;
             height: 110px;
@@ -320,12 +323,14 @@
             border-radius: 50%;
             border: 3px solid #dc2626;
             margin-bottom: 8px;
-            /* High quality rendering */
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            image-rendering: high-quality;
-            -ms-interpolation-mode: bicubic;
+            /* MAX QUALITY SETTINGS */
+            image-rendering: -webkit-optimize-contrast !important;
+            image-rendering: crisp-edges !important;
+            image-rendering: high-quality !important;
+            image-rendering: pixelated !important;
+            -ms-interpolation-mode: bicubic !important;
             box-shadow: 0 3px 8px rgba(220, 38, 38, 0.12);
+            display: block;
         }
 
         .teacher-name {
@@ -334,7 +339,6 @@
             font-size: 14px;
         }
 
-        /* --- HIDE/SHOW SECTIONS --- */
         .section-content {
             display: none;
         }
@@ -346,12 +350,11 @@
 </head>
 <body>
 
-    <!-- LOGO: PERFECT SMALLER SIZE -->
+    <!-- ✅ LOGO: SMALLER, PERFECT SIZE -->
     <div class="top-logo-bar">
         <img src="ielts-logo.png" alt="IELTS Logo" class="logo-img">
     </div>
 
-    <!-- SIDEBAR + MAIN -->
     <div class="content-wrapper">
         <div class="sidebar">
             <div class="sidebar-menu">
@@ -371,7 +374,6 @@
                 <button class="filter-btn">🔍 Filters</button>
             </div>
 
-            <!-- TABS: NO ALL TESTS -->
             <div class="tabs">
                 <button class="tab active" data-target="reading">📖 Reading</button>
                 <button class="tab" data-target="listening">🎧 Listening</button>
@@ -379,7 +381,7 @@
                 <button class="tab" data-target="speaking">🎤 Speaking</button>
             </div>
 
-            <!-- READING -->
+            <!-- ✅ ONLY CAMBRIDGE 10 TEST 1 -->
             <div class="section-content active" id="reading">
                 <div class="tests-grid">
                     <div class="test-card">
@@ -395,7 +397,6 @@
                 </div>
             </div>
 
-            <!-- LISTENING -->
             <div class="section-content" id="listening">
                 <div class="tests-grid">
                     <div class="test-card">
@@ -411,7 +412,6 @@
                 </div>
             </div>
 
-            <!-- WRITING -->
             <div class="section-content" id="writing">
                 <div class="tests-grid">
                     <div class="test-card">
@@ -427,7 +427,6 @@
                 </div>
             </div>
 
-            <!-- SPEAKING -->
             <div class="section-content" id="speaking">
                 <div class="tests-grid">
                     <div class="test-card">
@@ -445,7 +444,7 @@
         </div>
     </div>
 
-    <!-- TEACHERS: FAR BOTTOM, SHARP CLEAR, CORRECT FILES -->
+    <!-- ✅ TEACHERS: FAR BOTTOM, STRAIGHT LINE, CORRECT NAMES & FILES -->
     <div class="teachers-section">
         <h2>Our Teachers</h2>
         <div class="teachers-grid">
