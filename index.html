@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Standard - IELTS Practice Library</title>
+    <title>IELTS Practice Library</title>
     <style>
         * {
             margin: 0;
@@ -13,25 +13,40 @@
         }
 
         body {
-            background: url('background1.png') no-repeat center center fixed;
-            background-size: cover;
+            background-color: #ffffff;
             color: #1a1a1a;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            position: relative;
+        }
+
+        /* --- BACKGROUND: Smaller, Far Right Side Only --- */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 100px;
+            right: 20px;
+            width: 400px;
+            height: 600px;
+            background: url('background1.png') no-repeat center center;
+            background-size: contain;
+            z-index: 0;
+            opacity: 0.9;
         }
 
         /* --- TOP CENTER LOGO AREA --- */
         .top-logo-bar {
             width: 100%;
-            background: rgba(255, 255, 255, 0.9);
+            background: #ffffff;
             border-bottom: 1px solid #e5e7eb;
             padding: 20px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            position: relative;
+            z-index: 2;
         }
 
         .logo-img {
@@ -39,22 +54,18 @@
             height: auto;
         }
 
-        .logo-text {
-            font-size: 24px;
-            font-weight: 700;
-            color: #dc2626;
-        }
-
         /* --- WRAPPER (SIDEBAR + MAIN) --- */
         .content-wrapper {
             display: flex;
             flex: 1;
+            position: relative;
+            z-index: 2;
         }
 
         /* --- SIDEBAR --- */
         .sidebar {
             width: 220px;
-            background: rgba(255, 255, 255, 0.9);
+            background: #ffffff;
             border-right: 1px solid #e5e7eb;
             padding: 20px 0;
             display: flex;
@@ -87,20 +98,22 @@
         }
 
         .menu-item:hover:not(.active) {
-            background: rgba(243, 244, 246, 0.8);
+            background: #f3f4f6;
         }
 
         /* --- MAIN CONTENT --- */
         .main-content {
             flex: 1;
             padding: 30px 40px;
+            max-width: 800px;
         }
 
         .page-header {
-            background: rgba(255, 255, 255, 0.9);
+            background: #ffffff;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 24px;
+            border: 1px solid #e5e7eb;
         }
 
         .page-header h1 {
@@ -120,9 +133,10 @@
             gap: 12px;
             margin-bottom: 28px;
             align-items: center;
-            background: rgba(255, 255, 255, 0.9);
+            background: #ffffff;
             padding: 12px;
             border-radius: 8px;
+            border: 1px solid #e5e7eb;
         }
 
         .search-input {
@@ -161,17 +175,13 @@
             cursor: pointer;
             border: none;
             transition: all 0.2s;
-            background: rgba(255, 255, 255, 0.9);
+            background: #f3f4f6;
+            color: #374151;
         }
 
         .tab.active {
             background: #dc2626;
             color: white;
-        }
-
-        .tab:not(.active) {
-            background: rgba(243, 244, 246, 0.9);
-            color: #374151;
         }
 
         .tab:not(.active):hover {
@@ -187,13 +197,13 @@
         }
 
         .test-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: #ffffff;
             border-radius: 10px;
             border: 1px solid #e5e7eb;
             padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+ gap: 12px;
         }
 
         .test-icon {
@@ -249,9 +259,10 @@
 
         /* --- TEACHERS SECTION --- */
         .teachers-section {
-            background: rgba(255, 255, 255, 0.9);
+            background: #ffffff;
             padding: 24px;
             border-radius: 8px;
+            border: 1px solid #e5e7eb;
         }
 
         .teachers-section h2 {
@@ -295,10 +306,9 @@
 </head>
 <body>
 
-    <!-- TOP CENTER LOGO -->
+    <!-- TOP CENTER LOGO ONLY -->
     <div class="top-logo-bar">
         <img src="ielts-logo.png" alt="IELTS Logo" class="logo-img">
-        <div class="logo-text">Global Standard</div>
     </div>
 
     <!-- SIDEBAR + MAIN WRAPPER -->
@@ -396,37 +406,37 @@
                 </div>
             </div>
 
-            <!-- OUR TEACHERS SECTION -->
+            <!-- OUR TEACHERS SECTION → REAL NAMES + CORRECT EXTENSIONS -->
             <div class="teachers-section">
                 <h2>Our Teachers</h2>
                 <div class="teachers-grid">
                     <div class="teacher-card">
-                        <img src="teacher1.jpeg" alt="Teacher 1">
-                        <div class="teacher-name">Teacher 1</div>
+                        <img src="teacher1.jpeg" alt="T. Rhej">
+                        <div class="teacher-name">T. Rhej</div>
                     </div>
                     <div class="teacher-card">
-                        <img src="teacher2.jpeg" alt="Teacher 2">
-                        <div class="teacher-name">Teacher 2</div>
+                        <img src="teacher2.jpeg" alt="T. Vicky">
+                        <div class="teacher-name">T. Vicky</div>
                     </div>
                     <div class="teacher-card">
-                        <img src="teacher3.jpeg" alt="Teacher 3">
-                        <div class="teacher-name">Teacher 3</div>
+                        <img src="teacher3.jpeg" alt="T. Wiji">
+                        <div class="teacher-name">T. Wiji</div>
                     </div>
                     <div class="teacher-card">
-                        <img src="teacher4.jpeg" alt="Teacher 4">
-                        <div class="teacher-name">Teacher 4</div>
+                        <img src="teacher4.jpeg" alt="T. Ann">
+                        <div class="teacher-name">T. Ann</div>
                     </div>
                     <div class="teacher-card">
-                        <img src="teacher5.jpeg" alt="Teacher 5">
-                        <div class="teacher-name">Teacher 5</div>
+                        <img src="teacher5.jpeg" alt="T. Jen">
+                        <div class="teacher-name">T. Jen</div>
                     </div>
                     <div class="teacher-card">
-                        <img src="teacher6.jpg" alt="Teacher 6">
-                        <div class="teacher-name">Teacher 6</div>
+                        <img src="teacher6.jpg" alt="T. Ellaine">
+                        <div class="teacher-name">T. Ellaine</div>
                     </div>
                     <div class="teacher-card">
-                        <img src="teacher7.jpg" alt="Teacher 7">
-                        <div class="teacher-name">Teacher 7</div>
+                        <img src="teacher7.jpg" alt="T. Joan">
+                        <div class="teacher-name">T. Joan</div>
                     </div>
                 </div>
             </div>
