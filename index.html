@@ -21,26 +21,27 @@
             position: relative;
         }
 
-        /* --- BACKGROUND1.PNG: TOP RIGHT CORNER, CLEAR & VISIBLE --- */
+        /* --- BACKGROUND1.PNG: TOP RIGHT, CLEAR & VISIBLE --- */
         body::before {
             content: "";
             position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 320px;
-            height: 420px;
+            top: 10px;
+            right: 10px;
+            width: 280px;
+            height: 380px;
             background: url('background1.png') no-repeat top right;
             background-size: contain;
             z-index: 0;
             opacity: 1;
+            display: block !important;
         }
 
-        /* --- LOGO: PROPER SIZE (NOT TOO BIG), FULL WIDTH BUT BALANCED --- */
+        /* --- LOGO: ADJUSTED SMALLER, PERFECT SIZE --- */
         .top-logo-bar {
             width: 100%;
             background: #ffffff;
             border-bottom: 2px solid #dc2626;
-            padding: 18px 0;
+            padding: 15px 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -50,8 +51,8 @@
         }
 
         .logo-img {
-            width: 65%;
-            max-width: 550px;
+            width: 50%;
+            max-width: 420px;
             height: auto;
         }
 
@@ -277,7 +278,7 @@
             background: #b91c1c;
         }
 
-        /* --- TEACHERS: FAR BOTTOM, CLEAR SHARP PHOTOS, STRAIGHT LINE --- */
+        /* --- TEACHERS: FAR BOTTOM, SHARP CLEAR JPEG/JPG --- */
         .teachers-section {
             width: 100%;
             background: #ffffff;
@@ -311,7 +312,7 @@
             flex-shrink: 0;
         }
 
-        /* --- FIXED: NO PIXELATION, SHARP & CLEAR --- */
+        /* --- FIXED: 100% CLEAR, NO PIXELATION, CORRECT EXTENSIONS --- */
         .teacher-card img {
             width: 110px;
             height: 110px;
@@ -319,8 +320,11 @@
             border-radius: 50%;
             border: 3px solid #dc2626;
             margin-bottom: 8px;
-            image-rendering: auto;
+            /* High quality rendering */
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
             image-rendering: high-quality;
+            -ms-interpolation-mode: bicubic;
             box-shadow: 0 3px 8px rgba(220, 38, 38, 0.12);
         }
 
@@ -342,7 +346,7 @@
 </head>
 <body>
 
-    <!-- LOGO: CORRECT SIZE, NOT TOO BIG -->
+    <!-- LOGO: PERFECT SMALLER SIZE -->
     <div class="top-logo-bar">
         <img src="ielts-logo.png" alt="IELTS Logo" class="logo-img">
     </div>
@@ -441,7 +445,7 @@
         </div>
     </div>
 
-    <!-- TEACHERS: FAR BOTTOM, SHARP CLEAR PHOTOS, STRAIGHT LINE -->
+    <!-- TEACHERS: FAR BOTTOM, SHARP CLEAR, CORRECT FILES -->
     <div class="teachers-section">
         <h2>Our Teachers</h2>
         <div class="teachers-grid">
