@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IELTS Practice Library</title>
+    <title>Global Standard - IELTS Practice Library</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: #f8f9fa;
+            background-color: #ffffff;
             color: #1a1a1a;
             display: flex;
             min-height: 100vh;
@@ -27,15 +27,14 @@
             padding: 20px 0;
             display: flex;
             flex-direction: column;
-            gap: 30px;
         }
 
         .logo {
             font-size: 22px;
             font-weight: 700;
-            color: #7c2d12;
+            color: #dc2626;
             padding: 0 20px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .sidebar-menu {
@@ -58,8 +57,8 @@
         }
 
         .menu-item.active {
-            background: #f3e5dc;
-            color: #92400e;
+            background: #fef2f2;
+            color: #dc2626;
             font-weight: 500;
         }
 
@@ -67,72 +66,18 @@
             background: #f3f4f6;
         }
 
-        .upgrade-box {
-            margin: 20px 12px;
-            padding: 16px 12px;
-            background: #fef3c7;
-            border-radius: 8px;
-            font-size: 13px;
-        }
-
-        .upgrade-box h4 {
-            color: #92400e;
-            margin-bottom: 6px;
-        }
-
-        .upgrade-btn {
-            width: 100%;
-            padding: 6px;
-            background: #b45309;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            margin-top: 8px;
-            cursor: pointer;
-        }
-
-        .user-area {
-            margin-top: auto;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-top: 1px solid #eee;
-        }
-
-        .user-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: #b45309;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 500;
-        }
-
-        .user-details p {
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .user-details small {
-            font-size: 12px;
-            color: #6b7280;
-        }
-
         /* --- MAIN CONTENT --- */
         .main-content {
             flex: 1;
             padding: 30px 40px;
-            overflow-y: auto;
+            background: #ffffff;
         }
 
         .page-header h1 {
             font-size: 28px;
             font-weight: 700;
             margin-bottom: 8px;
+            color: #dc2626;
         }
 
         .page-header p {
@@ -168,7 +113,7 @@
             gap: 6px;
         }
 
-        /* --- TABS / CATEGORIES --- */
+        /* --- TABS --- */
         .tabs {
             display: flex;
             gap: 12px;
@@ -187,7 +132,7 @@
         }
 
         .tab.all {
-            background: #7f1d1d;
+            background: #dc2626;
             color: white;
         }
 
@@ -219,26 +164,16 @@
         }
 
         .card-tags {
-            display: flex;
-            gap: 8px;
             position: absolute;
             top: 16px;
             right: 16px;
         }
 
-        .tag {
+        .tag.medium {
             font-size: 12px;
             font-weight: 600;
             padding: 3px 8px;
             border-radius: 12px;
-        }
-
-        .tag.done {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .tag.medium {
             background: #fef3c7;
             color: #92400e;
         }
@@ -247,8 +182,8 @@
             width: 40px;
             height: 40px;
             border-radius: 8px;
-            background: #f3e5dc;
-            color: #92400e;
+            background: #fef2f2;
+            color: #dc2626;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -259,14 +194,13 @@
         .test-title {
             font-size: 17px;
             font-weight: 600;
-            margin-bottom: 4px;
+            color: #111827;
         }
 
         .test-desc {
             font-size: 14px;
             color: #6b7280;
             line-height: 1.5;
-            margin-bottom: 8px;
         }
 
         .test-meta {
@@ -274,40 +208,10 @@
             color: #6b7280;
             display: flex;
             gap: 16px;
-            margin-bottom: 12px;
+            margin: 8px 0 16px 0;
         }
 
-        .score-box {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            border-radius: 6px;
-            padding: 8px 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .score-label {
-            font-size: 13px;
-            font-weight: 500;
-            color: #991b1b;
-        }
-
-        .score-value {
-            font-size: 18px;
-            font-weight: 700;
-            color: #dc2626;
-        }
-
-        .card-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: auto;
-        }
-
-        .btn {
-            flex: 1;
+        .btn-start {
             padding: 10px 0;
             border-radius: 6px;
             font-size: 14px;
@@ -316,22 +220,13 @@
             cursor: pointer;
             text-decoration: none;
             text-align: center;
-        }
-
-        .btn-review {
-            background: #f3f4f6;
-            color: #374151;
-        }
-
-        .btn-retake {
-            background: #1f2937;
-            color: white;
-        }
-
-        .btn-start {
-            background: linear-gradient(135deg, #7f1d1d 0%, #92400e 100%);
+            background: #dc2626;
             color: white;
             width: 100%;
+        }
+
+        .btn-start:hover {
+            background: #b91c1c;
         }
 
         /* --- HIDE/SHOW SECTIONS --- */
@@ -348,26 +243,10 @@
 
     <!-- SIDEBAR -->
     <div class="sidebar">
-        <div class="logo">Prepverse</div>
+        <div class="logo">Global Standard</div>
         <div class="sidebar-menu">
             <a href="#" class="menu-item">📊 Dashboard</a>
             <a href="#" class="menu-item active">📝 Practice Tests</a>
-            <a href="#" class="menu-item">🛠️ All Tools</a>
-            <a href="#" class="menu-item">👤 Profile</a>
-        </div>
-
-        <div class="upgrade-box">
-            <h4>FREE PLAN</h4>
-            <p>Upgrade to Pro for unlimited AI feedback.</p>
-            <button class="upgrade-btn">Upgrade Now</button>
-        </div>
-
-        <div class="user-area">
-            <div class="user-avatar">A</div>
-            <div class="user-details">
-                <p>Ann Lopez</p>
-                <small>jehl9002@gmail.com</small>
-            </div>
         </div>
     </div>
 
@@ -375,11 +254,11 @@
     <div class="main-content">
         <div class="page-header">
             <h1>Practice Library</h1>
-            <p>High-quality practice tests for all IELTS modules. AI grading and detailed feedback — instantly.</p>
+            <p>High-quality practice tests for all IELTS modules.</p>
         </div>
 
         <div class="search-bar">
-            <input type="text" class="search-input" placeholder="Search by name, e.g. Cambridge 18...">
+            <input type="text" class="search-input" placeholder="Search by name...">
             <button class="filter-btn">🔍 Filters</button>
         </div>
 
@@ -392,67 +271,12 @@
             <button class="tab" data-target="speaking">🎤 Speaking</button>
         </div>
 
-        <!-- ALL TESTS SECTION -->
+        <!-- ALL TESTS -->
         <div class="section-content active" id="all">
             <div class="tests-grid">
-                <!-- STONEHENGE -->
+                <!-- Stepwells -->
                 <div class="test-card">
-                    <div class="card-tags">
-                        <span class="tag done">Done</span>
-                        <span class="tag medium">MEDIUM</span>
-                    </div>
-                    <div class="test-icon">📖</div>
-                    <h3 class="test-title">Stonehenge</h3>
-                    <p class="test-desc">A reading passage about the history and mysteries of Stonehenge, a prehistoric monument.</p>
-                    <div class="test-meta">
-                        <span>⏱️ 20 min</span>
-                        <span>❓ 13 questions</span>
-                    </div>
-                    <div class="score-box">
-                        <span class="score-label">BAND SCORE</span>
-                        <span class="score-value">4.0</span>
-                    </div>
-                    <div class="card-buttons">
-                        <a href="reading/stonehenge.html" class="btn btn-review">Review</a>
-                        <a href="reading/stonehenge.html" class="btn btn-retake">Retake</a>
-                    </div>
-                </div>
-
-                <!-- A SURVIVOR'S STORY -->
-                <div class="test-card">
-                    <div class="card-tags">
-                        <span class="tag medium">MEDIUM</span>
-                    </div>
-                    <div class="test-icon">📖</div>
-                    <h3 class="test-title">A survivor's story</h3>
-                    <p class="test-desc">Full IELTS Academic Reading test with 3 passages and 40 questions.</p>
-                    <div class="test-meta">
-                        <span>⏱️ 60 min</span>
-                        <span>❓ 40 questions</span>
-                    </div>
-                    <a href="reading/survivor.html" class="btn btn-start">Start Practice →</a>
-                </div>
-
-                <!-- BUSINESS CARDS -->
-                <div class="test-card">
-                    <div class="card-tags">
-                        <span class="tag medium">MEDIUM</span>
-                    </div>
-                    <div class="test-icon">📖</div>
-                    <h3 class="test-title">The Importance of Business Cards</h3>
-                    <p class="test-desc">Full IELTS Academic Reading test with 3 passages and 40 questions.</p>
-                    <div class="test-meta">
-                        <span>⏱️ 60 min</span>
-                        <span>❓ 40 questions</span>
-                    </div>
-                    <a href="reading/business-cards.html" class="btn btn-start">Start Practice →</a>
-                </div>
-
-                <!-- STEPWELLS -->
-                <div class="test-card">
-                    <div class="card-tags">
-                        <span class="tag medium">MEDIUM</span>
-                    </div>
+                    <div class="card-tags"><span class="tag medium">MEDIUM</span></div>
                     <div class="test-icon">📖</div>
                     <h3 class="test-title">Stepwells</h3>
                     <p class="test-desc">Reading passage about ancient stepwells in India, questions 1–13.</p>
@@ -460,55 +284,29 @@
                         <span>⏱️ 20 min</span>
                         <span>❓ 13 questions</span>
                     </div>
-                    <a href="reading/stepwells.html" class="btn btn-start">Start Practice →</a>
+                    <a href="reading/stepwells.html" class="btn-start">Start Practice →</a>
                 </div>
 
-                <!-- CAMBRIDGE 10 TEST 1 -->
+                <!-- Cambridge 10 Test 1 -->
                 <div class="test-card">
-                    <div class="card-tags">
-                        <span class="tag medium">MEDIUM</span>
-                    </div>
+                    <div class="card-tags"><span class="tag medium">MEDIUM</span></div>
                     <div class="test-icon">📖</div>
                     <h3 class="test-title">Cambridge 10 Test 1</h3>
-                    <p class="test-desc">Full reading test: 3 passages, 40 questions — your original test.</p>
+                    <p class="test-desc">Full reading test: 3 passages, 40 questions.</p>
                     <div class="test-meta">
                         <span>⏱️ 60 min</span>
                         <span>❓ 40 questions</span>
                     </div>
-                    <a href="reading/C10T1.html" class="btn btn-start">Start Practice →</a>
+                    <a href="reading/C10T1.html" class="btn-start">Start Practice →</a>
                 </div>
             </div>
         </div>
 
-        <!-- READING SECTION -->
+        <!-- READING -->
         <div class="section-content" id="reading">
             <div class="tests-grid">
                 <div class="test-card">
-                    <div class="card-tags">
-                        <span class="tag done">Done</span>
-                        <span class="tag medium">MEDIUM</span>
-                    </div>
-                    <div class="test-icon">📖</div>
-                    <h3 class="test-title">Stonehenge</h3>
-                    <p class="test-desc">A reading passage about the history and mysteries of Stonehenge, a prehistoric monument.</p>
-                    <div class="test-meta">
-                        <span>⏱️ 20 min</span>
-                        <span>❓ 13 questions</span>
-                    </div>
-                    <div class="score-box">
-                        <span class="score-label">BAND SCORE</span>
-                        <span class="score-value">4.0</span>
-                    </div>
-                    <div class="card-buttons">
-                        <a href="reading/stonehenge.html" class="btn btn-review">Review</a>
-                        <a href="reading/stonehenge.html" class="btn btn-retake">Retake</a>
-                    </div>
-                </div>
-
-                <div class="test-card">
-                    <div class="card-tags">
-                        <span class="tag medium">MEDIUM</span>
-                    </div>
+                    <div class="card-tags"><span class="tag medium">MEDIUM</span></div>
                     <div class="test-icon">📖</div>
                     <h3 class="test-title">Stepwells</h3>
                     <p class="test-desc">Reading passage about ancient stepwells in India, questions 1–13.</p>
@@ -516,32 +314,27 @@
                         <span>⏱️ 20 min</span>
                         <span>❓ 13 questions</span>
                     </div>
-                    <a href="reading/stepwells.html" class="btn btn-start">Start Practice →</a>
+                    <a href="reading/stepwells.html" class="btn-start">Start Practice →</a>
                 </div>
-
                 <div class="test-card">
-                    <div class="card-tags">
-                        <span class="tag medium">MEDIUM</span>
-                    </div>
+                    <div class="card-tags"><span class="tag medium">MEDIUM</span></div>
                     <div class="test-icon">📖</div>
                     <h3 class="test-title">Cambridge 10 Test 1</h3>
-                    <p class="test-desc">Full reading test: 3 passages, 40 questions — your original test.</p>
+                    <p class="test-desc">Full reading test: 3 passages, 40 questions.</p>
                     <div class="test-meta">
                         <span>⏱️ 60 min</span>
                         <span>❓ 40 questions</span>
                     </div>
-                    <a href="reading/C10T1.html" class="btn btn-start">Start Practice →</a>
+                    <a href="reading/C10T1.html" class="btn-start">Start Practice →</a>
                 </div>
             </div>
         </div>
 
-        <!-- LISTENING SECTION -->
+        <!-- LISTENING -->
         <div class="section-content" id="listening">
             <div class="tests-grid">
                 <div class="test-card">
-                    <div class="card-tags">
-                        <span class="tag medium">MEDIUM</span>
-                    </div>
+                    <div class="card-tags"><span class="tag medium">MEDIUM</span></div>
                     <div class="test-icon">🎧</div>
                     <h3 class="test-title">Section 1 – Travel</h3>
                     <p class="test-desc">Listening practice: booking a hotel, filling form, 10 questions.</p>
@@ -549,12 +342,10 @@
                         <span>⏱️ 10 min</span>
                         <span>❓ 10 questions</span>
                     </div>
-                    <a href="listening/travel.html" class="btn btn-start">Start Practice →</a>
+                    <a href="listening/travel.html" class="btn-start">Start Practice →</a>
                 </div>
                 <div class="test-card">
-                    <div class="card-tags">
-                        <span class="tag medium">MEDIUM</span>
-                    </div>
+                    <div class="card-tags"><span class="tag medium">MEDIUM</span></div>
                     <div class="test-icon">🎧</div>
                     <h3 class="test-title">Section 2 – Museum</h3>
                     <p class="test-desc">Listening practice: museum tour, map labelling, 10 questions.</p>
@@ -562,18 +353,16 @@
                         <span>⏱️ 10 min</span>
                         <span>❓ 10 questions</span>
                     </div>
-                    <a href="listening/museum.html" class="btn btn-start">Start Practice →</a>
+                    <a href="listening/museum.html" class="btn-start">Start Practice →</a>
                 </div>
             </div>
         </div>
 
-        <!-- WRITING SECTION -->
+        <!-- WRITING -->
         <div class="section-content" id="writing">
             <div class="tests-grid">
                 <div class="test-card">
-                    <div class="card-tags">
-                        <span class="tag medium">MEDIUM</span>
-                    </div>
+                    <div class="card-tags"><span class="tag medium">MEDIUM</span></div>
                     <div class="test-icon">✍️</div>
                     <h3 class="test-title">Task 1 – Bar Chart</h3>
                     <p class="test-desc">Write a report describing data from a bar chart (150 words).</p>
@@ -581,12 +370,10 @@
                         <span>⏱️ 20 min</span>
                         <span>❓ 1 task</span>
                     </div>
-                    <a href="writing/task1-bar.html" class="btn btn-start">Start Practice →</a>
+                    <a href="writing/task1-bar.html" class="btn-start">Start Practice →</a>
                 </div>
                 <div class="test-card">
-                    <div class="card-tags">
-                        <span class="tag medium">MEDIUM</span>
-                    </div>
+                    <div class="card-tags"><span class="tag medium">MEDIUM</span></div>
                     <div class="test-icon">✍️</div>
                     <h3 class="test-title">Task 2 – Essay</h3>
                     <p class="test-desc">Discuss both views and give your opinion (250 words).</p>
@@ -594,18 +381,16 @@
                         <span>⏱️ 40 min</span>
                         <span>❓ 1 task</span>
                     </div>
-                    <a href="writing/task2-essay.html" class="btn btn-start">Start Practice →</a>
+                    <a href="writing/task2-essay.html" class="btn-start">Start Practice →</a>
                 </div>
             </div>
         </div>
 
-        <!-- SPEAKING SECTION -->
+        <!-- SPEAKING -->
         <div class="section-content" id="speaking">
             <div class="tests-grid">
                 <div class="test-card">
-                    <div class="card-tags">
-                        <span class="tag medium">MEDIUM</span>
-                    </div>
+                    <div class="card-tags"><span class="tag medium">MEDIUM</span></div>
                     <div class="test-icon">🎤</div>
                     <h3 class="test-title">Part 1 – Introduction</h3>
                     <p class="test-desc">Common questions about home, work, study, hobbies.</p>
@@ -613,12 +398,10 @@
                         <span>⏱️ 4–5 min</span>
                         <span>❓ 10+ questions</span>
                     </div>
-                    <a href="speaking/part1.html" class="btn btn-start">Start Practice →</a>
+                    <a href="speaking/part1.html" class="btn-start">Start Practice →</a>
                 </div>
                 <div class="test-card">
-                    <div class="card-tags">
-                        <span class="tag medium">MEDIUM</span>
-                    </div>
+                    <div class="card-tags"><span class="tag medium">MEDIUM</span></div>
                     <div class="test-icon">🎤</div>
                     <h3 class="test-title">Part 2 – Cue Card</h3>
                     <p class="test-desc">Talk about a topic for 2 minutes (1 min preparation).</p>
@@ -626,36 +409,29 @@
                         <span>⏱️ 3 min</span>
                         <span>❓ 1 topic</span>
                     </div>
-                    <a href="speaking/part2.html" class="btn btn-start">Start Practice →</a>
+                    <a href="speaking/part2.html" class="btn-start">Start Practice →</a>
                 </div>
             </div>
         </div>
-
     </div>
 
     <script>
-        // --- TAB SWITCHING ---
         const tabs = document.querySelectorAll('.tab');
         const sections = document.querySelectorAll('.section-content');
 
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                // Remove active from all tabs
                 tabs.forEach(t => {
                     t.classList.remove('all');
                     t.style.background = '#f3f4f6';
                     t.style.color = '#374151';
                 });
-                // Activate clicked tab
                 tab.classList.add('all');
-                tab.style.background = '#7f1d1d';
+                tab.style.background = '#dc2626';
                 tab.style.color = 'white';
 
-                // Hide all sections
                 sections.forEach(sec => sec.classList.remove('active'));
-                // Show correct section
-                const target = tab.getAttribute('data-target');
-                document.getElementById(target).classList.add('active');
+                document.getElementById(tab.dataset.target).classList.add('active');
             });
         });
     </script>
