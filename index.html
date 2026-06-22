@@ -272,6 +272,28 @@
             background: #b91c1c;
         }
 
+        /* ✅ ANSWER BOX STYLE */
+        .answers-container {
+            background: #ffffff;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .answers-container h4 {
+            color: #dc2626;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .answers-list {
+            font-size: 13px;
+            color: #7f1d1d;
+            line-height: 1.6;
+        }
+
         /* ✅ TEACHERS: FAR BOTTOM, STRAIGHT LINE, SHARP CLEAR PHOTOS */
         .teachers-section {
             width: 100%;
@@ -372,7 +394,7 @@
 
            <div class="section-content active" id="reading">
     <div class="tests-grid">
-        <!-- ONLY Cambridge 10 Test 1, NO extra cards -->
+        <!-- ✅ CAMBRIDGE 10 TEST 1 — ALL INSIDE THIS CARD -->
         <div class="test-card">
             <div class="test-icon">📖</div>
             <h3 class="test-title">Cambridge 10 Test 1</h3>
@@ -382,13 +404,13 @@
                 <span>❓ 40 questions</span>
             </div>
             
-            <!-- ✅ Stepwells + Transport: HORIZONTAL, SIDE BY SIDE, NO extra copies -->
-            <div style="margin: 12px 0; display: flex; flex-direction: row; gap: 10px; width: 100%;">
+            <!-- ✅ 3 PASSAGES: ALL INSIDE, SAME ROW, SAME STYLE -->
+            <div style="margin: 12px 0; display: flex; flex-direction: row; gap: 8px; width: 100%;">
                 <a href="reading/reading-stepwells.html" class="btn-start" style="
                     background: #fef2f2; 
                     color: #991b1b; 
                     border: 1px solid #fecaca; 
-                    font-size: 13px; 
+                    font-size: 12px; 
                     padding: 6px 0; 
                     flex: 1;
                     margin: 0;
@@ -398,13 +420,44 @@
                     background: #fef2f2; 
                     color: #991b1b; 
                     border: 1px solid #fecaca; 
-                    font-size: 13px; 
+                    font-size: 12px; 
                     padding: 6px 0; 
                     flex: 1;
                     margin: 0;
                 ">📄 Transport</a>
+
+                <a href="reading/reading-innovation.html" class="btn-start" style="
+                    background: #fef2f2; 
+                    color: #991b1b; 
+                    border: 1px solid #fecaca; 
+                    font-size: 12px; 
+                    padding: 6px 0; 
+                    flex: 1;
+                    margin: 0;
+                ">📄 Innovation</a>
             </div>
 
+            <!-- ✅ SHOW / HIDE ANSWERS — INSIDE SAME CARD -->
+            <button id="toggleAnswers" class="btn-start" style="background: #fef2f2; color: #dc2626; border:1px solid #fecaca; margin: 8px 0;">
+                👁️ Show / Hide Answers
+            </button>
+
+            <!-- ✅ ANSWERS BOX — INSIDE SAME CARD -->
+            <div id="answersBox" class="answers-container">
+                <h4>📖 Reading Answers — Cambridge 10 Test 1</h4>
+                <div class="answers-list">
+                    <strong>Passage 1 — Stepwells:</strong><br>
+                    1. iii&nbsp;&nbsp;2. vii&nbsp;&nbsp;3. ii&nbsp;&nbsp;4. iv&nbsp;&nbsp;5. i&nbsp;&nbsp;6. NO&nbsp;&nbsp;7. YES&nbsp;&nbsp;8. NOT GIVEN&nbsp;&nbsp;9. NO&nbsp;&nbsp;10. YES&nbsp;&nbsp;11. C&nbsp;&nbsp;12. D&nbsp;&nbsp;13. A<br><br>
+
+                    <strong>Passage 2 — Transport:</strong><br>
+                    14. TRUE&nbsp;&nbsp;15. FALSE&nbsp;&nbsp;16. NOT GIVEN&nbsp;&nbsp;17. FALSE&nbsp;&nbsp;18. TRUE&nbsp;&nbsp;19. FALSE&nbsp;&nbsp;20. NOT GIVEN&nbsp;&nbsp;21. F&nbsp;&nbsp;22. D&nbsp;&nbsp;23. C&nbsp;&nbsp;24. E&nbsp;&nbsp;25. A&nbsp;&nbsp;26. B<br><br>
+
+                    <strong>Passage 3 — Innovation:</strong><br>
+                    27. C&nbsp;&nbsp;28. A&nbsp;&nbsp;29. D&nbsp;&nbsp;30. B&nbsp;&nbsp;31. G&nbsp;&nbsp;32. E&nbsp;&nbsp;33. A&nbsp;&nbsp;34. F&nbsp;&nbsp;35. B&nbsp;&nbsp;36. NO&nbsp;&nbsp;37. YES&nbsp;&nbsp;38. NOT GIVEN&nbsp;&nbsp;39. NOT GIVEN&nbsp;&nbsp;40. NO
+                </div>
+            </div>
+
+            <!-- ✅ FULL TEST BUTTON — INSIDE SAME CARD -->
             <a href="reading/C10T1.html" class="btn-start">Start Full Test →</a>
         </div>
     </div>
@@ -503,6 +556,20 @@
                 sections.forEach(sec => sec.classList.remove('active'));
                 document.getElementById(tab.dataset.target).classList.add('active');
             });
+        });
+
+        // ✅ TOGGLE SHOW / HIDE ANSWERS
+        const toggleBtn = document.getElementById('toggleAnswers');
+        const answersBox = document.getElementById('answersBox');
+
+        toggleBtn.addEventListener('click', () => {
+            if (answersBox.style.display === 'block') {
+                answersBox.style.display = 'none';
+                toggleBtn.innerHTML = '👁️ Show / Hide Answers';
+            } else {
+                answersBox.style.display = 'block';
+                toggleBtn.innerHTML = '👁️ Hide Answers';
+            }
         });
     </script>
 
