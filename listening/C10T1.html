@@ -25,7 +25,7 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: white;
+            background: #ffffff; /* plain white background like before */
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             overflow: hidden;
@@ -185,16 +185,17 @@
             cursor: pointer;
         }
 
+        /* Light red background same as reading */
         .answers-section, .student-answers-section {
             margin-top: 40px;
             padding: 20px;
-            background-color: #f0f8ff;
-            border: 1px solid #b0d4f1;
+            background-color: #fff5f5; /* very light red/pink like reading */
+            border: 1px solid #f8d7da;
             border-radius: 6px;
         }
 
         .answers-section h3, .student-answers-section h3 {
-            color: #1f3a5f;
+            color: #721c24;
             margin-bottom: 15px;
         }
 
@@ -248,11 +249,8 @@
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
 
-        hr {
-            border: none;
-            border-top: 1px solid #ddd;
-            margin: 40px 0;
-        }
+        .section-page { display: none; }
+        .active-section { display: block; }
     </style>
 </head>
 <body>
@@ -263,19 +261,20 @@
 
         <div class="header-bar">
             <span>LISTENING TEST - CAMBRIDGE 10 TEST 1</span>
-            <span style="font-size:15px; opacity:0.9;">Full Test</span>
+            <span style="font-size:15px; opacity:0.9;">Teaching Mode</span>
         </div>
 
 
 <!-- ==============================================
             SECTION 1 (Questions 1–12)
 ============================================== -->
-        <div class="content">
+        <div id="section1" class="content section-page active-section">
             <h2>Section 1 – Questions 1–12</h2>
 
             <div class="audio-player">
                 <h3>Play Recording - Section 1</h3>
                 <audio controls preload="auto">
+                    <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part1.mp3" type="audio/mpeg">
                     <source src="part1.mp3" type="audio/mpeg">
                     Your browser does not support audio playback.
                 
@@ -367,16 +366,23 @@
                 </div>
             </div>
 
+            <div class="nav-buttons">
+                <span></span>
+                <button class="btn" onclick="showSection(2)">Next: Section 2 →</button>
+            </div>
+        </div>
+
 
 <!-- ==============================================
             SECTION 2 (Questions 13–20)
 ============================================== -->
-            <hr>
+        <div id="section2" class="content section-page">
             <h2>Section 2 – Questions 13–20</h2>
 
             <div class="audio-player">
                 <h3>Play Recording - Section 2</h3>
                 <audio controls preload="auto">
+                    <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part2.mp3" type="audio/mpeg">
                     <source src="part2.mp3" type="audio/mpeg">
                     Your browser does not support audio playback.
                 
@@ -443,16 +449,23 @@
                 </div>
             </div>
 
+            <div class="nav-buttons">
+                <button class="btn" onclick="showSection(1)">← Previous: Section 1</button>
+                <button class="btn" onclick="showSection(3)">Next: Section 3 →</button>
+            </div>
+        </div>
+
 
 <!-- ==============================================
             SECTION 3 (Questions 21–30)
 ============================================== -->
-            <hr>
+        <div id="section3" class="content section-page">
             <h2>Section 3 – Questions 21–30</h2>
 
             <div class="audio-player">
                 <h3>Play Recording - Section 3</h3>
                 <audio controls preload="auto">
+                    <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part3.mp3" type="audio/mpeg">
                     <source src="part3.mp3" type="audio/mpeg">
                     Your browser does not support audio playback.
                 
@@ -536,16 +549,23 @@
                 </div>
             </div>
 
+            <div class="nav-buttons">
+                <button class="btn" onclick="showSection(2)">← Previous: Section 2</button>
+                <button class="btn" onclick="showSection(4)">Next: Section 4 →</button>
+            </div>
+        </div>
+
 
 <!-- ==============================================
             SECTION 4 (Questions 31–40)
 ============================================== -->
-            <hr>
+        <div id="section4" class="content section-page">
             <h2>Section 4 – Questions 31–40</h2>
 
             <div class="audio-player">
                 <h3>Play Recording - Section 4</h3>
                 <audio controls preload="auto">
+                    <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part4.mp3" type="audio/mpeg">
                     <source src="part4.mp3" type="audio/mpeg">
                     Your browser does not support audio playback.
                 
@@ -640,9 +660,9 @@
             </div>
 
 
-<!-- ==============================================
-            ANSWER KEY & STUDENT CHECK
-============================================== -->
+            <!-- ==============================================
+                        ANSWER KEY & STUDENT CHECK
+            ============================================== -->
             <div class="answers-section">
                 <h3>✅ Correct Answers</h3>
                 <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
@@ -673,9 +693,11 @@
 
 
             <div class="nav-buttons">
-                <a href="../index.html" class="btn">← Back to Main Menu</a>
+                <button class="btn" onclick="showSection(3)">← Previous: Section 3</button>
+                <a href="index.html" class="btn">Back to Main Menu</a>
             </div>
         </div>
+
     </div>
 
     <script>
@@ -714,6 +736,16 @@
                 }
             }
         });
+
+        // Show one section at a time
+        function showSection(num) {
+            document.querySelectorAll('.section-page').forEach(el => el.classList.remove('active-section'));
+            document.getElementById('section'+num).classList.add('active-section');
+            // Hide answer boxes when changing section
+            document.getElementById('answersBox').style.display = 'none';
+            document.getElementById('studentAnswersBox').style.display = 'none';
+            window.scrollTo(0,0);
+        }
 
         function toggleAnswers() {
             const box = document.getElementById('answersBox');
