@@ -25,7 +25,7 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: #ffffff; /* plain white background like before */
+            background: #ffffff; /* plain white background */
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             overflow: hidden;
@@ -189,7 +189,7 @@
         .answers-section, .student-answers-section {
             margin-top: 40px;
             padding: 20px;
-            background-color: #fff5f5; /* very light red/pink like reading */
+            background-color: #fff5f5; /* very light red/pink */
             border: 1px solid #f8d7da;
             border-radius: 6px;
         }
@@ -713,23 +713,20 @@
             q36:'ROADS',q37:'FISHING',q38:'REPRODUCTION',q39:'METHODS',q40:'EXPANSION'
         };
 
-        // Auto-save answers
+        // Auto-save answers — but NEVER fill them automatically
         document.addEventListener('DOMContentLoaded', function() {
             // Save radio answers
             document.querySelectorAll('input[type=radio]').forEach(radio => {
                 const name = radio.name;
-                const saved = localStorage.getItem('listening_c10t1_' + name);
-                if (saved === radio.value) radio.checked = true;
                 radio.addEventListener('change', function() {
                     localStorage.setItem('listening_c10t1_' + this.name, this.value);
                 });
             });
-            // Save text answers
+            // Save text answers — but DO NOT load old answers automatically
             for (let i = 1; i <= 40; i++) {
                 const field = document.getElementById('q' + i);
                 if (field) {
-                    const saved = localStorage.getItem('listening_c10t1_q' + i);
-                    if (saved) field.value = saved;
+                    field.value = ""; // force empty on load
                     field.addEventListener('input', function() {
                         localStorage.setItem('listening_c10t1_q' + i, this.value.trim().toUpperCase());
                     });
