@@ -18,7 +18,7 @@
             line-height: 1.6;
         }
 
-        /* ✅ YOUR LOGO STYLES — SAME AS YOU HAVE */
+        /* ✅ LOGO STYLES */
         .logo-container {
             width: 100%;
             background: #ffffff;
@@ -52,7 +52,7 @@
             background: #ffffff;
         }
 
-        /* ✅ TWO‑COLUMN LAYOUT — SAME AS YOUR OTHER PASSAGES */
+        /* ✅ TWO‑COLUMN LAYOUT — SAME AS OTHER PASSAGES */
         .main-wrapper {
             display: flex;
             gap: 20px;
@@ -115,8 +115,8 @@
             background: #fef2f2;
         }
 
-        .toggle-answers {
-            margin-top: 15px;
+        .toggle-answers, .show-student {
+            margin: 15px 8px 0 0;
             padding: 8px 16px;
             background: #dc2626;
             color: white;
@@ -127,7 +127,7 @@
             font-size: 14px;
         }
 
-        .answers-box {
+        .answers-box, .student-answers-box {
             margin-top: 12px;
             padding: 12px;
             background: #fef2f2;
@@ -136,6 +136,10 @@
             display: none;
             font-size: 13px;
         }
+
+        .correct { color: green; font-weight: 600; }
+        .wrong { color: red; font-weight: 600; }
+        .no-answer { color: #888; }
     </style>
 </head>
 <body>
@@ -187,40 +191,40 @@
                 <div class="question-block">
                     <p>27. The writer uses the example of the Million Dollar Quartet to illustrate that innovation requires</p>
                     <div class="options">
-                        <label><input type="radio" name="q27"> A. individual talent</label>
-                        <label><input type="radio" name="q27"> B. famous people</label>
-                        <label><input type="radio" name="q27"> C. having a shared objective</label>
-                        <label><input type="radio" name="q27"> D. good management</label>
+                        <label><input type="radio" name="q27" value="A"> A. individual talent</label>
+                        <label><input type="radio" name="q27" value="B"> B. famous people</label>
+                        <label><input type="radio" name="q27" value="C"> C. having a shared objective</label>
+                        <label><input type="radio" name="q27" value="D"> D. good management</label>
                     </div>
                 </div>
 
                 <div class="question-block">
                     <p>28. Bill Gates and Paul Allen believed that success came from people who</p>
                     <div class="options">
-                        <label><input type="radio" name="q28"> A. were conscious of their own limitations</label>
-                        <label><input type="radio" name="q28"> B. agreed with their ideas</label>
-                        <label><input type="radio" name="q28"> C. were the most intelligent</label>
-                        <label><input type="radio" name="q28"> D. had different skills</label>
+                        <label><input type="radio" name="q28" value="A"> A. were conscious of their own limitations</label>
+                        <label><input type="radio" name="q28" value="B"> B. agreed with their ideas</label>
+                        <label><input type="radio" name="q28" value="C"> C. were the most intelligent</label>
+                        <label><input type="radio" name="q28" value="D"> D. had different skills</label>
                     </div>
                 </div>
 
                 <div class="question-block">
                     <p>29. Writing ideas down helps people to</p>
                     <div class="options">
-                        <label><input type="radio" name="q29"> A. remember them better</label>
-                        <label><input type="radio" name="q29"> B. explain them to others</label>
-                        <label><input type="radio" name="q29"> C. improve them</label>
-                        <label><input type="radio" name="q29"> D. strengthen commitment to an idea</label>
+                        <label><input type="radio" name="q29" value="A"> A. remember them better</label>
+                        <label><input type="radio" name="q29" value="B"> B. explain them to others</label>
+                        <label><input type="radio" name="q29" value="C"> C. improve them</label>
+                        <label><input type="radio" name="q29" value="D"> D. strengthen commitment to an idea</label>
                     </div>
                 </div>
 
                 <div class="question-block">
                     <p>30. Good leaders ensure that team members</p>
                     <div class="options">
-                        <label><input type="radio" name="q30"> A. follow instructions</label>
-                        <label><input type="radio" name="q30"> B. feel that their contributions are valued</label>
-                        <label><input type="radio" name="q30"> C. work independently</label>
-                        <label><input type="radio" name="q30"> D. avoid making mistakes</label>
+                        <label><input type="radio" name="q30" value="A"> A. follow instructions</label>
+                        <label><input type="radio" name="q30" value="B"> B. feel that their contributions are valued</label>
+                        <label><input type="radio" name="q30" value="C"> C. work independently</label>
+                        <label><input type="radio" name="q30" value="D"> D. avoid making mistakes</label>
                     </div>
                 </div>
 
@@ -239,27 +243,27 @@
 
                 <div class="question-block">
                     <p>31. When employees’ values match those of the company, they are more likely to ......................... .</p>
-                    <input type="text" class="answer-input" placeholder="Write letter A-G">
+                    <input type="text" class="answer-input" name="q31" placeholder="Write letter A-G">
                 </div>
 
                 <div class="question-block">
                     <p>32. When there is change, people naturally tend to ......................... .</p>
-                    <input type="text" class="answer-input" placeholder="Write letter A-G">
+                    <input type="text" class="answer-input" name="q32" placeholder="Write letter A-G">
                 </div>
 
                 <div class="question-block">
                     <p>33. People are more likely to ......................... if they feel they might lose something.</p>
-                    <input type="text" class="answer-input" placeholder="Write letter A-G">
+                    <input type="text" class="answer-input" name="q33" placeholder="Write letter A-G">
                 </div>
 
                 <div class="question-block">
                     <p>34. If a leader is too dominant, team members may ......................... .</p>
-                    <input type="text" class="answer-input" placeholder="Write letter A-G">
+                    <input type="text" class="answer-input" name="q34" placeholder="Write letter A-G">
                 </div>
 
                 <div class="question-block">
                     <p>35. When there are few rules, people are more willing to ......................... .</p>
-                    <input type="text" class="answer-input" placeholder="Write letter A-G">
+                    <input type="text" class="answer-input" name="q35" placeholder="Write letter A-G">
                 </div>
 
 
@@ -272,53 +276,55 @@
                 <div class="question-block">
                     <p>36. The physical design of an office plays a key role in encouraging innovation.</p>
                     <div class="options">
-                        <label><input type="radio" name="q36"> YES</label>
-                        <label><input type="radio" name="q36"> NO</label>
-                        <label><input type="radio" name="q36"> NOT GIVEN</label>
+                        <label><input type="radio" name="q36" value="YES"> YES</label>
+                        <label><input type="radio" name="q36" value="NO"> NO</label>
+                        <label><input type="radio" name="q36" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
 
                 <div class="question-block">
                     <p>37. Almost everyone has the potential to be creative in the right conditions.</p>
                     <div class="options">
-                        <label><input type="radio" name="q37"> YES</label>
-                        <label><input type="radio" name="q37"> NO</label>
-                        <label><input type="radio" name="q37"> NOT GIVEN</label>
+                        <label><input type="radio" name="q37" value="YES"> YES</label>
+                        <label><input type="radio" name="q37" value="NO"> NO</label>
+                        <label><input type="radio" name="q37" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
 
                 <div class="question-block">
                     <p>38. Teams work best when all members have equal intelligence levels.</p>
                     <div class="options">
-                        <label><input type="radio" name="q38"> YES</label>
-                        <label><input type="radio" name="q38"> NO</label>
-                        <label><input type="radio" name="q38"> NOT GIVEN</label>
+                        <label><input type="radio" name="q38" value="YES"> YES</label>
+                        <label><input type="radio" name="q38" value="NO"> NO</label>
+                        <label><input type="radio" name="q38" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
 
                 <div class="question-block">
                     <p>39. Small companies are generally more innovative than large companies.</p>
                     <div class="options">
-                        <label><input type="radio" name="q39"> YES</label>
-                        <label><input type="radio" name="q39"> NO</label>
-                        <label><input type="radio" name="q39"> NOT GIVEN</label>
+                        <label><input type="radio" name="q39" value="YES"> YES</label>
+                        <label><input type="radio" name="q39" value="NO"> NO</label>
+                        <label><input type="radio" name="q39" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
 
                 <div class="question-block">
                     <p>40. A colleague’s opinion has less influence than a manager’s instructions.</p>
                     <div class="options">
-                        <label><input type="radio" name="q40"> YES</label>
-                        <label><input type="radio" name="q40"> NO</label>
-                        <label><input type="radio" name="q40"> NOT GIVEN</label>
+                        <label><input type="radio" name="q40" value="YES"> YES</label>
+                        <label><input type="radio" name="q40" value="NO"> NO</label>
+                        <label><input type="radio" name="q40" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
 
 
-                <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Answers</button>
+                <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
+                <button class="show-student" onclick="showStudentAnswers()">📝 Show My Answers & Check</button>
 
+                <!-- ✅ CORRECT ANSWER KEY -->
                 <div class="answers-box" id="answersBox">
-                    <h3>Answers — Passage 3</h3>
+                    <h3>✅ Correct Answers — Passage 3</h3>
                     <p><strong>27.</strong> C<br>
                     <strong>28.</strong> A<br>
                     <strong>29.</strong> D<br>
@@ -334,13 +340,74 @@
                     <strong>39.</strong> NOT GIVEN<br>
                     <strong>40.</strong> NO</p>
                 </div>
+
+                <!-- ✅ STUDENT ANSWERS LIST + CHECK RESULT -->
+                <div class="student-answers-box" id="studentAnswersBox">
+                    <h3>📝 Your Answers & Result</h3>
+                    <div id="studentResult"></div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        // ✅ Correct answer data
+        const correctAnswers = {
+            q27: 'C',
+            q28: 'A',
+            q29: 'D',
+            q30: 'B',
+            q31: 'G',
+            q32: 'E',
+            q33: 'A',
+            q34: 'F',
+            q35: 'B',
+            q36: 'NO',
+            q37: 'YES',
+            q38: 'NOT GIVEN',
+            q39: 'NOT GIVEN',
+            q40: 'NO'
+        };
+
         function toggleAnswers() {
             const box = document.getElementById('answersBox');
+            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function showStudentAnswers() {
+            const box = document.getElementById('studentAnswersBox');
+            const resultDiv = document.getElementById('studentResult');
+            let html = '';
+
+            // Loop all questions
+            for (let q = 27; q <= 40; q++) {
+                let studentAns = '';
+                const radios = document.getElementsByName(`q${q}`);
+                if (radios.length > 0) {
+                    // Multiple choice / Yes/No
+                    for (let r of radios) {
+                        if (r.checked) studentAns = r.value;
+                    }
+                } else {
+                    // Text input
+                    const input = document.querySelector(`input[name="q${q}"]`);
+                    if (input) studentAns = input.value.trim().toUpperCase();
+                }
+
+                const correct = correctAnswers[`q${q}`];
+                let status = '';
+                if (!studentAns) {
+                    status = '<span class="no-answer">(No Answer)</span>';
+                } else if (studentAns === correct) {
+                    status = '<span class="correct">✅ Correct</span>';
+                } else {
+                    status = `<span class="wrong">❌ Wrong (Correct: ${correct})</span>`;
+                }
+
+                html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
+            }
+
+            resultDiv.innerHTML = html;
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
     </script>
