@@ -12,7 +12,7 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
-        /* ✅ BACK TO ORIGINAL EXAM STYLE - NO COLOR CHANGES */
+        /* ✅ Original exam-style colors - unchanged */
         body {
             background-color: #f8f9fa;
             color: #000000;
@@ -26,6 +26,14 @@
             background: #ffffff;
             padding: 25px;
             border: 1px solid #e0e0e0;
+        }
+
+        /* ✅ IELTS Logo style */
+        .ielts-logo {
+            display: block;
+            max-width: 140px;
+            height: auto;
+            margin: 0 auto 25px 0; /* align left, add space below */
         }
 
         h2 {
@@ -76,7 +84,7 @@
             display: none;
         }
 
-        /* ✅ Export button - simple, fits the style */
+        /* ✅ Export button style - unchanged */
         .export-btn {
             padding: 5px 12px;
             background: #eeeeee;
@@ -97,6 +105,10 @@
 
 <div class="container">
 
+    <!-- ✅ IELTS LOGO ADDED HERE AT THE TOP -->
+    <img src="ielts-logo.png" alt="IELTS" class="ielts-logo">
+
+
     <!-- WRITING TASK 1 -->
     <h2>WRITING TASK 1</h2>
     <p>You should spend about 20 minutes on this task.</p>
@@ -112,7 +124,6 @@
     <textarea id="task1Input" placeholder="Write your response here..."></textarea>
     <div class="word-count" id="task1Count">Words: 0 / 150 minimum</div>
 
-    <!-- Export for Task 1 -->
     <button class="export-btn" onclick="exportAnswer('task1Input', 'Cambridge10_Test1_Task1.txt')">📄 Save Task 1</button>
     <div class="save-note" id="save1">✅ Auto-saved</div>
 
@@ -133,7 +144,6 @@
     <textarea id="task2Input" placeholder="Write your essay here..."></textarea>
     <div class="word-count" id="task2Count">Words: 0 / 250 minimum</div>
 
-    <!-- Export for Task 2 -->
     <button class="export-btn" onclick="exportAnswer('task2Input', 'Cambridge10_Test1_Task2.txt')">📄 Save Task 2</button>
     <div class="save-note" id="save2">✅ Auto-saved</div>
 
