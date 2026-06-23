@@ -157,41 +157,83 @@
             font-size: 15px;
             line-height: 1.7;
             color: #1a1a1a;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             background: #ffffff;
             padding: 16px;
             border-radius: 8px;
             border: 1px solid #fecaca;
         }
 
+        /* ✅ Chart Container */
         .charts-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 30px;
             justify-content: center;
-            margin: 16px 0;
+            margin: 20px 0;
             text-align: center;
         }
 
-        .chart {
+        .chart-block {
             flex: 1;
-            min-width: 280px;
+            min-width: 300px;
+            max-width: 380px;
         }
 
-        .chart h4 {
-            color: #991b1b;
-            margin-bottom: 10px;
+        .chart-title {
             font-size: 16px;
+            font-weight: 600;
+            color: #991b1b;
+            margin-bottom: 15px;
         }
 
+        /* ✅ Exact Pie Chart Style */
         .pie-chart {
-            width: 220px;
-            height: 220px;
+            width: 260px;
+            height: 260px;
             border-radius: 50%;
             margin: 0 auto;
             position: relative;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
+            font-size: 13px;
+            line-height: 1.4;
         }
+
+        /* ✅ Energy Use - Exact divisions */
+        .pie-energy {
+            background: conic-gradient(
+                #e6e6e6 0deg 151.2deg,   /* heating 42% */
+                #f0e6d6 151.2deg 259.2deg,/* water heating 30% */
+                #d6e6f0 259.2deg 284.4deg,/* refrigeration 7% */
+                #e6d6f0 284.4deg 338.4deg,/* other appliances 15% */
+                #d6f0e6 338.4deg 352.8deg,/* lighting 4% */
+                #f0d6d6 352.8deg 360deg   /* cooling 2% */
+            );
+        }
+
+        /* ✅ Greenhouse Emissions - Exact divisions */
+        .pie-emissions {
+            background: conic-gradient(
+                #e6e6e6 0deg 54deg,      /* heating 15% */
+                #f0e6d6 54deg 169.2deg,  /* water heating 32% */
+                #d6e6f0 169.2deg 219.6deg,/* refrigeration 14% */
+                #e6d6f0 219.6deg 320.4deg,/* other appliances 28% */
+                #d6f0e6 320.4deg 349.2deg,/* lighting 8% */
+                #f0d6d6 349.2deg 360deg   /* cooling 3% */
+            );
+        }
+
+        /* ✅ Labels placed exactly as original */
+        .label {
+            position: absolute;
+            font-weight: 500;
+        }
+        .label-heating { top: 20%; left: 10%; }
+        .label-water { top: 20%; right: 15%; }
+        .label-refrig { top: 55%; right: 5%; }
+        .label-other { bottom: 25%; right: 15%; }
+        .label-light { bottom: 15%; left: 25%; }
+        .label-cool { top: 50%; left: 5%; }
 
         .task-info {
             font-size: 14px;
@@ -372,40 +414,26 @@
                 </div>
 
                 <div class="charts-container">
-                    <div class="chart">
-                        <h4>Australian household energy use</h4>
-                        <div class="pie-chart" style="background: conic-gradient(
-                            #e5e7eb 0% 42%,
-                            #fecaca 42% 72%,
-                            #bfdbfe 72% 79%,
-                            #bbf7d0 79% 83%,
-                            #ddd6fe 83% 98%,
-                            #fcd34d 98% 100%
-                        );">
-                            <div style="position: absolute; top: 10%; left: 45%; font-size: 12px;">heating 42%</div>
-                            <div style="position: absolute; top: 35%; left: 70%; font-size: 12px;">water heating 30%</div>
-                            <div style="position: absolute; top: 60%; left: 72%; font-size: 12px;">refrigeration 7%</div>
-                            <div style="position: absolute; top: 75%; left: 55%; font-size: 12px;">other appliances 15%</div>
-                            <div style="position: absolute; top: 80%; left: 35%; font-size: 12px;">lighting 4%</div>
-                            <div style="position: absolute; top: 55%; left: 20%; font-size: 12px;">cooling 2%</div>
+                    <div class="chart-block">
+                        <h3 class="chart-title">Australian household energy use</h3>
+                        <div class="pie-chart pie-energy">
+                            <div class="label label-heating">heating<br>42%</div>
+                            <div class="label label-water">water heating<br>30%</div>
+                            <div class="label label-refrig">refrigeration<br>7%</div>
+                            <div class="label label-other">other appliances<br>15%</div>
+                            <div class="label label-light">lighting<br>4%</div>
+                            <div class="label label-cool">cooling<br>2%</div>
                         </div>
                     </div>
-                    <div class="chart">
-                        <h4>Australian household greenhouse gas emissions</h4>
-                        <div class="pie-chart" style="background: conic-gradient(
-                            #e5e7eb 0% 15%,
-                            #fecaca 15% 47%,
-                            #bfdbfe 47% 61%,
-                            #bbf7d0 61% 89%,
-                            #ddd6fe 89% 97%,
-                            #fcd34d 97% 100%
-                        );">
-                            <div style="position: absolute; top: 10%; left: 45%; font-size: 12px;">heating 15%</div>
-                            <div style="position: absolute; top: 35%; left: 70%; font-size: 12px;">water heating 32%</div>
-                            <div style="position: absolute; top: 60%; left: 72%; font-size: 12px;">refrigeration 14%</div>
-                            <div style="position: absolute; top: 75%; left: 55%; font-size: 12px;">other appliances 28%</div>
-                            <div style="position: absolute; top: 80%; left: 35%; font-size: 12px;">lighting 8%</div>
-                            <div style="position: absolute; top: 55%; left: 20%; font-size: 12px;">cooling 3%</div>
+                    <div class="chart-block">
+                        <h3 class="chart-title">Australian household greenhouse gas emissions</h3>
+                        <div class="pie-chart pie-emissions">
+                            <div class="label label-heating">heating<br>15%</div>
+                            <div class="label label-water">water heating<br>32%</div>
+                            <div class="label label-refrig">refrigeration<br>14%</div>
+                            <div class="label label-other">other appliances<br>28%</div>
+                            <div class="label label-light">lighting<br>8%</div>
+                            <div class="label label-cool">cooling<br>3%</div>
                         </div>
                     </div>
                 </div>
