@@ -5,83 +5,149 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cambridge 10 Test 1 - Writing</title>
     <style>
-        * {margin:0; padding:0; box-sizing:border-box; font-family:Arial, sans-serif;}
-        body {background:#f8f9fa; color:#000; line-height:1.6; padding:20px;}
-        .container {max-width:950px; margin:0 auto; background:#fff; padding:25px; border:1px solid #e0e0e0;}
-        h2 {font-size:18px; font-weight:bold; margin:25px 0 10px;}
-        .instruction-box {border:1px solid #ccc; background:#fff; padding:15px; margin:15px 0 20px; font-size:15px;}
-        .task1-chart {display:block; max-width:100%; height:auto; margin:0 auto 25px;}
-        textarea {width:100%; min-height:280px; padding:12px; border:1px solid #999; font-size:15px; resize:vertical; margin-bottom:5px;}
-        .word-count {text-align:right; font-size:13px; color:#555; margin-bottom:8px;}
-        .save-note {font-size:12px; color:#006600; margin-bottom:15px; display:none;}
-        
-        /* ✅ Export button style */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* ✅ BACK TO ORIGINAL EXAM STYLE - NO COLOR CHANGES */
+        body {
+            background-color: #f8f9fa;
+            color: #000000;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 25px;
+            border: 1px solid #e0e0e0;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 10px;
+            color: #000000;
+        }
+
+        .instruction-box {
+            border: 1px solid #cccccc;
+            background: #ffffff;
+            padding: 15px;
+            margin: 15px 0 20px;
+            font-size: 15px;
+        }
+
+        .task1-chart {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto 25px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 280px;
+            padding: 12px;
+            border: 1px solid #999999;
+            font-size: 15px;
+            line-height: 1.6;
+            background: #ffffff;
+            resize: vertical;
+            margin-bottom: 5px;
+        }
+
+        .word-count {
+            text-align: right;
+            font-size: 13px;
+            color: #555555;
+            margin-bottom: 8px;
+        }
+
+        .save-note {
+            font-size: 12px;
+            color: #006600;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        /* ✅ Export button - simple, fits the style */
         .export-btn {
-            padding: 6px 14px;
-            background: #0077cc;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
+            padding: 5px 12px;
+            background: #eeeeee;
+            color: #000000;
+            border: 1px solid #999999;
             font-size: 13px;
             cursor: pointer;
             margin-bottom: 30px;
+            border-radius: 2px;
         }
+
         .export-btn:hover {
-            background: #005fa3;
+            background: #e5e5e5;
         }
     </style>
 </head>
 <body>
+
 <div class="container">
 
-    <!-- -------------------------- TASK 1 -------------------------- -->
+    <!-- WRITING TASK 1 -->
     <h2>WRITING TASK 1</h2>
     <p>You should spend about 20 minutes on this task.</p>
+
     <div class="instruction-box">
         The first chart below shows how energy is used in an average Australian household. The second chart shows the greenhouse gas emissions which result from this energy use.<br><br>
         Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
     </div>
     <p>Write at least 150 words.</p>
 
-    <!-- ✅ Image path stays correct -->
-    <img src="task1.png" alt="Charts" class="task1-chart">
+    <img src="task1.png" alt="Australian household energy use and emissions" class="task1-chart">
 
     <textarea id="task1Input" placeholder="Write your response here..."></textarea>
     <div class="word-count" id="task1Count">Words: 0 / 150 minimum</div>
-    
-    <!-- ✅ Export button for Task 1 -->
-    <button class="export-btn" onclick="exportAnswer('task1Input', 'Cambridge10_Test1_Task1.txt')">📄 Save Task 1 as .txt</button>
+
+    <!-- Export for Task 1 -->
+    <button class="export-btn" onclick="exportAnswer('task1Input', 'Cambridge10_Test1_Task1.txt')">📄 Save Task 1</button>
     <div class="save-note" id="save1">✅ Auto-saved</div>
 
 
-    <!-- -------------------------- TASK 2 -------------------------- -->
+    <!-- WRITING TASK 2 -->
     <h2>WRITING TASK 2</h2>
     <p>You should spend about 40 minutes on this task.</p>
+    <p>Present a written argument or case to an educated reader with no specialist knowledge of the following topic.</p>
+
     <div class="instruction-box">
         It is important for children to learn the difference between right and wrong at an early age. Punishment is necessary to help them learn this distinction.<br><br>
         To what extent do you agree or disagree with this opinion?<br><br>
         What sort of punishment should parents and teachers be allowed to use to teach good behaviour to children?
     </div>
+    <p>Give reasons for your answer and include any relevant examples from your own knowledge or experience.</p>
     <p>Write at least 250 words.</p>
 
     <textarea id="task2Input" placeholder="Write your essay here..."></textarea>
     <div class="word-count" id="task2Count">Words: 0 / 250 minimum</div>
-    
-    <!-- ✅ Export button for Task 2 -->
-    <button class="export-btn" onclick="exportAnswer('task2Input', 'Cambridge10_Test1_Task2.txt')">📄 Save Task 2 as .txt</button>
+
+    <!-- Export for Task 2 -->
+    <button class="export-btn" onclick="exportAnswer('task2Input', 'Cambridge10_Test1_Task2.txt')">📄 Save Task 2</button>
     <div class="save-note" id="save2">✅ Auto-saved</div>
 
 </div>
 
 <script>
-// ✅ Word Counter
+// Word Counter
 function countWords(id, countId, min) {
     const text = document.getElementById(id).value.trim();
     const num = text ? text.replace(/\s+/g, ' ').split(' ').length : 0;
     document.getElementById(countId).textContent = `Words: ${num} / ${min} minimum`;
 }
 
-// ✅ Auto-save & Load
+// Auto-save & Load
 function autoSave(id, noteId) {
     const text = document.getElementById(id).value;
     localStorage.setItem(id, text);
@@ -93,11 +159,11 @@ function loadSaved(id) {
     document.getElementById(id).value = localStorage.getItem(id) || '';
 }
 
-// ✅ 1-CLICK EXPORT FUNCTION — works for both tasks
+// 1-Click Export
 function exportAnswer(inputId, fileName) {
     const text = document.getElementById(inputId).value.trim();
     if (!text) {
-        alert("Nothing to save yet — please write your answer first!");
+        alert("Please write your answer first before saving!");
         return;
     }
     const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
@@ -108,7 +174,7 @@ function exportAnswer(inputId, fileName) {
     URL.revokeObjectURL(link.href);
 }
 
-// ✅ Initialize everything
+// Initialize
 window.onload = () => {
     loadSaved('task1Input');
     loadSaved('task2Input');
