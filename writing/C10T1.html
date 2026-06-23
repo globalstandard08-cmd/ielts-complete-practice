@@ -9,58 +9,77 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
         }
 
+        /* ✅ Restore original red theme */
         body {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: #fef2f2; /* light red background */
+            color: #1a1a1a;
             line-height: 1.6;
-            padding: 30px;
+            padding: 20px;
         }
 
         .container {
-            max-width: 750px;
+            max-width: 900px;
             margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.1);
         }
 
         h2 {
             font-size: 20px;
-            font-weight: bold;
+            font-weight: 700;
             margin: 30px 0 12px;
+            color: #991b1b; /* dark red */
         }
 
         .instruction-box {
-            border: 1px solid #000;
+            border: 1px solid #fecaca;
+            background: #fef2f2;
             padding: 16px;
             margin: 16px 0 24px;
             font-size: 16px;
+            border-radius: 8px;
         }
 
-        /* Task 1 image — points to your writing folder */
+        /* ✅ Image path fixed and styled */
         .task1-chart {
             display: block;
             max-width: 100%;
             height: auto;
             margin: 0 auto 30px;
-            border: none;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 10px;
+            background: #ffffff;
         }
 
         textarea {
             width: 100%;
             min-height: 240px;
             padding: 14px;
-            border: 1px solid #666;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
             font-size: 16px;
             line-height: 1.7;
+            background: #ffffff;
             resize: vertical;
             margin-bottom: 8px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #dc2626;
+            box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.15);
         }
 
         .word-count {
             text-align: right;
             font-size: 14px;
-            color: #444;
+            font-weight: 500;
             margin-bottom: 40px;
         }
     </style>
@@ -79,8 +98,14 @@
     </div>
     <p>Write at least 150 words.</p>
 
-    <!-- ✅ Path set to your writing folder -->
-    <img src="writing/task1.png" alt="Australian household energy use and emissions" class="task1-chart">
+    <!-- ✅ Correct RELATIVE PATH setup -->
+    <!-- Use this if your folder structure is:
+    main-folder/
+    ├─ index.html (or this HTML file)
+    └─ writing/
+       └─ task1.png
+    -->
+    <img src="./writing/task1.png" alt="Task 1 Charts" class="task1-chart">
 
     <textarea id="task1Input" placeholder="Write your response for Task 1 here..."></textarea>
     <div class="word-count" id="task1Count">Words: 0 / 150 minimum</div>
@@ -104,7 +129,7 @@
 
 </div>
 
-<!-- ✅ Working word counter included -->
+<!-- ✅ Working word counter with color feedback -->
 <script>
 function countWords(textareaId, countId, minWords) {
     const text = document.getElementById(textareaId).value.trim();
@@ -113,11 +138,11 @@ function countWords(textareaId, countId, minWords) {
     counter.textContent = `Words: ${wordCount} / ${minWords} minimum`;
 
     if (wordCount < minWords) {
-        counter.style.color = "#dc2626";
+        counter.style.color = "#dc2626"; // red
     } else if (wordCount < minWords + 20) {
-        counter.style.color = "#b45309";
+        counter.style.color = "#b45309"; // orange
     } else {
-        counter.style.color = "#166534";
+        counter.style.color = "#166534"; // green
     }
 }
 
