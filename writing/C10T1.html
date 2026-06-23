@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
         }
 
         body {
@@ -164,48 +164,48 @@
             border: 1px solid #fecaca;
         }
 
-        /* ✅ Chart Layout matching original */
+        /* ✅ Chart Layout EXACT like original */
         .charts-container {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 35px;
             align-items: center;
             margin: 20px 0 30px;
         }
 
         .chart-block {
             text-align: center;
+            position: relative;
         }
 
         .chart-title {
             font-size: 16px;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             color: #222;
         }
 
-        /* ✅ Exact Pie Chart with patterns like original */
+        /* ✅ Exact Pie Chart with slices and patterns matching original */
         .pie-chart {
-            width: 260px;
-            height: 260px;
+            width: 280px;
+            height: 280px;
             border-radius: 50%;
             margin: 0 auto;
             position: relative;
             border: 1px solid #333;
             background: #fff;
-            font-size: 13px;
-            font-weight: 500;
+            overflow: hidden;
         }
 
         /* --- Energy Use Chart --- */
         .pie-energy {
             background: conic-gradient(
                 #ffffff 0deg 151.2deg,          /* heating 42% - plain white */
-                repeating-linear-gradient(45deg, #f0f0f0 0, #f0f0f0 2px, #e5e5e5 2px, #e5e5e5 4px) 151.2deg 259.2deg, /* water heating 30% - diagonal lines */
-                #b8c2c9 259.2deg 284.4deg,       /* refrigeration 7% - light gray solid */
-                radial-gradient(circle, #f0f0f0 40%, #e0e0e0 41%) 284.4deg 338.4deg, /* other appliances 15% - dots */
-                repeating-linear-gradient(90deg, #e0e0e0 0, #e0e0e0 1px, transparent 1px, transparent 3px) 338.4deg 352.8deg, /* lighting 4% - vertical lines */
-                #000000 352.8deg 360deg          /* cooling 2% - black */
+                repeating-linear-gradient(45deg, #e2e2e2 0, #e2e2e2 2px, #cccccc 2px, #cccccc 4px) 151.2deg 259.2deg, /* water heating 30% - diagonal lines */
+                #b8b8b8 259.2deg 284.4deg,       /* refrigeration 7% - solid gray */
+                radial-gradient(circle, #f0f0f0 35%, #d0d0d0 36%) 284.4deg 338.4deg, /* other appliances 15% - dots */
+                repeating-linear-gradient(90deg, #d8d8d8 0, #d8d8d8 1px, transparent 1px, transparent 3px) 338.4deg 352.8deg, /* lighting 4% - vertical lines */
+                #000000 352.8deg 360deg          /* cooling 2% - solid black */
             );
         }
 
@@ -213,37 +213,38 @@
         .pie-emissions {
             background: conic-gradient(
                 #ffffff 0deg 54deg,              /* heating 15% - plain white */
-                repeating-linear-gradient(45deg, #f0f0f0 0, #f0f0f0 2px, #e5e5e5 2px, #e5e5e5 4px) 54deg 169.2deg, /* water heating 32% - diagonal lines */
-                #b8c2c9 169.2deg 219.6deg,       /* refrigeration 14% - light gray solid */
-                radial-gradient(circle, #f0f0f0 40%, #e0e0e0 41%) 219.6deg 320.4deg, /* other appliances 28% - dots */
-                repeating-linear-gradient(90deg, #e0e0e0 0, #e0e0e0 1px, transparent 1px, transparent 3px) 320.4deg 349.2deg, /* lighting 8% - vertical lines */
-                #000000 349.2deg 360deg          /* cooling 3% - black */
+                repeating-linear-gradient(45deg, #e2e2e2 0, #e2e2e2 2px, #cccccc 2px, #cccccc 4px) 54deg 169.2deg, /* water heating 32% - diagonal lines */
+                #b8b8b8 169.2deg 219.6deg,       /* refrigeration 14% - solid gray */
+                radial-gradient(circle, #f0f0f0 35%, #d0d0d0 36%) 219.6deg 320.4deg, /* other appliances 28% - dots */
+                repeating-linear-gradient(90deg, #d8d8d8 0, #d8d8d8 1px, transparent 1px, transparent 3px) 320.4deg 349.2deg, /* lighting 8% - vertical lines */
+                #000000 349.2deg 360deg          /* cooling 3% - solid black */
             );
         }
 
-        /* ✅ Labels exactly placed like original */
+        /* ✅ Labels placed EXACTLY like original image */
         .label {
             position: absolute;
-            font-size: 13px;
+            font-size: 14px;
             color: #000;
-            line-height: 1.4;
+            line-height: 1.5;
+            white-space: nowrap;
         }
 
         /* --- Energy Use Labels --- */
-        .e-heating { top: 40px; left: -80px; }
-        .e-water { top: 40px; right: -70px; }
-        .e-refrig { top: 130px; right: -75px; }
-        .e-other { bottom: 60px; right: -85px; }
-        .e-light { bottom: 30px; left: -65px; }
-        .e-cool { top: 130px; left: -65px; }
+        .e-heating { top: 90px; left: -90px; }
+        .e-water { top: 60px; right: -75px; }
+        .e-refrig { top: 130px; right: -80px; }
+        .e-other { top: 165px; right: -95px; }
+        .e-light { bottom: 70px; left: -75px; }
+        .e-cool { top: 130px; left: -75px; }
 
         /* --- Emissions Labels --- */
-        .g-heating { top: 30px; left: -65px; }
-        .g-water { top: 45px; right: -75px; }
-        .g-refrig { top: 135px; right: -80px; }
-        .g-other { bottom: 55px; left: -95px; }
-        .g-light { bottom: 30px; left: -65px; }
-        .g-cool { top: 135px; left: -65px; }
+        .g-heating { top: 50px; left: -75px; }
+        .g-water { top: 60px; right: -80px; }
+        .g-refrig { top: 140px; right: -90px; }
+        .g-other { bottom: 75px; left: -100px; }
+        .g-light { bottom: 50px; left: -75px; }
+        .g-cool { top: 135px; left: -75px; }
 
         .task-info {
             font-size: 14px;
