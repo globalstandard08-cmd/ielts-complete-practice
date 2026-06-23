@@ -12,9 +12,9 @@
             font-family: 'Segoe UI', Roboto, Arial, sans-serif;
         }
 
-        /* ✅ Restore original red theme */
+        /* ✅ YOUR ORIGINAL STYLES — NO CHANGES HERE */
         body {
-            background-color: #fef2f2; /* light red background */
+            background-color: #fef2f2;
             color: #1a1a1a;
             line-height: 1.6;
             padding: 20px;
@@ -33,7 +33,7 @@
             font-size: 20px;
             font-weight: 700;
             margin: 30px 0 12px;
-            color: #991b1b; /* dark red */
+            color: #991b1b;
         }
 
         .instruction-box {
@@ -45,7 +45,7 @@
             border-radius: 8px;
         }
 
-        /* ✅ Image path fixed and styled */
+        /* ✅ Image styling only, no other changes */
         .task1-chart {
             display: block;
             max-width: 100%;
@@ -88,7 +88,7 @@
 
 <div class="container">
 
-    <!-- -------------------------- WRITING TASK 1 -------------------------- -->
+    <!-- WRITING TASK 1 -->
     <h2>WRITING TASK 1</h2>
     <p>You should spend about 20 minutes on this task.</p>
 
@@ -98,20 +98,14 @@
     </div>
     <p>Write at least 150 words.</p>
 
-    <!-- ✅ Correct RELATIVE PATH setup -->
-    <!-- Use this if your folder structure is:
-    main-folder/
-    ├─ index.html (or this HTML file)
-    └─ writing/
-       └─ task1.png
-    -->
-    <img src="./writing/task1.png" alt="Task 1 Charts" class="task1-chart">
+    <!-- ✅ ONLY CHANGE HERE: CORRECT PATH FOR SAME FOLDER -->
+    <img src="task1.png" alt="Australian household energy use and emissions" class="task1-chart">
 
     <textarea id="task1Input" placeholder="Write your response for Task 1 here..."></textarea>
     <div class="word-count" id="task1Count">Words: 0 / 150 minimum</div>
 
 
-    <!-- -------------------------- WRITING TASK 2 -------------------------- -->
+    <!-- ✅ TASK 2 — EXACTLY AS IT WAS, NO CHANGES -->
     <h2>WRITING TASK 2</h2>
     <p>You should spend about 40 minutes on this task.</p>
     <p>Present a written argument or case to an educated reader with no specialist knowledge of the following topic.</p>
@@ -129,7 +123,7 @@
 
 </div>
 
-<!-- ✅ Working word counter with color feedback -->
+<!-- ✅ Word counter — same working code as before -->
 <script>
 function countWords(textareaId, countId, minWords) {
     const text = document.getElementById(textareaId).value.trim();
@@ -138,11 +132,11 @@ function countWords(textareaId, countId, minWords) {
     counter.textContent = `Words: ${wordCount} / ${minWords} minimum`;
 
     if (wordCount < minWords) {
-        counter.style.color = "#dc2626"; // red
+        counter.style.color = "#dc2626";
     } else if (wordCount < minWords + 20) {
-        counter.style.color = "#b45309"; // orange
+        counter.style.color = "#b45309";
     } else {
-        counter.style.color = "#166534"; // green
+        counter.style.color = "#166534";
     }
 }
 
