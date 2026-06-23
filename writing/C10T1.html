@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge 10 Test 1 - Writing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+
+        body {
+            background-color: #fef2f2;
+            color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* ✅ Decoration Image */
+        .top-right-decoration {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 380px;
+            height: auto;
+            z-index: 9999;
+            display: block !important;
+            visibility: visible !important;
+        }
+
+        /* ✅ Logo Bar */
+        .top-logo-bar {
+            width: 100%;
+            background: #ffffff;
+            border-bottom: 2px solid #dc2626;
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
+        }
+
+        .logo-img {
+            width: 40%;
+            max-width: 350px;
+            height: auto;
+            display: block;
+        }
+
+        /* ✅ Layout */
+        .content-wrapper {
+            display: flex;
+            flex: 1;
+            position: relative;
+            z-index: 10;
+            background-color: #fef2f2;
+        }
+
+        .sidebar {
+            width: 220px;
+            background: #fef2f2;
+            border-right: 1px solid #fecaca;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 8px rgba(220, 38, 38, 0.08);
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            color: #991b1b;
+            text-decoration: none;
+            font-size: 15px;
+            border-radius: 8px;
+            margin: 0 8px;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .menu-item.active {
+            background: #ffffff;
+            color: #dc2626;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(220, 38, 38, 0.1);
+        }
+
+        .menu-item:hover:not(.active) {
+            background: #ffffff;
+            color: #dc2626;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px 40px;
+            max-width: 820px;
+            background: #ffffff;
+            border-radius: 12px;
+            margin: 15px;
+            box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07);
+        }
+
+        .page-header {
+            background: #fef2f2;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            border: 1px solid #fecaca;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #dc2626;
+        }
+
+        .page-header p {
+            color: #7f1d1d;
+            font-size: 15px;
+        }
+
+        .task-card {
+            background: #fef2f2;
+            border-radius: 12px;
+            border: 1px solid #fecaca;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .task-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #991b1b;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .task-instructions {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+            background: #ffffff;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #fecaca;
+        }
+
+        .charts-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        .chart {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .chart h4 {
+            color: #991b1b;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .pie-chart {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            margin: 0 auto;
+            position: relative;
+            border: 1px solid #ddd;
+        }
+
+        .task-info {
+            font-size: 14px;
+            color: #7f1d1d;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* ✅ Writing Input like real exam */
+        .writing-input {
+            width: 100%;
+            min-height: 250px;
+            padding: 16px;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.8;
+            background: #ffffff;
+            resize: vertical;
+            margin-bottom: 8px;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .writing-input:focus {
+            outline: none;
+            border-color: #dc2626;
+            box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.15);
+        }
+
+        /* ✅ Word Counter */
+        .word-count {
+            font-size: 14px;
+            font-weight: 500;
+            text-align: right;
+            margin-bottom: 16px;
+        }
+
+        .word-count.good {
+            color: #166534;
+        }
+
+        .word-count.warning {
+            color: #b45309;
+        }
+
+        .word-count.too-short {
+            color: #dc2626;
+        }
+
+        .btn-toggle {
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            background: #ffffff;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+            transition: background 0.2s;
+        }
+
+        .btn-toggle:hover {
+            background: #fef2f2;
+        }
+
+        .model-answer {
+            background: #ffffff;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+            display: none;
+        }
+
+        .model-answer h4 {
+            color: #dc2626;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .model-answer p {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #1a1a1a;
+            white-space: pre-line;
+        }
+
+        .teachers-section {
+            width: 100%;
+            background: #ffffff;
+            padding: 25px 20px;
+            border-top: 2px solid #fecaca;
+            margin-top: auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .teachers-section h2 {
+            color: #dc2626;
+            font-size: 22px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .teachers-grid {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+        }
+
+        .teacher-card {
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .teacher-card img {
+            width: auto;
+            height: 110px;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 3px solid #dc2626;
+            margin-bottom: 8px;
+            box-shadow: 0 3px 8px rgba(220, 38, 38, 0.12);
+            display: block;
+            image-rendering: auto;
+        }
+
+        .teacher-name {
+            font-weight: 600;
+            color: #991b1b;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ✅ Decoration Image -->
+    <img src="../background1.png" alt="Decoration" class="top-right-decoration">
+
+    <!-- ✅ Logo Bar -->
+    <div class="top-logo-bar">
+        <img src="../ielts-logo.png" alt="IELTS Logo" class="logo-img">
+    </div>
+
+    <div class="content-wrapper">
+        <div class="sidebar">
+            <div class="sidebar-menu">
+                <a href="../index.html" class="menu-item">📊 Dashboard</a>
+                <a href="../index.html" class="menu-item active">📝 Practice Tests</a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="page-header">
+                <h1>Cambridge 10 Test 1 — Writing</h1>
+                <p>Academic Writing Task 1 & Task 2 | Time allowed: 60 minutes</p>
+            </div>
+
+            <!-- ✅ WRITING TASK 1 -->
+            <div class="task-card">
+                <h2 class="task-title">📝 Writing Task 1</h2>
+                <div class="task-info">
+                    <span>⏱️ Suggested time: 20 minutes</span>
+                    <span>📏 Minimum: 150 words</span>
+                </div>
+                <div class="task-instructions">
+                    <strong>Question:</strong><br><br>
+                    The first chart below shows how energy is used in an average Australian household. The second chart shows the greenhouse gas emissions which result from this energy use.<br><br>
+                    Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart">
+                        <h4>Australian household energy use</h4>
+                        <div class="pie-chart" style="background: conic-gradient(
+                            #e5e7eb 0% 42%,
+                            #fecaca 42% 72%,
+                            #bfdbfe 72% 79%,
+                            #bbf7d0 79% 83%,
+                            #ddd6fe 83% 98%,
+                            #fcd34d 98% 100%
+                        );">
+                            <div style="position: absolute; top: 10%; left: 45%; font-size: 12px;">heating 42%</div>
+                            <div style="position: absolute; top: 35%; left: 70%; font-size: 12px;">water heating 30%</div>
+                            <div style="position: absolute; top: 60%; left: 72%; font-size: 12px;">refrigeration 7%</div>
+                            <div style="position: absolute; top: 75%; left: 55%; font-size: 12px;">other appliances 15%</div>
+                            <div style="position: absolute; top: 80%; left: 35%; font-size: 12px;">lighting 4%</div>
+                            <div style="position: absolute; top: 55%; left: 20%; font-size: 12px;">cooling 2%</div>
+                        </div>
+                    </div>
+                    <div class="chart">
+                        <h4>Australian household greenhouse gas emissions</h4>
+                        <div class="pie-chart" style="background: conic-gradient(
+                            #e5e7eb 0% 15%,
+                            #fecaca 15% 47%,
+                            #bfdbfe 47% 61%,
+                            #bbf7d0 61% 89%,
+                            #ddd6fe 89% 97%,
+                            #fcd34d 97% 100%
+                        );">
+                            <div style="position: absolute; top: 10%; left: 45%; font-size: 12px;">heating 15%</div>
+                            <div style="position: absolute; top: 35%; left: 70%; font-size: 12px;">water heating 32%</div>
+                            <div style="position: absolute; top: 60%; left: 72%; font-size: 12px;">refrigeration 14%</div>
+                            <div style="position: absolute; top: 75%; left: 55%; font-size: 12px;">other appliances 28%</div>
+                            <div style="position: absolute; top: 80%; left: 35%; font-size: 12px;">lighting 8%</div>
+                            <div style="position: absolute; top: 55%; left: 20%; font-size: 12px;">cooling 3%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <textarea class="writing-input" id="task1Input" placeholder="Write your response here..."></textarea>
+                <div class="word-count" id="task1Count">Words: 0 / 150 minimum</div>
+
+                <button class="btn-toggle" onclick="toggleAnswer('task1')">👁️ View / Hide Model Answer</button>
+                <div id="task1" class="model-answer">
+                    <h4>✅ Model Answer (Band 9)</h4>
+                    <p>The two pie charts illustrate the proportion of energy consumed in a typical Australian home and the corresponding percentage of greenhouse gas emissions produced from each activity.
+
+Overall, heating accounts for the largest share of energy use, while water heating is responsible for the highest amount of greenhouse gases. In contrast, cooling and lighting represent the smallest proportions in both categories.
+
+Looking at energy consumption in detail, heating makes up 42% of total usage, followed by water heating at 30%. Other appliances use 15%, while refrigeration, lighting, and cooling account for 7%, 4%, and only 2% respectively.
+
+When it comes to emissions, the pattern is different. Water heating produces 32% of greenhouse gases, slightly more than heating at 15%. Other appliances generate 28% of emissions, which is nearly double their share of energy use. Refrigeration and lighting contribute 14% and 8% respectively, while cooling remains the lowest at just 3%.</p>
+                </div>
+            </div>
+
+            <!-- ✅ WRITING TASK 2 -->
+            <div class="task-card">
+                <h2 class="task-title">📝 Writing Task 2</h2>
+                <div class="task-info">
+                    <span>⏱️ Suggested time: 40 minutes</span>
+                    <span>📏 Minimum: 250 words</span>
+                </div>
+                <div class="task-instructions">
+                    <strong>Question:</strong><br><br>
+                    It is important for children to learn the difference between right and wrong at an early age. Punishment is necessary to help them learn this distinction.<br><br>
+                    To what extent do you agree or disagree with this opinion?<br><br>
+                    What sort of punishment should parents and teachers be allowed to use to teach good behaviour to children?<br><br>
+                    Give reasons for your answer and include any relevant examples from your own knowledge or experience.
+                </div>
+
+                <textarea class="writing-input" id="task2Input" placeholder="Write your essay here..."></textarea>
+                <div class="word-count" id="task2Count">Words: 0 / 250 minimum</div>
+
+                <button class="btn-toggle" onclick="toggleAnswer('task2')">👁️ View / Hide Model Answer</button>
+                <div id="task2" class="model-answer">
+                    <h4>✅ Model Answer (Band 9)</h4>
+                    <p>Many people believe that children must understand right from wrong from a young age, and that punishment is an essential part of this process. While I agree that guidance is necessary, I do not believe that all forms of punishment are helpful, and it is important to choose appropriate methods.
+
+On one hand, setting clear boundaries helps children develop a sense of responsibility. Without any consequences for their actions, they may grow up believing that there are no limits to what they can do. This can lead to poor behaviour later in life. However, harsh or physical punishment is not only ineffective but can also damage a child’s self-esteem and cause fear rather than understanding.
+
+On the other hand, there are better alternatives to teach values. Logical consequences work well: for example, if a child breaks something, they help repair or replace it. Similarly, removing privileges such as screen time or playtime can be effective without causing harm. When combined with explanation, these methods help children understand why their actions were wrong, not just that they will be punished.
+
+In conclusion, while children do need guidance to learn right from wrong, punishment should be reasonable and educational. It should aim to teach, not to hurt. Used correctly, it can help children grow into responsible adults.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ✅ Teachers Section -->
+    <div class="teachers-section">
+        <h2>Our Teachers</h2>
+        <div class="teachers-grid">
+            <div class="teacher-card">
+                <img src="../teacher1.jpeg" alt="T. Rhej">
+                <div class="teacher-name">T. Rhej</div>
+            </div>
+            <div class="teacher-card">
+                <img src="../teacher2.jpeg" alt="T. Vicky">
+                <div class="teacher-name">T. Vicky</div>
+            </div>
+            <div class="teacher-card">
+                <img src="../teacher3.jpeg" alt="T. Wiji">
+                <div class="teacher-name">T. Wiji</div>
+            </div>
+            <div class="teacher-card">
+                <img src="../teacher4.jpeg" alt="T. Ann">
+                <div class="teacher-name">T. Ann</div>
+            </div>
+            <div class="teacher-card">
+                <img src="../teacher5.jpeg" alt="T. Jen">
+                <div class="teacher-name">T. Jen</div>
+            </div>
+            <div class="teacher-card">
+                <img src="../teacher6.jpg" alt="T. Ellaine">
+                <div class="teacher-name">T. Ellaine</div>
+            </div>
+            <div class="teacher-card">
+                <img src="../teacher7.jpg" alt="T. Joan">
+                <div class="teacher-name">T. Joan</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ✅ Word Counter Function
+        function countWords(textareaId, countId, minWords) {
+            const text = document.getElementById(textareaId).value.trim();
+            const wordCount = text ? text.replace(/\s+/g, ' ').split(' ').length : 0;
+            const counter = document.getElementById(countId);
+
+            counter.textContent = `Words: ${wordCount} / ${minWords} minimum`;
+
+            if (wordCount < minWords) {
+                counter.className = "word-count too-short";
+            } else if (wordCount < minWords + 20) {
+                counter.className = "word-count warning";
+            } else {
+                counter.className = "word-count good";
+            }
+        }
+
+        // ✅ Attach events
+        document.getElementById('task1Input').addEventListener('input', () => countWords('task1Input', 'task1Count', 150));
+        document.getElementById('task2Input').addEventListener('input', () => countWords('task2Input', 'task2Count', 250));
+
+        // ✅ Toggle answers
+        function toggleAnswer(id) {
+            const box = document.getElementById(id);
+            const btn = event.target;
+            if (box.style.display === 'block') {
+                box.style.display = 'none';
+                btn.textContent = '👁️ View / Hide Model Answer';
+            } else {
+                box.style.display = 'block';
+                btn.textContent = '🙈 Hide Model Answer';
+            }
+        }
+    </script>
+
+</body>
+</html>
