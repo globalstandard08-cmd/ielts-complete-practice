@@ -164,89 +164,86 @@
             border: 1px solid #fecaca;
         }
 
-        /* ✅ Clear Chart Layout */
+        /* ✅ Chart Layout matching original */
         .charts-container {
             display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            justify-content: center;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
             margin: 20px 0 30px;
-            text-align: center;
         }
 
         .chart-block {
-            flex: 1;
-            min-width: 320px;
-            max-width: 400px;
+            text-align: center;
         }
 
         .chart-title {
             font-size: 16px;
             font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            color: #222;
         }
 
-        /* ✅ Exact Pie Chart like original paper */
+        /* ✅ Exact Pie Chart with patterns like original */
         .pie-chart {
-            width: 280px;
-            height: 280px;
+            width: 260px;
+            height: 260px;
             border-radius: 50%;
             margin: 0 auto;
             position: relative;
-            border: 1px solid #999;
+            border: 1px solid #333;
             background: #fff;
             font-size: 13px;
             font-weight: 500;
         }
 
-        /* --- Energy Use divisions --- */
+        /* --- Energy Use Chart --- */
         .pie-energy {
             background: conic-gradient(
-                #e0e0e0 0deg 151.2deg,    /* heating 42% */
-                #f0f0f0 151.2deg 259.2deg, /* water heating 30% */
-                #d0d0d0 259.2deg 284.4deg, /* refrigeration 7% */
-                #e8e8e8 284.4deg 338.4deg, /* other appliances 15% */
-                #c8c8c8 338.4deg 352.8deg, /* lighting 4% */
-                #b8b8b8 352.8deg 360deg    /* cooling 2% */
+                #ffffff 0deg 151.2deg,          /* heating 42% - plain white */
+                repeating-linear-gradient(45deg, #f0f0f0 0, #f0f0f0 2px, #e5e5e5 2px, #e5e5e5 4px) 151.2deg 259.2deg, /* water heating 30% - diagonal lines */
+                #b8c2c9 259.2deg 284.4deg,       /* refrigeration 7% - light gray solid */
+                radial-gradient(circle, #f0f0f0 40%, #e0e0e0 41%) 284.4deg 338.4deg, /* other appliances 15% - dots */
+                repeating-linear-gradient(90deg, #e0e0e0 0, #e0e0e0 1px, transparent 1px, transparent 3px) 338.4deg 352.8deg, /* lighting 4% - vertical lines */
+                #000000 352.8deg 360deg          /* cooling 2% - black */
             );
         }
 
-        /* --- Emissions divisions --- */
+        /* --- Greenhouse Emissions Chart --- */
         .pie-emissions {
             background: conic-gradient(
-                #e0e0e0 0deg 54deg,       /* heating 15% */
-                #f0f0f0 54deg 169.2deg,   /* water heating 32% */
-                #d0d0d0 169.2deg 219.6deg, /* refrigeration 14% */
-                #e8e8e8 219.6deg 320.4deg, /* other appliances 28% */
-                #c8c8c8 320.4deg 349.2deg, /* lighting 8% */
-                #b8b8b8 349.2deg 360deg    /* cooling 3% */
+                #ffffff 0deg 54deg,              /* heating 15% - plain white */
+                repeating-linear-gradient(45deg, #f0f0f0 0, #f0f0f0 2px, #e5e5e5 2px, #e5e5e5 4px) 54deg 169.2deg, /* water heating 32% - diagonal lines */
+                #b8c2c9 169.2deg 219.6deg,       /* refrigeration 14% - light gray solid */
+                radial-gradient(circle, #f0f0f0 40%, #e0e0e0 41%) 219.6deg 320.4deg, /* other appliances 28% - dots */
+                repeating-linear-gradient(90deg, #e0e0e0 0, #e0e0e0 1px, transparent 1px, transparent 3px) 320.4deg 349.2deg, /* lighting 8% - vertical lines */
+                #000000 349.2deg 360deg          /* cooling 3% - black */
             );
         }
 
-        /* ✅ Labels placed outside the circle — NO OVERLAP */
+        /* ✅ Labels exactly placed like original */
         .label {
             position: absolute;
-            white-space: nowrap;
             font-size: 13px;
             color: #000;
+            line-height: 1.4;
         }
 
         /* --- Energy Use Labels --- */
-        .energy-heating { top: 20%; left: -70px; }
-        .energy-water { top: 20%; right: -75px; }
-        .energy-refrig { top: 55%; right: -75px; }
-        .energy-other { bottom: 25%; right: -90px; }
-        .energy-light { bottom: 10%; left: -60px; }
-        .energy-cool { top: 50%; left: -60px; }
+        .e-heating { top: 40px; left: -80px; }
+        .e-water { top: 40px; right: -70px; }
+        .e-refrig { top: 130px; right: -75px; }
+        .e-other { bottom: 60px; right: -85px; }
+        .e-light { bottom: 30px; left: -65px; }
+        .e-cool { top: 130px; left: -65px; }
 
         /* --- Emissions Labels --- */
-        .emiss-heating { top: 15%; left: -60px; }
-        .emiss-water { top: 20%; right: -75px; }
-        .emiss-refrig { top: 55%; right: -85px; }
-        .emiss-other { bottom: 25%; right: -95px; }
-        .emiss-light { bottom: 10%; left: -55px; }
-        .emiss-cool { top: 50%; left: -55px; }
+        .g-heating { top: 30px; left: -65px; }
+        .g-water { top: 45px; right: -75px; }
+        .g-refrig { top: 135px; right: -80px; }
+        .g-other { bottom: 55px; left: -95px; }
+        .g-light { bottom: 30px; left: -65px; }
+        .g-cool { top: 135px; left: -65px; }
 
         .task-info {
             font-size: 14px;
@@ -430,24 +427,24 @@
                     <div class="chart-block">
                         <h3 class="chart-title">Australian household energy use</h3>
                         <div class="pie-chart pie-energy">
-                            <div class="label energy-heating">heating<br>42%</div>
-                            <div class="label energy-water">water heating<br>30%</div>
-                            <div class="label energy-refrig">refrigeration<br>7%</div>
-                            <div class="label energy-other">other appliances<br>15%</div>
-                            <div class="label energy-light">lighting<br>4%</div>
-                            <div class="label energy-cool">cooling<br>2%</div>
+                            <div class="label e-heating">heating<br>42%</div>
+                            <div class="label e-water">water heating<br>30%</div>
+                            <div class="label e-refrig">refrigeration<br>7%</div>
+                            <div class="label e-other">other appliances<br>15%</div>
+                            <div class="label e-light">lighting<br>4%</div>
+                            <div class="label e-cool">cooling<br>2%</div>
                         </div>
                     </div>
 
                     <div class="chart-block">
                         <h3 class="chart-title">Australian household greenhouse gas emissions</h3>
                         <div class="pie-chart pie-emissions">
-                            <div class="label emiss-heating">heating<br>15%</div>
-                            <div class="label emiss-water">water heating<br>32%</div>
-                            <div class="label emiss-refrig">refrigeration<br>14%</div>
-                            <div class="label emiss-other">other appliances<br>28%</div>
-                            <div class="label emiss-light">lighting<br>8%</div>
-                            <div class="label emiss-cool">cooling<br>3%</div>
+                            <div class="label g-heating">heating<br>15%</div>
+                            <div class="label g-water">water heating<br>32%</div>
+                            <div class="label g-refrig">refrigeration<br>14%</div>
+                            <div class="label g-other">other appliances<br>28%</div>
+                            <div class="label g-light">lighting<br>8%</div>
+                            <div class="label g-cool">cooling<br>3%</div>
                         </div>
                     </div>
                 </div>
