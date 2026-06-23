@@ -12,10 +12,10 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
-        /* ✅ Original exam-style colors - unchanged */
+        /* ✅ LIGHT RED THEME - matches your other pages */
         body {
-            background-color: #f8f9fa;
-            color: #000000;
+            background-color: #fef2f2;
+            color: #1a1a1a;
             line-height: 1.6;
             padding: 20px;
         }
@@ -25,30 +25,32 @@
             margin: 0 auto;
             background: #ffffff;
             padding: 25px;
-            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.1);
         }
 
-        /* ✅ IELTS Logo style */
+        /* ✅ IELTS LOGO - correct path, top left */
         .ielts-logo {
             display: block;
-            max-width: 140px;
+            max-width: 130px;
             height: auto;
-            margin: 0 auto 25px 0; /* align left, add space below */
+            margin: 0 0 25px 0;
         }
 
         h2 {
             font-size: 18px;
             font-weight: bold;
             margin: 25px 0 10px;
-            color: #000000;
+            color: #991b1b;
         }
 
         .instruction-box {
-            border: 1px solid #cccccc;
-            background: #ffffff;
+            border: 1px solid #fecaca;
+            background: #fef2f2;
             padding: 15px;
             margin: 15px 0 20px;
             font-size: 15px;
+            border-radius: 6px;
         }
 
         .task1-chart {
@@ -62,12 +64,19 @@
             width: 100%;
             min-height: 280px;
             padding: 12px;
-            border: 1px solid #999999;
+            border: 1px solid #fecaca;
+            border-radius: 6px;
             font-size: 15px;
             line-height: 1.6;
             background: #ffffff;
             resize: vertical;
             margin-bottom: 5px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #dc2626;
+            box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.15);
         }
 
         .word-count {
@@ -84,20 +93,20 @@
             display: none;
         }
 
-        /* ✅ Export button style - unchanged */
+        /* ✅ Export button - matches this theme */
         .export-btn {
             padding: 5px 12px;
-            background: #eeeeee;
-            color: #000000;
-            border: 1px solid #999999;
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
             font-size: 13px;
             cursor: pointer;
             margin-bottom: 30px;
-            border-radius: 2px;
+            border-radius: 4px;
         }
 
         .export-btn:hover {
-            background: #e5e5e5;
+            background: #fee2e2;
         }
     </style>
 </head>
@@ -105,8 +114,8 @@
 
 <div class="container">
 
-    <!-- ✅ IELTS LOGO ADDED HERE AT THE TOP -->
-    <img src="ielts-logo.png" alt="IELTS" class="ielts-logo">
+    <!-- ✅ LOGO PATH: writing/ielts-logo.png -->
+    <img src="writing/ielts-logo.png" alt="IELTS" class="ielts-logo">
 
 
     <!-- WRITING TASK 1 -->
@@ -119,6 +128,7 @@
     </div>
     <p>Write at least 150 words.</p>
 
+    <!-- ✅ CHART PATH: same folder = task1.png -->
     <img src="task1.png" alt="Australian household energy use and emissions" class="task1-chart">
 
     <textarea id="task1Input" placeholder="Write your response here..."></textarea>
@@ -154,7 +164,15 @@
 function countWords(id, countId, min) {
     const text = document.getElementById(id).value.trim();
     const num = text ? text.replace(/\s+/g, ' ').split(' ').length : 0;
-    document.getElementById(countId).textContent = `Words: ${num} / ${min} minimum`;
+    const counter = document.getElementById(countId);
+    counter.textContent = `Words: ${num} / ${min} minimum`;
+    if (num < min) {
+        counter.style.color = "#dc2626";
+    } else if (num < min + 20) {
+        counter.style.color = "#b45309";
+    } else {
+        counter.style.color = "#166534";
+    }
 }
 
 // Auto-save & Load
