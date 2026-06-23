@@ -13,187 +13,200 @@
         }
 
         body {
-            background-color: #fef2f2;
-            color: #000;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.5;
         }
 
-        .main-content {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        .container {
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
 
-        .task-title {
-            font-size: 20px;
+        h1 {
+            font-size: 22px;
             font-weight: bold;
-            margin-bottom: 15px;
-            color: #991b1b;
+            margin-bottom: 25px;
         }
 
-        .task-info {
-            font-size: 14px;
-            margin-bottom: 15px;
-            color: #555;
+        h2 {
+            font-size: 19px;
+            font-weight: bold;
+            margin: 30px 0 15px;
         }
 
-        .task-instructions {
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 30px;
+        .instruction-block {
+            border: 1px solid #000;
             padding: 15px;
-            background: #fef2f2;
-            border-radius: 6px;
-        }
-
-        /* Chart Container */
-        .charts-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            justify-content: center;
             margin-bottom: 30px;
+            font-size: 16px;
         }
 
-        .chart-block {
-            text-align: center;
+        /* --- Chart Styles --- */
+        .charts-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .chart {
             position: relative;
             width: 320px;
             height: 320px;
         }
 
         .chart-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 20px;
+            font-size: 17px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
         }
 
-        /* Reliable Pie Chart using Conic Gradient */
-        .pie-chart {
+        .pie {
             width: 260px;
             height: 260px;
             border-radius: 50%;
-            border: 1px solid #333;
+            border: 1px solid #000;
             margin: 0 auto;
             position: relative;
         }
 
-        /* --- Energy Use: exact slices --- */
-        .pie-energy {
+        /* --- Energy Use Pie --- */
+        .pie.energy {
             background: conic-gradient(
-                #e5e5e5 0deg 151.2deg,     /* Heating 42% */
-                #d0d0d0 151.2deg 259.2deg,  /* Water heating 30% */
-                #b8b8b8 259.2deg 284.4deg,  /* Refrigeration 7% */
-                #c8c8c8 284.4deg 338.4deg,  /* Other appliances 15% */
-                #a8a8a8 338.4deg 352.8deg,  /* Lighting 4% */
-                #888888 352.8deg 360deg     /* Cooling 2% */
+                #e8e8e8 0deg 151.2deg,                     /* heating 42% - light gray */
+                repeating-linear-gradient(45deg, #fff, #ccc 2px) 151.2deg 259.2deg, /* water heating 30% - diagonal lines */
+                #a9b9b9 259.2deg 284.4deg,                 /* refrigeration 7% - gray solid */
+                repeating-radial-gradient(#fff 0, #ccc 1px, #ccc 2px) 284.4deg 338.4deg, /* other appliances 15% - dots */
+                repeating-linear-gradient(90deg, #fff, #999 1px) 338.4deg 352.8deg, /* lighting 4% - hatch */
+                #000000 352.8deg 360deg                    /* cooling 2% - black */
             );
         }
 
-        /* --- Greenhouse Emissions: exact slices --- */
-        .pie-emissions {
+        /* --- Emissions Pie --- */
+        .pie.emissions {
             background: conic-gradient(
-                #e5e5e5 0deg 54deg,         /* Heating 15% */
-                #d0d0d0 54deg 169.2deg,     /* Water heating 32% */
-                #b8b8b8 169.2deg 219.6deg,  /* Refrigeration 14% */
-                #c8c8c8 219.6deg 320.4deg,  /* Other appliances 28% */
-                #a8a8a8 320.4deg 349.2deg,  /* Lighting 8% */
-                #888888 349.2deg 360deg     /* Cooling 3% */
+                #e8e8e8 0deg 54deg,                        /* heating 15% - light gray */
+                repeating-linear-gradient(45deg, #fff, #ccc 2px) 54deg 169.2deg, /* water heating 32% - diagonal lines */
+                #a9b9b9 169.2deg 219.6deg,                 /* refrigeration 14% - gray solid */
+                repeating-radial-gradient(#fff 0, #ccc 1px, #ccc 2px) 219.6deg 320.4deg, /* other appliances 28% - dots */
+                repeating-linear-gradient(90deg, #fff, #999 1px) 320.4deg 349.2deg, /* lighting 8% - hatch */
+                #000000 349.2deg 360deg                    /* cooling 3% - black */
             );
         }
 
-        /* Labels: clear, outside, no overlap */
+        /* --- Labels - Exact placement --- */
         .label {
             position: absolute;
-            font-size: 13px;
-            line-height: 1.4;
-            font-weight: 500;
+            font-size: 14px;
             white-space: nowrap;
         }
 
         /* Energy Use Labels */
-        .e-heating    { top: 40px; left: -85px; }
-        .e-water      { top: 40px; right: -85px; }
-        .e-refrig     { top: 120px; right: -90px; }
-        .e-other      { bottom: 60px; right: -100px; }
-        .e-light      { bottom: 30px; left: -75px; }
-        .e-cool       { top: 120px; left: -75px; }
+        .e-heating    { top: 90px; left: -85px; }
+        .e-water      { top: 55px; right: -75px; }
+        .e-refrig     { top: 125px; right: -85px; }
+        .e-other      { bottom: 65px; right: -95px; }
+        .e-light      { bottom: 40px; left: -70px; }
+        .e-cool       { top: 125px; left: -70px; }
 
         /* Emissions Labels */
-        .g-heating    { top: 30px; left: -75px; }
-        .g-water      { top: 45px; right: -90px; }
-        .g-refrig     { top: 125px; right: -95px; }
-        .g-other      { bottom: 65px; left: -105px; }
-        .g-light      { bottom: 35px; left: -75px; }
-        .g-cool       { top: 125px; left: -75px; }
+        .g-heating    { top: 50px; left: -75px; }
+        .g-water      { top: 60px; right: -80px; }
+        .g-refrig     { top: 130px; right: -90px; }
+        .g-other      { bottom: 70px; left: -100px; }
+        .g-light      { bottom: 45px; left: -75px; }
+        .g-cool       { top: 130px; left: -75px; }
 
-        /* Writing Area */
-        .writing-input {
+        /* --- Writing Areas --- */
+        .writing-area {
+            margin: 20px 0 40px;
+        }
+
+        textarea {
             width: 100%;
-            min-height: 220px;
+            min-height: 260px;
             padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 15px;
+            border: 1px solid #999;
+            font-size: 16px;
             line-height: 1.6;
             resize: vertical;
         }
 
         .word-count {
-            margin-top: 8px;
             text-align: right;
             font-size: 14px;
-            color: #666;
+            margin-top: 5px;
+            color: #444;
         }
     </style>
 </head>
 <body>
 
-<div class="main-content">
-    <h1>Cambridge 10 Test 1 — Writing Task 1</h1>
+<div class="container">
 
-    <div class="task-card">
-        <h2 class="task-title">📝 Writing Task 1</h2>
-        <div class="task-info">⏱️ Suggested time: 20 minutes | 📏 Minimum: 150 words</div>
+    <!-- Task 1 -->
+    <h2>WRITING TASK 1</h2>
+    <p>You should spend about 20 minutes on this task.</p>
 
-        <div class="task-instructions">
-            The first chart below shows how energy is used in an average Australian household. The second chart shows the greenhouse gas emissions which result from this energy use.<br><br>
-            Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
-        </div>
+    <div class="instruction-block">
+        The first chart below shows how energy is used in an average Australian household. The second chart shows the greenhouse gas emissions which result from this energy use.<br><br>
+        Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
+    </div>
+    <p>Write at least 150 words.</p>
 
-        <div class="charts-container">
-            <!-- First Chart -->
-            <div class="chart-block">
-                <h3 class="chart-title">Australian household energy use</h3>
-                <div class="pie-chart pie-energy">
-                    <div class="label e-heating">heating<br>42%</div>
-                    <div class="label e-water">water heating<br>30%</div>
-                    <div class="label e-refrig">refrigeration<br>7%</div>
-                    <div class="label e-other">other appliances<br>15%</div>
-                    <div class="label e-light">lighting<br>4%</div>
-                    <div class="label e-cool">cooling<br>2%</div>
-                </div>
-            </div>
-
-            <!-- Second Chart -->
-            <div class="chart-block">
-                <h3 class="chart-title">Australian household greenhouse gas emissions</h3>
-                <div class="pie-chart pie-emissions">
-                    <div class="label g-heating">heating<br>15%</div>
-                    <div class="label g-water">water heating<br>32%</div>
-                    <div class="label g-refrig">refrigeration<br>14%</div>
-                    <div class="label g-other">other appliances<br>28%</div>
-                    <div class="label g-light">lighting<br>8%</div>
-                    <div class="label g-cool">cooling<br>3%</div>
-                </div>
+    <div class="charts-wrapper">
+        <div class="chart">
+            <h3 class="chart-title">Australian household energy use</h3>
+            <div class="pie energy">
+                <div class="label e-heating">heating<br>42%</div>
+                <div class="label e-water">water heating<br>30%</div>
+                <div class="label e-refrig">refrigeration<br>7%</div>
+                <div class="label e-other">other appliances<br>15%</div>
+                <div class="label e-light">lighting<br>4%</div>
+                <div class="label e-cool">cooling<br>2%</div>
             </div>
         </div>
 
-        <textarea class="writing-input" placeholder="Write your response here..."></textarea>
+        <div class="chart">
+            <h3 class="chart-title">Australian household greenhouse gas emissions</h3>
+            <div class="pie emissions">
+                <div class="label g-heating">heating<br>15%</div>
+                <div class="label g-water">water heating<br>32%</div>
+                <div class="label g-refrig">refrigeration<br>14%</div>
+                <div class="label g-other">other appliances<br>28%</div>
+                <div class="label g-light">lighting<br>8%</div>
+                <div class="label g-cool">cooling<br>3%</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="writing-area">
+        <textarea placeholder="Write your response for Task 1 here..."></textarea>
         <div class="word-count">Words: 0 / 150 minimum</div>
     </div>
+
+    <!-- Task 2 -->
+    <h2>WRITING TASK 2</h2>
+    <p>You should spend about 40 minutes on this task.</p>
+    <p>Present a written argument or case to an educated reader with no specialist knowledge of the following topic.</p>
+
+    <div class="instruction-block">
+        It is important for children to learn the difference between right and wrong at an early age. Punishment is necessary to help them learn this distinction.<br><br>
+        To what extent do you agree or disagree with this opinion?<br><br>
+        What sort of punishment should parents and teachers be allowed to use to teach good behaviour to children?
+    </div>
+    <p>Give reasons for your answer and include any relevant examples from your own knowledge or experience.</p>
+    <p>Write at least 250 words.</p>
+
+    <div class="writing-area">
+        <textarea placeholder="Write your essay for Task 2 here..."></textarea>
+        <div class="word-count">Words: 0 / 250 minimum</div>
+    </div>
+
 </div>
 
 </body>
