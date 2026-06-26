@@ -202,7 +202,7 @@
             background-color: #2e568c;
         }
 
-        /* ---------------- SAME HIGHLIGHT STYLE AS READING.HTML ---------------- */
+        /* -------------------- EXACT HIGHLIGHT CSS FROM READING.HTML -------------------- */
         .user-highlight {
             background-color: #fff3cd;
             padding: 2px 3px;
@@ -257,7 +257,7 @@
             <span style="font-size:15px; opacity:0.9;">Teaching Mode</span>
         </div>
 
-        <!-- Floating highlight tools -->
+        <!-- -------------------- EXACT HIGHLIGHT TOOLS FROM READING.HTML -------------------- -->
         <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
         <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
 
@@ -271,6 +271,7 @@
             
         </div>
 
+        <!-- -------------------- Added ID so script knows where to work -------------------- -->
         <div class="content" id="highlightArea">
             <h2>Section 1 –Questions 1–10</h2>
 
@@ -414,7 +415,7 @@
             ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
         }
 
-        // ---------------- SAME HIGHLIGHT SCRIPT AS READING.HTML ----------------
+        // -------------------- EXACT HIGHLIGHT SCRIPT FROM READING.HTML --------------------
         const highlightArea = document.getElementById('highlightArea');
         const highlightTool = document.getElementById('highlightTool');
         const removeTool = document.getElementById('removeTool');
@@ -453,7 +454,7 @@
             currentRange = null;
         });
 
-        // Show remove button when clicking an existing highlight
+        // Show remove button when clicking existing highlight
         highlightArea.addEventListener('click', function(e) {
             if (e.target.classList.contains('user-highlight')) {
                 const rect = e.target.getBoundingClientRect();
