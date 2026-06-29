@@ -21,19 +21,19 @@
             position: relative;
         }
 
-        /* ✅ background1.png: REAL IMAGE, TOP RIGHT, NOT HIDDEN, FULLY VISIBLE */
+        /* ✅ Background Decoration - EXACTLY AS ORIGINAL */
         .top-right-decoration {
             position: absolute;
             top: 5px;
             right: 5px;
             width: 380px;
             height: auto;
-            z-index: 9999; /* ON TOP OF EVERYTHING */
+            z-index: 9999;
             display: block !important;
             visibility: visible !important;
         }
 
-        /* ✅ LOGO: EXACTLY AS IT WAS — NO CHANGES, NO RESIZING */
+        /* ✅ Logo Bar - NO CHANGES */
         .top-logo-bar {
             width: 100%;
             background: #ffffff;
@@ -54,7 +54,7 @@
             display: block;
         }
 
-        /* ✅ COLORED SIDES */
+        /* ✅ Layout - NO CHANGES */
         .content-wrapper {
             display: flex;
             flex: 1;
@@ -199,11 +199,12 @@
             background: #ffffff;
         }
 
+        /* ✅ ONLY CHANGE HERE: 2 cards per row */
         .tests-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
-    gap: 24px;
-}
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
 
         .test-card {
             background: #fef2f2;
@@ -272,7 +273,6 @@
             background: #b91c1c;
         }
 
-        /* ✅ ANSWER BOX STYLE */
         .answers-container {
             background: #ffffff;
             border: 1px solid #fecaca;
@@ -294,7 +294,6 @@
             line-height: 1.6;
         }
 
-        /* ✅ TEACHERS: FAR BOTTOM, STRAIGHT LINE, SHARP CLEAR PHOTOS */
         .teachers-section {
             width: 100%;
             background: #ffffff;
@@ -328,17 +327,16 @@
             flex-shrink: 0;
         }
 
-        /* ✅ FIXED: NO STRETCHING, NO FILTERS — CLEAR, SHARP, ORIGINAL QUALITY */
         .teacher-card img {
             width: auto;
-            height: 110px; /* Keep height fixed, width auto so no distortion */
+            height: 110px;
             object-fit: contain;
             border-radius: 50%;
             border: 3px solid #dc2626;
             margin-bottom: 8px;
             box-shadow: 0 3px 8px rgba(220, 38, 38, 0.12);
             display: block;
-            image-rendering: auto; /* Default = best clarity */
+            image-rendering: auto;
         }
 
         .teacher-name {
@@ -354,14 +352,45 @@
         .section-content.active {
             display: block;
         }
+
+        /* Mobile fix - no changes to design */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                overflow-x: auto;
+                border-right: none;
+                border-bottom: 1px solid #fecaca;
+                padding: 10px 0;
+            }
+            .sidebar-menu {
+                flex-direction: row;
+                gap: 4px;
+            }
+            .menu-item {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+            .main-content {
+                margin: 10px;
+                padding: 20px;
+            }
+            .top-right-decoration {
+                width: 200px;
+            }
+            .tests-grid {
+                grid-template-columns: 1fr; /* 1 per row on mobile */
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- ✅ background1.png: REAL IMAGE, TOP RIGHT, 100% SHOWING, NOT HIDDEN -->
     <img src="background1.png" alt="Decoration" class="top-right-decoration">
 
-    <!-- ✅ LOGO: EXACTLY SAME — NO CHANGES -->
     <div class="top-logo-bar">
         <img src="ielts-logo.png" alt="IELTS Logo" class="logo-img">
     </div>
@@ -392,185 +421,154 @@
                 <button class="tab" data-target="speaking">🎤 Speaking</button>
             </div>
 
-           <div class="section-content active" id="reading">
-    <div class="tests-grid">
-        <!-- ✅ CAMBRIDGE 10 TEST 1 — ALL INSIDE THIS CARD -->
-        <div class="test-card">
-            <div class="test-icon">📖</div>
-            <h3 class="test-title">Cambridge 10 Test 1</h3>
-            <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
-            <div class="test-meta">
-                <span>⏱️ 60 min</span>
-                <span>❓ 40 questions</span>
-            </div>
-            <!-- ✅ CAMBRIDGE 10 TEST 2 -->
-<div class="test-card">
-    <div class="test-icon">📖</div>
-    <h3 class="test-title">Cambridge 10 Test 2</h3>
-    <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
-    <div class="test-meta">
-        <span>⏱️ 60 min</span>
-        <span>❓ 40 questions</span>
-    </div>
-    
-    <!-- 3 PASSAGES -->
-    <div style="margin: 12px 0; display: flex; flex-direction: row; gap: 8px; width: 100%;">
-        <a href="reading/reading-passage1-C10T2.html" class="btn-start passage-btn" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 1</a>
-        <a href="reading/reading-passage2-C10T2.html" class="btn-start passage-btn" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 2</a>
-        <a href="reading/reading-passage3-C10T2.html" class="btn-start passage-btn" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 3</a>
-    </div>
+            <!-- ✅ READING SECTION - ALL 4 TESTS, 2 PER ROW -->
+            <div class="section-content active" id="reading">
+                <div class="tests-grid">
 
-    <!-- SHOW / HIDE ANSWERS -->
-    <button class="btn-start toggle-answers" style="background: #fef2f2; color: #dc2626; border:1px solid #fecaca; margin: 8px 0;">
-        👁️ Show / Hide Answers
-    </button>
+                    <!-- ✅ CAMBRIDGE 10 TEST 1 - ORIGINAL, NO CHANGES -->
+                    <div class="test-card">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 10 Test 1</h3>
+                        <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 60 min</span>
+                            <span>❓ 40 questions</span>
+                        </div>
+                        
+                        <div style="margin: 12px 0; display: flex; flex-direction: row; gap: 8px; width: 100%;">
+                            <a href="reading/reading-stepwells.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Stepwells</a>
+                            <a href="reading/reading-transport.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Transport</a>
+                            <a href="reading/reading-innovation.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Innovation</a>
+                        </div>
 
-    <!-- ANSWERS BOX -->
-    <div class="answers-container">
-        <h4>📖 Reading Answers — Cambridge 10 Test 2</h4>
-        <div class="answers-list">
-            <strong>Passage 1 — [Topic Name]:</strong><br>
-            1. &nbsp;&nbsp;2. &nbsp;&nbsp;3. &nbsp;&nbsp;4. &nbsp;&nbsp;5. &nbsp;&nbsp;6. &nbsp;&nbsp;7. &nbsp;&nbsp;8. &nbsp;&nbsp;9. &nbsp;&nbsp;10. &nbsp;&nbsp;11. &nbsp;&nbsp;12. &nbsp;&nbsp;13.<br><br>
-            <strong>Passage 2 — [Topic Name]:</strong><br>
-            14. &nbsp;&nbsp;15. &nbsp;&nbsp;16. &nbsp;&nbsp;17. &nbsp;&nbsp;18. &nbsp;&nbsp;19. &nbsp;&nbsp;20. &nbsp;&nbsp;21. &nbsp;&nbsp;22. &nbsp;&nbsp;23. &nbsp;&nbsp;24. &nbsp;&nbsp;25. &nbsp;&nbsp;26.<br><br>
-            <strong>Passage 3 — [Topic Name]:</strong><br>
-            27. &nbsp;&nbsp;28. &nbsp;&nbsp;29. &nbsp;&nbsp;30. &nbsp;&nbsp;31. &nbsp;&nbsp;32. &nbsp;&nbsp;33. &nbsp;&nbsp;34. &nbsp;&nbsp;35. &nbsp;&nbsp;36. &nbsp;&nbsp;37. &nbsp;&nbsp;38. &nbsp;&nbsp;39. &nbsp;&nbsp;40.
-        </div>
-    </div>
+                        <button class="btn-start toggle-answers" style="background: #fef2f2; color: #dc2626; border:1px solid #fecaca; margin: 8px 0;">
+                            👁️ Show / Hide Answers
+                        </button>
 
-    <!-- FULL TEST BUTTON -->
-    <a href="reading/C10T2.html" class="btn-start">Start Full Test →</a>
-</div>
+                        <div class="answers-container">
+                            <h4>📖 Reading Answers — Cambridge 10 Test 1</h4>
+                            <div class="answers-list">
+                                <strong>Passage 1 — Stepwells:</strong><br>
+                                1. iii&nbsp;&nbsp;2. vii&nbsp;&nbsp;3. ii&nbsp;&nbsp;4. iv&nbsp;&nbsp;5. i&nbsp;&nbsp;6. NO&nbsp;&nbsp;7. YES&nbsp;&nbsp;8. NOT GIVEN&nbsp;&nbsp;9. NO&nbsp;&nbsp;10. YES&nbsp;&nbsp;11. C&nbsp;&nbsp;12. D&nbsp;&nbsp;13. A<br><br>
+                                <strong>Passage 2 — Transport:</strong><br>
+                                14. TRUE&nbsp;&nbsp;15. FALSE&nbsp;&nbsp;16. NOT GIVEN&nbsp;&nbsp;17. FALSE&nbsp;&nbsp;18. TRUE&nbsp;&nbsp;19. FALSE&nbsp;&nbsp;20. NOT GIVEN&nbsp;&nbsp;21. F&nbsp;&nbsp;22. D&nbsp;&nbsp;23. C&nbsp;&nbsp;24. E&nbsp;&nbsp;25. A&nbsp;&nbsp;26. B<br><br>
+                                <strong>Passage 3 — Innovation:</strong><br>
+                                27. C&nbsp;&nbsp;28. A&nbsp;&nbsp;29. D&nbsp;&nbsp;30. B&nbsp;&nbsp;31. G&nbsp;&nbsp;32. E&nbsp;&nbsp;33. A&nbsp;&nbsp;34. F&nbsp;&nbsp;35. B&nbsp;&nbsp;36. NO&nbsp;&nbsp;37. YES&nbsp;&nbsp;38. NOT GIVEN&nbsp;&nbsp;39. NOT GIVEN&nbsp;&nbsp;40. NO
+                            </div>
+                        </div>
 
-<!-- ✅ CAMBRIDGE 10 TEST 3 -->
-<div class="test-card">
-    <div class="test-icon">📖</div>
-    <h3 class="test-title">Cambridge 10 Test 3</h3>
-    <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
-    <div class="test-meta">
-        <span>⏱️ 60 min</span>
-        <span>❓ 40 questions</span>
-    </div>
-    
-    <div style="margin: 12px 0; display: flex; flex-direction: row; gap: 8px; width: 100%;">
-        <a href="reading/reading-passage1-C10T3.html" class="btn-start passage-btn" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 1</a>
-        <a href="reading/reading-passage2-C10T3.html" class="btn-start passage-btn" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 2</a>
-        <a href="reading/reading-passage3-C10T3.html" class="btn-start passage-btn" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 3</a>
-    </div>
+                        <a href="reading/C10T1.html" class="btn-start">Start Full Test →</a>
+                    </div>
 
-    <button class="btn-start toggle-answers" style="background: #fef2f2; color: #dc2626; border:1px solid #fecaca; margin: 8px 0;">
-        👁️ Show / Hide Answers
-    </button>
+                    <!-- ✅ CAMBRIDGE 10 TEST 2 -->
+                    <div class="test-card">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 10 Test 2</h3>
+                        <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 60 min</span>
+                            <span>❓ 40 questions</span>
+                        </div>
+                        
+                        <div style="margin: 12px 0; display: flex; flex-direction: row; gap: 8px; width: 100%;">
+                            <a href="reading/reading-passage1-C10T2.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 1</a>
+                            <a href="reading/reading-passage2-C10T2.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 2</a>
+                            <a href="reading/reading-passage3-C10T2.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 3</a>
+                        </div>
 
-    <div class="answers-container">
-        <h4>📖 Reading Answers — Cambridge 10 Test 3</h4>
-        <div class="answers-list">
-            <strong>Passage 1 — [Topic Name]:</strong><br>
-            1. &nbsp;&nbsp;2. &nbsp;&nbsp;3. &nbsp;&nbsp;4. &nbsp;&nbsp;5. &nbsp;&nbsp;6. &nbsp;&nbsp;7. &nbsp;&nbsp;8. &nbsp;&nbsp;9. &nbsp;&nbsp;10. &nbsp;&nbsp;11. &nbsp;&nbsp;12. &nbsp;&nbsp;13.<br><br>
-            <strong>Passage 2 — [Topic Name]:</strong><br>
-            14. &nbsp;&nbsp;15. &nbsp;&nbsp;16. &nbsp;&nbsp;17. &nbsp;&nbsp;18. &nbsp;&nbsp;19. &nbsp;&nbsp;20. &nbsp;&nbsp;21. &nbsp;&nbsp;22. &nbsp;&nbsp;23. &nbsp;&nbsp;24. &nbsp;&nbsp;25. &nbsp;&nbsp;26.<br><br>
-            <strong>Passage 3 — [Topic Name]:</strong><br>
-            27. &nbsp;&nbsp;28. &nbsp;&nbsp;29. &nbsp;&nbsp;30. &nbsp;&nbsp;31. &nbsp;&nbsp;32. &nbsp;&nbsp;33. &nbsp;&nbsp;34. &nbsp;&nbsp;35. &nbsp;&nbsp;36. &nbsp;&nbsp;37. &nbsp;&nbsp;38. &nbsp;&nbsp;39. &nbsp;&nbsp;40.
-        </div>
-    </div>
+                        <button class="btn-start toggle-answers" style="background: #fef2f2; color: #dc2626; border:1px solid #fecaca; margin: 8px 0;">
+                            👁️ Show / Hide Answers
+                        </button>
 
-    <a href="reading/C10T3.html" class="btn-start">Start Full Test →</a>
-</div>
+                        <div class="answers-container">
+                            <h4>📖 Reading Answers — Cambridge 10 Test 2</h4>
+                            <div class="answers-list">
+                                <strong>Passage 1 — [Topic Name]:</strong><br>
+                                1. &nbsp;&nbsp;2. &nbsp;&nbsp;3. &nbsp;&nbsp;4. &nbsp;&nbsp;5. &nbsp;&nbsp;6. &nbsp;&nbsp;7. &nbsp;&nbsp;8. &nbsp;&nbsp;9. &nbsp;&nbsp;10. &nbsp;&nbsp;11. &nbsp;&nbsp;12. &nbsp;&nbsp;13.<br><br>
+                                <strong>Passage 2 — [Topic Name]:</strong><br>
+                                14. &nbsp;&nbsp;15. &nbsp;&nbsp;16. &nbsp;&nbsp;17. &nbsp;&nbsp;18. &nbsp;&nbsp;19. &nbsp;&nbsp;20. &nbsp;&nbsp;21. &nbsp;&nbsp;22. &nbsp;&nbsp;23. &nbsp;&nbsp;24. &nbsp;&nbsp;25. &nbsp;&nbsp;26.<br><br>
+                                <strong>Passage 3 — [Topic Name]:</strong><br>
+                                27. &nbsp;&nbsp;28. &nbsp;&nbsp;29. &nbsp;&nbsp;30. &nbsp;&nbsp;31. &nbsp;&nbsp;32. &nbsp;&nbsp;33. &nbsp;&nbsp;34. &nbsp;&nbsp;35. &nbsp;&nbsp;36. &nbsp;&nbsp;37. &nbsp;&nbsp;38. &nbsp;&nbsp;39. &nbsp;&nbsp;40.
+                            </div>
+                        </div>
 
-<!-- ✅ CAMBRIDGE 10 TEST 4 -->
-<div class="test-card">
-    <div class="test-icon">📖</div>
-    <h3 class="test-title">Cambridge 10 Test 4</h3>
-    <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
-    <div class="test-meta">
-        <span>⏱️ 60 min</span>
-        <span>❓ 40 questions</span>
-    </div>
-    
-    <div style="margin: 12px 0; display: flex; flex-direction: row; gap: 8px; width: 100%;">
-        <a href="reading/reading-passage1-C10T4.html" class="btn-start passage-btn" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 1</a>
-        <a href="reading/reading-passage2-C10T4.html" class="btn-start passage-btn" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 2</a>
-        <a href="reading/reading-passage3-C10T4.html" class="btn-start passage-btn" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 3</a>
-    </div>
+                        <a href="reading/C10T2.html" class="btn-start">Start Full Test →</a>
+                    </div>
 
-    <button class="btn-start toggle-answers" style="background: #fef2f2; color: #dc2626; border:1px solid #fecaca; margin: 8px 0;">
-        👁️ Show / Hide Answers
-    </button>
+                    <!-- ✅ CAMBRIDGE 10 TEST 3 -->
+                    <div class="test-card">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 10 Test 3</h3>
+                        <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 60 min</span>
+                            <span>❓ 40 questions</span>
+                        </div>
+                        
+                        <div style="margin: 12px 0; display: flex; flex-direction: row; gap: 8px; width: 100%;">
+                            <a href="reading/reading-passage1-C10T3.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 1</a>
+                            <a href="reading/reading-passage2-C10T3.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 2</a>
+                            <a href="reading/reading-passage3-C10T3.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 3</a>
+                        </div>
 
-    <div class="answers-container">
-        <h4>📖 Reading Answers — Cambridge 10 Test 4</h4>
-        <div class="answers-list">
-            <strong>Passage 1 — [Topic Name]:</strong><br>
-            1. &nbsp;&nbsp;2. &nbsp;&nbsp;3. &nbsp;&nbsp;4. &nbsp;&nbsp;5. &nbsp;&nbsp;6. &nbsp;&nbsp;7. &nbsp;&nbsp;8. &nbsp;&nbsp;9. &nbsp;&nbsp;10. &nbsp;&nbsp;11. &nbsp;&nbsp;12. &nbsp;&nbsp;13.<br><br>
-            <strong>Passage 2 — [Topic Name]:</strong><br>
-            14. &nbsp;&nbsp;15. &nbsp;&nbsp;16. &nbsp;&nbsp;17. &nbsp;&nbsp;18. &nbsp;&nbsp;19. &nbsp;&nbsp;20. &nbsp;&nbsp;21. &nbsp;&nbsp;22. &nbsp;&nbsp;23. &nbsp;&nbsp;24. &nbsp;&nbsp;25. &nbsp;&nbsp;26.<br><br>
-            <strong>Passage 3 — [Topic Name]:</strong><br>
-            27. &nbsp;&nbsp;28. &nbsp;&nbsp;29. &nbsp;&nbsp;30. &nbsp;&nbsp;31. &nbsp;&nbsp;32. &nbsp;&nbsp;33. &nbsp;&nbsp;34. &nbsp;&nbsp;35. &nbsp;&nbsp;36. &nbsp;&nbsp;37. &nbsp;&nbsp;38. &nbsp;&nbsp;39. &nbsp;&nbsp;40.
-        </div>
-    </div>
+                        <button class="btn-start toggle-answers" style="background: #fef2f2; color: #dc2626; border:1px solid #fecaca; margin: 8px 0;">
+                            👁️ Show / Hide Answers
+                        </button>
 
-    <a href="reading/C10T4.html" class="btn-start">Start Full Test →</a>
-</div>
-            
-            <!-- ✅ 3 PASSAGES: ALL INSIDE, SAME ROW, SAME STYLE -->
-            <div style="margin: 12px 0; display: flex; flex-direction: row; gap: 8px; width: 100%;">
-                <a href="reading/reading-stepwells.html" class="btn-start" style="
-                    background: #fef2f2; 
-                    color: #991b1b; 
-                    border: 1px solid #fecaca; 
-                    font-size: 12px; 
-                    padding: 6px 0; 
-                    flex: 1;
-                    margin: 0;
-                ">📄 Stepwells</a>
+                        <div class="answers-container">
+                            <h4>📖 Reading Answers — Cambridge 10 Test 3</h4>
+                            <div class="answers-list">
+                                <strong>Passage 1 — [Topic Name]:</strong><br>
+                                1. &nbsp;&nbsp;2. &nbsp;&nbsp;3. &nbsp;&nbsp;4. &nbsp;&nbsp;5. &nbsp;&nbsp;6. &nbsp;&nbsp;7. &nbsp;&nbsp;8. &nbsp;&nbsp;9. &nbsp;&nbsp;10. &nbsp;&nbsp;11. &nbsp;&nbsp;12. &nbsp;&nbsp;13.<br><br>
+                                <strong>Passage 2 — [Topic Name]:</strong><br>
+                                14. &nbsp;&nbsp;15. &nbsp;&nbsp;16. &nbsp;&nbsp;17. &nbsp;&nbsp;18. &nbsp;&nbsp;19. &nbsp;&nbsp;20. &nbsp;&nbsp;21. &nbsp;&nbsp;22. &nbsp;&nbsp;23. &nbsp;&nbsp;24. &nbsp;&nbsp;25. &nbsp;&nbsp;26.<br><br>
+                                <strong>Passage 3 — [Topic Name]:</strong><br>
+                                27. &nbsp;&nbsp;28. &nbsp;&nbsp;29. &nbsp;&nbsp;30. &nbsp;&nbsp;31. &nbsp;&nbsp;32. &nbsp;&nbsp;33. &nbsp;&nbsp;34. &nbsp;&nbsp;35. &nbsp;&nbsp;36. &nbsp;&nbsp;37. &nbsp;&nbsp;38. &nbsp;&nbsp;39. &nbsp;&nbsp;40.
+                            </div>
+                        </div>
 
-                <a href="reading/reading-transport.html" class="btn-start" style="
-                    background: #fef2f2; 
-                    color: #991b1b; 
-                    border: 1px solid #fecaca; 
-                    font-size: 12px; 
-                    padding: 6px 0; 
-                    flex: 1;
-                    margin: 0;
-                ">📄 Transport</a>
+                        <a href="reading/C10T3.html" class="btn-start">Start Full Test →</a>
+                    </div>
 
-                <a href="reading/reading-innovation.html" class="btn-start" style="
-                    background: #fef2f2; 
-                    color: #991b1b; 
-                    border: 1px solid #fecaca; 
-                    font-size: 12px; 
-                    padding: 6px 0; 
-                    flex: 1;
-                    margin: 0;
-                ">📄 Innovation</a>
-            </div>
+                    <!-- ✅ CAMBRIDGE 10 TEST 4 -->
+                    <div class="test-card">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 10 Test 4</h3>
+                        <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 60 min</span>
+                            <span>❓ 40 questions</span>
+                        </div>
+                        
+                        <div style="margin: 12px 0; display: flex; flex-direction: row; gap: 8px; width: 100%;">
+                            <a href="reading/reading-passage1-C10T4.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 1</a>
+                            <a href="reading/reading-passage2-C10T4.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 2</a>
+                            <a href="reading/reading-passage3-C10T4.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 3</a>
+                        </div>
 
-            <!-- ✅ SHOW / HIDE ANSWERS — INSIDE SAME CARD -->
-            <button id="toggleAnswers" class="btn-start" style="background: #fef2f2; color: #dc2626; border:1px solid #fecaca; margin: 8px 0;">
-                👁️ Show / Hide Answers
-            </button>
+                        <button class="btn-start toggle-answers" style="background: #fef2f2; color: #dc2626; border:1px solid #fecaca; margin: 8px 0;">
+                            👁️ Show / Hide Answers
+                        </button>
 
-            <!-- ✅ ANSWERS BOX — INSIDE SAME CARD -->
-            <div id="answersBox" class="answers-container">
-                <h4>📖 Reading Answers — Cambridge 10 Test 1</h4>
-                <div class="answers-list">
-                    <strong>Passage 1 — Stepwells:</strong><br>
-                    1. iii&nbsp;&nbsp;2. vii&nbsp;&nbsp;3. ii&nbsp;&nbsp;4. iv&nbsp;&nbsp;5. i&nbsp;&nbsp;6. NO&nbsp;&nbsp;7. YES&nbsp;&nbsp;8. NOT GIVEN&nbsp;&nbsp;9. NO&nbsp;&nbsp;10. YES&nbsp;&nbsp;11. C&nbsp;&nbsp;12. D&nbsp;&nbsp;13. A<br><br>
+                        <div class="answers-container">
+                            <h4>📖 Reading Answers — Cambridge 10 Test 4</h4>
+                            <div class="answers-list">
+                                <strong>Passage 1 — [Topic Name]:</strong><br>
+                                1. &nbsp;&nbsp;2. &nbsp;&nbsp;3. &nbsp;&nbsp;4. &nbsp;&nbsp;5. &nbsp;&nbsp;6. &nbsp;&nbsp;7. &nbsp;&nbsp;8. &nbsp;&nbsp;9. &nbsp;&nbsp;10. &nbsp;&nbsp;11. &nbsp;&nbsp;12. &nbsp;&nbsp;13.<br><br>
+                                <strong>Passage 2 — [Topic Name]:</strong><br>
+                                14. &nbsp;&nbsp;15. &nbsp;&nbsp;16. &nbsp;&nbsp;17. &nbsp;&nbsp;18. &nbsp;&nbsp;19. &nbsp;&nbsp;20. &nbsp;&nbsp;21. &nbsp;&nbsp;22. &nbsp;&nbsp;23. &nbsp;&nbsp;24. &nbsp;&nbsp;25. &nbsp;&nbsp;26.<br><br>
+                                <strong>Passage 3 — [Topic Name]:</strong><br>
+                                27. &nbsp;&nbsp;28. &nbsp;&nbsp;29. &nbsp;&nbsp;30. &nbsp;&nbsp;31. &nbsp;&nbsp;32. &nbsp;&nbsp;33. &nbsp;&nbsp;34. &nbsp;&nbsp;35. &nbsp;&nbsp;36. &nbsp;&nbsp;37. &nbsp;&nbsp;38. &nbsp;&nbsp;39. &nbsp;&nbsp;40.
+                            </div>
+                        </div>
 
-                    <strong>Passage 2 — Transport:</strong><br>
-                    14. TRUE&nbsp;&nbsp;15. FALSE&nbsp;&nbsp;16. NOT GIVEN&nbsp;&nbsp;17. FALSE&nbsp;&nbsp;18. TRUE&nbsp;&nbsp;19. FALSE&nbsp;&nbsp;20. NOT GIVEN&nbsp;&nbsp;21. F&nbsp;&nbsp;22. D&nbsp;&nbsp;23. C&nbsp;&nbsp;24. E&nbsp;&nbsp;25. A&nbsp;&nbsp;26. B<br><br>
+                        <a href="reading/C10T4.html" class="btn-start">Start Full Test →</a>
+                    </div>
 
-                    <strong>Passage 3 — Innovation:</strong><br>
-                    27. C&nbsp;&nbsp;28. A&nbsp;&nbsp;29. D&nbsp;&nbsp;30. B&nbsp;&nbsp;31. G&nbsp;&nbsp;32. E&nbsp;&nbsp;33. A&nbsp;&nbsp;34. F&nbsp;&nbsp;35. B&nbsp;&nbsp;36. NO&nbsp;&nbsp;37. YES&nbsp;&nbsp;38. NOT GIVEN&nbsp;&nbsp;39. NOT GIVEN&nbsp;&nbsp;40. NO
                 </div>
             </div>
 
-            <!-- ✅ FULL TEST BUTTON — INSIDE SAME CARD -->
-            <a href="reading/C10T1.html" class="btn-start">Start Full Test →</a>
-        </div>
-    </div>
-</div>
-
+            <!-- ✅ LISTENING SECTION -->
             <div class="section-content" id="listening">
                 <div class="tests-grid">
                     <div class="test-card">
@@ -583,9 +581,40 @@
                         </div>
                         <a href="listening/C10T1.html" class="btn-start">Start Practice →</a>
                     </div>
+                    <div class="test-card">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 10 Test 2</h3>
+                        <p class="test-desc">Full IELTS Academic Listening test — 4 sections, 40 questions.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 30 min</span>
+                            <span>❓ 40 questions</span>
+                        </div>
+                        <a href="listening/C10T2.html" class="btn-start">Start Practice →</a>
+                    </div>
+                    <div class="test-card">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 10 Test 3</h3>
+                        <p class="test-desc">Full IELTS Academic Listening test — 4 sections, 40 questions.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 30 min</span>
+                            <span>❓ 40 questions</span>
+                        </div>
+                        <a href="listening/C10T3.html" class="btn-start">Start Practice →</a>
+                    </div>
+                    <div class="test-card">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 10 Test 4</h3>
+                        <p class="test-desc">Full IELTS Academic Listening test — 4 sections, 40 questions.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 30 min</span>
+                            <span>❓ 40 questions</span>
+                        </div>
+                        <a href="listening/C10T4.html" class="btn-start">Start Practice →</a>
+                    </div>
                 </div>
             </div>
 
+            <!-- ✅ WRITING SECTION -->
             <div class="section-content" id="writing">
                 <div class="tests-grid">
                     <div class="test-card">
@@ -598,9 +627,40 @@
                         </div>
                         <a href="writing/C10T1.html" class="btn-start">Start Practice →</a>
                     </div>
+                    <div class="test-card">
+                        <div class="test-icon">✍️</div>
+                        <h3 class="test-title">Cambridge 10 Test 2</h3>
+                        <p class="test-desc">Writing Task 1 & Task 2 — Report + Essay.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 60 min</span>
+                            <span>❓ 2 tasks</span>
+                        </div>
+                        <a href="writing/C10T2.html" class="btn-start">Start Practice →</a>
+                    </div>
+                    <div class="test-card">
+                        <div class="test-icon">✍️</div>
+                        <h3 class="test-title">Cambridge 10 Test 3</h3>
+                        <p class="test-desc">Writing Task 1 & Task 2 — Report + Essay.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 60 min</span>
+                            <span>❓ 2 tasks</span>
+                        </div>
+                        <a href="writing/C10T3.html" class="btn-start">Start Practice →</a>
+                    </div>
+                    <div class="test-card">
+                        <div class="test-icon">✍️</div>
+                        <h3 class="test-title">Cambridge 10 Test 4</h3>
+                        <p class="test-desc">Writing Task 1 & Task 2 — Report + Essay.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 60 min</span>
+                            <span>❓ 2 tasks</span>
+                        </div>
+                        <a href="writing/C10T4.html" class="btn-start">Start Practice →</a>
+                    </div>
                 </div>
             </div>
 
+            <!-- ✅ SPEAKING SECTION -->
             <div class="section-content" id="speaking">
                 <div class="tests-grid">
                     <div class="test-card">
@@ -611,14 +671,43 @@
                             <span>⏱️ 11–14 min</span>
                             <span>❓ Full test</span>
                         </div>
-                       <a href="speaking/cambridge-10-test-1.html" class="btn-start">Start Practice →</a>
+                        <a href="speaking/cambridge-10-test-1.html" class="btn-start">Start Practice →</a>
+                    </div>
+                    <div class="test-card">
+                        <div class="test-icon">🎤</div>
+                        <h3 class="test-title">Cambridge 10 Test 2</h3>
+                        <p class="test-desc">Speaking Part 1, 2 & 3 — Full test.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 11–14 min</span>
+                            <span>❓ Full test</span>
+                        </div>
+                        <a href="speaking/cambridge-10-test-2.html" class="btn-start">Start Practice →</a>
+                    </div>
+                    <div class="test-card">
+                        <div class="test-icon">🎤</div>
+                        <h3 class="test-title">Cambridge 10 Test 3</h3>
+                        <p class="test-desc">Speaking Part 1, 2 & 3 — Full test.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 11–14 min</span>
+                            <span>❓ Full test</span>
+                        </div>
+                        <a href="speaking/cambridge-10-test-3.html" class="btn-start">Start Practice →</a>
+                    </div>
+                    <div class="test-card">
+                        <div class="test-icon">🎤</div>
+                        <h3 class="test-title">Cambridge 10 Test 4</h3>
+                        <p class="test-desc">Speaking Part 1, 2 & 3 — Full test.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 11–14 min</span>
+                            <span>❓ Full test</span>
+                        </div>
+                        <a href="speaking/cambridge-10-test-4.html" class="btn-start">Start Practice →</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ✅ TEACHERS: FAR BOTTOM, STRAIGHT LINE, CLEAR PHOTOS -->
     <div class="teachers-section">
         <h2>Our Teachers</h2>
         <div class="teachers-grid">
@@ -666,18 +755,17 @@
             });
         });
 
-        // ✅ TOGGLE SHOW / HIDE ANSWERS
-        const toggleBtn = document.getElementById('toggleAnswers');
-        const answersBox = document.getElementById('answersBox');
-
-        toggleBtn.addEventListener('click', () => {
-            if (answersBox.style.display === 'block') {
-                answersBox.style.display = 'none';
-                toggleBtn.innerHTML = '👁️ Show / Hide Answers';
-            } else {
-                answersBox.style.display = 'block';
-                toggleBtn.innerHTML = '👁️ Hide Answers';
-            }
+        document.querySelectorAll('.toggle-answers').forEach(button => {
+            button.addEventListener('click', () => {
+                const answersBox = button.nextElementSibling;
+                if (answersBox.style.display === 'block') {
+                    answersBox.style.display = 'none';
+                    button.textContent = '👁️ Show / Hide Answers';
+                } else {
+                    answersBox.style.display = 'block';
+                    button.textContent = '👁️ Hide Answers';
+                }
+            });
         });
     </script>
 
