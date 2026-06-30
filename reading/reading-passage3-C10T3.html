@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading - Beyond the blue horizon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+
+        body {
+            background-color: #fef2f2;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        /* ✅ LOGO STYLES */
+        .logo-container {
+            width: 100%;
+            background: #ffffff;
+            border-bottom: 2px solid #dc2626;
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
+        }
+        .logo {
+            width: 40%;
+            max-width: 350px;
+            height: auto;
+            display: block;
+        }
+
+        /* ✅ TWO‑COLUMN LAYOUT */
+        .main-wrapper {
+            display: flex;
+            gap: 20px;
+            padding: 0 20px 20px;
+            height: calc(100vh - 130px);
+        }
+
+        .passage-column, .questions-column {
+            flex: 1;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #fecaca;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07);
+        }
+
+        h1 {
+            color: #dc2626;
+            font-size: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #991b1b;
+            font-size: 17px;
+            margin: 15px 0 8px;
+        }
+
+        .passage-text p {
+            margin-bottom: 12px;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background-color: #fff350;
+            padding: 2px 0;
+        }
+
+        .question-block {
+            margin-bottom: 16px;
+        }
+
+        .question-block p {
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .options label {
+            display: block;
+            margin-left: 15px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* ✅ INPUT STYLE FOR INLINE BLANKS */
+        .answer-input {
+            width: auto;
+            min-width: 90px;
+            padding: 2px 6px;
+            margin: 0 6px;
+            border: 1px solid #dc2626;
+            border-radius: 4px;
+            font-size: 14px;
+            background: #fff;
+            text-align: center;
+        }
+
+        /* For other questions, keep full width */
+        .full-width {
+            width: 100%;
+            padding: 6px 10px;
+            background: #fef2f2;
+        }
+
+        .action-buttons {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .toggle-answers, .show-student, .clear-highlight {
+            padding: 8px 16px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .toggle-answers:hover, .show-student:hover, .clear-highlight:hover {
+            background: #b91c1c;
+        }
+
+        /* ✅ Results boxes */
+        .answers-box, .student-answers-box {
+            margin-top: 12px;
+            padding: 12px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            display: none;
+            font-size: 13px;
+        }
+
+        .correct { color: green; font-weight: 600; }
+        .wrong { color: red; font-weight: 600; }
+        .no-answer { color: #888; }
+
+        /* ✅ NAVIGATION BUTTONS */
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 0 20px 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .back-btn, .next-btn {
+            padding: 10px 20px;
+            background: #fef2f2;
+            color: #dc2626;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 1px solid #fecaca;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .back-btn:hover, .next-btn:hover {
+            background: #ffffff;
+        }
+
+        /* ✅ List of options styling */
+        .options-list {
+            margin: 10px 0 15px 20px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo-container">
+        <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
+    </div>
+
+    <!-- ✅ TWO COLUMNS: LEFT = PASSAGE | RIGHT = QUESTIONS -->
+    <div class="main-wrapper">
+        <!-- LEFT SIDE: PASSAGE TEXT -->
+        <div class="passage-column" id="passageArea">
+            <h1>Reading Passage 3 — Beyond the blue horizon</h1>
+            <p><em>Ancient voyagers who settled the far‑flung islands of the Pacific Ocean</em></p>
+
+            <p>An important archaeological discovery on the island of Éfaté in the Pacific archipelago of Vanuatu has revealed traces of an ancient seafaring people, the distant ancestors of today’s Polynesians. The site came to light only by chance. An agricultural worker, digging in the grounds of a derelict plantation, scraped open a grave – the first of dozens in a burial ground some 3,000 years old. It is the oldest cemetery ever found in the Pacific islands, and it harbors the remains of an ancient people archaeologists call the Lapita.</p>
+
+            <p>They were daring blue‑water adventurers who used basic canoes to rove across the ocean. But they were not just explorers. They were also pioneers who carried with them everything they would need to build new lives – their livestock, taro seedlings and stone tools. Within the span of several centuries, the Lapita stretched the boundaries of their world from the jungle‑clad volcanoes of Papua New Guinea to the loneliest coral outliers of Tonga.</p>
+
+            <p>The Lapita left precious few clues about themselves, but Éfaté expands the volume of data available to researchers dramatically. The remains of 62 individuals have been uncovered so far, and archaeologists were also thrilled to find six complete Lapita pots. Other items included a Lapita burial urn with modeled birds arranged on the rim as though peering down at the human remains sealed inside. ‘It’s an important discovery,’ says Matthew Spriggs, professor of archaeology at the Australian National University and head of the international team digging up the site, ‘for it conclusively identifies the remains as Lapita.’</p>
+
+            <p>DNA teased from these human remains may help answer one of the most puzzling questions in Pacific anthropology: did all Pacific islanders spring from one source or many? Was there only one outward migration from a single point in Asia, or several from different points? ‘This represents the best opportunity we’ve had yet,’ says Spriggs, ‘to find out who the Lapita actually were, where they came from, and who their closest descendants are today.’</p>
+
+            <p>There is one stubborn question for which archaeology has yet to provide any answers: how did the Lapita accomplish the ancient equivalent of a moon landing, many times over? No‑one has found one of their canoes or any rigging, which could reveal how the canoes were sailed. Nor do the oral histories and traditions of later Polynesians offer any insights, for they turn into myths long before they reach as far back in time as the Lapita.</p>
+
+            <p>‘All we can say for certain is that the Lapita had canoes that were capable of ocean voyages, and they had the ability to sail them,’ says Geoff Irwin, a professor of archaeology at the University of Auckland. Those sailing skills, he says, were developed and passed down over thousands of years by earlier mariners who worked their way through the archipelagos of the western Pacific, making short crossings to nearby islands. The real adventure didn’t begin, however, until their Lapita descendants sailed out of sight of land, with empty horizons on every side. This must have been as difficult for them as landing on the moon is for us today. Certainly it distinguished them from their ancestors, but what gave them the courage to launch out on such risky voyages?</p>
+
+            <p>The Lapita’s thrust into the Pacific was eastward, against the prevailing trade winds, Irwin notes. Those nagging headwinds, he argues, may have been the key to their success. ‘They could sail out for days into the unknown and assess the area, secure in the knowledge that if they didn’t find anything, they could turn about and catch a swift ride back on the trade winds. This is what would have made the whole thing work.’ Once out there, skilled seafarers would have detected abundant leads to follow to land: seabirds, coconuts and twigs carried out to sea by the tides, and the afternoon pile‑up of clouds on the horizon which often indicates an island in the distance.</p>
+
+            <p>For returning explorers, successful or not, the geography of their own archipelagos would have provided a safety net. Without this to go by, overshooting their home ports, getting lost and sailing off into eternity would have been all too easy. Vanuatu, for example, stretches more than 500 miles in a northwest‑southeast trend, its scores of intervisible islands forming a backstop for mariners riding the trade winds home.</p>
+
+            <p>All this presupposes one essential detail, says Atholl Anderson, professor of prehistory at the Australian National University: the Lapita had mastered the advanced art of sailing against the wind. ‘And there’s no proof they could do any such thing,’ Anderson says. ‘There has been this assumption they did, and people have built canoes to re‑create those early voyages based on that assumption. But nobody has any idea what their canoes looked like or how they were rigged.’</p>
+
+            <p>Rather than give all the credit to human skill, Anderson invokes the winds of chance. El Niño, the same climate disruption that affects the Pacific today, may have helped scatter the Lapita, Anderson suggests. He points out that climate data obtained from slow‑growing corals around the Pacific indicate a series of unusually frequent El Niños around the time of the Lapita expansion. By reversing the regular east‑to‑west flow of the trade winds for weeks at a time, these ‘super El Niños’ might have taken the Lapita on long unplanned voyages.</p>
+
+            <p>However they did it, the Lapita spread themselves a third of the way across the Pacific, then called it quits for reasons known only to them. Ahead lay the vast emptiness of the central Pacific and perhaps they were too thinly stretched to venture farther. They probably never numbered more than a few thousand in total, and in their rapid migration eastward they encountered hundreds of islands – more than 300 in Fiji alone.</p>
+        </div>
+
+        <!-- RIGHT SIDE: QUESTIONS -->
+        <div class="questions-column">
+            <div class="questions-section">
+                <h2>Questions 27–31: Summary Completion</h2>
+                <p><em>Complete the summary using the list of words and phrases, A–J, below. Write the correct letter, A–J.</em></p>
+
+                <div class="options-list">
+                    <strong>A</strong> proof &nbsp;&nbsp;&nbsp;&nbsp; <strong>B</strong> plantation &nbsp;&nbsp;&nbsp;&nbsp; <strong>C</strong> harbour<br>
+                    <strong>D</strong> bones &nbsp;&nbsp;&nbsp;&nbsp; <strong>E</strong> data &nbsp;&nbsp;&nbsp;&nbsp; <strong>F</strong> archaeological discovery<br>
+                    <strong>G</strong> burial urn &nbsp;&nbsp;&nbsp;&nbsp; <strong>H</strong> source &nbsp;&nbsp;&nbsp;&nbsp; <strong>I</strong> animals &nbsp;&nbsp;&nbsp;&nbsp; <strong>J</strong> maps
+                </div>
+
+                <div class="question-block">
+                    <p>A 3,000‑year‑old burial ground of a seafaring people called the Lapita has been found on an abandoned
+                    <strong>27.</strong> <input type="text" class="answer-input" name="q27" placeholder="A–J">
+                    on the Pacific island of Éfaté. The cemetery, which is a significant
+                    <strong>28.</strong> <input type="text" class="answer-input" name="q28" placeholder="A–J">
+                    , was uncovered accidentally by an agricultural worker.</p>
+                </div>
+
+                <div class="question-block">
+                    <p>The Lapita explored and colonised many Pacific islands over several centuries. They took many things with them on their voyages including
+                    <strong>29.</strong> <input type="text" class="answer-input" name="q29" placeholder="A–J">
+                    and tools.</p>
+                </div>
+
+                <div class="question-block">
+                    <p>The burial ground increases the amount of information about the Lapita available to scientists. A team of researchers, led by Matthew Spriggs from the Australian National University, are helping with the excavation of the site. Spriggs believes the
+                    <strong>30.</strong> <input type="text" class="answer-input" name="q30" placeholder="A–J">
+                    which was found at the site is very important since it confirms that the
+                    <strong>31.</strong> <input type="text" class="answer-input" name="q31" placeholder="A–J">
+                    found inside are Lapita.</p>
+                </div>
+
+
+                <h2>Questions 32–35: Multiple Choice</h2>
+                <p><em>Choose the correct letter, A, B, C or D.</em></p>
+
+                <div class="question-block">
+                    <p>32 According to the writer, there are difficulties explaining how the Lapita accomplished their journeys because</p>
+                    <div class="options">
+                        <label><input type="radio" name="q32" value="A"> A the canoes that have been discovered offer relatively few clues.</label>
+                        <label><input type="radio" name="q32" value="B"> B archaeologists have shown limited interest in this area of research.</label>
+                        <label><input type="radio" name="q32" value="C"> C little information relating to this period can be relied upon for accuracy.</label>
+                        <label><input type="radio" name="q32" value="D"> D technological advances have altered the way such achievements are viewed.</label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p>33 According to the sixth paragraph, what was extraordinary about the Lapita?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q33" value="A"> A They sailed beyond the point where land was visible.</label>
+                        <label><input type="radio" name="q33" value="B"> B Their cultural heritage discouraged the expression of fear.</label>
+                        <label><input type="radio" name="q33" value="C"> C They were able to build canoes that withstood ocean voyages.</label>
+                        <label><input type="radio" name="q33" value="D"> D Their navigational skills were passed on from one generation to the next.</label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p>34 What does ‘This’ refer to in the seventh paragraph?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q34" value="A"> A the Lapita’s seafaring talent</label>
+                        <label><input type="radio" name="q34" value="B"> B the Lapita’s ability to detect signs of land</label>
+                        <label><input type="radio" name="q34" value="C"> C the Lapita’s extensive knowledge of the region</label>
+                        <label><input type="radio" name="q34" value="D"> D the Lapita’s belief they would be able to return home</label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p>35 According to the eighth paragraph, how was the geography of the region significant?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q35" value="A"> A It played an important role in Lapita culture.</label>
+                        <label><input type="radio" name="q35" value="B"> B It meant there were relatively few storms at sea.</label>
+                        <label><input type="radio" name="q35" value="C"> C It provided a navigational aid for the Lapita.</label>
+                        <label><input type="radio" name="q35" value="D"> D It made a large number of islands habitable.</label>
+                    </div>
+                </div>
+
+
+                <h2>Questions 36–40: YES / NO / NOT GIVEN</h2>
+                <p><em>Do the following statements agree with the views of the writer?</em></p>
+                <p><strong>YES</strong> — if the statement agrees<br>
+                <strong>NO</strong> — if the statement contradicts<br>
+                <strong>NOT GIVEN</strong> — if there is no information</p>
+
+                <div class="question-block">
+                    <p>36 It is now clear that the Lapita could sail into a prevailing wind.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q36" value="YES"> YES</label>
+                        <label><input type="radio" name="q36" value="NO"> NO</label>
+                        <label><input type="radio" name="q36" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p>37 Extreme climate conditions may have played a role in Lapita migration.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q37" value="YES"> YES</label>
+                        <label><input type="radio" name="q37" value="NO"> NO</label>
+                        <label><input type="radio" name="q37" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p>38 The Lapita learnt to predict the duration of El Niños.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q38" value="YES"> YES</label>
+                        <label><input type="radio" name="q38" value="NO"> NO</label>
+                        <label><input type="radio" name="q38" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p>39 It remains unclear why the Lapita halted their expansion across the Pacific.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q39" value="YES"> YES</label>
+                        <label><input type="radio" name="q39" value="NO"> NO</label>
+                        <label><input type="radio" name="q39" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p>40 It is likely that the majority of Lapita settled on Fiji.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q40" value="YES"> YES</label>
+                        <label><input type="radio" name="q40" value="NO"> NO</label>
+                        <label><input type="radio" name="q40" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+
+
+                <div class="action-buttons">
+                    <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear Highlights</button>
+                    <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
+                    <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
+                </div>
+
+                <!-- ✅ CORRECT ANSWER KEY -->
+                <div class="answers-box" id="answersBox">
+                    <h3>✅ Correct Answers — Passage 3</h3>
+                    <p><strong>27.</strong> B<br>
+                    <strong>28.</strong> F<br>
+                    <strong>29.</strong> I<br>
+                    <strong>30.</strong> G<br>
+                    <strong>31.</strong> D<br>
+                    <strong>32.</strong> A<br>
+                    <strong>33.</strong> A<br>
+                    <strong>34.</strong> D<br>
+                    <strong>35.</strong> C<br>
+                    <strong>36.</strong> NO<br>
+                    <strong>37.</strong> YES<br>
+                    <strong>38.</strong> NOT GIVEN<br>
+                    <strong>39.</strong> YES<br>
+                    <strong>40.</strong> NOT GIVEN</p>
+                </div>
+
+                <!-- ✅ STUDENT ANSWERS & RESULT -->
+                <div class="student-answers-box" id="studentAnswersBox">
+                    <h3>📝 Your Answers & Score</h3>
+                    <div id="studentResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ NAVIGATION BUTTONS -->
+    <div class="nav-buttons">
+        <a href="reading-passage2-C10T3.html" class="back-btn">← Previous Passage</a>
+        <a href="../index.html" class="back-btn">← Back to Main Menu</a>
+    </div>
+
+    <script>
+        // ✅ Correct answer data
+        const correctAnswers = {
+            q27: 'B',
+            q28: 'F',
+            q29: 'I',
+            q30: 'G',
+            q31: 'D',
+            q32: 'A',
+            q33: 'A',
+            q34: 'D',
+            q35: 'C',
+            q36: 'NO',
+            q37: 'YES',
+            q38: 'NOT GIVEN',
+            q39: 'YES',
+            q40: 'NOT GIVEN'
+        };
+
+        // ✅ Save answers to localStorage
+        function saveAnswers() {
+            let answers = {};
+            for (let q = 27; q <= 40; q++) {
+                const radios = document.getElementsByName(`q${q}`);
+                if (radios.length > 0) {
+                    for (let r of radios) {
+                        if (r.checked) answers[`q${q}`] = r.value;
+                    }
+                } else {
+                    const input = document.querySelector(`input[name="q${q}"]`);
+                    if (input) answers[`q${q}`] = input.value.trim().toUpperCase();
+                }
+            }
+            localStorage.setItem('C10T3P3_answers', JSON.stringify(answers));
+        }
+
+        // ✅ Load saved answers
+        function loadAnswers() {
+            const saved = localStorage.getItem('C10T3P3_answers');
+            if (!saved) return;
+            const answers = JSON.parse(saved);
+            for (let key in answers) {
+                const radios = document.getElementsByName(key);
+                if (radios.length > 0) {
+                    for (let r of radios) {
+                        if (r.value.toUpperCase() === answers[key].toUpperCase()) r.checked = true;
+                    }
+                } else {
+                    const input = document.querySelector(`input[name="${key}"]`);
+                    if (input) input.value = answers[key];
+                }
+            }
+        }
+
+        // ✅ Highlight text function
+        document.getElementById('passageArea').addEventListener('mouseup', function() {
+            const selection = window.getSelection();
+            if (selection.toString().trim().length > 0) {
+                const span = document.createElement('span');
+                span.className = 'highlight';
+                span.textContent = selection.toString();
+                const range = selection.getRangeAt(0);
+                range.deleteContents();
+                range.insertNode(span);
+                selection.removeAllRanges();
+            }
+        });
+
+        function clearHighlights() {
+            document.querySelectorAll('.highlight').forEach(el => {
+                el.outerHTML = el.innerHTML;
+            });
+        }
+
+        // ✅ Toggle answers
+        function toggleAnswers() {
+            const box = document.getElementById('answersBox');
+            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // ✅ Check student answers
+        function showStudentAnswers() {
+            saveAnswers();
+            const box = document.getElementById('studentAnswersBox');
+            const resultDiv = document.getElementById('studentResult');
+            let html = '';
+            let score = 0;
+
+            for (let q = 27; q <= 40; q++) {
+                let studentAns = '';
+                const radios = document.getElementsByName(`q${q}`);
+                if (radios.length > 0) {
+                    for (let r of radios) {
+                        if (r.checked) studentAns = r.value;
+                    }
+                } else {
+                    const input = document.querySelector(`input[name="q${q}"]`);
+                    if (input) studentAns = input.value.trim().toUpperCase();
+                }
+
+                const correct = correctAnswers[`q${q}`].toUpperCase();
+                let status = '';
+                if (!studentAns) {
+                    status = '<span class="no-answer">(No Answer)</span>';
+                } else if (studentAns === correct) {
+                    status = '<span class="correct">✅ Correct</span>';
+                    score++;
+                } else {
+                    status = `<span class="wrong">❌ Wrong (Correct: ${correctAnswers[`q${q}`]})</span>`;
+                }
+
+                html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
+            }
+
+            html += `<br><strong>Total Score: ${score} / 14</strong>`;
+            resultDiv.innerHTML = html;
+            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Load saved answers on page open
+        window.onload = loadAnswers;
+    </script>
+
+</body>
+</html>
