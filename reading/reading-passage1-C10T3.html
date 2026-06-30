@@ -129,6 +129,7 @@
             background: #b91c1c;
         }
 
+        /* ✅ FIX: Default display none added */
         .answers-box, .student-answers-box {
             margin-top: 12px;
             padding: 12px;
@@ -391,7 +392,7 @@
                 const radios = document.getElementsByName(key);
                 if (radios.length > 0) {
                     for (let r of radios) {
-                        if (r.value === answers[key].toUpperCase()) r.checked = true;
+                        if (r.value.toUpperCase() === answers[key].toUpperCase()) r.checked = true;
                     }
                 } else {
                     const input = document.querySelector(`input[name="${key}"]`);
@@ -420,6 +421,7 @@
             });
         }
 
+        // ✅ Fixed toggle function
         function toggleAnswers() {
             const box = document.getElementById('answersBox');
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
