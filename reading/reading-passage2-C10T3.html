@@ -87,7 +87,7 @@
             font-weight: 500;
             margin-bottom: 8px;
             font-size: 14px;
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
         .options label {
@@ -98,12 +98,23 @@
             cursor: pointer;
         }
 
+        /* ✅ INPUT STYLE FOR INLINE BLANKS */
         .answer-input {
+            width: auto;
+            min-width: 90px;
+            padding: 2px 6px;
+            margin: 0 4px;
+            border: 1px solid #dc2626;
+            border-radius: 4px;
+            font-size: 14px;
+            background: #fff;
+            text-align: center;
+        }
+
+        /* For other questions, keep full width */
+        .full-width {
             width: 100%;
             padding: 6px 10px;
-            border: 1px solid #fecaca;
-            border-radius: 6px;
-            font-size: 14px;
             background: #fef2f2;
         }
 
@@ -161,7 +172,6 @@
             border-radius: 8px;
             border: 1px solid #fecaca;
             font-weight: 500;
-            cursor: pointer;
             font-size: 15px;
         }
 
@@ -223,24 +233,24 @@
                 <p><em>NB You may use any letter more than once.</em></p>
 
                 <div class="question-block">
-                    <p>14. a description of the substance responsible for the red colouration of leaves</p>
-                    <input type="text" class="answer-input" name="q14" placeholder="Write A-I">
+                    <p>14. a description of the substance responsible for the red colouration of leaves<br>
+                    <input type="text" class="answer-input full-width" name="q14" placeholder="Write A-I"></p>
                 </div>
                 <div class="question-block">
-                    <p>15. the reason why trees drop their leaves in autumn</p>
-                    <input type="text" class="answer-input" name="q15" placeholder="Write A-I">
+                    <p>15. the reason why trees drop their leaves in autumn<br>
+                    <input type="text" class="answer-input full-width" name="q15" placeholder="Write A-I"></p>
                 </div>
                 <div class="question-block">
-                    <p>16. some evidence to confirm a theory about the purpose of the red leaves</p>
-                    <input type="text" class="answer-input" name="q16" placeholder="Write A-I">
+                    <p>16. some evidence to confirm a theory about the purpose of the red leaves<br>
+                    <input type="text" class="answer-input full-width" name="q16" placeholder="Write A-I"></p>
                 </div>
                 <div class="question-block">
-                    <p>17. an explanation of the function of chlorophyll</p>
-                    <input type="text" class="answer-input" name="q17" placeholder="Write A-I">
+                    <p>17. an explanation of the function of chlorophyll<br>
+                    <input type="text" class="answer-input full-width" name="q17" placeholder="Write A-I"></p>
                 </div>
                 <div class="question-block">
-                    <p>18. a suggestion that the red colouration in leaves could serve as a warning signal</p>
-                    <input type="text" class="answer-input" name="q18" placeholder="Write A-I">
+                    <p>18. a suggestion that the red colouration in leaves could serve as a warning signal<br>
+                    <input type="text" class="answer-input full-width" name="q18" placeholder="Write A-I"></p>
                 </div>
 
 
@@ -249,20 +259,24 @@
                 <p><strong>Why believe the ‘light screen’ hypothesis?</strong></p>
 
                 <div class="question-block">
-                    <p>• The most vividly coloured red leaves are found on the side of the tree facing the <span style="text-decoration: underline; padding: 0 20px;">&nbsp;</span> 19.</p>
-                    <input type="text" class="answer-input" name="q19" placeholder="Write one word">
+                    <p>• The most vividly coloured red leaves are found on the side of the tree facing the
+                    <input type="text" class="answer-input" name="q19" placeholder="______">
+                    (19)</p>
                 </div>
                 <div class="question-block">
-                    <p>• The <span style="text-decoration: underline; padding: 0 20px;">&nbsp;</span> 20 surfaces of leaves contain the most red pigment.</p>
-                    <input type="text" class="answer-input" name="q20" placeholder="Write one word">
+                    <p>• The
+                    <input type="text" class="answer-input" name="q20" placeholder="______">
+                    surfaces of leaves contain the most red pigment (20)</p>
                 </div>
                 <div class="question-block">
-                    <p>• Red leaves are most abundant when daytime weather conditions are <span style="text-decoration: underline; padding: 0 20px;">&nbsp;</span> 21 and sunny.</p>
-                    <input type="text" class="answer-input" name="q21" placeholder="Write one word">
+                    <p>• Red leaves are most abundant when daytime weather conditions are
+                    <input type="text" class="answer-input" name="q21" placeholder="______">
+                    and sunny (21)</p>
                 </div>
                 <div class="question-block">
-                    <p>• The intensity of the red colour of leaves increases as you go further <span style="text-decoration: underline; padding: 0 20px;">&nbsp;</span> 22.</p>
-                    <input type="text" class="answer-input" name="q22" placeholder="Write one word">
+                    <p>• The intensity of the red colour of leaves increases as you go further
+                    <input type="text" class="answer-input" name="q22" placeholder="______">
+                    (22)</p>
                 </div>
 
 
