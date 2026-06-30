@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading - The megafires of California</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+
+        body {
+            background-color: #fef2f2;
+            color: #1a1a1a;
+            line-height: 1.7;
+        }
+
+        /* ✅ LOGO STYLES */
+        .logo-container {
+            width: 100%;
+            background: #ffffff;
+            border-bottom: 2px solid #dc2626;
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
+        }
+        .logo {
+            width: 40%;
+            max-width: 350px;
+            height: auto;
+            display: block;
+        }
+
+        /* ✅ TWO‑COLUMN LAYOUT */
+        .main-wrapper {
+            display: flex;
+            gap: 20px;
+            padding: 0 20px 20px;
+            height: calc(100vh - 130px);
+        }
+
+        .passage-column, .questions-column {
+            flex: 1;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #fecaca;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07);
+            position: relative;
+        }
+
+        h1 {
+            color: #dc2626;
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* ✅ IMPROVED PARAGRAPH SPACING */
+        .passage-text p {
+            margin-bottom: 18px;
+            font-size: 15px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .highlight {
+            background-color: #fff350;
+            padding: 2px 0;
+        }
+
+        /* ✅ CLEAR HIGHLIGHTS BUTTON: BOTTOM LEFT OF PASSAGE */
+        .clear-highlight {
+            margin-top: 20px;
+            padding: 8px 16px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .clear-highlight:hover {
+            background: #b91c1c;
+        }
+
+        .questions-section h2 {
+            color: #991b1b;
+            font-size: 17px;
+            margin: 20px 0 10px;
+        }
+
+        .question-block {
+            margin-bottom: 18px;
+        }
+
+        .question-block p {
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .options label {
+            display: block;
+            margin-left: 15px;
+            margin-bottom: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* ✅ INPUT STYLE FOR INLINE BLANKS */
+        .answer-input {
+            width: auto;
+            min-width: 90px;
+            padding: 2px 6px;
+            margin: 0 6px;
+            border: 1px solid #dc2626;
+            border-radius: 4px;
+            font-size: 14px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .full-width {
+            width: 100%;
+            padding: 6px 10px;
+            background: #fef2f2;
+        }
+
+        .action-buttons {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .toggle-answers, .show-student {
+            padding: 8px 16px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .toggle-answers:hover, .show-student:hover {
+            background: #b91c1c;
+        }
+
+        /* ✅ Results boxes */
+        .answers-box, .student-answers-box {
+            margin-top: 12px;
+            padding: 12px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            display: none;
+            font-size: 13px;
+        }
+
+        .correct { color: green; font-weight: 600; }
+        .wrong { color: red; font-weight: 600; }
+        .no-answer { color: #888; }
+
+        /* ✅ NAVIGATION BUTTONS */
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 0 20px 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .back-btn, .next-btn {
+            padding: 10px 20px;
+            background: #fef2f2;
+            color: #dc2626;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 1px solid #fecaca;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .back-btn:hover, .next-btn:hover {
+            background: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo-container">
+        <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
+    </div>
+
+    <!-- ✅ TWO COLUMNS: LEFT = PASSAGE | RIGHT = QUESTIONS -->
+    <div class="main-wrapper">
+        <!-- LEFT SIDE: PASSAGE TEXT -->
+        <div class="passage-column" id="passageArea">
+            <h1>Reading Passage 1 — The megafires of California</h1>
+            <div class="passage-text">
+                <p><em>Drought, housing expansion, and oversupply of tinder make for bigger, hotter fires in the western United States</em></p>
+
+                <p>Wildfires are becoming an increasing menace in the western United States, with Southern California being the hardest hit area. There's a reason fire squads battling more frequent blazes in Southern California are having such difficulty containing the flames, despite better preparedness than ever and decades of experience fighting fires fanned by the 'Santa Ana Winds'. The wildfires themselves, experts say, are generally hotter, faster, and spread more erratically than in the past.</p>
+
+                <p>Megafires, also called 'siege fires', are the increasingly frequent blazes that burn 500,000 acres or more – 10 times the size of the average forest fire of 20 years ago. Some recent wildfires are among the biggest ever in California in terms of acreage burned, according to state figures and news reports.</p>
+
+                <p>One explanation for the trend to more superhot fires is that the region, which usually has dry summers, has had significantly below normal precipitation in many recent years. Another reason, experts say, is related to the century‑long policy of the US Forest Service to stop wildfires as quickly as possible. The unintentional consequence has been to halt the natural eradication of underbrush, now the primary fuel for megafires.</p>
+
+                <p>Three other factors contribute to the trend, they add. First is climate change, marked by a 1‑degree Fahrenheit rise in average yearly temperature across the western states. Second is fire seasons that on average are 78 days longer than they were 20 years ago. Third is increased construction of homes in wooded areas.</p>
+
+                <p>'We are increasingly building our homes in fire‑prone ecosystems,' says Dominik Kulakowski, adjunct professor of biology at Clark University Graduate School of Geography in Worcester, Massachusetts. 'Doing that in many of the forests of the western US is like building homes on the side of an active volcano.'</p>
+
+                <p>In California, where population growth has averaged more than 600,000 a year for at least a decade, more residential housing is being built. 'What once was open space is now residential homes providing fuel to make fires burn with greater intensity,' says Terry McHale of the California Department of Forestry firefighters' union. 'With so much dryness, so many communities to catch fire, so many fronts to fight, it becomes an almost incredible job.'</p>
+
+                <p>That said, many experts give California high marks for making progress on preparedness in recent years, after some of the largest fires in state history scorched thousands of acres, burned thousands of homes, and killed numerous people. Stung in the past by criticism of bungling that allowed fires to spread when they might have been contained, personnel are meeting the peculiar challenges of neighborhood – and canyon‑hopping fires better than previously, observers say.</p>
+
+                <p>State promises to provide more up‑to‑date engines, planes, and helicopters to fight fires have been fulfilled. Firefighters' unions that in the past complained of dilapidated equipment, old fire engines, and insufficient blueprints for fire safety are now praising the state's commitment, noting that funding for firefighting has increased, despite huge cuts in many other programs. 'We are pleased that the current state administration has been very proactive in its support of us, and [has] come through with budgetary support of the infrastructure needs we have long sought,' says Mr. McHale of the firefighters' union.</p>
+
+                <p>Besides providing money to upgrade the fire engines that must traverse the mammoth state and wind along serpentine canyon roads, the state has invested in better command‑and‑control facilities as well as in the strategies to run them. 'In the fire sieges of earlier years, we found that other jurisdictions and states were willing to offer mutual‑aid help, but we were not able to communicate adequately with them,' says Kim Zagaris, chief of the state's Office of Emergency Services Fire and Rescue Branch. After a commission examined and revamped communications procedures, the statewide response 'has become far more professional and responsive,' he says. There is a sense among both government officials and residents that the speed, dedication, and coordination of firefighters from several states and jurisdictions are resulting in greater efficiency than in past 'siege fire' situations.</p>
+
+                <p>In recent years, the Southern California region has improved building codes, evacuation procedures, and procurement of new technology. 'I am extraordinarily impressed by the improvements we have witnessed,' says Randy Jacobs, a Southern California‑based lawyer who has had to evacuate both his home and business to escape wildfires. 'Notwithstanding all the damage that will continue to be caused by wildfires, we will no longer suffer the loss of life endured in the past because of the fire prevention and firefighting measures that have been put in place,' he says.</p>
+            </div>
+
+            <!-- ✅ CLEAR HIGHLIGHTS BUTTON HERE -->
+            <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear Highlights</button>
+        </div>
+
+        <!-- RIGHT SIDE: QUESTIONS -->
+        <div class="questions-column">
+            <div class="questions-section">
+                <h2>Questions 1–6: Notes Completion</h2>
+                <p><em>Choose ONE WORD AND/OR A NUMBER from the passage for each answer.</em></p>
+
+                <div class="question-block">
+                    <p><strong>Wildfires</strong></p>
+                    <p>• Characteristics of wildfires and wildfire conditions today compared to the past:<br>
+                    – occurrence: more frequent<br>
+                    – temperature: hotter<br>
+                    – speed: faster<br>
+                    – movement: <strong>1.</strong> <input type="text" class="answer-input" name="q1" placeholder="______"> more unpredictably<br>
+                    – size of fires: <strong>2.</strong> <input type="text" class="answer-input" name="q2" placeholder="______"> greater on average than two decades ago</p>
+                </div>
+
+                <div class="question-block">
+                    <p>• Reasons wildfires cause more damage today compared to the past:<br>
+                    – rainfall: <strong>3.</strong> <input type="text" class="answer-input" name="q3" placeholder="______"> average<br>
+                    – more brush to act as <strong>4.</strong> <input type="text" class="answer-input" name="q4" placeholder="______"><br>
+                    – increase in yearly temperature<br>
+                    – extended fire <strong>5.</strong> <input type="text" class="answer-input" name="q5" placeholder="______"><br>
+                    – more building of <strong>6.</strong> <input type="text" class="answer-input" name="q6" placeholder="______"> in vulnerable places</p>
+                </div>
+
+
+                <h2>Questions 7–13: TRUE / FALSE / NOT GIVEN</h2>
+                <p><em>Do the following statements agree with the information given in Reading Passage 1?</em></p>
+                <p><strong>TRUE</strong> — if the statement agrees<br>
+                <strong>FALSE</strong> — if the statement contradicts<br>
+                <strong>NOT GIVEN</strong> — if there is no information</p>
+
+                <div class="question-block">
+                    <p>7 The amount of open space in California has diminished over the last ten years.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q7" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q7" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q7" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p>8 Many experts believe California has made little progress in readying itself to fight fires.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q8" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q8" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q8" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p>9 Personnel in the past have been criticised for mishandling fire containment.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q9" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q9" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q9" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p>10 California has replaced a range of firefighting tools.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q10" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q10" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q10" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p>11 More firefighters have been hired to improve fire‑fighting capacity.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q11" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q11" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q11" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p>12 Citizens and government groups disapprove of the efforts of different states and agencies working together.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q12" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q12" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q12" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <p>13 Randy Jacobs believes that loss of life from fires will continue at the same levels, despite changes made.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q13" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q13" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q13" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+
+
+                <div class="action-buttons">
+                    <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
+                    <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
+                </div>
+
+                <!-- ✅ CORRECT ANSWER KEY -->
+                <div class="answers-box" id="answersBox">
+                    <h3>✅ Correct Answers — Passage 1</h3>
+                    <p><strong>1.</strong> spread<br>
+                    <strong>2.</strong> 10 times<br>
+                    <strong>3.</strong> below<br>
+                    <strong>4.</strong> fuel<br>
+                    <strong>5.</strong> seasons<br>
+                    <strong>6.</strong> homes<br>
+                    <strong>7.</strong> TRUE<br>
+                    <strong>8.</strong> FALSE<br>
+                    <strong>9.</strong> TRUE<br>
+                    <strong>10.</strong> TRUE<br>
+                    <strong>11.</strong> NOT GIVEN<br>
+                    <strong>12.</strong> FALSE<br>
+                    <strong>13.</strong> FALSE</p>
+                </div>
+
+                <!-- ✅ STUDENT ANSWERS & RESULT -->
+                <div class="student-answers-box" id="studentAnswersBox">
+                    <h3>📝 Your Answers & Score</h3>
+                    <div id="studentResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ NAVIGATION BUTTONS AT BOTTOM -->
+    <div class="nav-buttons">
+        <a href="../index.html" class="back-btn">← Back to Main Menu</a>
+        <a href="reading-passage2-C10T4.html" class="next-btn">Next Passage →</a>
+    </div>
+
+    <script>
+        // ✅ Correct answer data
+        const correctAnswers = {
+            q1: 'spread',
+            q2: '10 times',
+            q3: 'below',
+            q4: 'fuel',
+            q5: 'seasons',
+            q6: 'homes',
+            q7: 'TRUE',
+            q8: 'FALSE',
+            q9: 'TRUE',
+            q10: 'TRUE',
+            q11: 'NOT GIVEN',
+            q12: 'FALSE',
+            q13: 'FALSE'
+        };
+
+        // ✅ Save answers to localStorage
+        function saveAnswers() {
+            let answers = {};
+            for (let q = 1; q <= 13; q++) {
+                const radios = document.getElementsByName(`q${q}`);
+                if (radios.length > 0) {
+                    for (let r of radios) {
+                        if (r.checked) answers[`q${q}`] = r.value;
+                    }
+                } else {
+                    const input = document.querySelector(`input[name="q${q}"]`);
+                    if (input) answers[`q${q}`] = input.value.trim().toLowerCase();
+                }
+            }
+            localStorage.setItem('C10T4P1_answers', JSON.stringify(answers));
+        }
+
+        // ✅ Load saved answers
+        function loadAnswers() {
+            const saved = localStorage.getItem('C10T4P1_answers');
+            if (!saved) return;
+            const answers = JSON.parse(saved);
+            for (let key in answers) {
+                const radios = document.getElementsByName(key);
+                if (radios.length > 0) {
+                    for (let r of radios) {
+                        if (r.value.toUpperCase() === answers[key].toUpperCase()) r.checked = true;
+                    }
+                } else {
+                    const input = document.querySelector(`input[name="${key}"]`);
+                    if (input) input.value = answers[key];
+                }
+            }
+        }
+
+        // ✅ Highlight text function
+        document.getElementById('passageArea').addEventListener('mouseup', function() {
+            const selection = window.getSelection();
+            if (selection.toString().trim().length > 0) {
+                const span = document.createElement('span');
+                span.className = 'highlight';
+                span.textContent = selection.toString();
+                const range = selection.getRangeAt(0);
+                range.deleteContents();
+                range.insertNode(span);
+                selection.removeAllRanges();
+            }
+        });
+
+        function clearHighlights() {
+            document.querySelectorAll('.highlight').forEach(el => {
+                el.outerHTML = el.innerHTML;
+            });
+        }
+
+        // ✅ Toggle answers
+        function toggleAnswers() {
+            const box = document.getElementById('answersBox');
+            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // ✅ Check student answers
+        function showStudentAnswers() {
+            saveAnswers();
+            const box = document.getElementById('studentAnswersBox');
+            const resultDiv = document.getElementById('studentResult');
+            let html = '';
+            let score = 0;
+
+            for (let q = 1; q <= 13; q++) {
+                let studentAns = '';
+                const radios = document.getElementsByName(`q${q}`);
+                if (radios.length > 0) {
+                    for (let r of radios) {
+                        if (r.checked) studentAns = r.value;
+                    }
+                } else {
+                    const input = document.querySelector(`input[name="q${q}"]`);
+                    if (input) studentAns = input.value.trim().toLowerCase();
+                }
+
+                const correct = correctAnswers[`q${q}`].toLowerCase();
+                let status = '';
+                if (!studentAns) {
+                    status = '<span class="no-answer">(No Answer)</span>';
+                } else if (studentAns === correct) {
+                    status = '<span class="correct">✅ Correct</span>';
+                    score++;
+                } else {
+                    status = `<span class="wrong">❌ Wrong (Correct: ${correctAnswers[`q${q}`]})</span>`;
+                }
+
+                html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
+            }
+
+            html += `<br><strong>Total Score: ${score} / 13</strong>`;
+            resultDiv.innerHTML = html;
+            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Load saved answers when page opens
+        window.onload = loadAnswers;
+    </script>
+
+</body>
+</html>
