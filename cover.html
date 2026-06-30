@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cambridge IELTS Practice - Main Menu</title>
+    <title>Cambridge IELTS Practice Library</title>
     <style>
         * {
             margin: 0;
@@ -18,7 +18,8 @@
             line-height: 1.7;
         }
 
-        .header {
+        /* Top Header */
+        .top-header {
             width: 100%;
             background: #ffffff;
             border-bottom: 2px solid #dc2626;
@@ -31,138 +32,263 @@
             gap: 15px;
         }
 
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         .logo {
-            width: 280px;
-            height: auto;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
         }
 
-        .header-title {
-            font-size: 22px;
-            color: #dc2626;
-            font-weight: 600;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 25px;
-        }
-
-        .menu-section {
-            background: #ffffff;
-            border-radius: 12px;
-            border: 1px solid #fecaca;
-            padding: 25px;
-            box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07);
-        }
-
-        .menu-section h2 {
-            color: #991b1b;
-            margin-bottom: 20px;
+        .site-name {
             font-size: 20px;
-            border-bottom: 1px solid #fecaca;
-            padding-bottom: 8px;
-        }
-
-        .test-list {
-            list-style: none;
-        }
-
-        .test-list li {
-            margin: 12px 0;
-        }
-
-        .test-list a {
-            display: block;
-            padding: 10px 15px;
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            border-radius: 8px;
+            font-weight: 600;
             color: #dc2626;
+        }
+
+        .header-image {
+            width: 180px;
+            height: 70px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 1px solid #fecaca;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            max-width: 1300px;
+            margin: 20px auto;
+            gap: 20px;
+            padding: 0 15px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #fecaca;
+            padding: 15px;
+            height: fit-content;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.07);
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px 12px;
+            margin: 8px 0;
+            border-radius: 6px;
             text-decoration: none;
+            color: #444;
             font-weight: 500;
-            transition: all 0.2s ease;
+            transition: all 0.2s;
         }
 
-        .test-list a:hover {
-            background: #ffffff;
-            border-color: #dc2626;
-            padding-left: 20px;
+        .sidebar a.active {
+            background: #dc2626;
+            color: white;
         }
 
-        /* Disclaimer on right side */
-        .disclaimer-box {
+        .sidebar a:hover:not(.active) {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+        }
+
+        .library-card {
             background: #ffffff;
-            border-radius: 12px;
+            border-radius: 8px;
             border: 1px solid #fecaca;
             padding: 20px;
-            box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07);
-            font-size: 13px;
-            color: #555;
-            height: fit-content;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.07);
         }
 
-        .disclaimer-box h3 {
+        .library-card h2 {
             color: #dc2626;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
+            font-size: 22px;
+        }
+
+        .library-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .search-bar input {
+            flex: 1;
+            min-width: 250px;
+            padding: 10px 12px;
+            border: 1px solid #fecaca;
+            border-radius: 6px;
             font-size: 15px;
         }
 
-        .back-to-cover {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 8px 16px;
+        .search-bar button {
+            padding: 10px 16px;
             background: #dc2626;
             color: white;
-            text-decoration: none;
+            border: none;
             border-radius: 6px;
-            font-size: 14px;
+            cursor: pointer;
+            font-weight: 500;
         }
 
-        .back-to-cover:hover {
-            background: #b91c1c;
+        .module-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
 
-        @media(max-width: 850px) {
-            .container {
-                grid-template-columns: 1fr;
+        .module-btn {
+            padding: 10px 18px;
+            border: 1px solid #fecaca;
+            border-radius: 6px;
+            background: #ffffff;
+            color: #444;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .module-btn.active {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+        }
+
+        .module-btn:hover {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+        }
+
+        .test-item {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 18px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.2s;
+        }
+
+        .test-item:hover {
+            border-color: #dc2626;
+            background: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .test-item h4 {
+            color: #dc2626;
+            margin-bottom: 6px;
+        }
+
+        /* Disclaimer Box */
+        .disclaimer-box {
+            background: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #fecaca;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+            text-align: justify;
+        }
+
+        .disclaimer-box h4 {
+            color: #dc2626;
+            margin-bottom: 6px;
+        }
+
+        /* Responsive */
+        @media(max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <img src="ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
-        <div class="header-title">Cambridge IELTS Practice Materials</div>
+    <!-- Top Header -->
+    <div class="top-header">
+        <div class="logo-area">
+            <img src="ielts-logo.png" alt="Global Standard" class="logo">
+            <div class="site-name">Global Standard English Learning Center</div>
+        </div>
+        <img src="background1.png" alt="School Building" class="header-image">
     </div>
 
-    <div class="container">
-        <!-- Left Side: Practice Tests -->
-        <div class="menu-section">
-            <h2>📚 Practice Tests</h2>
-
-            <h3 style="color:#991b1b; margin:15px 0 10px; font-size:17px;">Cambridge IELTS 10</h3>
-            <ul class="test-list">
-                <li><a href="reading/reading-passage1-C10T3.html">Test 3 - Reading Passages</a></li>
-                <li><a href="reading/reading-passage1-C10T4.html">Test 4 - Reading Passages</a></li>
-            </ul>
-
-            <a href="cover.html" class="back-to-cover">← Back to Cover Page</a>
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <a href="cover.html">📖 Cover Page</a>
+            <a href="#" class="active">📋 Practice Tests</a>
         </div>
 
-        <!-- Right Side: Disclaimer -->
-        <div class="disclaimer-box">
-            <h3>Disclaimer</h3>
-            <p>
-                This website uses content based on official Cambridge IELTS publications exclusively for educational and self‑study purposes.
-                All copyrights, trademarks, and intellectual property rights belong to <strong>Cambridge University Press & Assessment English</strong>.
-                This is not an official Cambridge platform, and no part of the content is intended for commercial use or distribution.
-                All materials are provided to help learners prepare for the IELTS test in a structured and accessible format.
-            </p>
+        <!-- Main Content -->
+        <div class="content">
+            <div class="library-card">
+                <h2>Practice Library</h2>
+                <p>High-quality practice tests for all IELTS modules.</p>
+
+                <div class="search-bar">
+                    <input type="text" placeholder="Search by test name...">
+                    <button>🔍 Filters</button>
+                </div>
+
+                <div class="module-buttons">
+                    <button class="module-btn active">📖 Reading</button>
+                    <button class="module-btn">🎧 Listening</button>
+                    <button class="module-btn">✍️ Writing</button>
+                    <button class="module-btn">🗣️ Speaking</button>
+                </div>
+
+                <div class="test-grid">
+                    <a href="reading/reading-passage1-C10T3.html" class="test-item">
+                        <h4>Cambridge IELTS 10 - Test 3</h4>
+                        <p>Reading Passages 1–3</p>
+                    </a>
+                    <a href="reading/reading-passage1-C10T4.html" class="test-item">
+                        <h4>Cambridge IELTS 10 - Test 4</h4>
+                        <p>Reading Passages 1–3</p>
+                    </a>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer-box">
+                    <h4>Disclaimer</h4>
+                    <p>
+                        Content based on Cambridge IELTS publications is for educational and self‑study purposes only. All copyrights and intellectual property rights belong to <strong>Cambridge University Press & Assessment English</strong>. This is not an official Cambridge platform, and no commercial use is permitted.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
