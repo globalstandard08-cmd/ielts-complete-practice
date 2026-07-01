@@ -107,43 +107,37 @@
             background: #b91c1c;
         }
 
-        /* ✅ Brochure-style image layout */
+        /* Brochure-style image layout */
         .images-layout {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
+            gap: 30px;
             flex-wrap: wrap;
             margin-top: 20px;
         }
 
-        /* Left side images */
-        .images-left {
+        .images-left, .images-right {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
             flex: 1;
-            min-width: 220px;
+            min-width: 240px;
         }
 
-        /* Right side images */
         .images-right {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            flex: 1;
-            min-width: 220px;
             align-items: flex-end;
         }
 
-        /* Image styling - clean outline, no labels */
+        /* Image styling */
         .brochure-img {
-            width: 260px;
-            height: 170px;
+            width: 280px;
+            height: 180px;
             border-radius: 8px;
             border: 2px solid #fecaca;
-            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.1);
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.12);
             object-fit: cover;
+            background-color: #fef2f2;
             transition: transform 0.2s ease;
         }
 
@@ -171,14 +165,8 @@
             font-size: 15px;
         }
 
-        /* Responsive for smaller screens */
+        /* Responsive for mobile */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 28px;
-            }
-            h2 {
-                font-size: 20px;
-            }
             .images-layout {
                 flex-direction: column;
                 align-items: center;
@@ -187,8 +175,8 @@
                 align-items: center;
             }
             .brochure-img {
-                width: 220px;
-                height: 150px;
+                width: 250px;
+                height: 160px;
             }
         }
     </style>
@@ -212,17 +200,17 @@
 
             <a href="library.html" class="enter-btn">Enter Practice Library</a>
 
-            <!-- ✅ Images arranged like brochure: left & right, NO labels -->
+            <!-- ✅ Updated to .jpg extension -->
             <div class="images-layout">
                 <div class="images-left">
-                    <img src="T1.png" alt="Study image" class="brochure-img">
-                    <img src="T2.png" alt="Study image" class="brochure-img">
-                    <img src="T3.png" alt="Study image" class="brochure-img">
+                    <img src="T1.jpg" alt="" class="brochure-img">
+                    <img src="T2.jpg" alt="" class="brochure-img">
+                    <img src="T3.jpg" alt="" class="brochure-img">
                 </div>
                 <div class="images-right">
-                    <img src="T4.png" alt="Study image" class="brochure-img">
-                    <img src="T5.png" alt="Study image" class="brochure-img">
-                    <img src="T6.png" alt="Study image" class="brochure-img">
+                    <img src="T4.jpg" alt="" class="brochure-img">
+                    <img src="T5.jpg" alt="" class="brochure-img">
+                    <img src="T6.jpg" alt="" class="brochure-img">
                 </div>
             </div>
         </div>
