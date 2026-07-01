@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IELTS Listening - Cambridge 10 Test 1</title>
+    <title>IELTS Listening - C10T1 Part 1</title>
     <style>
         * {
             margin: 0;
@@ -16,19 +16,17 @@
             background-color: #f4f6f9;
             padding: 20px;
             line-height: 1.7;
-            user-select: text;
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            -ms-user-select: text;
+            position: relative;
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: #ffffff; /* plain white background */
+            background: white;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            overflow: hidden;
+            overflow: visible;
+            position: relative;
         }
 
         .logo-section {
@@ -75,20 +73,13 @@
 
         .content {
             padding: 0 30px 30px;
+            position: relative;
         }
 
         h2 {
             color: #1f3a5f;
             margin: 25px 0 15px;
             font-size: 22px;
-        }
-
-        .section-title {
-            font-size: 19px;
-            font-weight: bold;
-            margin: 20px 0;
-            text-align: center;
-            color: #1f3a5f;
         }
 
         .instruction {
@@ -114,14 +105,6 @@
             margin-bottom: 15px;
             padding-bottom: 8px;
             border-bottom: 1px solid #eee;
-            text-align: center;
-        }
-
-        .section-heading {
-            font-weight: bold;
-            margin: 20px 0 12px;
-            font-size: 17px;
-            color: #2c4b75;
         }
 
         .example-row {
@@ -139,14 +122,11 @@
             align-items: center;
             gap: 8px;
             flex-wrap: wrap;
-            font-size: 16px;
         }
 
         .q-number {
             font-weight: bold;
             flex-shrink: 0;
-            min-width: 30px;
-            color: #1f3a5f;
         }
 
         .input-field {
@@ -155,11 +135,7 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 16px;
-            background: white;
-            user-select: text;
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            -ms-user-select: text;
+            transition: all 0.2s;
         }
 
         .input-field:focus {
@@ -168,38 +144,26 @@
             box-shadow: 0 0 3px rgba(31, 58, 95, 0.3);
         }
 
-        .mcq-block {
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            padding: 20px;
-            margin-bottom: 30px;
-            background-color: #fdfdfd;
+        /* Highlight input when answered */
+        .input-field.filled {
+            background-color: #e6f0ff;
+            border-color: #1f3a5f;
         }
 
-        .mcq-question {
-            margin-bottom: 22px;
-        }
-
-        .option {
-            margin: 8px 0 8px 35px;
-            cursor: pointer;
-        }
-
-        /* Light red background same as reading */
-        .answers-section, .student-answers-section {
+        .answers-section {
             margin-top: 40px;
             padding: 20px;
-            background-color: #fff5f5; /* very light red/pink */
-            border: 1px solid #f8d7da;
+            background-color: #f0f8ff;
+            border: 1px solid #b0d4f1;
             border-radius: 6px;
         }
 
-        .answers-section h3, .student-answers-section h3 {
-            color: #721c24;
+        .answers-section h3 {
+            color: #1f3a5f;
             margin-bottom: 15px;
         }
 
-        .answers-content, .student-answers-content {
+        .answers-content {
             display: none;
             padding: 15px;
             background: white;
@@ -216,69 +180,144 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
-            margin-right: 10px;
-            margin-bottom: 10px;
         }
 
         .show-btn:hover {
             background-color: #2e568c;
         }
 
+        /* --- NEW: Question Status Bar --- */
+        .question-status {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            padding: 12px;
+            background: #f8fbfe;
+            border-radius: 6px;
+            border: 1px solid #b0d4f1;
+        }
+
+        .q-indicator {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background: #eef2f7;
+            border: 1px solid #ccc;
+            transition: all 0.2s;
+        }
+
+        .q-indicator.answered {
+            background: #1f3a5f;
+            color: white;
+            border-color: #1f3a5f;
+        }
+
+        /* --- NEW: Arrow Navigation Buttons --- */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
-            margin-top: 40px;
+            margin-top: 20px;
         }
 
-        .btn {
-            padding: 11px 26px;
+        .nav-btn {
+            width: 46px;
+            height: 46px;
             background-color: #1f3a5f;
             color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 16px;
             border: none;
+            border-radius: 50%;
+            font-size: 22px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.2s;
         }
 
-        .btn:hover {
+        .nav-btn:hover {
             background-color: #2e568c;
         }
 
-        .correct { color: green; font-weight: 600; }
-        .wrong { color: red; font-weight: 600; }
-        .no-answer { color: #888; }
+        /* --- Highlight Styles --- */
+        .user-highlight {
+            background-color: #fff3cd;
+            padding: 2px 3px;
+            border-radius: 2px;
+            cursor: pointer;
+        }
 
-        .section-page { display: none; }
-        .active-section { display: block; }
+        .highlight-tool {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #1f3a5f;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #1f3a5f;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .highlight-tool:hover {
+            background: #eef2f7;
+        }
+
+        .remove-highlight {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            padding: 4px 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #dc3545;
+        }
+
+        .remove-highlight:hover {
+            background: #ffebee;
+        }
     </style>
 </head>
 <body>
+    <!-- Highlight tools -->
+    <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
+    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
+
     <div class="container">
         <div class="logo-section">
             <img src="ielts-logo.png" alt="IELTS Logo">
         </div>
 
         <div class="header-bar">
-            <span>LISTENING TEST - CAMBRIDGE 10 TEST 1</span>
-            <span style="font-size:15px; opacity:0.9;">Teaching Mode</span>
+            <span>LISTENING TEST - C10 TEST 1 PART 1</span>
+            <span style="font-size:15px; opacity:0.9;">Exam Mode</span>
         </div>
 
+        <div class="audio-player">
+            <h3>Play Recording</h3>
+            <audio controls preload="auto">
+                <source src="part1.mp3" type="audio/mpeg">
+                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part1.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            
+        </div>
 
-<!-- ==============================================
-            SECTION 1 (Questions 1–12)
-============================================== -->
-        <div id="section1" class="content section-page active-section">
-            <h2>Section 1 – Questions 1–12</h2>
-
-            <div class="audio-player">
-                <h3>Play Recording - Section 1</h3>
-                <audio controls preload="auto">
-                    <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part1.mp3" type="audio/mpeg">
-                    <source src="part1.mp3" type="audio/mpeg">
-                    Your browser does not support audio playback.
-                
-            </div>
+        <div class="content" id="highlightArea">
+            <h2>Section 1 – Questions 1–10</h2>
 
             <div class="instruction">
                 <strong>Questions 1–6:</strong> Complete the notes below. Write ONE WORD for each answer.
@@ -286,7 +325,10 @@
 
             <div class="notes-block">
                 <div class="notes-title">SELF-DRIVE TOURS IN THE USA</div>
-                <div class="example-row"><strong>Example:</strong> Name: Andrea Brown</div>
+
+                <div class="example-row">
+                    <strong>Example:</strong> Name: Andrea Brown
+                </div>
 
                 <div class="question-line">
                     <span>Address: 24</span>
@@ -294,8 +336,15 @@
                     <input type="text" class="input-field" id="q1" placeholder="_______">
                     <span>Road</span>
                 </div>
-                <div class="question-line"><span>Postcode: BH5 2OP</span></div>
-                <div class="question-line"><span>Phone: (mobile) 077 8664 3091</span></div>
+
+                <div class="question-line">
+                    <span>Postcode: BH5 2OP</span>
+                </div>
+
+                <div class="question-line">
+                    <span>Phone: (mobile) 077 8664 3091</span>
+                </div>
+
                 <div class="question-line">
                     <span>Heard about company from:</span>
                     <span class="q-number">2.</span>
@@ -310,17 +359,20 @@
                     <input type="text" class="input-field" id="q3" placeholder="_______">
                     <span>parks with her children</span>
                 </div>
+
                 <div class="question-line">
                     <span>Yosemite Park: customer wants to stay in a lodge, not a</span>
                     <span class="q-number">4.</span>
                     <input type="text" class="input-field" id="q4" placeholder="_______">
                 </div>
+
                 <div class="question-line">
                     <span>Trip Two – Cambria: customer wants to see the</span>
                     <span class="q-number">5.</span>
                     <input type="text" class="input-field" id="q5" placeholder="_______">
                     <span>on the way to Cambria</span>
                 </div>
+
                 <div class="question-line">
                     <span>San Diego: wants to spend time on the</span>
                     <span class="q-number">6.</span>
@@ -329,7 +381,7 @@
             </div>
 
             <div class="instruction">
-                <strong>Questions 7–12:</strong> Complete the details below. Write ONE WORD AND/OR A NUMBER for each answer.
+                <strong>Questions 7–10:</strong> Complete the details below. Write ONE WORD AND/OR A NUMBER for each answer.
             </div>
 
             <div class="notes-block">
@@ -339,443 +391,173 @@
                     <input type="text" class="input-field" id="q7" placeholder="_______">
                     <span>km</span>
                 </div>
+
                 <div class="question-line">
                     <span>Trip One includes: accommodation, car, and one</span>
                     <span class="q-number">8.</span>
                     <input type="text" class="input-field" id="q8" placeholder="_______">
                 </div>
+
                 <div class="question-line">
                     <span>Trip Two price per person: £</span>
                     <span class="q-number">9.</span>
                     <input type="text" class="input-field" id="q9" placeholder="_______">
                 </div>
+
                 <div class="question-line">
                     <span>Trip Two includes: accommodation, car, and</span>
                     <span class="q-number">10.</span>
                     <input type="text" class="input-field" id="q10" placeholder="_______">
                 </div>
-                <div class="question-line">
-                    <span>Customer will pay by</span>
-                    <span class="q-number">11.</span>
-                    <input type="text" class="input-field" id="q11" placeholder="_______">
-                </div>
-                <div class="question-line">
-                    <span>Booking reference number</span>
-                    <span class="q-number">12.</span>
-                    <input type="text" class="input-field" id="q12" placeholder="_______">
-                </div>
             </div>
 
-            <div class="nav-buttons">
-                <span></span>
-                <button class="btn" onclick="showSection(2)">Next: Section 2 →</button>
-            </div>
-        </div>
-
-
-<!-- ==============================================
-            SECTION 2 (Questions 13–20)
-============================================== -->
-        <div id="section2" class="content section-page">
-            <h2>Section 2 – Questions 13–20</h2>
-
-            <div class="audio-player">
-                <h3>Play Recording - Section 2</h3>
-                <audio controls preload="auto">
-                    <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part2.mp3" type="audio/mpeg">
-                    <source src="part2.mp3" type="audio/mpeg">
-                    Your browser does not support audio playback.
-                
+            <!-- Question Status Bar -->
+            <div class="question-status">
+                <div class="q-indicator" data-q="1">1</div>
+                <div class="q-indicator" data-q="2">2</div>
+                <div class="q-indicator" data-q="3">3</div>
+                <div class="q-indicator" data-q="4">4</div>
+                <div class="q-indicator" data-q="5">5</div>
+                <div class="q-indicator" data-q="6">6</div>
+                <div class="q-indicator" data-q="7">7</div>
+                <div class="q-indicator" data-q="8">8</div>
+                <div class="q-indicator" data-q="9">9</div>
+                <div class="q-indicator" data-q="10">10</div>
             </div>
 
-            <div class="instruction">
-                <strong>Questions 13–20:</strong> Complete the notes below.<br>
-                <em>Write NO MORE THAN TWO WORDS for each answer.</em>
-            </div>
-
-            <div class="notes-block">
-                <div class="notes-title">Joining the leisure club</div>
-
-                <div class="section-heading">Personal Assessment</div>
-
-                <div class="question-line">
-                    <span>New members should describe any</span>
-                    <span class="q-number">13.</span>
-                    <input type="text" class="input-field" id="q13" placeholder="__________">
-                </div>
-                <div class="question-line">
-                    <span>The</span>
-                    <span class="q-number">14.</span>
-                    <input type="text" class="input-field" id="q14" placeholder="__________">
-                    <span>will be explained to you before you use the equipment.</span>
-                </div>
-                <div class="question-line">
-                    <span>You will be given a six-week</span>
-                    <span class="q-number">15.</span>
-                    <input type="text" class="input-field" id="q15" placeholder="__________">
-                </div>
-
-                <div class="section-heading">Types of membership</div>
-
-                <div class="question-line">
-                    <span>There is a compulsory £90</span>
-                    <span class="q-number">16.</span>
-                    <input type="text" class="input-field" id="q16" placeholder="__________">
-                    <span>fee for members.</span>
-                </div>
-                <div class="question-line">
-                    <span>Gold members are given</span>
-                    <span class="q-number">17.</span>
-                    <input type="text" class="input-field" id="q17" placeholder="__________">
-                    <span>to all the LP clubs.</span>
-                </div>
-                <div class="question-line">
-                    <span>Premier members are given priority during</span>
-                    <span class="q-number">18.</span>
-                    <input type="text" class="input-field" id="q18" placeholder="__________">
-                    <span>hours.</span>
-                </div>
-                <div class="question-line">
-                    <span>Premier members can bring some</span>
-                    <span class="q-number">19.</span>
-                    <input type="text" class="input-field" id="q19" placeholder="__________">
-                    <span>every month.</span>
-                </div>
-                <div class="question-line">
-                    <span>Members should always take their</span>
-                    <span class="q-number">20.</span>
-                    <input type="text" class="input-field" id="q20" placeholder="__________">
-                    <span>with them.</span>
-                </div>
-            </div>
-
-            <div class="nav-buttons">
-                <button class="btn" onclick="showSection(1)">← Previous: Section 1</button>
-                <button class="btn" onclick="showSection(3)">Next: Section 3 →</button>
-            </div>
-        </div>
-
-
-<!-- ==============================================
-            SECTION 3 (Questions 21–30)
-============================================== -->
-        <div id="section3" class="content section-page">
-            <h2>Section 3 – Questions 21–30</h2>
-
-            <div class="audio-player">
-                <h3>Play Recording - Section 3</h3>
-                <audio controls preload="auto">
-                    <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part3.mp3" type="audio/mpeg">
-                    <source src="part3.mp3" type="audio/mpeg">
-                    Your browser does not support audio playback.
-                
-            </div>
-
-            <div class="mcq-block">
-                <div class="instruction">
-                    <strong>Questions 21–25:</strong> Choose the correct letter, A, B or C.
-                </div>
-
-                <div class="section-title">Global Design Competition</div>
-
-                <div class="mcq-question">
-                    <span class="q-number">21.</span> Students entering the design competition have to<br>
-                    <div class="option"><input type="radio" name="q21" value="A"> <label>A produce an energy-efficient design.</label></div>
-                    <div class="option"><input type="radio" name="q21" value="B"> <label>B adapt an existing energy-saving appliance.</label></div>
-                    <div class="option"><input type="radio" name="q21" value="C"> <label>C develop a new use for current technology.</label></div>
-                </div>
-
-                <div class="mcq-question">
-                    <span class="q-number">22.</span> John chose a dishwasher because he wanted to make dishwashers<br>
-                    <div class="option"><input type="radio" name="q22" value="A"> <label>A more appealing.</label></div>
-                    <div class="option"><input type="radio" name="q22" value="B"> <label>B more common.</label></div>
-                    <div class="option"><input type="radio" name="q22" value="C"> <label>C more economical.</label></div>
-                </div>
-
-                <div class="mcq-question">
-                    <span class="q-number">23.</span> The stone in John’s ‘Rockpool’ design is used<br>
-                    <div class="option"><input type="radio" name="q23" value="A"> <label>A for decoration.</label></div>
-                    <div class="option"><input type="radio" name="q23" value="B"> <label>B to switch it on.</label></div>
-                    <div class="option"><input type="radio" name="q23" value="C"> <label>C to stop water escaping.</label></div>
-                </div>
-
-                <div class="mcq-question">
-                    <span class="q-number">24.</span> In the holding chamber, the carbon dioxide<br>
-                    <div class="option"><input type="radio" name="q24" value="A"> <label>A changes back to a gas.</label></div>
-                    <div class="option"><input type="radio" name="q24" value="B"> <label>B dries the dishes.</label></div>
-                    <div class="option"><input type="radio" name="q24" value="C"> <label>C is allowed to cool.</label></div>
-                </div>
-
-                <div class="mcq-question">
-                    <span class="q-number">25.</span> At the end of the cleaning process, the carbon dioxide<br>
-                    <div class="option"><input type="radio" name="q25" value="A"> <label>A is released into the air.</label></div>
-                    <div class="option"><input type="radio" name="q25" value="B"> <label>B is disposed of with the waste.</label></div>
-                    <div class="option"><input type="radio" name="q25" value="C"> <label>C is collected ready to be re-used.</label></div>
-                </div>
-            </div>
-
-            <div class="notes-block">
-                <div class="instruction">
-                    <strong>Questions 26–30:</strong> Complete the notes below.<br>
-                    <em>Write ONE WORD ONLY for each answer.</em>
-                </div>
-
-                <div class="question-line">
-                    <span>• John needs help preparing for his</span>
-                    <span class="q-number">26.</span>
-                    <input type="text" class="input-field" id="q26" placeholder="__________">
-                </div>
-                <div class="question-line">
-                    <span>• The professor advises John to make a</span>
-                    <span class="q-number">27.</span>
-                    <input type="text" class="input-field" id="q27" placeholder="__________">
-                    <span>of his design.</span>
-                </div>
-                <div class="question-line">
-                    <span>• John’s main problem is getting good quality</span>
-                    <span class="q-number">28.</span>
-                    <input type="text" class="input-field" id="q28" placeholder="__________">
-                </div>
-                <div class="question-line">
-                    <span>• The professor suggests John apply for a</span>
-                    <span class="q-number">29.</span>
-                    <input type="text" class="input-field" id="q29" placeholder="__________">
-                </div>
-                <div class="question-line">
-                    <span>• The professor will check the</span>
-                    <span class="q-number">30.</span>
-                    <input type="text" class="input-field" id="q30" placeholder="__________">
-                    <span>information in John’s written report.</span>
-                </div>
-            </div>
-
-            <div class="nav-buttons">
-                <button class="btn" onclick="showSection(2)">← Previous: Section 2</button>
-                <button class="btn" onclick="showSection(4)">Next: Section 4 →</button>
-            </div>
-        </div>
-
-
-<!-- ==============================================
-            SECTION 4 (Questions 31–40)
-============================================== -->
-        <div id="section4" class="content section-page">
-            <h2>Section 4 – Questions 31–40</h2>
-
-            <div class="audio-player">
-                <h3>Play Recording - Section 4</h3>
-                <audio controls preload="auto">
-                    <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part4.mp3" type="audio/mpeg">
-                    <source src="part4.mp3" type="audio/mpeg">
-                    Your browser does not support audio playback.
-                
-            </div>
-
-            <div class="instruction">
-                <strong>Questions 31–40:</strong> Complete the notes below.<br>
-                <em>Write ONE WORD ONLY for each answer.</em>
-            </div>
-
-            <div class="notes-block">
-                <div class="notes-title">THE SPIRIT BEAR</div>
-
-                <div class="section-heading">General facts</div>
-
-                <div class="question-line">
-                    <span>• It is a white bear belonging to the black bear family.</span>
-                </div>
-                <div class="question-line">
-                    <span>• Its colour comes from an uncommon</span>
-                    <span class="q-number">31.</span>
-                    <input type="text" class="input-field" id="q31" placeholder="__________">
-                </div>
-                <div class="question-line">
-                    <span>• Local people believe that it has unusual</span>
-                    <span class="q-number">32.</span>
-                    <input type="text" class="input-field" id="q32" placeholder="__________">
-                </div>
-                <div class="question-line">
-                    <span>• They protect the bear from</span>
-                    <span class="q-number">33.</span>
-                    <input type="text" class="input-field" id="q33" placeholder="__________">
-                </div>
-
-                <div class="section-heading">Habitat</div>
-
-                <div class="question-line">
-                    <span>• The bear’s relationship with the forest is complex.</span>
-                </div>
-                <div class="question-line">
-                    <span>• Tree roots stop</span>
-                    <span class="q-number">34.</span>
-                    <input type="text" class="input-field" id="q34" placeholder="__________">
-                    <span>along salmon streams.</span>
-                </div>
-                <div class="question-line">
-                    <span>• The bears’ feeding habits provide nutrients for forest vegetation.</span>
-                </div>
-                <div class="question-line">
-                    <span>• It is currently found on a small number of</span>
-                    <span class="q-number">35.</span>
-                    <input type="text" class="input-field" id="q35" placeholder="__________">
-                </div>
-
-                <div class="section-heading">Threats</div>
-
-                <div class="question-line">
-                    <span>• Habitat is being lost due to deforestation and construction of</span>
-                    <span class="q-number">36.</span>
-                    <input type="text" class="input-field" id="q36" placeholder="__________">
-                    <span>by logging companies.</span>
-                </div>
-                <div class="question-line">
-                    <span>• Unrestricted</span>
-                    <span class="q-number">37.</span>
-                    <input type="text" class="input-field" id="q37" placeholder="__________">
-                    <span>is affecting the salmon supply.</span>
-                </div>
-                <div class="question-line">
-                    <span>• The bears’ existence is also threatened by their low rate of</span>
-                    <span class="q-number">38.</span>
-                    <input type="text" class="input-field" id="q38" placeholder="__________">
-                </div>
-
-                <div class="section-heading">Going forward</div>
-
-                <div class="question-line">
-                    <span>• Interested parties are working together.</span>
-                </div>
-                <div class="question-line">
-                    <span>• Logging companies must improve their</span>
-                    <span class="q-number">39.</span>
-                    <input type="text" class="input-field" id="q39" placeholder="__________">
-                    <span>of logging.</span>
-                </div>
-                <div class="question-line">
-                    <span>• Maintenance and</span>
-                    <span class="q-number">40.</span>
-                    <input type="text" class="input-field" id="q40" placeholder="__________">
-                    <span>of the spirit bears’ territory is needed.</span>
-                </div>
-            </div>
-
-
-            <!-- ==============================================
-                        ANSWER KEY & STUDENT CHECK
-            ============================================== -->
             <div class="answers-section">
-                <h3>✅ Correct Answers</h3>
+                <h3>Answers for Section 1</h3>
                 <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
-                <div class="answers-content" id="answersBox">
-                    <strong>Section 1:</strong><br>
-                    1. River &nbsp;&nbsp; 2. website &nbsp;&nbsp; 3. national &nbsp;&nbsp; 4. hotel &nbsp;&nbsp; 5. castle &nbsp;&nbsp; 6. beach<br>
-                    7. 2020 &nbsp;&nbsp; 8. drive &nbsp;&nbsp; 9. 429 &nbsp;&nbsp; 10. dinner &nbsp;&nbsp; 11. credit card &nbsp;&nbsp; 12. 39745<br><br>
-
-                    <strong>Section 2:</strong><br>
-                    13. health problems &nbsp;&nbsp; 14. rules &nbsp;&nbsp; 15. trial period &nbsp;&nbsp; 16. joining / annual &nbsp;&nbsp; 17. access<br>
-                    18. peak &nbsp;&nbsp; 19. guests &nbsp;&nbsp; 20. membership card<br><br>
-
-                    <strong>Section 3:</strong><br>
-                    21. A &nbsp;&nbsp; 22. C &nbsp;&nbsp; 23. C &nbsp;&nbsp; 24. A &nbsp;&nbsp; 25. C<br>
-                    26. presentation &nbsp;&nbsp; 27. model &nbsp;&nbsp; 28. materials &nbsp;&nbsp; 29. grant &nbsp;&nbsp; 30. technical<br><br>
-
-                    <strong>Section 4:</strong><br>
-                    31. gene &nbsp;&nbsp; 32. power &nbsp;&nbsp; 33. hunters &nbsp;&nbsp; 34. erosion &nbsp;&nbsp; 35. islands<br>
-                    36. roads &nbsp;&nbsp; 37. fishing &nbsp;&nbsp; 38. reproduction &nbsp;&nbsp; 39. methods &nbsp;&nbsp; 40. expansion
+                <div class="answers-content" id="answers">
+                    <strong>Answers:</strong><br>
+                    1. River<br>
+                    2. website<br>
+                    3. national<br>
+                    4. hotel<br>
+                    5. castle<br>
+                    6. beach<br>
+                    7. 2020<br>
+                    8. drive<br>
+                    9. 429<br>
+                    10. dinner
                 </div>
             </div>
 
-            <div class="student-answers-section">
-                <h3>📝 Your Answers & Result</h3>
-                <button class="show-btn" onclick="showStudentAnswers()">Show My Answers & Check</button>
-                <div class="student-answers-content" id="studentAnswersBox"></div>
-            </div>
-
-
+            <!-- Arrow Navigation Buttons -->
             <div class="nav-buttons">
-                <button class="btn" onclick="showSection(3)">← Previous: Section 3</button>
-                <a href="index.html" class="btn">Back to Main Menu</a>
+                <a href="listening-intro.html" class="nav-btn">←</a>
+                <a href="listening-part2.html" class="nav-btn">→</a>
             </div>
         </div>
-
     </div>
 
     <script>
-        // ✅ Correct Answer Data
-        const correctAnswers = {
-            q1:'RIVER',q2:'WEBSITE',q3:'NATIONAL',q4:'HOTEL',q5:'CASTLE',q6:'BEACH',
-            q7:'2020',q8:'DRIVE',q9:'429',q10:'DINNER',q11:'CREDIT CARD',q12:'39745',
-            q13:'HEALTH PROBLEMS',q14:'RULES',q15:'TRIAL PERIOD',q16:'JOINING',q17:'ACCESS',
-            q18:'PEAK',q19:'GUESTS',q20:'MEMBERSHIP CARD',
-            q21:'A',q22:'C',q23:'C',q24:'A',q25:'C',
-            q26:'PRESENTATION',q27:'MODEL',q28:'MATERIALS',q29:'GRANT',q30:'TECHNICAL',
-            q31:'GENE',q32:'POWER',q33:'HUNTERS',q34:'EROSION',q35:'ISLANDS',
-            q36:'ROADS',q37:'FISHING',q38:'REPRODUCTION',q39:'METHODS',q40:'EXPANSION'
-        };
-
-        // Auto-save answers — but NEVER fill them automatically
+        // Auto-save answers and update status
         document.addEventListener('DOMContentLoaded', function() {
-            // Save radio answers
-            document.querySelectorAll('input[type=radio]').forEach(radio => {
-                const name = radio.name;
-                radio.addEventListener('change', function() {
-                    localStorage.setItem('listening_c10t1_' + this.name, this.value);
-                });
-            });
-            // Save text answers — but DO NOT load old answers automatically
-            for (let i = 1; i <= 40; i++) {
+            for (let i = 1; i <= 10; i++) {
                 const field = document.getElementById('q' + i);
-                if (field) {
-                    field.value = ""; // force empty on load
-                    field.addEventListener('input', function() {
-                        localStorage.setItem('listening_c10t1_q' + i, this.value.trim().toUpperCase());
-                    });
+                const saved = localStorage.getItem('C10T1_q' + i);
+                if (saved) {
+                    field.value = saved;
+                    field.classList.add('filled');
+                    markAnswered(i);
                 }
+                field.addEventListener('input', function() {
+                    const val = this.value.trim();
+                    localStorage.setItem('C10T1_q' + i, val);
+                    if (val) {
+                        this.classList.add('filled');
+                        markAnswered(i);
+                    } else {
+                        this.classList.remove('filled');
+                        unmarkAnswered(i);
+                    }
+                });
             }
         });
 
-        // Show one section at a time
-        function showSection(num) {
-            document.querySelectorAll('.section-page').forEach(el => el.classList.remove('active-section'));
-            document.getElementById('section'+num).classList.add('active-section');
-            // Hide answer boxes when changing section
-            document.getElementById('answersBox').style.display = 'none';
-            document.getElementById('studentAnswersBox').style.display = 'none';
-            window.scrollTo(0,0);
-        }
-
         function toggleAnswers() {
-            const box = document.getElementById('answersBox');
-            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+            const ansDiv = document.getElementById('answers');
+            ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
         }
 
-        function showStudentAnswers() {
-            const box = document.getElementById('studentAnswersBox');
-            const resultDiv = document.getElementById('studentAnswersBox');
-            let html = '';
+        function markAnswered(qNum) {
+            document.querySelector(`.q-indicator[data-q="${qNum}"]`).classList.add('answered');
+        }
+        function unmarkAnswered(qNum) {
+            document.querySelector(`.q-indicator[data-q="${qNum}"]`).classList.remove('answered');
+        }
 
-            for (let q = 1; q <= 40; q++) {
-                let studentAns = '';
-                const radios = document.getElementsByName(`q${q}`);
-                if (radios.length > 0) {
-                    for (let r of radios) if (r.checked) studentAns = r.value;
-                } else {
-                    const input = document.getElementById(`q${q}`);
-                    if (input) studentAns = input.value.trim().toUpperCase();
-                }
+        // Highlight functionality
+        const highlightArea = document.getElementById('highlightArea');
+        const highlightTool = document.getElementById('highlightTool');
+        const removeTool = document.getElementById('removeTool');
+        let currentRange = null;
 
-                const correct = correctAnswers[`q${q}`];
-                let status = '';
-                if (!studentAns) status = '<span class="no-answer">(No Answer)</span>';
-                else if (studentAns === correct) status = '<span class="correct">✅ Correct</span>';
-                else status = `<span class="wrong">❌ Wrong (Correct: ${correct})</span>`;
+        highlightArea.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            const sel = window.getSelection();
+            if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+            showPencil(e.clientX, e.clientY);
+        });
 
-                html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
+        document.addEventListener('mouseup', function() {
+            const sel = window.getSelection();
+            if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+                highlightTool.style.display = 'none';
+                return;
             }
+            const range = sel.getRangeAt(0);
+            if (!highlightArea.contains(range.commonAncestorContainer)) return;
+            const rect = range.getBoundingClientRect();
+            showPencil(rect.left + rect.width / 2, rect.top);
+            currentRange = range;
+        });
 
-            resultDiv.innerHTML = html;
-            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        function showPencil(x, y) {
+            highlightTool.style.left = (x + window.scrollX - 17) + 'px';
+            highlightTool.style.top = (y + window.scrollY - 40) + 'px';
+            highlightTool.style.display = 'flex';
         }
+
+        highlightTool.addEventListener('click', function() {
+            if (!currentRange) return;
+            const span = document.createElement('span');
+            span.className = 'user-highlight';
+            span.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(span);
+            window.getSelection().removeAllRanges();
+            highlightTool.style.display = 'none';
+            currentRange = null;
+        });
+
+        highlightArea.addEventListener('click', function(e) {
+            if (e.target.classList.contains('user-highlight')) {
+                const rect = e.target.getBoundingClientRect();
+                removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 28) + 'px';
+                removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
+                removeTool.style.display = 'block';
+                removeTool.dataset.target = e.target;
+            } else {
+                removeTool.style.display = 'none';
+            }
+        });
+
+        removeTool.addEventListener('click', function() {
+            const span = this.dataset.target;
+            if (!span || !span.parentNode) return;
+            const text = document.createTextNode(span.textContent);
+            span.parentNode.replaceChild(text, span);
+            span.parentNode.normalize();
+            this.style.display = 'none';
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target) && !removeTool.contains(e.target)) {
+                highlightTool.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
