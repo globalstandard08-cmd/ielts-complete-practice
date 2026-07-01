@@ -185,43 +185,52 @@
             background-color: #2e568c;
         }
 
-        /* --- Updated Question Bar Layout --- */
+        /* --- EXACT MATCH to exam layout --- */
         .question-status {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 6px;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 4px;
             margin: 30px 0;
-            padding: 12px;
-            background: #f8fbfe;
-            border-radius: 6px;
-            border: 1px solid #b0d4f1;
+            padding: 8px 10px;
+            background: #f0f2f5;
+            border-radius: 4px;
+            border: 1px solid #d0d5dd;
+            font-size: 12px;
+        }
+
+        /* Gap between parts just like in screenshot */
+        .part-separator {
+            width: 16px;
+            height: 24px;
+            flex-shrink: 0;
         }
 
         .q-indicator {
-            width: 28px;
-            height: 28px;
-            border-radius: 3px;
+            width: 24px;
+            height: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 13px;
+            font-weight: normal;
+            border-radius: 2px;
             border: 1px solid #d1d5db;
-            transition: all 0.2s ease;
-        }
-
-        /* Active section (current part) */
-        .q-indicator.active {
             background: #e5e7eb;
-            color: #111827;
-            border-color: #9ca3af;
+            color: #333;
         }
 
-        /* Inactive sections (other parts) */
-        .q-indicator.inactive {
-            background: #f3f4f6;
-            color: #9ca3af;
+        /* Current part = darker, clear */
+        .q-indicator.current {
+            background: #d9dce1;
+            color: #000;
+            border-color: #b0b4b9;
+        }
+
+        /* Other parts = lighter gray */
+        .q-indicator.other {
+            background: #efefef;
+            color: #999;
             border-color: #e5e7eb;
         }
 
@@ -453,55 +462,64 @@
                 </div>
             </div>
 
-            <!-- --- Question Bar: Grouped exactly like real exam --- -->
+            <!-- --- QUESTION BAR: exactly like your screenshot --- -->
             <div class="question-status">
-                <!-- Part 1: 1-10 -->
-                <div class="q-indicator active" data-q="1">1</div>
-                <div class="q-indicator active" data-q="2">2</div>
-                <div class="q-indicator active" data-q="3">3</div>
-                <div class="q-indicator active" data-q="4">4</div>
-                <div class="q-indicator active" data-q="5">5</div>
-                <div class="q-indicator active" data-q="6">6</div>
-                <div class="q-indicator active" data-q="7">7</div>
-                <div class="q-indicator active" data-q="8">8</div>
-                <div class="q-indicator active" data-q="9">9</div>
-                <div class="q-indicator active" data-q="10">10</div>
+                <!-- Part 1: 1–10 -->
+                <div class="q-indicator current" data-q="1">1</div>
+                <div class="q-indicator current" data-q="2">2</div>
+                <div class="q-indicator current" data-q="3">3</div>
+                <div class="q-indicator current" data-q="4">4</div>
+                <div class="q-indicator current" data-q="5">5</div>
+                <div class="q-indicator current" data-q="6">6</div>
+                <div class="q-indicator current" data-q="7">7</div>
+                <div class="q-indicator current" data-q="8">8</div>
+                <div class="q-indicator current" data-q="9">9</div>
+                <div class="q-indicator current" data-q="10">10</div>
 
-                <!-- Part 2: 11-20 -->
-                <div class="q-indicator inactive" data-q="11">11</div>
-                <div class="q-indicator inactive" data-q="12">12</div>
-                <div class="q-indicator inactive" data-q="13">13</div>
-                <div class="q-indicator inactive" data-q="14">14</div>
-                <div class="q-indicator inactive" data-q="15">15</div>
-                <div class="q-indicator inactive" data-q="16">16</div>
-                <div class="q-indicator inactive" data-q="17">17</div>
-                <div class="q-indicator inactive" data-q="18">18</div>
-                <div class="q-indicator inactive" data-q="19">19</div>
-                <div class="q-indicator inactive" data-q="20">20</div>
+                <!-- Gap between parts -->
+                <div class="part-separator"></div>
 
-                <!-- Part 3: 21-30 -->
-                <div class="q-indicator inactive" data-q="21">21</div>
-                <div class="q-indicator inactive" data-q="22">22</div>
-                <div class="q-indicator inactive" data-q="23">23</div>
-                <div class="q-indicator inactive" data-q="24">24</div>
-                <div class="q-indicator inactive" data-q="25">25</div>
-                <div class="q-indicator inactive" data-q="26">26</div>
-                <div class="q-indicator inactive" data-q="27">27</div>
-                <div class="q-indicator inactive" data-q="28">28</div>
-                <div class="q-indicator inactive" data-q="29">29</div>
-                <div class="q-indicator inactive" data-q="30">30</div>
+                <!-- Part 2: 11–20 -->
+                <div class="q-indicator other" data-q="11">11</div>
+                <div class="q-indicator other" data-q="12">12</div>
+                <div class="q-indicator other" data-q="13">13</div>
+                <div class="q-indicator other" data-q="14">14</div>
+                <div class="q-indicator other" data-q="15">15</div>
+                <div class="q-indicator other" data-q="16">16</div>
+                <div class="q-indicator other" data-q="17">17</div>
+                <div class="q-indicator other" data-q="18">18</div>
+                <div class="q-indicator other" data-q="19">19</div>
+                <div class="q-indicator other" data-q="20">20</div>
 
-                <!-- Part 4: 31-40 -->
-                <div class="q-indicator inactive" data-q="31">31</div>
-                <div class="q-indicator inactive" data-q="32">32</div>
-                <div class="q-indicator inactive" data-q="33">33</div>
-                <div class="q-indicator inactive" data-q="34">34</div>
-                <div class="q-indicator inactive" data-q="35">35</div>
-                <div class="q-indicator inactive" data-q="36">36</div>
-                <div class="q-indicator inactive" data-q="37">37</div>
-                <div class="q-indicator inactive" data-q="38">38</div>
-                <div class="q-indicator inactive" data-q="39">39</div>
-                <div class="q-indicator inactive" data-q="40">40</div>
+                <!-- Gap between parts -->
+                <div class="part-separator"></div>
+
+                <!-- Part 3: 21–30 -->
+                <div class="q-indicator other" data-q="21">21</div>
+                <div class="q-indicator other" data-q="22">22</div>
+                <div class="q-indicator other" data-q="23">23</div>
+                <div class="q-indicator other" data-q="24">24</div>
+                <div class="q-indicator other" data-q="25">25</div>
+                <div class="q-indicator other" data-q="26">26</div>
+                <div class="q-indicator other" data-q="27">27</div>
+                <div class="q-indicator other" data-q="28">28</div>
+                <div class="q-indicator other" data-q="29">29</div>
+                <div class="q-indicator other" data-q="30">30</div>
+
+                <!-- Gap between parts -->
+                <div class="part-separator"></div>
+
+                <!-- Part 4: 31–40 -->
+                <div class="q-indicator other" data-q="31">31</div>
+                <div class="q-indicator other" data-q="32">32</div>
+                <div class="q-indicator other" data-q="33">33</div>
+                <div class="q-indicator other" data-q="34">34</div>
+                <div class="q-indicator other" data-q="35">35</div>
+                <div class="q-indicator other" data-q="36">36</div>
+                <div class="q-indicator other" data-q="37">37</div>
+                <div class="q-indicator other" data-q="38">38</div>
+                <div class="q-indicator other" data-q="39">39</div>
+                <div class="q-indicator other" data-q="40">40</div>
             </div>
 
             <div class="answers-section">
@@ -564,10 +582,12 @@
         }
 
         function markAnswered(qNum) {
-            document.querySelector(`.q-indicator[data-q="${qNum}"]`).classList.add('answered');
+            const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+            if (el) el.classList.add('answered');
         }
         function unmarkAnswered(qNum) {
-            document.querySelector(`.q-indicator[data-q="${qNum}"]`).classList.remove('answered');
+            const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+            if (el) el.classList.remove('answered');
         }
 
         // Highlight system - fixed
