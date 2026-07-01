@@ -41,16 +41,19 @@
 
         .split-layout {
             display: flex;
+            align-items: flex-start; /* Align tops first */
             min-height: 550px;
+            gap: 0;
         }
 
-        /* Left Panel: Question */
+        /* ✅ Left Panel: Fixed height + scrollbar */
         .question-panel {
             width: 48%;
             padding: 20px 25px;
             background-color: #fef2f2;
             border-right: 1px solid #fecaca;
-            overflow-y: auto;
+            height: 650px; /* Fixed height */
+            overflow-y: auto; /* Scroll only here */
         }
 
         .question-panel h2 {
@@ -64,7 +67,7 @@
             border: 1px solid #fecaca;
             background: #ffffff;
             padding: 18px;
-            margin: 0;
+            margin: 0 0 20px 0;
             font-size: 15px;
             border-radius: 6px;
         }
@@ -73,20 +76,22 @@
             display: block;
             max-width: 100%;
             height: auto;
-            margin: 20px auto 0;
+            margin: 0 auto 20px;
         }
 
-        /* Right Panel: Writing Area */
+        /* ✅ Right Panel: Centered vertically */
         .writing-panel {
             width: 52%;
             padding: 20px 25px;
             display: flex;
             flex-direction: column;
+            justify-content: center; /* Center content vertically */
+            height: 650px; /* Match height of left panel */
         }
 
         textarea {
             width: 100%;
-            min-height: 320px;
+            min-height: 350px;
             padding: 18px;
             border: 1px solid #fecaca;
             border-radius: 6px;
@@ -94,7 +99,7 @@
             line-height: 1.6;
             background: #ffffff;
             resize: none;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         textarea:focus {
@@ -104,7 +109,6 @@
         }
 
         .word-count {
-            text-align: left;
             font-size: 14px;
             font-weight: 500;
             margin-bottom: 10px;
@@ -186,8 +190,11 @@
             }
             .question-panel, .writing-panel {
                 width: 100%;
+                height: auto;
                 border-right: none;
                 border-bottom: 1px solid #fecaca;
+                overflow-y: visible;
+                justify-content: flex-start;
             }
             textarea {
                 min-height: 280px;
@@ -203,9 +210,9 @@
     </div>
 
     <div class="split-layout">
-        <!-- Left: Question -->
+        <!-- Left: Question & Chart -->
         <div class="question-panel">
-            <!-- Task 1 -->
+            <!-- ✅ ONLY one set of instructions here -->
             <div class="task-section active" id="task1Question">
                 <h2>WRITING TASK 1</h2>
                 <div class="instruction-box">
@@ -213,11 +220,9 @@
                     Summarise the information by selecting and reporting the main features, and make comparisons where relevant.<br><br>
                     <strong>Write at least 150 words.</strong>
                 </div>
-                <!-- ONLY the image here, no extra text -->
                 <img src="task1T3.png" alt="Destination of UK graduates and postgraduates 2008" class="task-image">
             </div>
 
-            <!-- Task 2 -->
             <div class="task-section" id="task2Question">
                 <h2>WRITING TASK 2</h2>
                 <div class="instruction-box">
