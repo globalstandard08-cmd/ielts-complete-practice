@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: #f4f6f9;
+            background-color: #fef2f2;
             padding: 20px;
             line-height: 1.7;
             position: relative;
@@ -27,12 +27,13 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             overflow: visible;
             position: relative;
+            border: 1px solid #fecaca;
         }
 
         .logo-section {
             text-align: center;
             padding: 20px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #fecaca;
         }
 
         .logo-section img {
@@ -42,7 +43,7 @@
         }
 
         .header-bar {
-            background-color: #1f3a5f;
+            background-color: #dc2626;
             color: white;
             padding: 15px 25px;
             font-size: 18px;
@@ -53,15 +54,16 @@
         }
 
         .audio-player {
-            background: #eef2f7;
+            background: #fef2f2;
             padding: 18px 25px;
             margin: 20px;
             border-radius: 6px;
             text-align: center;
+            border: 1px solid #fecaca;
         }
 
         .audio-player h3 {
-            color: #1f3a5f;
+            color: #991b1b;
             margin-bottom: 12px;
             font-size: 17px;
         }
@@ -77,14 +79,14 @@
         }
 
         h2 {
-            color: #1f3a5f;
+            color: #991b1b;
             margin: 25px 0 15px;
             font-size: 22px;
         }
 
         .instruction {
-            background-color: #f8fbfe;
-            border-left: 4px solid #1f3a5f;
+            background-color: #fef2f2;
+            border-left: 4px solid #dc2626;
             padding: 15px;
             margin-bottom: 25px;
             border-radius: 4px;
@@ -92,7 +94,7 @@
         }
 
         .notes-block {
-            border: 1px solid #ccc;
+            border: 1px solid #fecaca;
             border-radius: 6px;
             padding: 20px;
             margin-bottom: 30px;
@@ -104,7 +106,8 @@
             font-size: 18px;
             margin-bottom: 15px;
             padding-bottom: 8px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #fecaca;
+            color: #991b1b;
         }
 
         .example-row {
@@ -112,7 +115,7 @@
             color: #555;
             margin-bottom: 20px;
             padding: 10px;
-            background-color: #f8f8f8;
+            background-color: #fef2f2;
             border-radius: 4px;
         }
 
@@ -127,6 +130,7 @@
         .q-number {
             font-weight: bold;
             flex-shrink: 0;
+            color: #333;
         }
 
         .input-field {
@@ -135,24 +139,31 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 16px;
+            transition: border-color 0.2s, background 0.2s;
         }
 
         .input-field:focus {
             outline: none;
-            border-color: #1f3a5f;
-            box-shadow: 0 0 3px rgba(31, 58, 95, 0.3);
+            border-color: #dc2626;
+            box-shadow: 0 0 3px rgba(220, 38, 38, 0.3);
+        }
+
+        /* Highlighted when answered */
+        .input-field.filled {
+            background-color: #fef2f2;
+            border-color: #dc2626;
         }
 
         .answers-section {
             margin-top: 40px;
             padding: 20px;
-            background-color: #f0f8ff;
-            border: 1px solid #b0d4f1;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
             border-radius: 6px;
         }
 
         .answers-section h3 {
-            color: #1f3a5f;
+            color: #991b1b;
             margin-bottom: 15px;
         }
 
@@ -166,7 +177,7 @@
         }
 
         .show-btn {
-            background-color: #1f3a5f;
+            background-color: #dc2626;
             color: white;
             border: none;
             padding: 8px 16px;
@@ -176,60 +187,99 @@
         }
 
         .show-btn:hover {
-            background-color: #2e568c;
+            background-color: #b91c1c;
         }
 
+        /* Question status bar at bottom */
+        .question-status {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 25px 0;
+            padding: 12px;
+            background: #fef2f2;
+            border-radius: 6px;
+            border: 1px solid #fecaca;
+        }
+
+        .q-indicator {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background: #eee;
+            border: 1px solid #ccc;
+            transition: all 0.2s;
+        }
+
+        .q-indicator.answered {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+        }
+
+        /* Navigation arrows only */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
-            margin-top: 40px;
+            margin-top: 20px;
         }
 
-        .btn {
-            padding: 11px 26px;
-            background-color: #1f3a5f;
+        .nav-btn {
+            width: 44px;
+            height: 44px;
+            background-color: #dc2626;
             color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 16px;
             border: none;
+            border-radius: 50%;
+            font-size: 20px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.2s;
         }
 
-        .btn:hover {
-            background-color: #2e568c;
+        .nav-btn:hover {
+            background-color: #b91c1c;
         }
 
-        /* ------------------- HIGHLIGHT STYLES ------------------- */
+        /* Highlight styles */
         .user-highlight {
             background-color: #fff3cd;
             padding: 2px 3px;
             border-radius: 2px;
-            cursor: pointer;
         }
 
         .highlight-tool {
             position: absolute;
             background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 4px 8px;
+            border: 1px solid #dc2626;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.15);
             z-index: 9999;
             display: none;
             cursor: pointer;
             font-size: 16px;
-            color: #333;
+            color: #dc2626;
+            align-items: center;
+            justify-content: center;
         }
+
         .highlight-tool:hover {
-            background: #fff3cd;
-            border-color: #ffc107;
+            background: #fef2f2;
         }
 
         .remove-highlight {
             position: absolute;
             background: #fff;
-            border: 1px solid #dc3545;
+            border: 1px solid #dc2626;
             border-radius: 4px;
             padding: 4px 8px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.15);
@@ -237,17 +287,17 @@
             display: none;
             cursor: pointer;
             font-size: 14px;
-            color: #dc3545;
+            color: #dc2626;
         }
+
         .remove-highlight:hover {
             background: #ffebee;
         }
     </style>
 </head>
 <body>
-    <!-- Highlight tools placed directly in body -->
     <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
-    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
+    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️</div>
 
     <div class="container">
         <div class="logo-section">
@@ -256,7 +306,7 @@
 
         <div class="header-bar">
             <span>LISTENING TEST - PART 1</span>
-            <span style="font-size:15px; opacity:0.9;">Teaching Mode</span>
+            <span style="font-size:15px; opacity:0.9;">Exam Style</span>
         </div>
 
         <div class="audio-player">
@@ -268,7 +318,6 @@
             
         </div>
 
-        <!-- Highlight area -->
         <div class="content" id="highlightArea">
             <h2>Section 1 – Questions 1–10</h2>
 
@@ -364,6 +413,20 @@
                 </div>
             </div>
 
+            <!-- Question status indicators -->
+            <div class="question-status">
+                <div class="q-indicator" data-q="1">1</div>
+                <div class="q-indicator" data-q="2">2</div>
+                <div class="q-indicator" data-q="3">3</div>
+                <div class="q-indicator" data-q="4">4</div>
+                <div class="q-indicator" data-q="5">5</div>
+                <div class="q-indicator" data-q="6">6</div>
+                <div class="q-indicator" data-q="7">7</div>
+                <div class="q-indicator" data-q="8">8</div>
+                <div class="q-indicator" data-q="9">9</div>
+                <div class="q-indicator" data-q="10">10</div>
+            </div>
+
             <div class="answers-section">
                 <h3>Answers for Section 1</h3>
                 <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
@@ -383,21 +446,32 @@
             </div>
 
             <div class="nav-buttons">
-                <a href="listening-intro.html" class="btn">← Back</a>
-                <a href="listening-part2.html" class="btn">Next: Part 2 →</a>
+                <a href="listening-intro.html" class="nav-btn">←</a>
+                <a href="listening-part2.html" class="nav-btn">→</a>
             </div>
         </div>
     </div>
 
     <script>
-        // Auto-save answers
         document.addEventListener('DOMContentLoaded', function() {
+            // Load saved answers and update status
             for (let i = 1; i <= 10; i++) {
                 const field = document.getElementById('q' + i);
                 const saved = localStorage.getItem('listening_c10t1_q' + i);
-                if (saved) field.value = saved;
+                if (saved) {
+                    field.value = saved;
+                    markAnswered(i);
+                }
                 field.addEventListener('input', function() {
-                    localStorage.setItem('listening_c10t1_q' + i, this.value.trim());
+                    const val = this.value.trim();
+                    localStorage.setItem('listening_c10t1_q' + i, val);
+                    if (val !== '') {
+                        this.classList.add('filled');
+                        markAnswered(i);
+                    } else {
+                        this.classList.remove('filled');
+                        unmarkAnswered(i);
+                    }
                 });
             }
         });
@@ -407,57 +481,64 @@
             ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
         }
 
-        // ------------------- IMPROVED HIGHLIGHT SCRIPT -------------------
+        function markAnswered(qNum) {
+            document.querySelector(`.q-indicator[data-q="${qNum}"]`).classList.add('answered');
+        }
+
+        function unmarkAnswered(qNum) {
+            document.querySelector(`.q-indicator[data-q="${qNum}"]`).classList.remove('answered');
+        }
+
+        // Highlight: right-click or select text → pencil appears
         const highlightArea = document.getElementById('highlightArea');
         const highlightTool = document.getElementById('highlightTool');
         const removeTool = document.getElementById('removeTool');
         let currentRange = null;
 
-        // Detect selection anywhere in the page but only process if inside our area
+        // Disable default right-click menu inside content
+        highlightArea.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            const selection = window.getSelection();
+            if (!selection || selection.isCollapsed || selection.toString().trim() === '') return;
+            showHighlightMenu(e.clientX, e.clientY);
+        });
+
+        // Show tool when selecting text
         document.addEventListener('mouseup', function(e) {
             const selection = window.getSelection();
             if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
                 highlightTool.style.display = 'none';
                 return;
             }
-
-            // Check if selection is inside our highlight area
             const range = selection.getRangeAt(0);
-            if (!highlightArea.contains(range.commonAncestorContainer)) {
-                highlightTool.style.display = 'none';
-                return;
-            }
-
-            currentRange = range;
+            if (!highlightArea.contains(range.commonAncestorContainer)) return;
             const rect = range.getBoundingClientRect();
-            
-            // Position relative to viewport (more reliable)
-            highlightTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 15) + 'px';
-            highlightTool.style.top = (rect.top + window.scrollY - 35) + 'px';
-            highlightTool.style.display = 'block';
+            showHighlightMenu(rect.left + rect.width / 2, rect.top);
+            currentRange = range;
         });
 
-        // Apply highlight
+        function showHighlightMenu(x, y) {
+            highlightTool.style.left = (x + window.scrollX - 16) + 'px';
+            highlightTool.style.top = (y + window.scrollY - 40) + 'px';
+            highlightTool.style.display = 'flex';
+        }
+
         highlightTool.addEventListener('click', function() {
             if (!currentRange) return;
-
             const span = document.createElement('span');
             span.className = 'user-highlight';
             span.textContent = currentRange.toString();
-
             currentRange.deleteContents();
             currentRange.insertNode(span);
-
             window.getSelection().removeAllRanges();
             highlightTool.style.display = 'none';
             currentRange = null;
         });
 
-        // Show remove button
         highlightArea.addEventListener('click', function(e) {
             if (e.target.classList.contains('user-highlight')) {
                 const rect = e.target.getBoundingClientRect();
-                removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 30) + 'px';
+                removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 25) + 'px';
                 removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
                 removeTool.style.display = 'block';
                 removeTool.dataset.target = e.target;
@@ -466,21 +547,17 @@
             }
         });
 
-        // Remove highlight
         removeTool.addEventListener('click', function() {
             const span = this.dataset.target;
             if (!span || !span.parentNode) return;
-
             const parent = span.parentNode;
             const textNode = document.createTextNode(span.textContent);
             parent.replaceChild(textNode, span);
             parent.normalize();
-
             this.style.display = 'none';
             delete this.dataset.target;
         });
 
-        // Hide tools when clicking outside
         document.addEventListener('click', function(e) {
             if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target) && !removeTool.contains(e.target)) {
                 highlightTool.style.display = 'none';
