@@ -26,7 +26,7 @@
             padding: 15px 30px;
             display: flex;
             align-items: center;
-            justify-content: space-between; /* Left = Logo, Right = Flag */
+            justify-content: space-between;
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
             position: relative;
             z-index: 10;
@@ -38,9 +38,9 @@
             height: auto;
         }
 
-        /* Top Right: Flag */
+        /* Top Right: FLAG — NOW BIGGER */
         .flag {
-            width: 120px;
+            width: 160px; /* Increased from 120px */
             height: auto;
             border-radius: 4px;
             border: 1px solid #fecaca;
@@ -49,8 +49,8 @@
         /* === MAIN COVER === */
         .cover-container {
             max-width: 1100px;
-            margin: 20px auto; /* Reduced margin to bring content higher */
-            padding: 25px 30px; /* Reduced padding to save space */
+            margin: 20px auto;
+            padding: 25px 30px;
             background: #ffffff;
             border-radius: 12px;
             border: 1px solid #fecaca;
@@ -60,7 +60,6 @@
             overflow: hidden;
         }
 
-        /* Light background texture */
         .cover-container::before {
             content: "";
             position: absolute;
@@ -76,7 +75,7 @@
         .cover-content {
             position: relative;
             z-index: 2;
-            padding: 10px 20px; /* Less vertical padding */
+            padding: 10px 20px;
         }
 
         h1 {
@@ -96,10 +95,9 @@
             font-size: 17px;
             color: #444;
             max-width: 750px;
-            margin: 0 auto 20px; /* Reduced bottom margin */
+            margin: 0 auto 20px;
         }
 
-        /* Button Style */
         .enter-btn {
             display: inline-block;
             padding: 10px 28px;
@@ -110,27 +108,27 @@
             font-size: 17px;
             font-weight: 600;
             transition: background 0.2s ease;
-            margin-bottom: 25px; /* Less space before images */
+            margin-bottom: 25px;
         }
 
         .enter-btn:hover {
             background: #b91c1c;
         }
 
-        /* === IMAGES LAYOUT - HIGHER UP === */
+        /* === IMAGES LAYOUT === */
         .images-layout {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             gap: 25px;
             flex-wrap: wrap;
-            margin-top: 0; /* No extra top margin */
+            margin-top: 0;
         }
 
         .images-left, .images-right {
             display: flex;
             flex-direction: column;
-            gap: 18px; /* Tighter spacing between images */
+            gap: 18px;
             flex: 1;
             min-width: 220px;
         }
@@ -139,7 +137,6 @@
             align-items: flex-end;
         }
 
-        /* Image styling */
         .brochure-img {
             width: 260px;
             height: 165px;
@@ -183,7 +180,7 @@
                 text-align: center;
             }
             .flag {
-                width: 90px;
+                width: 120px; /* Still smaller on mobile so it fits */
             }
             h1 {
                 font-size: 28px;
@@ -207,7 +204,7 @@
 </head>
 <body>
 
-    <!-- Header: Logo (Left) + Flag (Right) -->
+    <!-- Header: Logo (Left) + Flag (Right, bigger size) -->
     <div class="header">
         <img src="ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
         <img src="flag.jpg" alt="Flag" class="flag">
@@ -225,7 +222,7 @@
 
             <a href="library.html" class="enter-btn">Enter Practice Library</a>
 
-            <!-- Images: 3 left, 3 right, higher position -->
+            <!-- Images: 3 left, 3 right, no labels -->
             <div class="images-layout">
                 <div class="images-left">
                     <img src="T1.jpg" alt="" class="brochure-img">
