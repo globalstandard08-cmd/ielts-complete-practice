@@ -185,11 +185,12 @@
             background-color: #2e568c;
         }
 
-        /* Question indicators - official style */
+        /* --- UPDATED: Full 1-40 indicator style --- */
         .question-status {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
+            gap: 6px;
             margin: 30px 0;
             padding: 12px;
             background: #f8fbfe;
@@ -198,20 +199,35 @@
         }
 
         .q-indicator {
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
+            width: 28px;
+            height: 28px;
+            border-radius: 3px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 13px;
             background: #e5e7eb;
             color: #374151;
             border: 1px solid #d1d5db;
             transition: all 0.2s ease;
         }
 
+        /* Current section (1-10) normal brightness */
+        .q-indicator.current {
+            background: #e5e7eb;
+            color: #111827;
+            border-color: #9ca3af;
+        }
+
+        /* Future sections (11-40) lighter gray */
+        .q-indicator.future {
+            background: #f3f4f6;
+            color: #9ca3af;
+            border-color: #e5e7eb;
+        }
+
+        /* Answered = green */
         .q-indicator.answered {
             background: #10b981;
             color: white;
@@ -439,17 +455,52 @@
                 </div>
             </div>
 
+            <!-- --- UPDATED: Full 1-40 indicators --- -->
             <div class="question-status">
-                <div class="q-indicator" data-q="1">1</div>
-                <div class="q-indicator" data-q="2">2</div>
-                <div class="q-indicator" data-q="3">3</div>
-                <div class="q-indicator" data-q="4">4</div>
-                <div class="q-indicator" data-q="5">5</div>
-                <div class="q-indicator" data-q="6">6</div>
-                <div class="q-indicator" data-q="7">7</div>
-                <div class="q-indicator" data-q="8">8</div>
-                <div class="q-indicator" data-q="9">9</div>
-                <div class="q-indicator" data-q="10">10</div>
+                <!-- Section 1: 1-10 -->
+                <div class="q-indicator current" data-q="1">1</div>
+                <div class="q-indicator current" data-q="2">2</div>
+                <div class="q-indicator current" data-q="3">3</div>
+                <div class="q-indicator current" data-q="4">4</div>
+                <div class="q-indicator current" data-q="5">5</div>
+                <div class="q-indicator current" data-q="6">6</div>
+                <div class="q-indicator current" data-q="7">7</div>
+                <div class="q-indicator current" data-q="8">8</div>
+                <div class="q-indicator current" data-q="9">9</div>
+                <div class="q-indicator current" data-q="10">10</div>
+                <!-- Section 2: 11-20 -->
+                <div class="q-indicator future" data-q="11">11</div>
+                <div class="q-indicator future" data-q="12">12</div>
+                <div class="q-indicator future" data-q="13">13</div>
+                <div class="q-indicator future" data-q="14">14</div>
+                <div class="q-indicator future" data-q="15">15</div>
+                <div class="q-indicator future" data-q="16">16</div>
+                <div class="q-indicator future" data-q="17">17</div>
+                <div class="q-indicator future" data-q="18">18</div>
+                <div class="q-indicator future" data-q="19">19</div>
+                <div class="q-indicator future" data-q="20">20</div>
+                <!-- Section 3: 21-30 -->
+                <div class="q-indicator future" data-q="21">21</div>
+                <div class="q-indicator future" data-q="22">22</div>
+                <div class="q-indicator future" data-q="23">23</div>
+                <div class="q-indicator future" data-q="24">24</div>
+                <div class="q-indicator future" data-q="25">25</div>
+                <div class="q-indicator future" data-q="26">26</div>
+                <div class="q-indicator future" data-q="27">27</div>
+                <div class="q-indicator future" data-q="28">28</div>
+                <div class="q-indicator future" data-q="29">29</div>
+                <div class="q-indicator future" data-q="30">30</div>
+                <!-- Section 4: 31-40 -->
+                <div class="q-indicator future" data-q="31">31</div>
+                <div class="q-indicator future" data-q="32">32</div>
+                <div class="q-indicator future" data-q="33">33</div>
+                <div class="q-indicator future" data-q="34">34</div>
+                <div class="q-indicator future" data-q="35">35</div>
+                <div class="q-indicator future" data-q="36">36</div>
+                <div class="q-indicator future" data-q="37">37</div>
+                <div class="q-indicator future" data-q="38">38</div>
+                <div class="q-indicator future" data-q="39">39</div>
+                <div class="q-indicator future" data-q="40">40</div>
             </div>
 
             <div class="answers-section">
