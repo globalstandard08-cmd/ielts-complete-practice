@@ -111,13 +111,14 @@
             margin-bottom: 18px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
         .q-number {
             font-weight: bold;
             flex-shrink: 0;
+            min-width: 25px;
         }
 
         .input-field {
@@ -138,6 +139,19 @@
         .input-field.filled {
             background-color: #e6f0ff;
             border-color: #1f3a5f;
+        }
+
+        /* Checkbox style for Q11-12 */
+        .option-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #10b981;
+        }
+
+        .option-label {
+            cursor: pointer;
+            font-size: 16px;
         }
 
         .answers-section {
@@ -371,28 +385,24 @@
 
             <div class="notes-block">
                 <div class="question-line">
-                    <span>A</span>
-                    <span class="q-number">11.</span>
-                    <input type="text" class="input-field" id="q11" placeholder="_______">
-                    <span>the gym</span>
+                    <input type="checkbox" class="option-checkbox" id="optA" value="A">
+                    <label for="optA" class="option-label">A &nbsp; the gym</label>
                 </div>
                 <div class="question-line">
-                    <span>B</span>
-                    <span>the tracks</span>
+                    <input type="checkbox" class="option-checkbox" id="optB" value="B">
+                    <label for="optB" class="option-label">B &nbsp; the tracks</label>
                 </div>
                 <div class="question-line">
-                    <span>C</span>
-                    <span class="q-number">12.</span>
-                    <input type="text" class="input-field" id="q12" placeholder="_______">
-                    <span>the indoor pool</span>
+                    <input type="checkbox" class="option-checkbox" id="optC" value="C">
+                    <label for="optC" class="option-label">C &nbsp; the indoor pool</label>
                 </div>
                 <div class="question-line">
-                    <span>D</span>
-                    <span>the outdoor pool</span>
+                    <input type="checkbox" class="option-checkbox" id="optD" value="D">
+                    <label for="optD" class="option-label">D &nbsp; the outdoor pool</label>
                 </div>
                 <div class="question-line">
-                    <span>E</span>
-                    <span>the sports training for children</span>
+                    <input type="checkbox" class="option-checkbox" id="optE" value="E">
+                    <label for="optE" class="option-label">E &nbsp; the sports training for children</label>
                 </div>
             </div>
 
@@ -542,8 +552,22 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Load saved answers
-            for (let i = 11; i <= 20; i++) {
+            // --- Save/load checkboxes for Q11-12 ---
+            const checkboxes = document.querySelectorAll('.option-checkbox');
+            checkboxes.forEach(chk => {
+                const saved = localStorage.getItem('C10T1_' + chk.id);
+                if (saved === 'true') {
+                    chk.checked = true;
+                    updateStatus();
+                }
+                chk.addEventListener('change', function() {
+                    localStorage.setItem('C10T1_' + this.id, this.checked);
+                    updateStatus();
+                });
+            });
+
+            // --- Save/load text answers Q13-20 ---
+            for (let i = 13; i <= 20; i++) {
                 const field = document.getElementById('q' + i);
                 const saved = localStorage.getItem('C10T1_q' + i);
                 if (saved) {
@@ -563,6 +587,14 @@
                     }
                 });
             }
+
+            // Update status for Q11 and Q12
+            function updateStatus() {
+                const checked = document.querySelectorAll('.option-checkbox:checked').length;
+                checked >= 1 ? markAnswered(11) : unmarkAnswered(11);
+                checked >= 2 ? markAnswered(12) : unmarkAnswered(12);
+            }
+            updateStatus();
         });
 
         function toggleAnswers() {
