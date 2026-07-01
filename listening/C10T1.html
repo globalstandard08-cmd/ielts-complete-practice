@@ -144,7 +144,6 @@
             box-shadow: 0 0 3px rgba(31, 58, 95, 0.3);
         }
 
-        /* Highlight input when answered */
         .input-field.filled {
             background-color: #e6f0ff;
             border-color: #1f3a5f;
@@ -186,7 +185,7 @@
             background-color: #2e568c;
         }
 
-        /* --- UPDATED: Official IELTS Style Colors --- */
+        /* Question indicators - official style */
         .question-status {
             display: flex;
             justify-content: center;
@@ -201,29 +200,37 @@
         .q-indicator {
             width: 32px;
             height: 32px;
-            border-radius: 4px; /* Real exam uses squares, not circles */
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             font-size: 15px;
-            background: #e5e7eb; /* Light gray = unanswered */
+            background: #e5e7eb;
             color: #374151;
             border: 1px solid #d1d5db;
             transition: all 0.2s ease;
         }
 
         .q-indicator.answered {
-            background: #10b981; /* Official green = answered */
+            background: #10b981;
             color: white;
             border-color: #10b981;
         }
 
-        /* --- Arrow Navigation Buttons --- */
-        .nav-buttons {
+        /* Navigation area */
+        .nav-container {
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
         }
 
         .nav-btn {
@@ -246,12 +253,31 @@
             background-color: #2e568c;
         }
 
-        /* --- Highlight Styles --- */
+        /* Back to Main Page button */
+        .back-main-btn {
+            background-color: #6b7280;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .back-main-btn:hover {
+            background-color: #4b5563;
+        }
+
+        /* Highlight styles */
         .user-highlight {
             background-color: #fff3cd;
             padding: 2px 3px;
             border-radius: 2px;
             cursor: pointer;
+            display: inline;
         }
 
         .highlight-tool {
@@ -280,13 +306,14 @@
             background: #fff;
             border: 1px solid #dc3545;
             border-radius: 4px;
-            padding: 4px 8px;
+            padding: 5px 10px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.15);
             z-index: 9999;
             display: none;
             cursor: pointer;
             font-size: 14px;
             color: #dc3545;
+            font-weight: bold;
         }
 
         .remove-highlight:hover {
@@ -295,7 +322,6 @@
     </style>
 </head>
 <body>
-    <!-- Highlight tools -->
     <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
     <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
 
@@ -413,7 +439,6 @@
                 </div>
             </div>
 
-            <!-- Question Status Bar -->
             <div class="question-status">
                 <div class="q-indicator" data-q="1">1</div>
                 <div class="q-indicator" data-q="2">2</div>
@@ -445,17 +470,20 @@
                 </div>
             </div>
 
-            <!-- Arrow Navigation Buttons -->
-            <div class="nav-buttons">
-                <a href="listening-intro.html" class="nav-btn">←</a>
-                <a href="listening-part2.html" class="nav-btn">→</a>
+            <!-- Navigation with Back to Main Page button -->
+            <div class="nav-container">
+                <a href="index.html" class="back-main-btn">← Back to Main Page</a>
+                <div class="nav-buttons">
+                    <a href="listening-intro.html" class="nav-btn">←</a>
+                    <a href="listening-part2.html" class="nav-btn">→</a>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Auto-save answers and update status
         document.addEventListener('DOMContentLoaded', function() {
+            // Load saved answers
             for (let i = 1; i <= 10; i++) {
                 const field = document.getElementById('q' + i);
                 const saved = localStorage.getItem('C10T1_q' + i);
@@ -490,12 +518,13 @@
             document.querySelector(`.q-indicator[data-q="${qNum}"]`).classList.remove('answered');
         }
 
-        // Highlight functionality
+        // Highlight system - fixed
         const highlightArea = document.getElementById('highlightArea');
         const highlightTool = document.getElementById('highlightTool');
         const removeTool = document.getElementById('removeTool');
         let currentRange = null;
 
+        // Right-click to show pencil
         highlightArea.addEventListener('contextmenu', function(e) {
             e.preventDefault();
             const sel = window.getSelection();
@@ -503,6 +532,7 @@
             showPencil(e.clientX, e.clientY);
         });
 
+        // Show pencil when selecting text
         document.addEventListener('mouseup', function() {
             const sel = window.getSelection();
             if (!sel || sel.isCollapsed || !sel.toString().trim()) {
@@ -522,6 +552,7 @@
             highlightTool.style.display = 'flex';
         }
 
+        // Apply highlight
         highlightTool.addEventListener('click', function() {
             if (!currentRange) return;
             const span = document.createElement('span');
@@ -534,18 +565,20 @@
             currentRange = null;
         });
 
-        highlightArea.addEventListener('click', function(e) {
+        // Show remove button when clicking existing highlight
+        document.addEventListener('click', function(e) {
             if (e.target.classList.contains('user-highlight')) {
                 const rect = e.target.getBoundingClientRect();
-                removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 28) + 'px';
+                removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 30) + 'px';
                 removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
                 removeTool.style.display = 'block';
                 removeTool.dataset.target = e.target;
-            } else {
+            } else if (!removeTool.contains(e.target)) {
                 removeTool.style.display = 'none';
             }
         });
 
+        // Remove highlight on click
         removeTool.addEventListener('click', function() {
             const span = this.dataset.target;
             if (!span || !span.parentNode) return;
@@ -553,8 +586,10 @@
             span.parentNode.replaceChild(text, span);
             span.parentNode.normalize();
             this.style.display = 'none';
+            delete this.dataset.target;
         });
 
+        // Hide tools when clicking outside
         document.addEventListener('click', function(e) {
             if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target) && !removeTool.contains(e.target)) {
                 highlightTool.style.display = 'none';
