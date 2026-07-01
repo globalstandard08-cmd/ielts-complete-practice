@@ -45,14 +45,14 @@
             min-height: 550px;
         }
 
-        /* ✅ Left Panel: Fixed height + SCROLLBAR */
+        /* ✅ Left Panel: Fixed height + scrollbar */
         .question-panel {
             width: 48%;
             padding: 20px 25px;
             background-color: #fef2f2;
             border-right: 1px solid #fecaca;
             height: 650px;
-            overflow-y: auto; /* Scroll only here */
+            overflow-y: auto; /* Scroll only this side */
         }
 
         .question-panel h2 {
@@ -71,14 +71,17 @@
             border-radius: 6px;
         }
 
+        /* ✅ Make image bigger and clearer */
         .task-image {
             display: block;
-            max-width: 100%;
-            height: auto;
+            width: 100%;       /* Full width of the panel */
+            height: auto;      /* Keep original proportions */
             margin: 0 auto 20px;
+            image-rendering: -webkit-optimize-contrast; /* Sharper on browsers */
+            image-rendering: crisp-edges;
         }
 
-        /* Right Panel: Vertically centered */
+        /* ✅ Right Panel: Vertically centered */
         .writing-panel {
             width: 52%;
             padding: 20px 25px;
@@ -219,7 +222,7 @@
                     Summarise the information by selecting and reporting the main features, and make comparisons where relevant.<br><br>
                     <strong>Write at least 150 words.</strong>
                 </div>
-                <!-- ✅ Image name exactly: task1C10T4.png -->
+                <!-- ✅ Image name same: task1C10T4.png -->
                 <img src="task1C10T4.png" alt="Life cycle of salmon" class="task-image">
             </div>
 
