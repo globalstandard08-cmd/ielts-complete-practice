@@ -29,43 +29,45 @@
         }
 
         .header {
-            padding: 18px 25px 12px;
+            padding: 20px 25px 15px;
             border-bottom: 1px solid #fecaca;
         }
 
-        /* ✅ Logo made bigger */
+        /* ✅ Logo made much larger */
         .ielts-logo {
             display: block;
-            max-width: 160px;
+            max-width: 220px;
             height: auto;
         }
 
         .split-layout {
             display: flex;
-            min-height: 650px;
+            min-height: 550px;
+            gap: 0;
         }
 
         /* Left Panel: Question */
         .question-panel {
-            width: 45%;
-            padding: 18px 25px 25px; /* ✅ Reduced top padding to move content up */
+            width: 48%;
+            padding: 20px 25px;
             background-color: #fef2f2;
             border-right: 1px solid #fecaca;
             overflow-y: auto;
         }
 
         .question-panel h2 {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
-            margin: 0 0 12px; /* ✅ Less top margin */
+            margin: 0 0 15px;
             color: #991b1b;
         }
 
+        /* ✅ Only instruction box, no extra text above */
         .instruction-box {
             border: 1px solid #fecaca;
             background: #ffffff;
-            padding: 15px;
-            margin: 12px 0;
+            padding: 18px;
+            margin: 0;
             font-size: 15px;
             border-radius: 6px;
         }
@@ -74,30 +76,29 @@
             display: block;
             max-width: 100%;
             height: auto;
-            margin: 15px auto;
+            margin: 20px auto 0;
         }
 
         /* Right Panel: Writing Area */
         .writing-panel {
-            width: 55%;
-            padding: 18px 25px 25px;
+            width: 52%;
+            padding: 20px 25px;
             display: flex;
             flex-direction: column;
         }
 
-        /* ✅ Textarea made larger/taller */
+        /* ✅ Box made wider / square/horizontal shape */
         textarea {
-            flex: 1;
-            min-height: 420px;
             width: 100%;
-            padding: 15px;
+            min-height: 320px;
+            padding: 18px;
             border: 1px solid #fecaca;
             border-radius: 6px;
             font-size: 15px;
             line-height: 1.6;
             background: #ffffff;
-            resize: vertical;
-            margin-bottom: 8px;
+            resize: none;
+            margin-bottom: 10px;
         }
 
         textarea:focus {
@@ -107,10 +108,10 @@
         }
 
         .word-count {
-            text-align: right;
-            font-size: 13px;
+            text-align: left;
+            font-size: 14px;
             font-weight: 500;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .save-note {
@@ -121,11 +122,11 @@
         }
 
         .export-btn {
-            padding: 6px 14px;
+            padding: 8px 16px;
             background: #fef2f2;
             color: #991b1b;
             border: 1px solid #fecaca;
-            font-size: 13px;
+            font-size: 14px;
             cursor: pointer;
             border-radius: 4px;
             align-self: flex-start;
@@ -191,7 +192,7 @@
                 border-bottom: 1px solid #fecaca;
             }
             textarea {
-                min-height: 350px;
+                min-height: 280px;
             }
         }
     </style>
@@ -200,7 +201,7 @@
 
 <div class="container">
     <div class="header">
-        <img src="ielts-logo.png" alt="IELTS" class="ielts-logo">
+        <img src="ielts-logo.png" alt="Global Standard English Learning Center" class="ielts-logo">
     </div>
 
     <div class="split-layout">
@@ -208,7 +209,7 @@
         <div class="question-panel">
             <div class="task-section active" id="task1Question">
                 <h2>WRITING TASK 1</h2>
-                <!-- ✅ Removed duplicate instruction, only keep what's inside the box -->
+                <!-- ✅ ONLY the instruction box, NO extra lines above -->
                 <div class="instruction-box">
                     The first chart below shows how energy is used in an average Australian household. The second chart shows the greenhouse gas emissions which result from this energy use.<br><br>
                     Summarise the information by selecting and reporting the main features, and make comparisons where relevant.<br><br>
@@ -230,18 +231,20 @@
         </div>
 
         <!-- Right: Writing Box -->
-        <div class="task-section active" id="task1Write">
-            <textarea id="task1Input" placeholder="Write your response here..."></textarea>
-            <div class="word-count" id="task1Count">Words: 0 / 150 minimum</div>
-            <div class="save-note" id="save1">✅ Auto-saved</div>
-            <button class="export-btn" onclick="exportAnswer('task1Input', 'Cambridge10_Test1_Task1.txt')">📄 Save Task 1</button>
-        </div>
+        <div class="writing-panel">
+            <div class="task-section active" id="task1Write">
+                <textarea id="task1Input" placeholder="Write your response here..."></textarea>
+                <div class="word-count" id="task1Count">Words: 0 / 150 minimum</div>
+                <div class="save-note" id="save1">✅ Auto-saved</div>
+                <button class="export-btn" onclick="exportAnswer('task1Input', 'Cambridge10_Test1_Task1.txt')">📄 Save Task 1</button>
+            </div>
 
-        <div class="task-section" id="task2Write">
-            <textarea id="task2Input" placeholder="Write your essay here..."></textarea>
-            <div class="word-count" id="task2Count">Words: 0 / 250 minimum</div>
-            <div class="save-note" id="save2">✅ Auto-saved</div>
-            <button class="export-btn" onclick="exportAnswer('task2Input', 'Cambridge10_Test1_Task2.txt')">📄 Save Task 2</button>
+            <div class="task-section" id="task2Write">
+                <textarea id="task2Input" placeholder="Write your essay here..."></textarea>
+                <div class="word-count" id="task2Count">Words: 0 / 250 minimum</div>
+                <div class="save-note" id="save2">✅ Auto-saved</div>
+                <button class="export-btn" onclick="exportAnswer('task2Input', 'Cambridge10_Test1_Task2.txt')">📄 Save Task 2</button>
+            </div>
         </div>
     </div>
 
