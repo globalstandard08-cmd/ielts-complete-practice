@@ -107,44 +107,48 @@
             background: #b91c1c;
         }
 
-        /* ✅ Updated Test Cards Section */
-        .tests-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 25px;
-            justify-items: center;
+        /* ✅ Brochure-style image layout */
+        .images-layout {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
             margin-top: 20px;
-            max-width: 950px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
-        .test-card {
-            width: 160px;
-            text-decoration: none;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        /* Left side images */
+        .images-left {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex: 1;
+            min-width: 220px;
         }
 
-        .test-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(220, 38, 38, 0.15);
+        /* Right side images */
+        .images-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex: 1;
+            min-width: 220px;
+            align-items: flex-end;
         }
 
-        .test-img {
-            width: 100%;
-            height: 210px;
+        /* Image styling - clean outline, no labels */
+        .brochure-img {
+            width: 260px;
+            height: 170px;
             border-radius: 8px;
             border: 2px solid #fecaca;
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.1);
             object-fit: cover;
-            background: #fff;
+            transition: transform 0.2s ease;
         }
 
-        .test-label {
-            margin-top: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            color: #991b1b;
-            text-align: center;
+        .brochure-img:hover {
+            transform: scale(1.03);
         }
 
         /* Disclaimer */
@@ -175,12 +179,16 @@
             h2 {
                 font-size: 20px;
             }
-            .tests-grid {
-                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-                gap: 20px;
+            .images-layout {
+                flex-direction: column;
+                align-items: center;
             }
-            .test-img {
-                height: 180px;
+            .images-left, .images-right {
+                align-items: center;
+            }
+            .brochure-img {
+                width: 220px;
+                height: 150px;
             }
         }
     </style>
@@ -204,32 +212,18 @@
 
             <a href="library.html" class="enter-btn">Enter Practice Library</a>
 
-            <!-- ✅ T1 to T6 Test Covers -->
-            <div class="tests-grid">
-                <a href="C10T1.html" class="test-card">
-                    <img src="T1.png" alt="Test 1" class="test-img">
-                    <div class="test-label">Test 1</div>
-                </a>
-                <a href="C10T2.html" class="test-card">
-                    <img src="T2.png" alt="Test 2" class="test-img">
-                    <div class="test-label">Test 2</div>
-                </a>
-                <a href="C10T3.html" class="test-card">
-                    <img src="T3.png" alt="Test 3" class="test-img">
-                    <div class="test-label">Test 3</div>
-                </a>
-                <a href="C10T4.html" class="test-card">
-                    <img src="T4.png" alt="Test 4" class="test-img">
-                    <div class="test-label">Test 4</div>
-                </a>
-                <a href="C10T5.html" class="test-card">
-                    <img src="T5.png" alt="Test 5" class="test-img">
-                    <div class="test-label">Test 5</div>
-                </a>
-                <a href="C10T6.html" class="test-card">
-                    <img src="T6.png" alt="Test 6" class="test-img">
-                    <div class="test-label">Test 6</div>
-                </a>
+            <!-- ✅ Images arranged like brochure: left & right, NO labels -->
+            <div class="images-layout">
+                <div class="images-left">
+                    <img src="T1.png" alt="Study image" class="brochure-img">
+                    <img src="T2.png" alt="Study image" class="brochure-img">
+                    <img src="T3.png" alt="Study image" class="brochure-img">
+                </div>
+                <div class="images-right">
+                    <img src="T4.png" alt="Study image" class="brochure-img">
+                    <img src="T5.png" alt="Study image" class="brochure-img">
+                    <img src="T6.png" alt="Study image" class="brochure-img">
+                </div>
             </div>
         </div>
     </div>
