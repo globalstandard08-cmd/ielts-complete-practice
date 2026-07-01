@@ -186,7 +186,7 @@
             background-color: #2e568c;
         }
 
-        /* --- NEW: Question Status Bar --- */
+        /* --- UPDATED: Official IELTS Style Colors --- */
         .question-status {
             display: flex;
             justify-content: center;
@@ -201,23 +201,25 @@
         .q-indicator {
             width: 32px;
             height: 32px;
-            border-radius: 50%;
+            border-radius: 4px; /* Real exam uses squares, not circles */
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            background: #eef2f7;
-            border: 1px solid #ccc;
-            transition: all 0.2s;
+            font-size: 15px;
+            background: #e5e7eb; /* Light gray = unanswered */
+            color: #374151;
+            border: 1px solid #d1d5db;
+            transition: all 0.2s ease;
         }
 
         .q-indicator.answered {
-            background: #1f3a5f;
+            background: #10b981; /* Official green = answered */
             color: white;
-            border-color: #1f3a5f;
+            border-color: #10b981;
         }
 
-        /* --- NEW: Arrow Navigation Buttons --- */
+        /* --- Arrow Navigation Buttons --- */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
