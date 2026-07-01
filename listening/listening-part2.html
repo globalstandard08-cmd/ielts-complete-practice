@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IELTS Listening - Part 2</title>
+    <title>IELTS Listening - C10T1 Part 2</title>
     <style>
         * {
             margin: 0;
@@ -16,6 +16,7 @@
             background-color: #f4f6f9;
             padding: 20px;
             line-height: 1.7;
+            position: relative;
         }
 
         .container {
@@ -24,7 +25,8 @@
             background: white;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            overflow: hidden;
+            overflow: visible;
+            position: relative;
         }
 
         .logo-section {
@@ -71,6 +73,7 @@
 
         .content {
             padding: 0 30px 30px;
+            position: relative;
         }
 
         h2 {
@@ -88,7 +91,6 @@
             font-weight: 500;
         }
 
-        /* Single-column box style */
         .notes-block {
             border: 1px solid #ccc;
             border-radius: 6px;
@@ -100,18 +102,11 @@
         .notes-title {
             font-weight: bold;
             font-size: 18px;
-            margin-bottom: 20px;
-            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
         }
 
-        .section-heading {
-            font-weight: bold;
-            margin: 20px 0 12px;
-            font-size: 17px;
-            color: #1f3a5f;
-        }
-
-        /* Question line: number directly next to input */
         .question-line {
             margin-bottom: 18px;
             display: flex;
@@ -131,6 +126,7 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 16px;
+            transition: all 0.2s;
         }
 
         .input-field:focus {
@@ -139,7 +135,11 @@
             box-shadow: 0 0 3px rgba(31, 58, 95, 0.3);
         }
 
-        /* Answers section */
+        .input-field.filled {
+            background-color: #e6f0ff;
+            border-color: #1f3a5f;
+        }
+
         .answers-section {
             margin-top: 40px;
             padding: 20px;
@@ -176,163 +176,349 @@
             background-color: #2e568c;
         }
 
-        .nav-buttons {
+        /* Question indicators - official style */
+        .question-status {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            padding: 12px;
+            background: #f8fbfe;
+            border-radius: 6px;
+            border: 1px solid #b0d4f1;
+        }
+
+        .q-indicator {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 15px;
+            background: #e5e7eb;
+            color: #374151;
+            border: 1px solid #d1d5db;
+            transition: all 0.2s ease;
+        }
+
+        .q-indicator.answered {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        /* Navigation area */
+        .nav-container {
             display: flex;
             justify-content: space-between;
-            margin-top: 40px;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
         }
 
-        .btn {
-            padding: 11px 26px;
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            width: 46px;
+            height: 46px;
             background-color: #1f3a5f;
             color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 16px;
             border: none;
+            border-radius: 50%;
+            font-size: 22px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.2s;
         }
 
-        .btn:hover {
+        .nav-btn:hover {
             background-color: #2e568c;
+        }
+
+        /* Back to Main Page button */
+        .back-main-btn {
+            background-color: #6b7280;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .back-main-btn:hover {
+            background-color: #4b5563;
+        }
+
+        /* Highlight styles */
+        .user-highlight {
+            background-color: #fff3cd;
+            padding: 2px 3px;
+            border-radius: 2px;
+            cursor: pointer;
+            display: inline;
+        }
+
+        .highlight-tool {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #1f3a5f;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #1f3a5f;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .highlight-tool:hover {
+            background: #eef2f7;
         }
     </style>
 </head>
 <body>
+    <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
+
     <div class="container">
         <div class="logo-section">
             <img src="ielts-logo.png" alt="IELTS Logo">
         </div>
 
         <div class="header-bar">
-            <span>LISTENING TEST - PART 2</span>
-            <span style="font-size:15px; opacity:0.9;">Teaching Mode</span>
+            <span>LISTENING TEST - C10 TEST 1 PART 2</span>
+            <span style="font-size:15px; opacity:0.9;">Exam Mode</span>
         </div>
 
-        <!-- Audio Player -->
-<div class="audio-player">
-    <h3>Play Recording - Part 2</h3>
-    <audio controls preload="auto">
-        <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part2.mp3" type="audio/mpeg">
-        <source src="part2.mp3" type="audio/mpeg">
-        Your browser does not support audio playback.
-    
-</div>
+        <div class="audio-player">
+            <h3>Play Recording - Part 2</h3>
+            <audio controls preload="auto">
+                <source src="part2.mp3" type="audio/mpeg">
+                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part2.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            
+        </div>
 
-        <div class="content">
-            <h2>Section 2 – Questions 13–20</h2>
+        <div class="content" id="highlightArea">
+            <h2>Section 2 – Questions 11–20</h2>
 
             <div class="instruction">
-                <strong>Questions 13–20:</strong> Complete the notes below. <br>
-                <em>Write NO MORE THAN TWO WORDS for each answer.</em>
+                <strong>Questions 11–16:</strong> Complete the table below. Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.
             </div>
 
-            <!-- Single-column notes block -->
             <div class="notes-block">
-                <div class="notes-title">Joining the leisure club</div>
-
-                <div class="section-heading">Personal Assessment</div>
+                <div class="notes-title">PARK INFORMATION</div>
 
                 <div class="question-line">
-                    <span>New members should describe any</span>
+                    <span>Opening hours:</span>
+                    <span class="q-number">11.</span>
+                    <input type="text" class="input-field" id="q11" placeholder="_______">
+                    <span>am to 6 pm</span>
+                </div>
+
+                <div class="question-line">
+                    <span>Entrance fee:</span>
+                    <span class="q-number">12.</span>
+                    <input type="text" class="input-field" id="q12" placeholder="_______">
+                    <span>per person</span>
+                </div>
+
+                <div class="question-line">
+                    <span>Best time to visit:</span>
                     <span class="q-number">13.</span>
-                    <input type="text" class="input-field" id="q13" placeholder="__________">
+                    <input type="text" class="input-field" id="q13" placeholder="_______">
+                    <span>season</span>
                 </div>
 
                 <div class="question-line">
-                    <span>The</span>
+                    <span>Main attraction:</span>
                     <span class="q-number">14.</span>
-                    <input type="text" class="input-field" id="q14" placeholder="__________">
-                    <span>will be explained to you before you use the equipment.</span>
+                    <input type="text" class="input-field" id="q14" placeholder="_______">
+                    <span>views</span>
                 </div>
 
                 <div class="question-line">
-                    <span>You will be given a six-week</span>
+                    <span>Facilities available:</span>
                     <span class="q-number">15.</span>
-                    <input type="text" class="input-field" id="q15" placeholder="__________">
+                    <input type="text" class="input-field" id="q15" placeholder="_______">
+                    <span>and café</span>
                 </div>
 
-                <div class="section-heading">Types of membership</div>
-
                 <div class="question-line">
-                    <span>There is a compulsory £90</span>
+                    <span>Guided tours start at:</span>
                     <span class="q-number">16.</span>
-                    <input type="text" class="input-field" id="q16" placeholder="__________">
-                    <span>fee for members.</span>
-                </div>
-
-                <div class="question-line">
-                    <span>Gold members are given</span>
-                    <span class="q-number">17.</span>
-                    <input type="text" class="input-field" id="q17" placeholder="__________">
-                    <span>to all the LP clubs.</span>
-                </div>
-
-                <div class="question-line">
-                    <span>Premier members are given priority during</span>
-                    <span class="q-number">18.</span>
-                    <input type="text" class="input-field" id="q18" placeholder="__________">
-                    <span>hours.</span>
-                </div>
-
-                <div class="question-line">
-                    <span>Premier members can bring some</span>
-                    <span class="q-number">19.</span>
-                    <input type="text" class="input-field" id="q19" placeholder="__________">
-                    <span>every month.</span>
-                </div>
-
-                <div class="question-line">
-                    <span>Members should always take their</span>
-                    <span class="q-number">20.</span>
-                    <input type="text" class="input-field" id="q20" placeholder="__________">
-                    <span>with them.</span>
+                    <input type="text" class="input-field" id="q16" placeholder="_______">
+                    <span>every hour</span>
                 </div>
             </div>
 
-            <!-- Answers section -->
+            <div class="instruction">
+                <strong>Questions 17–20:</strong> Choose the correct letter, A, B or C.
+            </div>
+
+            <div class="notes-block">
+                <div class="question-line">
+                    <span>17. The park was originally used for</span>
+                    <input type="text" class="input-field" id="q17" placeholder="_______">
+                </div>
+                <div class="question-line">
+                    <span>18. Visitors are advised not to walk in the</span>
+                    <input type="text" class="input-field" id="q18" placeholder="_______">
+                </div>
+                <div class="question-line">
+                    <span>19. What is available near the main gate?</span>
+                    <input type="text" class="input-field" id="q19" placeholder="_______">
+                </div>
+                <div class="question-line">
+                    <span>20. The best way to get more information is to check the</span>
+                    <input type="text" class="input-field" id="q20" placeholder="_______">
+                </div>
+            </div>
+
+            <!-- Question indicators for Part 2 -->
+            <div class="question-status">
+                <div class="q-indicator" data-q="11">11</div>
+                <div class="q-indicator" data-q="12">12</div>
+                <div class="q-indicator" data-q="13">13</div>
+                <div class="q-indicator" data-q="14">14</div>
+                <div class="q-indicator" data-q="15">15</div>
+                <div class="q-indicator" data-q="16">16</div>
+                <div class="q-indicator" data-q="17">17</div>
+                <div class="q-indicator" data-q="18">18</div>
+                <div class="q-indicator" data-q="19">19</div>
+                <div class="q-indicator" data-q="20">20</div>
+            </div>
+
             <div class="answers-section">
                 <h3>Answers for Section 2</h3>
                 <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
                 <div class="answers-content" id="answers">
                     <strong>Answers:</strong><br>
-                    13. health problems<br>
-                    14. rules<br>
-                    15. trial period<br>
-                    16. joining / annual<br>
-                    17. access<br>
-                    18. peak<br>
-                    19. guests<br>
-                    20. membership card
+                    11. 9 / nine<br>
+                    12. 6 / six<br>
+                    13. spring<br>
+                    14. mountain<br>
+                    15. toilets<br>
+                    16. 11:30 / eleven thirty<br>
+                    17. B<br>
+                    18. C<br>
+                    19. A<br>
+                    20. B
                 </div>
             </div>
 
-            <div class="nav-buttons">
-                <a href="listening-part1.html" class="btn">← Back to Part 1</a>
-                <a href="listening-part3.html" class="btn">Next: Part 3 →</a>
+            <!-- Navigation -->
+            <div class="nav-container">
+                <a href="index.html" class="back-main-btn">← Back to Main Page</a>
+                <div class="nav-buttons">
+                    <a href="C10T1.html" class="nav-btn">←</a>
+                    <a href="listening-part3.html" class="nav-btn">→</a>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Auto-save answers
         document.addEventListener('DOMContentLoaded', function() {
-            for (let i = 13; i <= 20; i++) {
+            // Load saved answers for Part 2
+            for (let i = 11; i <= 20; i++) {
                 const field = document.getElementById('q' + i);
-                const saved = localStorage.getItem('listening_c10t1_q' + i);
-                if (saved) field.value = saved;
-
+                const saved = localStorage.getItem('C10T1_q' + i);
+                if (saved) {
+                    field.value = saved;
+                    field.classList.add('filled');
+                    markAnswered(i);
+                }
                 field.addEventListener('input', function() {
-                    localStorage.setItem('listening_c10t1_q' + i, this.value.trim());
+                    const val = this.value.trim();
+                    localStorage.setItem('C10T1_q' + i, val);
+                    if (val) {
+                        this.classList.add('filled');
+                        markAnswered(i);
+                    } else {
+                        this.classList.remove('filled');
+                        unmarkAnswered(i);
+                    }
                 });
             }
         });
 
-        // Toggle answers
         function toggleAnswers() {
             const ansDiv = document.getElementById('answers');
             ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
         }
+
+        function markAnswered(qNum) {
+            document.querySelector(`.q-indicator[data-q="${qNum}"]`).classList.add('answered');
+        }
+        function unmarkAnswered(qNum) {
+            document.querySelector(`.q-indicator[data-q="${qNum}"]`).classList.remove('answered');
+        }
+
+        // Highlight system
+        const highlightArea = document.getElementById('highlightArea');
+        const highlightTool = document.getElementById('highlightTool');
+        let currentRange = null;
+
+        highlightArea.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            const sel = window.getSelection();
+            if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+            showPencil(e.clientX, e.clientY);
+        });
+
+        document.addEventListener('mouseup', function() {
+            const sel = window.getSelection();
+            if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+                highlightTool.style.display = 'none';
+                return;
+            }
+            const range = sel.getRangeAt(0);
+            if (!highlightArea.contains(range.commonAncestorContainer)) return;
+            const rect = range.getBoundingClientRect();
+            showPencil(rect.left + rect.width / 2, rect.top);
+            currentRange = range;
+        });
+
+        function showPencil(x, y) {
+            highlightTool.style.left = (x + window.scrollX - 17) + 'px';
+            highlightTool.style.top = (y + window.scrollY - 40) + 'px';
+            highlightTool.style.display = 'flex';
+        }
+
+        highlightTool.addEventListener('click', function() {
+            if (!currentRange) return;
+            const span = document.createElement('span');
+            span.className = 'user-highlight';
+            span.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(span);
+            window.getSelection().removeAllRanges();
+            highlightTool.style.display = 'none';
+            currentRange = null;
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target)) {
+                highlightTool.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
