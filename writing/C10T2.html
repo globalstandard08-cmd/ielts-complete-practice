@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge 10 Test 2 - Writing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #fef2f2;
+            color: #1a1a1a;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            padding: 20px 25px 15px;
+            border-bottom: 1px solid #fecaca;
+        }
+
+        /* ✅ Bigger logo same as before */
+        .ielts-logo {
+            display: block;
+            max-width: 220px;
+            height: auto;
+        }
+
+        .split-layout {
+            display: flex;
+            min-height: 550px;
+        }
+
+        /* Left Panel: Question */
+        .question-panel {
+            width: 48%;
+            padding: 20px 25px;
+            background-color: #fef2f2;
+            border-right: 1px solid #fecaca;
+            overflow-y: auto;
+        }
+
+        .question-panel h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 0 15px;
+            color: #991b1b;
+        }
+
+        .instruction-box {
+            border: 1px solid #fecaca;
+            background: #ffffff;
+            padding: 18px;
+            margin: 0;
+            font-size: 15px;
+            border-radius: 6px;
+        }
+
+        /* Table styling for Task 1 */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 8px 10px;
+            text-align: center;
+        }
+        .data-table th {
+            background-color: #fef2f2;
+            font-weight: bold;
+            color: #991b1b;
+        }
+        .footnote {
+            font-size: 12px;
+            color: #555;
+            margin-top: 8px;
+        }
+
+        /* Right Panel: Writing Area */
+        .writing-panel {
+            width: 52%;
+            padding: 20px 25px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 320px;
+            padding: 18px;
+            border: 1px solid #fecaca;
+            border-radius: 6px;
+            font-size: 15px;
+            line-height: 1.6;
+            background: #ffffff;
+            resize: none;
+            margin-bottom: 10px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #dc2626;
+            box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.15);
+        }
+
+        .word-count {
+            text-align: left;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: #991b1b;
+        }
+
+        .save-note {
+            font-size: 12px;
+            color: #006600;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .export-btn {
+            padding: 8px 16px;
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            align-self: flex-start;
+        }
+
+        .export-btn:hover {
+            background: #fee2e2;
+        }
+
+        /* ✅ Navigation buttons like real exam style */
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            border-top: 1px solid #fecaca;
+            background: #ffffff;
+        }
+
+        .nav-btn {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+            padding: 8px 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: #fee2e2;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .task-indicator {
+            font-weight: bold;
+            color: #991b1b;
+            font-size: 15px;
+        }
+
+        .task-section {
+            display: none;
+        }
+
+        .task-section.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .split-layout {
+                flex-direction: column;
+            }
+            .question-panel, .writing-panel {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #fecaca;
+            }
+            textarea {
+                min-height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="ielts-logo.png" alt="Global Standard English Learning Center" class="ielts-logo">
+    </div>
+
+    <div class="split-layout">
+        <!-- Left: Question -->
+        <div class="question-panel">
+            <!-- Task 1 -->
+            <div class="task-section active" id="task1Question">
+                <h2>WRITING TASK 1</h2>
+                <div class="instruction-box">
+                    The tables below give information about sales of Fairtrade-labelled coffee and bananas in 1999 and 2004 in five European countries.<br><br>
+                    Summarise the information by selecting and reporting the main features, and make comparisons where relevant.<br><br>
+                    <strong>Write at least 150 words.</strong>
+                </div>
+
+                <p style="margin:15px 0 8px; font-weight:bold;">Sales of Fairtrade-labelled coffee and bananas (1999 & 2004)</p>
+
+                <!-- Coffee Table -->
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Coffee</th>
+                            <th>1999<br>(millions of euros)</th>
+                            <th>2004<br>(millions of euros)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>UK</td><td>1.5</td><td>20</td></tr>
+                        <tr><td>Switzerland</td><td>3</td><td>6</td></tr>
+                        <tr><td>Denmark</td><td>1.8</td><td>2</td></tr>
+                        <tr><td>Belgium</td><td>1</td><td>1.7</td></tr>
+                        <tr><td>Sweden</td><td>0.8</td><td>1</td></tr>
+                    </tbody>
+                </table>
+
+                <!-- Bananas Table -->
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Bananas</th>
+                            <th>1999<br>(millions of euros)</th>
+                            <th>2004<br>(millions of euros)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Switzerland</td><td>15</td><td>47</td></tr>
+                        <tr><td>UK</td><td>1</td><td>5.5</td></tr>
+                        <tr><td>Belgium</td><td>0.6</td><td>4</td></tr>
+                        <tr><td>Sweden</td><td>1.8</td><td>1</td></tr>
+                        <tr><td>Denmark</td><td>2</td><td>0.9</td></tr>
+                    </tbody>
+                </table>
+
+                <p class="footnote">* Fairtrade: a category of products for which farmers from developing countries have been paid an officially agreed fair price.</p>
+            </div>
+
+            <!-- Task 2 -->
+            <div class="task-section" id="task2Question">
+                <h2>WRITING TASK 2</h2>
+                <div class="instruction-box">
+                    Some people think that all university students should study whatever they like. Others believe that they should only be allowed to study subjects that will be useful in the future, such as those related to science and technology.<br><br>
+                    Discuss both these views and give your own opinion.<br><br>
+                    Give reasons for your answer and include any relevant examples from your own knowledge or experience.<br><br>
+                    <strong>Write at least 250 words.</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Writing Area -->
+        <div class="writing-panel">
+            <div class="task-section active" id="task1Write">
+                <textarea id="task1Input" placeholder="Write your response here..."></textarea>
+                <div class="word-count" id="task1Count">Words: 0 / 150 minimum</div>
+                <div class="save-note" id="save1">✅ Auto-saved</div>
+                <button class="export-btn" onclick="exportAnswer('task1Input', 'Cambridge10_Test2_Task1.txt')">📄 Save Task 1</button>
+            </div>
+
+            <div class="task-section" id="task2Write">
+                <textarea id="task2Input" placeholder="Write your essay here..."></textarea>
+                <div class="word-count" id="task2Count">Words: 0 / 250 minimum</div>
+                <div class="save-note" id="save2">✅ Auto-saved</div>
+                <button class="export-btn" onclick="exportAnswer('task2Input', 'Cambridge10_Test2_Task2.txt')">📄 Save Task 2</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <button class="nav-btn" id="prevBtn" onclick="switchTask(-1)" disabled>◀ Previous</button>
+        <div class="task-indicator" id="taskIndicator">Task 1 of 2</div>
+        <button class="nav-btn" id="nextBtn" onclick="switchTask(1)">Next ▶</button>
+    </div>
+</div>
+
+<script>
+let currentTask = 1;
+const totalTasks = 2;
+
+function switchTask(direction) {
+    currentTask += direction;
+    document.querySelectorAll('.task-section').forEach(sec => sec.classList.remove('active'));
+    document.getElementById(`task${currentTask}Question`).classList.add('active');
+    document.getElementById(`task${currentTask}Write`).classList.add('active');
+    document.getElementById('prevBtn').disabled = currentTask === 1;
+    document.getElementById('nextBtn').disabled = currentTask === totalTasks;
+    document.getElementById('taskIndicator').textContent = `Task ${currentTask} of ${totalTasks}`;
+    if (currentTask === 1) countWords('task1Input','task1Count',150);
+    else countWords('task2Input','task2Count',250);
+}
+
+function countWords(id, countId, min) {
+    const text = document.getElementById(id).value.trim();
+    const num = text ? text.replace(/\s+/g, ' ').split(' ').length : 0;
+    const counter = document.getElementById(countId);
+    counter.textContent = `Words: ${num} / ${min} minimum`;
+    counter.style.color = num < min ? "#dc2626" : num < min + 20 ? "#b45309" : "#166534";
+}
+
+function autoSave(id, noteId) {
+    localStorage.setItem(id, document.getElementById(id).value);
+    const note = document.getElementById(noteId);
+    note.style.display = 'inline';
+    setTimeout(() => note.style.display = 'none', 1500);
+}
+
+function loadSaved(id) {
+    document.getElementById(id).value = localStorage.getItem(id) || '';
+}
+
+function exportAnswer(inputId, fileName) {
+    const text = document.getElementById(inputId).value.trim();
+    if (!text) return alert("Please write your answer first!");
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+    link.click();
+    URL.revokeObjectURL(link.href);
+}
+
+window.onload = () => {
+    loadSaved('task1Input');
+    loadSaved('task2Input');
+    countWords('task1Input','task1Count',150);
+    countWords('task2Input','task2Count',250);
+};
+
+document.getElementById('task1Input').addEventListener('input', () => {
+    countWords('task1Input','task1Count',150);
+    autoSave('task1Input','save1');
+});
+
+document.getElementById('task2Input').addEventListener('input', () => {
+    countWords('task2Input','task2Count',250);
+    autoSave('task2Input','save2');
+});
+</script>
+
+</body>
+</html>
