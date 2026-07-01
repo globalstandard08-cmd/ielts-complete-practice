@@ -29,25 +29,26 @@
         }
 
         .header {
-            padding: 20px 25px;
+            padding: 18px 25px 12px;
             border-bottom: 1px solid #fecaca;
         }
 
+        /* ✅ Logo made bigger */
         .ielts-logo {
             display: block;
-            max-width: 120px;
+            max-width: 160px;
             height: auto;
         }
 
         .split-layout {
             display: flex;
-            min-height: 620px;
+            min-height: 650px;
         }
 
         /* Left Panel: Question */
         .question-panel {
             width: 45%;
-            padding: 25px;
+            padding: 18px 25px 25px; /* ✅ Reduced top padding to move content up */
             background-color: #fef2f2;
             border-right: 1px solid #fecaca;
             overflow-y: auto;
@@ -56,7 +57,7 @@
         .question-panel h2 {
             font-size: 18px;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin: 0 0 12px; /* ✅ Less top margin */
             color: #991b1b;
         }
 
@@ -64,7 +65,7 @@
             border: 1px solid #fecaca;
             background: #ffffff;
             padding: 15px;
-            margin: 15px 0;
+            margin: 12px 0;
             font-size: 15px;
             border-radius: 6px;
         }
@@ -73,19 +74,21 @@
             display: block;
             max-width: 100%;
             height: auto;
-            margin: 20px auto;
+            margin: 15px auto;
         }
 
         /* Right Panel: Writing Area */
         .writing-panel {
             width: 55%;
-            padding: 25px;
+            padding: 18px 25px 25px;
             display: flex;
             flex-direction: column;
         }
 
+        /* ✅ Textarea made larger/taller */
         textarea {
             flex: 1;
+            min-height: 420px;
             width: 100%;
             padding: 15px;
             border: 1px solid #fecaca;
@@ -93,7 +96,7 @@
             font-size: 15px;
             line-height: 1.6;
             background: #ffffff;
-            resize: none;
+            resize: vertical;
             margin-bottom: 8px;
         }
 
@@ -188,7 +191,7 @@
                 border-bottom: 1px solid #fecaca;
             }
             textarea {
-                min-height: 320px;
+                min-height: 350px;
             }
         }
     </style>
@@ -197,7 +200,6 @@
 
 <div class="container">
     <div class="header">
-        <!-- ✅ Path matches your folder: writing/ielts-logo.png -->
         <img src="ielts-logo.png" alt="IELTS" class="ielts-logo">
     </div>
 
@@ -206,45 +208,40 @@
         <div class="question-panel">
             <div class="task-section active" id="task1Question">
                 <h2>WRITING TASK 1</h2>
-                <p>You should spend about 20 minutes on this task.</p>
+                <!-- ✅ Removed duplicate instruction, only keep what's inside the box -->
                 <div class="instruction-box">
                     The first chart below shows how energy is used in an average Australian household. The second chart shows the greenhouse gas emissions which result from this energy use.<br><br>
-                    Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
+                    Summarise the information by selecting and reporting the main features, and make comparisons where relevant.<br><br>
+                    <strong>Write at least 150 words.</strong>
                 </div>
-                <p><strong>Write at least 150 words.</strong></p>
-                <!-- ✅ Path matches your folder: writing/task1.png -->
                 <img src="task1.png" alt="Australian household energy use and emissions" class="task1-chart">
             </div>
 
             <div class="task-section" id="task2Question">
                 <h2>WRITING TASK 2</h2>
-                <p>You should spend about 40 minutes on this task.</p>
-                <p>Present a written argument or case to an educated reader with no specialist knowledge of the following topic.</p>
                 <div class="instruction-box">
                     It is important for children to learn the difference between right and wrong at an early age. Punishment is necessary to help them learn this distinction.<br><br>
                     To what extent do you agree or disagree with this opinion?<br><br>
-                    What sort of punishment should parents and teachers be allowed to use to teach good behaviour to children?
+                    What sort of punishment should parents and teachers be allowed to use to teach good behaviour to children?<br><br>
+                    Give reasons for your answer and include any relevant examples from your own knowledge or experience.<br><br>
+                    <strong>Write at least 250 words.</strong>
                 </div>
-                <p>Give reasons for your answer and include any relevant examples from your own knowledge or experience.</p>
-                <p><strong>Write at least 250 words.</strong></p>
             </div>
         </div>
 
         <!-- Right: Writing Box -->
-        <div class="writing-panel">
-            <div class="task-section active" id="task1Write">
-                <textarea id="task1Input" placeholder="Write your response here..."></textarea>
-                <div class="word-count" id="task1Count">Words: 0 / 150 minimum</div>
-                <div class="save-note" id="save1">✅ Auto-saved</div>
-                <button class="export-btn" onclick="exportAnswer('task1Input', 'Cambridge10_Test1_Task1.txt')">📄 Save Task 1</button>
-            </div>
+        <div class="task-section active" id="task1Write">
+            <textarea id="task1Input" placeholder="Write your response here..."></textarea>
+            <div class="word-count" id="task1Count">Words: 0 / 150 minimum</div>
+            <div class="save-note" id="save1">✅ Auto-saved</div>
+            <button class="export-btn" onclick="exportAnswer('task1Input', 'Cambridge10_Test1_Task1.txt')">📄 Save Task 1</button>
+        </div>
 
-            <div class="task-section" id="task2Write">
-                <textarea id="task2Input" placeholder="Write your essay here..."></textarea>
-                <div class="word-count" id="task2Count">Words: 0 / 250 minimum</div>
-                <div class="save-note" id="save2">✅ Auto-saved</div>
-                <button class="export-btn" onclick="exportAnswer('task2Input', 'Cambridge10_Test1_Task2.txt')">📄 Save Task 2</button>
-            </div>
+        <div class="task-section" id="task2Write">
+            <textarea id="task2Input" placeholder="Write your essay here..."></textarea>
+            <div class="word-count" id="task2Count">Words: 0 / 250 minimum</div>
+            <div class="save-note" id="save2">✅ Auto-saved</div>
+            <button class="export-btn" onclick="exportAnswer('task2Input', 'Cambridge10_Test1_Task2.txt')">📄 Save Task 2</button>
         </div>
     </div>
 
