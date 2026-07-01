@@ -185,24 +185,33 @@
             background-color: #2e568c;
         }
 
-        /* --- EXACT MATCH to exam layout --- */
+        /* --- Updated with Part labels --- */
         .question-status {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: flex-start;
-            gap: 4px;
+            gap: 6px;
             margin: 30px 0;
-            padding: 8px 10px;
+            padding: 12px 15px;
             background: #f0f2f5;
             border-radius: 4px;
             border: 1px solid #d0d5dd;
             font-size: 12px;
         }
 
-        /* Gap between parts just like in screenshot */
+        /* Part label style */
+        .part-label {
+            font-size: 11px;
+            font-weight: bold;
+            color: #444;
+            margin-right: 4px;
+            margin-left: 8px;
+        }
+
+        /* Gap between parts */
         .part-separator {
-            width: 16px;
+            width: 12px;
             height: 24px;
             flex-shrink: 0;
         }
@@ -462,9 +471,10 @@
                 </div>
             </div>
 
-            <!-- --- QUESTION BAR: exactly like your screenshot --- -->
+            <!-- --- Question Bar with Part labels --- -->
             <div class="question-status">
                 <!-- Part 1: 1–10 -->
+                <span class="part-label">Part 1</span>
                 <div class="q-indicator current" data-q="1">1</div>
                 <div class="q-indicator current" data-q="2">2</div>
                 <div class="q-indicator current" data-q="3">3</div>
@@ -480,6 +490,7 @@
                 <div class="part-separator"></div>
 
                 <!-- Part 2: 11–20 -->
+                <span class="part-label">Part 2</span>
                 <div class="q-indicator other" data-q="11">11</div>
                 <div class="q-indicator other" data-q="12">12</div>
                 <div class="q-indicator other" data-q="13">13</div>
@@ -495,6 +506,7 @@
                 <div class="part-separator"></div>
 
                 <!-- Part 3: 21–30 -->
+                <span class="part-label">Part 3</span>
                 <div class="q-indicator other" data-q="21">21</div>
                 <div class="q-indicator other" data-q="22">22</div>
                 <div class="q-indicator other" data-q="23">23</div>
@@ -510,6 +522,7 @@
                 <div class="part-separator"></div>
 
                 <!-- Part 4: 31–40 -->
+                <span class="part-label">Part 4</span>
                 <div class="q-indicator other" data-q="31">31</div>
                 <div class="q-indicator other" data-q="32">32</div>
                 <div class="q-indicator other" data-q="33">33</div>
