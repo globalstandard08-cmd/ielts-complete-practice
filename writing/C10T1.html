@@ -12,7 +12,6 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
-        /* ✅ LIGHT RED THEME - matches your other pages */
         body {
             background-color: #fef2f2;
             color: #1a1a1a;
@@ -21,34 +20,51 @@
         }
 
         .container {
-            max-width: 950px;
+            max-width: 1200px;
             margin: 0 auto;
             background: #ffffff;
-            padding: 25px;
             border-radius: 8px;
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.1);
+            overflow: hidden;
         }
 
-        /* ✅ IELTS LOGO - correct path, top left */
+        .header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #fecaca;
+        }
+
         .ielts-logo {
             display: block;
-            max-width: 130px;
+            max-width: 120px;
             height: auto;
-            margin: 0 0 25px 0;
         }
 
-        h2 {
+        .split-layout {
+            display: flex;
+            min-height: 620px;
+        }
+
+        /* Left Panel: Question */
+        .question-panel {
+            width: 45%;
+            padding: 25px;
+            background-color: #fef2f2;
+            border-right: 1px solid #fecaca;
+            overflow-y: auto;
+        }
+
+        .question-panel h2 {
             font-size: 18px;
             font-weight: bold;
-            margin: 25px 0 10px;
+            margin-bottom: 15px;
             color: #991b1b;
         }
 
         .instruction-box {
             border: 1px solid #fecaca;
-            background: #fef2f2;
+            background: #ffffff;
             padding: 15px;
-            margin: 15px 0 20px;
+            margin: 15px 0;
             font-size: 15px;
             border-radius: 6px;
         }
@@ -57,20 +73,28 @@
             display: block;
             max-width: 100%;
             height: auto;
-            margin: 0 auto 25px;
+            margin: 20px auto;
+        }
+
+        /* Right Panel: Writing Area */
+        .writing-panel {
+            width: 55%;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
         }
 
         textarea {
+            flex: 1;
             width: 100%;
-            min-height: 280px;
-            padding: 12px;
+            padding: 15px;
             border: 1px solid #fecaca;
             border-radius: 6px;
             font-size: 15px;
             line-height: 1.6;
             background: #ffffff;
-            resize: vertical;
-            margin-bottom: 5px;
+            resize: none;
+            margin-bottom: 8px;
         }
 
         textarea:focus {
@@ -82,7 +106,7 @@
         .word-count {
             text-align: right;
             font-size: 13px;
-            color: #555555;
+            font-weight: 500;
             margin-bottom: 8px;
         }
 
@@ -93,107 +117,182 @@
             display: none;
         }
 
-        /* ✅ Export button - matches this theme */
         .export-btn {
-            padding: 5px 12px;
+            padding: 6px 14px;
             background: #fef2f2;
             color: #991b1b;
             border: 1px solid #fecaca;
             font-size: 13px;
             cursor: pointer;
-            margin-bottom: 30px;
             border-radius: 4px;
+            align-self: flex-start;
         }
 
         .export-btn:hover {
             background: #fee2e2;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            border-top: 1px solid #fecaca;
+            background: #ffffff;
+        }
+
+        .nav-btn {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: #fee2e2;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .task-indicator {
+            font-weight: bold;
+            color: #991b1b;
+        }
+
+        .task-section {
+            display: none;
+        }
+
+        .task-section.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .split-layout {
+                flex-direction: column;
+            }
+            .question-panel, .writing-panel {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #fecaca;
+            }
+            textarea {
+                min-height: 320px;
+            }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-
-    <!-- ✅ LOGO PATH: writing/ielts-logo.png -->
-    <img src="writing/ielts-logo.png" alt="IELTS" class="ielts-logo">
-
-
-    <!-- WRITING TASK 1 -->
-    <h2>WRITING TASK 1</h2>
-    <p>You should spend about 20 minutes on this task.</p>
-
-    <div class="instruction-box">
-        The first chart below shows how energy is used in an average Australian household. The second chart shows the greenhouse gas emissions which result from this energy use.<br><br>
-        Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
+    <div class="header">
+        <!-- ✅ Path matches your folder: writing/ielts-logo.png -->
+        <img src="ielts-logo.png" alt="IELTS" class="ielts-logo">
     </div>
-    <p>Write at least 150 words.</p>
 
-    <!-- ✅ CHART PATH: same folder = task1.png -->
-    <img src="task1.png" alt="Australian household energy use and emissions" class="task1-chart">
+    <div class="split-layout">
+        <!-- Left: Question -->
+        <div class="question-panel">
+            <div class="task-section active" id="task1Question">
+                <h2>WRITING TASK 1</h2>
+                <p>You should spend about 20 minutes on this task.</p>
+                <div class="instruction-box">
+                    The first chart below shows how energy is used in an average Australian household. The second chart shows the greenhouse gas emissions which result from this energy use.<br><br>
+                    Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
+                </div>
+                <p><strong>Write at least 150 words.</strong></p>
+                <!-- ✅ Path matches your folder: writing/task1.png -->
+                <img src="task1.png" alt="Australian household energy use and emissions" class="task1-chart">
+            </div>
 
-    <textarea id="task1Input" placeholder="Write your response here..."></textarea>
-    <div class="word-count" id="task1Count">Words: 0 / 150 minimum</div>
+            <div class="task-section" id="task2Question">
+                <h2>WRITING TASK 2</h2>
+                <p>You should spend about 40 minutes on this task.</p>
+                <p>Present a written argument or case to an educated reader with no specialist knowledge of the following topic.</p>
+                <div class="instruction-box">
+                    It is important for children to learn the difference between right and wrong at an early age. Punishment is necessary to help them learn this distinction.<br><br>
+                    To what extent do you agree or disagree with this opinion?<br><br>
+                    What sort of punishment should parents and teachers be allowed to use to teach good behaviour to children?
+                </div>
+                <p>Give reasons for your answer and include any relevant examples from your own knowledge or experience.</p>
+                <p><strong>Write at least 250 words.</strong></p>
+            </div>
+        </div>
 
-    <button class="export-btn" onclick="exportAnswer('task1Input', 'Cambridge10_Test1_Task1.txt')">📄 Save Task 1</button>
-    <div class="save-note" id="save1">✅ Auto-saved</div>
+        <!-- Right: Writing Box -->
+        <div class="writing-panel">
+            <div class="task-section active" id="task1Write">
+                <textarea id="task1Input" placeholder="Write your response here..."></textarea>
+                <div class="word-count" id="task1Count">Words: 0 / 150 minimum</div>
+                <div class="save-note" id="save1">✅ Auto-saved</div>
+                <button class="export-btn" onclick="exportAnswer('task1Input', 'Cambridge10_Test1_Task1.txt')">📄 Save Task 1</button>
+            </div>
 
-
-    <!-- WRITING TASK 2 -->
-    <h2>WRITING TASK 2</h2>
-    <p>You should spend about 40 minutes on this task.</p>
-    <p>Present a written argument or case to an educated reader with no specialist knowledge of the following topic.</p>
-
-    <div class="instruction-box">
-        It is important for children to learn the difference between right and wrong at an early age. Punishment is necessary to help them learn this distinction.<br><br>
-        To what extent do you agree or disagree with this opinion?<br><br>
-        What sort of punishment should parents and teachers be allowed to use to teach good behaviour to children?
+            <div class="task-section" id="task2Write">
+                <textarea id="task2Input" placeholder="Write your essay here..."></textarea>
+                <div class="word-count" id="task2Count">Words: 0 / 250 minimum</div>
+                <div class="save-note" id="save2">✅ Auto-saved</div>
+                <button class="export-btn" onclick="exportAnswer('task2Input', 'Cambridge10_Test1_Task2.txt')">📄 Save Task 2</button>
+            </div>
+        </div>
     </div>
-    <p>Give reasons for your answer and include any relevant examples from your own knowledge or experience.</p>
-    <p>Write at least 250 words.</p>
 
-    <textarea id="task2Input" placeholder="Write your essay here..."></textarea>
-    <div class="word-count" id="task2Count">Words: 0 / 250 minimum</div>
-
-    <button class="export-btn" onclick="exportAnswer('task2Input', 'Cambridge10_Test1_Task2.txt')">📄 Save Task 2</button>
-    <div class="save-note" id="save2">✅ Auto-saved</div>
-
+    <div class="nav-bar">
+        <button class="nav-btn" id="prevBtn" onclick="switchTask(-1)" disabled>⬅️ Previous</button>
+        <div class="task-indicator" id="taskIndicator">Task 1 of 2</div>
+        <button class="nav-btn" id="nextBtn" onclick="switchTask(1)">Next ➡️</button>
+    </div>
 </div>
 
 <script>
-// Word Counter
+let currentTask = 1;
+const totalTasks = 2;
+
+function switchTask(direction) {
+    currentTask += direction;
+    document.querySelectorAll('.task-section').forEach(sec => sec.classList.remove('active'));
+    document.getElementById(`task${currentTask}Question`).classList.add('active');
+    document.getElementById(`task${currentTask}Write`).classList.add('active');
+    document.getElementById('prevBtn').disabled = currentTask === 1;
+    document.getElementById('nextBtn').disabled = currentTask === totalTasks;
+    document.getElementById('taskIndicator').textContent = `Task ${currentTask} of ${totalTasks}`;
+    if (currentTask === 1) countWords('task1Input','task1Count',150);
+    else countWords('task2Input','task2Count',250);
+}
+
 function countWords(id, countId, min) {
     const text = document.getElementById(id).value.trim();
     const num = text ? text.replace(/\s+/g, ' ').split(' ').length : 0;
     const counter = document.getElementById(countId);
     counter.textContent = `Words: ${num} / ${min} minimum`;
-    if (num < min) {
-        counter.style.color = "#dc2626";
-    } else if (num < min + 20) {
-        counter.style.color = "#b45309";
-    } else {
-        counter.style.color = "#166534";
-    }
+    counter.style.color = num < min ? "#dc2626" : num < min + 20 ? "#b45309" : "#166534";
 }
 
-// Auto-save & Load
 function autoSave(id, noteId) {
-    const text = document.getElementById(id).value;
-    localStorage.setItem(id, text);
+    localStorage.setItem(id, document.getElementById(id).value);
     const note = document.getElementById(noteId);
     note.style.display = 'inline';
     setTimeout(() => note.style.display = 'none', 1500);
 }
+
 function loadSaved(id) {
     document.getElementById(id).value = localStorage.getItem(id) || '';
 }
 
-// 1-Click Export
 function exportAnswer(inputId, fileName) {
     const text = document.getElementById(inputId).value.trim();
-    if (!text) {
-        alert("Please write your answer first before saving!");
-        return;
-    }
+    if (!text) return alert("Please write your answer first!");
     const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
@@ -202,7 +301,6 @@ function exportAnswer(inputId, fileName) {
     URL.revokeObjectURL(link.href);
 }
 
-// Initialize
 window.onload = () => {
     loadSaved('task1Input');
     loadSaved('task2Input');
@@ -214,6 +312,7 @@ document.getElementById('task1Input').addEventListener('input', () => {
     countWords('task1Input','task1Count',150);
     autoSave('task1Input','save1');
 });
+
 document.getElementById('task2Input').addEventListener('input', () => {
     countWords('task2Input','task2Count',250);
     autoSave('task2Input','save2');
