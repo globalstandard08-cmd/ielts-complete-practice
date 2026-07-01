@@ -176,7 +176,7 @@
             background-color: #2e568c;
         }
 
-        /* --- UPDATED: Full 1-40 Question Bar with Part Labels --- */
+        /* --- Question Bar with Part Labels --- */
         .question-status {
             display: flex;
             flex-wrap: wrap;
@@ -218,28 +218,25 @@
             color: #333;
         }
 
-        /* Current part = active & clear */
         .q-indicator.current {
             background: #d9dce1;
             color: #000;
             border-color: #b0b4b9;
         }
 
-        /* Other parts = grayed out */
         .q-indicator.other {
             background: #efefef;
             color: #999;
             border-color: #e5e7eb;
         }
 
-        /* Answered = green */
         .q-indicator.answered {
             background: #10b981;
             color: white;
             border-color: #10b981;
         }
 
-        /* Navigation area */
+        /* Navigation */
         .nav-container {
             display: flex;
             justify-content: space-between;
@@ -274,7 +271,6 @@
             background-color: #2e568c;
         }
 
-        /* Back to Main Page button */
         .back-main-btn {
             background-color: #6b7280;
             color: white;
@@ -292,7 +288,7 @@
             background-color: #4b5563;
         }
 
-        /* Highlight styles */
+        /* Highlight Tool */
         .user-highlight {
             background-color: #fff3cd;
             padding: 2px 3px;
@@ -321,10 +317,30 @@
         .highlight-tool:hover {
             background: #eef2f7;
         }
+
+        .remove-highlight {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            padding: 5px 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .remove-highlight:hover {
+            background: #ffebee;
+        }
     </style>
 </head>
 <body>
     <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
+    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
 
     <div class="container">
         <div class="logo-section">
@@ -349,81 +365,98 @@
             <h2>Section 2 – Questions 11–20</h2>
 
             <div class="instruction">
-                <strong>Questions 11–16:</strong> Complete the table below. Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.
+                <strong>Questions 11–12:</strong> Choose TWO letters A–E.<br>
+                Which TWO facilities at the leisure club have recently been improved?
             </div>
 
             <div class="notes-block">
-                <div class="notes-title">PARK INFORMATION</div>
-
                 <div class="question-line">
-                    <span>Opening hours:</span>
+                    <span>A</span>
                     <span class="q-number">11.</span>
                     <input type="text" class="input-field" id="q11" placeholder="_______">
-                    <span>am to 6 pm</span>
+                    <span>the gym</span>
                 </div>
-
                 <div class="question-line">
-                    <span>Entrance fee:</span>
+                    <span>B</span>
+                    <span>the tracks</span>
+                </div>
+                <div class="question-line">
+                    <span>C</span>
                     <span class="q-number">12.</span>
                     <input type="text" class="input-field" id="q12" placeholder="_______">
-                    <span>per person</span>
+                    <span>the indoor pool</span>
                 </div>
-
                 <div class="question-line">
-                    <span>Best time to visit:</span>
-                    <span class="q-number">13.</span>
-                    <input type="text" class="input-field" id="q13" placeholder="_______">
-                    <span>season</span>
+                    <span>D</span>
+                    <span>the outdoor pool</span>
                 </div>
-
                 <div class="question-line">
-                    <span>Main attraction:</span>
-                    <span class="q-number">14.</span>
-                    <input type="text" class="input-field" id="q14" placeholder="_______">
-                    <span>views</span>
-                </div>
-
-                <div class="question-line">
-                    <span>Facilities available:</span>
-                    <span class="q-number">15.</span>
-                    <input type="text" class="input-field" id="q15" placeholder="_______">
-                    <span>and café</span>
-                </div>
-
-                <div class="question-line">
-                    <span>Guided tours start at:</span>
-                    <span class="q-number">16.</span>
-                    <input type="text" class="input-field" id="q16" placeholder="_______">
-                    <span>every hour</span>
+                    <span>E</span>
+                    <span>the sports training for children</span>
                 </div>
             </div>
 
             <div class="instruction">
-                <strong>Questions 17–20:</strong> Choose the correct letter, A, B or C.
+                <strong>Questions 13–20:</strong> Complete the notes below.<br>
+                Write NO MORE THAN TWO WORDS for each answer.
             </div>
 
             <div class="notes-block">
+                <div class="notes-title">Joining the leisure club</div>
+
+                <div style="font-weight: bold; margin: 15px 0 10px;">Personal Assessment</div>
                 <div class="question-line">
-                    <span>17. The park was originally used for</span>
+                    <span>New members should describe any</span>
+                    <span class="q-number">13.</span>
+                    <input type="text" class="input-field" id="q13" placeholder="_______">
+                </div>
+                <div class="question-line">
+                    <span>The</span>
+                    <span class="q-number">14.</span>
+                    <input type="text" class="input-field" id="q14" placeholder="_______">
+                    <span>will be explained to you before you use the equipment.</span>
+                </div>
+                <div class="question-line">
+                    <span>You will be given a six-week</span>
+                    <span class="q-number">15.</span>
+                    <input type="text" class="input-field" id="q15" placeholder="_______">
+                </div>
+
+                <div style="font-weight: bold; margin: 20px 0 10px;">Types of membership</div>
+                <div class="question-line">
+                    <span>There is a compulsory £90</span>
+                    <span class="q-number">16.</span>
+                    <input type="text" class="input-field" id="q16" placeholder="_______">
+                    <span>fee for members.</span>
+                </div>
+                <div class="question-line">
+                    <span>Gold members are given</span>
+                    <span class="q-number">17.</span>
                     <input type="text" class="input-field" id="q17" placeholder="_______">
+                    <span>to all the LP clubs.</span>
                 </div>
                 <div class="question-line">
-                    <span>18. Visitors are advised not to walk in the</span>
+                    <span>Premier members are given priority during</span>
+                    <span class="q-number">18.</span>
                     <input type="text" class="input-field" id="q18" placeholder="_______">
+                    <span>hours.</span>
                 </div>
                 <div class="question-line">
-                    <span>19. What is available near the main gate?</span>
+                    <span>Premier members can bring some</span>
+                    <span class="q-number">19.</span>
                     <input type="text" class="input-field" id="q19" placeholder="_______">
+                    <span>every month.</span>
                 </div>
                 <div class="question-line">
-                    <span>20. The best way to get more information is to check the</span>
+                    <span>Members should always take their</span>
+                    <span class="q-number">20.</span>
                     <input type="text" class="input-field" id="q20" placeholder="_______">
+                    <span>with them.</span>
                 </div>
             </div>
 
-            <!-- --- UPDATED: Full 1-40 Question Bar with Part Labels --- -->
+            <!-- --- Question Bar --- -->
             <div class="question-status">
-                <!-- Part 1: 1–10 -->
                 <span class="part-label">Part 1</span>
                 <div class="q-indicator other" data-q="1">1</div>
                 <div class="q-indicator other" data-q="2">2</div>
@@ -438,7 +471,6 @@
 
                 <div class="part-separator"></div>
 
-                <!-- Part 2: 11–20 (ACTIVE) -->
                 <span class="part-label">Part 2</span>
                 <div class="q-indicator current" data-q="11">11</div>
                 <div class="q-indicator current" data-q="12">12</div>
@@ -453,7 +485,6 @@
 
                 <div class="part-separator"></div>
 
-                <!-- Part 3: 21–30 -->
                 <span class="part-label">Part 3</span>
                 <div class="q-indicator other" data-q="21">21</div>
                 <div class="q-indicator other" data-q="22">22</div>
@@ -468,7 +499,6 @@
 
                 <div class="part-separator"></div>
 
-                <!-- Part 4: 31–40 -->
                 <span class="part-label">Part 4</span>
                 <div class="q-indicator other" data-q="31">31</div>
                 <div class="q-indicator other" data-q="32">32</div>
@@ -487,24 +517,23 @@
                 <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
                 <div class="answers-content" id="answers">
                     <strong>Answers:</strong><br>
-                    11. 9 / nine<br>
-                    12. 6 / six<br>
-                    13. spring<br>
-                    14. mountain<br>
-                    15. toilets<br>
-                    16. 11:30 / eleven thirty<br>
-                    17. B<br>
-                    18. C<br>
-                    19. A<br>
-                    20. B
+                    11. A<br>
+                    12. C<br>
+                    13. health problems<br>
+                    14. safety rules<br>
+                    15. plan<br>
+                    16. joining<br>
+                    17. access<br>
+                    18. peak<br>
+                    19. guests<br>
+                    20. card
                 </div>
             </div>
 
-            <!-- Navigation -->
             <div class="nav-container">
                 <a href="index.html" class="back-main-btn">← Back to Main Page</a>
                 <div class="nav-buttons">
-                    <a href="C10T1.html" class="nav-btn">←</a>
+                    <a href="listening-part1.html" class="nav-btn">←</a>
                     <a href="listening-part3.html" class="nav-btn">→</a>
                 </div>
             </div>
@@ -513,7 +542,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Load saved answers for Part 2
+            // Load saved answers
             for (let i = 11; i <= 20; i++) {
                 const field = document.getElementById('q' + i);
                 const saved = localStorage.getItem('C10T1_q' + i);
@@ -542,15 +571,18 @@
         }
 
         function markAnswered(qNum) {
-            document.querySelector(`.q-indicator[data-q="${qNum}"]`).classList.add('answered');
+            const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+            if (el) el.classList.add('answered');
         }
         function unmarkAnswered(qNum) {
-            document.querySelector(`.q-indicator[data-q="${qNum}"]`).classList.remove('answered');
+            const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+            if (el) el.classList.remove('answered');
         }
 
         // Highlight system
         const highlightArea = document.getElementById('highlightArea');
         const highlightTool = document.getElementById('highlightTool');
+        const removeTool = document.getElementById('removeTool');
         let currentRange = null;
 
         highlightArea.addEventListener('contextmenu', function(e) {
@@ -592,9 +624,28 @@
         });
 
         document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('user-highlight')) {
+                const rect = e.target.getBoundingClientRect();
+                removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 30) + 'px';
+                removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
+                removeTool.style.display = 'block';
+                removeTool.dataset.target = e.target;
+            } else if (!removeTool.contains(e.target)) {
+                removeTool.style.display = 'none';
+            }
             if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target)) {
                 highlightTool.style.display = 'none';
             }
+        });
+
+        removeTool.addEventListener('click', function() {
+            const span = this.dataset.target;
+            if (!span || !span.parentNode) return;
+            const text = document.createTextNode(span.textContent);
+            span.parentNode.replaceChild(text, span);
+            span.parentNode.normalize();
+            this.style.display = 'none';
+            delete this.dataset.target;
         });
     </script>
 </body>
