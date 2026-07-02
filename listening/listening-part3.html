@@ -187,7 +187,13 @@
             margin-top: 10px;
         }
 
-        .show-btn {
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .show-btn, .clear-btn {
             background-color: #1f3a5f;
             color: white;
             border: none;
@@ -197,8 +203,16 @@
             font-size: 14px;
         }
 
+        .clear-btn {
+            background-color: #dc2626;
+        }
+
         .show-btn:hover {
             background-color: #2e568c;
+        }
+
+        .clear-btn:hover {
+            background-color: #b91c1c;
         }
 
         /* --- Question Status Bar --- */
@@ -313,13 +327,14 @@
             background-color: #4b5563;
         }
 
-        /* Highlight Tool */
+        /* --- UPDATED: Darker, clearer highlight --- */
         .user-highlight {
-            background-color: #fff3cd;
-            padding: 2px 3px;
+            background-color: #ffd700; /* Golden / dark yellow */
+            padding: 2px 4px;
             border-radius: 2px;
             cursor: pointer;
             display: inline;
+            color: #000;
         }
 
         .highlight-tool {
@@ -443,32 +458,32 @@
 
                 <div class="question-line">
                     <span>• John needs help preparing for his</span>
-                    <span class="q-number">26.</span>
+                    <span class="q-number">(26)</span>
                     <input type="text" class="input-field" id="q26" placeholder="__________">
                 </div>
 
                 <div class="question-line">
                     <span>• The professor advises John to make a</span>
-                    <span class="q-number">27.</span>
+                    <span class="q-number">(27)</span>
                     <input type="text" class="input-field" id="q27" placeholder="__________">
                     <span>of his design.</span>
                 </div>
 
                 <div class="question-line">
                     <span>• John’s main problem is getting good quality</span>
-                    <span class="q-number">28.</span>
+                    <span class="q-number">(28)</span>
                     <input type="text" class="input-field" id="q28" placeholder="__________">
                 </div>
 
                 <div class="question-line">
                     <span>• The professor suggests John apply for a</span>
-                    <span class="q-number">29.</span>
+                    <span class="q-number">(29)</span>
                     <input type="text" class="input-field" id="q29" placeholder="__________">
                 </div>
 
                 <div class="question-line">
                     <span>• The professor will check the</span>
-                    <span class="q-number">30.</span>
+                    <span class="q-number">(30)</span>
                     <input type="text" class="input-field" id="q30" placeholder="__________">
                     <span>information in John’s written report.</span>
                 </div>
@@ -534,7 +549,10 @@
             <!-- Answers Section -->
             <div class="answers-section">
                 <h3>Answers for Section 3</h3>
-                <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                <div class="btn-row">
+                    <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                    <button class="clear-btn" onclick="clearAllAnswers()">Clear All Answers</button>
+                </div>
                 <div class="answers-content" id="answers">
                     <strong>Answers:</strong><br>
                     21. A<br>
@@ -599,6 +617,27 @@
                     }
                 });
             }
+
+            // --- NEW: Clear All Answers function ---
+            window.clearAllAnswers = function() {
+                if (!confirm("Clear all answers for this section?")) return;
+                // Clear multiple choice
+                for (let i = 21; i <= 25; i++) {
+                    localStorage.removeItem('C10T1_q' + i);
+                    document.querySelectorAll(`input[name="q${i}"]`).forEach(r => r.checked = false);
+                    unmarkAnswered(i);
+                }
+                // Clear text inputs
+                for (let i = 26; i <= 30; i++) {
+                    localStorage.removeItem('C10T1_q' + i);
+                    const field = document.getElementById('q' + i);
+                    if (field) {
+                        field.value = '';
+                        field.classList.remove('filled');
+                    }
+                    unmarkAnswered(i);
+                }
+            };
 
             // Highlight system
             const highlightArea = document.getElementById('highlightArea');
