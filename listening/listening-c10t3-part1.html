@@ -268,51 +268,21 @@
         border-color: #10b981;
     }
 
-    /* Navigation */
+    /* --- NAVIGATION: SIMPLE ARROWS LIKE REAL EXAM --- */
     .nav-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 25px;
-        padding-top: 15px;
+        margin-top: 30px;
+        padding-top: 20px;
         border-top: 1px solid #eee;
-    }
-
-    .nav-buttons {
-        display: flex;
-        gap: 15px;
-    }
-
-    .nav-btn {
-        width: 46px;
-        height: 46px;
-        background-color: #1f3a5f;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        font-size: 22px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        transition: background 0.2s;
-    }
-
-    .nav-btn:hover {
-        background-color: #2e568c;
-    }
-
-    .nav-btn.disabled {
-        background-color: #9ca3af;
-        cursor: not-allowed;
     }
 
     .back-main-btn {
         background-color: #6b7280;
         color: white;
         border: none;
-        padding: 10px 18px;
+        padding: 8px 16px;
         border-radius: 4px;
         font-size: 15px;
         font-weight: 500;
@@ -325,7 +295,32 @@
         background-color: #4b5563;
     }
 
-    /* Highlight tool */
+    .nav-arrows {
+        display: flex;
+        gap: 20px;
+    }
+
+    .nav-arrow {
+        font-size: 24px;
+        color: #1f3a5f;
+        text-decoration: none;
+        font-weight: bold;
+        line-height: 1;
+        padding: 4px 8px;
+        border-radius: 4px;
+        transition: background 0.2s;
+    }
+
+    .nav-arrow:hover {
+        background-color: #eef2f7;
+    }
+
+    .nav-arrow.disabled {
+        color: #9ca3af;
+        cursor: not-allowed;
+    }
+
+    /* --- HIGHLIGHT SYSTEM (FIXED WORKING VERSION) --- */
     .user-highlight {
         background-color: #ffd700;
         padding: 2px 4px;
@@ -361,14 +356,15 @@
         background: #fff;
         border: 1px solid #dc3545;
         border-radius: 4px;
-        padding: 5px 10px;
+        padding: 4px 8px;
         box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         z-index: 9999;
         display: none;
         cursor: pointer;
-        font-size: 14px;
+        font-size: 13px;
         color: #dc3545;
         font-weight: bold;
+        white-space: nowrap;
     }
 
     .remove-highlight:hover {
@@ -390,7 +386,7 @@
             <span style="font-size:15px; opacity:0.9;">Exam Mode</span>
         </div>
 
-        <!-- Audio Player - UPDATED with unique filename -->
+        <!-- Audio Player -->
         <div class="audio-player">
             <h3>Play Recording - Part 1</h3>
             <audio controls preload="auto">
@@ -572,11 +568,12 @@
                 </div>
             </div>
 
+            <!-- --- NEW NAVIGATION WITH SIMPLE ARROWS --- -->
             <div class="nav-container">
                 <a href="../library.html" class="back-main-btn">← Back to Main Page</a>
-                <div class="nav-buttons">
-                    <span class="nav-btn disabled">← Prev</span>
-                    <a href="listening-c10t3-part2.html" class="nav-btn">Next →</a>
+                <div class="nav-arrows">
+                    <span class="nav-arrow disabled">←</span>
+                    <a href="listening-c10t3-part2.html" class="nav-arrow">→</a>
                 </div>
             </div>
         </div>
@@ -620,19 +617,13 @@
                 }
             };
 
-            // Highlight system
+            // --- FIXED HIGHLIGHT & REMOVE FUNCTION ---
             const highlightArea = document.getElementById('highlightArea');
             const highlightTool = document.getElementById('highlightTool');
             const removeTool = document.getElementById('removeTool');
             let currentRange = null;
 
-            highlightArea.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                const sel = window.getSelection();
-                if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
-                showPencil(e.clientX, e.clientY);
-            });
-
+            // Show highlight button when text is selected
             document.addEventListener('mouseup', function() {
                 const sel = window.getSelection();
                 if (!sel || sel.isCollapsed || !sel.toString().trim()) {
@@ -642,16 +633,13 @@
                 const range = sel.getRangeAt(0);
                 if (!highlightArea.contains(range.commonAncestorContainer)) return;
                 const rect = range.getBoundingClientRect();
-                showPencil(rect.left + rect.width / 2, rect.top);
+                highlightTool.style.left = (rect.left + window.scrollX - 17) + 'px';
+                highlightTool.style.top = (rect.top + window.scrollY - 35) + 'px';
+                highlightTool.style.display = 'flex';
                 currentRange = range;
             });
 
-            function showPencil(x, y) {
-                highlightTool.style.left = (x + window.scrollX - 17) + 'px';
-                highlightTool.style.top = (y + window.scrollY - 40) + 'px';
-                highlightTool.style.display = 'flex';
-            }
-
+            // Apply highlight
             highlightTool.addEventListener('click', function() {
                 if (!currentRange) return;
                 const span = document.createElement('span');
@@ -664,6 +652,7 @@
                 currentRange = null;
             });
 
+            // Show remove button when clicking existing highlight
             document.addEventListener('click', function(e) {
                 if (e.target.classList.contains('user-highlight')) {
                     const rect = e.target.getBoundingClientRect();
@@ -671,14 +660,13 @@
                     removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
                     removeTool.style.display = 'block';
                     removeTool.dataset.target = e.target;
-                } else if (!removeTool.contains(e.target)) {
+                } else if (!removeTool.contains(e.target) && !highlightTool.contains(e.target)) {
                     removeTool.style.display = 'none';
-                }
-                if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target)) {
                     highlightTool.style.display = 'none';
                 }
             });
 
+            // Remove highlight when clicking the button
             removeTool.addEventListener('click', function() {
                 const span = this.dataset.target;
                 if (!span || !span.parentNode) return;
