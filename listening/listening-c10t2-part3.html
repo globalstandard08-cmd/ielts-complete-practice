@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Listening - C10 Test 2 Part 3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            padding: 20px;
+            line-height: 1.7;
+            position: relative;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: visible;
+            position: relative;
+        }
+
+        .logo-section {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo-section img {
+            height: 120px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-bar {
+            background-color: #1f3a5f;
+            color: white;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .audio-player {
+            background: #eef2f7;
+            padding: 18px 25px;
+            margin: 20px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .audio-player h3 {
+            color: #1f3a5f;
+            margin-bottom: 12px;
+            font-size: 17px;
+        }
+
+        audio {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .content {
+            padding: 0 30px 30px;
+            position: relative;
+        }
+
+        h2 {
+            color: #1f3a5f;
+            margin: 25px 0 15px;
+            font-size: 22px;
+        }
+
+        .instruction {
+            background-color: #f8fbfe;
+            border-left: 4px solid #1f3a5f;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .section-block {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 25px;
+            margin-bottom: 30px;
+            background-color: #fdfdfd;
+        }
+
+        .section-title {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            color: #1f3a5f;
+        }
+
+        .question-line {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            flex-wrap: wrap;
+            font-size: 16px;
+        }
+
+        .q-number {
+            font-weight: bold;
+            min-width: 35px;
+            color: #1f3a5f;
+        }
+
+        /* Multiple Choice Styles */
+        .option {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 4px 0;
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        /* Highlight */
+        .user-highlight {
+            background-color: #ffd700; /* Dark golden yellow */
+            padding: 2px 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            display: inline;
+            color: #000;
+        }
+
+        /* Question Status Bar */
+        .question-status {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 6px;
+            margin: 30px 0;
+            padding: 12px 15px;
+            background: #f0f2f5;
+            border-radius: 4px;
+            border: 1px solid #d0d5dd;
+            font-size: 12px;
+        }
+
+        .part-label {
+            font-size: 11px;
+            font-weight: bold;
+            color: #444;
+            margin-right: 4px;
+            margin-left: 8px;
+        }
+
+        .part-separator {
+            width: 12px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .q-indicator {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: normal;
+            border-radius: 2px;
+            border: 1px solid #d1d5db;
+            background: #e5e7eb;
+            color: #333;
+        }
+
+        .q-indicator.current {
+            background: #d9dce1;
+            color: #000;
+            border-color: #b0b4b9;
+        }
+
+        .q-indicator.other {
+            background: #efefef;
+            color: #999;
+            border-color: #e5e7eb;
+        }
+
+        .q-indicator.answered {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        /* Answers Section */
+        .answers-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border: 1px solid #b0d4f1;
+            border-radius: 6px;
+        }
+
+        .answers-section h3 {
+            color: #1f3a5f;
+            margin-bottom: 15px;
+        }
+
+        .answers-content {
+            display: none;
+            padding: 15px;
+            background: white;
+            border-radius: 4px;
+            line-height: 2;
+            margin-top: 10px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .show-btn, .clear-btn {
+            background-color: #1f3a5f;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .clear-btn {
+            background-color: #dc2626;
+        }
+
+        .show-btn:hover {
+            background-color: #2e568c;
+        }
+
+        .clear-btn:hover {
+            background-color: #b91c1c;
+        }
+
+        /* Navigation */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            width: 46px;
+            height: 46px;
+            background-color: #1f3a5f;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover {
+            background-color: #2e568c;
+        }
+
+        .back-main-btn {
+            background-color: #6b7280;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .back-main-btn:hover {
+            background-color: #4b5563;
+        }
+
+        .highlight-tool {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #1f3a5f;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #1f3a5f;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .highlight-tool:hover {
+            background: #eef2f7;
+        }
+
+        .remove-highlight {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            padding: 5px 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .remove-highlight:hover {
+            background: #ffebee;
+        }
+    </style>
+</head>
+<body>
+    <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
+    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
+
+    <div class="container">
+        <div class="logo-section">
+            <img src="../ielts-logo.png" alt="IELTS Logo">
+        </div>
+
+        <div class="header-bar">
+            <span>LISTENING TEST - C10 TEST 2 PART 3</span>
+            <span style="font-size:15px; opacity:0.9;">Exam Mode</span>
+        </div>
+
+        <!-- Audio Player -->
+        <div class="audio-player">
+            <h3>Play Recording - Part 3</h3>
+            <audio controls preload="auto">
+                <source src="c10t2-part3.mp3" type="audio/mpeg">
+                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/ielts-complete-practice/main/listening/c10t2-part3.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            
+        </div>
+
+        <div class="content" id="highlightArea">
+            <h2>Section 3 – Questions 21–30</h2>
+
+            <!-- Questions 21-22: Choose TWO -->
+            <div class="instruction">
+                <strong>Questions 21 and 22:</strong> Choose TWO letters, A–E.<br>
+                Which TWO hobbies was Thor Heyerdahl very interested in as a youth?
+            </div>
+
+            <div class="section-block">
+                <div class="question-line">
+                    <span class="q-number">21 & 22</span>
+                </div>
+                <div class="option">
+                    <input type="checkbox" name="q21_22" value="A" id="q21a">
+                    <label for="q21a">A camping</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" name="q21_22" value="B" id="q21b">
+                    <label for="q21b">B climbing</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" name="q21_22" value="C" id="q21c">
+                    <label for="q21c">C collecting</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" name="q21_22" value="D" id="q21d">
+                    <label for="q21d">D hunting</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" name="q21_22" value="E" id="q21e">
+                    <label for="q21e">E reading</label>
+                </div>
+            </div>
+
+            <!-- Questions 23-24: Choose TWO -->
+            <div class="instruction">
+                <strong>Questions 23 and 24:</strong> Choose TWO letters, A–E.<br>
+                Which do the speakers say are the TWO reasons why Heyerdahl went to live on an island?
+            </div>
+
+            <div class="section-block">
+                <div class="question-line">
+                    <span class="q-number">23 & 24</span>
+                </div>
+                <div class="option">
+                    <input type="checkbox" name="q23_24" value="A" id="q23a">
+                    <label for="q23a">A to examine ancient carvings</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" name="q23_24" value="B" id="q23b">
+                    <label for="q23b">B to experience an isolated place</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" name="q23_24" value="C" id="q23c">
+                    <label for="q23c">C to formulate a new theory</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" name="q23_24" value="D" id="q23d">
+                    <label for="q23d">D to learn survival skills</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" name="q23_24" value="E" id="q23e">
+                    <label for="q23e">E to study the impact of an extreme environment</label>
+                </div>
+            </div>
+
+            <!-- Questions 25-30: Multiple Choice -->
+            <div class="instruction">
+                <strong>Questions 25–30:</strong> Choose the correct letter, A, B or C.
+            </div>
+
+            <div class="section-block">
+                <div class="section-title">The later life of Thor Heyerdahl</div>
+
+                <div class="question-line">
+                    <span class="q-number">25.</span>
+                    <span>According to Victor and Olivia, academics thought that Polynesian migration from the east was impossible due to</span>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q25" value="A" id="q25a">
+                    <label for="q25a">A the fact that Eastern countries were far away.</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q25" value="B" id="q25b">
+                    <label for="q25b">B the lack of materials for boat building.</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q25" value="C" id="q25c">
+                    <label for="q25c">C the direction of the winds and currents.</label>
+                </div>
+
+                <div class="question-line">
+                    <span class="q-number">26.</span>
+                    <span>Which do the speakers agree was the main reason for Heyerdahl's raft journey?</span>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q26" value="A" id="q26a">
+                    <label for="q26a">A to overcome a research setback</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q26" value="B" id="q26b">
+                    <label for="q26b">B to demonstrate a personal quality</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q26" value="C" id="q26c">
+                    <label for="q26c">C to test a new theory</label>
+                </div>
+
+                <div class="question-line">
+                    <span class="q-number">27.</span>
+                    <span>What was most important to Heyerdahl about his raft journey?</span>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q27" value="A" id="q27a">
+                    <label for="q27a">A the fact that he was the first person to do it</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q27" value="B" id="q27b">
+                    <label for="q27b">B the speed of crossing the Pacific</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q27" value="C" id="q27c">
+                    <label for="q27c">C the use of authentic construction methods</label>
+                </div>
+
+                <div class="question-line">
+                    <span class="q-number">28.</span>
+                    <span>Why did Heyerdahl go to Easter Island?</span>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q28" value="A" id="q28a">
+                    <label for="q28a">A to build a stone statue</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q28" value="B" id="q28b">
+                    <label for="q28b">B to sail a reed boat</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q28" value="C" id="q28c">
+                    <label for="q28c">C to learn the local language</label>
+                </div>
+
+                <div class="question-line">
+                    <span class="q-number">29.</span>
+                    <span>In Olivia's opinion, Heyerdahl's greatest influence was on</span>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q29" value="A" id="q29a">
+                    <label for="q29a">A theories about Polynesian origins.</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q29" value="B" id="q29b">
+                    <label for="q29b">B the development of archaeological methodology.</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q29" value="C" id="q29c">
+                    <label for="q29c">C establishing archaeology as an academic subject.</label>
+                </div>
+
+                <div class="question-line">
+                    <span class="q-number">30.</span>
+                    <span>Which criticism do the speakers make of William Oliver's textbook?</span>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q30" value="A" id="q30a">
+                    <label for="q30a">A Its style is out of date.</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q30" value="B" id="q30b">
+                    <label for="q30b">B Its content is over-simplified.</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q30" value="C" id="q30c">
+                    <label for="q30c">C Its methodology is flawed.</label>
+                </div>
+            </div>
+
+            <!-- Question Status Bar -->
+            <div class="question-status">
+                <span class="part-label">Part 1</span>
+                <div class="q-indicator other" data-q="1">1</div>
+                <div class="q-indicator other" data-q="2">2</div>
+                <div class="q-indicator other" data-q="3">3</div>
+                <div class="q-indicator other" data-q="4">4</div>
+                <div class="q-indicator other" data-q="5">5</div>
+                <div class="q-indicator other" data-q="6">6</div>
+                <div class="q-indicator other" data-q="7">7</div>
+                <div class="q-indicator other" data-q="8">8</div>
+                <div class="q-indicator other" data-q="9">9</div>
+                <div class="q-indicator other" data-q="10">10</div>
+
+                <div class="part-separator"></div>
+
+                <span class="part-label">Part 2</span>
+                <div class="q-indicator other" data-q="11">11</div>
+                <div class="q-indicator other" data-q="12">12</div>
+                <div class="q-indicator other" data-q="13">13</div>
+                <div class="q-indicator other" data-q="14">14</div>
+                <div class="q-indicator other" data-q="15">15</div>
+                <div class="q-indicator other" data-q="16">16</div>
+                <div class="q-indicator other" data-q="17">17</div>
+                <div class="q-indicator other" data-q="18">18</div>
+                <div class="q-indicator other" data-q="19">19</div>
+                <div class="q-indicator other" data-q="20">20</div>
+
+                <div class="part-separator"></div>
+
+                <span class="part-label">Part 3</span>
+                <div class="q-indicator current" data-q="21">21</div>
+                <div class="q-indicator current" data-q="22">22</div>
+                <div class="q-indicator current" data-q="23">23</div>
+                <div class="q-indicator current" data-q="24">24</div>
+                <div class="q-indicator current" data-q="25">25</div>
+                <div class="q-indicator current" data-q="26">26</div>
+                <div class="q-indicator current" data-q="27">27</div>
+                <div class="q-indicator current" data-q="28">28</div>
+                <div class="q-indicator current" data-q="29">29</div>
+                <div class="q-indicator current" data-q="30">30</div>
+
+                <div class="part-separator"></div>
+
+                <span class="part-label">Part 4</span>
+                <div class="q-indicator other" data-q="31">31</div>
+                <div class="q-indicator other" data-q="32">32</div>
+                <div class="q-indicator other" data-q="33">33</div>
+                <div class="q-indicator other" data-q="34">34</div>
+                <div class="q-indicator other" data-q="35">35</div>
+                <div class="q-indicator other" data-q="36">36</div>
+                <div class="q-indicator other" data-q="37">37</div>
+                <div class="q-indicator other" data-q="38">38</div>
+                <div class="q-indicator other" data-q="39">39</div>
+                <div class="q-indicator other" data-q="40">40</div>
+            </div>
+
+            <!-- Answers Section -->
+            <div class="answers-section">
+                <h3>Answers for Section 3</h3>
+                <div class="btn-row">
+                    <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                    <button class="clear-btn" onclick="clearAllAnswers()">Clear All Answers</button>
+                </div>
+                <div class="answers-content" id="answers">
+                    <strong>Answers:</strong><br>
+                    21 & 22: B, D<br>
+                    23 & 24: B, E<br>
+                    25: C<br>
+                    26: C<br>
+                    27: C<br>
+                    28: B<br>
+                    29: B<br>
+                    30: B
+                </div>
+            </div>
+
+            <div class="nav-container">
+                <a href="../index.html" class="back-main-btn">← Back to Main Page</a>
+                <div class="nav-buttons">
+                    <a href="listening-c10t2-part2.html" class="nav-btn">←</a>
+                    <a href="listening-c10t2-part4.html" class="nav-btn">→</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Save & Load: Choose TWO answers ---
+            const q21_22 = document.querySelectorAll('input[name="q21_22"]');
+            const saved21_22 = localStorage.getItem('C10T2_q21_22');
+            if (saved21_22) {
+                const values = saved21_22.split(',');
+                q21_22.forEach(box => {
+                    if (values.includes(box.value)) {
+                        box.checked = true;
+                        markAnswered(21);
+                        markAnswered(22);
+                    }
+                });
+            }
+            q21_22.forEach(box => {
+                box.addEventListener('change', () => {
+                    const selected = Array.from(q21_22).filter(i => i.checked).map(i => i.value);
+                    localStorage.setItem('C10T2_q21_22', selected.join(','));
+                    selected.length >= 1 ? markAnswered(21) : unmarkAnswered(21);
+                    selected.length >= 2 ? markAnswered(22) : unmarkAnswered(22);
+                });
+            });
+
+            const q23_24 = document.querySelectorAll('input[name="q23_24"]');
+            const saved23_24 = localStorage.getItem('C10T2_q23_24');
+            if (saved23_24) {
+                const values = saved23_24.split(',');
+                q23_24.forEach(box => {
+                    if (values.includes(box.value)) {
+                        box.checked = true;
+                        markAnswered(23);
+                        markAnswered(24);
+                    }
+                });
+            }
+            q23_24.forEach(box => {
+                box.addEventListener('change', () => {
+                    const selected = Array.from(q23_24).filter(i => i.checked).map(i => i.value);
+                    localStorage.setItem('C10T2_q23_24', selected.join(','));
+                    selected.length >= 1 ? markAnswered(23) : unmarkAnswered(23);
+                    selected.length >= 2 ? markAnswered(24) : unmarkAnswered(24);
+                });
+            });
+
+            // --- Save & Load: Single choice 25-30 ---
+            for (let i = 25; i <= 30; i++) {
+                const saved = localStorage.getItem('C10T2_q' + i);
+                if (saved) {
+                    document.querySelector(`input[name="q${i}"][value="${saved}"]`).checked = true;
+                    markAnswered(i);
+                }
+                document.querySelectorAll(`input[name="q${i}"]`).forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        localStorage.setItem('C10T2_q' + i, this.value);
+                        markAnswered(i);
+                    });
+                });
+            }
+
+            // --- Highlight Tool ---
+            const highlightArea = document.getElementById('highlightArea');
+            const highlightTool = document.getElementById('highlightTool');
+            const removeTool = document.getElementById('removeTool');
+            let currentRange = null;
+
+            highlightArea.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+                showPencil(e.clientX, e.clientY);
+            });
+
+            document.addEventListener('mouseup', function() {
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+                    highlightTool.style.display = 'none';
+                    return;
+                }
+                const range = sel.getRangeAt(0);
+                if (!highlightArea.contains(range.commonAncestorContainer)) return;
+                const rect = range.getBoundingClientRect();
+                showPencil(rect.left + rect.width / 2, rect.top);
+                currentRange = range;
+            });
+
+            function showPencil(x, y) {
+                highlightTool.style.left = (x + window.scrollX - 17) + 'px';
+                highlightTool.style.top = (y + window.scrollY - 40) + 'px';
+                highlightTool.style.display = 'flex';
+            }
+
+            highlightTool.addEventListener('click', function() {
+                if (!currentRange) return;
+                const span = document.createElement('span');
+                span.className = 'user-highlight';
+                span.textContent = currentRange.toString();
+                currentRange.deleteContents();
+                currentRange.insertNode(span);
+                window.getSelection().removeAllRanges();
+                highlightTool.style.display = 'none';
+                currentRange = null;
+            });
+
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('user-highlight')) {
+                    const rect = e.target.getBoundingClientRect();
+                    removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 30) + 'px';
+                    removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
+                    removeTool.style.display = 'block';
+                    removeTool.dataset.target = e.target;
+                } else if (!removeTool.contains(e.target)) {
+                    removeTool.style.display = 'none';
+                }
+                if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target)) {
+                    highlightTool.style.display = 'none';
+                }
+            });
+
+            removeTool.addEventListener('click', function() {
+                const span = this.dataset.target;
+                if (!span || !span.parentNode) return;
+                const text = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(text, span);
+                span.parentNode.normalize();
+                this.style.display = 'none';
+                delete this.dataset.target;
+            });
+        });
+
+        function toggleAnswers() {
+            const ansDiv = document.getElementById('answers');
+            ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // --- Clear All Answers ---
+        function clearAllAnswers() {
+            if (!confirm("Clear all answers for this section?")) return;
+            // Clear choose TWO
+            localStorage.removeItem('C10T2_q21_22');
+            document.querySelectorAll('input[name="q21_22"]').forEach(i => i.checked = false);
+            unmarkAnswered(21); unmarkAnswered(22);
+
+            localStorage.removeItem('C10T2_q23_24');
+            document.querySelectorAll('input[name="q23_24"]').forEach(i => i.checked = false);
+            unmarkAnswered(23); unmarkAnswered(24);
+
+            // Clear 25-30
+            for (let i = 25; i <= 30; i++) {
+                localStorage.removeItem('C10T2_q' + i);
+                const radio = document.querySelector(`input[name="q${i}"]:checked`);
+                if (radio) radio.checked = false;
+                unmarkAnswered(i);
+            }
+        }
+
+        function markAnswered(qNum) {
+            const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+            if (el) el.classList.add('answered');
+        }
+        function unmarkAnswered(qNum) {
+            const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+            if (el) el.classList.remove('answered');
+        }
+    </script>
+</body>
+</html>
