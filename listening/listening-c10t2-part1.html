@@ -151,6 +151,16 @@
             border-color: #1f3a5f;
         }
 
+        /* --- UPDATED: Darker, more visible highlight --- */
+        .user-highlight {
+            background-color: #ffd700; /* Golden yellow / dark yellow */
+            padding: 2px 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            display: inline;
+            color: #000; /* Dark text for contrast */
+        }
+
         /* Question Status Bar */
         .question-status {
             display: flex;
@@ -234,7 +244,13 @@
             margin-top: 10px;
         }
 
-        .show-btn {
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .show-btn, .clear-btn {
             background-color: #1f3a5f;
             color: white;
             border: none;
@@ -244,8 +260,16 @@
             font-size: 14px;
         }
 
+        .clear-btn {
+            background-color: #dc2626; /* Red for clear button */
+        }
+
         .show-btn:hover {
             background-color: #2e568c;
+        }
+
+        .clear-btn:hover {
+            background-color: #b91c1c;
         }
 
         /* Navigation */
@@ -300,15 +324,6 @@
             background-color: #4b5563;
         }
 
-        /* Highlight Tool */
-        .user-highlight {
-            background-color: #fff3cd;
-            padding: 2px 3px;
-            border-radius: 2px;
-            cursor: pointer;
-            display: inline;
-        }
-
         .highlight-tool {
             position: absolute;
             background: #fff;
@@ -356,7 +371,7 @@
 
     <div class="container">
         <div class="logo-section">
-            <img src="ielts-logo.png" alt="IELTS Logo">
+            <img src="../ielts-logo.png" alt="IELTS Logo">
         </div>
 
         <div class="header-bar">
@@ -369,7 +384,7 @@
             <h3>Play Recording - Part 1</h3>
             <audio controls preload="auto">
                 <source src="c10t2-part1.mp3" type="audio/mpeg">
-                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T2listening/main/c10t2-part1.mp3" type="audio/mpeg">
+                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/ielts-complete-practice/main/listening/c10t2-part1.mp3" type="audio/mpeg">
                 Your browser does not support audio playback.
             
         </div>
@@ -532,7 +547,10 @@
             <!-- Answers Section -->
             <div class="answers-section">
                 <h3>Answers for Section 1</h3>
-                <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                <div class="btn-row">
+                    <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                    <button class="clear-btn" onclick="clearAllAnswers()">Clear All Answers</button>
+                </div>
                 <div class="answers-content" id="answers">
                     <strong>Answers:</strong><br>
                     1. Fernandez<br>
@@ -549,7 +567,7 @@
             </div>
 
             <div class="nav-container">
-                <a href="index.html" class="back-main-btn">← Back to Main Page</a>
+                <a href="../index.html" class="back-main-btn">← Back to Main Page</a>
                 <div class="nav-buttons">
                     <span style="width:46px;"></span>
                     <a href="listening-c10t2-part2.html" class="nav-btn">→</a>
@@ -560,7 +578,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Save/load answers
+            // Save/load answers - stays saved on refresh
             for (let i = 1; i <= 10; i++) {
                 const field = document.getElementById('q' + i);
                 const saved = localStorage.getItem('C10T2_q' + i);
@@ -655,6 +673,20 @@
         function toggleAnswers() {
             const ansDiv = document.getElementById('answers');
             ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // --- NEW: Clear all answers at once ---
+        function clearAllAnswers() {
+            if (!confirm("Clear all answers for this section?")) return;
+            for (let i = 1; i <= 10; i++) {
+                localStorage.removeItem('C10T2_q' + i);
+                const field = document.getElementById('q' + i);
+                if (field) {
+                    field.value = '';
+                    field.classList.remove('filled');
+                }
+                unmarkAnswered(i);
+            }
         }
 
         function markAnswered(qNum) {
