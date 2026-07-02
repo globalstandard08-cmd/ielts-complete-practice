@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Listening - C10 Test 2 Part 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            padding: 20px;
+            line-height: 1.7;
+            position: relative;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: visible;
+            position: relative;
+        }
+
+        .logo-section {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo-section img {
+            height: 120px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-bar {
+            background-color: #1f3a5f;
+            color: white;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .audio-player {
+            background: #eef2f7;
+            padding: 18px 25px;
+            margin: 20px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .audio-player h3 {
+            color: #1f3a5f;
+            margin-bottom: 12px;
+            font-size: 17px;
+        }
+
+        audio {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .content {
+            padding: 0 30px 30px;
+            position: relative;
+        }
+
+        h2 {
+            color: #1f3a5f;
+            margin: 25px 0 15px;
+            font-size: 22px;
+        }
+
+        .instruction {
+            background-color: #f8fbfe;
+            border-left: 4px solid #1f3a5f;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .section-block {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 25px;
+            margin-bottom: 30px;
+            background-color: #fdfdfd;
+        }
+
+        .section-title {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            color: #1f3a5f;
+        }
+
+        .question-line {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            font-size: 16px;
+        }
+
+        .q-number {
+            font-weight: bold;
+            min-width: 35px;
+            color: #1f3a5f;
+        }
+
+        /* Multiple Choice */
+        .option {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        input[type="radio"] {
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        /* Drag & Drop Area */
+        .drag-container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .features-box {
+            flex: 1;
+            min-width: 220px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 15px;
+            background: #f8fbfe;
+        }
+
+        .features-box h4 {
+            text-align: center;
+            margin-bottom: 12px;
+            color: #1f3a5f;
+        }
+
+        .draggable {
+            padding: 8px 12px;
+            margin: 6px 0;
+            background: #e6f0ff;
+            border: 1px solid #1f3a5f;
+            border-radius: 4px;
+            cursor: grab;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .draggable:active {
+            cursor: grabbing;
+            background: #d0e0f8;
+        }
+
+        .drop-targets {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .drop-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .drop-box {
+            width: 50px;
+            height: 36px;
+            border: 2px dashed #aaa;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background: #fff;
+            transition: all 0.2s;
+        }
+
+        .drop-box.highlight {
+            border-color: #1f3a5f;
+            background: #eef5fd;
+        }
+
+        .drop-box.filled {
+            border-style: solid;
+            border-color: #10b981;
+            background: #ecfdf5;
+            color: #065f46;
+        }
+
+        /* --- Question Status Bar --- */
+        .question-status {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 6px;
+            margin: 30px 0;
+            padding: 12px 15px;
+            background: #f0f2f5;
+            border-radius: 4px;
+            border: 1px solid #d0d5dd;
+            font-size: 12px;
+        }
+
+        .part-label {
+            font-size: 11px;
+            font-weight: bold;
+            color: #444;
+            margin-right: 4px;
+            margin-left: 8px;
+        }
+
+        .part-separator {
+            width: 12px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .q-indicator {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: normal;
+            border-radius: 2px;
+            border: 1px solid #d1d5db;
+            background: #e5e7eb;
+            color: #333;
+        }
+
+        .q-indicator.current {
+            background: #d9dce1;
+            color: #000;
+            border-color: #b0b4b9;
+        }
+
+        .q-indicator.other {
+            background: #efefef;
+            color: #999;
+            border-color: #e5e7eb;
+        }
+
+        .q-indicator.answered {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        /* Answers Section */
+        .answers-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border: 1px solid #b0d4f1;
+            border-radius: 6px;
+        }
+
+        .answers-section h3 {
+            color: #1f3a5f;
+            margin-bottom: 15px;
+        }
+
+        .answers-content {
+            display: none;
+            padding: 15px;
+            background: white;
+            border-radius: 4px;
+            line-height: 2;
+            margin-top: 10px;
+        }
+
+        .show-btn {
+            background-color: #1f3a5f;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .show-btn:hover {
+            background-color: #2e568c;
+        }
+
+        /* Navigation */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            width: 46px;
+            height: 46px;
+            background-color: #1f3a5f;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover {
+            background-color: #2e568c;
+        }
+
+        .back-main-btn {
+            background-color: #6b7280;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .back-main-btn:hover {
+            background-color: #4b5563;
+        }
+
+        /* Highlight Tool */
+        .user-highlight {
+            background-color: #fff3cd;
+            padding: 2px 3px;
+            border-radius: 2px;
+            cursor: pointer;
+            display: inline;
+        }
+
+        .highlight-tool {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #1f3a5f;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #1f3a5f;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .highlight-tool:hover {
+            background: #eef2f7;
+        }
+
+        .remove-highlight {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            padding: 5px 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .remove-highlight:hover {
+            background: #ffebee;
+        }
+    </style>
+</head>
+<body>
+    <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
+    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
+
+    <div class="container">
+        <div class="logo-section">
+            <img src="ielts-logo.png" alt="IELTS Logo">
+        </div>
+
+        <div class="header-bar">
+            <span>LISTENING TEST - C10 TEST 2 PART 2</span>
+            <span style="font-size:15px; opacity:0.9;">Exam Mode</span>
+        </div>
+
+        <!-- Audio Player -->
+        <div class="audio-player">
+            <h3>Play Recording - Part 2</h3>
+            <audio controls preload="auto">
+                <source src="c10t2-part2.mp3" type="audio/mpeg">
+                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T2listening/main/c10t2-part2.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            
+        </div>
+
+        <div class="content" id="highlightArea">
+            <h2>Section 2 – Questions 11–20</h2>
+
+            <!-- Questions 11–14 -->
+            <div class="instruction">
+                <strong>Questions 11–14:</strong> Choose the correct letter, A, B or C.
+            </div>
+
+            <div class="section-block">
+                <div class="section-title">New city developments</div>
+
+                <div class="question-line">
+                    <span class="q-number">11.</span>
+                    <span>The idea for the two new developments in the city came from</span>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q11" value="A" id="q11a">
+                    <label for="q11a">A local people.</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q11" value="B" id="q11b">
+                    <label for="q11b">B the City Council.</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q11" value="C" id="q11c">
+                    <label for="q11c">C the SWRDC.</label>
+                </div>
+
+                <div class="question-line">
+                    <span class="q-number">12.</span>
+                    <span>What is unusual about Brackenside pool?</span>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q12" value="A" id="q12a">
+                    <label for="q12a">A its architectural style</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q12" value="B" id="q12b">
+                    <label for="q12b">B its heating system</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q12" value="C" id="q12c">
+                    <label for="q12c">C its method of water treatment</label>
+                </div>
+
+                <div class="question-line">
+                    <span class="q-number">13.</span>
+                    <span>Local newspapers have raised worries about</span>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q13" value="A" id="q13a">
+                    <label for="q13a">A the late opening date.</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q13" value="B" id="q13b">
+                    <label for="q13b">B the cost of the project.</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q13" value="C" id="q13c">
+                    <label for="q13c">C the size of the facilities.</label>
+                </div>
+
+                <div class="question-line">
+                    <span class="q-number">14.</span>
+                    <span>What decision has not yet been made about the pool?</span>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q14" value="A" id="q14a">
+                    <label for="q14a">A whose statue will be at the door</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q14" value="B" id="q14b">
+                    <label for="q14b">B the exact opening times</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q14" value="C" id="q14c">
+                    <label for="q14c">C who will open it</label>
+                </div>
+            </div>
+
+            <!-- Questions 15–20 Drag & Drop -->
+            <div class="instruction">
+                <strong>Questions 15–20:</strong> Which feature is related to each of the following areas of the world represented in the playground?<br>
+                Choose SIX answers from the box and drag the correct letter, A–I, next to questions 15–20.
+            </div>
+
+            <div class="section-block">
+                <div class="drag-container">
+                    <div class="features-box">
+                        <h4>Features</h4>
+                        <div class="draggable" draggable="true" data-value="A">A ancient forts</div>
+                        <div class="draggable" draggable="true" data-value="B">B waterways</div>
+                        <div class="draggable" draggable="true" data-value="C">C ice and snow</div>
+                        <div class="draggable" draggable="true" data-value="D">D jewels</div>
+                        <div class="draggable" draggable="true" data-value="E">E local animals</div>
+                        <div class="draggable" draggable="true" data-value="F">F mountains</div>
+                        <div class="draggable" draggable="true" data-value="G">G music and film</div>
+                        <div class="draggable" draggable="true" data-value="H">H space travel</div>
+                        <div class="draggable" draggable="true" data-value="I">I volcanoes</div>
+                    </div>
+
+                    <div class="drop-targets">
+                        <h4>Areas of the world</h4>
+                        <div class="drop-line">
+                            <span class="q-number">15.</span>
+                            <div class="drop-box" data-q="15"></div>
+                            <span>Asia</span>
+                        </div>
+                        <div class="drop-line">
+                            <span class="q-number">16.</span>
+                            <div class="drop-box" data-q="16"></div>
+                            <span>Antarctica</span>
+                        </div>
+                        <div class="drop-line">
+                            <span class="q-number">17.</span>
+                            <div class="drop-box" data-q="17"></div>
+                            <span>South America</span>
+                        </div>
+                        <div class="drop-line">
+                            <span class="q-number">18.</span>
+                            <div class="drop-box" data-q="18"></div>
+                            <span>North America</span>
+                        </div>
+                        <div class="drop-line">
+                            <span class="q-number">19.</span>
+                            <div class="drop-box" data-q="19"></div>
+                            <span>Europe</span>
+                        </div>
+                        <div class="drop-line">
+                            <span class="q-number">20.</span>
+                            <div class="drop-box" data-q="20"></div>
+                            <span>Africa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Status Bar -->
+            <div class="question-status">
+                <span class="part-label">Part 1</span>
+                <div class="q-indicator other" data-q="1">1</div>
+                <div class="q-indicator other" data-q="2">2</div>
+                <div class="q-indicator other" data-q="3">3</div>
+                <div class="q-indicator other" data-q="4">4</div>
+                <div class="q-indicator other" data-q="5">5</div>
+                <div class="q-indicator other" data-q="6">6</div>
+                <div class="q-indicator other" data-q="7">7</div>
+                <div class="q-indicator other" data-q="8">8</div>
+                <div class="q-indicator other" data-q="9">9</div>
+                <div class="q-indicator other" data-q="10">10</div>
+
+                <div class="part-separator"></div>
+
+                <span class="part-label">Part 2</span>
+                <div class="q-indicator current" data-q="11">11</div>
+                <div class="q-indicator current" data-q="12">12</div>
+                <div class="q-indicator current" data-q="13">13</div>
+                <div class="q-indicator current" data-q="14">14</div>
+                <div class="q-indicator current" data-q="15">15</div>
+                <div class="q-indicator current" data-q="16">16</div>
+                <div class="q-indicator current" data-q="17">17</div>
+                <div class="q-indicator current" data-q="18">18</div>
+                <div class="q-indicator current" data-q="19">19</div>
+                <div class="q-indicator current" data-q="20">20</div>
+
+                <div class="part-separator"></div>
+
+                <span class="part-label">Part 3</span>
+                <div class="q-indicator other" data-q="21">21</div>
+                <div class="q-indicator other" data-q="22">22</div>
+                <div class="q-indicator other" data-q="23">23</div>
+                <div class="q-indicator other" data-q="24">24</div>
+                <div class="q-indicator other" data-q="25">25</div>
+                <div class="q-indicator other" data-q="26">26</div>
+                <div class="q-indicator other" data-q="27">27</div>
+                <div class="q-indicator other" data-q="28">28</div>
+                <div class="q-indicator other" data-q="29">29</div>
+                <div class="q-indicator other" data-q="30">30</div>
+
+                <div class="part-separator"></div>
+
+                <span class="part-label">Part 4</span>
+                <div class="q-indicator other" data-q="31">31</div>
+                <div class="q-indicator other" data-q="32">32</div>
+                <div class="q-indicator other" data-q="33">33</div>
+                <div class="q-indicator other" data-q="34">34</div>
+                <div class="q-indicator other" data-q="35">35</div>
+                <div class="q-indicator other" data-q="36">36</div>
+                <div class="q-indicator other" data-q="37">37</div>
+                <div class="q-indicator other" data-q="38">38</div>
+                <div class="q-indicator other" data-q="39">39</div>
+                <div class="q-indicator other" data-q="40">40</div>
+            </div>
+
+            <!-- Answers Section -->
+            <div class="answers-section">
+                <h3>Answers for Section 2</h3>
+                <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                <div class="answers-content" id="answers">
+                    <strong>Answers:</strong><br>
+                    11. C<br>
+                    12. B<br>
+                    13. B<br>
+                    14. C<br>
+                    15. F<br>
+                    16. C<br>
+                    17. I<br>
+                    18. G<br>
+                    19. A<br>
+                    20. E
+                </div>
+            </div>
+
+            <div class="nav-container">
+                <a href="index.html" class="back-main-btn">← Back to Main Page</a>
+                <div class="nav-buttons">
+                    <a href="listening-c10t2-part1.html" class="nav-btn">←</a>
+                    <a href="listening-c10t2-part3.html" class="nav-btn">→</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Save & Load Multiple Choice ---
+            for (let i = 11; i <= 14; i++) {
+                const saved = localStorage.getItem('C10T2_q' + i);
+                if (saved) {
+                    document.querySelector(`input[name="q${i}"][value="${saved}"]`).checked = true;
+                    markAnswered(i);
+                }
+                document.querySelectorAll(`input[name="q${i}"]`).forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        localStorage.setItem('C10T2_q' + i, this.value);
+                        markAnswered(i);
+                    });
+                });
+            }
+
+            // --- Drag & Drop Setup ---
+            let draggedElement = null;
+
+            document.querySelectorAll('.draggable').forEach(item => {
+                item.addEventListener('dragstart', function(e) {
+                    draggedElement = this;
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/plain', this.dataset.value);
+                });
+            });
+
+            document.querySelectorAll('.drop-box').forEach(box => {
+                box.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    this.classList.add('highlight');
+                });
+
+                box.addEventListener('dragleave', function() {
+                    this.classList.remove('highlight');
+                });
+
+                box.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    this.classList.remove('highlight');
+                    const value = e.dataTransfer.getData('text/plain');
+                    this.textContent = value;
+                    this.classList.add('filled');
+                    const qNum = this.dataset.q;
+                    localStorage.setItem('C10T2_q' + qNum, value);
+                    markAnswered(qNum);
+                });
+
+                // Click to clear
+                box.addEventListener('click', function() {
+                    if (this.textContent) {
+                        this.textContent = '';
+                        this.classList.remove('filled');
+                        const qNum = this.dataset.q;
+                        localStorage.removeItem('C10T2_q' + qNum);
+                        unmarkAnswered(qNum);
+                    }
+                });
+
+                // Load saved answers
+                const saved = localStorage.getItem('C10T2_q' + box.dataset.q);
+                if (saved) {
+                    box.textContent = saved;
+                    box.classList.add('filled');
+                    markAnswered(box.dataset.q);
+                }
+            });
+
+            // --- Highlight Tool ---
+            const highlightArea = document.getElementById('highlightArea');
+            const highlightTool = document.getElementById('highlightTool');
+            const removeTool = document.getElementById('removeTool');
+            let currentRange = null;
+
+            highlightArea.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+                showPencil(e.clientX, e.clientY);
+            });
+
+            document.addEventListener('mouseup', function() {
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+                    highlightTool.style.display = 'none';
+                    return;
+                }
+                const range = sel.getRangeAt(0);
+                if (!highlightArea.contains(range.commonAncestorContainer)) return;
+                const rect = range.getBoundingClientRect();
+                showPencil(rect.left + rect.width / 2, rect.top);
+                currentRange = range;
+            });
+
+            function showPencil(x, y) {
+                highlightTool.style.left = (x + window.scrollX - 17) + 'px';
+                highlightTool.style.top = (y + window.scrollY - 40) + 'px';
+                highlightTool.style.display = 'flex';
+            }
+
+            highlightTool.addEventListener('click', function() {
+                if (!currentRange) return;
+                const span = document.createElement('span');
+                span.className = 'user-highlight';
+                span.textContent = currentRange.toString();
+                currentRange.deleteContents();
+                currentRange.insertNode(span);
+                window.getSelection().removeAllRanges();
+                highlightTool.style.display = 'none';
+                currentRange = null;
+            });
+
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('user-highlight')) {
+                    const rect = e.target.getBoundingClientRect();
+                    removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 30) + 'px';
+                    removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
+                    removeTool.style.display = 'block';
+                    removeTool.dataset.target = e.target;
+                } else if (!removeTool.contains(e.target)) {
+                    removeTool.style.display = 'none';
+                }
+                if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target)) {
+                    highlightTool.style.display = 'none';
+                }
+            });
+
+            removeTool.addEventListener('click', function() {
+                const span = this.dataset.target;
+                if (!span || !span.parentNode) return;
+                const text = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(text, span);
+                span.parentNode.normalize();
+                this.style.display = 'none';
+                delete this.dataset.target;
+            });
+        });
+
+        function toggleAnswers() {
+            const ansDiv = document.getElementById('answers');
+            ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function markAnswered(qNum) {
+            const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+            if (el) el.classList.add('answered');
+        }
+        function unmarkAnswered(qNum) {
+            const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+            if (el) el.classList.remove('answered');
+        }
+    </script>
+</body>
+</html>
