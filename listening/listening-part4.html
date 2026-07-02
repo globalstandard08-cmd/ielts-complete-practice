@@ -180,7 +180,13 @@
         margin-top: 10px;
     }
 
-    .show-btn {
+    .btn-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .show-btn, .clear-btn {
         background-color: #1f3a5f;
         color: white;
         border: none;
@@ -190,8 +196,16 @@
         font-size: 14px;
     }
 
+    .clear-btn {
+        background-color: #dc2626;
+    }
+
     .show-btn:hover {
         background-color: #2e568c;
+    }
+
+    .clear-btn:hover {
+        background-color: #b91c1c;
     }
 
     /* --- Question Status Bar --- */
@@ -306,13 +320,14 @@
         background-color: #4b5563;
     }
 
-    /* Highlight Tool */
+    /* --- UPDATED: Darker, clearer highlight --- */
     .user-highlight {
-        background-color: #fff3cd;
-        padding: 2px 3px;
+        background-color: #ffd700; /* Golden / dark yellow */
+        padding: 2px 4px;
         border-radius: 2px;
         cursor: pointer;
         display: inline;
+        color: #000;
     }
 
     .highlight-tool {
@@ -399,19 +414,19 @@
 
                 <div class="question-line">
                     <span>• Its colour comes from an uncommon</span>
-                    <span class="q-number">31.</span>
+                    <span class="q-number">(31)</span>
                     <input type="text" class="input-field" id="q31" placeholder="__________">
                 </div>
 
                 <div class="question-line">
                     <span>• Local people believe that it has unusual</span>
-                    <span class="q-number">32.</span>
+                    <span class="q-number">(32)</span>
                     <input type="text" class="input-field" id="q32" placeholder="__________">
                 </div>
 
                 <div class="question-line">
                     <span>• They protect the bear from</span>
-                    <span class="q-number">33.</span>
+                    <span class="q-number">(33)</span>
                     <input type="text" class="input-field" id="q33" placeholder="__________">
                 </div>
 
@@ -423,7 +438,7 @@
 
                 <div class="question-line">
                     <span>• Tree roots stop</span>
-                    <span class="q-number">34.</span>
+                    <span class="q-number">(34)</span>
                     <input type="text" class="input-field" id="q34" placeholder="__________">
                     <span>along salmon streams.</span>
                 </div>
@@ -434,7 +449,7 @@
 
                 <div class="question-line">
                     <span>• It is currently found on a small number of</span>
-                    <span class="q-number">35.</span>
+                    <span class="q-number">(35)</span>
                     <input type="text" class="input-field" id="q35" placeholder="__________">
                 </div>
 
@@ -442,21 +457,21 @@
 
                 <div class="question-line">
                     <span>• Habitat is being lost due to deforestation and construction of</span>
-                    <span class="q-number">36.</span>
+                    <span class="q-number">(36)</span>
                     <input type="text" class="input-field" id="q36" placeholder="__________">
                     <span>by logging companies.</span>
                 </div>
 
                 <div class="question-line">
                     <span>• Unrestricted</span>
-                    <span class="q-number">37.</span>
+                    <span class="q-number">(37)</span>
                     <input type="text" class="input-field" id="q37" placeholder="__________">
                     <span>is affecting the salmon supply.</span>
                 </div>
 
                 <div class="question-line">
                     <span>• The bears’ existence is also threatened by their low rate of</span>
-                    <span class="q-number">38.</span>
+                    <span class="q-number">(38)</span>
                     <input type="text" class="input-field" id="q38" placeholder="__________">
                 </div>
 
@@ -468,14 +483,14 @@
 
                 <div class="question-line">
                     <span>• Logging companies must improve their</span>
-                    <span class="q-number">39.</span>
+                    <span class="q-number">(39)</span>
                     <input type="text" class="input-field" id="q39" placeholder="__________">
                     <span>of logging.</span>
                 </div>
 
                 <div class="question-line">
                     <span>• Maintenance and</span>
-                    <span class="q-number">40.</span>
+                    <span class="q-number">(40)</span>
                     <input type="text" class="input-field" id="q40" placeholder="__________">
                     <span>of the spirit bears’ territory is needed.</span>
                 </div>
@@ -540,7 +555,10 @@
 
             <div class="answers-section">
                 <h3>Answers for Section 4</h3>
-                <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                <div class="btn-row">
+                    <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                    <button class="clear-btn" onclick="clearAllAnswers()">Clear All Answers</button>
+                </div>
                 <div class="answers-content" id="answers">
                     <strong>Answers:</strong><br>
                     31. gene<br>
@@ -589,6 +607,20 @@
                     }
                 });
             }
+
+            // --- NEW: Clear All Answers function ---
+            window.clearAllAnswers = function() {
+                if (!confirm("Clear all answers for this section?")) return;
+                for (let i = 31; i <= 40; i++) {
+                    localStorage.removeItem('C10T1_q' + i);
+                    const field = document.getElementById('q' + i);
+                    if (field) {
+                        field.value = '';
+                        field.classList.remove('filled');
+                    }
+                    unmarkAnswered(i);
+                }
+            };
 
             // Highlight system
             const highlightArea = document.getElementById('highlightArea');
