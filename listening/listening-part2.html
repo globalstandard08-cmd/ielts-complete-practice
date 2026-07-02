@@ -17,6 +17,10 @@
             padding: 20px;
             line-height: 1.7;
             position: relative;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
         }
 
         .container {
@@ -176,7 +180,13 @@
             margin-top: 10px;
         }
 
-        .show-btn {
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .show-btn, .clear-btn {
             background-color: #1f3a5f;
             color: white;
             border: none;
@@ -186,8 +196,16 @@
             font-size: 14px;
         }
 
+        .clear-btn {
+            background-color: #dc2626;
+        }
+
         .show-btn:hover {
             background-color: #2e568c;
+        }
+
+        .clear-btn:hover {
+            background-color: #b91c1c;
         }
 
         /* --- Question Bar with Part Labels --- */
@@ -302,13 +320,14 @@
             background-color: #4b5563;
         }
 
-        /* Highlight Tool */
+        /* --- UPDATED: Darker, clearer highlight --- */
         .user-highlight {
-            background-color: #fff3cd;
-            padding: 2px 3px;
+            background-color: #ffd700; /* Golden / dark yellow */
+            padding: 2px 4px;
             border-radius: 2px;
             cursor: pointer;
             display: inline;
+            color: #000;
         }
 
         .highlight-tool {
@@ -524,7 +543,10 @@
 
             <div class="answers-section">
                 <h3>Answers for Section 2</h3>
-                <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                <div class="btn-row">
+                    <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                    <button class="clear-btn" onclick="clearAllAnswers()">Clear All Answers</button>
+                </div>
                 <div class="answers-content" id="answers">
                     <strong>Answers:</strong><br>
                     11. A<br>
@@ -595,6 +617,27 @@
                 checked >= 2 ? markAnswered(12) : unmarkAnswered(12);
             }
             updateStatus();
+
+            // --- NEW: Clear All Answers function ---
+            window.clearAllAnswers = function() {
+                if (!confirm("Clear all answers for this section?")) return;
+                // Clear checkboxes
+                document.querySelectorAll('.option-checkbox').forEach(chk => {
+                    chk.checked = false;
+                    localStorage.removeItem('C10T1_' + chk.id);
+                });
+                // Clear text inputs
+                for (let i = 13; i <= 20; i++) {
+                    localStorage.removeItem('C10T1_q' + i);
+                    const field = document.getElementById('q' + i);
+                    if (field) {
+                        field.value = '';
+                        field.classList.remove('filled');
+                    }
+                    unmarkAnswered(i);
+                }
+                updateStatus();
+            };
         });
 
         function toggleAnswers() {
