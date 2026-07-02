@@ -124,15 +124,17 @@
             width: 18px;
             height: 18px;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .q-number {
             font-weight: bold;
             min-width: 35px;
             color: #1f3a5f;
+            flex-shrink: 0;
         }
 
-        /* --- Drag & Drop Style - Fixed Sizing --- */
+        /* --- Drag & Drop Style --- */
         .drag-container {
             display: flex;
             gap: 30px;
@@ -142,36 +144,30 @@
 
         .options-column, .answers-column {
             flex: 1;
-            min-width: 280px;
+            min-width: 300px;
         }
 
-        .drop-area {
-            border: 1px dashed #b0b4b9;
+        /* Options list with full names on each line */
+        .options-list {
+            border: 1px solid #e0e0e0;
             border-radius: 4px;
-            padding: 2px 6px;
-            min-height: 28px;
-            width: 40px;
+            padding: 12px;
             background: #fafafa;
-            text-align: center;
-            transition: all 0.2s;
-        }
-
-        .drop-area.highlight {
-            border-color: #1f3a5f;
-            background: #eef5fc;
+            min-height: 130px;
         }
 
         .draggable {
-            padding: 3px 8px;
-            margin: 4px 0;
+            padding: 5px 10px;
+            margin: 6px 0;
             background: #e6f0ff;
             border: 1px solid #1f3a5f;
-            border-radius: 3px;
+            border-radius: 4px;
             cursor: grab;
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-weight: 500;
-            min-width: 30px;
-            text-align: center;
+            transition: background 0.2s;
         }
 
         .draggable:active {
@@ -179,26 +175,34 @@
             background: #d0e2ff;
         }
 
+        /* Answer rows */
         .answer-row {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin: 8px 0;
+            margin: 10px 0;
             font-size: 16px;
             flex-wrap: nowrap;
         }
 
         .answer-box {
-            width: 40px;
-            height: 28px;
+            width: 42px;
+            height: 32px;
             border: 1px solid #ccc;
             border-radius: 4px;
             background: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 500;
+            font-weight: bold;
+            font-size: 16px;
             flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .answer-box.highlight {
+            border-color: #1f3a5f;
+            background: #eef5fc;
         }
 
         .answer-box.filled {
@@ -457,12 +461,12 @@
 
             <div class="question-block">
                 <div class="choice-row">
-                    <input type="checkbox" name="q11_12" value="C" id="optC">
-                    <label for="optC">A Children make up most of the membership.</label>
+                    <input type="checkbox" name="q11_12" value="A" id="optA">
+                    <label for="optA">A Children make up most of the membership.</label>
                 </div>
                 <div class="choice-row">
-                    <input type="checkbox" name="q11_12" value="E" id="optE">
-                    <label for="optE">B It's the country's largest conservation organisation.</label>
+                    <input type="checkbox" name="q11_12" value="B" id="optB">
+                    <label for="optB">B It's the country's largest conservation organisation.</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q11_12" value="C" id="optC">
@@ -541,21 +545,18 @@
             <div class="instruction">
                 <strong>Questions 16–20</strong><br>
                 Which dolphin does Alice make each of the following comments about?<br>
-                Drag and drop the correct letter A, B, C or D into each box. You can drag back to change.
+                Drag and drop the correct letter into each box. Drag back to the list to remove/change.
             </div>
 
             <div class="question-block">
                 <div class="drag-container">
                     <div class="options-column">
                         <h4>Dolphins</h4>
-                        <div class="drop-area" id="optionsArea">
-                            <div class="draggable" draggable="true" data-value="A">A</div>
-                            <div class="draggable" draggable="true" data-value="B">B</div>
-                            <div class="draggable" draggable="true" data-value="C">C</div>
-                            <div class="draggable" draggable="true" data-value="D">D</div>
-                        </div>
-                        <div style="margin-top:8px; font-size:13px; color:#666;">
-                            A = Moondancer &nbsp;&nbsp; B = Echo &nbsp;&nbsp; C = Kiwi &nbsp;&nbsp; D = Samson
+                        <div class="options-list" id="sourceList">
+                            <div class="draggable" draggable="true" data-value="A">A &nbsp; Moondancer</div>
+                            <div class="draggable" draggable="true" data-value="B">B &nbsp; Echo</div>
+                            <div class="draggable" draggable="true" data-value="C">C &nbsp; Kiwi</div>
+                            <div class="draggable" draggable="true" data-value="D">D &nbsp; Samson</div>
                         </div>
                     </div>
 
@@ -564,27 +565,27 @@
                         <div class="answer-row">
                             <span class="q-number">16</span>
                             <span>It has not been seen this year.</span>
-                            <div class="answer-box drop-area" data-q="16"></div>
+                            <div class="answer-box" data-q="16"></div>
                         </div>
                         <div class="answer-row">
                             <span class="q-number">17</span>
                             <span>It is photographed more than the others.</span>
-                            <div class="answer-box drop-area" data-q="17"></div>
+                            <div class="answer-box" data-q="17"></div>
                         </div>
                         <div class="answer-row">
                             <span class="q-number">18</span>
                             <span>It is always very energetic.</span>
-                            <div class="answer-box drop-area" data-q="18"></div>
+                            <div class="answer-box" data-q="18"></div>
                         </div>
                         <div class="answer-row">
                             <span class="q-number">19</span>
                             <span>It is the newest one in the scheme.</span>
-                            <div class="answer-box drop-area" data-q="19"></div>
+                            <div class="answer-box" data-q="19"></div>
                         </div>
                         <div class="answer-row">
                             <span class="q-number">20</span>
                             <span>It has an unusual shape.</span>
-                            <div class="answer-box drop-area" data-q="20"></div>
+                            <div class="answer-box" data-q="20"></div>
                         </div>
                     </div>
                 </div>
@@ -671,7 +672,7 @@
 
             <!-- Navigation -->
             <div class="nav-container">
-                <a href="../library.html" class="back-main-btn">← Back to Main Page</a>
+                <a href="../index.html" class="back-main-btn">← Back to Main Page</a>
                 <div class="nav-buttons">
                     <a href="listening-c10t3-part1.html" class="nav-btn">←</a>
                     <a href="listening-c10t3-part3.html" class="nav-btn">→</a>
@@ -682,14 +683,64 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            let draggedElement = null;
+
+            // --- Drag & Drop Setup ---
+            document.querySelectorAll('.draggable').forEach(item => {
+                item.addEventListener('dragstart', function(e) {
+                    draggedElement = this;
+                    e.dataTransfer.setData('text/plain', this.dataset.value);
+                    setTimeout(() => this.classList.add('dragging'), 0);
+                });
+                item.addEventListener('dragend', function() {
+                    this.classList.remove('dragging');
+                    document.querySelectorAll('.answer-box').forEach(b => b.classList.remove('highlight'));
+                });
+            });
+
+            // Drop zones
+            document.querySelectorAll('.answer-box, #sourceList').forEach(zone => {
+                zone.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    zone.classList.add('highlight');
+                });
+                zone.addEventListener('dragleave', () => zone.classList.remove('highlight'));
+                zone.addEventListener('drop', e => {
+                    e.preventDefault();
+                    zone.classList.remove('highlight');
+                    if (!draggedElement) return;
+
+                    const value = draggedElement.dataset.value;
+
+                    // Dropping into an answer box
+                    if (zone.classList.contains('answer-box')) {
+                        zone.textContent = value;
+                        zone.classList.add('filled');
+                        const qNum = zone.dataset.q;
+                        localStorage.setItem(`C10T3_q${qNum}`, value);
+                        markAnswered(qNum);
+                    }
+                    // Dropping back to the source list to clear
+                    else if (zone.id === 'sourceList') {
+                        const qNum = draggedElement.closest('.answer-box')?.dataset.q;
+                        if (qNum) {
+                            localStorage.removeItem(`C10T3_q${qNum}`);
+                            unmarkAnswered(qNum);
+                            draggedElement.textContent = '';
+                            draggedElement.classList.remove('filled');
+                        }
+                    }
+                });
+            });
+
             // --- Save/Load Multiple Choice ---
             const q11_12_boxes = document.querySelectorAll('input[name="q11_12"]');
             function saveQ11_12() {
-                const vals = Array.from(q11_12_boxes).filter(c => c.checked).map(c => c.value);
-                localStorage.setItem('C10T3_q11', vals[0] || '');
-                localStorage.setItem('C10T3_q12', vals[1] || '');
-                vals.forEach((v,i) => markAnswered(11+i));
-                if (vals.length < 2) { unmarkAnswered(11); unmarkAnswered(12); }
+                const selected = Array.from(q11_12_boxes).filter(c => c.checked).map(c => c.value);
+                localStorage.setItem('C10T3_q11', selected[0] || '');
+                localStorage.setItem('C10T3_q12', selected[1] || '');
+                if (selected[0]) markAnswered(11); else unmarkAnswered(11);
+                if (selected[1]) markAnswered(12); else unmarkAnswered(12);
             }
             q11_12_boxes.forEach(c => c.addEventListener('change', saveQ11_12));
 
@@ -702,52 +753,6 @@
                     });
                 });
             }
-
-            // --- Drag & Drop System ---
-            let draggedElement = null;
-
-            document.querySelectorAll('.draggable').forEach(item => {
-                item.addEventListener('dragstart', function() {
-                    draggedElement = this;
-                    setTimeout(() => this.classList.add('dragging'), 0);
-                });
-                item.addEventListener('dragend', function() {
-                    this.classList.remove('dragging');
-                });
-            });
-
-            document.querySelectorAll('.drop-area').forEach(area => {
-                area.addEventListener('dragover', e => {
-                    e.preventDefault();
-                    area.classList.add('highlight');
-                });
-                area.addEventListener('dragleave', () => area.classList.remove('highlight'));
-                area.addEventListener('drop', e => {
-                    e.preventDefault();
-                    area.classList.remove('highlight');
-                    if (!draggedElement) return;
-
-                    // Drop into answer box
-                    if (area.classList.contains('answer-box')) {
-                        const qNum = area.dataset.q;
-                        const value = draggedElement.dataset.value;
-                        area.textContent = value;
-                        area.classList.add('filled');
-                        markAnswered(qNum);
-                        localStorage.setItem(`C10T3_q${qNum}`, value);
-                    }
-                    // Drop back to options area to remove/reset
-                    else if (area.id === 'optionsArea') {
-                        const qNum = draggedElement.closest('.answer-box')?.dataset.q;
-                        if (qNum) {
-                            localStorage.removeItem(`C10T3_q${qNum}`);
-                            unmarkAnswered(qNum);
-                            draggedElement.textContent = '';
-                            draggedElement.classList.remove('filled');
-                        }
-                    }
-                });
-            });
 
             // --- Load Saved Answers ---
             // Q11-12
@@ -853,15 +858,21 @@
 
         function clearAllAnswers() {
             if (!confirm("Clear all answers for this section?")) return;
-            // Clear checkboxes
+
+            // Clear checkboxes/radios
             document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(i => i.checked = false);
+
+            // Clear drag boxes
+            document.querySelectorAll('.answer-box').forEach(b => {
+                b.textContent = '';
+                b.classList.remove('filled');
+            });
+
             // Clear saved data
             for (let i = 11; i <= 20; i++) {
                 localStorage.removeItem(`C10T3_q${i}`);
                 unmarkAnswered(i);
             }
-            // Clear drag boxes
-            document.querySelectorAll('.answer-box').forEach(b => { b.textContent = ''; b.classList.remove('filled'); });
         }
 
         function markAnswered(qNum) {
