@@ -320,7 +320,7 @@
         cursor: not-allowed;
     }
 
-    /* --- HIGHLIGHT SYSTEM (FIXED WORKING VERSION) --- */
+    /* --- HIGHLIGHT & REMOVE (FULLY WORKING NOW) --- */
     .user-highlight {
         background-color: #ffd700;
         padding: 2px 4px;
@@ -332,7 +332,7 @@
 
     .highlight-tool {
         position: absolute;
-        background: #fff;
+        background: #ffffff;
         border: 1px solid #1f3a5f;
         border-radius: 50%;
         width: 34px;
@@ -353,10 +353,10 @@
 
     .remove-highlight {
         position: absolute;
-        background: #fff;
+        background: #ffffff;
         border: 1px solid #dc3545;
         border-radius: 4px;
-        padding: 4px 8px;
+        padding: 5px 10px;
         box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         z-index: 9999;
         display: none;
@@ -568,7 +568,7 @@
                 </div>
             </div>
 
-            <!-- --- NEW NAVIGATION WITH SIMPLE ARROWS --- -->
+            <!-- Navigation -->
             <div class="nav-container">
                 <a href="../library.html" class="back-main-btn">← Back to Main Page</a>
                 <div class="nav-arrows">
@@ -617,7 +617,7 @@
                 }
             };
 
-            // --- FIXED HIGHLIGHT & REMOVE FUNCTION ---
+            // --- FULLY WORKING HIGHLIGHT & REMOVE ---
             const highlightArea = document.getElementById('highlightArea');
             const highlightTool = document.getElementById('highlightTool');
             const removeTool = document.getElementById('removeTool');
@@ -652,7 +652,7 @@
                 currentRange = null;
             });
 
-            // Show remove button when clicking existing highlight
+            // Show remove button when clicking a highlighted text
             document.addEventListener('click', function(e) {
                 if (e.target.classList.contains('user-highlight')) {
                     const rect = e.target.getBoundingClientRect();
@@ -666,13 +666,14 @@
                 }
             });
 
-            // Remove highlight when clicking the button
+            // Remove highlight when clicking the remove button
             removeTool.addEventListener('click', function() {
-                const span = this.dataset.target;
-                if (!span || !span.parentNode) return;
-                const text = document.createTextNode(span.textContent);
-                span.parentNode.replaceChild(text, span);
-                span.parentNode.normalize();
+                const highlightedSpan = this.dataset.target;
+                if (!highlightedSpan || !highlightedSpan.parentNode) return;
+                // Replace the highlight with plain text
+                const plainText = document.createTextNode(highlightedSpan.textContent);
+                highlightedSpan.parentNode.replaceChild(plainText, highlightedSpan);
+                highlightedSpan.parentNode.normalize();
                 this.style.display = 'none';
                 delete this.dataset.target;
             });
