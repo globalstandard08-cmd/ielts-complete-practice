@@ -17,6 +17,10 @@
             padding: 20px;
             line-height: 1.7;
             position: relative;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
         }
 
         .container {
@@ -171,7 +175,13 @@
             margin-top: 10px;
         }
 
-        .show-btn {
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .show-btn, .clear-btn {
             background-color: #1f3a5f;
             color: white;
             border: none;
@@ -181,8 +191,16 @@
             font-size: 14px;
         }
 
+        .clear-btn {
+            background-color: #dc2626;
+        }
+
         .show-btn:hover {
             background-color: #2e568c;
+        }
+
+        .clear-btn:hover {
+            background-color: #b91c1c;
         }
 
         /* --- Updated with Part labels --- */
@@ -303,13 +321,14 @@
             background-color: #4b5563;
         }
 
-        /* Highlight styles */
+        /* --- UPDATED: Darker, clearer highlight --- */
         .user-highlight {
-            background-color: #fff3cd;
-            padding: 2px 3px;
+            background-color: #ffd700; /* Golden / dark yellow */
+            padding: 2px 4px;
             border-radius: 2px;
             cursor: pointer;
             display: inline;
+            color: #000;
         }
 
         .highlight-tool {
@@ -537,7 +556,10 @@
 
             <div class="answers-section">
                 <h3>Answers for Section 1</h3>
-                <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                <div class="btn-row">
+                    <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                    <button class="clear-btn" onclick="clearAllAnswers()">Clear All Answers</button>
+                </div>
                 <div class="answers-content" id="answers">
                     <strong>Answers:</strong><br>
                     1. River<br>
@@ -587,98 +609,112 @@
                     }
                 });
             }
-        });
 
-        function toggleAnswers() {
-            const ansDiv = document.getElementById('answers');
-            ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
-        }
+            // --- NEW: Clear All Answers function ---
+            window.clearAllAnswers = function() {
+                if (!confirm("Clear all answers for this section?")) return;
+                for (let i = 1; i <= 10; i++) {
+                    localStorage.removeItem('C10T1_q' + i);
+                    const field = document.getElementById('q' + i);
+                    if (field) {
+                        field.value = '';
+                        field.classList.remove('filled');
+                    }
+                    unmarkAnswered(i);
+                }
+            };
 
-        function markAnswered(qNum) {
-            const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
-            if (el) el.classList.add('answered');
-        }
-        function unmarkAnswered(qNum) {
-            const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
-            if (el) el.classList.remove('answered');
-        }
+            function toggleAnswers() {
+                const ansDiv = document.getElementById('answers');
+                ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
+            }
 
-        // Highlight system - fixed
-        const highlightArea = document.getElementById('highlightArea');
-        const highlightTool = document.getElementById('highlightTool');
-        const removeTool = document.getElementById('removeTool');
-        let currentRange = null;
+            function markAnswered(qNum) {
+                const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+                if (el) el.classList.add('answered');
+            }
+            function unmarkAnswered(qNum) {
+                const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+                if (el) el.classList.remove('answered');
+            }
 
-        // Right-click to show pencil
-        highlightArea.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            const sel = window.getSelection();
-            if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
-            showPencil(e.clientX, e.clientY);
-        });
+            // Highlight system
+            const highlightArea = document.getElementById('highlightArea');
+            const highlightTool = document.getElementById('highlightTool');
+            const removeTool = document.getElementById('removeTool');
+            let currentRange = null;
 
-        // Show pencil when selecting text
-        document.addEventListener('mouseup', function() {
-            const sel = window.getSelection();
-            if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+            // Right-click to show pencil
+            highlightArea.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+                showPencil(e.clientX, e.clientY);
+            });
+
+            // Show pencil when selecting text
+            document.addEventListener('mouseup', function() {
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+                    highlightTool.style.display = 'none';
+                    return;
+                }
+                const range = sel.getRangeAt(0);
+                if (!highlightArea.contains(range.commonAncestorContainer)) return;
+                const rect = range.getBoundingClientRect();
+                showPencil(rect.left + rect.width / 2, rect.top);
+                currentRange = range;
+            });
+
+            function showPencil(x, y) {
+                highlightTool.style.left = (x + window.scrollX - 17) + 'px';
+                highlightTool.style.top = (y + window.scrollY - 40) + 'px';
+                highlightTool.style.display = 'flex';
+            }
+
+            // Apply highlight
+            highlightTool.addEventListener('click', function() {
+                if (!currentRange) return;
+                const span = document.createElement('span');
+                span.className = 'user-highlight';
+                span.textContent = currentRange.toString();
+                currentRange.deleteContents();
+                currentRange.insertNode(span);
+                window.getSelection().removeAllRanges();
                 highlightTool.style.display = 'none';
-                return;
-            }
-            const range = sel.getRangeAt(0);
-            if (!highlightArea.contains(range.commonAncestorContainer)) return;
-            const rect = range.getBoundingClientRect();
-            showPencil(rect.left + rect.width / 2, rect.top);
-            currentRange = range;
-        });
+                currentRange = null;
+            });
 
-        function showPencil(x, y) {
-            highlightTool.style.left = (x + window.scrollX - 17) + 'px';
-            highlightTool.style.top = (y + window.scrollY - 40) + 'px';
-            highlightTool.style.display = 'flex';
-        }
+            // Show remove button when clicking existing highlight
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('user-highlight')) {
+                    const rect = e.target.getBoundingClientRect();
+                    removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 30) + 'px';
+                    removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
+                    removeTool.style.display = 'block';
+                    removeTool.dataset.target = e.target;
+                } else if (!removeTool.contains(e.target)) {
+                    removeTool.style.display = 'none';
+                }
+            });
 
-        // Apply highlight
-        highlightTool.addEventListener('click', function() {
-            if (!currentRange) return;
-            const span = document.createElement('span');
-            span.className = 'user-highlight';
-            span.textContent = currentRange.toString();
-            currentRange.deleteContents();
-            currentRange.insertNode(span);
-            window.getSelection().removeAllRanges();
-            highlightTool.style.display = 'none';
-            currentRange = null;
-        });
+            // Remove highlight on click
+            removeTool.addEventListener('click', function() {
+                const span = this.dataset.target;
+                if (!span || !span.parentNode) return;
+                const text = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(text, span);
+                span.parentNode.normalize();
+                this.style.display = 'none';
+                delete this.dataset.target;
+            });
 
-        // Show remove button when clicking existing highlight
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('user-highlight')) {
-                const rect = e.target.getBoundingClientRect();
-                removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 30) + 'px';
-                removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
-                removeTool.style.display = 'block';
-                removeTool.dataset.target = e.target;
-            } else if (!removeTool.contains(e.target)) {
-                removeTool.style.display = 'none';
-            }
-        });
-
-        // Remove highlight on click
-        removeTool.addEventListener('click', function() {
-            const span = this.dataset.target;
-            if (!span || !span.parentNode) return;
-            const text = document.createTextNode(span.textContent);
-            span.parentNode.replaceChild(text, span);
-            span.parentNode.normalize();
-            this.style.display = 'none';
-            delete this.dataset.target;
-        });
-
-        // Hide tools when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target) && !removeTool.contains(e.target)) {
-                highlightTool.style.display = 'none';
-            }
+            // Hide tools when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target) && !removeTool.contains(e.target)) {
+                    highlightTool.style.display = 'none';
+                }
+            });
         });
     </script>
 </body>
