@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Listening - C10 Test 3 Part 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            padding: 20px;
+            line-height: 1.7;
+            position: relative;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: visible;
+            position: relative;
+        }
+
+        .logo-section {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo-section img {
+            height: 120px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-bar {
+            background-color: #1f3a5f;
+            color: white;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .audio-player {
+            background: #eef2f7;
+            padding: 18px 25px;
+            margin: 20px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .audio-player h3 {
+            color: #1f3a5f;
+            margin-bottom: 12px;
+            font-size: 17px;
+        }
+
+        audio {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .content {
+            padding: 0 30px 30px;
+            position: relative;
+        }
+
+        h2 {
+            color: #1f3a5f;
+            margin: 25px 0 15px;
+            font-size: 22px;
+        }
+
+        .instruction {
+            background-color: #f8fbfe;
+            border-left: 4px solid #1f3a5f;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .question-block {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 25px;
+            margin-bottom: 30px;
+            background-color: #fdfdfd;
+        }
+
+        .section-heading {
+            font-weight: bold;
+            margin: 22px 0 14px;
+            font-size: 17px;
+            color: #2c4b75;
+        }
+
+        /* --- Drag & Drop Styles --- */
+        .drag-container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .options-column, .answers-column {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .drop-area {
+            border: 2px dashed #b0b4b9;
+            border-radius: 6px;
+            padding: 15px;
+            min-height: 120px;
+            background: #fafafa;
+            transition: border 0.2s;
+        }
+
+        .drop-area.highlight {
+            border-color: #1f3a5f;
+            background: #eef5fc;
+        }
+
+        .draggable {
+            padding: 8px 12px;
+            margin: 8px 0;
+            background: #e6f0ff;
+            border: 1px solid #1f3a5f;
+            border-radius: 4px;
+            cursor: grab;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .draggable:active {
+            cursor: grabbing;
+            background: #d0e2ff;
+        }
+
+        .question-line {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+
+        .q-number {
+            font-weight: bold;
+            min-width: 35px;
+            color: #1f3a5f;
+        }
+
+        .answer-box {
+            width: 120px;
+            height: 36px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: white;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            font-weight: 500;
+        }
+
+        .answer-box.filled {
+            background-color: #e6f0ff;
+            border-color: #1f3a5f;
+        }
+
+        /* Highlight style */
+        .user-highlight {
+            background-color: #ffd700;
+            padding: 2px 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            display: inline;
+            color: #000;
+        }
+
+        /* Question Status Bar */
+        .question-status {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 6px;
+            margin: 30px 0;
+            padding: 12px 15px;
+            background: #f0f2f5;
+            border-radius: 4px;
+            border: 1px solid #d0d5dd;
+            font-size: 12px;
+        }
+
+        .part-label {
+            font-size: 11px;
+            font-weight: bold;
+            color: #444;
+            margin-right: 4px;
+            margin-left: 8px;
+        }
+
+        .part-separator {
+            width: 12px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .q-indicator {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: normal;
+            border-radius: 2px;
+            border: 1px solid #d1d5db;
+            background: #e5e7eb;
+            color: #333;
+        }
+
+        .q-indicator.current {
+            background: #d9dce1;
+            color: #000;
+            border-color: #b0b4b9;
+        }
+
+        .q-indicator.other {
+            background: #efefef;
+            color: #999;
+            border-color: #e5e7eb;
+        }
+
+        .q-indicator.answered {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        /* Answers Section */
+        .answers-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border: 1px solid #b0d4f1;
+            border-radius: 6px;
+        }
+
+        .answers-section h3 {
+            color: #1f3a5f;
+            margin-bottom: 15px;
+        }
+
+        .answers-content {
+            display: none;
+            padding: 15px;
+            background: white;
+            border-radius: 4px;
+            line-height: 2;
+            margin-top: 10px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .show-btn, .clear-btn {
+            background-color: #1f3a5f;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .clear-btn {
+            background-color: #dc2626;
+        }
+
+        .show-btn:hover {
+            background-color: #2e568c;
+        }
+
+        .clear-btn:hover {
+            background-color: #b91c1c;
+        }
+
+        /* Navigation */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            width: 46px;
+            height: 46px;
+            background-color: #1f3a5f;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover {
+            background-color: #2e568c;
+        }
+
+        .back-main-btn {
+            background-color: #6b7280;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .back-main-btn:hover {
+            background-color: #4b5563;
+        }
+
+        /* Highlight tools */
+        .highlight-tool {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #1f3a5f;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #1f3a5f;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .highlight-tool:hover {
+            background: #eef2f7;
+        }
+
+        .remove-highlight {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            padding: 5px 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .remove-highlight:hover {
+            background: #ffebee;
+        }
+    </style>
+</head>
+<body>
+    <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
+    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
+
+    <div class="container">
+        <div class="logo-section">
+            <img src="../ielts-logo.png" alt="IELTS Logo">
+        </div>
+
+        <div class="header-bar">
+            <span>LISTENING TEST - C10 TEST 3 PART 2</span>
+            <span style="font-size:15px; opacity:0.9;">Exam Mode</span>
+        </div>
+
+        <!-- Audio Player -->
+        <div class="audio-player">
+            <h3>Play Recording - Part 2</h3>
+            <audio controls preload="auto">
+                <source src="c10t3-part2.mp3" type="audio/mpeg">
+                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T3listening/main/c10t3-part2.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            
+        </div>
+
+        <div class="content" id="highlightArea">
+            <h2>Section 2 – Questions 11–20</h2>
+
+            <!-- Q11-15 -->
+            <div class="instruction">
+                <strong>Questions 11 and 12</strong><br>
+                Choose TWO letters, A–E.<br><br>
+                <strong>Which TWO things does Alice say about the Dolphin Conservation Trust?</strong>
+            </div>
+
+            <div class="question-block">
+                <div class="question-line">
+                    <span>A</span>
+                    <span>Children make up most of the membership.</span>
+                </div>
+                <div class="question-line">
+                    <span>B</span>
+                    <span>It's the country's largest conservation organisation.</span>
+                </div>
+                <div class="question-line">
+                    <span>C</span>
+                    <span>It helps finance campaigns for changes in fishing practices.</span>
+                </div>
+                <div class="question-line">
+                    <span>D</span>
+                    <span>It employs several dolphin experts full-time.</span>
+                </div>
+                <div class="question-line">
+                    <span>E</span>
+                    <span>Volunteers help in various ways.</span>
+                </div>
+                <br>
+                <div class="question-line">
+                    <span>Answers 11 & 12:</span>
+                    <input type="text" class="input-field" id="q11" placeholder="______">
+                    <input type="text" class="input-field" id="q12" placeholder="______">
+                </div>
+
+                <br>
+                <div class="section-heading">Questions 13–15</div>
+                <div class="instruction">Choose the correct letter, A, B or C.</div>
+
+                <div class="question-line">
+                    <span class="q-number">13</span>
+                    <span>Why is Alice so pleased the Trust has won the Charity Commission award?</span>
+                </div>
+                <div class="question-line">
+                    <span>A</span>
+                    <span>It has brought in extra money.</span>
+                </div>
+                <div class="question-line">
+                    <span>B</span>
+                    <span>It made the work of the trust better known.</span>
+                </div>
+                <div class="question-line">
+                    <span>C</span>
+                    <span>It has attracted more members.</span>
+                </div>
+                <div class="question-line">
+                    <span>Answer:</span>
+                    <input type="text" class="input-field" id="q13" placeholder="______">
+                </div>
+
+                <div class="question-line">
+                    <span class="q-number">14</span>
+                    <span>Alice says oil exploration causes problems to dolphins because of</span>
+                </div>
+                <div class="question-line">
+                    <span>A</span>
+                    <span>noise.</span>
+                </div>
+                <div class="question-line">
+                    <span>B</span>
+                    <span>oil leaks.</span>
+                </div>
+                <div class="question-line">
+                    <span>C</span>
+                    <span>movement of ships.</span>
+                </div>
+                <div class="question-line">
+                    <span>Answer:</span>
+                    <input type="text" class="input-field" id="q14" placeholder="______">
+                </div>
+
+                <div class="question-line">
+                    <span class="q-number">15</span>
+                    <span>Alice became interested in dolphins when</span>
+                </div>
+                <div class="question-line">
+                    <span>A</span>
+                    <span>she saw one swimming near her home.</span>
+                </div>
+                <div class="question-line">
+                    <span>B</span>
+                    <span>she heard a speaker at her school.</span>
+                </div>
+                <div class="question-line">
+                    <span>C</span>
+                    <span>she read a book about them.</span>
+                </div>
+                <div class="question-line">
+                    <span>Answer:</span>
+                    <input type="text" class="input-field" id="q15" placeholder="______">
+                </div>
+            </div>
+
+            <!-- Q16-20 Drag & Drop -->
+            <div class="instruction">
+                <strong>Questions 16–20</strong><br>
+                Which dolphin does Alice make each of the following comments about?<br>
+                <em>Drag and drop the correct letter A, B, C or D into each box.</em>
+            </div>
+
+            <div class="question-block">
+                <div class="drag-container">
+                    <div class="options-column">
+                        <h4>Dolphins</h4>
+                        <div class="drop-area" id="optionsArea">
+                            <div class="draggable" draggable="true" data-value="A">A - Moondancer</div>
+                            <div class="draggable" draggable="true" data-value="B">B - Echo</div>
+                            <div class="draggable" draggable="true" data-value="C">C - Kiwi</div>
+                            <div class="draggable" draggable="true" data-value="D">D - Samson</div>
+                        </div>
+                    </div>
+
+                    <div class="answers-column">
+                        <h4>Comments</h4>
+                        <div class="question-line">
+                            <span class="q-number">16</span>
+                            <span>It has not been seen this year.</span>
+                            <div class="answer-box drop-area" data-q="16"></div>
+                        </div>
+                        <div class="question-line">
+                            <span class="q-number">17</span>
+                            <span>It is photographed more than the others.</span>
+                            <div class="answer-box drop-area" data-q="17"></div>
+                        </div>
+                        <div class="question-line">
+                            <span class="q-number">18</span>
+                            <span>It is always very energetic.</span>
+                            <div class="answer-box drop-area" data-q="18"></div>
+                        </div>
+                        <div class="question-line">
+                            <span class="q-number">19</span>
+                            <span>It is the newest one in the scheme.</span>
+                            <div class="answer-box drop-area" data-q="19"></div>
+                        </div>
+                        <div class="question-line">
+                            <span class="q-number">20</span>
+                            <span>It has an unusual shape.</span>
+                            <div class="answer-box drop-area" data-q="20"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Bar -->
+            <div class="question-status">
+                <span class="part-label">Part 1</span>
+                <div class="q-indicator other" data-q="1">1</div>
+                <div class="q-indicator other" data-q="2">2</div>
+                <div class="q-indicator other" data-q="3">3</div>
+                <div class="q-indicator other" data-q="4">4</div>
+                <div class="q-indicator other" data-q="5">5</div>
+                <div class="q-indicator other" data-q="6">6</div>
+                <div class="q-indicator other" data-q="7">7</div>
+                <div class="q-indicator other" data-q="8">8</div>
+                <div class="q-indicator other" data-q="9">9</div>
+                <div class="q-indicator other" data-q="10">10</div>
+
+                <div class="part-separator"></div>
+
+                <span class="part-label">Part 2</span>
+                <div class="q-indicator current" data-q="11">11</div>
+                <div class="q-indicator current" data-q="12">12</div>
+                <div class="q-indicator current" data-q="13">13</div>
+                <div class="q-indicator current" data-q="14">14</div>
+                <div class="q-indicator current" data-q="15">15</div>
+                <div class="q-indicator current" data-q="16">16</div>
+                <div class="q-indicator current" data-q="17">17</div>
+                <div class="q-indicator current" data-q="18">18</div>
+                <div class="q-indicator current" data-q="19">19</div>
+                <div class="q-indicator current" data-q="20">20</div>
+
+                <div class="part-separator"></div>
+
+                <span class="part-label">Part 3</span>
+                <div class="q-indicator other" data-q="21">21</div>
+                <div class="q-indicator other" data-q="22">22</div>
+                <div class="q-indicator other" data-q="23">23</div>
+                <div class="q-indicator other" data-q="24">24</div>
+                <div class="q-indicator other" data-q="25">25</div>
+                <div class="q-indicator other" data-q="26">26</div>
+                <div class="q-indicator other" data-q="27">27</div>
+                <div class="q-indicator other" data-q="28">28</div>
+                <div class="q-indicator other" data-q="29">29</div>
+                <div class="q-indicator other" data-q="30">30</div>
+
+                <div class="part-separator"></div>
+
+                <span class="part-label">Part 4</span>
+                <div class="q-indicator other" data-q="31">31</div>
+                <div class="q-indicator other" data-q="32">32</div>
+                <div class="q-indicator other" data-q="33">33</div>
+                <div class="q-indicator other" data-q="34">34</div>
+                <div class="q-indicator other" data-q="35">35</div>
+                <div class="q-indicator other" data-q="36">36</div>
+                <div class="q-indicator other" data-q="37">37</div>
+                <div class="q-indicator other" data-q="38">38</div>
+                <div class="q-indicator other" data-q="39">39</div>
+                <div class="q-indicator other" data-q="40">40</div>
+            </div>
+
+            <!-- Answers Section -->
+            <div class="answers-section">
+                <h3>Answers for Section 2</h3>
+                <div class="btn-row">
+                    <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                    <button class="clear-btn" onclick="clearAllAnswers()">Clear All Answers</button>
+                </div>
+                <div class="answers-content" id="answers">
+                    <strong>Answers:</strong><br>
+                    11. C / E<br>
+                    12. E / C<br>
+                    13. B<br>
+                    14. A<br>
+                    15. B<br>
+                    16. B<br>
+                    17. A<br>
+                    18. D<br>
+                    19. C<br>
+                    20. B
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="nav-container">
+                <a href="../library.html" class="back-main-btn">← Back to Main Page</a>
+                <div class="nav-buttons">
+                    <a href="listening-c10t3-part1.html" class="nav-btn">←</a>
+                    <a href="listening-c10t3-part3.html" class="nav-btn">→</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Save/Load for Q11-15 ---
+            for (let i = 11; i <= 15; i++) {
+                const field = document.getElementById('q' + i);
+                const saved = localStorage.getItem('C10T3_q' + i);
+                if (saved) {
+                    field.value = saved;
+                    field.classList.add('filled');
+                    markAnswered(i);
+                }
+                field.addEventListener('input', function() {
+                    const val = this.value.trim();
+                    localStorage.setItem('C10T3_q' + i, val);
+                    if (val) {
+                        this.classList.add('filled');
+                        markAnswered(i);
+                    } else {
+                        this.classList.remove('filled');
+                        unmarkAnswered(i);
+                    }
+                });
+            }
+
+            // --- Drag & Drop System ---
+            let draggedElement = null;
+
+            document.querySelectorAll('.draggable').forEach(item => {
+                item.addEventListener('dragstart', function() {
+                    draggedElement = this;
+                    setTimeout(() => this.classList.add('dragging'), 0);
+                });
+                item.addEventListener('dragend', function() {
+                    this.classList.remove('dragging');
+                });
+            });
+
+            document.querySelectorAll('.drop-area').forEach(area => {
+                area.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    area.classList.add('highlight');
+                });
+                area.addEventListener('dragleave', () => area.classList.remove('highlight'));
+                area.addEventListener('drop', e => {
+                    e.preventDefault();
+                    area.classList.remove('highlight');
+                    if (!draggedElement) return;
+
+                    // If dropping into an answer box
+                    if (area.classList.contains('answer-box')) {
+                        const qNum = area.dataset.q;
+                        const value = draggedElement.dataset.value;
+                        area.innerHTML = value;
+                        area.classList.add('filled');
+                        markAnswered(qNum);
+                        localStorage.setItem('C10T3_q' + qNum, value);
+                    }
+                    // If dropping back to options
+                    else if (area.id === 'optionsArea') {
+                        const qNum = area.closest('.question-line')?.querySelector('.drop-area')?.dataset.q;
+                        if (qNum) {
+                            localStorage.removeItem('C10T3_q' + qNum);
+                            unmarkAnswered(qNum);
+                        }
+                        area.innerHTML = '';
+                        area.appendChild(draggedElement);
+                    }
+                });
+            });
+
+            // --- Highlight System ---
+            const highlightArea = document.getElementById('highlightArea');
+            const highlightTool = document.getElementById('highlightTool');
+            const removeTool = document.getElementById('removeTool');
+            let currentRange = null;
+
+            highlightArea.addEventListener('contextmenu', e => {
+                e.preventDefault();
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+                showPencil(e.clientX, e.clientY);
+            });
+
+            document.addEventListener('mouseup', () => {
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+                    highlightTool.style.display = 'none';
+                    return;
+                }
+                const range = sel.getRangeAt(0);
+                if (!highlightArea.contains(range.commonAncestorContainer)) return;
+                const rect = range.getBoundingClientRect();
+                showPencil(rect.left + rect.width / 2, rect.top);
+                currentRange = range;
+            });
+
+            function showPencil(x, y) {
+                highlightTool.style.left = (x + window.scrollX - 17) + 'px';
+                highlightTool.style.top = (y + window.scrollY - 40) + 'px';
+                highlightTool.style.display = 'flex';
+            }
+
+            highlightTool.addEventListener('click', () => {
+                if (!currentRange) return;
+                const span = document.createElement('span');
+                span.className = 'user-highlight';
+                span.textContent = currentRange.toString();
+                currentRange.deleteContents();
+                currentRange.insertNode(span);
+                window.getSelection().removeAllRanges();
+                highlightTool.style.display = 'none';
+                currentRange = null;
+            });
+
+            document.addEventListener('click', e => {
+                if (e.target.classList.contains('user-highlight')) {
+                    const rect = e.target.getBoundingClientRect();
+                    removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 30) + 'px';
+                    removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
+                    removeTool.style.display = 'block';
+                    removeTool.dataset.target = e.target;
+                } else if (!removeTool.contains(e.target)) {
+                    removeTool.style.display = 'none';
+                }
+                if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target)) {
+                    highlightTool.style.display = 'none';
+                }
+            });
+
+            removeTool.addEventListener('click', () => {
+                const span = removeTool.dataset.target;
+                if (!span || !span.parentNode) return;
+                const text = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(text, span);
+                span.parentNode.normalize();
+                removeTool.style.display = 'none';
+                delete removeTool.dataset.target;
+            });
+
+            // --- Load saved drag & drop answers ---
+            for (let i = 16; i <= 20; i++) {
+                const saved = localStorage.getItem('C10T3_q' + i);
+                if (saved) {
+                    const box = document.querySelector(`.answer-box[data-q="${i}"]`);
+                    if (box) {
+                        box.textContent = saved;
+                        box.classList.add('filled');
+                        markAnswered(i);
+                    }
+                }
+            }
+        });
+
+        function toggleAnswers() {
+            const ansDiv = document.getElementById('answers');
+            ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function clearAllAnswers() {
+            if (!confirm("Clear all answers for this section?")) return;
+            // Clear Q11-15
+            for (let i = 11; i <= 15; i++) {
+                localStorage.removeItem('C10T3_q' + i);
+                const field = document.getElementById('q' + i);
+                if (field) {
+                    field.value = '';
+                    field.classList.remove('filled');
+                }
+                unmarkAnswered(i);
+            }
+            // Clear Q16-20
+            for (let i = 16; i <= 20; i++) {
+                localStorage.removeItem('C10T3_q' + i);
+                const box = document.querySelector(`.answer-box[data-q="${i}"]`);
+                if (box) {
+                    box.textContent = '';
+                    box.classList.remove('filled');
+                }
+                unmarkAnswered(i);
+            }
+            // Reset options
+            document.getElementById('optionsArea').innerHTML = `
+                <div class="draggable" draggable="true" data-value="A">A - Moondancer</div>
+                <div class="draggable" draggable="true" data-value="B">B - Echo</div>
+                <div class="draggable" draggable="true" data-value="C">C - Kiwi</div>
+                <div class="draggable" draggable="true" data-value="D">D - Samson</div>
+            `;
+        }
+
+        function markAnswered(qNum) {
+            const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+            if (el) el.classList.add('answered');
+        }
+        function unmarkAnswered(qNum) {
+            const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+            if (el) el.classList.remove('answered');
+        }
+    </script>
+</body>
+</html>
