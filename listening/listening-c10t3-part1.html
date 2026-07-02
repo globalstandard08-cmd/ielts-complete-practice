@@ -17,10 +17,10 @@
         padding: 20px;
         line-height: 1.7;
         position: relative;
-        user-select: text;
         -webkit-user-select: text;
         -moz-user-select: text;
         -ms-user-select: text;
+        user-select: text;
     }
 
     .container {
@@ -141,10 +141,10 @@
         font-size: 16px;
         background: white;
         transition: all 0.2s;
-        user-select: text;
         -webkit-user-select: text;
         -moz-user-select: text;
         -ms-user-select: text;
+        user-select: text;
     }
 
     .input-field:focus {
@@ -158,57 +158,17 @@
         border-color: #1f3a5f;
     }
 
-    .answers-section {
-        margin-top: 40px;
-        padding: 20px;
-        background-color: #f0f8ff;
-        border: 1px solid #b0d4f1;
-        border-radius: 6px;
-    }
-
-    .answers-section h3 {
-        color: #1f3a5f;
-        margin-bottom: 15px;
-    }
-
-    .answers-content {
-        display: none;
-        padding: 15px;
-        background: white;
-        border-radius: 4px;
-        line-height: 2;
-        margin-top: 10px;
-    }
-
-    .btn-row {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-    }
-
-    .show-btn, .clear-btn {
-        background-color: #1f3a5f;
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 4px;
+    /* Highlight style */
+    .user-highlight {
+        background-color: #ffd700;
+        padding: 2px 4px;
+        border-radius: 2px;
         cursor: pointer;
-        font-size: 14px;
+        display: inline;
+        color: #000;
     }
 
-    .clear-btn {
-        background-color: #dc2626;
-    }
-
-    .show-btn:hover {
-        background-color: #2e568c;
-    }
-
-    .clear-btn:hover {
-        background-color: #b91c1c;
-    }
-
-    /* --- Question Status Bar --- */
+    /* Question Status Bar */
     .question-status {
         display: flex;
         flex-wrap: wrap;
@@ -268,7 +228,58 @@
         border-color: #10b981;
     }
 
-    /* --- NAVIGATION: SIMPLE ARROWS LIKE REAL EXAM --- */
+    /* Answers Section */
+    .answers-section {
+        margin-top: 40px;
+        padding: 20px;
+        background-color: #f0f8ff;
+        border: 1px solid #b0d4f1;
+        border-radius: 6px;
+    }
+
+    .answers-section h3 {
+        color: #1f3a5f;
+        margin-bottom: 15px;
+    }
+
+    .answers-content {
+        display: none;
+        padding: 15px;
+        background: white;
+        border-radius: 4px;
+        line-height: 2;
+        margin-top: 10px;
+    }
+
+    .btn-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .show-btn, .clear-btn {
+        background-color: #1f3a5f;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .clear-btn {
+        background-color: #dc2626;
+    }
+
+    .show-btn:hover {
+        background-color: #2e568c;
+    }
+
+    .clear-btn:hover {
+        background-color: #b91c1c;
+    }
+
+    /* Navigation: Simple arrows like real exam */
     .nav-container {
         display: flex;
         justify-content: space-between;
@@ -320,19 +331,10 @@
         cursor: not-allowed;
     }
 
-    /* --- HIGHLIGHT & REMOVE (FULLY WORKING NOW) --- */
-    .user-highlight {
-        background-color: #ffd700;
-        padding: 2px 4px;
-        border-radius: 2px;
-        cursor: pointer;
-        display: inline;
-        color: #000;
-    }
-
+    /* Highlight tools */
     .highlight-tool {
         position: absolute;
-        background: #ffffff;
+        background: #fff;
         border: 1px solid #1f3a5f;
         border-radius: 50%;
         width: 34px;
@@ -353,7 +355,7 @@
 
     .remove-highlight {
         position: absolute;
-        background: #ffffff;
+        background: #fff;
         border: 1px solid #dc3545;
         border-radius: 4px;
         padding: 5px 10px;
@@ -361,10 +363,9 @@
         z-index: 9999;
         display: none;
         cursor: pointer;
-        font-size: 13px;
+        font-size: 14px;
         color: #dc3545;
         font-weight: bold;
-        white-space: nowrap;
     }
 
     .remove-highlight:hover {
@@ -581,7 +582,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- Save/load answers Q1-10 ---
+            // Save/load answers
             for (let i = 1; i <= 10; i++) {
                 const field = document.getElementById('q' + i);
                 const saved = localStorage.getItem('C10T3_q' + i);
@@ -603,27 +604,21 @@
                 });
             }
 
-            // --- Clear All Answers ---
-            window.clearAllAnswers = function() {
-                if (!confirm("Clear all answers for this section?")) return;
-                for (let i = 1; i <= 10; i++) {
-                    localStorage.removeItem('C10T3_q' + i);
-                    const field = document.getElementById('q' + i);
-                    if (field) {
-                        field.value = '';
-                        field.classList.remove('filled');
-                    }
-                    unmarkAnswered(i);
-                }
-            };
-
-            // --- FULLY WORKING HIGHLIGHT & REMOVE ---
+            // --- HIGHLIGHT SYSTEM — NO RIGHT-CLICK MENU ---
             const highlightArea = document.getElementById('highlightArea');
             const highlightTool = document.getElementById('highlightTool');
             const removeTool = document.getElementById('removeTool');
             let currentRange = null;
 
-            // Show highlight button when text is selected
+            // Block default right-click menu only inside the question area
+            highlightArea.addEventListener('contextmenu', function(e) {
+                e.preventDefault(); // stops copy/cut menu from appearing
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+                showPencil(e.clientX, e.clientY);
+            });
+
+            // Also show pencil when you release left mouse button after selecting text
             document.addEventListener('mouseup', function() {
                 const sel = window.getSelection();
                 if (!sel || sel.isCollapsed || !sel.toString().trim()) {
@@ -633,13 +628,16 @@
                 const range = sel.getRangeAt(0);
                 if (!highlightArea.contains(range.commonAncestorContainer)) return;
                 const rect = range.getBoundingClientRect();
-                highlightTool.style.left = (rect.left + window.scrollX - 17) + 'px';
-                highlightTool.style.top = (rect.top + window.scrollY - 35) + 'px';
-                highlightTool.style.display = 'flex';
+                showPencil(rect.left + rect.width / 2, rect.top);
                 currentRange = range;
             });
 
-            // Apply highlight
+            function showPencil(x, y) {
+                highlightTool.style.left = (x + window.scrollX - 17) + 'px';
+                highlightTool.style.top = (y + window.scrollY - 40) + 'px';
+                highlightTool.style.display = 'flex';
+            }
+
             highlightTool.addEventListener('click', function() {
                 if (!currentRange) return;
                 const span = document.createElement('span');
@@ -652,7 +650,6 @@
                 currentRange = null;
             });
 
-            // Show remove button when clicking a highlighted text
             document.addEventListener('click', function(e) {
                 if (e.target.classList.contains('user-highlight')) {
                     const rect = e.target.getBoundingClientRect();
@@ -660,20 +657,20 @@
                     removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
                     removeTool.style.display = 'block';
                     removeTool.dataset.target = e.target;
-                } else if (!removeTool.contains(e.target) && !highlightTool.contains(e.target)) {
+                } else if (!removeTool.contains(e.target)) {
                     removeTool.style.display = 'none';
+                }
+                if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target)) {
                     highlightTool.style.display = 'none';
                 }
             });
 
-            // Remove highlight when clicking the remove button
             removeTool.addEventListener('click', function() {
-                const highlightedSpan = this.dataset.target;
-                if (!highlightedSpan || !highlightedSpan.parentNode) return;
-                // Replace the highlight with plain text
-                const plainText = document.createTextNode(highlightedSpan.textContent);
-                highlightedSpan.parentNode.replaceChild(plainText, highlightedSpan);
-                highlightedSpan.parentNode.normalize();
+                const span = this.dataset.target;
+                if (!span || !span.parentNode) return;
+                const text = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(text, span);
+                span.parentNode.normalize();
                 this.style.display = 'none';
                 delete this.dataset.target;
             });
@@ -682,6 +679,19 @@
         function toggleAnswers() {
             const ansDiv = document.getElementById('answers');
             ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function clearAllAnswers() {
+            if (!confirm("Clear all answers for this section?")) return;
+            for (let i = 1; i <= 10; i++) {
+                localStorage.removeItem('C10T3_q' + i);
+                const field = document.getElementById('q' + i);
+                if (field) {
+                    field.value = '';
+                    field.classList.remove('filled');
+                }
+                unmarkAnswered(i);
+            }
         }
 
         function markAnswered(qNum) {
