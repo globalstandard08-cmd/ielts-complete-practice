@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Listening - C10 Test 3 Part 4</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            padding: 20px;
+            line-height: 1.7;
+            position: relative;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: visible;
+            position: relative;
+        }
+
+        .logo-section {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo-section img {
+            height: 120px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-bar {
+            background-color: #1f3a5f;
+            color: white;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .audio-player {
+            background: #eef2f7;
+            padding: 18px 25px;
+            margin: 20px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .audio-player h3 {
+            color: #1f3a5f;
+            margin-bottom: 12px;
+            font-size: 17px;
+        }
+
+        audio {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .content {
+            padding: 0 30px 30px;
+            position: relative;
+        }
+
+        h2 {
+            color: #1f3a5f;
+            margin: 25px 0 15px;
+            font-size: 22px;
+        }
+
+        .instruction {
+            background-color: #f8fbfe;
+            border-left: 4px solid #1f3a5f;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .question-block {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 25px;
+            margin-bottom: 30px;
+            background-color: #fdfdfd;
+        }
+
+        .notes-layout {
+            line-height: 2;
+            font-size: 16px;
+        }
+
+        .notes-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+        }
+
+        .q-number {
+            font-weight: bold;
+            min-width: 35px;
+            color: #1f3a5f;
+            flex-shrink: 0;
+        }
+
+        .answer-input {
+            width: 160px;
+            height: 34px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0 8px;
+            font-size: 16px;
+            text-transform: uppercase;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: #1f3a5f;
+            background: #eef5fc;
+        }
+
+        .answer-input.filled {
+            background-color: #e6f0ff;
+            border-color: #1f3a5f;
+        }
+
+        /* Highlight style */
+        .user-highlight {
+            background-color: #ffd700;
+            padding: 2px 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            display: inline;
+            color: #000;
+        }
+
+        /* Question Status Bar */
+        .question-status {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 6px;
+            margin: 30px 0;
+            padding: 12px 15px;
+            background: #f0f2f5;
+            border-radius: 4px;
+            border: 1px solid #d0d5dd;
+            font-size: 12px;
+        }
+
+        .part-label {
+            font-size: 11px;
+            font-weight: bold;
+            color: #444;
+            margin-right: 4px;
+            margin-left: 8px;
+        }
+
+        .part-separator {
+            width: 12px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .q-indicator {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: normal;
+            border-radius: 2px;
+            border: 1px solid #d1d5db;
+            background: #e5e7eb;
+            color: #333;
+        }
+
+        .q-indicator.current {
+            background: #d9dce1;
+            color: #000;
+            border-color: #b0b4b9;
+        }
+
+        .q-indicator.other {
+            background: #efefef;
+            color: #999;
+            border-color: #e5e7eb;
+        }
+
+        .q-indicator.answered {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        /* Answers Section */
+        .answers-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border: 1px solid #b0d4f1;
+            border-radius: 6px;
+        }
+
+        .answers-section h3 {
+            color: #1f3a5f;
+            margin-bottom: 15px;
+        }
+
+        .answers-content {
+            display: none;
+            padding: 15px;
+            background: white;
+            border-radius: 4px;
+            line-height: 2;
+            margin-top: 10px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .show-btn, .clear-btn {
+            background-color: #1f3a5f;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .clear-btn {
+            background-color: #dc2626;
+        }
+
+        .show-btn:hover {
+            background-color: #2e568c;
+        }
+
+        .clear-btn:hover {
+            background-color: #b91c1c;
+        }
+
+        /* Navigation */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            width: 46px;
+            height: 46px;
+            background-color: #1f3a5f;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover {
+            background-color: #2e568c;
+        }
+
+        .back-main-btn {
+            background-color: #6b7280;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .back-main-btn:hover {
+            background-color: #4b5563;
+        }
+
+        /* Highlight tools */
+        .highlight-tool {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #1f3a5f;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #1f3a5f;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .highlight-tool:hover {
+            background: #eef2f7;
+        }
+
+        .remove-highlight {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            padding: 5px 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .remove-highlight:hover {
+            background: #ffebee;
+        }
+    </style>
+</head>
+<body>
+    <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
+    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
+
+    <div class="container">
+        <div class="logo-section">
+            <img src="../ielts-logo.png" alt="IELTS Logo">
+        </div>
+
+        <div class="header-bar">
+            <span>LISTENING TEST - C10 TEST 3 PART 4</span>
+            <span style="font-size:15px; opacity:0.9;">Exam Mode</span>
+        </div>
+
+        <!-- Audio Player - Correct Local Path -->
+        <div class="audio-player">
+            <h3>Play Recording - Part 4</h3>
+            <audio controls preload="auto">
+                <source src="listening/c10t3-part4.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            
+        </div>
+
+        <div class="content" id="highlightArea">
+            <h2>Section 4 – Questions 31–40</h2>
+
+            <div class="instruction">
+                <strong>Complete the notes below.</strong><br>
+                Write <strong>ONE WORD ONLY</strong> for each answer.
+            </div>
+
+            <div class="question-block">
+                <h3 style="text-align:center; margin-bottom:20px; color:#1f3a5f;">‘Self-regulatory focus theory’ and leadership</h3>
+
+                <div class="notes-layout">
+                    <strong>Self-regulatory focus theory</strong><br>
+                    People’s focus is to approach pleasure or avoid pain<br>
+                    <div class="notes-row">
+                        Promotion goals focus on <span class="q-number">31</span> <input type="text" class="answer-input" maxlength="15" data-q="31">
+                    </div>
+                    Prevention goals emphasise avoiding punishment<br>
+                    <br>
+
+                    <strong>Factors that affect people’s focus</strong><br>
+                    The Chronic Factor<br>
+                    • comes from one’s <span class="q-number">32</span> <input type="text" class="answer-input" maxlength="15" data-q="32"><br>
+                    <div class="notes-row">
+                        The <span class="q-number">33</span> <input type="text" class="answer-input" maxlength="15" data-q="33"> Factor
+                    </div>
+                    • we are more likely to focus on promotion goals when with a <span class="q-number">34</span> <input type="text" class="answer-input" maxlength="15" data-q="34"><br>
+                    • we are more likely to focus on prevention goals with our boss<br>
+                    <br>
+
+                    <strong>How people’s focus affects them</strong><br>
+                    Promotion Focus: People think about an ideal version of themselves, their <span class="q-number">35</span> <input type="text" class="answer-input" maxlength="15" data-q="35"> and their gains.<br>
+                    Prevention Focus: People think about their ‘ought’ self and their obligations<br>
+                    <br>
+
+                    <strong>Leaders</strong><br>
+                    <div class="notes-row">
+                        Leadership behaviour and <span class="q-number">36</span> <input type="text" class="answer-input" maxlength="15" data-q="36"> affects people’s focus
+                    </div>
+                    Transformational Leaders:<br>
+                    • pay special attention to the <span class="q-number">37</span> <input type="text" class="answer-input" maxlength="15" data-q="37"> of their followers<br>
+                    • passionately communicate a clear <span class="q-number">38</span> <input type="text" class="answer-input" maxlength="15" data-q="38"><br>
+                    • inspire promotion focus in followers<br>
+                    <br>
+                    Transactional Leaders:<br>
+                    • create <span class="q-number">39</span> <input type="text" class="answer-input" maxlength="15" data-q="39"> to make expectations clear<br>
+                    • emphasise the results of a mistake<br>
+                    • inspire prevention focus in followers<br>
+                    <br>
+
+                    <strong>Conclusion</strong><br>
+                    Promotion Focus is good for jobs requiring <span class="q-number">40</span> <input type="text" class="answer-input" maxlength="15" data-q="40"><br>
+                    Prevention Focus is good for work such as a surgeon<br>
+                    Leaders’ actions affect which focus people use
+                </div>
+            </div>
+
+            <!-- Status Bar -->
+            <div class="question-status">
+                <span class="part-label">Part 1</span>
+                <div class="q-indicator other" data-q="1">1</div>
+                <div class="q-indicator other" data-q="2">2</div>
+                <div class="q-indicator other" data-q="3">3</div>
+                <div class="q-indicator other" data-q="4">4</div>
+                <div class="q-indicator other" data-q="5">5</div>
+                <div class="q-indicator other" data-q="6">6</div>
+                <div class="q-indicator other" data-q="7">7</div>
+                <div class="q-indicator other" data-q="8">8</div>
+                <div class="q-indicator other" data-q="9">9</div>
+                <div class="q-indicator other" data-q="10">10</div>
+
+                <div class="part-separator"></div>
+
+                <span class="part-label">Part 2</span>
+                <div class="q-indicator other" data-q="11">11</div>
+                <div class="q-indicator other" data-q="12">12</div>
+                <div class="q-indicator other" data-q="13">13</div>
+                <div class="q-indicator other" data-q="14">14</div>
+                <div class="q-indicator other" data-q="15">15</div>
+                <div class="q-indicator other" data-q="16">16</div>
+                <div class="q-indicator other" data-q="17">17</div>
+                <div class="q-indicator other" data-q="18">18</div>
+                <div class="q-indicator other" data-q="19">19</div>
+                <div class="q-indicator other" data-q="20">20</div>
+
+                <div class="part-separator"></div>
+
+                <span class="part-label">Part 3</span>
+                <div class="q-indicator other" data-q="21">21</div>
+                <div class="q-indicator other" data-q="22">22</div>
+                <div class="q-indicator other" data-q="23">23</div>
+                <div class="q-indicator other" data-q="24">24</div>
+                <div class="q-indicator other" data-q="25">25</div>
+                <div class="q-indicator other" data-q="26">26</div>
+                <div class="q-indicator other" data-q="27">27</div>
+                <div class="q-indicator other" data-q="28">28</div>
+                <div class="q-indicator other" data-q="29">29</div>
+                <div class="q-indicator other" data-q="30">30</div>
+
+                <div class="part-separator"></div>
+
+                <span class="part-label">Part 4</span>
+                <div class="q-indicator current" data-q="31">31</div>
+                <div class="q-indicator current" data-q="32">32</div>
+                <div class="q-indicator current" data-q="33">33</div>
+                <div class="q-indicator current" data-q="34">34</div>
+                <div class="q-indicator current" data-q="35">35</div>
+                <div class="q-indicator current" data-q="36">36</div>
+                <div class="q-indicator current" data-q="37">37</div>
+                <div class="q-indicator current" data-q="38">38</div>
+                <div class="q-indicator current" data-q="39">39</div>
+                <div class="q-indicator current" data-q="40">40</div>
+            </div>
+
+            <!-- Answers Section -->
+            <div class="answers-section">
+                <h3>Answers for Section 4</h3>
+                <div class="btn-row">
+                    <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                    <button class="clear-btn" onclick="clearAllAnswers()">Clear All Answers</button>
+                </div>
+                <div class="answers-content" id="answers">
+                    <strong>Answers:</strong><br>
+                    31. success<br>
+                    32. personality<br>
+                    33. Situational<br>
+                    34. friend<br>
+                    35. hopes<br>
+                    36. style<br>
+                    37. needs<br>
+                    38. vision<br>
+                    39. structures<br>
+                    40. innovation
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="nav-container">
+                <a href="../index.html" class="back-main-btn">← Back to Main Page</a>
+                <div class="nav-buttons">
+                    <a href="listening-c10t3-part3.html" class="nav-btn">←</a>
+                    <span class="nav-btn" style="background:#ddd; color:#999; cursor:default;">→</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // --- Save/Load Answers ---
+            const inputs = document.querySelectorAll('.answer-input');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    this.value = this.value.trim();
+                    const qNum = this.dataset.q;
+                    if (this.value) {
+                        this.classList.add('filled');
+                        localStorage.setItem(`C10T3_q${qNum}`, this.value);
+                        markAnswered(qNum);
+                    } else {
+                        this.classList.remove('filled');
+                        localStorage.removeItem(`C10T3_q${qNum}`);
+                        unmarkAnswered(qNum);
+                    }
+                });
+            });
+
+            // --- Load Saved Answers ---
+            for (let i = 31; i <= 40; i++) {
+                const val = localStorage.getItem(`C10T3_q${i}`);
+                if (val) {
+                    const input = document.querySelector(`.answer-input[data-q="${i}"]`);
+                    input.value = val;
+                    input.classList.add('filled');
+                    markAnswered(i);
+                }
+            }
+
+            // --- Highlight System ---
+            const highlightArea = document.getElementById('highlightArea');
+            const highlightTool = document.getElementById('highlightTool');
+            const removeTool = document.getElementById('removeTool');
+            let currentRange = null;
+
+            highlightArea.addEventListener('contextmenu', e => {
+                e.preventDefault();
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+                showPencil(e.clientX, e.clientY);
+            });
+
+            document.addEventListener('mouseup', () => {
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+                    highlightTool.style.display = 'none';
+                    return;
+                }
+                const range = sel.getRangeAt(0);
+                if (!highlightArea.contains(range.commonAncestorContainer)) return;
+                const rect = range.getBoundingClientRect();
+                showPencil(rect.left + rect.width / 2, rect.top);
+                currentRange = range;
+            });
+
+            function showPencil(x, y) {
+                highlightTool.style.left = (x + window.scrollX - 17) + 'px';
+                highlightTool.style.top = (y + window.scrollY - 40) + 'px';
+                highlightTool.style.display = 'flex';
+            }
+
+            highlightTool.addEventListener('click', () => {
+                if (!currentRange) return;
+                const span = document.createElement('span');
+                span.className = 'user-highlight';
+                span.textContent = currentRange.toString();
+                currentRange.deleteContents();
+                currentRange.insertNode(span);
+                window.getSelection().removeAllRanges();
+                highlightTool.style.display = 'none';
+                currentRange = null;
+            });
+
+            document.addEventListener('click', e => {
+                if (e.target.classList.contains('user-highlight')) {
+                    const rect = e.target.getBoundingClientRect();
+                    removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 30) + 'px';
+                    removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
+                    removeTool.style.display = 'block';
+                    removeTool.dataset.target = e.target;
+                } else if (!removeTool.contains(e.target)) {
+                    removeTool.style.display = 'none';
+                }
+                if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target)) {
+                    highlightTool.style.display = 'none';
+                }
+            });
+
+            removeTool.addEventListener('click', () => {
+                const span = removeTool.dataset.target;
+                if (!span || !span.parentNode) return;
+                const text = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(text, span);
+                span.parentNode.normalize();
+                removeTool.style.display = 'none';
+                delete removeTool.dataset.target;
+            });
+        });
+
+        function toggleAnswers() {
+            const ansDiv = document.getElementById('answers');
+            ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function clearAllAnswers() {
+            if (!confirm("Clear all answers for this section?")) return;
+
+            document.querySelectorAll('.answer-input').forEach(input => {
+                input.value = '';
+                input.classList.remove('filled');
+            });
+
+            for (let i = 31; i <= 40; i++) {
+                localStorage.removeItem(`C10T3_q${i}`);
+                unmarkAnswered(i);
+            }
+        }
+
+        function markAnswered(qNum) {
+            const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+            if (el) el.classList.add('answered');
+        }
+        function unmarkAnswered(qNum) {
+            const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+            if (el) el.classList.remove('answered');
+        }
+    </script>
+</body>
+</html>
