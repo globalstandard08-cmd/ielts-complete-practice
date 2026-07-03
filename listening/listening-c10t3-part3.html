@@ -82,8 +82,7 @@
 
         h2 {
             color: #1f3a5f;
-            margin: 25px 0 15px;
-            font-size: 22px;
+            margin: 25px 0 15px; font-size: 22px;
         }
 
         .instruction {
@@ -415,12 +414,11 @@
             <span style="font-size:15px; opacity:0.9;">Exam Mode</span>
         </div>
 
-        <!-- Audio Player -->
+        <!-- Audio Player - CORRECT LOCAL PATH -->
         <div class="audio-player">
             <h3>Play Recording - Part 3</h3>
             <audio controls preload="auto">
-                <source src="c10t3-part3.mp3" type="audio/mpeg">
-                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T3listening/main/c10t3-part3.mp3" type="audio/mpeg">
+                <source src="listening/c10t3-part3.mp3" type="audio/mpeg">
                 Your browser does not support audio playback.
             
         </div>
@@ -699,7 +697,6 @@
             });
 
             // --- Load Saved Answers ---
-            // Q21-25
             for (let i = 21; i <= 25; i++) {
                 const val = localStorage.getItem(`C10T3_q${i}`);
                 if (val) {
@@ -711,7 +708,6 @@
                 }
             }
 
-            // Q26-30
             for (let i = 26; i <= 30; i++) {
                 const val = localStorage.getItem(`C10T3_q${i}`);
                 if (val) {
@@ -800,16 +796,12 @@
         function clearAllAnswers() {
             if (!confirm("Clear all answers for this section?")) return;
 
-            // Clear radio buttons
             document.querySelectorAll('input[type="radio"]').forEach(i => i.checked = false);
-
-            // Clear matching inputs
             document.querySelectorAll('.match-input').forEach(input => {
                 input.value = '';
                 input.classList.remove('filled');
             });
 
-            // Clear saved data
             for (let i = 21; i <= 30; i++) {
                 localStorage.removeItem(`C10T3_q${i}`);
                 unmarkAnswered(i);
