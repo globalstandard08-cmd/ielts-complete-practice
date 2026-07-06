@@ -26,6 +26,8 @@
         .match-row { display: flex; align-items: center; gap: 12px; margin: 12px 0; font-size: 16px; }
         .match-input { width: 45px; height: 32px; border: 1px solid #ccc; border-radius: 4px; padding: 0 6px; font-size: 16px; font-weight: bold; text-transform: uppercase; text-align: center; transition: all 0.2s; }
         .match-input.filled { background: #e6f0ff; border-color: #1f3a5f; }
+        /* Highlight style */
+        .highlight { background-color: #fff35c; padding: 2px 4px; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
         .question-status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 30px 0; padding: 12px 15px; background: #f0f2f5; border-radius: 4px; border: 1px solid #d0d5dd; font-size: 12px; }
         .part-label { font-weight: bold; color: #444; margin: 0 8px 0 4px; }
         .q-indicator { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 2px; border: 1px solid #d1d5db; background: #e5e7eb; color: #333; }
@@ -78,23 +80,23 @@
 
                 <div class="choice-row">
                     <input type="checkbox" name="q21_22" value="A" id="q21a">
-                    <label for="q21a">A communication</label>
+                    <label for="q21a" class="highlightable">A communication</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q21_22" value="B" id="q21b">
-                    <label for="q21b">B design</label>
+                    <label for="q21b" class="highlightable">B design</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q21_22" value="C" id="q21c">
-                    <label for="q21c">C IT</label>
+                    <label for="q21c" class="highlightable">C IT</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q21_22" value="D" id="q21d">
-                    <label for="q21d">D marketing</label>
+                    <label for="q21d" class="highlightable">D marketing</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q21_22" value="E" id="q21e">
-                    <label for="q21e">E organisation</label>
+                    <label for="q21e" class="highlightable">E organisation</label>
                 </div>
             </div>
 
@@ -108,23 +110,23 @@
 
                 <div class="choice-row">
                     <input type="checkbox" name="q23_24" value="A" id="q23a">
-                    <label for="q23a">A updates for its software</label>
+                    <label for="q23a" class="highlightable">A updates for its software</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q23_24" value="B" id="q23b">
-                    <label for="q23b">B cost savings</label>
+                    <label for="q23b" class="highlightable">B cost savings</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q23_24" value="C" id="q23c">
-                    <label for="q23c">C improved image</label>
+                    <label for="q23c" class="highlightable">C improved image</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q23_24" value="D" id="q23d">
-                    <label for="q23d">D new clients</label>
+                    <label for="q23d" class="highlightable">D new clients</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q23_24" value="E" id="q23e">
-                    <label for="q23e">E a growth in sales</label>
+                    <label for="q23e" class="highlightable">E a growth in sales</label>
                 </div>
             </div>
 
@@ -139,23 +141,23 @@
                     <div class="matching-column">
                         <div class="options-box">
                             <h4 style="margin-bottom:12px; color:#1f3a5f;">Sources of information</h4>
-                            <div>A &nbsp; company manager</div>
-                            <div>B &nbsp; company's personnel department</div>
-                            <div>C &nbsp; personal tutor</div>
-                            <div>D &nbsp; psychology department</div>
-                            <div>E &nbsp; mentor</div>
-                            <div>F &nbsp; university careers officer</div>
-                            <div>G &nbsp; internet</div>
+                            <div class="highlightable">A &nbsp; company manager</div>
+                            <div class="highlightable">B &nbsp; company's personnel department</div>
+                            <div class="highlightable">C &nbsp; personal tutor</div>
+                            <div class="highlightable">D &nbsp; psychology department</div>
+                            <div class="highlightable">E &nbsp; mentor</div>
+                            <div class="highlightable">F &nbsp; university careers officer</div>
+                            <div class="highlightable">G &nbsp; internet</div>
                         </div>
                     </div>
                     <div class="matching-column">
                         <h4 style="margin-bottom:12px; color:#1f3a5f;">Stages of the work placement procedure</h4>
-                        <div class="match-row"><span class="q-number">25</span><span>obtaining booklet</span><input type="text" class="match-input" maxlength="1" data-q="25"></div>
-                        <div class="match-row"><span class="q-number">26</span><span>discussing options</span><input type="text" class="match-input" maxlength="1" data-q="26"></div>
-                        <div class="match-row"><span class="q-number">27</span><span>getting updates</span><input type="text" class="match-input" maxlength="1" data-q="27"></div>
-                        <div class="match-row"><span class="q-number">28</span><span>responding to invitation for interview</span><input type="text" class="match-input" maxlength="1" data-q="28"></div>
-                        <div class="match-row"><span class="q-number">29</span><span>informing about outcome of interview</span><input type="text" class="match-input" maxlength="1" data-q="29"></div>
-                        <div class="match-row"><span class="q-number">30</span><span>requesting a reference</span><input type="text" class="match-input" maxlength="1" data-q="30"></div>
+                        <div class="match-row"><span class="q-number">25</span><span class="highlightable">obtaining booklet</span><input type="text" class="match-input" maxlength="1" data-q="25"></div>
+                        <div class="match-row"><span class="q-number">26</span><span class="highlightable">discussing options</span><input type="text" class="match-input" maxlength="1" data-q="26"></div>
+                        <div class="match-row"><span class="q-number">27</span><span class="highlightable">getting updates</span><input type="text" class="match-input" maxlength="1" data-q="27"></div>
+                        <div class="match-row"><span class="q-number">28</span><span class="highlightable">responding to invitation for interview</span><input type="text" class="match-input" maxlength="1" data-q="28"></div>
+                        <div class="match-row"><span class="q-number">29</span><span class="highlightable">informing about outcome of interview</span><input type="text" class="match-input" maxlength="1" data-q="29"></div>
+                        <div class="match-row"><span class="q-number">30</span><span class="highlightable">requesting a reference</span><input type="text" class="match-input" maxlength="1" data-q="30"></div>
                     </div>
                 </div>
             </div>
@@ -200,6 +202,14 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // ✅ Highlight feature: click to toggle yellow highlight
+            document.querySelectorAll('.highlightable').forEach(el => {
+                el.style.cursor = 'pointer';
+                el.addEventListener('click', function() {
+                    this.classList.toggle('highlight');
+                });
+            });
+
             // Save multiple choice answers
             const checkboxes21_22 = document.querySelectorAll('input[name="q21_22"]');
             checkboxes21_22.forEach(box => {
@@ -272,6 +282,8 @@
                 if (el.type === 'checkbox') el.checked = false;
                 else { el.value = ''; el.classList.remove('filled'); }
             });
+            // Also clear highlights
+            document.querySelectorAll('.highlight').forEach(el => el.classList.remove('highlight'));
             localStorage.removeItem(`C10T4_q21_22`);
             localStorage.removeItem(`C10T4_q23_24`);
             for (let i = 21; i <= 30; i++) {
