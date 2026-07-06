@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Listening - C10 Test 4 Part 2</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background: #f4f6f9; padding: 20px; line-height: 1.7; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .logo-section { text-align: center; padding: 20px; border-bottom: 1px solid #eee; }
+        .logo-section img { height: 120px; width: auto; }
+        .header-bar { background: #1f3a5f; color: white; padding: 15px 25px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; }
+        .audio-player { background: #eef2f7; padding: 18px 25px; margin: 20px; border-radius: 6px; text-align: center; }
+        .audio-player h3 { color: #1f3a5f; margin-bottom: 12px; font-size: 17px; }
+        audio { width: 100%; max-width: 500px; }
+        .content { padding: 0 30px 30px; }
+        h2 { color: #1f3a5f; margin: 25px 0 15px; font-size: 22px; }
+        .instruction { background: #f8fbfe; border-left: 4px solid #1f3a5f; padding: 15px; margin-bottom: 25px; border-radius: 4px; font-weight: 500; }
+        .question-block { border: 1px solid #ccc; border-radius: 6px; padding: 25px; margin-bottom: 30px; background: #fdfdfd; }
+        .choice-row { display: flex; align-items: center; gap: 10px; margin: 8px 0; font-size: 16px; }
+        .q-number { font-weight: bold; min-width: 35px; color: #1f3a5f; flex-shrink: 0; }
+        .answer-input { width: 160px; height: 34px; border: 1px solid #ccc; border-radius: 4px; padding: 0 8px; font-size: 16px; text-transform: uppercase; text-align: left; transition: all 0.2s; }
+        .answer-input:focus { outline: none; border-color: #1f3a5f; background: #eef5fc; }
+        .answer-input.filled { background: #e6f0ff; border-color: #1f3a5f; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 16px; }
+        table th, table td { border: 1px solid #ccc; padding: 12px; text-align: left; vertical-align: middle; }
+        table th { background: #f0f2f5; font-weight: bold; color: #1f3a5f; }
+        .question-status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 30px 0; padding: 12px 15px; background: #f0f2f5; border-radius: 4px; border: 1px solid #d0d5dd; font-size: 12px; }
+        .part-label { font-weight: bold; color: #444; margin: 0 8px 0 4px; }
+        .q-indicator { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 2px; border: 1px solid #d1d5db; background: #e5e7eb; color: #333; }
+        .q-indicator.current { background: #d9dce1; border-color: #b0b4b9; }
+        .q-indicator.answered { background: #10b981; color: white; border-color: #10b981; }
+        .answers-section { margin-top: 40px; padding: 20px; background: #f0f8ff; border: 1px solid #b0d4f1; border-radius: 6px; }
+        .answers-section h3 { color: #1f3a5f; margin-bottom: 15px; }
+        .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+        .show-btn, .clear-btn { background: #1f3a5f; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        .clear-btn { background: #dc2626; }
+        .answers-content { display: none; padding: 15px; background: white; border-radius: 4px; margin-top: 10px; line-height: 2; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; padding-top: 15px; border-top: 1px solid #eee; }
+        .back-main-btn { background: #6b7280; color: white; border: none; padding: 10px 18px; border-radius: 4px; text-decoration: none; font-size: 15px; font-weight: 500; }
+        .nav-buttons { display: flex; gap: 15px; }
+        .nav-btn { width: 46px; height: 46px; background: #1f3a5f; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 22px; }
+        .nav-btn.disabled { background: #ddd; color: #999; cursor: default; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-section">
+            <img src="ielts-logo.png" alt="IELTS Logo">
+        </div>
+
+        <div class="header-bar">
+            <span>LISTENING TEST - C10 TEST 4 PART 2</span>
+            <span>Exam Mode</span>
+        </div>
+
+        <!-- ✅ AUDIO: C10 Test 4 Part 2 -->
+        <div class="audio-player">
+            <h3>Play Recording - Part 2</h3>
+            <audio controls preload="auto">
+                <source src="c10t4-part2.mp3" type="audio/mpeg">
+                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/ielts-complete-practice/main/listening/c10t4-part2.mp3" type="audio/mpeg">
+                <source src="https://ia801509.us.archive.org/34/items/cambridge-ielts-10-audio/Cambridge%20IELTS%2010%20-%20Test%204%20-%20Part%202.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            
+        </div>
+
+        <div class="content">
+            <h2>Section 2 – Questions 11–20</h2>
+
+            <div class="instruction">
+                <strong>Questions 11–15</strong><br>
+                Choose the correct letter, <strong>A, B or C</strong>.
+            </div>
+
+            <div class="question-block">
+                <h3 style="text-align:center; margin-bottom:20px; color:#1f3a5f;">MANHAM PORT</h3>
+
+                <div class="choice-row">
+                    <span class="q-number">11</span>
+                    <span>Why did a port originally develop at Manham?</span>
+                </div>
+                <div class="choice-row">
+                    <input type="radio" name="q11" value="A" id="q11a">
+                    <label for="q11a">A It was safe from enemy attack.</label>
+                </div>
+                <div class="choice-row">
+                    <input type="radio" name="q11" value="B" id="q11b">
+                    <label for="q11b">B It was convenient for river transport.</label>
+                </div>
+                <div class="choice-row">
+                    <input type="radio" name="q11" value="C" id="q11c">
+                    <label for="q11c">C It had a good position on the sea coast.</label>
+                </div>
+
+                <div class="choice-row" style="margin-top:15px;">
+                    <span class="q-number">12</span>
+                    <span>What caused Manham's sudden expansion during the Industrial Revolution?</span>
+                </div>
+                <div class="choice-row">
+                    <input type="radio" name="q12" value="A" id="q12a">
+                    <label for="q12a">A the improvement in mining techniques</label>
+                </div>
+                <div class="choice-row">
+                    <input type="radio" name="q12" value="B" id="q12b">
+                    <label for="q12b">B the increase in demand for metals</label>
+                </div>
+                <div class="choice-row">
+                    <input type="radio" name="q12" value="C" id="q12c">
+                    <label for="q12c">C the discovery of tin in the area</label>
+                </div>
+
+                <div class="choice-row" style="margin-top:15px;">
+                    <span class="q-number">13</span>
+                    <span>Why did rocks have to be sent away from Manham to be processed?</span>
+                </div>
+                <div class="choice-row">
+                    <input type="radio" name="q13" value="A" id="q13a">
+                    <label for="q13a">A shortage of fuel</label>
+                </div>
+                <div class="choice-row">
+                    <input type="radio" name="q13" value="B" id="q13b">
+                    <label for="q13b">B poor transport systems</label>
+                </div>
+                <div class="choice-row">
+                    <input type="radio" name="q13" value="C" id="q13c">
+                    <label for="q13c">C lack of skills among local people</label>
+                </div>
+
+                <div class="choice-row" style="margin-top:15px;">
+                    <span class="q-number">14</span>
+                    <span>What happened when the port declined in the twentieth century?</span>
+                </div>
+                <div class="choice-row">
+                    <input type="radio" name="q14" value="A" id="q14a">
+                    <label for="q14a">A The workers went away.</label>
+                </div>
+                <div class="choice-row">
+                    <input type="radio" name="q14" value="B" id="q14b">
+                    <label for="q14b">B Traditional skills were lost.</label>
+                </div>
+                <div class="choice-row">
+                    <input type="radio" name="q14" value="C" id="q14c">
+                    <label for="q14c">C Buildings were used for new purposes.</label>
+                </div>
+
+                <div class="choice-row" style="margin-top:15px;">
+                    <span class="q-number">15</span>
+                    <span>What did the Manham Trust hope to do?</span>
+                </div>
+                <div class="choice-row">
+                    <input type="radio" name="q15" value="A" id="q15a">
+                    <label for="q15a">A discover the location of the original port</label>
+                </div>
+                <div class="choice-row">
+                    <input type="radio" name="q15" value="B" id="q15b">
+                    <label for="q15b">B provide jobs for the unemployed</label>
+                </div>
+                <div class="choice-row">
+                    <input type="radio" name="q15" value="C" id="q15c">
+                    <label for="q15c">C rebuild the port complex</label>
+                </div>
+            </div>
+
+            <div class="instruction">
+                <strong>Questions 16–20</strong><br>
+                Complete the table below.<br>
+                Write <strong>NO MORE THAN TWO WORDS</strong> for each answer.
+            </div>
+
+            <div class="question-block">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Place</th>
+                            <th>Features and activities</th>
+                            <th>Advice</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>copper mine</td>
+                            <td>specially adapted miners' <input type="text" class="answer-input" maxlength="20" data-q="16"> take visitors into the mountain</td>
+                            <td>the mine is <input type="text" class="answer-input" maxlength="20" data-q="17"> and enclosed – unsuitable for children and animals</td>
+                        </tr>
+                        <tr>
+                            <td>village school</td>
+                            <td>classrooms and a special exhibition of <input type="text" class="answer-input" maxlength="20" data-q="18"></td>
+                            <td>a <input type="text" class="answer-input" maxlength="20" data-q="19"> is recommended</td>
+                        </tr>
+                        <tr>
+                            <td>'The George' (old sailing ship)</td>
+                            <td>the ship's wheel (was lost but has now been restored)</td>
+                            <td>children shouldn't use the <input type="text" class="answer-input" maxlength="20" data-q="20"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="question-status">
+                <span class="part-label">Part 1</span>
+                <div class="q-indicator other">1</div><div class="q-indicator other">2</div><div class="q-indicator other">3</div><div class="q-indicator other">4</div><div class="q-indicator other">5</div><div class="q-indicator other">6</div><div class="q-indicator other">7</div><div class="q-indicator other">8</div><div class="q-indicator other">9</div><div class="q-indicator other">10</div>
+                <span class="part-label">Part 2</span>
+                <div class="q-indicator current">11</div><div class="q-indicator current">12</div><div class="q-indicator current">13</div><div class="q-indicator current">14</div><div class="q-indicator current">15</div><div class="q-indicator current">16</div><div class="q-indicator current">17</div><div class="q-indicator current">18</div><div class="q-indicator current">19</div><div class="q-indicator current">20</div>
+                <span class="part-label">Part 3</span>
+                <div class="q-indicator other">21</div><div class="q-indicator other">22</div><div class="q-indicator other">23</div><div class="q-indicator other">24</div><div class="q-indicator other">25</div><div class="q-indicator other">26</div><div class="q-indicator other">27</div><div class="q-indicator other">28</div><div class="q-indicator other">29</div><div class="q-indicator other">30</div>
+                <span class="part-label">Part 4</span>
+                <div class="q-indicator other">31</div><div class="q-indicator other">32</div><div class="q-indicator other">33</div><div class="q-indicator other">34</div><div class="q-indicator other">35</div><div class="q-indicator other">36</div><div class="q-indicator other">37</div><div class="q-indicator other">38</div><div class="q-indicator other">39</div><div class="q-indicator other">40</div>
+            </div>
+
+            <div class="answers-section">
+                <h3>Answers for Section 2</h3>
+                <div class="btn-row">
+                    <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                    <button class="clear-btn" onclick="clearAllAnswers()">Clear All Answers</button>
+                </div>
+                <div class="answers-content" id="answers">
+                    <strong>Answers:</strong><br>
+                    11. C<br>
+                    12. B<br>
+                    13. A<br>
+                    14. C<br>
+                    15. C<br>
+                    16. LORRIES<br>
+                    17. DARK<br>
+                    18. PHOTOGRAPHS<br>
+                    19. GUIDEBOOK<br>
+                    20. LADDER
+                </div>
+            </div>
+
+            <div class="nav-container">
+                <a href="../index.html" class="back-main-btn">← Back to Main Page</a>
+                <div class="nav-buttons">
+                    <a href="listening-c10t4-part1.html" class="nav-btn">←</a>
+                    <a href="listening-c10t4-part3.html" class="nav-btn">→</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Save/load multiple choice answers
+            const radioInputs = document.querySelectorAll('input[type="radio"]');
+            radioInputs.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const qNum = this.name.replace('q', '');
+                    localStorage.setItem(`C10T4_q${qNum}`, this.value);
+                    markAnswered(qNum);
+                });
+            });
+
+            // Save/load text answers
+            const textInputs = document.querySelectorAll('.answer-input');
+            textInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    this.value = this.value.trim().toUpperCase();
+                    const qNum = this.dataset.q;
+                    if (this.value) {
+                        this.classList.add('filled');
+                        localStorage.setItem(`C10T4_q${qNum}`, this.value);
+                        markAnswered(qNum);
+                    } else {
+                        this.classList.remove('filled');
+                        localStorage.removeItem(`C10T4_q${qNum}`);
+                        unmarkAnswered(qNum);
+                    }
+                });
+            });
+
+            // Load saved answers on page open
+            for (let i = 11; i <= 20; i++) {
+                const saved = localStorage.getItem(`C10T4_q${i}`);
+                if (saved) {
+                    if (i <= 15) {
+                        const radio = document.querySelector(`input[name="q${i}"][value="${saved}"]`);
+                        if (radio) radio.checked = true;
+                    } else {
+                        const input = document.querySelector(`.answer-input[data-q="${i}"]`);
+                        if (input) {
+                            input.value = saved;
+                            input.classList.add('filled');
+                        }
+                    }
+                    markAnswered(i);
+                }
+            }
+        });
+
+        function toggleAnswers() {
+            const ans = document.getElementById('answers');
+            ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function clearAllAnswers() {
+            if (!confirm("Clear all answers for this section?")) return;
+            document.querySelectorAll('input').forEach(el => {
+                if (el.type === 'radio') el.checked = false;
+                else {
+                    el.value = '';
+                    el.classList.remove('filled');
+                }
+            });
+            for (let i = 11; i <= 20; i++) {
+                localStorage.removeItem(`C10T4_q${i}`);
+                unmarkAnswered(i);
+            }
+        }
+
+        function markAnswered(q) {
+            const el = document.querySelector(`.question-status .q-indicator:nth-child(${parseInt(q)+1})`);
+            if (el) el.classList.add('answered');
+        }
+
+        function unmarkAnswered(q) {
+            const el = document.querySelector(`.question-status .q-indicator:nth-child(${parseInt(q)+1})`);
+            if (el) el.classList.remove('answered');
+        }
+    </script>
+</body>
+</html>
