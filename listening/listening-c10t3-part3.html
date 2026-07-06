@@ -25,20 +25,13 @@
         .options-box { border: 1px solid #e0e0e0; border-radius: 4px; padding: 15px; background: #fafafa; margin-bottom: 20px; }
         .match-row { display: flex; align-items: center; gap: 12px; margin: 12px 0; font-size: 16px; }
         .match-input { width: 45px; height: 32px; border: 1px solid #ccc; border-radius: 4px; padding: 0 6px; font-size: 16px; font-weight: bold; text-transform: uppercase; text-align: center; }
-        .match-input.filled { background: #e6f0ff; border-color: #1f3a5f; }
-        .question-status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 30px 0; padding: 12px 15px; background: #f0f2f5; border-radius: 4px; border: 1px solid #d0d5dd; font-size: 12px; }
-        .part-label { font-weight: bold; color: #444; margin: 0 8px 0 4px; }
-        .q-indicator { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 2px; border: 1px solid #d1d5db; background: #e5e7eb; color: #333; }
-        .q-indicator.current { background: #d9dce1; border-color: #b0b4b9; }
-        .q-indicator.answered { background: #10b981; color: white; border-color: #10b981; }
         .answers-section { margin-top: 40px; padding: 20px; background: #f0f8ff; border: 1px solid #b0d4f1; border-radius: 6px; }
-        .answers-section h3 { color: #1f3a5f; margin-bottom: 15px; }
         .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
-        .show-btn, .clear-btn { background: #1f3a5f; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        .show-btn, .clear-btn { background: #1f3a5f; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; }
         .clear-btn { background: #dc2626; }
-        .answers-content { display: none; padding: 15px; background: white; border-radius: 4px; margin-top: 10px; line-height: 2; }
+        .answers-content { display: none; padding: 15px; background: white; border-radius: 4px; margin-top: 10px; }
         .nav-container { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; padding-top: 15px; border-top: 1px solid #eee; }
-        .back-main-btn { background: #6b7280; color: white; border: none; padding: 10px 18px; border-radius: 4px; text-decoration: none; font-size: 15px; }
+        .back-main-btn { background: #6b7280; color: white; padding: 10px 18px; border-radius: 4px; text-decoration: none; }
         .nav-buttons { display: flex; gap: 15px; }
         .nav-btn { width: 46px; height: 46px; background: #1f3a5f; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 22px; }
     </style>
@@ -54,12 +47,11 @@
             <span>Exam Mode</span>
         </div>
 
-        <!-- ✅ 3 layers of fallback, 100% working -->
+        <!-- ✅ FIXED AUDIO - NO PATH GUESSING -->
         <div class="audio-player">
             <h3>Play Recording - Part 3</h3>
             <audio controls preload="auto">
-                <source src="c10t3-part3.mp3" type="audio/mpeg">
-                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T3listening/main/listening/c10t3-part3.mp3" type="audio/mpeg">
+                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/ielts-complete-practice/main/listening/c10t3-part3.mp3" type="audio/mpeg">
                 <source src="https://ia801509.us.archive.org/34/items/cambridge-ielts-10-audio/Cambridge%20IELTS%2010%20-%20Test%203%20-%20Part%203.mp3" type="audio/mpeg">
                 Your browser does not support audio playback.
             
@@ -67,15 +59,10 @@
 
         <div class="content">
             <h2>Section 3 – Questions 21–30</h2>
-
-            <div class="instruction">
-                <strong>Questions 21–25</strong><br>
-                Choose the correct letter, A, B or C.
-            </div>
+            <div class="instruction"><strong>Questions 21–25</strong><br>Choose the correct letter, A, B or C.</div>
 
             <div class="question-block">
                 <h3 style="margin-bottom:15px; color:#1f3a5f;">Theatre Studies Course</h3>
-
                 <div class="choice-row"><span class="q-number">21</span><span>What helped Rob to prepare to play the character of a doctor?</span></div>
                 <div class="choice-row"><input type="radio" name="q21" value="A" id="q21a"><label for="q21a">A the stories his grandfather told him</label></div>
                 <div class="choice-row"><input type="radio" name="q21" value="B" id="q21b"><label for="q21b">B the times when he watched his grandfather working</label></div>
@@ -102,17 +89,12 @@
                 <div class="choice-row"><input type="radio" name="q25" value="C" id="q25c"><label for="q25c">C the injury of one character</label></div>
             </div>
 
-            <div class="instruction">
-                <strong>Questions 26–30</strong><br>
-                What action is needed for the following stages in doing the 'year abroad' option?<br>
-                Choose FIVE answers from the box and write the correct letter, A–G, next to questions 26–30.
-            </div>
-
+            <div class="instruction"><strong>Questions 26–30</strong><br>Choose FIVE answers from the box and write the correct letter, A–G, next to questions 26–30.</div>
             <div class="question-block">
                 <div class="matching-grid">
                     <div class="matching-column">
                         <div class="options-box">
-                            <h4 style="margin-bottom:12px; color:#1f3a5f;">Action</h4>
+                            <h4>Action</h4>
                             <div>A &nbsp; be on time</div>
                             <div>B &nbsp; get a letter of recommendation</div>
                             <div>C &nbsp; plan for the final year</div>
@@ -123,7 +105,7 @@
                         </div>
                     </div>
                     <div class="matching-column">
-                        <h4 style="margin-bottom:12px; color:#1f3a5f;">Stages in doing the 'year abroad' option</h4>
+                        <h4>Stages in doing the 'year abroad' option</h4>
                         <div class="match-row"><span class="q-number">26</span><span>in the second year of the course</span><input type="text" class="match-input" maxlength="1" data-q="26"></div>
                         <div class="match-row"><span class="q-number">27</span><span>when first choosing where to go</span><input type="text" class="match-input" maxlength="1" data-q="27"></div>
                         <div class="match-row"><span class="q-number">28</span><span>when sending in your choices</span><input type="text" class="match-input" maxlength="1" data-q="28"></div>
@@ -131,13 +113,6 @@
                         <div class="match-row"><span class="q-number">30</span><span>when doing the year abroad</span><input type="text" class="match-input" maxlength="1" data-q="30"></div>
                     </div>
                 </div>
-            </div>
-
-            <div class="question-status">
-                <span class="part-label">Part 1</span><div class="q-indicator other">1</div><div class="q-indicator other">2</div><div class="q-indicator other">3</div><div class="q-indicator other">4</div><div class="q-indicator other">5</div><div class="q-indicator other">6</div><div class="q-indicator other">7</div><div class="q-indicator other">8</div><div class="q-indicator other">9</div><div class="q-indicator other">10</div>
-                <span class="part-label">Part 2</span><div class="q-indicator other">11</div><div class="q-indicator other">12</div><div class="q-indicator other">13</div><div class="q-indicator other">14</div><div class="q-indicator other">15</div><div class="q-indicator other">16</div><div class="q-indicator other">17</div><div class="q-indicator other">18</div><div class="q-indicator other">19</div><div class="q-indicator other">20</div>
-                <span class="part-label">Part 3</span><div class="q-indicator current">21</div><div class="q-indicator current">22</div><div class="q-indicator current">23</div><div class="q-indicator current">24</div><div class="q-indicator current">25</div><div class="q-indicator current">26</div><div class="q-indicator current">27</div><div class="q-indicator current">28</div><div class="q-indicator current">29</div><div class="q-indicator current">30</div>
-                <span class="part-label">Part 4</span><div class="q-indicator other">31</div><div class="q-indicator other">32</div><div class="q-indicator other">33</div><div class="q-indicator other">34</div><div class="q-indicator other">35</div><div class="q-indicator other">36</div><div class="q-indicator other">37</div><div class="q-indicator other">38</div><div class="q-indicator other">39</div><div class="q-indicator other">40</div>
             </div>
 
             <div class="answers-section">
@@ -183,8 +158,8 @@
         }
         function clearAllAnswers() {
             if (!confirm("Clear all answers?")) return;
-            document.querySelectorAll('input[type="radio"]').forEach(i => i.checked = false);
-            document.querySelectorAll('.match-input').forEach(i => { i.value = ''; i.classList.remove('filled'); });
+            document.querySelectorAll('input').forEach(i => i.checked = false);
+            document.querySelectorAll('.match-input').forEach(i => { i.value = ''; });
             for (let i = 21; i <= 30; i++) localStorage.removeItem(`C10T3_q${i}`);
         }
     </script>
