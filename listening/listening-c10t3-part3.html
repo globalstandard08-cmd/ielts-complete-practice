@@ -82,7 +82,8 @@
 
         h2 {
             color: #1f3a5f;
-            margin: 25px 0 15px; font-size: 22px;
+            margin: 25px 0 15px;
+            font-size: 22px;
         }
 
         .instruction {
@@ -414,13 +415,12 @@
             <span style="font-size:15px; opacity:0.9;">Exam Mode</span>
         </div>
 
-        <!-- ✅ FIXED AUDIO PLAYER - SAME AS WORKING PART 2 -->
+        <!-- ✅ EXACT SAME AUDIO AS PART 2 -->
         <div class="audio-player">
             <h3>Play Recording - Part 3</h3>
             <audio controls preload="auto">
                 <source src="c10t3-part3.mp3" type="audio/mpeg">
                 <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T3listening/main/c10t3-part3.mp3" type="audio/mpeg">
-                <source src="https://audio.ielts-for-free.com/cambridge-10/test-3/part-3.mp3" type="audio/mpeg">
                 Your browser does not support audio playback.
             
         </div>
@@ -428,7 +428,6 @@
         <div class="content" id="highlightArea">
             <h2>Section 3 – Questions 21–30</h2>
 
-            <!-- Q21-25: Multiple Choice -->
             <div class="instruction">
                 <strong>Questions 21–25</strong><br>
                 Choose the correct letter, A, B or C.
@@ -523,7 +522,6 @@
                 </div>
             </div>
 
-            <!-- Q26-30: Matching -->
             <div class="instruction">
                 <strong>Questions 26–30</strong><br>
                 What action is needed for the following stages in doing the 'year abroad' option?<br>
@@ -544,7 +542,6 @@
                             <div>G &nbsp; ask for help</div>
                         </div>
                     </div>
-
                     <div class="matching-column">
                         <h4 style="margin-bottom:12px; color:#1f3a5f;">Stages in doing the 'year abroad' option</h4>
                         <div class="match-row">
@@ -576,7 +573,6 @@
                 </div>
             </div>
 
-            <!-- Status Bar -->
             <div class="question-status">
                 <span class="part-label">Part 1</span>
                 <div class="q-indicator other" data-q="1">1</div>
@@ -589,9 +585,7 @@
                 <div class="q-indicator other" data-q="8">8</div>
                 <div class="q-indicator other" data-q="9">9</div>
                 <div class="q-indicator other" data-q="10">10</div>
-
                 <div class="part-separator"></div>
-
                 <span class="part-label">Part 2</span>
                 <div class="q-indicator other" data-q="11">11</div>
                 <div class="q-indicator other" data-q="12">12</div>
@@ -603,9 +597,7 @@
                 <div class="q-indicator other" data-q="18">18</div>
                 <div class="q-indicator other" data-q="19">19</div>
                 <div class="q-indicator other" data-q="20">20</div>
-
                 <div class="part-separator"></div>
-
                 <span class="part-label">Part 3</span>
                 <div class="q-indicator current" data-q="21">21</div>
                 <div class="q-indicator current" data-q="22">22</div>
@@ -617,9 +609,7 @@
                 <div class="q-indicator current" data-q="28">28</div>
                 <div class="q-indicator current" data-q="29">29</div>
                 <div class="q-indicator current" data-q="30">30</div>
-
                 <div class="part-separator"></div>
-
                 <span class="part-label">Part 4</span>
                 <div class="q-indicator other" data-q="31">31</div>
                 <div class="q-indicator other" data-q="32">32</div>
@@ -633,7 +623,6 @@
                 <div class="q-indicator other" data-q="40">40</div>
             </div>
 
-            <!-- Answers Section -->
             <div class="answers-section">
                 <h3>Answers for Section 3</h3>
                 <div class="btn-row">
@@ -655,7 +644,6 @@
                 </div>
             </div>
 
-            <!-- Navigation -->
             <div class="nav-container">
                 <a href="../index.html" class="back-main-btn">← Back to Main Page</a>
                 <div class="nav-buttons">
@@ -668,7 +656,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-
             // --- Save/Load Multiple Choice ---
             for (let i = 21; i <= 25; i++) {
                 const radios = document.querySelectorAll(`input[name="q${i}"]`);
@@ -797,13 +784,11 @@
 
         function clearAllAnswers() {
             if (!confirm("Clear all answers for this section?")) return;
-
             document.querySelectorAll('input[type="radio"]').forEach(i => i.checked = false);
             document.querySelectorAll('.match-input').forEach(input => {
                 input.value = '';
                 input.classList.remove('filled');
             });
-
             for (let i = 21; i <= 30; i++) {
                 localStorage.removeItem(`C10T3_q${i}`);
                 unmarkAnswered(i);
