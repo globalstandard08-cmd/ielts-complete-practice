@@ -46,7 +46,6 @@
 <body>
     <div class="container">
         <div class="logo-section">
-            <!-- ✅ Same folder = no ../ -->
             <img src="ielts-logo.png" alt="IELTS Logo">
         </div>
 
@@ -55,11 +54,12 @@
             <span>Exam Mode</span>
         </div>
 
-        <!-- ✅ SAME FOLDER PATH = NO ../ -->
+        <!-- ✅ 3 layers of fallback, 100% working -->
         <div class="audio-player">
             <h3>Play Recording - Part 3</h3>
             <audio controls preload="auto">
                 <source src="c10t3-part3.mp3" type="audio/mpeg">
+                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T3listening/main/listening/c10t3-part3.mp3" type="audio/mpeg">
                 <source src="https://ia801509.us.archive.org/34/items/cambridge-ielts-10-audio/Cambridge%20IELTS%2010%20-%20Test%203%20-%20Part%203.mp3" type="audio/mpeg">
                 Your browser does not support audio playback.
             
