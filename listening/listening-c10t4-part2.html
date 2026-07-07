@@ -6,15 +6,15 @@
     <title>IELTS Listening - C10 Test 4 Part 2</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-        body { background: #f4f6f9; padding: 20px; line-height: 1.7; }
-        .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        body { background: #f4f6f9; padding: 20px; line-height: 1.7; position: relative; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: relative; }
         .logo-section { text-align: center; padding: 20px; border-bottom: 1px solid #eee; }
         .logo-section img { height: 120px; width: auto; }
         .header-bar { background: #1f3a5f; color: white; padding: 15px 25px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; }
         .audio-player { background: #eef2f7; padding: 18px 25px; margin: 20px; border-radius: 6px; text-align: center; }
         .audio-player h3 { color: #1f3a5f; margin-bottom: 12px; font-size: 17px; }
         audio { width: 100%; max-width: 500px; }
-        .content { padding: 0 30px 30px; }
+        .content { padding: 0 30px 30px; position: relative; }
         h2 { color: #1f3a5f; margin: 25px 0 15px; font-size: 22px; }
         .instruction { background: #f8fbfe; border-left: 4px solid #1f3a5f; padding: 15px; margin-bottom: 25px; border-radius: 4px; font-weight: 500; }
         .question-block { border: 1px solid #ccc; border-radius: 6px; padding: 25px; margin-bottom: 30px; background: #fdfdfd; }
@@ -42,9 +42,61 @@
         .nav-buttons { display: flex; gap: 15px; }
         .nav-btn { width: 46px; height: 46px; background: #1f3a5f; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 22px; }
         .nav-btn.disabled { background: #ddd; color: #999; cursor: default; }
+
+        /* --------------------------
+        ✅ ADDED: Highlight Feature Styles
+        -------------------------- */
+        .user-highlight {
+            background-color: #ffd700;
+            padding: 2px 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            display: inline;
+            color: #000;
+        }
+        .highlight-tool {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #1f3a5f;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #1f3a5f;
+            align-items: center;
+            justify-content: center;
+        }
+        .highlight-tool:hover {
+            background: #eef2f7;
+        }
+        .remove-highlight {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            padding: 5px 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .remove-highlight:hover {
+            background: #ffebee;
+        }
     </style>
 </head>
 <body>
+    <!-- ✅ ADDED: Highlight Tool Buttons -->
+    <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
+    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
+
     <div class="container">
         <div class="logo-section">
             <img src="ielts-logo.png" alt="IELTS Logo">
@@ -62,14 +114,15 @@
                 <!-- Your local file (use this once uploaded) -->
                 <source src="c10t4-part2.mp3" type="audio/mpeg">
                 <!-- Fallback 1 -->
-                <source src="https://ia801408.us.archive.org/3/items/cambridge-ielts-10-audio/Cambridge%20IELTS%2010%20-%20Test%204%20-%20Part%202.mp3" type="audio/mpeg">
+                <source src="https://ia601509.us.archive.org/34/items/cambridge-ielts-10-audio/Cambridge%20IELTS%2010%20-%20Test%204%20-%20Part%202.mp3" type="audio/mpeg">
                 <!-- Fallback 2 -->
                 <source src="https://archive.org/download/cambridge-ielts-10-audio/Cambridge%20IELTS%2010%20-%20Test%204%20-%20Part%202.mp3" type="audio/mpeg">
                 Your browser does not support audio playback.
             
         </div>
 
-        <div class="content">
+        <!-- ✅ ADDED: ID for highlight area -->
+        <div class="content" id="highlightArea">
             <h2>Section 2 – Questions 11–20</h2>
 
             <div class="instruction">
@@ -290,6 +343,75 @@
                     markAnswered(i);
                 }
             }
+
+            // ✅ ADDED: Highlight Feature Script
+            const highlightArea = document.getElementById('highlightArea');
+            const highlightTool = document.getElementById('highlightTool');
+            const removeTool = document.getElementById('removeTool');
+            let currentRange = null;
+
+            highlightArea.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+                showPencil(e.clientX, e.clientY);
+            });
+
+            document.addEventListener('mouseup', function() {
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+                    highlightTool.style.display = 'none';
+                    return;
+                }
+                const range = sel.getRangeAt(0);
+                if (!highlightArea.contains(range.commonAncestorContainer)) return;
+                const rect = range.getBoundingClientRect();
+                showPencil(rect.left + rect.width / 2, rect.top);
+                currentRange = range;
+            });
+
+            function showPencil(x, y) {
+                highlightTool.style.left = (x + window.scrollX - 17) + 'px';
+                highlightTool.style.top = (y + window.scrollY - 40) + 'px';
+                highlightTool.style.display = 'flex';
+            }
+
+            highlightTool.addEventListener('click', function() {
+                if (!currentRange) return;
+                const span = document.createElement('span');
+                span.className = 'user-highlight';
+                span.textContent = currentRange.toString();
+                currentRange.deleteContents();
+                currentRange.insertNode(span);
+                window.getSelection().removeAllRanges();
+                highlightTool.style.display = 'none';
+                currentRange = null;
+            });
+
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('user-highlight')) {
+                    const rect = e.target.getBoundingClientRect();
+                    removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 30) + 'px';
+                    removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
+                    removeTool.style.display = 'block';
+                    removeTool.dataset.target = e.target;
+                } else if (!removeTool.contains(e.target)) {
+                    removeTool.style.display = 'none';
+                }
+                if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target)) {
+                    highlightTool.style.display = 'none';
+                }
+            });
+
+            removeTool.addEventListener('click', function() {
+                const span = this.dataset.target;
+                if (!span || !span.parentNode) return;
+                const text = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(text, span);
+                span.parentNode.normalize();
+                this.style.display = 'none';
+                delete this.dataset.target;
+            });
         });
 
         function toggleAnswers() {
