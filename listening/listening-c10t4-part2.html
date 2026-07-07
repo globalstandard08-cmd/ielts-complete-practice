@@ -55,16 +55,17 @@
             <span>Exam Mode</span>
         </div>
 
-       <!-- ✅ FIXED AUDIO: Local file first, then reliable fallback -->
-<div class="audio-player">
-    <h3>Play Recording - Part 2</h3>
-    <audio controls preload="metadata">
-        <!-- Stable working direct link -->
-        <source src="https://archive.org/download/cambridge-ielts-10-audio/Cambridge%20IELTS%2010%20-%20Test%204%20-%20Part%202.mp3" type="audio/mpeg">
-        Your browser does not support audio playback.
-    
-</div>
-        
+        <!-- ✅ FIXED AUDIO: Local file first, then 2 working fallbacks -->
+        <div class="audio-player">
+            <h3>Play Recording - Part 2</h3>
+            <audio controls preload="metadata">
+                <!-- Your local file (use this once uploaded) -->
+                <source src="c10t4-part2.mp3" type="audio/mpeg">
+                <!-- Fallback 1 -->
+                <source src="https://ia801408.us.archive.org/3/items/cambridge-ielts-10-audio/Cambridge%20IELTS%2010%20-%20Test%204%20-%20Part%202.mp3" type="audio/mpeg">
+                <!-- Fallback 2 -->
+                <source src="https://archive.org/download/cambridge-ielts-10-audio/Cambridge%20IELTS%2010%20-%20Test%204%20-%20Part%202.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
             
         </div>
 
