@@ -6,15 +6,15 @@
     <title>IELTS Listening - C10 Test 4 Part 3</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-        body { background: #f4f6f9; padding: 20px; line-height: 1.7; }
-        .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        body { background: #f4f6f9; padding: 20px; line-height: 1.7; position: relative; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: relative; }
         .logo-section { text-align: center; padding: 20px; border-bottom: 1px solid #eee; }
         .logo-section img { height: 120px; width: auto; }
         .header-bar { background: #1f3a5f; color: white; padding: 15px 25px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; }
         .audio-player { background: #eef2f7; padding: 18px 25px; margin: 20px; border-radius: 6px; text-align: center; }
         .audio-player h3 { color: #1f3a5f; margin-bottom: 12px; font-size: 17px; }
         audio { width: 100%; max-width: 500px; }
-        .content { padding: 0 30px 30px; }
+        .content { padding: 0 30px 30px; position: relative; }
         h2 { color: #1f3a5f; margin: 25px 0 15px; font-size: 22px; }
         .instruction { background: #f8fbfe; border-left: 4px solid #1f3a5f; padding: 15px; margin-bottom: 25px; border-radius: 4px; font-weight: 500; }
         .question-block { border: 1px solid #ccc; border-radius: 6px; padding: 25px; margin-bottom: 30px; background: #fdfdfd; }
@@ -26,8 +26,53 @@
         .match-row { display: flex; align-items: center; gap: 12px; margin: 12px 0; font-size: 16px; }
         .match-input { width: 45px; height: 32px; border: 1px solid #ccc; border-radius: 4px; padding: 0 6px; font-size: 16px; font-weight: bold; text-transform: uppercase; text-align: center; transition: all 0.2s; }
         .match-input.filled { background: #e6f0ff; border-color: #1f3a5f; }
-        /* Highlight style */
-        .highlight { background-color: #fff35c; padding: 2px 4px; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
+
+        /* ✅ UPDATED: Standard Highlight Styles (matches Part 1 & 2) */
+        .user-highlight {
+            background-color: #ffd700;
+            padding: 2px 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            display: inline;
+            color: #000;
+        }
+        .highlight-tool {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #1f3a5f;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #1f3a5f;
+            align-items: center;
+            justify-content: center;
+        }
+        .highlight-tool:hover {
+            background: #eef2f7;
+        }
+        .remove-highlight {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            padding: 5px 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .remove-highlight:hover {
+            background: #ffebee;
+        }
+
         .question-status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 30px 0; padding: 12px 15px; background: #f0f2f5; border-radius: 4px; border: 1px solid #d0d5dd; font-size: 12px; }
         .part-label { font-weight: bold; color: #444; margin: 0 8px 0 4px; }
         .q-indicator { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 2px; border: 1px solid #d1d5db; background: #e5e7eb; color: #333; }
@@ -46,6 +91,10 @@
     </style>
 </head>
 <body>
+    <!-- ✅ ADDED: Highlight Tool Buttons -->
+    <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
+    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
+
     <div class="container">
         <div class="logo-section">
             <img src="ielts-logo.png" alt="IELTS Logo">
@@ -56,18 +105,19 @@
             <span>Exam Mode</span>
         </div>
 
-        <!-- ✅ AUDIO: C10 Test 4 Part 3 -->
+        <!-- ✅ FIXED AUDIO: Working fallbacks added -->
         <div class="audio-player">
             <h3>Play Recording - Part 3</h3>
-            <audio controls preload="auto">
+            <audio controls preload="metadata">
                 <source src="c10t4-part3.mp3" type="audio/mpeg">
-                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/ielts-complete-practice/main/listening/c10t4-part3.mp3" type="audio/mpeg">
-                <source src="https://ia801509.us.archive.org/34/items/cambridge-ielts-10-audio/Cambridge%20IELTS%2010%20-%20Test%204%20-%20Part%203.mp3" type="audio/mpeg">
+                <source src="https://ia601408.us.archive.org/3/items/cambridge-ielts-10-audio/Cambridge%20IELTS%2010%20-%20Test%204%20-%20Part%203.mp3" type="audio/mpeg">
+                <source src="https://archive.org/download/cambridge-ielts-10-audio/Cambridge%20IELTS%2010%20-%20Test%204%20-%20Part%203.mp3" type="audio/mpeg">
                 Your browser does not support audio playback.
             
         </div>
 
-        <div class="content">
+        <!-- ✅ ADDED: ID for highlight area -->
+        <div class="content" id="highlightArea">
             <h2>Section 3 – Questions 21–30</h2>
 
             <div class="instruction">
@@ -80,23 +130,23 @@
 
                 <div class="choice-row">
                     <input type="checkbox" name="q21_22" value="A" id="q21a">
-                    <label for="q21a" class="highlightable">A communication</label>
+                    <label for="q21a">A communication</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q21_22" value="B" id="q21b">
-                    <label for="q21b" class="highlightable">B design</label>
+                    <label for="q21b">B design</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q21_22" value="C" id="q21c">
-                    <label for="q21c" class="highlightable">C IT</label>
+                    <label for="q21c">C IT</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q21_22" value="D" id="q21d">
-                    <label for="q21d" class="highlightable">D marketing</label>
+                    <label for="q21d">D marketing</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q21_22" value="E" id="q21e">
-                    <label for="q21e" class="highlightable">E organisation</label>
+                    <label for="q21e">E organisation</label>
                 </div>
             </div>
 
@@ -110,23 +160,23 @@
 
                 <div class="choice-row">
                     <input type="checkbox" name="q23_24" value="A" id="q23a">
-                    <label for="q23a" class="highlightable">A updates for its software</label>
+                    <label for="q23a">A updates for its software</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q23_24" value="B" id="q23b">
-                    <label for="q23b" class="highlightable">B cost savings</label>
+                    <label for="q23b">B cost savings</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q23_24" value="C" id="q23c">
-                    <label for="q23c" class="highlightable">C improved image</label>
+                    <label for="q23c">C improved image</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q23_24" value="D" id="q23d">
-                    <label for="q23d" class="highlightable">D new clients</label>
+                    <label for="q23d">D new clients</label>
                 </div>
                 <div class="choice-row">
                     <input type="checkbox" name="q23_24" value="E" id="q23e">
-                    <label for="q23e" class="highlightable">E a growth in sales</label>
+                    <label for="q23e">E a growth in sales</label>
                 </div>
             </div>
 
@@ -141,23 +191,23 @@
                     <div class="matching-column">
                         <div class="options-box">
                             <h4 style="margin-bottom:12px; color:#1f3a5f;">Sources of information</h4>
-                            <div class="highlightable">A &nbsp; company manager</div>
-                            <div class="highlightable">B &nbsp; company's personnel department</div>
-                            <div class="highlightable">C &nbsp; personal tutor</div>
-                            <div class="highlightable">D &nbsp; psychology department</div>
-                            <div class="highlightable">E &nbsp; mentor</div>
-                            <div class="highlightable">F &nbsp; university careers officer</div>
-                            <div class="highlightable">G &nbsp; internet</div>
+                            <div>A &nbsp; company manager</div>
+                            <div>B &nbsp; company's personnel department</div>
+                            <div>C &nbsp; personal tutor</div>
+                            <div>D &nbsp; psychology department</div>
+                            <div>E &nbsp; mentor</div>
+                            <div>F &nbsp; university careers officer</div>
+                            <div>G &nbsp; internet</div>
                         </div>
                     </div>
                     <div class="matching-column">
                         <h4 style="margin-bottom:12px; color:#1f3a5f;">Stages of the work placement procedure</h4>
-                        <div class="match-row"><span class="q-number">25</span><span class="highlightable">obtaining booklet</span><input type="text" class="match-input" maxlength="1" data-q="25"></div>
-                        <div class="match-row"><span class="q-number">26</span><span class="highlightable">discussing options</span><input type="text" class="match-input" maxlength="1" data-q="26"></div>
-                        <div class="match-row"><span class="q-number">27</span><span class="highlightable">getting updates</span><input type="text" class="match-input" maxlength="1" data-q="27"></div>
-                        <div class="match-row"><span class="q-number">28</span><span class="highlightable">responding to invitation for interview</span><input type="text" class="match-input" maxlength="1" data-q="28"></div>
-                        <div class="match-row"><span class="q-number">29</span><span class="highlightable">informing about outcome of interview</span><input type="text" class="match-input" maxlength="1" data-q="29"></div>
-                        <div class="match-row"><span class="q-number">30</span><span class="highlightable">requesting a reference</span><input type="text" class="match-input" maxlength="1" data-q="30"></div>
+                        <div class="match-row"><span class="q-number">25</span><span>obtaining booklet</span><input type="text" class="match-input" maxlength="1" data-q="25"></div>
+                        <div class="match-row"><span class="q-number">26</span><span>discussing options</span><input type="text" class="match-input" maxlength="1" data-q="26"></div>
+                        <div class="match-row"><span class="q-number">27</span><span>getting updates</span><input type="text" class="match-input" maxlength="1" data-q="27"></div>
+                        <div class="match-row"><span class="q-number">28</span><span>responding to invitation for interview</span><input type="text" class="match-input" maxlength="1" data-q="28"></div>
+                        <div class="match-row"><span class="q-number">29</span><span>informing about outcome of interview</span><input type="text" class="match-input" maxlength="1" data-q="29"></div>
+                        <div class="match-row"><span class="q-number">30</span><span>requesting a reference</span><input type="text" class="match-input" maxlength="1" data-q="30"></div>
                     </div>
                 </div>
             </div>
@@ -202,15 +252,76 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // ✅ Highlight feature: click to toggle yellow highlight
-            document.querySelectorAll('.highlightable').forEach(el => {
-                el.style.cursor = 'pointer';
-                el.addEventListener('click', function() {
-                    this.classList.toggle('highlight');
-                });
+            // --- ✅ NEW: Standard Highlight Feature ---
+            const highlightArea = document.getElementById('highlightArea');
+            const highlightTool = document.getElementById('highlightTool');
+            const removeTool = document.getElementById('removeTool');
+            let currentRange = null;
+
+            highlightArea.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+                showPencil(e.clientX, e.clientY);
             });
 
-            // Save multiple choice answers
+            document.addEventListener('mouseup', function() {
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+                    highlightTool.style.display = 'none';
+                    return;
+                }
+                const range = sel.getRangeAt(0);
+                if (!highlightArea.contains(range.commonAncestorContainer)) return;
+                const rect = range.getBoundingClientRect();
+                showPencil(rect.left + rect.width / 2, rect.top);
+                currentRange = range;
+            });
+
+            function showPencil(x, y) {
+                highlightTool.style.left = (x + window.scrollX - 17) + 'px';
+                highlightTool.style.top = (y + window.scrollY - 40) + 'px';
+                highlightTool.style.display = 'flex';
+            }
+
+            highlightTool.addEventListener('click', function() {
+                if (!currentRange) return;
+                const span = document.createElement('span');
+                span.className = 'user-highlight';
+                span.textContent = currentRange.toString();
+                currentRange.deleteContents();
+                currentRange.insertNode(span);
+                window.getSelection().removeAllRanges();
+                highlightTool.style.display = 'none';
+                currentRange = null;
+            });
+
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('user-highlight')) {
+                    const rect = e.target.getBoundingClientRect();
+                    removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 30) + 'px';
+                    removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
+                    removeTool.style.display = 'block';
+                    removeTool.dataset.target = e.target;
+                } else if (!removeTool.contains(e.target)) {
+                    removeTool.style.display = 'none';
+                }
+                if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target)) {
+                    highlightTool.style.display = 'none';
+                }
+            });
+
+            removeTool.addEventListener('click', function() {
+                const span = this.dataset.target;
+                if (!span || !span.parentNode) return;
+                const text = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(text, span);
+                span.parentNode.normalize();
+                this.style.display = 'none';
+                delete this.dataset.target;
+            });
+
+            // --- Existing save/load functions (unchanged) ---
             const checkboxes21_22 = document.querySelectorAll('input[name="q21_22"]');
             checkboxes21_22.forEach(box => {
                 box.addEventListener('change', () => {
@@ -229,7 +340,6 @@
                 });
             });
 
-            // Save matching answers
             const matchInputs = document.querySelectorAll('.match-input');
             matchInputs.forEach(input => {
                 input.addEventListener('input', function() {
@@ -247,7 +357,6 @@
                 });
             });
 
-            // Load saved answers
             const saved21_22 = localStorage.getItem(`C10T4_q21_22`) || '';
             saved21_22.split('').forEach(val => {
                 const el = document.querySelector(`input[name="q21_22"][value="${val}"]`);
@@ -282,8 +391,10 @@
                 if (el.type === 'checkbox') el.checked = false;
                 else { el.value = ''; el.classList.remove('filled'); }
             });
-            // Also clear highlights
-            document.querySelectorAll('.highlight').forEach(el => el.classList.remove('highlight'));
+            document.querySelectorAll('.user-highlight').forEach(el => {
+                const text = document.createTextNode(el.textContent);
+                el.parentNode.replaceChild(text, el);
+            });
             localStorage.removeItem(`C10T4_q21_22`);
             localStorage.removeItem(`C10T4_q23_24`);
             for (let i = 21; i <= 30; i++) {
