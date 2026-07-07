@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Listening - C10 Test 4 Part 4</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background: #f4f6f9; padding: 20px; line-height: 1.7; position: relative; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: relative; }
+        .logo-section { text-align: center; padding: 20px; border-bottom: 1px solid #eee; }
+        .logo-section img { height: 120px; width: auto; }
+        .header-bar { background: #1f3a5f; color: white; padding: 15px 25px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; }
+        .audio-player { background: #eef2f7; padding: 18px 25px; margin: 20px; border-radius: 6px; text-align: center; }
+        .audio-player h3 { color: #1f3a5f; margin-bottom: 12px; font-size: 17px; }
+        audio { width: 100%; max-width: 500px; }
+        .content { padding: 0 30px 30px; position: relative; }
+        h2 { color: #1f3a5f; margin: 25px 0 15px; font-size: 22px; }
+        .instruction { background: #f8fbfe; border-left: 4px solid #1f3a5f; padding: 15px; margin-bottom: 25px; border-radius: 4px; font-weight: 500; }
+        .notes-block { border: 1px solid #ccc; border-radius: 6px; padding: 25px; margin-bottom: 30px; background: #fdfdfd; }
+        .notes-block h3 { text-align: center; margin-bottom: 25px; color: #1f3a5f; font-size: 24px; font-weight: bold; }
+        .notes-section { margin-bottom: 22px; }
+        .notes-section h4 { color: #1f3a5f; margin-bottom: 12px; font-size: 18px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+        .note-row { display: flex; align-items: center; gap: 12px; margin: 10px 0; font-size: 16px; }
+        .note-text { flex: 1; }
+        .answer-input { width: 160px; height: 34px; border: 1px solid #ccc; border-radius: 4px; padding: 0 8px; font-size: 16px; text-transform: uppercase; text-align: left; transition: all 0.2s; }
+        .answer-input:focus { outline: none; border-color: #1f3a5f; background: #eef5fc; }
+        .answer-input.filled { background: #e6f0ff; border-color: #1f3a5f; }
+
+        /* Highlight Feature Styles */
+        .user-highlight {
+            background-color: #ffd700;
+            padding: 2px 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            display: inline;
+            color: #000;
+        }
+        .highlight-tool {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #1f3a5f;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #1f3a5f;
+            align-items: center;
+            justify-content: center;
+        }
+        .highlight-tool:hover {
+            background: #eef2f7;
+        }
+        .remove-highlight {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            padding: 5px 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .remove-highlight:hover {
+            background: #ffebee;
+        }
+
+        .question-status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 30px 0; padding: 12px 15px; background: #f0f2f5; border-radius: 4px; border: 1px solid #d0d5dd; font-size: 12px; }
+        .part-label { font-weight: bold; color: #444; margin: 0 8px 0 4px; }
+        .q-indicator { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 2px; border: 1px solid #d1d5db; background: #e5e7eb; color: #333; }
+        .q-indicator.current { background: #d9dce1; border-color: #b0b4b9; }
+        .q-indicator.answered { background: #10b981; color: white; border-color: #10b981; }
+        .answers-section { margin-top: 40px; padding: 20px; background: #f0f8ff; border: 1px solid #b0d4f1; border-radius: 6px; }
+        .answers-section h3 { color: #1f3a5f; margin-bottom: 15px; }
+        .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+        .show-btn, .clear-btn { background: #1f3a5f; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        .clear-btn { background: #dc2626; }
+        .answers-content { display: none; padding: 15px; background: white; border-radius: 4px; margin-top: 10px; line-height: 2; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; padding-top: 15px; border-top: 1px solid #eee; }
+        .back-main-btn { background: #6b7280; color: white; border: none; padding: 10px 18px; border-radius: 4px; text-decoration: none; font-size: 15px; font-weight: 500; }
+        .nav-buttons { display: flex; gap: 15px; }
+        .nav-btn { width: 46px; height: 46px; background: #1f3a5f; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 22px; }
+        .nav-btn.disabled { background: #ddd; color: #999; cursor: default; }
+    </style>
+</head>
+<body>
+    <!-- Highlight Tools -->
+    <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
+    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
+
+    <div class="container">
+        <div class="logo-section">
+            <img src="ielts-logo.png" alt="IELTS Logo">
+        </div>
+
+        <div class="header-bar">
+            <span>LISTENING TEST - C10 TEST 4 PART 4</span>
+            <span>Exam Mode</span>
+        </div>
+
+        <!-- Audio Player -->
+        <div class="audio-player">
+            <h3>Play Recording - Part 4</h3>
+            <audio controls preload="metadata">
+                <source src="c10t4-part4.mp3" type="audio/mpeg">
+                <source src="https://ia801408.us.archive.org/3/items/cambridge-ielts-10-audio/Cambridge%20IELTS%2010%20-%20Test%204%20-%20Part%204.mp3" type="audio/mpeg">
+                <source src="https://archive.org/download/cambridge-ielts-10-audio/Cambridge%20IELTS%2010%20-%20Test%204%20-%20Part%204.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            
+        </div>
+
+        <div class="content" id="highlightArea">
+            <h2>Section 4 – Questions 34–40</h2>
+
+            <div class="instruction">
+                <strong>Questions 34–40</strong><br>
+                Complete the notes below.<br>
+                Write <strong>ONE WORD ONLY</strong> for each answer.
+            </div>
+
+            <div class="notes-block">
+                <h3>Uses of Nanotechnology</h3>
+
+                <div class="notes-section">
+                    <h4>Transport</h4>
+                    <div class="note-row">
+                        <span>• Nanotechnology could allow the development of stronger</span>
+                        <input type="text" class="answer-input" maxlength="15" data-q="34">
+                    </div>
+                    <div class="note-row">
+                        <span>• Planes would be much lighter in weight.</span>
+                    </div>
+                    <div class="note-row">
+                        <span>•</span>
+                        <input type="text" class="answer-input" maxlength="15" data-q="35">
+                        <span>travel will be made available to the masses.</span>
+                    </div>
+                </div>
+
+                <div class="notes-section">
+                    <h4>Technology</h4>
+                    <div class="note-row">
+                        <span>• Computers will be even smaller, faster, and will have a greater</span>
+                        <input type="text" class="answer-input" maxlength="15" data-q="36">
+                    </div>
+                    <div class="note-row">
+                        <span>•</span>
+                        <input type="text" class="answer-input" maxlength="15" data-q="37">
+                        <span>energy will become more affordable.</span>
+                    </div>
+                </div>
+
+                <div class="notes-section">
+                    <h4>The Environment</h4>
+                    <div class="note-row">
+                        <span>• Nano-robots could rebuild the ozone layer.</span>
+                    </div>
+                    <div class="note-row">
+                        <span>• Pollutants such as</span>
+                        <input type="text" class="answer-input" maxlength="15" data-q="38">
+                        <span>could be removed from water more easily.</span>
+                    </div>
+                    <div class="note-row">
+                        <span>• There will be no</span>
+                        <input type="text" class="answer-input" maxlength="15" data-q="39">
+                        <span>from manufacturing.</span>
+                    </div>
+                </div>
+
+                <div class="notes-section">
+                    <h4>Health and Medicine</h4>
+                    <div class="note-row">
+                        <span>• New methods of food production could eradicate famine.</span>
+                    </div>
+                    <div class="note-row">
+                        <span>• Analysis of medical</span>
+                        <input type="text" class="answer-input" maxlength="15" data-q="40">
+                        <span>will be speeded up.</span>
+                    </div>
+                    <div class="note-row">
+                        <span>• Life expectancy could be increased.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-status">
+                <span class="part-label">Part 1</span>
+                <div class="q-indicator other">1</div><div class="q-indicator other">2</div><div class="q-indicator other">3</div><div class="q-indicator other">4</div><div class="q-indicator other">5</div><div class="q-indicator other">6</div><div class="q-indicator other">7</div><div class="q-indicator other">8</div><div class="q-indicator other">9</div><div class="q-indicator other">10</div>
+                <span class="part-label">Part 2</span>
+                <div class="q-indicator other">11</div><div class="q-indicator other">12</div><div class="q-indicator other">13</div><div class="q-indicator other">14</div><div class="q-indicator other">15</div><div class="q-indicator other">16</div><div class="q-indicator other">17</div><div class="q-indicator other">18</div><div class="q-indicator other">19</div><div class="q-indicator other">20</div>
+                <span class="part-label">Part 3</span>
+                <div class="q-indicator other">21</div><div class="q-indicator other">22</div><div class="q-indicator other">23</div><div class="q-indicator other">24</div><div class="q-indicator other">25</div><div class="q-indicator other">26</div><div class="q-indicator other">27</div><div class="q-indicator other">28</div><div class="q-indicator other">29</div><div class="q-indicator other">30</div>
+                <span class="part-label">Part 4</span>
+                <div class="q-indicator other">31</div><div class="q-indicator other">32</div><div class="q-indicator other">33</div><div class="q-indicator current">34</div><div class="q-indicator current">35</div><div class="q-indicator current">36</div><div class="q-indicator current">37</div><div class="q-indicator current">38</div><div class="q-indicator current">39</div><div class="q-indicator current">40</div>
+            </div>
+
+            <div class="answers-section">
+                <h3>Answers for Section 4</h3>
+                <div class="btn-row">
+                    <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                    <button class="clear-btn" onclick="clearAllAnswers()">Clear All Answers</button>
+                </div>
+                <div class="answers-content" id="answers">
+                    <strong>Answers:</strong><br>
+                    34. MATERIALS<br>
+                    35. SPACE<br>
+                    36. CAPACITY<br>
+                    37. SOLAR<br>
+                    38. HEAVY-METALS<br>
+                    39. WASTE<br>
+                    40. RECORDS
+                </div>
+            </div>
+
+            <div class="nav-container">
+                <a href="../index.html" class="back-main-btn">← Back to Main Page</a>
+                <div class="nav-buttons">
+                    <a href="listening-c10t4-part3.html" class="nav-btn">←</a>
+                    <span class="nav-btn disabled">→</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Highlight Feature
+            const highlightArea = document.getElementById('highlightArea');
+            const highlightTool = document.getElementById('highlightTool');
+            const removeTool = document.getElementById('removeTool');
+            let currentRange = null;
+
+            highlightArea.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+                showPencil(e.clientX, e.clientY);
+            });
+
+            document.addEventListener('mouseup', function() {
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+                    highlightTool.style.display = 'none';
+                    return;
+                }
+                const range = sel.getRangeAt(0);
+                if (!highlightArea.contains(range.commonAncestorContainer)) return;
+                const rect = range.getBoundingClientRect();
+                showPencil(rect.left + rect.width / 2, rect.top);
+                currentRange = range;
+            });
+
+            function showPencil(x, y) {
+                highlightTool.style.left = (x + window.scrollX - 17) + 'px';
+                highlightTool.style.top = (y + window.scrollY - 40) + 'px';
+                highlightTool.style.display = 'flex';
+            }
+
+            highlightTool.addEventListener('click', function() {
+                if (!currentRange) return;
+                const span = document.createElement('span');
+                span.className = 'user-highlight';
+                span.textContent = currentRange.toString();
+                currentRange.deleteContents();
+                currentRange.insertNode(span);
+                window.getSelection().removeAllRanges();
+                highlightTool.style.display = 'none';
+                currentRange = null;
+            });
+
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('user-highlight')) {
+                    const rect = e.target.getBoundingClientRect();
+                    removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 30) + 'px';
+                    removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
+                    removeTool.style.display = 'block';
+                    removeTool.dataset.target = e.target;
+                } else if (!removeTool.contains(e.target)) {
+                    removeTool.style.display = 'none';
+                }
+                if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target)) {
+                    highlightTool.style.display = 'none';
+                }
+            });
+
+            removeTool.addEventListener('click', function() {
+                const span = this.dataset.target;
+                if (!span || !span.parentNode) return;
+                const text = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(text, span);
+                span.parentNode.normalize();
+                this.style.display = 'none';
+                delete this.dataset.target;
+            });
+
+            // Save & Load Answers
+            const textInputs = document.querySelectorAll('.answer-input');
+            textInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    this.value = this.value.trim().toUpperCase();
+                    const qNum = this.dataset.q;
+                    if (this.value) {
+                        this.classList.add('filled');
+                        localStorage.setItem(`C10T4_q${qNum}`, this.value);
+                        markAnswered(qNum);
+                    } else {
+                        this.classList.remove('filled');
+                        localStorage.removeItem(`C10T4_q${qNum}`);
+                        unmarkAnswered(qNum);
+                    }
+                });
+            });
+
+            // Load saved answers on open
+            for (let i = 34; i <= 40; i++) {
+                const saved = localStorage.getItem(`C10T4_q${i}`);
+                if (saved) {
+                    const input = document.querySelector(`.answer-input[data-q="${i}"]`);
+                    if (input) {
+                        input.value = saved;
+                        input.classList.add('filled');
+                        markAnswered(i);
+                    }
+                }
+            }
+        });
+
+        function toggleAnswers() {
+            const ans = document.getElementById('answers');
+            ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function clearAllAnswers() {
+            if (!confirm("Clear all answers for this section?")) return;
+            document.querySelectorAll('.answer-input').forEach(el => {
+                el.value = '';
+                el.classList.remove('filled');
+            });
+            document.querySelectorAll('.user-highlight').forEach(el => {
+                const text = document.createTextNode(el.textContent);
+                el.parentNode.replaceChild(text, el);
+            });
+            for (let i = 34; i <= 40; i++) {
+                localStorage.removeItem(`C10T4_q${i}`);
+                unmarkAnswered(i);
+            }
+        }
+
+        function markAnswered(q) {
+            const el = document.querySelector(`.question-status .q-indicator:nth-child(${parseInt(q)+1})`);
+            if (el) el.classList.add('answered');
+        }
+
+        function unmarkAnswered(q) {
+            const el = document.querySelector(`.question-status .q-indicator:nth-child(${parseInt(q)+1})`);
+            if (el) el.classList.remove('answered');
+        }
+    </script>
+</body>
+</html>
