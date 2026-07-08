@@ -3,414 +3,734 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reading - The Psychology of Innovation</title>
+    <title>Reading Passage 2 - European Transport Systems</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif; 
+            min-height: 100vh; 
+            overflow-y: auto;
+            position: relative;
         }
-
-        body {
-            background-color: #fef2f2;
-            color: #1a1a1a;
-            line-height: 1.6;
-        }
-
-        /* ✅ LOGO STYLES */
+        
+        /* Logo area */
         .logo-container {
-            width: 100%;
-            background: #ffffff;
-            border-bottom: 2px solid #dc2626;
-            padding: 12px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
+            text-align: center;
+            padding: 8px 0;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
         }
         .logo {
-            width: 40%;
-            max-width: 350px;
-            height: auto;
-            display: block;
+            height: 120px;
+            width: auto;
+            object-fit: contain;
         }
 
-        .back-btn {
-            display: inline-block;
-            margin: 0 20px 15px;
-            padding: 8px 16px;
-            background: #fef2f2;
-            color: #dc2626;
-            text-decoration: none;
-            border-radius: 8px;
-            border: 1px solid #fecaca;
-            font-weight: 500;
-        }
-        .back-btn:hover {
-            background: #ffffff;
-        }
+        h1 { text-align: center; padding: 10px; font-size: 20px; color: #2c3e50; }
+        .subhead { text-align: center; font-style: italic; color: #555; margin-bottom: 15px; }
 
-        /* ✅ TWO‑COLUMN LAYOUT — SAME AS OTHER PASSAGES */
-        .main-wrapper {
-            display: flex;
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
             padding: 0 20px 20px;
-            height: calc(100vh - 100px);
+            position: relative;
         }
 
-        .passage-column, .questions-column {
-            flex: 1;
-            background: #ffffff;
-            border-radius: 12px;
-            border: 1px solid #fecaca;
+        .box {
+            border: 1px solid #ccc;
+            border-radius: 5px;
             padding: 20px;
-            overflow-y: auto; /* ✅ SCROLLBAR WHEN LONG */
-            box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07);
+            max-height: 80vh;
+            overflow-y: auto;
+            background: #fff;
+            position: relative;
         }
 
-        h1 {
-            color: #dc2626;
-            font-size: 20px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
+        /* Custom scrollbar */
+        .box::-webkit-scrollbar { width: 14px; }
+        .box::-webkit-scrollbar-track { background: #f1f1f1; }
+        .box::-webkit-scrollbar-thumb { background: #b8b8b8; border-radius: 4px; }
+        .box::-webkit-scrollbar-thumb:hover { background: #999; }
+        .box { scrollbar-width: auto; scrollbar-color: #b8b8b8 #f1f1f1; }
 
-        .passage-text p {
-            margin-bottom: 12px;
-            font-size: 15px;
-        }
-
-        .questions-section h2 {
-            color: #991b1b;
-            font-size: 17px;
-            margin: 15px 0 8px;
-        }
-
-        .question-block {
-            margin-bottom: 12px;
-        }
-
-        .question-block p {
-            font-weight: 500;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-
-        .options label {
-            display: block;
-            margin-left: 15px;
-            margin-bottom: 3px;
-            font-size: 14px;
+        p { margin-bottom: 15px; line-height: 1.6; text-align: justify; }
+        h2, h3 { margin: 20px 0 10px 0; color: #2c3e50; }
+        ul, ol { margin-left: 20px; margin-bottom: 15px; line-height: 1.6; }
+        
+        /* ✅ Highlight set to DARK YELLOW */
+        .user-highlight {
+            background-color: #ffd700;
+            padding: 2px 4px;
+            border-radius: 2px;
             cursor: pointer;
+            color: #000;
         }
 
-        .answer-input {
-            width: 100%;
-            padding: 6px 10px;
-            border: 1px solid #fecaca;
-            border-radius: 6px;
-            font-size: 14px;
-            background: #fef2f2;
-        }
-
-        .toggle-answers, .show-student {
-            margin: 15px 8px 0 0;
-            padding: 8px 16px;
-            background: #dc2626;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .answers-box, .student-answers-box {
-            margin-top: 12px;
-            padding: 12px;
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            border-radius: 8px;
+        /* Right-click context menu */
+        .context-menu {
+            position: absolute;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 9999;
             display: none;
+            min-width: 140px;
+        }
+        .context-menu div {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .context-menu div:hover {
+            background: #f0f0f0;
+        }
+
+        /* Sticky notes */
+        .sticky-note {
+            position: absolute;
+            width: 160px;
+            min-height: 60px;
+            background: #fff380;
+            border: 1px solid #e6c200;
+            border-radius: 4px;
+            padding: 6px;
+            box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+            z-index: 9998;
+            font-size: 13px;
+        }
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 12px;
+            color: #886a00;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #886a00;
+        }
+        .note-textarea {
+            width: 100%;
+            height: 45px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
             font-size: 13px;
         }
 
-        .correct { color: green; font-weight: 600; }
-        .wrong { color: red; font-weight: 600; }
-        .no-answer { color: #888; }
+        /* Flagging style */
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .flag-btn {
+            font-size: 18px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+            user-select: none;
+        }
+        .flag-btn.flagged {
+            color: #e67700;
+        }
+
+        /* --- QUESTION NAVIGATION BAR --- */
+        .nav-section-label {
+            font-weight: bold;
+            color: #333;
+            margin: 0 8px;
+            font-size: 14px;
+        }
+        .question-status {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            margin: 10px 20px;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+        .q-indicator {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2px;
+            border: 1px solid #ced4da;
+            background: #e9ecef;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .q-indicator:hover {
+            background: #dee2e6;
+        }
+        .q-indicator.answered {
+            background: #198754;
+            color: white;
+            border-color: #198754;
+        }
+        .q-indicator.flagged {
+            background: #fd7e14;
+            color: white;
+            border-color: #fd7e14;
+        }
+        .q-indicator.current {
+            border: 2px solid #007bff;
+        }
+
+        .question { margin-bottom: 20px; scroll-margin-top: 20px; }
+        textarea { 
+            width: 100%; 
+            padding: 8px; 
+            margin-top: 5px; 
+            border: 1px solid #ccc; 
+            border-radius: 3px; 
+            min-height: 40px;
+            resize: vertical;
+        }
+
+        /* Answer styling - HIDDEN by default */
+        .correct-answer {
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 4px;
+            display: none;
+        }
+
+        /* Bottom controls & navigation */
+        .bottom-controls {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            background: #fff;
+            flex-wrap: wrap;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+        .check-btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: none;
+            background: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        .check-btn:hover {
+            background: #218838;
+        }
+        .clear-btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: none;
+            background: #dc3545;
+            color: white;
+            cursor: pointer;
+        }
+        .clear-btn:hover {
+            background: #c82333;
+        }
+        .nav {
+            display: flex;
+            gap: 10px;
+        }
+        .nav a, .nav span { 
+            padding: 8px 16px; 
+            font-size: 14px; 
+            border-radius: 4px; 
+            text-decoration: none; 
+            cursor: pointer; 
+            border: none;
+        }
+        .prev { background: #6c757d; color: white; }
+        .next { background: #007bff; color: white; font-weight: bold; }
     </style>
 </head>
 <body>
-    <!-- Logo — EXACTLY AS YOU HAVE IT -->
+    <!-- Logo -->
     <div class="logo-container">
-        <img src="ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
+        <img src="ielts-logo.png" alt="IELTS Reading Practice Logo" class="logo">
     </div>
 
-    <a href="../index.html" class="back-btn">← Back to Main Menu</a>
+    <h1>Reading Passage 2</h1>
+    <p class="subhead">You should spend about 20 minutes on Questions 14–26</p>
 
-    <!-- ✅ TWO COLUMNS: LEFT = PASSAGE | RIGHT = QUESTIONS -->
-    <div class="main-wrapper">
-        <!-- LEFT SIDE: PASSAGE TEXT -->
-        <div class="passage-column">
-            <h1>Reading Passage 3 — The Psychology of Innovation</h1>
-            <div class="passage-text">
-                <p><strong>The Psychology of Innovation</strong></p>
+    <!-- Right-click menu -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+    </div>
 
-                <p>A</p>
-                <p>Why are so few companies truly innovative? Innovation is key to business survival, and companies spend millions of dollars encouraging it. Management gurus, consultants and academics have all had their theories — but the fact remains that for every highly successful innovative company, there are hundreds of others that fail. The problem, according to a growing number of experts, is that we have misunderstood what innovation actually is. We think it is about technology, or products, or processes — but it is actually about people.</p>
+    <div class="container">
+        <!-- Passage Box -->
+        <div class="box" id="passageBox">
+            <h2 style="text-align:center; margin-bottom:20px;">EUROPEAN TRANSPORT SYSTEMS 1990–2010</h2>
+            <p style="text-align:center; font-style:italic; margin-bottom:25px;">What have been the trends and what are the prospects for European transport systems?</p>
 
-                <p>B</p>
-                <p>One of the most famous examples of innovation is the ‘Million Dollar Quartet’ — a 1956 recording session that brought together Elvis Presley, Johnny Cash, Carl Perkins and Jerry Lee Lewis. These four young musicians went on to change the face of popular music. But what made them so special? It wasn’t just their individual talent. Sam Phillips, the owner of Sun Records, had a clear vision: he wanted to create a new kind of music. He didn’t just hire talented people; he brought together people who shared his ambition. Roy Orbison, a talented singer who was also at Sun Records at the time, was not part of the group — because he didn’t share that goal. As Phillips later said: ‘They knew exactly what we were trying to do, and they wanted to do it too.’</p>
+            <p><strong>A</strong> It is difficult to conceive of vigorous economic growth without an efficient transport system. Although modern information technologies can reduce the demand for physical transport by facilitating teleworking and teleservices, the requirement for transport continues to increase. There are two key factors behind this trend. For passenger transport, the determining factor is the spectacular growth in car use. The number of cars on European Union (EU) roads saw an increase of three million cars each year from 1990 to 2010, and in the next decade the EU will see a further substantial increase in its fleet.</p>
 
-                <p>C</p>
-                <p>Innovation thrives when people work together towards a shared objective. Gary Hamel, a leading expert on management, argues that successful innovation is rarely the work of a single genius. He points to the example of the team that developed the first personal computer at Apple. The team included engineers, designers, marketers and even a psychologist. None of them was the ‘best’ in the world at what they did — but together they created something that changed the world. ‘The most innovative companies,’ Hamel says, ‘are not the ones with the smartest people. They are the ones that create the environment where smart people can work together effectively.’</p>
+            <p><strong>B</strong> As far as goods transport is concerned, growth is due to a large extent to changes in the European economy and its system of production. In the last 20 years, as internal frontiers have been abolished, the EU has moved from a ‘stock’ economy to a ‘flow’ economy. This phenomenon has been emphasised by the relocation of some industries, particularly those which are labour intensive, to reduce production costs, even though the production site is hundreds or even thousands of kilometres away from the final assembly plant or away from users.</p>
 
-                <p>D</p>
-                <p>So what makes a good innovative team? Research shows that the best teams are those where members are aware of their own limitations. Bill Gates once said: ‘We all have blind spots. The key is to find people whose strengths complement your weaknesses.’ In the early days of Microsoft, Gates and his partner Paul Allen deliberately hired people who were smarter than them — but who also knew what they didn’t know. Unlike many leaders, who surround themselves with people who agree with them, Gates and Allen wanted people who would challenge their ideas. This, they believed, was the only way to create something truly new.</p>
+            <p><strong>C</strong> The strong economic growth expected in countries which are candidates for entry to the EU will also increase transport flows, in particular road haulage traffic. In 1998, some of these countries already exported more than twice their 1990 volumes and imported more than five times their 1990 volumes. And although many candidate countries inherited a transport system which encourages rail, the distribution between modes has tipped sharply in favour of road transport since the 1990s. Between 1990 and 1998, road haulage increased by 19.4%, while during the same period rail haulage decreased by 43.5%, although – and this could benefit the enlarged EU – it is still on average at a much higher level than in existing member states.</p>
 
-                <p>E</p>
-                <p>Another important factor is commitment. Psychologists have found that when people write down their goals or ideas, they are much more likely to achieve them. This is why some companies ask employees to write short statements on cereal packets or posters and display them in the office. This simple act makes people feel more responsible for their ideas and more committed to making them work. It also helps to align everyone’s thinking towards the same purpose.</p>
+            <p><strong>D</strong> However, a new imperative – sustainable development – offers an opportunity for adapting the EU's common transport policy. This objective, agreed by the Gothenburg European Council, has to be achieved by integrating environmental considerations into Community policies, and shifting the balance between modes of transport lies at the heart of its strategy. The ambitious objective can only be fully achieved by 2020, but proposed measures are nonetheless a first essential step towards a sustainable transport system which will ideally be in place in 30 years' time, that is by 2040.</p>
 
-                <p>F</p>
-                <p>However, even the best teams can fail if the environment is wrong. Research by Harvard Business School shows that physical surroundings have surprisingly little effect on creativity. Many companies spend huge amounts of money designing ‘innovation centres’ with open-plan offices, bright colours and relaxing spaces — only to find that their employees are no more creative than before. What matters far more is the psychological environment. If people feel safe to take risks, to make mistakes and to express their ideas, they will be creative. If they feel judged or controlled, they will not.</p>
+            <p><strong>E</strong> In 1998, energy consumption in the transport sector was to blame for 28% of emissions of CO₂, the leading greenhouse gas. According to the latest estimates, if nothing is done to reverse the traffic growth trend, CO₂ emissions from transport can be expected to increase by around 50% to 1,113 billion tonnes by 2020, compared with the 739 billion tonnes recorded in 1990. Once again, road transport is the main culprit since it alone accounts for 84% of the CO₂ emissions attributable to transport. Using alternative fuels and improving energy efficiency is thus both an ecological necessity and a technological challenge.</p>
 
-                <p>G</p>
-                <p>Change is also a major factor. When things change, people naturally become cautious. Evolution has programmed us to ‘play it safe’ when we feel uncertain. This is why innovation often slows down during times of change. But psychologists have also found that people are more likely to take risks when they are threatened with a loss than when they are offered a reward. This means that leaders who want to encourage innovation should focus on what might be lost if they don’t change, rather than what might be gained.</p>
+            <p><strong>F</strong> At the same time greater efforts must be made to achieve a modal shift. Such a change cannot be achieved overnight, all the less so after over half a century of constant deterioration in favour of road. This has reached such a pitch that today rail freight services are facing marginalisation, with just 8% of market share, and with international goods trains struggling along at an average speed of 18km/h. Three possible options have emerged.</p>
 
-                <p>H</p>
-                <p>One of the biggest enemies of innovation is ‘captainitis’ — a term used to describe what happens when a leader is too dominant. When one person makes all the decisions and controls everything, other team members stop contributing. They feel that their ideas don’t matter, so they stop sharing them. The best leaders, by contrast, encourage everyone to speak up. They make sure that every contribution is valued, and they use their power to support the team, not to control it. As one CEO put it: ‘My job is not to have all the answers. My job is to make sure everyone else’s answers are heard.’</p>
-            </div>
+            <p><strong>G</strong> The first approach would consist of focusing on road transport solely through pricing. This option would not be accompanied by complementary measures in the other modes of transport. In the short term it might curb the growth in road transport through the better loading ratio of goods vehicles and occupancy rates of passenger vehicles expected as a result of the increase in the price of transport. However, the lack of measures available to revitalise other modes of transport would make it impossible for more sustainable modes of transport to take up the baton.</p>
+
+            <p><strong>H</strong> The second approach also concentrates on road transport pricing but is accompanied by measures to increase the efficiency of the other modes (better quality of services, logistics, technology). However, this approach does not include investment in new infrastructure, nor does it guarantee better regional cohesion. It could help to achieve greater uncoupling than the first approach, but road transport would keep the lion's share of the market and continue to concentrate on saturated arteries, despite being the most polluting of the modes. It is therefore not enough to guarantee the necessary shift of the balance.</p>
+
+            <p><strong>I</strong> The third approach, which is not new, comprises a series of measures ranging from pricing to revitalising alternative modes of transport and targeting investment in the trans-European network. This integrated approach would allow the market shares of the other modes to return to their 1998 levels and thus make a shift of balance. It is far more ambitious than it looks, bearing in mind the historical imbalance in favour of roads for the last fifty years, but would achieve a marked break in the link between road transport growth and economic growth, without placing restrictions on the mobility of people and goods.</p>
         </div>
 
-        <!-- RIGHT SIDE: QUESTIONS -->
-        <div class="questions-column">
-            <div class="questions-section">
-                <h2>Questions 27–30: Multiple Choice</h2>
-                <div class="question-block">
-                    <p>27. The writer uses the example of the Million Dollar Quartet to illustrate that innovation requires</p>
-                    <div class="options">
-                        <label><input type="radio" name="q27" value="A"> A. individual talent</label>
-                        <label><input type="radio" name="q27" value="B"> B. famous people</label>
-                        <label><input type="radio" name="q27" value="C"> C. having a shared objective</label>
-                        <label><input type="radio" name="q27" value="D"> D. good management</label>
+        <!-- Questions Box -->
+        <div class="box">
+            <h3 style="margin-bottom:15px;">Questions 14–26</h3>
+
+            <!-- Questions 14–21 Matching Headings -->
+            <div class="question" id="q14">
+                <h4>Questions 14–21</h4>
+                <p><em>Reading Passage 2 has nine paragraphs, A–I.</em></p>
+                <p><em>Choose the correct heading for paragraphs A–E and G–I from the list of headings below.</em></p>
+                <p><em>Write the correct number, i–xi, in boxes 14–21 on your answer sheet.</em></p>
+
+                <div style="border:1px solid #ccc; padding:12px; margin:15px 0; background:#fdfdfd;">
+                    <p style="font-weight:bold; text-align:center; margin-bottom:10px;">List of Headings</p>
+                    <p>i &nbsp;&nbsp;&nbsp; A fresh and important long-term goal</p>
+                    <p>ii &nbsp;&nbsp; Charging for roads and improving other transport methods</p>
+                    <p>iii &nbsp; Changes affecting the distances goods may be transported</p>
+                    <p>iv &nbsp;&nbsp; Taking all the steps necessary to change transport patterns</p>
+                    <p>v &nbsp;&nbsp;&nbsp; The environmental costs of road transport</p>
+                    <p>vi &nbsp;&nbsp; The escalating cost of rail transport</p>
+                    <p>vii &nbsp; The need to achieve transport rebalance</p>
+                    <p>viii &nbsp; The rapid growth of private transport</p>
+                    <p>ix &nbsp;&nbsp; Plans to develop major road networks</p>
+                    <p>x &nbsp;&nbsp;&nbsp; Restricting road use through charging policies alone</p>
+                    <p>xi &nbsp;&nbsp; Transport trends in countries awaiting EU admission</p>
+                </div>
+
+                <div class="question">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(14)" id="flag14">🚩</span>
+                        <label><strong>14.</strong> Paragraph A</label>
                     </div>
+                    <textarea class="ans" data-q="14" data-answer="viii" placeholder="Enter i–xi"></textarea>
+                    <div class="correct-answer">Correct answer: viii</div>
                 </div>
 
-                <div class="question-block">
-                    <p>28. Bill Gates and Paul Allen believed that success came from people who</p>
-                    <div class="options">
-                        <label><input type="radio" name="q28" value="A"> A. were conscious of their own limitations</label>
-                        <label><input type="radio" name="q28" value="B"> B. agreed with their ideas</label>
-                        <label><input type="radio" name="q28" value="C"> C. were the most intelligent</label>
-                        <label><input type="radio" name="q28" value="D"> D. had different skills</label>
+                <div class="question" id="q15">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(15)" id="flag15">🚩</span>
+                        <label><strong>15.</strong> Paragraph B</label>
                     </div>
+                    <textarea class="ans" data-q="15" data-answer="iii" placeholder="Enter i–xi"></textarea>
+                    <div class="correct-answer">Correct answer: iii</div>
                 </div>
 
-                <div class="question-block">
-                    <p>29. Writing ideas down helps people to</p>
-                    <div class="options">
-                        <label><input type="radio" name="q29" value="A"> A. remember them better</label>
-                        <label><input type="radio" name="q29" value="B"> B. explain them to others</label>
-                        <label><input type="radio" name="q29" value="C"> C. improve them</label>
-                        <label><input type="radio" name="q29" value="D"> D. strengthen commitment to an idea</label>
+                <div class="question" id="q16">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(16)" id="flag16">🚩</span>
+                        <label><strong>16.</strong> Paragraph C</label>
                     </div>
+                    <textarea class="ans" data-q="16" data-answer="xi" placeholder="Enter i–xi"></textarea>
+                    <div class="correct-answer">Correct answer: xi</div>
                 </div>
 
-                <div class="question-block">
-                    <p>30. Good leaders ensure that team members</p>
-                    <div class="options">
-                        <label><input type="radio" name="q30" value="A"> A. follow instructions</label>
-                        <label><input type="radio" name="q30" value="B"> B. feel that their contributions are valued</label>
-                        <label><input type="radio" name="q30" value="C"> C. work independently</label>
-                        <label><input type="radio" name="q30" value="D"> D. avoid making mistakes</label>
+                <div class="question" id="q17">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(17)" id="flag17">🚩</span>
+                        <label><strong>17.</strong> Paragraph D</label>
                     </div>
+                    <textarea class="ans" data-q="17" data-answer="i" placeholder="Enter i–xi"></textarea>
+                    <div class="correct-answer">Correct answer: i</div>
                 </div>
 
-
-                <h2>Questions 31–35: Sentence Completion</h2>
-                <p><em>Choose FIVE answers from the box and write the correct letter A–G next to questions 31–35.</em></p>
-                <div class="options" style="margin: 8px 0;">
-                    <p><strong>A — take chances</strong><br>
-                    <strong>B — share their ideas</strong><br>
-                    <strong>C — work faster</strong><br>
-                    <strong>D — earn rewards</strong><br>
-                    <strong>E — avoid risk</strong><br>
-                    <strong>F — ignore their duties</strong><br>
-                    <strong>G — remain in their jobs</strong></p>
-                </div>
-
-                <div class="question-block">
-                    <p>31. When employees’ values match those of the company, they are more likely to ......................... .</p>
-                    <input type="text" class="answer-input" name="q31" placeholder="Write letter A-G">
-                </div>
-
-                <div class="question-block">
-                    <p>32. When there is change, people naturally tend to ......................... .</p>
-                    <input type="text" class="answer-input" name="q32" placeholder="Write letter A-G">
-                </div>
-
-                <div class="question-block">
-                    <p>33. People are more likely to ......................... if they feel they might lose something.</p>
-                    <input type="text" class="answer-input" name="q33" placeholder="Write letter A-G">
-                </div>
-
-                <div class="question-block">
-                    <p>34. If a leader is too dominant, team members may ......................... .</p>
-                    <input type="text" class="answer-input" name="q34" placeholder="Write letter A-G">
-                </div>
-
-                <div class="question-block">
-                    <p>35. When there are few rules, people are more willing to ......................... .</p>
-                    <input type="text" class="answer-input" name="q35" placeholder="Write letter A-G">
-                </div>
-
-
-                <h2>Questions 36–40: YES / NO / NOT GIVEN</h2>
-                <p><em>Do the following statements agree with the views of the writer in the reading passage?</em><br>
-                <strong>YES</strong> — if the statement agrees with the views<br>
-                <strong>NO</strong> — if the statement contradicts the views<br>
-                <strong>NOT GIVEN</strong> — if it is impossible to say what the writer thinks</p>
-
-                <div class="question-block">
-                    <p>36. The physical design of an office plays a key role in encouraging innovation.</p>
-                    <div class="options">
-                        <label><input type="radio" name="q36" value="YES"> YES</label>
-                        <label><input type="radio" name="q36" value="NO"> NO</label>
-                        <label><input type="radio" name="q36" value="NOT GIVEN"> NOT GIVEN</label>
+                <div class="question" id="q18">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(18)" id="flag18">🚩</span>
+                        <label><strong>18.</strong> Paragraph E</label>
                     </div>
+                    <textarea class="ans" data-q="18" data-answer="v" placeholder="Enter i–xi"></textarea>
+                    <div class="correct-answer">Correct answer: v</div>
                 </div>
 
-                <div class="question-block">
-                    <p>37. Almost everyone has the potential to be creative in the right conditions.</p>
-                    <div class="options">
-                        <label><input type="radio" name="q37" value="YES"> YES</label>
-                        <label><input type="radio" name="q37" value="NO"> NO</label>
-                        <label><input type="radio" name="q37" value="NOT GIVEN"> NOT GIVEN</label>
+                <div class="question" id="q19">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(19)" id="flag19">🚩</span>
+                        <label><strong>19.</strong> Paragraph G</label>
                     </div>
+                    <textarea class="ans" data-q="19" data-answer="x" placeholder="Enter i–xi"></textarea>
+                    <div class="correct-answer">Correct answer: x</div>
                 </div>
 
-                <div class="question-block">
-                    <p>38. Teams work best when all members have equal intelligence levels.</p>
-                    <div class="options">
-                        <label><input type="radio" name="q38" value="YES"> YES</label>
-                        <label><input type="radio" name="q38" value="NO"> NO</label>
-                        <label><input type="radio" name="q38" value="NOT GIVEN"> NOT GIVEN</label>
+                <div class="question" id="q20">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(20)" id="flag20">🚩</span>
+                        <label><strong>20.</strong> Paragraph H</label>
                     </div>
+                    <textarea class="ans" data-q="20" data-answer="ii" placeholder="Enter i–xi"></textarea>
+                    <div class="correct-answer">Correct answer: ii</div>
                 </div>
 
-                <div class="question-block">
-                    <p>39. Small companies are generally more innovative than large companies.</p>
-                    <div class="options">
-                        <label><input type="radio" name="q39" value="YES"> YES</label>
-                        <label><input type="radio" name="q39" value="NO"> NO</label>
-                        <label><input type="radio" name="q39" value="NOT GIVEN"> NOT GIVEN</label>
+                <div class="question" id="q21">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(21)" id="flag21">🚩</span>
+                        <label><strong>21.</strong> Paragraph I</label>
                     </div>
-                </div>
-
-                <div class="question-block">
-                    <p>40. A colleague’s opinion has less influence than a manager’s instructions.</p>
-                    <div class="options">
-                        <label><input type="radio" name="q40" value="YES"> YES</label>
-                        <label><input type="radio" name="q40" value="NO"> NO</label>
-                        <label><input type="radio" name="q40" value="NOT GIVEN"> NOT GIVEN</label>
-                    </div>
-                </div>
-
-
-                <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
-                <button class="show-student" onclick="showStudentAnswers()">📝 Show My Answers & Check</button>
-
-                <!-- ✅ CORRECT ANSWER KEY -->
-                <div class="answers-box" id="answersBox">
-                    <h3>✅ Correct Answers — Passage 3</h3>
-                    <p><strong>27.</strong> C<br>
-                    <strong>28.</strong> A<br>
-                    <strong>29.</strong> D<br>
-                    <strong>30.</strong> B<br>
-                    <strong>31.</strong> G<br>
-                    <strong>32.</strong> E<br>
-                    <strong>33.</strong> A<br>
-                    <strong>34.</strong> F<br>
-                    <strong>35.</strong> B<br>
-                    <strong>36.</strong> NO<br>
-                    <strong>37.</strong> YES<br>
-                    <strong>38.</strong> NOT GIVEN<br>
-                    <strong>39.</strong> NOT GIVEN<br>
-                    <strong>40.</strong> NO</p>
-                </div>
-
-                <!-- ✅ STUDENT ANSWERS LIST + CHECK RESULT -->
-                <div class="student-answers-box" id="studentAnswersBox">
-                    <h3>📝 Your Answers & Result</h3>
-                    <div id="studentResult"></div>
+                    <textarea class="ans" data-q="21" data-answer="iv" placeholder="Enter i–xi"></textarea>
+                    <div class="correct-answer">Correct answer: iv</div>
                 </div>
             </div>
+
+            <!-- Questions 22–26 True/False/Not Given -->
+            <div class="question" id="q22">
+                <h4>Questions 22–26</h4>
+                <p><em>Do the following statements agree with the information given in Reading Passage 2?</em></p>
+                <p><strong>TRUE</strong> if the statement agrees with the information<br>
+                <strong>FALSE</strong> if the statement contradicts the information<br>
+                <strong>NOT GIVEN</strong> if there is no information on this</p>
+
+                <div class="question">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(22)" id="flag22">🚩</span>
+                        <label><strong>22.</strong> The need for transport is growing, despite technological developments.</label>
+                    </div>
+                    <textarea class="ans" data-q="22" data-answer="TRUE"></textarea>
+                    <div class="correct-answer">Correct answer: TRUE</div>
+                </div>
+
+                <div class="question" id="q23">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(23)" id="flag23">🚩</span>
+                        <label><strong>23.</strong> To reduce production costs, some industries have been moved closer to their relevant consumers.</label>
+                    </div>
+                    <textarea class="ans" data-q="23" data-answer="FALSE"></textarea>
+                    <div class="correct-answer">Correct answer: FALSE</div>
+                </div>
+
+                <div class="question" id="q24">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(24)" id="flag24">🚩</span>
+                        <label><strong>24.</strong> Cars are prohibitively expensive in some EU candidate countries.</label>
+                    </div>
+                    <textarea class="ans" data-q="24" data-answer="NOT GIVEN"></textarea>
+                    <div class="correct-answer">Correct answer: NOT GIVEN</div>
+                </div>
+
+                <div class="question" id="q25">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(25)" id="flag25">🚩</span>
+                        <label><strong>25.</strong> The Gothenburg European Council was set up 30 years ago.</label>
+                    </div>
+                    <textarea class="ans" data-q="25" data-answer="NOT GIVEN"></textarea>
+                    <div class="correct-answer">Correct answer: NOT GIVEN</div>
+                </div>
+
+                <div class="question" id="q26">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(26)" id="flag26">🚩</span>
+                        <label><strong>26.</strong> By the end of this decade, CO₂ emissions from transport are predicted to reach 739 billion tonnes.</label>
+                    </div>
+                    <textarea class="ans" data-q="26" data-answer="FALSE"></textarea>
+                    <div class="correct-answer">Correct answer: FALSE</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question Navigation Bar -->
+    <div class="question-status" id="statusBar">
+        <span class="nav-section-label">Passage 1:</span>
+        <span id="p1_1"></span><span id="p1_2"></span><span id="p1_3"></span><span id="p1_4"></span><span id="p1_5"></span>
+        <span id="p1_6"></span><span id="p1_7"></span><span id="p1_8"></span><span id="p1_9"></span><span id="p1_10"></span>
+        <span id="p1_11"></span><span id="p1_12"></span><span id="p1_13"></span>
+
+        <span class="nav-section-label">Passage 2:</span>
+        <span id="p2_14"></span><span id="p2_15"></span><span id="p2_16"></span><span id="p2_17"></span><span id="p2_18"></span>
+        <span id="p2_19"></span><span id="p2_20"></span><span id="p2_21"></span><span id="p2_22"></span><span id="p2_23"></span>
+        <span id="p2_24"></span><span id="p2_25"></span><span id="p2_26"></span>
+
+        <span class="nav-section-label">Passage 3:</span>
+        <span id="p3_27"></span><span id="p3_28"></span><span id="p3_29"></span><span id="p3_30"></span><span id="p3_31"></span>
+        <span id="p3_32"></span><span id="p3_33"></span><span id="p3_34"></span><span id="p3_35"></span><span id="p3_36"></span>
+        <span id="p3_37"></span><span id="p3_38"></span><span id="p3_39"></span><span id="p3_40"></span>
+    </div>
+
+    <!-- Bottom controls & navigation -->
+    <div class="bottom-controls">
+        <div class="btn-group">
+            <button class="check-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+            <button class="clear-btn" onclick="clearAll()">Clear All</button>
+        </div>
+        <div class="nav">
+            <a href="reading-passage1.html" class="prev">← Previous Passage</a>
+            <a href="reading-passage3.html" class="next">Next Passage →</a>
         </div>
     </div>
 
     <script>
-        // ✅ Correct answer data
-        const correctAnswers = {
-            q27: 'C',
-            q28: 'A',
-            q29: 'D',
-            q30: 'B',
-            q31: 'G',
-            q32: 'E',
-            q33: 'A',
-            q34: 'F',
-            q35: 'B',
-            q36: 'NO',
-            q37: 'YES',
-            q38: 'NOT GIVEN',
-            q39: 'NOT GIVEN',
-            q40: 'NO'
+        const passageBox = document.getElementById('passageBox');
+        const contextMenu = document.getElementById('contextMenu');
+        let currentRange = null;
+        let lastNoteId = 0;
+
+        // Initialize all question indicators
+        window.onload = function() {
+            const sections = [
+                { start: 1, end: 13, prefix: 'p1_' },
+                { start: 14, end: 26, prefix: 'p2_' },
+                { start: 27, end: 40, prefix: 'p3_' }
+            ];
+            sections.forEach(sec => {
+                for (let q = sec.start; q <= sec.end; q++) {
+                    const el = document.getElementById(sec.prefix + q);
+                    if (el) {
+                        el.className = 'q-indicator';
+                        el.textContent = q;
+                        el.id = 'stat' + q;
+                        el.onclick = () => jumpToQuestion(q);
+                    }
+                }
+            });
+            // Mark current passage
+            for (let q = 14; q <= 26; q++) {
+                document.getElementById('stat' + q).classList.add('current');
+            }
+            loadAllData();
         };
 
-        function toggleAnswers() {
-            const box = document.getElementById('answersBox');
-            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        function jumpToQuestion(qNum) {
+            const el = document.getElementById('q' + qNum);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        function showStudentAnswers() {
-            const box = document.getElementById('studentAnswersBox');
-            const resultDiv = document.getElementById('studentResult');
-            let html = '';
-
-            // Loop all questions
-            for (let q = 27; q <= 40; q++) {
-                let studentAns = '';
-                const radios = document.getElementsByName(`q${q}`);
-                if (radios.length > 0) {
-                    // Multiple choice / Yes/No
-                    for (let r of radios) {
-                        if (r.checked) studentAns = r.value;
-                    }
-                } else {
-                    // Text input
-                    const input = document.querySelector(`input[name="q${q}"]`);
-                    if (input) studentAns = input.value.trim().toUpperCase();
-                }
-
-                const correct = correctAnswers[`q${q}`];
-                let status = '';
-                if (!studentAns) {
-                    status = '<span class="no-answer">(No Answer)</span>';
-                } else if (studentAns === correct) {
-                    status = '<span class="correct">✅ Correct</span>';
-                } else {
-                    status = `<span class="wrong">❌ Wrong (Correct: ${correct})</span>`;
-                }
-
-                html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
+        // Right-click menu
+        passageBox.addEventListener('contextmenu', function(e) {
+            const selection = window.getSelection();
+            if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
+                contextMenu.style.display = 'none';
+                return;
             }
+            e.preventDefault();
+            currentRange = selection.getRangeAt(0);
+            const rect = currentRange.getBoundingClientRect();
+            contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+            contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+            contextMenu.style.display = 'block';
+        });
 
-            resultDiv.innerHTML = html;
-            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        document.addEventListener('click', () => contextMenu.style.display = 'none');
+
+        // ✅ Highlight text (fixed to preserve saved highlights properly)
+        document.getElementById('menuHighlight').addEventListener('click', function() {
+            if (!currentRange) return;
+            const span = document.createElement('span');
+            span.className = 'user-highlight';
+            span.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(span);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        });
+
+        // ✅ Add note
+        document.getElementById('menuNote').addEventListener('click', function() {
+            if (!currentRange) return;
+            const rect = currentRange.getBoundingClientRect();
+            const noteId = 'note_' + (++lastNoteId);
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            note.id = noteId;
+            note.innerHTML = `
+                <div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
+                <textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>
+            `;
+            note.style.left = (rect.right + window.scrollX + 8) + 'px';
+            note.style.top = (rect.top + window.scrollY) + 'px';
+            document.body.appendChild(note);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveNotes();
+        });
+
+        // ✅ Remove Highlight
+        document.getElementById('menuRemove').addEventListener('click', function() {
+            if (!currentRange) return;
+            try {
+                const container = currentRange.commonAncestorContainer;
+                let span = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+                if (span && span.classList.contains('user-highlight')) {
+                    const text = document.createTextNode(span.textContent);
+                    span.parentNode.replaceChild(text, span);
+                    span.parentNode.normalize();
+                } else {
+                    currentRange.deleteContents();
+                }
+            } catch (e) {
+                console.log('Highlight removed');
+            }
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        });
+
+        // ✅ Flag system
+        function toggleFlag(qNum) {
+            const flag = document.getElementById('flag' + qNum);
+            const stat = document.getElementById('stat' + qNum);
+            const isFlagged = flag.classList.toggle('flagged');
+            stat.classList.toggle('flagged', isFlagged);
+            localStorage.setItem('flag_' + qNum, isFlagged);
+        }
+
+        function closeNote(id) {
+            document.getElementById(id)?.remove();
+            saveNotes();
+        }
+
+        function saveNote(id, text) {
+            localStorage.setItem(id, text);
+        }
+
+        // ✅ Auto-save answers
+        document.querySelectorAll('.ans').forEach(el => {
+            const q = el.dataset.q;
+            const key = 'ans_' + q;
+            el.value = localStorage.getItem(key) || '';
+            updateStatus(q);
+            el.addEventListener('input', () => {
+                localStorage.setItem(key, el.value);
+                updateStatus(q);
+            });
+        });
+
+        function updateStatus(q) {
+            const val = localStorage.getItem('ans_' + q) || '';
+            const stat = document.getElementById('stat' + q);
+            if (stat) stat.classList.toggle('answered', val.trim() !== '');
+        }
+
+        // ✅ Save/load highlights (fixed for reliable storage)
+        function saveHighlights() {
+            localStorage.setItem('passage_highlights_p2', passageBox.innerHTML);
+        }
+
+        function loadHighlights() {
+            const saved = localStorage.getItem('passage_highlights_p2');
+            if (saved) {
+                passageBox.innerHTML = saved;
+                // Reattach right-click listener after loading saved content
+                passageBox.addEventListener('contextmenu', function(e) {
+                    const selection = window.getSelection();
+                    if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
+                        contextMenu.style.display = 'none';
+                        return;
+                    }
+                    e.preventDefault();
+                    currentRange = selection.getRangeAt(0);
+                    const rect = currentRange.getBoundingClientRect();
+                    contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+                    contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+                    contextMenu.style.display = 'block';
+                });
+            }
+        }
+
+        // ✅ Save/load notes
+        function saveNotes() {
+            const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
+                id: n.id, left: n.style.left, top: n.style.top,
+                text: n.querySelector('.note-textarea').value
+            }));
+            localStorage.setItem('notes_data_p2', JSON.stringify(notes));
+        }
+
+        function loadNotes() {
+            const saved = localStorage.getItem('notes_data_p2');
+            if (!saved) return;
+            JSON.parse(saved).forEach(n => {
+                const note = document.createElement('div');
+                note.className = 'sticky-note';
+                note.id = n.id;
+                note.innerHTML = `
+                    <div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
+                    <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
+                `;
+                note.style.left = n.left;
+                note.style.top = n.top;
+                document.body.appendChild(note);
+                const num = parseInt(n.id.split('_')[1]);
+                if (num > lastNoteId) lastNoteId = num;
+            });
+        }
+
+        function loadAllData() {
+            loadHighlights();
+            loadNotes();
+            for (let i = 14; i <= 26; i++) {
+                const flagged = localStorage.getItem('flag_' + i) === 'true';
+                if (flagged) {
+                    document.getElementById('flag' + i)?.classList.add('flagged');
+                    document.getElementById('stat' + i)?.classList.add('flagged');
+                }
+                updateStatus(i);
+            }
+        }
+
+        function toggleAnswers() {
+            document.querySelectorAll('.correct-answer').forEach(ans => {
+                ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
+            });
+        }
+
+        function clearAll() {
+            if (!confirm("Clear all answers, highlights, notes and flags?")) return;
+            // Clear Passage 2 data
+            for (let i = 14; i <= 26; i++) {
+                localStorage.removeItem('ans_' + i);
+                localStorage.removeItem('flag_' + i);
+            }
+            localStorage.removeItem('passage_highlights_p2');
+            localStorage.removeItem('notes_data_p2');
+            
+            document.querySelectorAll('.ans').forEach(el => el.value = '');
+            document.querySelectorAll('.user-highlight').forEach(span => {
+                const text = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(text, span);
+                span.parentNode.normalize();
+            });
+            document.querySelectorAll('.sticky-note').forEach(n => n.remove());
+            for (let i = 14; i <= 26; i++) {
+                document.getElementById('flag' + i)?.classList.remove('flagged');
+                const stat = document.getElementById('stat' + i);
+                if (stat) stat.className = 'q-indicator current';
+            }
+            lastNoteId = 0;
         }
     </script>
-
 </body>
 </html>
