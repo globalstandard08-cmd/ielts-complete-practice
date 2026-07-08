@@ -314,16 +314,17 @@
             display: flex;
             gap: 10px;
         }
-        .nav a, .nav span { 
+        .nav a { 
             padding: 8px 16px; 
             font-size: 14px; 
             border-radius: 4px; 
             text-decoration: none; 
             cursor: pointer; 
             border: none;
+            color: white;
         }
-        .prev { background: #6c757d; color: white; }
-        .back-main { background: #9b59b6; color: white; font-weight: bold; }
+        .prev { background: #6c757d; }
+        .back-main { background: #9b59b6; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -498,31 +499,31 @@
                             <span class="flag-btn" onclick="toggleFlag(31)" id="flag31">🚩</span>
                             <label><strong>31.</strong> Employees whose values match those of their employers are more likely to</label>
                         </div>
-                        <div class="drop-target" id="drop31" data-correct="G" ondrop="dropHandler(event, 31)" ondragover="dragOverHandler(event)" ondragleave="dragLeaveHandler(event)"></div>
+                        <div class="drop-target" id="drop31" data-correct="G"></div>
 
                         <div class="question-header">
                             <span class="flag-btn" onclick="toggleFlag(32)" id="flag32">🚩</span>
                             <label><strong>32.</strong> At times of change, people tend to</label>
                         </div>
-                        <div class="drop-target" id="drop32" data-correct="E" ondrop="dropHandler(event, 32)" ondragover="dragOverHandler(event)" ondragleave="dragLeaveHandler(event)"></div>
+                        <div class="drop-target" id="drop32" data-correct="E"></div>
 
                         <div class="question-header">
                             <span class="flag-btn" onclick="toggleFlag(33)" id="flag33">🚩</span>
                             <label><strong>33.</strong> If people are aware of what they might lose, they will often</label>
                         </div>
-                        <div class="drop-target" id="drop33" data-correct="A" ondrop="dropHandler(event, 33)" ondragover="dragOverHandler(event)" ondragleave="dragLeaveHandler(event)"></div>
+                        <div class="drop-target" id="drop33" data-correct="A"></div>
 
                         <div class="question-header">
                             <span class="flag-btn" onclick="toggleFlag(34)" id="flag34">🚩</span>
                             <label><strong>34.</strong> People working under a dominant boss are liable to</label>
                         </div>
-                        <div class="drop-target" id="drop34" data-correct="F" ondrop="dropHandler(event, 34)" ondragover="dragOverHandler(event)" ondragleave="dragLeaveHandler(event)"></div>
+                        <div class="drop-target" id="drop34" data-correct="F"></div>
 
                         <div class="question-header">
                             <span class="flag-btn" onclick="toggleFlag(35)" id="flag35">🚩</span>
                             <label><strong>35.</strong> Employees working in organisations with few rules are more likely to</label>
                         </div>
-                        <div class="drop-target" id="drop35" data-correct="B" ondrop="dropHandler(event, 35)" ondragover="dragOverHandler(event)" ondragleave="dragLeaveHandler(event)"></div>
+                        <div class="drop-target" id="drop35" data-correct="B"></div>
                     </div>
                 </div>
                 <div class="correct-answer">Correct answers: 31=G, 32=E, 33=A, 34=F, 35=B</div>
@@ -641,7 +642,7 @@
         </div>
         <div class="nav">
             <a href="reading-passage2.html" class="prev">← Previous Passage</a>
-            <a href="main-menu.html" class="back-main">Back to Main Menu</a>
+            <a href="../main-menu.html" class="back-main">Back to Main Menu</a>
         </div>
     </div>
 
@@ -736,6 +737,7 @@
 
         function saveNote(id, text) {
             localStorage.setItem(id, text);
+            saveNotes();
         }
 
         // --- FLAG SYSTEM ---
@@ -762,10 +764,17 @@
                     e.dataTransfer.effectAllowed = 'move';
                 });
             });
+
+            document.querySelectorAll('.drop-target').forEach(target => {
+                target.addEventListener('dragover', dragOverHandler);
+                target.addEventListener('dragleave', dragLeaveHandler);
+                target.addEventListener('drop', (e) => dropHandler(e, target));
+            });
         }
 
         function dragOverHandler(e) {
             e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
             e.currentTarget.classList.add('highlight');
         }
 
@@ -773,13 +782,14 @@
             e.currentTarget.classList.remove('highlight');
         }
 
-        function dropHandler(e, qNum) {
+        function dropHandler(e, target) {
             e.preventDefault();
-            e.currentTarget.classList.remove('highlight');
+            target.classList.remove('highlight');
             const value = e.dataTransfer.getData('text/plain');
             const text = draggedElement.textContent;
-            e.currentTarget.innerHTML = text;
-            e.currentTarget.dataset.value = value;
+            target.innerHTML = text;
+            target.dataset.value = value;
+            const qNum = target.id.replace('drop', '');
             localStorage.setItem('ans_' + qNum, value);
             updateStatus(qNum);
         }
@@ -838,6 +848,8 @@
         function loadAllData() {
             loadHighlights();
             loadNotes();
+            initDragEvents();
+
             // Load radio answers
             for (let i = 27; i <= 30; i++) {
                 const saved = localStorage.getItem('ans_' + i);
@@ -867,6 +879,9 @@
             }
             // Load text answers
             for (let i = 36; i <= 40; i++) {
+                const saved = localStorage.getItem('ans_' + i);
+                const el = document.querySelector(`.ans[data-q="${i}"]`);
+                if (el) el.value = saved || '';
                 if (localStorage.getItem('flag_' + i) === 'true') {
                     document.getElementById('flag' + i)?.classList.add('flagged');
                     document.getElementById('stat' + i)?.classList.add('flagged');
@@ -887,7 +902,7 @@
                 localStorage.removeItem('ans_' + i);
                 localStorage.removeItem('flag_' + i);
                 document.getElementById('flag' + i)?.classList.remove('flagged');
-                document.getElementById('stat' + i)?.className = 'q-indicator current';
+                document.getElementById('stat' + i).className = 'q-indicator current';
             }
             localStorage.removeItem('passage_highlights_p3');
             localStorage.removeItem('notes_data_p3');
