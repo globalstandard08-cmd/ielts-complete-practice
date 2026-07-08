@@ -56,53 +56,123 @@
 
         p { margin-bottom: 15px; line-height: 1.6; text-align: justify; }
         
-        /* Highlight style — now DARK YELLOW */
+        /* Highlight style — dark yellow */
         .user-highlight {
-            background-color: #ffd700; /* Dark gold/yellow */
+            background-color: #ffd700;
             padding: 2px 4px;
             border-radius: 2px;
             cursor: pointer;
             color: #000;
         }
 
-        /* Floating tools — fixed positioning */
-        .highlight-tool {
+        /* Right-click context menu */
+        .context-menu {
             position: absolute;
-            background: #fff;
-            border: 1px solid #333;
-            border-radius: 50%;
-            width: 34px;
-            height: 34px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-            z-index: 9999;
-            display: none;
-            cursor: pointer;
-            font-size: 18px;
-            color: #333;
-            align-items: center;
-            justify-content: center;
-        }
-        .highlight-tool:hover {
-            background: #fff3cd;
-            border-color: #ffc107;
-        }
-
-        .remove-highlight {
-            position: absolute;
-            background: #fff;
-            border: 1px solid #dc3545;
+            background: #ffffff;
+            border: 1px solid #ccc;
             border-radius: 4px;
-            padding: 4px 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             z-index: 9999;
             display: none;
+            min-width: 140px;
+        }
+        .context-menu div {
+            padding: 8px 12px;
             cursor: pointer;
             font-size: 14px;
-            color: #dc3545;
-            font-weight: bold;
         }
-        .remove-highlight:hover {
-            background: #ffebee;
+        .context-menu div:hover {
+            background: #f0f0f0;
+        }
+
+        /* Sticky notes */
+        .sticky-note {
+            position: absolute;
+            width: 160px;
+            min-height: 60px;
+            background: #fff380;
+            border: 1px solid #e6c200;
+            border-radius: 4px;
+            padding: 6px;
+            box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+            z-index: 9998;
+            font-size: 13px;
+        }
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 12px;
+            color: #886a00;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #886a00;
+        }
+        .note-textarea {
+            width: 100%;
+            height: 45px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        /* Flagging style */
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .flag-btn {
+            font-size: 18px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+            user-select: none;
+        }
+        .flag-btn.flagged {
+            color: #e67700;
+        }
+
+        /* Question status bar */
+        .question-status {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            margin: 10px 20px 20px;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+        .q-indicator {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2px;
+            border: 1px solid #ced4da;
+            background: #e9ecef;
+            font-size: 14px;
+        }
+        .q-indicator.answered {
+            background: #198754;
+            color: white;
+            border-color: #198754;
+        }
+        .q-indicator.flagged {
+            background: #fd7e14;
+            color: white;
+            border-color: #fd7e14;
         }
 
         .question { margin-bottom: 20px; }
@@ -200,9 +270,18 @@
     <h1>Reading Passage 1 - Stepwells</h1>
     <p class="subhead">You should spend about 20 minutes on Questions 1–13</p>
 
-    <!-- Floating tools -->
-    <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
-    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
+    <!-- Right-click menu -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+        <div id="menuRemove">❌ Remove Highlight/Note</div>
+    </div>
+
+    <!-- Question status bar -->
+    <div class="question-status" id="statusBar">
+        <span style="margin-right:8px;">Questions:</span>
+        <!-- Will be filled by JS -->
+    </div>
 
     <div class="container">
         <!-- Stepwells Passage -->
@@ -247,32 +326,47 @@
                 <strong>NOT GIVEN</strong> if there is no information on this</p>
 
                 <div class="question">
-                    <label><strong>1.</strong> Examples of ancient stepwells can be found all over the world.</label>
-                    <textarea class="ans" data-answer="FALSE"></textarea>
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(1)" id="flag1">🚩</span>
+                        <label><strong>1.</strong> Examples of ancient stepwells can be found all over the world.</label>
+                    </div>
+                    <textarea class="ans" data-q="1" data-answer="FALSE"></textarea>
                     <div class="correct-answer">Correct answer: FALSE</div>
                 </div>
 
                 <div class="question">
-                    <label><strong>2.</strong> Stepwells had a range of functions, in addition to those related to water collection.</label>
-                    <textarea class="ans" data-answer="TRUE"></textarea>
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(2)" id="flag2">🚩</span>
+                        <label><strong>2.</strong> Stepwells had a range of functions, in addition to those related to water collection.</label>
+                    </div>
+                    <textarea class="ans" data-q="2" data-answer="TRUE"></textarea>
                     <div class="correct-answer">Correct answer: TRUE</div>
                 </div>
 
                 <div class="question">
-                    <label><strong>3.</strong> The few existing stepwells in Delhi are more attractive than those found elsewhere.</label>
-                    <textarea class="ans" data-answer="NOT GIVEN"></textarea>
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(3)" id="flag3">🚩</span>
+                        <label><strong>3.</strong> The few existing stepwells in Delhi are more attractive than those found elsewhere.</label>
+                    </div>
+                    <textarea class="ans" data-q="3" data-answer="NOT GIVEN"></textarea>
                     <div class="correct-answer">Correct answer: NOT GIVEN</div>
                 </div>
 
                 <div class="question">
-                    <label><strong>4.</strong> It took workers many years to build the stone steps characteristic of stepwells.</label>
-                    <textarea class="ans" data-answer="NOT GIVEN"></textarea>
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(4)" id="flag4">🚩</span>
+                        <label><strong>4.</strong> It took workers many years to build the stone steps characteristic of stepwells.</label>
+                    </div>
+                    <textarea class="ans" data-q="4" data-answer="NOT GIVEN"></textarea>
                     <div class="correct-answer">Correct answer: NOT GIVEN</div>
                 </div>
 
                 <div class="question">
-                    <label><strong>5.</strong> The number of steps above the water level in a stepwell altered during the course of a year.</label>
-                    <textarea class="ans" data-answer="TRUE"></textarea>
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(5)" id="flag5">🚩</span>
+                        <label><strong>5.</strong> The number of steps above the water level in a stepwell altered during the course of a year.</label>
+                    </div>
+                    <textarea class="ans" data-q="5" data-answer="TRUE"></textarea>
                     <div class="correct-answer">Correct answer: TRUE</div>
                 </div>
             </div>
@@ -282,20 +376,29 @@
                 <p><em>Answer the questions below.<br>Choose ONE WORD ONLY from the passage for each answer.</em></p>
 
                 <div class="question">
-                    <label><strong>6.</strong> Which part of some stepwells provided shade for people?</label>
-                    <textarea class="ans" data-answer="pavilions"></textarea>
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(6)" id="flag6">🚩</span>
+                        <label><strong>6.</strong> Which part of some stepwells provided shade for people?</label>
+                    </div>
+                    <textarea class="ans" data-q="6" data-answer="pavilions"></textarea>
                     <div class="correct-answer">Correct answer: pavilions</div>
                 </div>
 
                 <div class="question">
-                    <label><strong>7.</strong> What type of serious climatic event, which took place in southern Rajasthan, is mentioned in the article?</label>
-                    <textarea class="ans" data-answer="drought"></textarea>
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(7)" id="flag7">🚩</span>
+                        <label><strong>7.</strong> What type of serious climatic event, which took place in southern Rajasthan, is mentioned in the article?</label>
+                    </div>
+                    <textarea class="ans" data-q="7" data-answer="drought"></textarea>
                     <div class="correct-answer">Correct answer: drought</div>
                 </div>
 
                 <div class="question">
-                    <label><strong>8.</strong> Who are frequent visitors to stepwells nowadays?</label>
-                    <textarea class="ans" data-answer="tourists"></textarea>
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(8)" id="flag8">🚩</span>
+                        <label><strong>8.</strong> Who are frequent visitors to stepwells nowadays?</label>
+                    </div>
+                    <textarea class="ans" data-q="8" data-answer="tourists"></textarea>
                     <div class="correct-answer">Correct answer: tourists</div>
                 </div>
             </div>
@@ -314,14 +417,32 @@
                         <td style="border:1px solid #ccc; padding:8px;">Rani Ki Vav</td>
                         <td style="border:1px solid #ccc; padding:8px;">Late 11th century</td>
                         <td style="border:1px solid #ccc; padding:8px;">As many as 500 sculptures decorate the monument</td>
-                        <td style="border:1px solid #ccc; padding:8px;">Restored in the 1960s<br>Excellent condition, despite the <span class="q-number">9.</span><textarea class="ans inline-input" data-answer="earthquake"></textarea>
-                        <div class="correct-answer">Correct: earthquake</div></td>
+                        <td style="border:1px solid #ccc; padding:8px;">Restored in the 1960s<br>Excellent condition, despite the 
+                            <span class="question-header" style="display:inline-flex; gap:4px; margin:0;">
+                                <span class="flag-btn" onclick="toggleFlag(9)" id="flag9" style="font-size:14px;">🚩</span>
+                                <span class="q-number">9.</span>
+                            </span>
+                            <textarea class="ans inline-input" data-q="9" data-answer="earthquake"></textarea>
+                            <div class="correct-answer">Correct: earthquake</div>
+                        </td>
                     </tr>
                     <tr>
                         <td style="border:1px solid #ccc; padding:8px;">Surya Kund</td>
                         <td style="border:1px solid #ccc; padding:8px;">1026</td>
-                        <td style="border:1px solid #ccc; padding:8px;">Steps on the <span class="q-number">10.</span><textarea class="ans inline-input" data-answer="four sides"></textarea> produce a geometrical pattern<br>Carved shrines</td>
-                        <td style="border:1px solid #ccc; padding:8px;">Looks more like a <span class="q-number">11.</span><textarea class="ans inline-input" data-answer="tank"></textarea> than a well</td>
+                        <td style="border:1px solid #ccc; padding:8px;">Steps on the 
+                            <span class="question-header" style="display:inline-flex; gap:4px; margin:0;">
+                                <span class="flag-btn" onclick="toggleFlag(10)" id="flag10" style="font-size:14px;">🚩</span>
+                                <span class="q-number">10.</span>
+                            </span>
+                            <textarea class="ans inline-input" data-q="10" data-answer="four sides"></textarea> produce a geometrical pattern<br>Carved shrines
+                        </td>
+                        <td style="border:1px solid #ccc; padding:8px;">Looks more like a 
+                            <span class="question-header" style="display:inline-flex; gap:4px; margin:0;">
+                                <span class="flag-btn" onclick="toggleFlag(11)" id="flag11" style="font-size:14px;">🚩</span>
+                                <span class="q-number">11.</span>
+                            </span>
+                            <textarea class="ans inline-input" data-q="11" data-answer="tank"></textarea> than a well
+                        </td>
                     </tr>
                     <tr>
                         <td style="border:1px solid #ccc; padding:8px;">Raniji Ki Baori</td>
@@ -333,12 +454,24 @@
                         <td style="border:1px solid #ccc; padding:8px;">Chand Baori</td>
                         <td style="border:1px solid #ccc; padding:8px;">850 AD</td>
                         <td style="border:1px solid #ccc; padding:8px;">Steps take you down 11 storeys to the bottom</td>
-                        <td style="border:1px solid #ccc; padding:8px;">Old, deep and very dramatic<br>Has <span class="q-number">12.</span><textarea class="ans inline-input" data-answer="verandas"></textarea> which give a view over the steps</td>
+                        <td style="border:1px solid #ccc; padding:8px;">Old, deep and very dramatic<br>Has 
+                            <span class="question-header" style="display:inline-flex; gap:4px; margin:0;">
+                                <span class="flag-btn" onclick="toggleFlag(12)" id="flag12" style="font-size:14px;">🚩</span>
+                                <span class="q-number">12.</span>
+                            </span>
+                            <textarea class="ans inline-input" data-q="12" data-answer="verandas"></textarea> which give a view over the steps
+                        </td>
                     </tr>
                     <tr>
                         <td style="border:1px solid #ccc; padding:8px;">Neemrana Ki Baori</td>
                         <td style="border:1px solid #ccc; padding:8px;">c. 1700</td>
-                        <td style="border:1px solid #ccc; padding:8px;">Has two <span class="q-number">13.</span><textarea class="ans inline-input" data-answer="underwater"></textarea> levels</td>
+                        <td style="border:1px solid #ccc; padding:8px;">Has two 
+                            <span class="question-header" style="display:inline-flex; gap:4px; margin:0;">
+                                <span class="flag-btn" onclick="toggleFlag(13)" id="flag13" style="font-size:14px;">🚩</span>
+                                <span class="q-number">13.</span>
+                            </span>
+                            <textarea class="ans inline-input" data-q="13" data-answer="underwater"></textarea> levels
+                        </td>
                         <td style="border:1px solid #ccc; padding:8px;">Still used today</td>
                     </tr>
                 </table>
@@ -350,7 +483,7 @@
     <div class="bottom-controls">
         <div class="btn-group">
             <button class="check-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
-            <button class="clear-btn" onclick="clearAllAnswers()">Clear All Answers</button>
+            <button class="clear-btn" onclick="clearAll()">Clear All</button>
         </div>
         <div class="nav">
             <span class="prev">← Previous Passage</span>
@@ -360,113 +493,218 @@
 
     <script>
         const passageBox = document.getElementById('passageBox');
-        const highlightTool = document.getElementById('highlightTool');
-        const removeTool = document.getElementById('removeTool');
+        const contextMenu = document.getElementById('contextMenu');
         let currentRange = null;
+        let lastNoteId = 0;
 
-        // --- Auto-save & load answers ---
+        // --- Initialize status bar ---
         window.onload = function() {
-            document.querySelectorAll('.ans').forEach((el, i) => {
-                const key = 'stepwell_ans_' + i;
-                const saved = localStorage.getItem(key);
-                if (saved) el.value = saved;
-                el.addEventListener('input', () => localStorage.setItem(key, el.value));
-            });
+            // Build status indicators
+            const statusBar = document.getElementById('statusBar');
+            for (let i = 1; i <= 13; i++) {
+                const div = document.createElement('div');
+                div.className = 'q-indicator';
+                div.id = 'stat' + i;
+                div.textContent = i;
+                statusBar.appendChild(div);
+            }
+            // Load saved data
+            loadAllData();
         };
 
-        // --- Highlight feature — FIXED positioning ---
-        document.addEventListener('mouseup', function(e) {
+        // --- Right-click menu ---
+        passageBox.addEventListener('contextmenu', function(e) {
             const selection = window.getSelection();
             if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
-                highlightTool.style.display = 'none';
+                contextMenu.style.display = 'none';
                 return;
             }
-
-            const range = selection.getRangeAt(0);
-            if (!passageBox.contains(range.commonAncestorContainer)) return;
-
-            currentRange = range;
-            const rect = range.getBoundingClientRect();
-
-            // Position relative to whole viewport so it stays above selected text
-            highlightTool.style.left = (rect.left + window.scrollX - 17) + 'px';
-            highlightTool.style.top = (rect.top + window.scrollY - 40) + 'px';
-            highlightTool.style.display = 'flex';
+            e.preventDefault();
+            currentRange = selection.getRangeAt(0);
+            const rect = currentRange.getBoundingClientRect();
+            contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+            contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+            contextMenu.style.display = 'block';
         });
 
-        highlightTool.addEventListener('click', function() {
-            if (!currentRange) return;
+        document.addEventListener('click', function() {
+            contextMenu.style.display = 'none';
+        });
 
+        // --- Menu actions ---
+        document.getElementById('menuHighlight').addEventListener('click', function() {
+            if (!currentRange) return;
             const span = document.createElement('span');
             span.className = 'user-highlight';
             span.textContent = currentRange.toString();
-
             currentRange.deleteContents();
             currentRange.insertNode(span);
-
             window.getSelection().removeAllRanges();
-            highlightTool.style.display = 'none';
-            currentRange = null;
+            saveHighlights();
         });
 
-        // --- Remove highlight ---
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('user-highlight')) {
-                const rect = e.target.getBoundingClientRect();
-                removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 30) + 'px';
-                removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
-                removeTool.style.display = 'block';
-                removeTool.dataset.target = e.target;
-            } else if (!removeTool.contains(e.target)) {
-                removeTool.style.display = 'none';
+        document.getElementById('menuNote').addEventListener('click', function() {
+            if (!currentRange) return;
+            const rect = currentRange.getBoundingClientRect();
+            const noteId = 'note_' + (++lastNoteId);
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            note.id = noteId;
+            note.innerHTML = `
+                <div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
+                <textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>
+            `;
+            note.style.left = (rect.right + window.scrollX + 8) + 'px';
+            note.style.top = (rect.top + window.scrollY) + 'px';
+            document.body.appendChild(note);
+            window.getSelection().removeAllRanges();
+            saveNotes();
+        });
+
+        document.getElementById('menuRemove').addEventListener('click', function() {
+            if (!currentRange) return;
+            const node = currentRange.commonAncestorContainer.parentElement;
+            if (node.classList.contains('user-highlight')) {
+                const text = document.createTextNode(node.textContent);
+                node.parentNode.replaceChild(text, node);
+                node.parentNode.normalize();
             }
+            window.getSelection().removeAllRanges();
+            saveHighlights();
+        });
 
-            if (!highlightTool.contains(e.target) && !passageBox.contains(e.target)) {
-                highlightTool.style.display = 'none';
+        // --- Flagging system ---
+        function toggleFlag(qNum) {
+            const flag = document.getElementById('flag' + qNum);
+            const stat = document.getElementById('stat' + qNum);
+            const isFlagged = flag.classList.toggle('flagged');
+            if (isFlagged) {
+                stat.classList.add('flagged');
+            } else {
+                stat.classList.remove('flagged');
             }
+            localStorage.setItem('flag_' + qNum, isFlagged);
+        }
+
+        // --- Close note ---
+        function closeNote(id) {
+            const note = document.getElementById(id);
+            if (note) note.remove();
+            saveNotes();
+        }
+
+        function saveNote(id, text) {
+            localStorage.setItem(id, text);
+        }
+
+        // --- Auto-save & load answers ---
+        document.querySelectorAll('.ans').forEach(el => {
+            const q = el.dataset.q;
+            const key = 'ans_' + q;
+            el.value = localStorage.getItem(key) || '';
+            updateStatus(q);
+            el.addEventListener('input', () => {
+                localStorage.setItem(key, el.value);
+                updateStatus(q);
+            });
         });
 
-        removeTool.addEventListener('click', function() {
-            const span = this.dataset.target;
-            if (!span || !span.parentNode) return;
+        function updateStatus(q) {
+            const val = localStorage.getItem('ans_' + q) || '';
+            const stat = document.getElementById('stat' + q);
+            if (val.trim() !== '') {
+                stat.classList.add('answered');
+            } else {
+                stat.classList.remove('answered');
+            }
+        }
 
-            const parent = span.parentNode;
-            const textNode = document.createTextNode(span.textContent);
-            parent.replaceChild(textNode, span);
-            parent.normalize();
+        // --- Save/load highlights & notes ---
+        function saveHighlights() {
+            const html = passageBox.innerHTML;
+            localStorage.setItem('passage_highlights', html);
+        }
 
-            this.style.display = 'none';
-            delete this.dataset.target;
-        });
+        function loadHighlights() {
+            const saved = localStorage.getItem('passage_highlights');
+            if (saved) passageBox.innerHTML = saved;
+        }
+
+        function saveNotes() {
+            const notes = document.querySelectorAll('.sticky-note');
+            const data = [];
+            notes.forEach(n => {
+                data.push({
+                    id: n.id,
+                    left: n.style.left,
+                    top: n.style.top,
+                    text: n.querySelector('.note-textarea').value
+                });
+            });
+            localStorage.setItem('notes_data', JSON.stringify(data));
+        }
+
+        function loadNotes() {
+            const saved = localStorage.getItem('notes_data');
+            if (!saved) return;
+            const data = JSON.parse(saved);
+            data.forEach(n => {
+                const note = document.createElement('div');
+                note.className = 'sticky-note';
+                note.id = n.id;
+                note.innerHTML = `
+                    <div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
+                    <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
+                `;
+                note.style.left = n.left;
+                note.style.top = n.top;
+                document.body.appendChild(note);
+                const num = parseInt(n.id.split('_')[1]);
+                if (num > lastNoteId) lastNoteId = num;
+            });
+        }
+
+        function loadAllData() {
+            loadHighlights();
+            loadNotes();
+            for (let i = 1; i <= 13; i++) {
+                const flagged = localStorage.getItem('flag_' + i) === 'true';
+                if (flagged) {
+                    document.getElementById('flag' + i).classList.add('flagged');
+                    document.getElementById('stat' + i).classList.add('flagged');
+                }
+                updateStatus(i);
+            }
+        }
 
         // --- Toggle show/hide answers ---
         function toggleAnswers() {
-            const answers = document.querySelectorAll('.correct-answer');
-            answers.forEach(ans => {
+            document.querySelectorAll('.correct-answer').forEach(ans => {
                 ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
             });
         }
 
-        // --- Clear All Answers & Highlights ---
-        function clearAllAnswers() {
-            if (!confirm("Clear all your answers and highlights?")) return;
-            
-            // Clear text inputs
-            document.querySelectorAll('.ans').forEach(el => {
-                el.value = '';
-            });
-            
-            // Clear saved data
-            for (let i = 0; i < 13; i++) {
-                localStorage.removeItem('stepwell_ans_' + i);
-            }
-            
-            // Remove all highlights
+        // --- Clear everything ---
+        function clearAll() {
+            if (!confirm("Clear all answers, highlights, notes and flags?")) return;
+            // Clear storage
+            localStorage.clear();
+            // Reset answers
+            document.querySelectorAll('.ans').forEach(el => el.value = '');
+            // Remove highlights
             document.querySelectorAll('.user-highlight').forEach(span => {
                 const text = document.createTextNode(span.textContent);
                 span.parentNode.replaceChild(text, span);
                 span.parentNode.normalize();
             });
+            // Remove notes
+            document.querySelectorAll('.sticky-note').forEach(n => n.remove());
+            // Reset flags & status
+            for (let i = 1; i <= 13; i++) {
+                document.getElementById('flag' + i).classList.remove('flagged');
+                document.getElementById('stat' + i).className = 'q-indicator';
+            }
+            lastNoteId = 0;
         }
     </script>
 </body>
