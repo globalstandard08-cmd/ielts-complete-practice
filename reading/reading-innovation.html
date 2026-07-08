@@ -100,6 +100,7 @@
             box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
             z-index: 9998;
             font-size: 13px;
+            cursor: move;
         }
         .note-header {
             display: flex;
@@ -642,7 +643,7 @@
         </div>
         <div class="nav">
             <a href="reading-passage2.html" class="prev">← Previous Passage</a>
-            <a href="../main-menu.html" class="back-main">Back to Main Menu</a>
+            <a href="cover.html" class="back-main">Back to Main Menu</a>
         </div>
     </div>
 
@@ -652,6 +653,9 @@
         let currentRange = null;
         let lastNoteId = 0;
         let draggedElement = null;
+        let activeNote = null;
+        let noteOffsetX = 0;
+        let noteOffsetY = 0;
 
         window.onload = function() {
             initDragEvents();
@@ -707,7 +711,11 @@
             `;
             note.style.left = (rect.right + window.scrollX + 8) + 'px';
             note.style.top = (rect.top + window.scrollY) + 'px';
+            
+            // Make note draggable
+            note.addEventListener('mousedown', startDragNote);
             document.body.appendChild(note);
+            
             window.getSelection().removeAllRanges();
             currentRange = null;
             saveNotes();
@@ -737,6 +745,29 @@
 
         function saveNote(id, text) {
             localStorage.setItem(id, text);
+            saveNotes();
+        }
+
+        // Drag notes functionality
+        function startDragNote(e) {
+            if (e.target.closest('.note-close') || e.target.closest('.note-textarea')) return;
+            activeNote = e.currentTarget;
+            noteOffsetX = e.clientX - activeNote.getBoundingClientRect().left;
+            noteOffsetY = e.clientY - activeNote.getBoundingClientRect().top;
+            document.addEventListener('mousemove', dragNote);
+            document.addEventListener('mouseup', stopDragNote);
+        }
+
+        function dragNote(e) {
+            if (!activeNote) return;
+            activeNote.style.left = (e.clientX - noteOffsetX + window.scrollX) + 'px';
+            activeNote.style.top = (e.clientY - noteOffsetY + window.scrollY) + 'px';
+        }
+
+        function stopDragNote() {
+            activeNote = null;
+            document.removeEventListener('mousemove', dragNote);
+            document.removeEventListener('mouseup', stopDragNote);
             saveNotes();
         }
 
@@ -837,10 +868,11 @@
                 note.id = n.id;
                 note.innerHTML = `
                     <div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
-                    <textarea class="note-textarea">${n.text}</textarea>
+                    <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
                 `;
                 note.style.left = n.left;
                 note.style.top = n.top;
+                note.addEventListener('mousedown', startDragNote);
                 document.body.appendChild(note);
             });
         }
