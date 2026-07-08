@@ -173,6 +173,8 @@
             border-color: #007bff;
             background: #e7f3ff;
         }
+        .correct { background: #d4edda; border-color: #28a745; }
+        .incorrect { background: #f8d7da; border-color: #dc3545; }
 
         textarea.ans {
             width: 100%;
@@ -229,7 +231,7 @@
             gap: 15px;
             flex-wrap: wrap;
         }
-        .btn-group { display: flex; gap: 10px; }
+        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
         button {
             padding: 8px 16px;
             font-size: 14px;
@@ -241,6 +243,8 @@
         .check-btn:hover { background: #218838; }
         .clear-btn { background: #dc3545; color: white; }
         .clear-btn:hover { background: #c82333; }
+        .reset-btn { background: #6c757d; color: white; }
+        .reset-btn:hover { background: #545b62; }
         .nav a {
             padding: 8px 16px;
             border-radius: 4px;
@@ -412,6 +416,7 @@
                     <div class="draggable" draggable="true" data-value="E">E avoid risk.</div>
                     <div class="draggable" draggable="true" data-value="F">F ignore their duties.</div>
                     <div class="draggable" draggable="true" data-value="G">G remain in their jobs.</div>
+                    <button class="reset-btn" onclick="resetDrag()">Reset All</button>
                 </div>
                 <div class="drop-column">
                     <div class="question-header">
@@ -498,9 +503,35 @@
     </div>
 </div>
 
-<!-- Question Navigation -->
+<!-- Full Navigation Bar 1–40 -->
 <div class="question-status" id="statusBar">
-    <span class="nav-section-label">Passage 3:</span>
+    <span class="nav-section-label">Questions:</span>
+    <span id="stat1" class="q-indicator">1</span>
+    <span id="stat2" class="q-indicator">2</span>
+    <span id="stat3" class="q-indicator">3</span>
+    <span id="stat4" class="q-indicator">4</span>
+    <span id="stat5" class="q-indicator">5</span>
+    <span id="stat6" class="q-indicator">6</span>
+    <span id="stat7" class="q-indicator">7</span>
+    <span id="stat8" class="q-indicator">8</span>
+    <span id="stat9" class="q-indicator">9</span>
+    <span id="stat10" class="q-indicator">10</span>
+    <span id="stat11" class="q-indicator">11</span>
+    <span id="stat12" class="q-indicator">12</span>
+    <span id="stat13" class="q-indicator">13</span>
+    <span id="stat14" class="q-indicator">14</span>
+    <span id="stat15" class="q-indicator">15</span>
+    <span id="stat16" class="q-indicator">16</span>
+    <span id="stat17" class="q-indicator">17</span>
+    <span id="stat18" class="q-indicator">18</span>
+    <span id="stat19" class="q-indicator">19</span>
+    <span id="stat20" class="q-indicator">20</span>
+    <span id="stat21" class="q-indicator">21</span>
+    <span id="stat22" class="q-indicator">22</span>
+    <span id="stat23" class="q-indicator">23</span>
+    <span id="stat24" class="q-indicator">24</span>
+    <span id="stat25" class="q-indicator">25</span>
+    <span id="stat26" class="q-indicator">26</span>
     <span id="stat27" class="q-indicator" onclick="jumpToQuestion(27)">27</span>
     <span id="stat28" class="q-indicator" onclick="jumpToQuestion(28)">28</span>
     <span id="stat29" class="q-indicator" onclick="jumpToQuestion(29)">29</span>
@@ -519,7 +550,8 @@
 
 <div class="bottom-controls">
     <div class="btn-group">
-        <button class="clear-btn" onclick="clearAll()">Clear All Answers & Notes</button>
+        <button class="check-btn" onclick="checkAnswers()">✅ Check Answers</button>
+        <button class="clear-btn" onclick="clearAll()">🗑️ Clear All</button>
     </div>
     <div class="nav">
         <a href="reading-passage2.html">← Previous Passage</a>
@@ -531,7 +563,7 @@
 let currentSelection = null;
 let draggedElement = null;
 
-// --- Highlight / Note System ---
+// --- ✅ Highlight / Note System (Fixed) ---
 document.getElementById('passageArea').addEventListener('contextmenu', function(e) {
     const sel = window.getSelection();
     if (!sel.isCollapsed) {
@@ -550,23 +582,33 @@ document.addEventListener('click', () => {
 
 function highlightSelection() {
     if (!currentSelection) return;
-    const range = currentSelection.getRangeAt(0);
-    const span = document.createElement('span');
-    span.className = 'highlight';
-    range.surroundContents(span);
-    saveHighlights();
-    currentSelection.removeAllRanges();
+    try {
+        const range = currentSelection.getRangeAt(0);
+        const span = document.createElement('span');
+        span.className = 'highlight';
+        range.surroundContents(span);
+        saveHighlights();
+        currentSelection.removeAllRanges();
+    } catch (err) {
+        alert("Please select text that is not already highlighted!");
+    }
 }
 
 function removeHighlight() {
     if (!currentSelection) return;
-    const range = currentSelection.getRangeAt(0);
-    const node = range.commonAncestorContainer.parentElement;
-    if (node.classList.contains('highlight')) {
-        node.outerHTML = node.innerHTML;
-        saveHighlights();
-    }
-    currentSelection.removeAllRanges();
+    try {
+        const range = currentSelection.getRangeAt(0);
+        let node = range.commonAncestorContainer;
+        while (node && node !== document.getElementById('passageArea')) {
+            if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains('highlight')) {
+                node.outerHTML = node.innerHTML;
+                saveHighlights();
+                break;
+            }
+            node = node.parentNode;
+        }
+        currentSelection.removeAllRanges();
+    } catch (err) {}
 }
 
 function addNote() {
@@ -579,7 +621,7 @@ function addNote() {
         <textarea oninput="saveNotes()"></textarea>
     `;
     note.style.left = (rect.right + 10) + 'px';
-    note.style.top = rect.top + window.scrollY + 'px';
+    note.style.top = (rect.top + window.scrollY) + 'px';
     document.body.appendChild(note);
     makeNoteDraggable(note);
     saveNotes();
@@ -640,9 +682,10 @@ function loadNotes() {
     });
 }
 
-// --- Question Functions ---
+// --- Navigation ---
 function jumpToQuestion(qNum) {
-    document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const el = document.getElementById('q' + qNum);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function toggleFlag(qNum) {
@@ -658,7 +701,7 @@ function saveRadio(qNum, value) {
     updateStatus(qNum);
 }
 
-// --- Drag & Drop ---
+// --- ✅ Drag & Drop (Fixed) ---
 function initDragEvents() {
     document.querySelectorAll('.draggable').forEach(item => {
         item.addEventListener('dragstart', (e) => {
@@ -687,13 +730,70 @@ function initDragEvents() {
     });
 }
 
-// --- Text Answers ---
+function resetDrag() {
+    document.querySelectorAll('.drop-target').forEach(t => {
+        t.textContent = '';
+        delete t.dataset.value;
+    });
+    for (let q = 31; q <= 35; q++) {
+        localStorage.removeItem('ans_' + q);
+        updateStatus(q);
+    }
+}
+
+// --- ✅ Check Answers ---
+const correctAnswers = {
+    27: 'C',
+    28: 'A',
+    29: 'D',
+    30: 'B',
+    31: 'G',
+    32: 'E',
+    33: 'A',
+    34: 'F',
+    35: 'B',
+    36: 'NO',
+    37: 'YES',
+    38: 'NOT GIVEN',
+    39: 'NOT GIVEN',
+    40: 'NO'
+};
+
+function checkAnswers() {
+    let score = 0;
+    for (let q = 27; q <= 40; q++) {
+        const user = (localStorage.getItem('ans_' + q) || '').trim().toUpperCase();
+        const correct = correctAnswers[q];
+        const el = document.getElementById('q' + q);
+        if (!el) continue;
+
+        if (q <= 30) {
+            const opt = el.querySelector(`input[name="q${q}"][value="${user}"]`);
+            if (opt) opt.parentElement.style.color = user === correct ? '#28a745' : '#dc3545';
+        } else if (q <= 35) {
+            const drop = document.getElementById('drop' + q);
+            if (drop) {
+                drop.classList.remove('correct', 'incorrect');
+                drop.classList.add(user === correct ? 'correct' : 'incorrect');
+            }
+        } else {
+            const input = el.querySelector('.ans');
+            if (input) {
+                input.style.borderColor = user === correct ? '#28a745' : '#dc3545';
+            }
+        }
+        if (user === correct) score++;
+    }
+    alert(`You scored ${score} out of 14!`);
+}
+
+// --- Update Status ---
 document.querySelectorAll('.ans').forEach(el => {
     const q = el.dataset.q;
     el.value = localStorage.getItem('ans_' + q) || '';
     updateStatus(q);
     el.addEventListener('input', () => {
-        localStorage.setItem('ans_' + q, el.value.trim());
+        localStorage.setItem('ans_' + q, el.value.trim().toUpperCase());
         updateStatus(q);
     });
 });
