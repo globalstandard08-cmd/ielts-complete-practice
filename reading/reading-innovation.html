@@ -59,7 +59,7 @@
         h4 { margin: 18px 0 10px 0; color: #34495e; }
         ul, ol { margin-left: 20px; margin-bottom: 15px; line-height: 1.6; }
         
-        /* ✅ Highlight set to DARK YELLOW */
+        /* Highlight style */
         .user-highlight {
             background-color: #ffd700;
             padding: 2px 4px;
@@ -335,10 +335,10 @@
     <h1>Reading Passage 3</h1>
     <p class="subhead">You should spend about 20 minutes on Questions 27–40</p>
 
-    <!-- Right-click menu -->
+    <!-- Right-click menu for highlight/note -->
     <div class="context-menu" id="contextMenu">
-        <div id="menuHighlight">✅ Highlight</div>
-        <div id="menuNote">📝 Add Note</div>
+        <div id="menuHighlight">✅ Highlight Text</div>
+        <div id="menuNote">📝 Add Sticky Note</div>
         <div id="menuRemove">❌ Remove Highlight</div>
     </div>
 
@@ -386,7 +386,7 @@
                         <label><strong>27.</strong> The example of the ‘million-dollar quartet’ underlines the writer’s point about</label>
                     </div>
                     <div class="option-row">
-                        <input type="radio" name="q27" value="C" data-correct="C" onchange="saveRadio(27, this.value)">
+                        <input type="radio" name="q27" value="A" onchange="saveRadio(27, this.value)">
                         <label>A recognising talent.</label>
                     </div>
                     <div class="option-row">
@@ -394,7 +394,7 @@
                         <label>B working as a team.</label>
                     </div>
                     <div class="option-row">
-                        <input type="radio" name="q27" value="C" onchange="saveRadio(27, this.value)">
+                        <input type="radio" name="q27" value="C" data-correct="C" onchange="saveRadio(27, this.value)">
                         <label>C having a shared objective.</label>
                     </div>
                     <div class="option-row">
@@ -541,8 +541,8 @@
                         <span class="flag-btn" onclick="toggleFlag(36)" id="flag36">🚩</span>
                         <label><strong>36.</strong> The physical surroundings in which a person works play a key role in determining their creativity.</label>
                     </div>
-                    <textarea class="ans" data-q="36" data-answer="YES" placeholder="Enter YES / NO / NOT GIVEN"></textarea>
-                    <div class="correct-answer">Correct answer: YES</div>
+                    <textarea class="ans" data-q="36" data-answer="NO" placeholder="Enter YES / NO / NOT GIVEN"></textarea>
+                    <div class="correct-answer">Correct answer: NO</div>
                 </div>
 
                 <div class="question" id="q37">
@@ -587,19 +587,50 @@
     <!-- Question Navigation Bar -->
     <div class="question-status" id="statusBar">
         <span class="nav-section-label">Passage 1:</span>
-        <span id="p1_1"></span><span id="p1_2"></span><span id="p1_3"></span><span id="p1_4"></span><span id="p1_5"></span>
-        <span id="p1_6"></span><span id="p1_7"></span><span id="p1_8"></span><span id="p1_9"></span><span id="p1_10"></span>
-        <span id="p1_11"></span><span id="p1_12"></span><span id="p1_13"></span>
+        <span id="stat1" class="q-indicator" onclick="jumpToQuestion(1)">1</span>
+        <span id="stat2" class="q-indicator" onclick="jumpToQuestion(2)">2</span>
+        <span id="stat3" class="q-indicator" onclick="jumpToQuestion(3)">3</span>
+        <span id="stat4" class="q-indicator" onclick="jumpToQuestion(4)">4</span>
+        <span id="stat5" class="q-indicator" onclick="jumpToQuestion(5)">5</span>
+        <span id="stat6" class="q-indicator" onclick="jumpToQuestion(6)">6</span>
+        <span id="stat7" class="q-indicator" onclick="jumpToQuestion(7)">7</span>
+        <span id="stat8" class="q-indicator" onclick="jumpToQuestion(8)">8</span>
+        <span id="stat9" class="q-indicator" onclick="jumpToQuestion(9)">9</span>
+        <span id="stat10" class="q-indicator" onclick="jumpToQuestion(10)">10</span>
+        <span id="stat11" class="q-indicator" onclick="jumpToQuestion(11)">11</span>
+        <span id="stat12" class="q-indicator" onclick="jumpToQuestion(12)">12</span>
+        <span id="stat13" class="q-indicator" onclick="jumpToQuestion(13)">13</span>
 
         <span class="nav-section-label">Passage 2:</span>
-        <span id="p2_14"></span><span id="p2_15"></span><span id="p2_16"></span><span id="p2_17"></span><span id="p2_18"></span>
-        <span id="p2_19"></span><span id="p2_20"></span><span id="p2_21"></span><span id="p2_22"></span><span id="p2_23"></span>
-        <span id="p2_24"></span><span id="p2_25"></span><span id="p2_26"></span>
+        <span id="stat14" class="q-indicator" onclick="jumpToQuestion(14)">14</span>
+        <span id="stat15" class="q-indicator" onclick="jumpToQuestion(15)">15</span>
+        <span id="stat16" class="q-indicator" onclick="jumpToQuestion(16)">16</span>
+        <span id="stat17" class="q-indicator" onclick="jumpToQuestion(17)">17</span>
+        <span id="stat18" class="q-indicator" onclick="jumpToQuestion(18)">18</span>
+        <span id="stat19" class="q-indicator" onclick="jumpToQuestion(19)">19</span>
+        <span id="stat20" class="q-indicator" onclick="jumpToQuestion(20)">20</span>
+        <span id="stat21" class="q-indicator" onclick="jumpToQuestion(21)">21</span>
+        <span id="stat22" class="q-indicator" onclick="jumpToQuestion(22)">22</span>
+        <span id="stat23" class="q-indicator" onclick="jumpToQuestion(23)">23</span>
+        <span id="stat24" class="q-indicator" onclick="jumpToQuestion(24)">24</span>
+        <span id="stat25" class="q-indicator" onclick="jumpToQuestion(25)">25</span>
+        <span id="stat26" class="q-indicator" onclick="jumpToQuestion(26)">26</span>
 
         <span class="nav-section-label">Passage 3:</span>
-        <span id="p3_27"></span><span id="p3_28"></span><span id="p3_29"></span><span id="p3_30"></span><span id="p3_31"></span>
-        <span id="p3_32"></span><span id="p3_33"></span><span id="p3_34"></span><span id="p3_35"></span><span id="p3_36"></span>
-        <span id="p3_37"></span><span id="p3_38"></span><span id="p3_39"></span><span id="p3_40"></span>
+        <span id="stat27" class="q-indicator current" onclick="jumpToQuestion(27)">27</span>
+        <span id="stat28" class="q-indicator current" onclick="jumpToQuestion(28)">28</span>
+        <span id="stat29" class="q-indicator current" onclick="jumpToQuestion(29)">29</span>
+        <span id="stat30" class="q-indicator current" onclick="jumpToQuestion(30)">30</span>
+        <span id="stat31" class="q-indicator current" onclick="jumpToQuestion(31)">31</span>
+        <span id="stat32" class="q-indicator current" onclick="jumpToQuestion(32)">32</span>
+        <span id="stat33" class="q-indicator current" onclick="jumpToQuestion(33)">33</span>
+        <span id="stat34" class="q-indicator current" onclick="jumpToQuestion(34)">34</span>
+        <span id="stat35" class="q-indicator current" onclick="jumpToQuestion(35)">35</span>
+        <span id="stat36" class="q-indicator current" onclick="jumpToQuestion(36)">36</span>
+        <span id="stat37" class="q-indicator current" onclick="jumpToQuestion(37)">37</span>
+        <span id="stat38" class="q-indicator current" onclick="jumpToQuestion(38)">38</span>
+        <span id="stat39" class="q-indicator current" onclick="jumpToQuestion(39)">39</span>
+        <span id="stat40" class="q-indicator current" onclick="jumpToQuestion(40)">40</span>
     </div>
 
     <!-- Bottom controls & navigation -->
@@ -621,28 +652,7 @@
         let lastNoteId = 0;
         let draggedElement = null;
 
-        // Initialize all question indicators
         window.onload = function() {
-            const sections = [
-                { start: 1, end: 13, prefix: 'p1_' },
-                { start: 14, end: 26, prefix: 'p2_' },
-                { start: 27, end: 40, prefix: 'p3_' }
-            ];
-            sections.forEach(sec => {
-                for (let q = sec.start; q <= sec.end; q++) {
-                    const el = document.getElementById(sec.prefix + q);
-                    if (el) {
-                        el.className = 'q-indicator';
-                        el.textContent = q;
-                        el.id = 'stat' + q;
-                        el.onclick = () => jumpToQuestion(q);
-                    }
-                }
-            });
-            // Mark current passage
-            for (let q = 27; q <= 40; q++) {
-                document.getElementById('stat' + q)?.classList.add('current');
-            }
             initDragEvents();
             loadAllData();
         };
@@ -652,7 +662,7 @@
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // Right-click menu
+        // --- RIGHT CLICK MENU: HIGHLIGHT / NOTE ---
         passageBox.addEventListener('contextmenu', function(e) {
             const selection = window.getSelection();
             if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
@@ -682,7 +692,7 @@
             saveHighlights();
         });
 
-        // Add note
+        // Add sticky note
         document.getElementById('menuNote').addEventListener('click', function() {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
@@ -702,7 +712,7 @@
             saveNotes();
         });
 
-        // Remove Highlight
+        // Remove highlight
         document.getElementById('menuRemove').addEventListener('click', function() {
             if (!currentRange) return;
             try {
@@ -712,25 +722,12 @@
                     const text = document.createTextNode(span.textContent);
                     span.parentNode.replaceChild(text, span);
                     span.parentNode.normalize();
-                } else {
-                    currentRange.deleteContents();
                 }
-            } catch (e) {
-                console.log('Highlight removed');
-            }
+            } catch (e) { /* ignore */ }
             window.getSelection().removeAllRanges();
             currentRange = null;
             saveHighlights();
         });
-
-        // Flag system
-        function toggleFlag(qNum) {
-            const flag = document.getElementById('flag' + qNum);
-            const stat = document.getElementById('stat' + qNum);
-            const isFlagged = flag.classList.toggle('flagged');
-            stat.classList.toggle('flagged', isFlagged);
-            localStorage.setItem('flag_' + qNum, isFlagged);
-        }
 
         function closeNote(id) {
             document.getElementById(id)?.remove();
@@ -741,13 +738,22 @@
             localStorage.setItem(id, text);
         }
 
-        // --- Radio Button Functions ---
+        // --- FLAG SYSTEM ---
+        function toggleFlag(qNum) {
+            const flag = document.getElementById('flag' + qNum);
+            const stat = document.getElementById('stat' + qNum);
+            const isFlagged = flag.classList.toggle('flagged');
+            stat.classList.toggle('flagged', isFlagged);
+            localStorage.setItem('flag_' + qNum, isFlagged);
+        }
+
+        // --- RADIO BUTTONS ---
         function saveRadio(qNum, value) {
             localStorage.setItem('ans_' + qNum, value);
             updateStatus(qNum);
         }
 
-        // --- Drag & Drop Functions ---
+        // --- DRAG & DROP ---
         function initDragEvents() {
             document.querySelectorAll('.draggable').forEach(item => {
                 item.addEventListener('dragstart', (e) => {
@@ -778,14 +784,13 @@
             updateStatus(qNum);
         }
 
-        // --- Auto-save & Load ---
+        // --- TEXT ANSWERS ---
         document.querySelectorAll('.ans').forEach(el => {
             const q = el.dataset.q;
-            const key = 'ans_' + q;
-            el.value = localStorage.getItem(key) || '';
+            el.value = localStorage.getItem('ans_' + q) || '';
             updateStatus(q);
             el.addEventListener('input', () => {
-                localStorage.setItem(key, el.value.trim());
+                localStorage.setItem('ans_' + q, el.value.trim());
                 updateStatus(q);
             });
         });
@@ -796,37 +801,19 @@
             if (stat) stat.classList.toggle('answered', val.trim() !== '');
         }
 
-        // Save/load highlights
+        // --- SAVE / LOAD ---
         function saveHighlights() {
             localStorage.setItem('passage_highlights_p3', passageBox.innerHTML);
         }
 
         function loadHighlights() {
             const saved = localStorage.getItem('passage_highlights_p3');
-            if (saved) {
-                passageBox.innerHTML = saved;
-                // Reattach listener after loading
-                passageBox.addEventListener('contextmenu', function(e) {
-                    const selection = window.getSelection();
-                    if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
-                        contextMenu.style.display = 'none';
-                        return;
-                    }
-                    e.preventDefault();
-                    currentRange = selection.getRangeAt(0);
-                    const rect = currentRange.getBoundingClientRect();
-                    contextMenu.style.left = (rect.left + window.scrollX) + 'px';
-                    contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
-                    contextMenu.style.display = 'block';
-                });
-            }
+            if (saved) passageBox.innerHTML = saved;
         }
 
-        // Save/load notes
         function saveNotes() {
             const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
-                id: n.id, left: n.style.left, top: n.style.top,
-                text: n.querySelector('.note-textarea').value
+                id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
             }));
             localStorage.setItem('notes_data_p3', JSON.stringify(notes));
         }
@@ -840,13 +827,11 @@
                 note.id = n.id;
                 note.innerHTML = `
                     <div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
-                    <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
+                    <textarea class="note-textarea">${n.text}</textarea>
                 `;
                 note.style.left = n.left;
                 note.style.top = n.top;
                 document.body.appendChild(note);
-                const num = parseInt(n.id.split('_')[1]);
-                if (num > lastNoteId) lastNoteId = num;
             });
         }
 
@@ -856,29 +841,25 @@
             // Load radio answers
             for (let i = 27; i <= 30; i++) {
                 const saved = localStorage.getItem('ans_' + i);
-                if (saved) {
-                    document.querySelector(`input[name="q${i}"][value="${saved}"]`)?.checked = true;
-                }
-                const flagged = localStorage.getItem('flag_' + i) === 'true';
-                if (flagged) {
+                if (saved) document.querySelector(`input[name="q${i}"][value="${saved}"]`)?.checked = true;
+                if (localStorage.getItem('flag_' + i) === 'true') {
                     document.getElementById('flag' + i)?.classList.add('flagged');
                     document.getElementById('stat' + i)?.classList.add('flagged');
                 }
                 updateStatus(i);
             }
-            // Load drag & drop answers
+            // Load drag & drop
             for (let i = 31; i <= 35; i++) {
                 const saved = localStorage.getItem('ans_' + i);
                 if (saved) {
                     const drop = document.getElementById(`drop${i}`);
-                    const option = document.querySelector(`.draggable[data-value="${saved}"]`);
-                    if (option && drop) {
-                        drop.innerHTML = option.textContent;
+                    const opt = document.querySelector(`.draggable[data-value="${saved}"]`);
+                    if (drop && opt) {
+                        drop.innerHTML = opt.textContent;
                         drop.dataset.value = saved;
                     }
                 }
-                const flagged = localStorage.getItem('flag_' + i) === 'true';
-                if (flagged) {
+                if (localStorage.getItem('flag_' + i) === 'true') {
                     document.getElementById('flag' + i)?.classList.add('flagged');
                     document.getElementById('stat' + i)?.classList.add('flagged');
                 }
@@ -886,8 +867,7 @@
             }
             // Load text answers
             for (let i = 36; i <= 40; i++) {
-                const flagged = localStorage.getItem('flag_' + i) === 'true';
-                if (flagged) {
+                if (localStorage.getItem('flag_' + i) === 'true') {
                     document.getElementById('flag' + i)?.classList.add('flagged');
                     document.getElementById('stat' + i)?.classList.add('flagged');
                 }
@@ -903,30 +883,24 @@
 
         function clearAll() {
             if (!confirm("Clear all answers, highlights, notes and flags?")) return;
-            // Clear Passage 3 data
             for (let i = 27; i <= 40; i++) {
                 localStorage.removeItem('ans_' + i);
                 localStorage.removeItem('flag_' + i);
+                document.getElementById('flag' + i)?.classList.remove('flagged');
+                document.getElementById('stat' + i)?.className = 'q-indicator current';
             }
             localStorage.removeItem('passage_highlights_p3');
             localStorage.removeItem('notes_data_p3');
-            
-            // Reset inputs
+
             document.querySelectorAll('.ans').forEach(el => el.value = '');
             document.querySelectorAll('input[type="radio"]').forEach(el => el.checked = false);
             document.querySelectorAll('.drop-target').forEach(el => el.innerHTML = '');
             document.querySelectorAll('.user-highlight').forEach(span => {
-                const text = document.createTextNode(span.textContent);
-                span.parentNode.replaceChild(text, span);
+                const txt = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(txt, span);
                 span.parentNode.normalize();
             });
             document.querySelectorAll('.sticky-note').forEach(n => n.remove());
-            for (let i = 27; i <= 40; i++) {
-                document.getElementById('flag' + i)?.classList.remove('flagged');
-                const stat = document.getElementById('stat' + i);
-                if (stat) stat.className = 'q-indicator current';
-            }
-            lastNoteId = 0;
         }
     </script>
 </body>
