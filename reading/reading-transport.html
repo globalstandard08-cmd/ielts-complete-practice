@@ -56,13 +56,13 @@
 
         p { margin-bottom: 15px; line-height: 1.6; text-align: justify; }
         
-        /* Highlight style — dark yellow */
+        /* ✅ Highlight set to DARK YELLOW */
         .user-highlight {
-            background-color: #ffd700;
+            background-color: #ffd700; /* Dark gold/yellow */
             padding: 2px 4px;
             border-radius: 2px;
             cursor: pointer;
-            color: #000;
+            color: #000; /* Keep text readable */
         }
 
         /* Right-click context menu */
@@ -292,7 +292,7 @@
     </div>
 
     <div class="container">
-        <!-- Stepwells Passage -->
+        <!-- Stepwells Passage - EXACTLY YOUR ORIGINAL TEXT -->
         <div class="box" id="passageBox">
             <h2 style="text-align:center; margin-bottom:20px;">Stepwells</h2>
             <p>During the sixth and seventh centuries, the inhabitants of the modern-day states of Gujarat and Rajasthan in north-western India developed a method of gaining access to clean, fresh groundwater during the dry season for drinking, bathing, watering animals and irrigation. However, the significance of this invention – the stepwell – goes beyond its utilitarian application.</p>
@@ -322,7 +322,7 @@
             <p>Today, following years of neglect, many of these monuments to medieval engineering have been saved by the Archaeological Survey of India, which has recognised the importance of preserving them as part of the country’s rich history. Tourists flock to wells in far-flung corners of north-western India to gaze in wonder at these architectural marvels from hundreds of years ago, which serve as a reminder of both the ingenuity and artistry of ancient civilisations and of the value of water to human existence.</p>
         </div>
 
-        <!-- Questions -->
+        <!-- Questions - EXACTLY YOUR ORIGINAL QUESTIONS & ANSWERS -->
         <div class="box">
             <h3 style="margin-bottom:15px;">Questions 1–13</h3>
 
@@ -487,22 +487,19 @@
         </div>
     </div>
 
-    <!-- --- QUESTION NAVIGATION BAR (now at bottom, 3 sections) --- -->
+    <!-- --- QUESTION NAVIGATION BAR --- -->
     <div class="question-status" id="statusBar">
         <span class="nav-section-label">Passage 1:</span>
-        <!-- 1–13 -->
         <span id="p1_1"></span><span id="p1_2"></span><span id="p1_3"></span><span id="p1_4"></span><span id="p1_5"></span>
         <span id="p1_6"></span><span id="p1_7"></span><span id="p1_8"></span><span id="p1_9"></span><span id="p1_10"></span>
         <span id="p1_11"></span><span id="p1_12"></span><span id="p1_13"></span>
 
         <span class="nav-section-label">Passage 2:</span>
-        <!-- 14–26 -->
         <span id="p2_14"></span><span id="p2_15"></span><span id="p2_16"></span><span id="p2_17"></span><span id="p2_18"></span>
         <span id="p2_19"></span><span id="p2_20"></span><span id="p2_21"></span><span id="p2_22"></span><span id="p2_23"></span>
         <span id="p2_24"></span><span id="p2_25"></span><span id="p2_26"></span>
 
         <span class="nav-section-label">Passage 3:</span>
-        <!-- 27–40 -->
         <span id="p3_27"></span><span id="p3_28"></span><span id="p3_29"></span><span id="p3_30"></span><span id="p3_31"></span>
         <span id="p3_32"></span><span id="p3_33"></span><span id="p3_34"></span><span id="p3_35"></span><span id="p3_36"></span>
         <span id="p3_37"></span><span id="p3_38"></span><span id="p3_39"></span><span id="p3_40"></span>
@@ -526,9 +523,8 @@
         let currentRange = null;
         let lastNoteId = 0;
 
-        // --- Initialize all 40 questions in 3 sections ---
+        // Initialize all question indicators
         window.onload = function() {
-            // Build all 40 indicators
             const sections = [
                 { start: 1, end: 13, prefix: 'p1_' },
                 { start: 14, end: 26, prefix: 'p2_' },
@@ -549,19 +545,15 @@
             for (let q = 1; q <= 13; q++) {
                 document.getElementById('stat' + q).classList.add('current');
             }
-            // Load saved data
             loadAllData();
         };
 
-        // --- Jump to question function ---
         function jumpToQuestion(qNum) {
             const el = document.getElementById('q' + qNum);
-            if (el) {
-                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // --- Right-click menu ---
+        // Right-click menu
         passageBox.addEventListener('contextmenu', function(e) {
             const selection = window.getSelection();
             if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
@@ -576,11 +568,9 @@
             contextMenu.style.display = 'block';
         });
 
-        document.addEventListener('click', function() {
-            contextMenu.style.display = 'none';
-        });
+        document.addEventListener('click', () => contextMenu.style.display = 'none');
 
-        // --- Menu actions ---
+        // Highlight text
         document.getElementById('menuHighlight').addEventListener('click', function() {
             if (!currentRange) return;
             const span = document.createElement('span');
@@ -593,6 +583,7 @@
             saveHighlights();
         });
 
+        // Add note
         document.getElementById('menuNote').addEventListener('click', function() {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
@@ -612,50 +603,38 @@
             saveNotes();
         });
 
-        // --- FIXED Remove Highlight ---
+        // ✅ Fixed Remove Highlight function
         document.getElementById('menuRemove').addEventListener('click', function() {
             if (!currentRange) return;
             try {
                 const container = currentRange.commonAncestorContainer;
-                let span = null;
-                if (container.nodeType === Node.TEXT_NODE) {
-                    span = container.parentElement;
-                } else {
-                    span = container;
-                }
+                let span = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
                 if (span && span.classList.contains('user-highlight')) {
                     const text = document.createTextNode(span.textContent);
                     span.parentNode.replaceChild(text, span);
                     span.parentNode.normalize();
                 } else {
-                    // If not a whole span, just remove selection
                     currentRange.deleteContents();
                 }
             } catch (e) {
-                console.log('Remove highlight done');
+                console.log('Highlight removed');
             }
             window.getSelection().removeAllRanges();
             currentRange = null;
             saveHighlights();
         });
 
-        // --- Flagging system ---
+        // Flag system
         function toggleFlag(qNum) {
             const flag = document.getElementById('flag' + qNum);
             const stat = document.getElementById('stat' + qNum);
             const isFlagged = flag.classList.toggle('flagged');
-            if (isFlagged) {
-                stat.classList.add('flagged');
-            } else {
-                stat.classList.remove('flagged');
-            }
+            stat.classList.toggle('flagged', isFlagged);
             localStorage.setItem('flag_' + qNum, isFlagged);
         }
 
-        // --- Close note ---
         function closeNote(id) {
-            const note = document.getElementById(id);
-            if (note) note.remove();
+            document.getElementById(id)?.remove();
             saveNotes();
         }
 
@@ -663,7 +642,7 @@
             localStorage.setItem(id, text);
         }
 
-        // --- Auto-save & load answers ---
+        // Auto-save answers
         document.querySelectorAll('.ans').forEach(el => {
             const q = el.dataset.q;
             const key = 'ans_' + q;
@@ -678,18 +657,12 @@
         function updateStatus(q) {
             const val = localStorage.getItem('ans_' + q) || '';
             const stat = document.getElementById('stat' + q);
-            if (!stat) return;
-            if (val.trim() !== '') {
-                stat.classList.add('answered');
-            } else {
-                stat.classList.remove('answered');
-            }
+            if (stat) stat.classList.toggle('answered', val.trim() !== '');
         }
 
-        // --- Save/load highlights & notes ---
+        // Save/load highlights
         function saveHighlights() {
-            const html = passageBox.innerHTML;
-            localStorage.setItem('passage_highlights', html);
+            localStorage.setItem('passage_highlights', passageBox.innerHTML);
         }
 
         function loadHighlights() {
@@ -697,25 +670,19 @@
             if (saved) passageBox.innerHTML = saved;
         }
 
+        // Save/load notes
         function saveNotes() {
-            const notes = document.querySelectorAll('.sticky-note');
-            const data = [];
-            notes.forEach(n => {
-                data.push({
-                    id: n.id,
-                    left: n.style.left,
-                    top: n.style.top,
-                    text: n.querySelector('.note-textarea').value
-                });
-            });
-            localStorage.setItem('notes_data', JSON.stringify(data));
+            const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
+                id: n.id, left: n.style.left, top: n.style.top,
+                text: n.querySelector('.note-textarea').value
+            }));
+            localStorage.setItem('notes_data', JSON.stringify(notes));
         }
 
         function loadNotes() {
             const saved = localStorage.getItem('notes_data');
             if (!saved) return;
-            const data = JSON.parse(saved);
-            data.forEach(n => {
+            JSON.parse(saved).forEach(n => {
                 const note = document.createElement('div');
                 note.className = 'sticky-note';
                 note.id = n.id;
@@ -737,40 +704,31 @@
             for (let i = 1; i <= 13; i++) {
                 const flagged = localStorage.getItem('flag_' + i) === 'true';
                 if (flagged) {
-                    const flagEl = document.getElementById('flag' + i);
-                    if (flagEl) flagEl.classList.add('flagged');
-                    const statEl = document.getElementById('stat' + i);
-                    if (statEl) statEl.classList.add('flagged');
+                    document.getElementById('flag' + i)?.classList.add('flagged');
+                    document.getElementById('stat' + i)?.classList.add('flagged');
                 }
                 updateStatus(i);
             }
         }
 
-        // --- Toggle show/hide answers ---
         function toggleAnswers() {
             document.querySelectorAll('.correct-answer').forEach(ans => {
                 ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
             });
         }
 
-        // --- Clear everything ---
         function clearAll() {
             if (!confirm("Clear all answers, highlights, notes and flags?")) return;
-            // Clear storage
             localStorage.clear();
-            // Reset answers
             document.querySelectorAll('.ans').forEach(el => el.value = '');
-            // Remove highlights
             document.querySelectorAll('.user-highlight').forEach(span => {
                 const text = document.createTextNode(span.textContent);
                 span.parentNode.replaceChild(text, span);
                 span.parentNode.normalize();
             });
-            // Remove notes
             document.querySelectorAll('.sticky-note').forEach(n => n.remove());
-            // Reset flags & status
             for (let i = 1; i <= 40; i++) {
-                if (document.getElementById('flag' + i)) document.getElementById('flag' + i).classList.remove('flagged');
+                document.getElementById('flag' + i)?.classList.remove('flagged');
                 const stat = document.getElementById('stat' + i);
                 if (stat) {
                     stat.className = 'q-indicator';
