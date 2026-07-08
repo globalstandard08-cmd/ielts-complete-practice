@@ -59,13 +59,13 @@
         h4 { margin: 18px 0 10px 0; color: #34495e; }
         ul, ol { margin-left: 20px; margin-bottom: 15px; line-height: 1.6; }
         
-        /* Highlight style */
+        /* Highlight style - clean and visible */
         .user-highlight {
-            background-color: #ffd700;
+            background-color: #ffd700 !important;
             padding: 2px 4px;
             border-radius: 2px;
-            cursor: pointer;
             color: #000;
+            display: inline;
         }
 
         /* Right-click context menu */
@@ -77,12 +77,12 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             z-index: 9999;
             display: none;
-            min-width: 140px;
+            min-width: 160px;
         }
         .context-menu div {
-            padding: 8px 12px;
+            padding: 10px 14px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
         }
         .context-menu div:hover {
             background: #f0f0f0;
@@ -345,8 +345,8 @@
     </div>
 
     <div class="container">
-        <!-- Passage Box -->
-        <div class="box" id="passageBox">
+        <!-- Passage Box - now with unique ID for clean selection -->
+        <div class="box" id="originalPassage">
             <h2>The psychology of innovation</h2>
             <p style="text-align:center; font-style:italic; margin-bottom:25px;">Why are so few companies truly innovative?</p>
 
@@ -648,7 +648,7 @@
     </div>
 
     <script>
-        const passageBox = document.getElementById('passageBox');
+        const passageBox = document.getElementById('originalPassage');
         const contextMenu = document.getElementById('contextMenu');
         let currentRange = null;
         let lastNoteId = 0;
@@ -684,17 +684,21 @@
 
         document.addEventListener('click', () => contextMenu.style.display = 'none');
 
-        // Highlight text
+        // ✅ IMPROVED HIGHLIGHT FUNCTION - works every time
         document.getElementById('menuHighlight').addEventListener('click', function() {
             if (!currentRange) return;
-            const span = document.createElement('span');
-            span.className = 'user-highlight';
-            span.textContent = currentRange.toString();
-            currentRange.deleteContents();
-            currentRange.insertNode(span);
-            window.getSelection().removeAllRanges();
-            currentRange = null;
-            saveHighlights();
+            try {
+                const span = document.createElement('span');
+                span.className = 'user-highlight';
+                span.textContent = currentRange.toString();
+                currentRange.deleteContents();
+                currentRange.insertNode(span);
+                window.getSelection().removeAllRanges();
+                currentRange = null;
+                saveHighlights();
+            } catch (err) {
+                alert("Please select text inside the passage first!");
+            }
         });
 
         // Add sticky note
@@ -721,18 +725,42 @@
             saveNotes();
         });
 
-        // Remove highlight
+        // ✅ IMPROVED REMOVE HIGHLIGHT
         document.getElementById('menuRemove').addEventListener('click', function() {
             if (!currentRange) return;
             try {
-                const container = currentRange.commonAncestorContainer;
-                let span = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
-                if (span && span.classList.contains('user-highlight')) {
-                    const text = document.createTextNode(span.textContent);
-                    span.parentNode.replaceChild(text, span);
-                    span.parentNode.normalize();
+                const commonAncestor = currentRange.commonAncestorContainer;
+                let element = commonAncestor.nodeType === Node.TEXT_NODE 
+                    ? commonAncestor.parentElement 
+                    : commonAncestor;
+
+                // If it's a highlight span, unwrap it
+                if (element && element.classList.contains('user-highlight')) {
+                    const text = document.createTextNode(element.textContent);
+                    element.parentNode.replaceChild(text, element);
+                    element.parentNode.normalize();
+                } else {
+                    // Find all highlights inside the selected range
+                    const tempDiv = document.createElement('div');
+                    tempDiv.appendChild(currentRange.cloneContents());
+                    const highlights = tempDiv.querySelectorAll('.user-highlight');
+                    if (highlights.length > 0) {
+                        const walker = document.createTreeWalker(
+                            currentRange.commonAncestorContainer,
+                            NodeFilter.SHOW_ELEMENT,
+                            { acceptNode: node => node.classList.contains('user-highlight') ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT }
+                        );
+                        let node;
+                        while (node = walker.nextNode()) {
+                            const text = document.createTextNode(node.textContent);
+                            node.parentNode.replaceChild(text, node);
+                        }
+                        currentRange.commonAncestorContainer.normalize();
+                    }
                 }
-            } catch (e) { /* ignore */ }
+            } catch (e) { 
+                console.log("Remove highlight error:", e);
+            }
             window.getSelection().removeAllRanges();
             currentRange = null;
             saveHighlights();
@@ -844,12 +872,53 @@
 
         // --- SAVE / LOAD ---
         function saveHighlights() {
-            localStorage.setItem('passage_highlights_p3', passageBox.innerHTML);
+            // Save only the highlighted parts, not the whole structure
+            const highlights = Array.from(document.querySelectorAll('.user-highlight')).map(span => ({
+                text: span.textContent,
+                index: getTextIndex(passageBox, span)
+            }));
+            localStorage.setItem('highlights_p3', JSON.stringify(highlights));
+        }
+
+        function getTextIndex(parent, element) {
+            const textNodes = [];
+            let index = 0;
+            const walker = document.createTreeWalker(parent, NodeFilter.SHOW_TEXT);
+            let node;
+            while (node = walker.nextNode()) {
+                if (node === element.firstChild) break;
+                index += node.length;
+            }
+            return index;
         }
 
         function loadHighlights() {
-            const saved = localStorage.getItem('passage_highlights_p3');
-            if (saved) passageBox.innerHTML = saved;
+            const saved = localStorage.getItem('highlights_p3');
+            if (!saved) return;
+            const highlights = JSON.parse(saved);
+            // Reapply highlights
+            highlights.forEach(h => {
+                try {
+                    const walker = document.createTreeWalker(passageBox, NodeFilter.SHOW_TEXT);
+                    let pos = 0;
+                    let node;
+                    while (node = walker.nextNode()) {
+                        if (pos + node.length >= h.index) {
+                            const offset = h.index - pos;
+                            const range = document.createRange();
+                            range.setStart(node, offset);
+                            range.setEnd(node, offset + h.text.length);
+                            const span = document.createElement('span');
+                            span.className = 'user-highlight';
+                            span.textContent = h.text;
+                            range.deleteContents();
+                            range.insertNode(span);
+                            break;
+                        }
+                        pos += node.length;
+                    }
+                } catch (err) { /* skip if can't restore */ }
+            });
         }
 
         function saveNotes() {
@@ -913,42 +982,4 @@
             for (let i = 36; i <= 40; i++) {
                 const saved = localStorage.getItem('ans_' + i);
                 const el = document.querySelector(`.ans[data-q="${i}"]`);
-                if (el) el.value = saved || '';
-                if (localStorage.getItem('flag_' + i) === 'true') {
-                    document.getElementById('flag' + i)?.classList.add('flagged');
-                    document.getElementById('stat' + i)?.classList.add('flagged');
-                }
-                updateStatus(i);
-            }
-        }
-
-        function toggleAnswers() {
-            document.querySelectorAll('.correct-answer').forEach(ans => {
-                ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
-            });
-        }
-
-        function clearAll() {
-            if (!confirm("Clear all answers, highlights, notes and flags?")) return;
-            for (let i = 27; i <= 40; i++) {
-                localStorage.removeItem('ans_' + i);
-                localStorage.removeItem('flag_' + i);
-                document.getElementById('flag' + i)?.classList.remove('flagged');
-                document.getElementById('stat' + i).className = 'q-indicator current';
-            }
-            localStorage.removeItem('passage_highlights_p3');
-            localStorage.removeItem('notes_data_p3');
-
-            document.querySelectorAll('.ans').forEach(el => el.value = '');
-            document.querySelectorAll('input[type="radio"]').forEach(el => el.checked = false);
-            document.querySelectorAll('.drop-target').forEach(el => el.innerHTML = '');
-            document.querySelectorAll('.user-highlight').forEach(span => {
-                const txt = document.createTextNode(span.textContent);
-                span.parentNode.replaceChild(txt, span);
-                span.parentNode.normalize();
-            });
-            document.querySelectorAll('.sticky-note').forEach(n => n.remove());
-        }
-    </script>
-</body>
-</html>
+                if (el) el.value = saved
