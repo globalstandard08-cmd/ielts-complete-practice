@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reading Passage 2 - European Transport Systems 1990–2010</title>
+    <title>Reading Passage 1 - Stepwells</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: Arial, sans-serif; 
             min-height: 100vh; 
             overflow-y: auto;
+            position: relative;
         }
         
-        /* Logo area */
+        /* Logo area — smaller */
         .logo-container {
             text-align: center;
             padding: 8px 0;
@@ -20,7 +21,7 @@
             border-bottom: 1px solid #eee;
         }
         .logo {
-            height: 50px;
+            height: 120px;
             width: auto;
             object-fit: contain;
         }
@@ -33,6 +34,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             padding: 0 20px 20px;
+            position: relative;
         }
 
         .box {
@@ -53,56 +55,141 @@
         .box { scrollbar-width: auto; scrollbar-color: #b8b8b8 #f1f1f1; }
 
         p { margin-bottom: 15px; line-height: 1.6; text-align: justify; }
-        ul, ol { margin: 10px 0 20px 25px; line-height: 1.6; }
         
-        /* Highlight style */
+        /* Highlight style — dark yellow */
         .user-highlight {
-            background-color: #fff3cd;
-            padding: 2px 3px;
+            background-color: #ffd700;
+            padding: 2px 4px;
             border-radius: 2px;
             cursor: pointer;
+            color: #000;
         }
 
-        /* Floating tools */
-        .highlight-tool {
+        /* Right-click context menu */
+        .context-menu {
             position: absolute;
-            background: #fff;
+            background: #ffffff;
             border: 1px solid #ccc;
             border-radius: 4px;
-            padding: 4px 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 9999;
             display: none;
-            cursor: pointer;
-            font-size: 16px;
-            color: #333;
+            min-width: 140px;
         }
-        .highlight-tool:hover {
-            background: #fff3cd;
-            border-color: #ffc107;
-        }
-
-        .remove-highlight {
-            position: absolute;
-            background: #fff;
-            border: 1px solid #dc3545;
-            border-radius: 4px;
-            padding: 4px 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-            z-index: 1000;
-            display: none;
+        .context-menu div {
+            padding: 8px 12px;
             cursor: pointer;
             font-size: 14px;
-            color: #dc3545;
         }
-        .remove-highlight:hover {
-            background: #ffebee;
+        .context-menu div:hover {
+            background: #f0f0f0;
         }
 
-        .question { margin-bottom: 25px; }
-        .question h4 { margin-bottom: 10px; font-size: 15px; }
-        .instruction { font-style: italic; margin-bottom: 12px; font-size: 14px; color: #444; }
-        
+        /* Sticky notes */
+        .sticky-note {
+            position: absolute;
+            width: 160px;
+            min-height: 60px;
+            background: #fff380;
+            border: 1px solid #e6c200;
+            border-radius: 4px;
+            padding: 6px;
+            box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+            z-index: 9998;
+            font-size: 13px;
+        }
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 12px;
+            color: #886a00;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #886a00;
+        }
+        .note-textarea {
+            width: 100%;
+            height: 45px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        /* Flagging style */
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .flag-btn {
+            font-size: 18px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+            user-select: none;
+        }
+        .flag-btn.flagged {
+            color: #e67700;
+        }
+
+        /* --- QUESTION NAVIGATION BAR --- */
+        .nav-section-label {
+            font-weight: bold;
+            color: #333;
+            margin: 0 8px;
+            font-size: 14px;
+        }
+        .question-status {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            margin: 10px 20px;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+        .q-indicator {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2px;
+            border: 1px solid #ced4da;
+            background: #e9ecef;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .q-indicator:hover {
+            background: #dee2e6;
+        }
+        .q-indicator.answered {
+            background: #198754;
+            color: white;
+            border-color: #198754;
+        }
+        .q-indicator.flagged {
+            background: #fd7e14;
+            color: white;
+            border-color: #fd7e14;
+        }
+        .q-indicator.current {
+            border: 2px solid #007bff;
+        }
+
+        .question { margin-bottom: 20px; scroll-margin-top: 20px; }
         textarea { 
             width: 100%; 
             padding: 8px; 
@@ -111,7 +198,6 @@
             border-radius: 3px; 
             min-height: 40px;
             resize: vertical;
-            font-size: 14px;
         }
 
         /* Answer styling - HIDDEN by default */
@@ -120,7 +206,6 @@
             font-weight: bold;
             margin-top: 4px;
             display: none;
-            font-size: 14px;
         }
 
         /* Bottom controls & navigation */
@@ -132,6 +217,11 @@
             align-items: center;
             gap: 15px;
             background: #fff;
+            flex-wrap: wrap;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
         }
         .check-btn {
             padding: 8px 16px;
@@ -145,6 +235,18 @@
         .check-btn:hover {
             background: #218838;
         }
+        .clear-btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: none;
+            background: #dc3545;
+            color: white;
+            cursor: pointer;
+        }
+        .clear-btn:hover {
+            background: #c82333;
+        }
         .nav {
             display: flex;
             gap: 10px;
@@ -157,226 +259,329 @@
             cursor: pointer; 
             border: none;
         }
-        .prev { background: #6c757d; color: white; }
-        .next { background: #007bff; color: white; opacity: 0.6; }
+        .prev { background: #6c757d; color: white; opacity: 0.6; }
+        .next { background: #007bff; color: white; font-weight: bold; }
 
+        /* Table input styling */
         .q-number {
             font-weight: bold;
-            margin-right: 6px;
-            display: inline-block;
-            min-width: 22px;
+            margin-right: 4px;
         }
-        .heading-list {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            padding: 12px;
-            margin: 10px 0 15px;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        .passage-title {
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #2c3e50;
-        }
-        .passage-subtitle {
-            text-align: center;
-            font-size: 16px;
-            font-style: italic;
-            margin-bottom: 25px;
-            color: #555;
+        .inline-input {
+            width: 80px;
+            height: 30px;
+            display: inline;
+            padding: 2px 4px;
         }
     </style>
 </head>
 <body>
     <!-- Logo -->
     <div class="logo-container">
-        <img src="ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
+        <img src="ielts-logo.png" alt="IELTS Reading Practice Logo" class="logo">
     </div>
 
-    <h1>Reading Passage 2</h1>
-    <p class="subhead">You should spend about 20 minutes on Questions 14–26, which are based on Reading Passage 2 below.</p>
+    <h1>Reading Passage 1 - Stepwells</h1>
+    <p class="subhead">You should spend about 20 minutes on Questions 1–13</p>
 
-    <!-- Floating tools -->
-    <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
-    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
+    <!-- Right-click menu -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+    </div>
 
     <div class="container">
-        <!-- ✅ FULL CORRECT PASSAGE: EUROPEAN TRANSPORT SYSTEMS 1990–2010 -->
+        <!-- Stepwells Passage -->
         <div class="box" id="passageBox">
-            <h2 class="passage-title">EUROPEAN TRANSPORT SYSTEMS 1990–2010</h2>
-            <p class="passage-subtitle">What have been the trends and what are the prospects for European transport systems?</p>
-
-            <p><strong>A</strong><br>
-            It is difficult to conceive of vigorous economic growth without an efficient transport system. Although modern information technologies can reduce the demand for physical transport by facilitating teleworking and teleservices, the requirement for transport continues to increase. There are two key factors behind this trend. For passenger transport, the determining factor is the spectacular growth in car use. The number of cars on European Union (EU) roads saw an increase of three million cars each year from 1990 to 2010, and in the next decade the EU will see a further substantial increase in its fleet.</p>
-
-            <p><strong>B</strong><br>
-            As far as goods transport is concerned, growth is due to a large extent to changes in the European economy and its system of production. In the last 20 years, as internal frontiers have been abolished, the EU has moved from a ‘stock’ economy to a ‘flow’ economy. This phenomenon has been emphasised by the relocation of some industries, particularly those which are labour intensive, to reduce production costs, even though the production site is hundreds or even thousands of kilometres away from the final assembly plant or away from users.</p>
-
-            <p><strong>C</strong><br>
-            The strong economic growth expected in countries which are candidates for entry to the EU will also increase transport flows, in particular road haulage traffic. In 1998, some of these countries already exported more than twice their 1990 volumes and imported more than five times their 1990 volumes. And although many candidate countries inherited a transport system which encourages rail, the distribution between modes has tipped sharply in favour of road transport since the 1990s. Between 1990 and 1998, road haulage increased by 19.4%, while during the same period rail haulage decreased by 43.5%, although – and this could benefit the enlarged EU – it is still on average at a much higher level than in existing member states.</p>
-
-            <p><strong>D</strong><br>
-            However, a new imperative – sustainable development – offers an opportunity for adapting the EU’s common transport policy. This objective, agreed by the Gothenburg European Council, has to be achieved by integrating environmental considerations into Community policies, and shifting the balance between modes of transport lies at the heart of its strategy. The ambitious objective can only be fully achieved by 2020, but proposed measures are nonetheless a first essential step towards a sustainable transport system which will ideally be in place in 30 years’ time, that is by 2040.</p>
-
-            <p><strong>E</strong><br>
-            In 1998, energy consumption in the transport sector was to blame for 28% of emissions of CO₂, the leading greenhouse gas. According to the latest estimates, if nothing is done to reverse the traffic growth trend, CO₂ emissions from transport can be expected to increase by around 50% to 1,113 billion tonnes by 2020, compared with the 739 billion tonnes recorded in 1990. Once again, road transport is the main culprit since it alone accounts for 84% of the CO₂ emissions attributable to transport. Using alternative fuels and improving energy efficiency is thus both an ecological necessity and a technological challenge.</p>
-
-            <p><strong>F</strong><br>
-            At the same time greater efforts must be made to achieve a modal shift. Such a change cannot be achieved overnight, all the less so after over half a century of constant deterioration in favour of road. This has reached such a pitch that today rail freight services are facing marginalisation, with just 8% of market share, and with international goods trains struggling along at an average speed of 18km/h. Three possible options have emerged.</p>
-
-            <p><strong>G</strong><br>
-            The first approach would consist of focusing on road transport solely through pricing. This option would not be accompanied by complementary measures in the other modes of transport. In the short term it might curb the growth in road transport through the better loading ratio of goods vehicles and occupancy rates of passenger vehicles expected as a result of the increase in the price of transport. However, the lack of measures available to revitalise other modes of transport would make it impossible for more sustainable modes of transport to take up the baton.</p>
-
-            <p><strong>H</strong><br>
-            The second approach also concentrates on road transport pricing but is accompanied by measures to increase the efficiency of the other modes (better quality of services, logistics, technology). However, this approach does not include investment in new infrastructure, nor does it guarantee better regional cohesion. It could help to achieve greater uncoupling than the first approach, but road transport would keep the lion’s share of the market and continue to concentrate on saturated arteries, despite being the most polluting of the modes. It is therefore not enough to guarantee the necessary shift of the balance.</p>
-
-            <p><strong>I</strong><br>
-            The third approach, which is not new, comprises a series of measures ranging from pricing to revitalising alternative modes of transport and targeting investment in the trans-European network. This integrated approach would allow the market shares of the other modes to return to their 1998 levels and thus make a shift of balance. It is far more ambitious than it looks, bearing in mind the historical imbalance in favour of roads for the last fifty years, but would achieve a marked break in the link between road transport growth and economic growth, without placing restrictions on the mobility of people and goods.</p>
+            <h2 style="text-align:center; margin-bottom:20px;">Stepwells</h2>
+            <p>During the sixth and seventh centuries, the inhabitants of the modern-day states of Gujarat and Rajasthan in north-western India developed a method of gaining access to clean, fresh groundwater during the dry season for drinking, bathing, watering animals and irrigation. However, the significance of this invention – the stepwell – goes beyond its utilitarian application.</p>
+            
+            <p>Unique to this region, stepwells are often architecturally complex and vary widely in size and shape. During their heyday, they were places of gathering, of leisure and relaxation and of worship for villagers of all but the lowest classes. Most stepwells are found dotted round the desert areas of Gujarat (where they are called vav) and Rajasthan (where they are called baori), while a few also survive in Delhi. Some were located in or near villages as public spaces for the community; others were positioned beside roads as resting places for travellers.</p>
+            
+            <p>As their name suggests, stepwells comprise a series of stone steps descending from ground level to the water source (normally an underground aquifer) as it recedes following the rains. When the water level was high, the user needed only to descend a few steps to reach it; when it was low, several levels would have to be negotiated.</p>
+            
+            <p>Some wells are vast, open craters with hundreds of steps paving each sloping side, often in tiers. Others are more elaborate, with long stepped passages leading to the water via several storeys. Built from stone and supported by pillars, they also included pavilions that sheltered visitors from the relentless heat. But perhaps the most impressive features are the intricate decorative sculptures that embellish many stepwells, showing activities from fighting and dancing to everyday acts such as women combing their hair or churning butter.</p>
+            
+            <p>Down the centuries, thousands of wells were constructed throughout north-western India, but the majority have now fallen into disuse; many are derelict and dry, as groundwater has been diverted for industrial use and the wells no longer reach the water table. Their condition hasn’t been helped by recent dry spells: southern Rajasthan suffered an eight-year drought between 1996 and 2004.</p>
+            
+            <p>However, some important sites in Gujarat have recently undergone major restoration, and the state government announced in June last year that it plans to restore the stepwells throughout the state.</p>
+            
+            <p>In Patan, the state’s ancient capital, the stepwell of Rani Ki Vav (Queen’s Stepwell) is perhaps the finest current example. It was built by Queen Udayamati during the late 11th century, but became silted up following a flood during the 13th century. But the Archaeological Survey of India began restoring it in the 1960s, and today it is in pristine condition. At 65 metres long, 20 metres wide and 27 metres deep, Rani Ki Vav features 500 sculptures carved into niches throughout the monument. Incredibly, in January 2001, this ancient structure survived an earthquake that measured 7.6 on the Richter scale.</p>
+            
+            <p>Another example is the Surya Kund in Modhera, northern Gujarat, next to the Sun Temple, built by King Bhima I in 1026 to honour the sun god Surya. It actually resembles a tank (kund means reservoir or pond) rather than a well, but displays the hallmarks of stepwell architecture, including four sides of steps that descend to the bottom in a stunning geometrical formation. The terraces house 108 small, intricately carved shrines between the sets of steps.</p>
+            
+            <p>Rajasthan also has a wealth of wells. The ancient city of Bundi, 200 kilometres south of Jaipur, is renowned for its architecture, including its stepwells.</p>
+            
+            <p>One of the larger examples is Raniji Ki Baori, which was built by the queen of the region, Nathavatji, in 1699. At 46 metres deep, 20 metres wide and 40 metres long, the intricately carved monument is one of 21 baoris commissioned in the Bundi area by Nathavatji.</p>
+            
+            <p>In the old ruined town of Abhaneri, about 95 kilometres east of Jaipur, is Chand Baori, one of India’s oldest and deepest wells; aesthetically it’s perhaps one of the most dramatic. Built in around 850 AD next to the temple of Harshat Mata, the baori comprises hundreds of zigzagging steps that run along three of its sides, steeply descending 11 storeys, resulting in a striking pattern when seen from afar. On the fourth side, verandas which are supported by ornate pillars overlook the steps.</p>
+            
+            <p>Still in public use is Neemrana Ki Baori, located just off the Jaipur–Delhi highway. Constructed in around 1700, it is nine storeys deep, with the last two being underwater. At ground level, there are 86 colonnaded openings from where the visitor descends 170 steps to the deepest water source.</p>
+            
+            <p>Today, following years of neglect, many of these monuments to medieval engineering have been saved by the Archaeological Survey of India, which has recognised the importance of preserving them as part of the country’s rich history. Tourists flock to wells in far-flung corners of north-western India to gaze in wonder at these architectural marvels from hundreds of years ago, which serve as a reminder of both the ingenuity and artistry of ancient civilisations and of the value of water to human existence.</p>
         </div>
 
-        <!-- ✅ QUESTIONS 100% MATCHING YOUR IMAGES -->
+        <!-- Questions -->
         <div class="box">
-            <h3 style="margin-bottom:15px;">Questions 14–26</h3>
+            <h3 style="margin-bottom:15px;">Questions 1–13</h3>
 
-            <!-- QUESTIONS 14–21: Matching Headings -->
-            <div class="question">
-                <h4>Questions 14–21</h4>
-                <p class="instruction">Reading Passage 2 has nine paragraphs, A–I.<br>
-                Choose the correct heading for paragraphs A–E and G–I from the list of headings below.<br>
-                Write the correct number, i–xi, in boxes 14–21.</p>
+            <div class="question" id="q1">
+                <h4>Questions 1–5</h4>
+                <p><em>Do the following statements agree with the information given in Reading Passage 1?</em></p>
+                <p><strong>TRUE</strong> if the statement agrees<br>
+                <strong>FALSE</strong> if the statement contradicts the information<br>
+                <strong>NOT GIVEN</strong> if there is no information on this</p>
 
-                <div class="heading-list">
-                <strong>List of Headings</strong><br>
-                i &nbsp;&nbsp;&nbsp;A fresh and important long-term goal<br>
-                ii &nbsp;&nbsp;Charging for roads and improving other transport methods<br>
-                iii &nbsp;Changes affecting the distances goods may be transported<br>
-                iv &nbsp;Taking all the steps necessary to change transport patterns<br>
-                v &nbsp;&nbsp;The environmental costs of road transport<br>
-                vi &nbsp;&nbsp;The escalating cost of rail transport<br>
-                vii &nbsp;The need to achieve transport rebalance<br>
-                viii &nbsp;The rapid growth of private transport<br>
-                ix &nbsp;&nbsp;Plans to develop major road networks<br>
-                x &nbsp;&nbsp;Restricting road use through charging policies alone<br>
-                xi &nbsp;Transport trends in countries awaiting EU admission
+                <div class="question" id="q1">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(1)" id="flag1">🚩</span>
+                        <label><strong>1.</strong> Examples of ancient stepwells can be found all over the world.</label>
+                    </div>
+                    <textarea class="ans" data-q="1" data-answer="FALSE"></textarea>
+                    <div class="correct-answer">Correct answer: FALSE</div>
                 </div>
 
-                <label><span class="q-number">14.</span> Paragraph A</label>
-                <textarea class="ans" data-answer="viii"></textarea>
-               <!-- Q14 -->
-<div class="correct-answer">Correct answer: viii</div>
+                <div class="question" id="q2">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(2)" id="flag2">🚩</span>
+                        <label><strong>2.</strong> Stepwells had a range of functions, in addition to those related to water collection.</label>
+                    </div>
+                    <textarea class="ans" data-q="2" data-answer="TRUE"></textarea>
+                    <div class="correct-answer">Correct answer: TRUE</div>
+                </div>
 
-<!-- Q15 -->
-<div class="correct-answer">Correct answer: iii</div>
+                <div class="question" id="q3">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(3)" id="flag3">🚩</span>
+                        <label><strong>3.</strong> The few existing stepwells in Delhi are more attractive than those found elsewhere.</label>
+                    </div>
+                    <textarea class="ans" data-q="3" data-answer="NOT GIVEN"></textarea>
+                    <div class="correct-answer">Correct answer: NOT GIVEN</div>
+                </div>
 
-<!-- Q16 -->
-<div class="correct-answer">Correct answer: xi</div>
+                <div class="question" id="q4">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(4)" id="flag4">🚩</span>
+                        <label><strong>4.</strong> It took workers many years to build the stone steps characteristic of stepwells.</label>
+                    </div>
+                    <textarea class="ans" data-q="4" data-answer="NOT GIVEN"></textarea>
+                    <div class="correct-answer">Correct answer: NOT GIVEN</div>
+                </div>
 
-<!-- Q17 -->
-<div class="correct-answer">Correct answer: i</div>
+                <div class="question" id="q5">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(5)" id="flag5">🚩</span>
+                        <label><strong>5.</strong> The number of steps above the water level in a stepwell altered during the course of a year.</label>
+                    </div>
+                    <textarea class="ans" data-q="5" data-answer="TRUE"></textarea>
+                    <div class="correct-answer">Correct answer: TRUE</div>
+                </div>
+            </div>
 
-<!-- Q18 -->
-<div class="correct-answer">Correct answer: v</div>
+            <div class="question" id="q6">
+                <h4>Questions 6–8</h4>
+                <p><em>Answer the questions below.<br>Choose ONE WORD ONLY from the passage for each answer.</em></p>
 
-<!-- Q19 -->
-<div class="correct-answer">Correct answer: x</div>
+                <div class="question">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(6)" id="flag6">🚩</span>
+                        <label><strong>6.</strong> Which part of some stepwells provided shade for people?</label>
+                    </div>
+                    <textarea class="ans" data-q="6" data-answer="pavilions"></textarea>
+                    <div class="correct-answer">Correct answer: pavilions</div>
+                </div>
 
-<!-- Q20 -->
-<div class="correct-answer">Correct answer: ii</div>
+                <div class="question" id="q7">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(7)" id="flag7">🚩</span>
+                        <label><strong>7.</strong> What type of serious climatic event, which took place in southern Rajasthan, is mentioned in the article?</label>
+                    </div>
+                    <textarea class="ans" data-q="7" data-answer="drought"></textarea>
+                    <div class="correct-answer">Correct answer: drought</div>
+                </div>
 
-<!-- Q21 -->
-<div class="correct-answer">Correct answer: iv</div>
+                <div class="question" id="q8">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(8)" id="flag8">🚩</span>
+                        <label><strong>8.</strong> Who are frequent visitors to stepwells nowadays?</label>
+                    </div>
+                    <textarea class="ans" data-q="8" data-answer="tourists"></textarea>
+                    <div class="correct-answer">Correct answer: tourists</div>
+                </div>
+            </div>
 
-<!-- Q22 -->
-<div class="correct-answer">Correct answer: TRUE</div>
-
-<!-- Q23 -->
-<div class="correct-answer">Correct answer: FALSE</div>
-
-<!-- Q24 -->
-<div class="correct-answer">Correct answer: NOT GIVEN</div>
-
-<!-- Q25 -->
-<div class="correct-answer">Correct answer: NOT GIVEN</div>
-
-<!-- Q26 -->
-<div class="correct-answer">Correct answer: FALSE</div>
-
-            <!-- QUESTIONS 22–26: TRUE / FALSE / NOT GIVEN -->
-            <div class="question">
-                <h4>Questions 22–26</h4>
-                <p class="instruction">Do the following statements agree with the information given in Reading Passage 2?<br>
-                Write:<br>
-                <strong>TRUE</strong> &nbsp;&nbsp;&nbsp;if the statement agrees with the information<br>
-                <strong>FALSE</strong> &nbsp;&nbsp;if the statement contradicts the information<br>
-                <strong>NOT GIVEN</strong> &nbsp;if there is no information on this</p>
-
-                <label><span class="q-number">22.</span> The need for transport is growing, despite technological developments.</label>
-                <textarea class="ans" data-answer="TRUE"></textarea>
-                <div class="correct-answer">Correct answer: TRUE</div>
-
-                <label><span class="q-number">23.</span> To reduce production costs, some industries have been moved closer to their relevant consumers.</label>
-                <textarea class="ans" data-answer="FALSE"></textarea>
-                <div class="correct-answer">Correct answer: FALSE</div>
-
-                <label><span class="q-number">24.</span> Cars are prohibitively expensive in some EU candidate countries.</label>
-                <textarea class="ans" data-answer="NOT GIVEN"></textarea>
-                <div class="correct-answer">Correct answer: NOT GIVEN</div>
-
-                <label><span class="q-number">25.</span> The Gothenburg European Council was set up 30 years ago.</label>
-                <textarea class="ans" data-answer="FALSE"></textarea>
-                <div class="correct-answer">Correct answer: FALSE</div>
-
-                <label><span class="q-number">26.</span> By the end of this decade, CO₂ emissions from transport are predicted to reach 739 billion tonnes.</label>
-                <textarea class="ans" data-answer="FALSE"></textarea>
-                <div class="correct-answer">Correct answer: FALSE</div>
+            <div class="question" id="q9">
+                <h4>Questions 9–13</h4>
+                <p><em>Complete the table below. Choose ONE WORD AND/OR A NUMBER from the passage for each answer.</em></p>
+                <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+                    <tr>
+                        <th style="border:1px solid #ccc; padding:8px;">Stepwell</th>
+                        <th style="border:1px solid #ccc; padding:8px;">Date</th>
+                        <th style="border:1px solid #ccc; padding:8px;">Features</th>
+                        <th style="border:1px solid #ccc; padding:8px;">Other notes</th>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid #ccc; padding:8px;">Rani Ki Vav</td>
+                        <td style="border:1px solid #ccc; padding:8px;">Late 11th century</td>
+                        <td style="border:1px solid #ccc; padding:8px;">As many as 500 sculptures decorate the monument</td>
+                        <td style="border:1px solid #ccc; padding:8px;">Restored in the 1960s<br>Excellent condition, despite the 
+                            <span class="question-header" style="display:inline-flex; gap:4px; margin:0;">
+                                <span class="flag-btn" onclick="toggleFlag(9)" id="flag9" style="font-size:14px;">🚩</span>
+                                <span class="q-number">9.</span>
+                            </span>
+                            <textarea class="ans inline-input" data-q="9" data-answer="earthquake"></textarea>
+                            <div class="correct-answer">Correct: earthquake</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid #ccc; padding:8px;">Surya Kund</td>
+                        <td style="border:1px solid #ccc; padding:8px;">1026</td>
+                        <td style="border:1px solid #ccc; padding:8px;">Steps on the 
+                            <span class="question-header" style="display:inline-flex; gap:4px; margin:0;">
+                                <span class="flag-btn" onclick="toggleFlag(10)" id="flag10" style="font-size:14px;">🚩</span>
+                                <span class="q-number">10.</span>
+                            </span>
+                            <textarea class="ans inline-input" data-q="10" data-answer="four sides"></textarea> produce a geometrical pattern<br>Carved shrines
+                        </td>
+                        <td style="border:1px solid #ccc; padding:8px;">Looks more like a 
+                            <span class="question-header" style="display:inline-flex; gap:4px; margin:0;">
+                                <span class="flag-btn" onclick="toggleFlag(11)" id="flag11" style="font-size:14px;">🚩</span>
+                                <span class="q-number">11.</span>
+                            </span>
+                            <textarea class="ans inline-input" data-q="11" data-answer="tank"></textarea> than a well
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid #ccc; padding:8px;">Raniji Ki Baori</td>
+                        <td style="border:1px solid #ccc; padding:8px;">1699</td>
+                        <td style="border:1px solid #ccc; padding:8px;">Intricately carved monument</td>
+                        <td style="border:1px solid #ccc; padding:8px;">One of 21 baoris in the area commissioned by Queen Nathavatji</td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid #ccc; padding:8px;">Chand Baori</td>
+                        <td style="border:1px solid #ccc; padding:8px;">850 AD</td>
+                        <td style="border:1px solid #ccc; padding:8px;">Steps take you down 11 storeys to the bottom</td>
+                        <td style="border:1px solid #ccc; padding:8px;">Old, deep and very dramatic<br>Has 
+                            <span class="question-header" style="display:inline-flex; gap:4px; margin:0;">
+                                <span class="flag-btn" onclick="toggleFlag(12)" id="flag12" style="font-size:14px;">🚩</span>
+                                <span class="q-number">12.</span>
+                            </span>
+                            <textarea class="ans inline-input" data-q="12" data-answer="verandas"></textarea> which give a view over the steps
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid #ccc; padding:8px;">Neemrana Ki Baori</td>
+                        <td style="border:1px solid #ccc; padding:8px;">c. 1700</td>
+                        <td style="border:1px solid #ccc; padding:8px;">Has two 
+                            <span class="question-header" style="display:inline-flex; gap:4px; margin:0;">
+                                <span class="flag-btn" onclick="toggleFlag(13)" id="flag13" style="font-size:14px;">🚩</span>
+                                <span class="q-number">13.</span>
+                            </span>
+                            <textarea class="ans inline-input" data-q="13" data-answer="underwater"></textarea> levels
+                        </td>
+                        <td style="border:1px solid #ccc; padding:8px;">Still used today</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
 
+    <!-- --- QUESTION NAVIGATION BAR (now at bottom, 3 sections) --- -->
+    <div class="question-status" id="statusBar">
+        <span class="nav-section-label">Passage 1:</span>
+        <!-- 1–13 -->
+        <span id="p1_1"></span><span id="p1_2"></span><span id="p1_3"></span><span id="p1_4"></span><span id="p1_5"></span>
+        <span id="p1_6"></span><span id="p1_7"></span><span id="p1_8"></span><span id="p1_9"></span><span id="p1_10"></span>
+        <span id="p1_11"></span><span id="p1_12"></span><span id="p1_13"></span>
+
+        <span class="nav-section-label">Passage 2:</span>
+        <!-- 14–26 -->
+        <span id="p2_14"></span><span id="p2_15"></span><span id="p2_16"></span><span id="p2_17"></span><span id="p2_18"></span>
+        <span id="p2_19"></span><span id="p2_20"></span><span id="p2_21"></span><span id="p2_22"></span><span id="p2_23"></span>
+        <span id="p2_24"></span><span id="p2_25"></span><span id="p2_26"></span>
+
+        <span class="nav-section-label">Passage 3:</span>
+        <!-- 27–40 -->
+        <span id="p3_27"></span><span id="p3_28"></span><span id="p3_29"></span><span id="p3_30"></span><span id="p3_31"></span>
+        <span id="p3_32"></span><span id="p3_33"></span><span id="p3_34"></span><span id="p3_35"></span><span id="p3_36"></span>
+        <span id="p3_37"></span><span id="p3_38"></span><span id="p3_39"></span><span id="p3_40"></span>
+    </div>
+
     <!-- Bottom controls & navigation -->
     <div class="bottom-controls">
-        <button class="check-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+        <div class="btn-group">
+            <button class="check-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+            <button class="clear-btn" onclick="clearAll()">Clear All</button>
+        </div>
         <div class="nav">
-            <a href="reading-stepwells.html" class="prev">← Previous Passage</a>
-            <span class="next">Next Passage →</span>
+            <span class="prev">← Previous Passage</span>
+            <a href="reading-passage2.html" class="next">Next Passage →</a>
         </div>
     </div>
 
     <script>
         const passageBox = document.getElementById('passageBox');
-        const highlightTool = document.getElementById('highlightTool');
-        const removeTool = document.getElementById('removeTool');
+        const contextMenu = document.getElementById('contextMenu');
         let currentRange = null;
+        let lastNoteId = 0;
 
-        // --- Auto-save answers (key = transport_ans_...)
+        // --- Initialize all 40 questions in 3 sections ---
         window.onload = function() {
-            document.querySelectorAll('.ans').forEach((el, i) => {
-                const key = 'transport_ans_' + i;
-                const saved = localStorage.getItem(key);
-                if (saved) el.value = saved;
-                el.addEventListener('input', () => localStorage.setItem(key, el.value));
+            // Build all 40 indicators
+            const sections = [
+                { start: 1, end: 13, prefix: 'p1_' },
+                { start: 14, end: 26, prefix: 'p2_' },
+                { start: 27, end: 40, prefix: 'p3_' }
+            ];
+            sections.forEach(sec => {
+                for (let q = sec.start; q <= sec.end; q++) {
+                    const el = document.getElementById(sec.prefix + q);
+                    if (el) {
+                        el.className = 'q-indicator';
+                        el.textContent = q;
+                        el.id = 'stat' + q;
+                        el.onclick = () => jumpToQuestion(q);
+                    }
+                }
             });
+            // Mark current passage
+            for (let q = 1; q <= 13; q++) {
+                document.getElementById('stat' + q).classList.add('current');
+            }
+            // Load saved data
+            loadAllData();
         };
 
-        // --- Highlight tools
-        passageBox.addEventListener('mouseup', function(e) {
+        // --- Jump to question function ---
+        function jumpToQuestion(qNum) {
+            const el = document.getElementById('q' + qNum);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // --- Right-click menu ---
+        passageBox.addEventListener('contextmenu', function(e) {
             const selection = window.getSelection();
             if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
-                highlightTool.style.display = 'none';
+                contextMenu.style.display = 'none';
                 return;
             }
+            e.preventDefault();
             currentRange = selection.getRangeAt(0);
             const rect = currentRange.getBoundingClientRect();
-            const boxRect = passageBox.getBoundingClientRect();
-            highlightTool.style.left = (rect.left - boxRect.left + rect.width / 2 - 15) + 'px';
-            highlightTool.style.top = (rect.top - boxRect.top - 35) + 'px';
-            highlightTool.style.display = 'block';
+            contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+            contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+            contextMenu.style.display = 'block';
         });
 
-        highlightTool.addEventListener('click', function() {
+        document.addEventListener('click', function() {
+            contextMenu.style.display = 'none';
+        });
+
+        // --- Menu actions ---
+        document.getElementById('menuHighlight').addEventListener('click', function() {
             if (!currentRange) return;
             const span = document.createElement('span');
             span.className = 'user-highlight';
@@ -384,47 +589,195 @@
             currentRange.deleteContents();
             currentRange.insertNode(span);
             window.getSelection().removeAllRanges();
-            highlightTool.style.display = 'none';
             currentRange = null;
+            saveHighlights();
         });
 
-        passageBox.addEventListener('click', function(e) {
-            if (e.target.classList.contains('user-highlight')) {
-                const rect = e.target.getBoundingClientRect();
-                const boxRect = passageBox.getBoundingClientRect();
-                removeTool.style.left = (rect.left - boxRect.left + rect.width / 2 - 30) + 'px';
-                removeTool.style.top = (rect.top - boxRect.top - 35) + 'px';
-                removeTool.style.display = 'block';
-                removeTool.dataset.target = e.target;
+        document.getElementById('menuNote').addEventListener('click', function() {
+            if (!currentRange) return;
+            const rect = currentRange.getBoundingClientRect();
+            const noteId = 'note_' + (++lastNoteId);
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            note.id = noteId;
+            note.innerHTML = `
+                <div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
+                <textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>
+            `;
+            note.style.left = (rect.right + window.scrollX + 8) + 'px';
+            note.style.top = (rect.top + window.scrollY) + 'px';
+            document.body.appendChild(note);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveNotes();
+        });
+
+        // --- FIXED Remove Highlight ---
+        document.getElementById('menuRemove').addEventListener('click', function() {
+            if (!currentRange) return;
+            try {
+                const container = currentRange.commonAncestorContainer;
+                let span = null;
+                if (container.nodeType === Node.TEXT_NODE) {
+                    span = container.parentElement;
+                } else {
+                    span = container;
+                }
+                if (span && span.classList.contains('user-highlight')) {
+                    const text = document.createTextNode(span.textContent);
+                    span.parentNode.replaceChild(text, span);
+                    span.parentNode.normalize();
+                } else {
+                    // If not a whole span, just remove selection
+                    currentRange.deleteContents();
+                }
+            } catch (e) {
+                console.log('Remove highlight done');
+            }
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        });
+
+        // --- Flagging system ---
+        function toggleFlag(qNum) {
+            const flag = document.getElementById('flag' + qNum);
+            const stat = document.getElementById('stat' + qNum);
+            const isFlagged = flag.classList.toggle('flagged');
+            if (isFlagged) {
+                stat.classList.add('flagged');
             } else {
-                removeTool.style.display = 'none';
+                stat.classList.remove('flagged');
             }
+            localStorage.setItem('flag_' + qNum, isFlagged);
+        }
+
+        // --- Close note ---
+        function closeNote(id) {
+            const note = document.getElementById(id);
+            if (note) note.remove();
+            saveNotes();
+        }
+
+        function saveNote(id, text) {
+            localStorage.setItem(id, text);
+        }
+
+        // --- Auto-save & load answers ---
+        document.querySelectorAll('.ans').forEach(el => {
+            const q = el.dataset.q;
+            const key = 'ans_' + q;
+            el.value = localStorage.getItem(key) || '';
+            updateStatus(q);
+            el.addEventListener('input', () => {
+                localStorage.setItem(key, el.value);
+                updateStatus(q);
+            });
         });
 
-        removeTool.addEventListener('click', function() {
-            const span = this.dataset.target;
-            if (!span || !span.parentNode) return;
-            const parent = span.parentNode;
-            const textNode = document.createTextNode(span.textContent);
-            parent.replaceChild(textNode, span);
-            parent.normalize();
-            this.style.display = 'none';
-            delete this.dataset.target;
-        });
-
-        document.addEventListener('click', function(e) {
-            if (!highlightTool.contains(e.target) && !passageBox.contains(e.target) && !removeTool.contains(e.target)) {
-                highlightTool.style.display = 'none';
-                removeTool.style.display = 'none';
+        function updateStatus(q) {
+            const val = localStorage.getItem('ans_' + q) || '';
+            const stat = document.getElementById('stat' + q);
+            if (!stat) return;
+            if (val.trim() !== '') {
+                stat.classList.add('answered');
+            } else {
+                stat.classList.remove('answered');
             }
-        });
+        }
 
-        // --- Show / Hide answers
+        // --- Save/load highlights & notes ---
+        function saveHighlights() {
+            const html = passageBox.innerHTML;
+            localStorage.setItem('passage_highlights', html);
+        }
+
+        function loadHighlights() {
+            const saved = localStorage.getItem('passage_highlights');
+            if (saved) passageBox.innerHTML = saved;
+        }
+
+        function saveNotes() {
+            const notes = document.querySelectorAll('.sticky-note');
+            const data = [];
+            notes.forEach(n => {
+                data.push({
+                    id: n.id,
+                    left: n.style.left,
+                    top: n.style.top,
+                    text: n.querySelector('.note-textarea').value
+                });
+            });
+            localStorage.setItem('notes_data', JSON.stringify(data));
+        }
+
+        function loadNotes() {
+            const saved = localStorage.getItem('notes_data');
+            if (!saved) return;
+            const data = JSON.parse(saved);
+            data.forEach(n => {
+                const note = document.createElement('div');
+                note.className = 'sticky-note';
+                note.id = n.id;
+                note.innerHTML = `
+                    <div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
+                    <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
+                `;
+                note.style.left = n.left;
+                note.style.top = n.top;
+                document.body.appendChild(note);
+                const num = parseInt(n.id.split('_')[1]);
+                if (num > lastNoteId) lastNoteId = num;
+            });
+        }
+
+        function loadAllData() {
+            loadHighlights();
+            loadNotes();
+            for (let i = 1; i <= 13; i++) {
+                const flagged = localStorage.getItem('flag_' + i) === 'true';
+                if (flagged) {
+                    const flagEl = document.getElementById('flag' + i);
+                    if (flagEl) flagEl.classList.add('flagged');
+                    const statEl = document.getElementById('stat' + i);
+                    if (statEl) statEl.classList.add('flagged');
+                }
+                updateStatus(i);
+            }
+        }
+
+        // --- Toggle show/hide answers ---
         function toggleAnswers() {
-            const answers = document.querySelectorAll('.correct-answer');
-            answers.forEach(ans => {
+            document.querySelectorAll('.correct-answer').forEach(ans => {
                 ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
             });
+        }
+
+        // --- Clear everything ---
+        function clearAll() {
+            if (!confirm("Clear all answers, highlights, notes and flags?")) return;
+            // Clear storage
+            localStorage.clear();
+            // Reset answers
+            document.querySelectorAll('.ans').forEach(el => el.value = '');
+            // Remove highlights
+            document.querySelectorAll('.user-highlight').forEach(span => {
+                const text = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(text, span);
+                span.parentNode.normalize();
+            });
+            // Remove notes
+            document.querySelectorAll('.sticky-note').forEach(n => n.remove());
+            // Reset flags & status
+            for (let i = 1; i <= 40; i++) {
+                if (document.getElementById('flag' + i)) document.getElementById('flag' + i).classList.remove('flagged');
+                const stat = document.getElementById('stat' + i);
+                if (stat) {
+                    stat.className = 'q-indicator';
+                    if (i >= 1 && i <= 13) stat.classList.add('current');
+                }
+            }
+            lastNoteId = 0;
         }
     </script>
 </body>
