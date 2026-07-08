@@ -40,7 +40,7 @@
         h2, h3 { margin: 20px 0 10px; color: #2c3e50; text-align: center; }
         h4 { margin: 18px 0 10px; color: #34495e; }
 
-        /* --- HIGHLIGHT STYLE --- */
+        /* Highlight */
         .highlight {
             background-color: #ffd700;
             padding: 2px 3px;
@@ -48,7 +48,7 @@
             color: #000;
         }
 
-        /* --- RIGHT-CLICK MENU --- */
+        /* Right-click Menu */
         .context-menu {
             position: absolute;
             background: white;
@@ -57,7 +57,7 @@
             border-radius: 4px;
             z-index: 10000;
             display: none;
-            min-width: 150px;
+            min-width: 160px;
         }
         .context-menu div {
             padding: 10px;
@@ -66,7 +66,7 @@
         }
         .context-menu div:hover { background: #f0f0f0; }
 
-        /* --- STICKY NOTE --- */
+        /* Sticky Notes */
         .note {
             position: absolute;
             width: 160px;
@@ -98,7 +98,128 @@
             font-family: inherit;
         }
 
-        /* --- NAVIGATION --- */
+        /* Question & Answer Styles */
+        .question { margin-bottom: 25px; }
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .flag-btn {
+            font-size: 18px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+            user-select: none;
+        }
+        .flag-btn.flagged { color: #e67700; }
+
+        .option-row {
+            margin: 6px 0 6px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        input[type="radio"] {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+        /* Drag & Drop */
+        .drag-container {
+            display: flex;
+            gap: 20px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+        .options-column {
+            flex: 1;
+            min-width: 120px;
+            border: 1px dashed #ccc;
+            padding: 10px;
+            border-radius: 4px;
+            background: #fdfdfd;
+        }
+        .drop-column {
+            flex: 2;
+            min-width: 220px;
+        }
+        .draggable {
+            padding: 6px 10px;
+            margin: 6px 0;
+            background: #e9ecef;
+            border-radius: 3px;
+            cursor: grab;
+            user-select: none;
+            transition: background 0.2s;
+        }
+        .draggable:active {
+            cursor: grabbing;
+            background: #dee2e6;
+        }
+        .drop-target {
+            padding: 6px 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            min-height: 32px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+        }
+        .drop-target.highlight {
+            border-color: #007bff;
+            background: #e7f3ff;
+        }
+
+        textarea.ans {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            min-height: 40px;
+            resize: vertical;
+        }
+
+        /* Navigation & Controls */
+        .question-status {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            margin: 10px 20px;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+        .q-indicator {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2px;
+            border: 1px solid #ced4da;
+            background: #e9ecef;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .q-indicator.answered {
+            background: #198754;
+            color: white;
+            border-color: #198754;
+        }
+        .q-indicator.flagged {
+            background: #fd7e14;
+            color: white;
+            border-color: #fd7e14;
+        }
+        .q-indicator:hover { background: #dee2e6; }
+
         .bottom-controls {
             padding: 15px 20px;
             border-top: 1px solid #eee;
@@ -106,7 +227,20 @@
             justify-content: space-between;
             align-items: center;
             gap: 15px;
+            flex-wrap: wrap;
         }
+        .btn-group { display: flex; gap: 10px; }
+        button {
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+        .check-btn { background: #28a745; color: white; }
+        .check-btn:hover { background: #218838; }
+        .clear-btn { background: #dc3545; color: white; }
+        .clear-btn:hover { background: #c82333; }
         .nav a {
             padding: 8px 16px;
             border-radius: 4px;
@@ -125,7 +259,7 @@
 <h1>Reading Passage 3</h1>
 <p class="subhead">You should spend about 20 minutes on Questions 27–40</p>
 
-<!-- Right-click menu -->
+<!-- Right-click Menu -->
 <div class="context-menu" id="contextMenu">
     <div onclick="highlightSelection()">✅ Highlight Text</div>
     <div onclick="removeHighlight()">❌ Remove Highlight</div>
@@ -161,24 +295,243 @@
         <p>Many theorists believe the ideal boss should lead from behind, taking pride in collective accomplishment and giving credit where it is due. Cialdini says: ‘Leaders should encourage everyone to contribute and simultaneously assure all concerned that every recommendation is important to making the right decision and will be given full attention.’ The frustrating thing about innovation is that there are many approaches, but no magic formula. However, a manager who wants to create a truly innovative culture can make their job a lot easier by recognising these psychological realities.</p>
     </div>
 
-    <!-- Questions area (shortened for focus) -->
+    <!-- Questions Area -->
     <div class="box">
         <h3>Questions 27–40</h3>
-        <p style="margin-top:10px;">All question functions remain the same as before.</p>
+
+        <!-- Q27–30 Multiple Choice -->
+        <div class="question" id="q27">
+            <h4>Questions 27–30</h4>
+            <p><em>Choose the correct letter, A, B, C or D.</em></p>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="flag-btn" onclick="toggleFlag(27)" id="flag27">🚩</span>
+                    <label><strong>27.</strong> The example of the ‘million-dollar quartet’ underlines the writer’s point about</label>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="q27" value="A" onchange="saveRadio(27, this.value)">
+                    <label>A recognising talent.</label>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="q27" value="B" onchange="saveRadio(27, this.value)">
+                    <label>B working as a team.</label>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="q27" value="C" onchange="saveRadio(27, this.value)">
+                    <label>C having a shared objective.</label>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="q27" value="D" onchange="saveRadio(27, this.value)">
+                    <label>D being an effective leader.</label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="flag-btn" onclick="toggleFlag(28)" id="flag28">🚩</span>
+                    <label><strong>28.</strong> James Watson suggests that he and Francis Crick won the race to discover the DNA code because they</label>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="q28" value="A" onchange="saveRadio(28, this.value)">
+                    <label>A were conscious of their own limitations.</label>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="q28" value="B" onchange="saveRadio(28, this.value)">
+                    <label>B brought complementary skills to their partnership.</label>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="q28" value="C" onchange="saveRadio(28, this.value)">
+                    <label>C were determined to outperform their brighter rivals.</label>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="q28" value="D" onchange="saveRadio(28, this.value)">
+                    <label>D encouraged each other to realise their joint ambition.</label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="flag-btn" onclick="toggleFlag(29)" id="flag29">🚩</span>
+                    <label><strong>29.</strong> The writer mentions competitions on breakfast cereal packets as an example of how to</label>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="q29" value="A" onchange="saveRadio(29, this.value)">
+                    <label>A inspire creative thinking.</label>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="q29" value="B" onchange="saveRadio(29, this.value)">
+                    <label>B generate concise writing.</label>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="q29" value="C" onchange="saveRadio(29, this.value)">
+                    <label>C promote loyalty to a group.</label>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="q29" value="D" onchange="saveRadio(29, this.value)">
+                    <label>D strengthen commitment to an idea.</label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="flag-btn" onclick="toggleFlag(30)" id="flag30">🚩</span>
+                    <label><strong>30.</strong> In the last paragraph, the writer suggests that it is important for employees to</label>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="q30" value="A" onchange="saveRadio(30, this.value)">
+                    <label>A be aware of their company’s goals.</label>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="q30" value="B" onchange="saveRadio(30, this.value)">
+                    <label>B feel that their contributions are valued.</label>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="q30" value="C" onchange="saveRadio(30, this.value)">
+                    <label>C have respect for their co-workers’ achievements.</label>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="q30" value="D" onchange="saveRadio(30, this.value)">
+                    <label>D understand why certain management decisions are made.</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q31–35 Drag & Drop -->
+        <div class="question" id="q31">
+            <h4>Questions 31–35</h4>
+            <p><em>Complete each sentence with the correct ending, A–G, below.</em></p>
+
+            <div class="drag-container">
+                <div class="options-column">
+                    <p style="font-weight:bold; margin-bottom:8px;">Options</p>
+                    <div class="draggable" draggable="true" data-value="A">A take chances.</div>
+                    <div class="draggable" draggable="true" data-value="B">B share their ideas.</div>
+                    <div class="draggable" draggable="true" data-value="C">C become competitive.</div>
+                    <div class="draggable" draggable="true" data-value="D">D get promotion.</div>
+                    <div class="draggable" draggable="true" data-value="E">E avoid risk.</div>
+                    <div class="draggable" draggable="true" data-value="F">F ignore their duties.</div>
+                    <div class="draggable" draggable="true" data-value="G">G remain in their jobs.</div>
+                </div>
+                <div class="drop-column">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(31)" id="flag31">🚩</span>
+                        <label><strong>31.</strong> Employees whose values match those of their employers are more likely to</label>
+                    </div>
+                    <div class="drop-target" id="drop31"></div>
+
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(32)" id="flag32">🚩</span>
+                        <label><strong>32.</strong> At times of change, people tend to</label>
+                    </div>
+                    <div class="drop-target" id="drop32"></div>
+
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(33)" id="flag33">🚩</span>
+                        <label><strong>33.</strong> If people are aware of what they might lose, they will often</label>
+                    </div>
+                    <div class="drop-target" id="drop33"></div>
+
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(34)" id="flag34">🚩</span>
+                        <label><strong>34.</strong> People working under a dominant boss are liable to</label>
+                    </div>
+                    <div class="drop-target" id="drop34"></div>
+
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(35)" id="flag35">🚩</span>
+                        <label><strong>35.</strong> Employees working in organisations with few rules are more likely to</label>
+                    </div>
+                    <div class="drop-target" id="drop35"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q36–40 Yes/No/Not Given -->
+        <div class="question" id="q36">
+            <h4>Questions 36–40</h4>
+            <p><em>Do the following statements agree with the claims of the writer in Reading Passage 3?</em></p>
+            <p><strong>YES</strong> if the statement agrees with the claims of the writer<br>
+            <strong>NO</strong> if the statement contradicts the claims of the writer<br>
+            <strong>NOT GIVEN</strong> if it is impossible to say what the writer thinks about this</p>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="flag-btn" onclick="toggleFlag(36)" id="flag36">🚩</span>
+                    <label><strong>36.</strong> The physical surroundings in which a person works play a key role in determining their creativity.</label>
+                </div>
+                <textarea class="ans" data-q="36" placeholder="Enter YES / NO / NOT GIVEN"></textarea>
+            </div>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="flag-btn" onclick="toggleFlag(37)" id="flag37">🚩</span>
+                    <label><strong>37.</strong> Most people have the potential to be creative.</label>
+                </div>
+                <textarea class="ans" data-q="37" placeholder="Enter YES / NO / NOT GIVEN"></textarea>
+            </div>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="flag-btn" onclick="toggleFlag(38)" id="flag38">🚩</span>
+                    <label><strong>38.</strong> Teams work best when their members are of equally matched intelligence.</label>
+                </div>
+                <textarea class="ans" data-q="38" placeholder="Enter YES / NO / NOT GIVEN"></textarea>
+            </div>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="flag-btn" onclick="toggleFlag(39)" id="flag39">🚩</span>
+                    <label><strong>39.</strong> It is easier for smaller companies to be innovative.</label>
+                </div>
+                <textarea class="ans" data-q="39" placeholder="Enter YES / NO / NOT GIVEN"></textarea>
+            </div>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="flag-btn" onclick="toggleFlag(40)" id="flag40">🚩</span>
+                    <label><strong>40.</strong> A manager’s approval of an idea is more persuasive than that of a colleague.</label>
+                </div>
+                <textarea class="ans" data-q="40" placeholder="Enter YES / NO / NOT GIVEN"></textarea>
+            </div>
+        </div>
     </div>
 </div>
 
+<!-- Question Navigation -->
+<div class="question-status" id="statusBar">
+    <span class="nav-section-label">Passage 3:</span>
+    <span id="stat27" class="q-indicator" onclick="jumpToQuestion(27)">27</span>
+    <span id="stat28" class="q-indicator" onclick="jumpToQuestion(28)">28</span>
+    <span id="stat29" class="q-indicator" onclick="jumpToQuestion(29)">29</span>
+    <span id="stat30" class="q-indicator" onclick="jumpToQuestion(30)">30</span>
+    <span id="stat31" class="q-indicator" onclick="jumpToQuestion(31)">31</span>
+    <span id="stat32" class="q-indicator" onclick="jumpToQuestion(32)">32</span>
+    <span id="stat33" class="q-indicator" onclick="jumpToQuestion(33)">33</span>
+    <span id="stat34" class="q-indicator" onclick="jumpToQuestion(34)">34</span>
+    <span id="stat35" class="q-indicator" onclick="jumpToQuestion(35)">35</span>
+    <span id="stat36" class="q-indicator" onclick="jumpToQuestion(36)">36</span>
+    <span id="stat37" class="q-indicator" onclick="jumpToQuestion(37)">37</span>
+    <span id="stat38" class="q-indicator" onclick="jumpToQuestion(38)">38</span>
+    <span id="stat39" class="q-indicator" onclick="jumpToQuestion(39)">39</span>
+    <span id="stat40" class="q-indicator" onclick="jumpToQuestion(40)">40</span>
+</div>
+
 <div class="bottom-controls">
-    <div></div>
+    <div class="btn-group">
+        <button class="clear-btn" onclick="clearAll()">Clear All Answers & Notes</button>
+    </div>
     <div class="nav">
+        <a href="reading-passage2.html">← Previous Passage</a>
         <a href="cover.html">Back to Main Menu</a>
     </div>
 </div>
 
 <script>
 let currentSelection = null;
+let draggedElement = null;
 
-// --- Show menu on right-click ---
+// --- Highlight / Note System ---
 document.getElementById('passageArea').addEventListener('contextmenu', function(e) {
     const sel = window.getSelection();
     if (!sel.isCollapsed) {
@@ -191,12 +544,10 @@ document.getElementById('passageArea').addEventListener('contextmenu', function(
     }
 });
 
-// Hide menu when clicking elsewhere
 document.addEventListener('click', () => {
     document.getElementById('contextMenu').style.display = 'none';
 });
 
-// --- Highlight ---
 function highlightSelection() {
     if (!currentSelection) return;
     const range = currentSelection.getRangeAt(0);
@@ -207,7 +558,6 @@ function highlightSelection() {
     currentSelection.removeAllRanges();
 }
 
-// --- Remove Highlight ---
 function removeHighlight() {
     if (!currentSelection) return;
     const range = currentSelection.getRangeAt(0);
@@ -219,25 +569,28 @@ function removeHighlight() {
     currentSelection.removeAllRanges();
 }
 
-// --- Add Note ---
 function addNote() {
     if (!currentSelection) return;
     const rect = currentSelection.getRangeAt(0).getBoundingClientRect();
     const note = document.createElement('div');
     note.className = 'note';
     note.innerHTML = `
-        <div class="note-header">Note <span class="note-close" onclick="this.parentElement.parentElement.remove(); saveNotes()">×</span></div>
+        <div class="note-header">Note <span class="note-close" onclick="removeNote(this)">×</span></div>
         <textarea oninput="saveNotes()"></textarea>
     `;
     note.style.left = (rect.right + 10) + 'px';
-    note.style.top = rect.top + 'px';
+    note.style.top = rect.top + window.scrollY + 'px';
     document.body.appendChild(note);
     makeNoteDraggable(note);
     saveNotes();
     currentSelection.removeAllRanges();
 }
 
-// --- Make notes draggable ---
+function removeNote(btn) {
+    btn.closest('.note').remove();
+    saveNotes();
+}
+
 function makeNoteDraggable(note) {
     let offsetX, offsetY;
     note.onmousedown = function(e) {
@@ -246,7 +599,7 @@ function makeNoteDraggable(note) {
         offsetY = e.clientY - note.getBoundingClientRect().top;
         document.onmousemove = function(e) {
             note.style.left = (e.clientX - offsetX) + 'px';
-            note.style.top = (e.clientY - offsetY) + 'px';
+            note.style.top = (e.clientY - offsetY + window.scrollY) + 'px';
         };
         document.onmouseup = function() {
             document.onmousemove = null;
@@ -256,7 +609,7 @@ function makeNoteDraggable(note) {
     };
 }
 
-// --- Save & Load ---
+// --- Save / Load Highlights & Notes ---
 function saveHighlights() {
     localStorage.setItem('passage3_highlights', document.getElementById('passageArea').innerHTML);
 }
@@ -287,9 +640,123 @@ function loadNotes() {
     });
 }
 
+// --- Question Functions ---
+function jumpToQuestion(qNum) {
+    document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function toggleFlag(qNum) {
+    const flag = document.getElementById('flag' + qNum);
+    const stat = document.getElementById('stat' + qNum);
+    const isFlagged = flag.classList.toggle('flagged');
+    stat.classList.toggle('flagged', isFlagged);
+    localStorage.setItem('flag_' + qNum, isFlagged);
+}
+
+function saveRadio(qNum, value) {
+    localStorage.setItem('ans_' + qNum, value);
+    updateStatus(qNum);
+}
+
+// --- Drag & Drop ---
+function initDragEvents() {
+    document.querySelectorAll('.draggable').forEach(item => {
+        item.addEventListener('dragstart', (e) => {
+            draggedElement = item;
+            e.dataTransfer.setData('text/plain', item.dataset.value);
+            e.dataTransfer.effectAllowed = 'move';
+        });
+    });
+
+    document.querySelectorAll('.drop-target').forEach(target => {
+        target.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            target.classList.add('highlight');
+        });
+        target.addEventListener('dragleave', () => target.classList.remove('highlight'));
+        target.addEventListener('drop', (e) => {
+            e.preventDefault();
+            target.classList.remove('highlight');
+            const val = e.dataTransfer.getData('text/plain');
+            target.textContent = draggedElement.textContent;
+            target.dataset.value = val;
+            const q = target.id.replace('drop', '');
+            localStorage.setItem('ans_' + q, val);
+            updateStatus(q);
+        });
+    });
+}
+
+// --- Text Answers ---
+document.querySelectorAll('.ans').forEach(el => {
+    const q = el.dataset.q;
+    el.value = localStorage.getItem('ans_' + q) || '';
+    updateStatus(q);
+    el.addEventListener('input', () => {
+        localStorage.setItem('ans_' + q, el.value.trim());
+        updateStatus(q);
+    });
+});
+
+function updateStatus(q) {
+    const val = localStorage.getItem('ans_' + q) || '';
+    document.getElementById('stat' + q)?.classList.toggle('answered', val !== '');
+}
+
+function clearAll() {
+    if (!confirm('Clear all answers, highlights and notes?')) return;
+    localStorage.removeItem('passage3_highlights');
+    localStorage.removeItem('passage3_notes');
+    for (let i = 27; i <= 40; i++) {
+        localStorage.removeItem('ans_' + i);
+        localStorage.removeItem('flag_' + i);
+    }
+    location.reload();
+}
+
+// --- Load All Saved Data ---
 window.onload = function() {
     loadHighlights();
     loadNotes();
+    initDragEvents();
+
+    // Restore radio answers
+    for (let q = 27; q <= 30; q++) {
+        const val = localStorage.getItem('ans_' + q);
+        if (val) document.querySelector(`input[name="q${q}"][value="${val}"]`)?.checked = true;
+        if (localStorage.getItem('flag_' + q) === 'true') {
+            document.getElementById('flag' + q)?.classList.add('flagged');
+            document.getElementById('stat' + q)?.classList.add('flagged');
+        }
+        updateStatus(q);
+    }
+
+    // Restore drag & drop
+    for (let q = 31; q <= 35; q++) {
+        const val = localStorage.getItem('ans_' + q);
+        if (val) {
+            const target = document.getElementById('drop' + q);
+            const opt = document.querySelector(`.draggable[data-value="${val}"]`);
+            if (target && opt) {
+                target.textContent = opt.textContent;
+                target.dataset.value = val;
+            }
+        }
+        if (localStorage.getItem('flag_' + q) === 'true') {
+            document.getElementById('flag' + q)?.classList.add('flagged');
+            document.getElementById('stat' + q)?.classList.add('flagged');
+        }
+        updateStatus(q);
+    }
+
+    // Restore Yes/No/Not Given
+    for (let q = 36; q <= 40; q++) {
+        if (localStorage.getItem('flag_' + q) === 'true') {
+            document.getElementById('flag' + q)?.classList.add('flagged');
+            document.getElementById('stat' + q)?.classList.add('flagged');
+        }
+        updateStatus(q);
+    }
 };
 </script>
 
