@@ -201,12 +201,12 @@
             gap: 10px;
         }
 
-        /* ✅ QUESTION NAVIGATOR - NOW AT BOTTOM */
+        /* ✅ QUESTION NAVIGATOR - 1 TO 40 LIKE REAL EXAM */
         .question-nav {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
         .nav-label {
             font-weight: 600;
@@ -215,15 +215,15 @@
             margin-right: 4px;
         }
         .q-indicator {
-            width: 26px;
-            height: 26px;
+            width: 24px;
+            height: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 3px;
             border: 1px solid #fecaca;
             background: #fef2f2;
-            font-size: 12px;
+            font-size: 11px;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -529,7 +529,7 @@
 
     <!-- ✅ BOTTOM AREA: NAVIGATOR + CONTROLS -->
     <div class="bottom-container">
-        <!-- Question Navigator (now at bottom, can go up to 40) -->
+        <!-- Question Navigator: 1 to 40 like real exam -->
         <div class="question-nav" id="questionNav">
             <span class="nav-label">Questions:</span>
         </div>
@@ -552,7 +552,7 @@
         let currentRange = null;
         let lastNoteId = 0;
         const passageId = 'C10T2P1';
-        const TOTAL_QUESTIONS = 13; // Change to 40 if needed for full set
+        const TOTAL_QUESTIONS = 40; // Now 1 to 40, same as real exam
 
         // ✅ Correct answer data
         const correctAnswers = {
@@ -569,9 +569,10 @@
             q11: 'FALSE',
             q12: 'NOT GIVEN',
             q13: 'TRUE'
+            // You can add answers up to q40 here for future use
         };
 
-        // ✅ Initialize Question Navigator (supports 1 to 40)
+        // ✅ Initialize Question Navigator 1–40
         function initQuestionNav() {
             const navContainer = document.getElementById('questionNav');
             for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
@@ -789,7 +790,7 @@
                     if (input) studentAns = input.value.trim().toUpperCase();
                 }
 
-                const correct = correctAnswers[`q${q}`];
+                const correct = correctAnswers[`q${q}`] || '-';
                 let status = '';
                 if (!studentAns) {
                     status = '<span class="no-answer">(No Answer)</span>';
