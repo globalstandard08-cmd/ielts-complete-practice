@@ -37,27 +37,52 @@
             display: block;
         }
 
-        .nav-buttons {
+        /* ✅ QUESTION NAVIGATOR BAR */
+        .question-nav {
             display: flex;
-            gap: 10px;
-            margin: 0 20px 15px;
             flex-wrap: wrap;
-        }
-
-        .back-btn, .next-btn {
-            padding: 8px 16px;
-            background: #fef2f2;
-            color: #dc2626;
-            text-decoration: none;
+            align-items: center;
+            gap: 8px;
+            margin: 0 20px 15px;
+            padding: 12px 15px;
+            background: #ffffff;
             border-radius: 8px;
             border: 1px solid #fecaca;
-            font-weight: 500;
-            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.07);
+        }
+        .nav-label {
+            font-weight: 600;
+            color: #991b1b;
             font-size: 14px;
         }
-
-        .back-btn:hover, .next-btn:hover {
-            background: #ffffff;
+        .q-indicator {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            border: 1px solid #fecaca;
+            background: #fef2f2;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .q-indicator:hover {
+            background: #fecaca;
+        }
+        .q-indicator.answered {
+            background: #198754;
+            color: white;
+            border-color: #198754;
+        }
+        .q-indicator.flagged {
+            background: #fd7e14;
+            color: white;
+            border-color: #fd7e14;
+        }
+        .q-indicator.current {
+            border: 2px solid #dc2626;
         }
 
         /* ✅ TWO‑COLUMN LAYOUT */
@@ -65,7 +90,7 @@
             display: flex;
             gap: 20px;
             padding: 0 20px 20px;
-            height: calc(100vh - 100px);
+            height: calc(100vh - 180px);
         }
 
         .passage-column, .questions-column {
@@ -76,6 +101,7 @@
             padding: 20px;
             overflow-y: auto;
             box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07);
+            position: relative;
         }
 
         h1 {
@@ -91,9 +117,13 @@
             line-height: 1.8;
         }
 
+        /* ✅ DARK YELLOW HIGHLIGHT */
         .highlight {
-            background-color: #fff350;
-            padding: 2px 0;
+            background-color: #ffd700;
+            padding: 2px 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            color: #000;
         }
 
         .questions-section h2 {
@@ -104,6 +134,24 @@
 
         .question-block {
             margin-bottom: 16px;
+            scroll-margin-top: 20px;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        .flag-btn {
+            font-size: 18px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+            user-select: none;
+        }
+        .flag-btn.flagged {
+            color: #e67700;
         }
 
         .question-block p {
@@ -130,14 +178,86 @@
             background: #fef2f2;
         }
 
+        /* ✅ RIGHT-CLICK CONTEXT MENU */
+        .context-menu {
+            position: absolute;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 9999;
+            display: none;
+            min-width: 150px;
+        }
+        .context-menu div {
+            padding: 9px 12px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .context-menu div:hover {
+            background: #fef2f2;
+        }
+
+        /* ✅ STICKY NOTES */
+        .sticky-note {
+            position: absolute;
+            width: 170px;
+            min-height: 65px;
+            background: #fff380;
+            border: 1px solid #e6c200;
+            border-radius: 4px;
+            padding: 6px;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+            z-index: 9998;
+            font-size: 13px;
+        }
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #886a00;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #886a00;
+        }
+        .note-textarea {
+            width: 100%;
+            height: 48px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        /* ✅ BOTTOM CONTROLS & NAVIGATION */
+        .bottom-controls {
+            margin: 20px;
+            padding: 15px;
+            background: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #fecaca;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            box-shadow: 0 -2px 6px rgba(220, 38, 38, 0.07);
+        }
+
         .action-buttons {
-            margin: 20px 0;
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
         }
 
-        .toggle-answers, .show-student, .clear-highlight {
+        .toggle-answers, .show-student, .clear-highlight, .remove-highlight {
             padding: 8px 16px;
             background: #dc2626;
             color: white;
@@ -148,8 +268,30 @@
             font-size: 14px;
         }
 
-        .toggle-answers:hover, .show-student:hover, .clear-highlight:hover {
+        .toggle-answers:hover, .show-student:hover, .clear-highlight:hover, .remove-highlight:hover {
             background: #b91c1c;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .back-btn, .next-btn {
+            padding: 8px 16px;
+            background: #fef2f2;
+            color: #dc2626;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 1px solid #fecaca;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .back-btn:hover, .next-btn:hover {
+            background: #ffffff;
         }
 
         .answers-box, .student-answers-box {
@@ -173,10 +315,16 @@
         <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
     </div>
 
-    <div class="nav-buttons">
-        <a href="../index.html" class="back-btn">← Back to Main Menu</a>
-        <a href="reading-passage2-C10T2.html" class="next-btn">Next Passage →</a>
-        <button class="clear-highlight" onclick="clearHighlights()">Clear Highlights</button>
+    <!-- Question Navigator -->
+    <div class="question-nav" id="questionNav">
+        <span class="nav-label">Questions:</span>
+    </div>
+
+    <!-- Right-click Context Menu -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
     </div>
 
     <!-- ✅ TWO COLUMNS: LEFT = PASSAGE | RIGHT = QUESTIONS -->
@@ -230,32 +378,53 @@
                     <p>ix &nbsp;&nbsp;Comparisons with Japan lead to the answer</p>
                 </div>
 
-                <div class="question-block">
-                    <p>1. Paragraph A</p>
+                <div class="question-block" id="q1">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(1)" id="flag1">🚩</span>
+                        <p><strong>1.</strong> Paragraph A</p>
+                    </div>
                     <input type="text" class="answer-input" name="q1" placeholder="Write i-ix">
                 </div>
-                <div class="question-block">
-                    <p>2. Paragraph B</p>
+                <div class="question-block" id="q2">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(2)" id="flag2">🚩</span>
+                        <p><strong>2.</strong> Paragraph B</p>
+                    </div>
                     <input type="text" class="answer-input" name="q2" placeholder="Write i-ix">
                 </div>
-                <div class="question-block">
-                    <p>3. Paragraph C</p>
+                <div class="question-block" id="q3">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(3)" id="flag3">🚩</span>
+                        <p><strong>3.</strong> Paragraph C</p>
+                    </div>
                     <input type="text" class="answer-input" name="q3" placeholder="Write i-ix">
                 </div>
-                <div class="question-block">
-                    <p>4. Paragraph D</p>
+                <div class="question-block" id="q4">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(4)" id="flag4">🚩</span>
+                        <p><strong>4.</strong> Paragraph D</p>
+                    </div>
                     <input type="text" class="answer-input" name="q4" placeholder="Write i-ix">
                 </div>
-                <div class="question-block">
-                    <p>5. Paragraph E</p>
+                <div class="question-block" id="q5">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(5)" id="flag5">🚩</span>
+                        <p><strong>5.</strong> Paragraph E</p>
+                    </div>
                     <input type="text" class="answer-input" name="q5" placeholder="Write i-ix">
                 </div>
-                <div class="question-block">
-                    <p>6. Paragraph F</p>
+                <div class="question-block" id="q6">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(6)" id="flag6">🚩</span>
+                        <p><strong>6.</strong> Paragraph F</p>
+                    </div>
                     <input type="text" class="answer-input" name="q6" placeholder="Write i-ix">
                 </div>
-                <div class="question-block">
-                    <p>7. Paragraph G</p>
+                <div class="question-block" id="q7">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(7)" id="flag7">🚩</span>
+                        <p><strong>7.</strong> Paragraph G</p>
+                    </div>
                     <input type="text" class="answer-input" name="q7" placeholder="Write i-ix">
                 </div>
 
@@ -266,48 +435,66 @@
                 <strong>FALSE</strong> — if the statement contradicts<br>
                 <strong>NOT GIVEN</strong> — if there is no information</p>
 
-                <div class="question-block">
-                    <p>8. China’s transport system was not suitable for industry in the 18th century.</p>
+                <div class="question-block" id="q8">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(8)" id="flag8">🚩</span>
+                        <p><strong>8.</strong> China’s transport system was not suitable for industry in the 18th century.</p>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q8" value="TRUE"> TRUE</label>
                         <label><input type="radio" name="q8" value="FALSE"> FALSE</label>
                         <label><input type="radio" name="q8" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-                <div class="question-block">
-                    <p>9. Tea and beer both helped to prevent dysentery in Britain.</p>
+                <div class="question-block" id="q9">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(9)" id="flag9">🚩</span>
+                        <p><strong>9.</strong> Tea and beer both helped to prevent dysentery in Britain.</p>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q9" value="TRUE"> TRUE</label>
                         <label><input type="radio" name="q9" value="FALSE"> FALSE</label>
                         <label><input type="radio" name="q9" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-                <div class="question-block">
-                    <p>10. Roy Porter disagrees with Professor Macfarlane’s findings.</p>
+                <div class="question-block" id="q10">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(10)" id="flag10">🚩</span>
+                        <p><strong>10.</strong> Roy Porter disagrees with Professor Macfarlane’s findings.</p>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q10" value="TRUE"> TRUE</label>
                         <label><input type="radio" name="q10" value="FALSE"> FALSE</label>
                         <label><input type="radio" name="q10" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-                <div class="question-block">
-                    <p>11. After 1740, there was a reduction in population in Britain.</p>
+                <div class="question-block" id="q11">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(11)" id="flag11">🚩</span>
+                        <p><strong>11.</strong> After 1740, there was a reduction in population in Britain.</p>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q11" value="TRUE"> TRUE</label>
                         <label><input type="radio" name="q11" value="FALSE"> FALSE</label>
                         <label><input type="radio" name="q11" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-                <div class="question-block">
-                    <p>12. People in Britain used to make beer at home.</p>
+                <div class="question-block" id="q12">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(12)" id="flag12">🚩</span>
+                        <p><strong>12.</strong> People in Britain used to make beer at home.</p>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q12" value="TRUE"> TRUE</label>
                         <label><input type="radio" name="q12" value="FALSE"> FALSE</label>
                         <label><input type="radio" name="q12" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-                <div class="question-block">
-                    <p>13. The tax on malt indirectly caused a rise in the death rate.</p>
+                <div class="question-block" id="q13">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(13)" id="flag13">🚩</span>
+                        <p><strong>13.</strong> The tax on malt indirectly caused a rise in the death rate.</p>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q13" value="TRUE"> TRUE</label>
                         <label><input type="radio" name="q13" value="FALSE"> FALSE</label>
@@ -315,11 +502,6 @@
                     </div>
                 </div>
 
-
-                <div class="action-buttons">
-                    <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
-                    <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
-                </div>
 
                 <!-- ✅ CORRECT ANSWER KEY -->
                 <div class="answers-box" id="answersBox">
@@ -348,7 +530,25 @@
         </div>
     </div>
 
+    <!-- ✅ BOTTOM CONTROLS & NAVIGATION -->
+    <div class="bottom-controls">
+        <div class="action-buttons">
+            <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Answers</button>
+            <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
+            <button class="clear-highlight" onclick="clearAllHighlights()">🧹 Clear All Highlights</button>
+        </div>
+        <div class="nav-buttons">
+            <a href="library.html" class="back-btn">← Main Menu</a>
+            <a href="reading-passage2-C10T2.html" class="next-btn">Next →</a>
+        </div>
+    </div>
+
     <script>
+        // ✅ Global variables
+        let currentRange = null;
+        let lastNoteId = 0;
+        const passageId = 'C10T2P1';
+
         // ✅ Correct answer data
         const correctAnswers = {
             q1: 'iv',
@@ -366,6 +566,157 @@
             q13: 'TRUE'
         };
 
+        // ✅ Initialize Question Navigator
+        function initQuestionNav() {
+            const navContainer = document.getElementById('questionNav');
+            for (let i = 1; i <= 13; i++) {
+                const btn = document.createElement('div');
+                btn.className = 'q-indicator';
+                btn.textContent = i;
+                btn.id = 'stat' + i;
+                btn.onclick = () => jumpToQuestion(i);
+                navContainer.appendChild(btn);
+            }
+        }
+
+        function jumpToQuestion(qNum) {
+            const el = document.getElementById('q' + qNum);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ✅ Toggle Flag
+        function toggleFlag(qNum) {
+            const flag = document.getElementById('flag' + qNum);
+            const stat = document.getElementById('stat' + qNum);
+            const isFlagged = flag.classList.toggle('flagged');
+            stat.classList.toggle('flagged', isFlagged);
+            localStorage.setItem(`${passageId}_flag_${qNum}`, isFlagged);
+        }
+
+        // ✅ Right-click menu
+        const passageArea = document.getElementById('passageArea');
+        const contextMenu = document.getElementById('contextMenu');
+
+        passageArea.addEventListener('contextmenu', function(e) {
+            const selection = window.getSelection();
+            if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
+                contextMenu.style.display = 'none';
+                return;
+            }
+            e.preventDefault();
+            currentRange = selection.getRangeAt(0);
+            const rect = currentRange.getBoundingClientRect();
+            contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+            contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+            contextMenu.style.display = 'block';
+        });
+
+        document.addEventListener('click', () => contextMenu.style.display = 'none');
+
+        // ✅ Highlight text
+        document.getElementById('menuHighlight').addEventListener('click', function() {
+            if (!currentRange) return;
+            const span = document.createElement('span');
+            span.className = 'highlight';
+            span.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(span);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        });
+
+        // ✅ Remove single highlight
+        document.getElementById('menuRemove').addEventListener('click', function() {
+            if (!currentRange) return;
+            try {
+                const container = currentRange.commonAncestorContainer;
+                let span = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+                if (span && span.classList.contains('highlight')) {
+                    const text = document.createTextNode(span.textContent);
+                    span.parentNode.replaceChild(text, span);
+                    span.parentNode.normalize();
+                }
+            } catch (e) { console.log('Removed highlight'); }
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        });
+
+        // ✅ Clear all highlights
+        function clearAllHighlights() {
+            document.querySelectorAll('.highlight').forEach(el => {
+                el.outerHTML = el.innerHTML;
+            });
+            localStorage.removeItem(`${passageId}_highlights`);
+        }
+
+        // ✅ Add Sticky Note
+        document.getElementById('menuNote').addEventListener('click', function() {
+            if (!currentRange) return;
+            const rect = currentRange.getBoundingClientRect();
+            const noteId = 'note_' + (++lastNoteId);
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            note.id = noteId;
+            note.innerHTML = `
+                <div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
+                <textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>
+            `;
+            note.style.left = (rect.right + window.scrollX + 8) + 'px';
+            note.style.top = (rect.top + window.scrollY) + 'px';
+            document.body.appendChild(note);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveNotes();
+        });
+
+        function closeNote(id) {
+            document.getElementById(id)?.remove();
+            saveNotes();
+        }
+
+        function saveNote(id, text) {
+            localStorage.setItem(`${passageId}_${id}`, text);
+        }
+
+        // ✅ Save/Load Highlights
+        function saveHighlights() {
+            localStorage.setItem(`${passageId}_highlights`, passageArea.innerHTML);
+        }
+
+        function loadHighlights() {
+            const saved = localStorage.getItem(`${passageId}_highlights`);
+            if (saved) passageArea.innerHTML = saved;
+        }
+
+        // ✅ Save/Load Notes
+        function saveNotes() {
+            const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
+                id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
+            }));
+            localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes));
+        }
+
+        function loadNotes() {
+            const saved = localStorage.getItem(`${passageId}_notes`);
+            if (!saved) return;
+            JSON.parse(saved).forEach(n => {
+                const note = document.createElement('div');
+                note.className = 'sticky-note';
+                note.id = n.id;
+                note.innerHTML = `
+                    <div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
+                    <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
+                `;
+                note.style.left = n.left;
+                note.style.top = n.top;
+                document.body.appendChild(note);
+                const num = parseInt(n.id.split('_')[1]);
+                if (num > lastNoteId) lastNoteId = num;
+            });
+        }
+
         // ✅ Save answers to localStorage
         function saveAnswers() {
             let answers = {};
@@ -380,16 +731,16 @@
                     if (input) answers[`q${q}`] = input.value.trim().toUpperCase();
                 }
             }
-            localStorage.setItem('C10T2P1_answers', JSON.stringify(answers));
+            localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
+            updateStatus();
         }
 
         // ✅ Load saved answers
         function loadAnswers() {
-            const saved = localStorage.getItem('C10T2P1_answers');
+            const saved = localStorage.getItem(`${passageId}_answers`);
             if (!saved) return;
             const answers = JSON.parse(saved);
             for (let key in answers) {
-                const qNum = key.replace('q', '');
                 const radios = document.getElementsByName(key);
                 if (radios.length > 0) {
                     for (let r of radios) {
@@ -400,33 +751,28 @@
                     if (input) input.value = answers[key];
                 }
             }
+            updateStatus();
         }
 
-        // ✅ Highlight text function
-        document.getElementById('passageArea').addEventListener('mouseup', function() {
-            const selection = window.getSelection();
-            if (selection.toString().trim().length > 0) {
-                const span = document.createElement('span');
-                span.className = 'highlight';
-                span.textContent = selection.toString();
-                const range = selection.getRangeAt(0);
-                range.deleteContents();
-                range.insertNode(span);
-                selection.removeAllRanges();
+        // ✅ Update question status
+        function updateStatus() {
+            const saved = localStorage.getItem(`${passageId}_answers`);
+            const answers = saved ? JSON.parse(saved) : {};
+            for (let q = 1; q <= 13; q++) {
+                const stat = document.getElementById('stat' + q);
+                if (stat) stat.classList.toggle('answered', !!answers[`q${q}`]);
+                const flagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
+                if (flagged) document.getElementById('flag' + q)?.classList.add('flagged');
             }
-        });
-
-        function clearHighlights() {
-            document.querySelectorAll('.highlight').forEach(el => {
-                el.outerHTML = el.innerHTML;
-            });
         }
 
+        // ✅ Toggle answers
         function toggleAnswers() {
             const box = document.getElementById('answersBox');
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
+        // ✅ Check answers
         function showStudentAnswers() {
             saveAnswers();
             const box = document.getElementById('studentAnswersBox');
@@ -465,8 +811,18 @@
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
-        // Load saved answers when page opens
-        window.onload = loadAnswers;
+        // ✅ Auto-save on input
+        document.querySelectorAll('.answer-input, input[type="radio"]').forEach(el => {
+            el.addEventListener('input', saveAnswers);
+        });
+
+        // ✅ Initialize everything on load
+        window.onload = function() {
+            initQuestionNav();
+            loadAnswers();
+            loadHighlights();
+            loadNotes();
+        };
     </script>
 
 </body>
