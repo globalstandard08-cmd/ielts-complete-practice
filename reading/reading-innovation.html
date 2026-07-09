@@ -8,7 +8,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.7; background: #fdfdfd; }
 
-        /* Logo Section */
+        /* Logo */
         .logo-container {
             text-align: center;
             padding: 12px 0;
@@ -57,7 +57,7 @@
         .column::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 5px; }
         .column::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
 
-        /* Text Styles */
+        /* Text */
         h2 { font-size: 24px; text-align: center; margin-bottom: 10px; color: #222; }
         h3 { font-size: 18px; text-align: center; font-style: italic; color: #555; margin-bottom: 25px; font-weight: normal; }
         p { margin-bottom: 18px; text-align: justify; font-size: 16px; color: #333; }
@@ -67,9 +67,7 @@
             background-color: #fff35c;
             padding: 2px 4px;
             border-radius: 3px;
-            transition: background 0.2s;
         }
-        .highlight:hover { background-color: #ffe900; }
 
         /* Right Click Menu */
         .context-menu {
@@ -129,7 +127,6 @@
             padding: 8px 10px;
             border-radius: 4px;
             cursor: pointer;
-            transition: background 0.15s;
         }
         .option:hover { background: #f9f9f9; }
         input[type="radio"] { margin-right: 8px; transform: scale(1.1); }
@@ -155,7 +152,7 @@
             background: #fafafa;
             font-weight: 500;
         }
-        .drop-area.highlight { border-color: #2196f3; background: #e3f2fd; }
+        .drop-area.highlight-hover { border-color: #2196f3; background: #e3f2fd; }
         .choices-box {
             display: flex;
             flex-wrap: wrap;
@@ -176,7 +173,7 @@
         .draggable:active { cursor: grabbing; opacity: 0.8; }
         .draggable.used { opacity: 0.4; pointer-events: none; }
 
-        /* Question Navigation Bar */
+        /* Navigation Bar */
         .nav-bar {
             background: #f8f9fa;
             border: 1px solid #dee2e6;
@@ -204,27 +201,12 @@
             background: #e9ecef;
             font-size: 14px;
             cursor: pointer;
-            transition: all 0.2s;
         }
-        .q-number:hover {
-            background: #dee2e6;
-            transform: scale(1.05);
-        }
-        .q-number.answered {
-            background: #198754;
-            color: white;
-            border-color: #198754;
-        }
-        .q-number.flagged {
-            background: #fd7e14;
-            color: white;
-            border-color: #fd7e14;
-        }
-        .q-number.current {
-            border: 2px solid #007bff;
-        }
+        .q-number:hover { background: #dee2e6; }
+        .q-number.answered { background: #198754; color: white; border-color: #198754; }
+        .q-number.current { border: 2px solid #007bff; }
 
-        /* Controls & Nav */
+        /* Controls */
         .controls-bar {
             display: flex;
             justify-content: space-between;
@@ -242,7 +224,6 @@
             font-size: 15px;
             cursor: pointer;
             text-decoration: none;
-            display: inline-block;
         }
         .btn-green { background: #28a745; color: white; }
         .btn-green:hover { background: #218838; }
@@ -275,7 +256,7 @@
 
 <div class="main-container">
 
-    <!-- LEFT COLUMN: Passage -->
+    <!-- LEFT: Passage -->
     <div class="column" id="passageArea">
         <h2>The psychology of innovation</h2>
         <h3>Why are so few companies truly innovative?</h3>
@@ -303,13 +284,11 @@
         <p>Many theorists believe the ideal boss should lead from behind, taking pride in collective accomplishment and giving credit where it is due. Cialdini says: ‘Leaders should encourage everyone to contribute and simultaneously assure all concerned that every recommendation is important to making the right decision and will be given full attention.’ The frustrating thing about innovation is that there are many approaches, but no magic formula. However, a manager who wants to create a truly innovative culture can make their job a lot easier by recognising these psychological realities.</p>
     </div>
 
-    <!-- RIGHT COLUMN: Questions -->
+    <!-- RIGHT: Questions -->
     <div class="column" id="questionsArea">
 
-        <!-- Questions 27–30 -->
         <div class="question-block" id="q27-30">
             <p class="q-title">Questions 27–30<br><em>Choose the correct letter, A, B, C or D.</em></p>
-
             <p><strong>27</strong> The example of the ‘million-dollar quartet’ underlines the writer’s point about</p>
             <div class="option"><input type="radio" name="q27" value="A"> A recognising talent.</div>
             <div class="option"><input type="radio" name="q27" value="B"> B working as a team.</div>
@@ -335,10 +314,8 @@
             <div class="option"><input type="radio" name="q30" value="D"> D understand why certain management decisions are made.</div>
         </div>
 
-        <!-- Questions 31–35 Drag & Drop -->
         <div class="question-block" id="q31-35">
             <p class="q-title">Questions 31–35<br><em>Complete each sentence with the correct ending, A–G, below.</em></p>
-
             <div class="sentence-row">
                 <span><strong>31</strong> Employees whose values match those of their employers are more likely to</span>
                 <div class="drop-area" data-q="31">Drop here</div>
@@ -359,7 +336,6 @@
                 <span><strong>35</strong> Employees working in organisations with few rules are more likely to</span>
                 <div class="drop-area" data-q="35">Drop here</div>
             </div>
-
             <div class="choices-box">
                 <div class="draggable" draggable="true" data-val="A">A take chances.</div>
                 <div class="draggable" draggable="true" data-val="B">B share their ideas.</div>
@@ -371,11 +347,9 @@
             </div>
         </div>
 
-        <!-- Questions 36–40 YES/NO/NOT GIVEN -->
         <div class="question-block" id="q36-40">
             <p class="q-title">Questions 36–40<br><em>Do the following statements agree with the claims of the writer?</em><br>
             <strong>YES</strong> = agrees, <strong>NO</strong> = contradicts, <strong>NOT GIVEN</strong> = not stated</p>
-
             <p><strong>36</strong> The physical surroundings in which a person works play a key role in determining their creativity.</p>
             <div class="option"><input type="radio" name="q36" value="YES"> YES</div>
             <div class="option"><input type="radio" name="q36" value="NO"> NO</div>
@@ -412,53 +386,16 @@
     </div>
 </div>
 
-<!-- Question Navigation Bar -->
+<!-- Navigation Bar -->
 <div class="nav-bar" id="questionNav">
     <span class="passage-label">Passage 1:</span>
-    <div class="q-number" data-q="1">1</div>
-    <div class="q-number" data-q="2">2</div>
-    <div class="q-number" data-q="3">3</div>
-    <div class="q-number" data-q="4">4</div>
-    <div class="q-number" data-q="5">5</div>
-    <div class="q-number" data-q="6">6</div>
-    <div class="q-number" data-q="7">7</div>
-    <div class="q-number" data-q="8">8</div>
-    <div class="q-number" data-q="9">9</div>
-    <div class="q-number" data-q="10">10</div>
-    <div class="q-number" data-q="11">11</div>
-    <div class="q-number" data-q="12">12</div>
-    <div class="q-number" data-q="13">13</div>
+    <div class="q-number" data-q="1">1</div><div class="q-number" data-q="2">2</div><div class="q-number" data-q="3">3</div><div class="q-number" data-q="4">4</div><div class="q-number" data-q="5">5</div><div class="q-number" data-q="6">6</div><div class="q-number" data-q="7">7</div><div class="q-number" data-q="8">8</div><div class="q-number" data-q="9">9</div><div class="q-number" data-q="10">10</div><div class="q-number" data-q="11">11</div><div class="q-number" data-q="12">12</div><div class="q-number" data-q="13">13</div>
 
     <span class="passage-label">Passage 2:</span>
-    <div class="q-number" data-q="14">14</div>
-    <div class="q-number" data-q="15">15</div>
-    <div class="q-number" data-q="16">16</div>
-    <div class="q-number" data-q="17">17</div>
-    <div class="q-number" data-q="18">18</div>
-    <div class="q-number" data-q="19">19</div>
-    <div class="q-number" data-q="20">20</div>
-    <div class="q-number" data-q="21">21</div>
-    <div class="q-number" data-q="22">22</div>
-    <div class="q-number" data-q="23">23</div>
-    <div class="q-number" data-q="24">24</div>
-    <div class="q-number" data-q="25">25</div>
-    <div class="q-number" data-q="26">26</div>
+    <div class="q-number" data-q="14">14</div><div class="q-number" data-q="15">15</div><div class="q-number" data-q="16">16</div><div class="q-number" data-q="17">17</div><div class="q-number" data-q="18">18</div><div class="q-number" data-q="19">19</div><div class="q-number" data-q="20">20</div><div class="q-number" data-q="21">21</div><div class="q-number" data-q="22">22</div><div class="q-number" data-q="23">23</div><div class="q-number" data-q="24">24</div><div class="q-number" data-q="25">25</div><div class="q-number" data-q="26">26</div>
 
     <span class="passage-label">Passage 3:</span>
-    <div class="q-number current" data-q="27">27</div>
-    <div class="q-number current" data-q="28">28</div>
-    <div class="q-number current" data-q="29">29</div>
-    <div class="q-number current" data-q="30">30</div>
-    <div class="q-number current" data-q="31">31</div>
-    <div class="q-number current" data-q="32">32</div>
-    <div class="q-number current" data-q="33">33</div>
-    <div class="q-number current" data-q="34">34</div>
-    <div class="q-number current" data-q="35">35</div>
-    <div class="q-number current" data-q="36">36</div>
-    <div class="q-number current" data-q="37">37</div>
-    <div class="q-number current" data-q="38">38</div>
-    <div class="q-number current" data-q="39">39</div>
-    <div class="q-number current" data-q="40">40</div>
+    <div class="q-number current" data-q="27">27</div><div class="q-number current" data-q="28">28</div><div class="q-number current" data-q="29">29</div><div class="q-number current" data-q="30">30</div><div class="q-number current" data-q="31">31</div><div class="q-number current" data-q="32">32</div><div class="q-number current" data-q="33">33</div><div class="q-number current" data-q="34">34</div><div class="q-number current" data-q="35">35</div><div class="q-number current" data-q="36">36</div><div class="q-number current" data-q="37">37</div><div class="q-number current" data-q="38">38</div><div class="q-number current" data-q="39">39</div><div class="q-number current" data-q="40">40</div>
 </div>
 
 <div class="controls-bar">
@@ -483,12 +420,12 @@
     const rightMenu = document.getElementById('rightMenu');
 
     passageArea.addEventListener('contextmenu', function(e) {
-        const selection = window.getSelection();
-        if (!selection.isCollapsed) {
+        const sel = window.getSelection();
+        if (!sel.isCollapsed) {
             e.preventDefault();
-            selectedRange = selection.getRangeAt(0);
-            rightMenu.style.left = `${e.pageX}px`;
-            rightMenu.style.top = `${e.pageY}px`;
+            selectedRange = sel.getRangeAt(0);
+            rightMenu.style.left = e.pageX + 'px';
+            rightMenu.style.top = e.pageY + 'px';
             rightMenu.style.display = 'block';
         }
     });
@@ -507,7 +444,7 @@
     function removeHighlight() {
         const el = selectedRange.commonAncestorContainer.parentElement;
         if (el.classList.contains('highlight')) {
-            el.outerHTML = el.innerHTML;
+            el.outerHTML = el.textContent;
         }
         saveData();
     }
@@ -516,17 +453,17 @@
         const note = document.createElement('div');
         note.className = 'note';
         note.innerHTML = `
-            <div class="note-header">Note <span class="note-close" onclick="this.parentElement.parentElement.remove(); saveData()">×</span></div>
+            <div class="note-header">Note <span class="note-close" onclick="this.closest('.note').remove(); saveData()">×</span></div>
             <textarea class="note-text" oninput="saveData()"></textarea>
         `;
-        note.style.left = `${event.pageX + 10}px`;
-        note.style.top = `${event.pageY}px`;
+        note.style.left = (event.pageX + 10) + 'px';
+        note.style.top = event.pageY + 'px';
         document.body.appendChild(note);
         saveData();
     }
 
     // --- DRAG & DROP ---
-    let draggedItem;
+    let draggedItem = null;
     document.querySelectorAll('.draggable').forEach(item => {
         item.addEventListener('dragstart', e => {
             draggedItem = item;
@@ -534,46 +471,49 @@
         });
     });
 
-    document.querySelectorAll('.drop-area').forEach(target => {
-        target.addEventListener('dragover', e => { e.preventDefault(); target.classList.add('highlight'); });
-        target.addEventListener('dragleave', () => target.classList.remove('highlight'));
-        target.addEventListener('drop', e => {
+    document.querySelectorAll('.drop-area').forEach(area => {
+        area.addEventListener('dragover', e => {
             e.preventDefault();
-            target.classList.remove('highlight');
+            area.classList.add('highlight-hover');
+        });
+        area.addEventListener('dragleave', () => area.classList.remove('highlight-hover'));
+        area.addEventListener('drop', e => {
+            e.preventDefault();
+            area.classList.remove('highlight-hover');
             const val = e.dataTransfer.getData('text/plain');
-            const oldVal = target.dataset.value;
-            if (oldVal) document.querySelector(`[data-val="${oldVal}"]`).classList.remove('used');
-            target.textContent = `${val} ${draggedItem.textContent}`;
-            target.dataset.value = val;
+            const oldVal = area.dataset.value;
+            if (oldVal) {
+                document.querySelector(`.draggable[data-val="${oldVal}"]`).classList.remove('used');
+            }
+            area.textContent = `${val} ${draggedItem.textContent}`;
+            area.dataset.value = val;
             draggedItem.classList.add('used');
+            draggedItem = null;
             saveData();
             updateNavStatus();
         });
     });
 
-    // --- QUESTION NAVIGATION BAR ---
+    // --- NAVIGATION BAR ---
     document.querySelectorAll('.q-number').forEach(btn => {
         btn.addEventListener('click', () => {
-            const qNum = btn.dataset.q;
-            let targetId;
-            if (qNum >= 27 && qNum <= 30) targetId = "q27-30";
-            else if (qNum >= 31 && qNum <= 35) targetId = "q31-35";
-            else if (qNum >= 36 && qNum <= 40) targetId = "q36-40";
-            if (targetId) document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+            const q = parseInt(btn.dataset.q);
+            if (q >=27 && q <=30) document.getElementById('q27-30').scrollIntoView({behavior:'smooth'});
+            if (q >=31 && q <=35) document.getElementById('q31-35').scrollIntoView({behavior:'smooth'});
+            if (q >=36 && q <=40) document.getElementById('q36-40').scrollIntoView({behavior:'smooth'});
         });
     });
 
     function updateNavStatus() {
-        // Update status for all Passage 3 questions
         for (let q = 27; q <= 40; q++) {
-            const navBtn = document.querySelector(`.q-number[data-q="${q}"]`);
-            let answered = false;
-            if (q >= 27 && q <= 30 || q >= 36 && q <= 40) {
-                answered = document.querySelector(`input[name="q${q}"]:checked`) !== null;
-            } else if (q >= 31 && q <= 35) {
-                answered = document.querySelector(`.drop-area[data-q="${q}"]`)?.dataset.value !== undefined;
+            const btn = document.querySelector(`.q-number[data-q="${q}"]`);
+            let done = false;
+            if (q >=27 && q <=30 || q >=36 && q <=40) {
+                done = !!document.querySelector(`input[name="q${q}"]:checked`);
+            } else {
+                done = !!document.querySelector(`.drop-area[data-q="${q}"]`)?.dataset.value;
             }
-            navBtn.classList.toggle('answered', answered);
+            btn.classList.toggle('answered', done);
         }
     }
 
@@ -584,10 +524,9 @@
             answers: {},
             drag: {}
         };
-        document.querySelectorAll('input[type="radio"]').forEach(i => { if(i.checked) data.answers[i.name] = i.value; });
-        document.querySelectorAll('.drop-area').forEach(d => { if(d.dataset.value) data.drag[d.dataset.q] = d.dataset.value; });
+        document.querySelectorAll('input[type="radio"]:checked').forEach(i => data.answers[i.name] = i.value);
+        document.querySelectorAll('.drop-area').forEach(d => { if (d.dataset.value) data.drag[d.dataset.q] = d.dataset.value; });
         localStorage.setItem('reading3_data', JSON.stringify(data));
-        updateNavStatus();
     }
 
     function loadData() {
@@ -595,13 +534,16 @@
         if (!saved) return;
         const data = JSON.parse(saved);
         passageArea.innerHTML = data.passage;
-        Object.keys(data.answers).forEach(q => { document.querySelector(`input[name="${q}"][value="${data.answers[q]}"]`)?.checked = true; });
-        Object.keys(data.drag).forEach(q => {
-            const target = document.querySelector(`.drop-area[data-q="${q}"]`);
-            const item = document.querySelector(`.draggable[data-val="${data.drag[q]}"]`);
-            if (target && item) {
-                target.textContent = `${data.drag[q]} ${item.textContent}`;
-                target.dataset.value = data.drag[q];
+        Object.entries(data.answers).forEach(([name, val]) => {
+            const inp = document.querySelector(`input[name="${name}"][value="${val}"]`);
+            if (inp) inp.checked = true;
+        });
+        Object.entries(data.drag).forEach(([q, val]) => {
+            const area = document.querySelector(`.drop-area[data-q="${q}"]`);
+            const item = document.querySelector(`.draggable[data-val="${val}"]`);
+            if (area && item) {
+                area.textContent = `${val} ${item.textContent}`;
+                area.dataset.value = val;
                 item.classList.add('used');
             }
         });
@@ -614,12 +556,11 @@
     }
 
     function clearAll() {
-        if (!confirm("Clear all work?")) return;
+        if (!confirm("Clear all progress?")) return;
         localStorage.removeItem('reading3_data');
         location.reload();
     }
 
-    // Auto-save on change
     document.querySelectorAll('input[type="radio"]').forEach(i => i.addEventListener('change', () => { saveData(); updateNavStatus(); }));
     window.onload = loadData;
 </script>
