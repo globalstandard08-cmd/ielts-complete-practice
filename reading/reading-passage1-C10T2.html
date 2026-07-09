@@ -23,91 +23,43 @@
             width: 100%;
             background: #ffffff;
             border-bottom: 2px solid #dc2626;
-            padding: 12px 0;
+            padding: 10px 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
         }
         .logo {
-            width: 40%;
-            max-width: 350px;
+            width: 35%;
+            max-width: 320px;
             height: auto;
             display: block;
         }
 
-        /* ✅ QUESTION NAVIGATOR BAR */
-        .question-nav {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 8px;
-            margin: 0 20px 15px;
-            padding: 12px 15px;
-            background: #ffffff;
-            border-radius: 8px;
-            border: 1px solid #fecaca;
-            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.07);
-        }
-        .nav-label {
-            font-weight: 600;
-            color: #991b1b;
-            font-size: 14px;
-        }
-        .q-indicator {
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            border: 1px solid #fecaca;
-            background: #fef2f2;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .q-indicator:hover {
-            background: #fecaca;
-        }
-        .q-indicator.answered {
-            background: #198754;
-            color: white;
-            border-color: #198754;
-        }
-        .q-indicator.flagged {
-            background: #fd7e14;
-            color: white;
-            border-color: #fd7e14;
-        }
-        .q-indicator.current {
-            border: 2px solid #dc2626;
-        }
-
-        /* ✅ TWO‑COLUMN LAYOUT */
+        /* ✅ TWO‑COLUMN LAYOUT - MORE SPACE */
         .main-wrapper {
             display: flex;
-            gap: 20px;
-            padding: 0 20px 20px;
-            height: calc(100vh - 180px);
+            gap: 18px;
+            padding: 0 18px 12px;
+            height: calc(100vh - 120px);
         }
 
         .passage-column, .questions-column {
             flex: 1;
             background: #ffffff;
-            border-radius: 12px;
+            border-radius: 10px;
             border: 1px solid #fecaca;
-            padding: 20px;
+            padding: 18px;
             overflow-y: auto;
-            box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07);
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07);
             position: relative;
         }
 
         h1 {
             color: #dc2626;
-            font-size: 20px;
-            margin-bottom: 15px;
+            font-size: 19px;
+            margin-bottom: 14px;
             text-align: center;
         }
 
@@ -117,7 +69,7 @@
             line-height: 1.8;
         }
 
-        /* ✅ DARK YELLOW HIGHLIGHT */
+        /* ✅ DARK YELLOW HIGHLIGHT - SAME COLOR */
         .highlight {
             background-color: #ffd700;
             padding: 2px 4px;
@@ -134,7 +86,7 @@
 
         .question-block {
             margin-bottom: 16px;
-            scroll-margin-top: 20px;
+            scroll-margin-top: 15px;
         }
 
         .question-header {
@@ -144,7 +96,7 @@
             margin-bottom: 6px;
         }
         .flag-btn {
-            font-size: 18px;
+            font-size: 17px;
             cursor: pointer;
             color: #999;
             transition: color 0.2s;
@@ -187,12 +139,12 @@
             box-shadow: 0 3px 10px rgba(0,0,0,0.2);
             z-index: 9999;
             display: none;
-            min-width: 150px;
+            min-width: 140px;
         }
         .context-menu div {
-            padding: 9px 12px;
+            padding: 8px 11px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
         }
         .context-menu div:hover {
             background: #fef2f2;
@@ -201,23 +153,23 @@
         /* ✅ STICKY NOTES */
         .sticky-note {
             position: absolute;
-            width: 170px;
-            min-height: 65px;
+            width: 160px;
+            min-height: 60px;
             background: #fff380;
             border: 1px solid #e6c200;
             border-radius: 4px;
             padding: 6px;
-            box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+            box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
             z-index: 9998;
-            font-size: 13px;
+            font-size: 12px;
         }
         .note-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 12px;
+            margin-bottom: 4px;
+            font-size: 11px;
             color: #886a00;
         }
         .note-close {
@@ -227,67 +179,117 @@
         }
         .note-textarea {
             width: 100%;
-            height: 48px;
+            height: 44px;
             border: none;
             background: transparent;
             resize: none;
             outline: none;
             font-family: inherit;
-            font-size: 13px;
+            font-size: 12px;
         }
 
-        /* ✅ BOTTOM CONTROLS & NAVIGATION */
-        .bottom-controls {
-            margin: 20px;
-            padding: 15px;
+        /* ✅ COMPACT BOTTOM AREA */
+        .bottom-container {
+            margin: 10px 18px 20px;
+            padding: 10px 12px;
             background: #ffffff;
             border-radius: 8px;
             border: 1px solid #fecaca;
+            box-shadow: 0 -2px 5px rgba(220, 38, 38, 0.07);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* ✅ QUESTION NAVIGATOR - NOW AT BOTTOM */
+        .question-nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-label {
+            font-weight: 600;
+            color: #991b1b;
+            font-size: 13px;
+            margin-right: 4px;
+        }
+        .q-indicator {
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            border: 1px solid #fecaca;
+            background: #fef2f2;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .q-indicator:hover {
+            background: #fecaca;
+        }
+        .q-indicator.answered {
+            background: #198754;
+            color: white;
+            border-color: #198754;
+        }
+        .q-indicator.flagged {
+            background: #fd7e14;
+            color: white;
+            border-color: #fd7e14;
+        }
+        .q-indicator.current {
+            border: 2px solid #dc2626;
+        }
+
+        /* ✅ COMPACT NAV & ACTION BUTTONS */
+        .bottom-controls {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 15px;
             flex-wrap: wrap;
-            box-shadow: 0 -2px 6px rgba(220, 38, 38, 0.07);
+            gap: 10px;
         }
 
         .action-buttons {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
-        .toggle-answers, .show-student, .clear-highlight, .remove-highlight {
-            padding: 8px 16px;
+        .toggle-answers, .show-student {
+            padding: 6px 12px;
             background: #dc2626;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
+            font-weight: 500;
+            font-size: 13px;
         }
 
-        .toggle-answers:hover, .show-student:hover, .clear-highlight:hover, .remove-highlight:hover {
+        .toggle-answers:hover, .show-student:hover {
             background: #b91c1c;
         }
 
         .nav-buttons {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .back-btn, .next-btn {
-            padding: 8px 16px;
+            padding: 6px 12px;
             background: #fef2f2;
             color: #dc2626;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 6px;
             border: 1px solid #fecaca;
             font-weight: 500;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .back-btn:hover, .next-btn:hover {
@@ -313,11 +315,6 @@
     <!-- Logo -->
     <div class="logo-container">
         <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
-    </div>
-
-    <!-- Question Navigator -->
-    <div class="question-nav" id="questionNav">
-        <span class="nav-label">Questions:</span>
     </div>
 
     <!-- Right-click Context Menu -->
@@ -530,16 +527,23 @@
         </div>
     </div>
 
-    <!-- ✅ BOTTOM CONTROLS & NAVIGATION -->
-    <div class="bottom-controls">
-        <div class="action-buttons">
-            <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Answers</button>
-            <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
-            <button class="clear-highlight" onclick="clearAllHighlights()">🧹 Clear All Highlights</button>
+    <!-- ✅ BOTTOM AREA: NAVIGATOR + CONTROLS -->
+    <div class="bottom-container">
+        <!-- Question Navigator (now at bottom, can go up to 40) -->
+        <div class="question-nav" id="questionNav">
+            <span class="nav-label">Questions:</span>
         </div>
-        <div class="nav-buttons">
-            <a href="library.html" class="back-btn">← Main Menu</a>
-            <a href="reading-passage2-C10T2.html" class="next-btn">Next →</a>
+
+        <!-- Navigation & Action Buttons -->
+        <div class="bottom-controls">
+            <div class="action-buttons">
+                <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show/Hide Answers</button>
+                <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
+            </div>
+            <div class="nav-buttons">
+                <a href="library.html" class="back-btn">← Main Menu</a>
+                <a href="reading-passage2-C10T2.html" class="next-btn">Next →</a>
+            </div>
         </div>
     </div>
 
@@ -548,6 +552,7 @@
         let currentRange = null;
         let lastNoteId = 0;
         const passageId = 'C10T2P1';
+        const TOTAL_QUESTIONS = 13; // Change to 40 if needed for full set
 
         // ✅ Correct answer data
         const correctAnswers = {
@@ -566,10 +571,10 @@
             q13: 'TRUE'
         };
 
-        // ✅ Initialize Question Navigator
+        // ✅ Initialize Question Navigator (supports 1 to 40)
         function initQuestionNav() {
             const navContainer = document.getElementById('questionNav');
-            for (let i = 1; i <= 13; i++) {
+            for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
                 const btn = document.createElement('div');
                 btn.className = 'q-indicator';
                 btn.textContent = i;
@@ -643,14 +648,6 @@
             saveHighlights();
         });
 
-        // ✅ Clear all highlights
-        function clearAllHighlights() {
-            document.querySelectorAll('.highlight').forEach(el => {
-                el.outerHTML = el.innerHTML;
-            });
-            localStorage.removeItem(`${passageId}_highlights`);
-        }
-
         // ✅ Add Sticky Note
         document.getElementById('menuNote').addEventListener('click', function() {
             if (!currentRange) return;
@@ -710,7 +707,7 @@
                     <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
                 `;
                 note.style.left = n.left;
-                note.style.top = n.top;
+                note.style.top = n.style.top;
                 document.body.appendChild(note);
                 const num = parseInt(n.id.split('_')[1]);
                 if (num > lastNoteId) lastNoteId = num;
@@ -720,7 +717,7 @@
         // ✅ Save answers to localStorage
         function saveAnswers() {
             let answers = {};
-            for (let q = 1; q <= 13; q++) {
+            for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
                 const radios = document.getElementsByName(`q${q}`);
                 if (radios.length > 0) {
                     for (let r of radios) {
@@ -758,7 +755,7 @@
         function updateStatus() {
             const saved = localStorage.getItem(`${passageId}_answers`);
             const answers = saved ? JSON.parse(saved) : {};
-            for (let q = 1; q <= 13; q++) {
+            for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
                 const stat = document.getElementById('stat' + q);
                 if (stat) stat.classList.toggle('answered', !!answers[`q${q}`]);
                 const flagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
@@ -780,7 +777,7 @@
             let html = '';
             let score = 0;
 
-            for (let q = 1; q <= 13; q++) {
+            for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
                 let studentAns = '';
                 const radios = document.getElementsByName(`q${q}`);
                 if (radios.length > 0) {
@@ -806,7 +803,7 @@
                 html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
             }
 
-            html += `<br><strong>Total Score: ${score} / 13</strong>`;
+            html += `<br><strong>Total Score: ${score} / ${TOTAL_QUESTIONS}</strong>`;
             resultDiv.innerHTML = html;
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
