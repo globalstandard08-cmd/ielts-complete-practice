@@ -11,6 +11,7 @@
             min-height: 100vh; 
             overflow-y: auto;
             position: relative;
+            line-height: 1.6;
         }
         
         /* Logo area */
@@ -26,8 +27,8 @@
             object-fit: contain;
         }
 
-        h1 { text-align: center; padding: 10px; font-size: 20px; color: #2c3e50; }
-        .subhead { text-align: center; font-style: italic; color: #555; margin-bottom: 15px; }
+        h1 { text-align: center; padding: 10px; font-size: 22px; color: #2c3e50; }
+        .subhead { text-align: center; font-style: italic; color: #555; margin-bottom: 20px; }
 
         .container {
             display: grid;
@@ -54,9 +55,8 @@
         .box::-webkit-scrollbar-thumb:hover { background: #999; }
         .box { scrollbar-width: auto; scrollbar-color: #b8b8b8 #f1f1f1; }
 
-        p { margin-bottom: 15px; line-height: 1.6; text-align: justify; }
-        h2, h3 { margin: 20px 0 10px 0; color: #2c3e50; }
-        ul, ol { margin-left: 20px; margin-bottom: 15px; line-height: 1.6; }
+        p { margin-bottom: 15px; text-align: justify; }
+        h2, h3, h4 { margin: 20px 0 10px 0; color: #2c3e50; }
         
         /* Highlight style */
         .user-highlight {
@@ -65,6 +65,10 @@
             border-radius: 2px;
             cursor: pointer;
             color: #000;
+            transition: background 0.2s;
+        }
+        .user-highlight:hover {
+            background-color: #ffed4e;
         }
 
         /* Right-click context menu */
@@ -73,15 +77,16 @@
             background: #ffffff;
             border: 1px solid #ccc;
             border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 12px rgba(0,0,0,0.2);
             z-index: 9999;
             display: none;
-            min-width: 140px;
+            min-width: 160px;
         }
         .context-menu div {
-            padding: 8px 12px;
+            padding: 10px 14px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
+            transition: background 0.15s;
         }
         .context-menu div:hover {
             background: #f0f0f0;
@@ -90,33 +95,38 @@
         /* Sticky notes */
         .sticky-note {
             position: absolute;
-            width: 160px;
-            min-height: 60px;
+            width: 180px;
+            min-height: 70px;
             background: #fff380;
             border: 1px solid #e6c200;
             border-radius: 4px;
-            padding: 6px;
-            box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+            padding: 8px;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.18);
             z-index: 9998;
             font-size: 13px;
+            cursor: move;
         }
         .note-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             font-size: 12px;
             color: #886a00;
+            border-bottom: 1px solid #e6c200;
+            padding-bottom: 4px;
         }
         .note-close {
             cursor: pointer;
             font-weight: bold;
             color: #886a00;
+            font-size: 16px;
+            line-height: 1;
         }
         .note-textarea {
             width: 100%;
-            height: 45px;
+            height: 50px;
             border: none;
             background: transparent;
             resize: none;
@@ -129,11 +139,11 @@
         .question-header {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
+            gap: 10px;
+            margin-bottom: 10px;
         }
         .flag-btn {
-            font-size: 18px;
+            font-size: 20px;
             cursor: pointer;
             color: #999;
             transition: color 0.2s;
@@ -154,20 +164,20 @@
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 6px;
-            margin: 10px 20px;
+            gap: 8px;
+            margin: 12px 20px;
             padding: 12px 15px;
             background: #f8f9fa;
             border-radius: 4px;
             border: 1px solid #dee2e6;
         }
         .q-indicator {
-            width: 28px;
-            height: 28px;
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 2px;
+            border-radius: 3px;
             border: 1px solid #ced4da;
             background: #e9ecef;
             font-size: 14px;
@@ -176,6 +186,7 @@
         }
         .q-indicator:hover {
             background: #dee2e6;
+            transform: scale(1.05);
         }
         .q-indicator.answered {
             background: #198754;
@@ -191,22 +202,16 @@
             border: 2px solid #007bff;
         }
 
-        .question { margin-bottom: 25px; scroll-margin-top: 20px; }
-        textarea { 
-            width: 100%; 
-            padding: 8px; 
-            margin-top: 5px; 
-            border: 1px solid #ccc; 
-            border-radius: 3px; 
-            min-height: 40px;
-            resize: vertical;
-        }
+        .question { margin-bottom: 30px; scroll-margin-top: 20px; }
 
         /* Answer styling */
         .correct-answer {
             color: #28a745;
             font-weight: bold;
-            margin-top: 6px;
+            margin-top: 8px;
+            padding: 6px;
+            background: #f0fff4;
+            border-radius: 3px;
             display: none;
         }
 
@@ -223,28 +228,30 @@
         }
         .btn-group {
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
         .check-btn {
-            padding: 8px 16px;
-            font-size: 14px;
+            padding: 9px 18px;
+            font-size: 15px;
             border-radius: 4px;
             border: none;
             background: #28a745;
             color: white;
             cursor: pointer;
+            transition: background 0.2s;
         }
         .check-btn:hover {
             background: #218838;
         }
         .clear-btn {
-            padding: 8px 16px;
-            font-size: 14px;
+            padding: 9px 18px;
+            font-size: 15px;
             border-radius: 4px;
             border: none;
             background: #dc3545;
             color: white;
             cursor: pointer;
+            transition: background 0.2s;
         }
         .clear-btn:hover {
             background: #c82333;
@@ -254,8 +261,8 @@
             gap: 12px;
         }
         .nav a, .nav span { 
-            padding: 8px 16px; 
-            font-size: 14px; 
+            padding: 9px 18px; 
+            font-size: 15px; 
             border-radius: 4px; 
             text-decoration: none; 
             cursor: pointer; 
@@ -263,6 +270,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            transition: background 0.2s;
         }
         .prev { 
             background: #6c757d; 
@@ -279,32 +287,34 @@
 
         /* Multiple choice styling */
         .option {
-            margin: 8px 0;
-            padding: 8px;
+            margin: 10px 0;
+            padding: 8px 10px;
             border-radius: 3px;
             cursor: pointer;
+            transition: background 0.15s;
         }
         .option:hover {
             background: #f8f9fa;
         }
         input[type="radio"] {
-            margin-right: 8px;
+            margin-right: 10px;
+            transform: scale(1.1);
         }
 
         /* Drag & Drop styling */
         .sentence-container {
             display: grid;
             grid-template-columns: 1fr 180px;
-            gap: 12px;
+            gap: 15px;
             align-items: center;
-            margin: 12px 0;
-            padding: 10px;
+            margin: 15px 0;
+            padding: 12px;
             border: 1px solid #eee;
             border-radius: 4px;
         }
         .drop-target {
-            padding: 10px;
-            min-height: 42px;
+            padding: 12px;
+            min-height: 46px;
             border: 2px dashed #adb5bd;
             border-radius: 4px;
             background: #f8f9fa;
@@ -312,6 +322,8 @@
             align-items: center;
             justify-content: center;
             font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
         }
         .drop-target.highlight {
             border-color: #007bff;
@@ -320,27 +332,32 @@
         .options-pool {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin: 15px 0;
-            padding: 12px;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px;
             background: #f8f9fa;
             border-radius: 4px;
         }
         .draggable {
-            padding: 8px 12px;
+            padding: 10px 14px;
             background: #ffffff;
             border: 1px solid #ced4da;
             border-radius: 4px;
             cursor: grab;
             user-select: none;
+            transition: all 0.2s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
         .draggable:active {
             cursor: grabbing;
             opacity: 0.7;
+            transform: scale(0.98);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .draggable.used {
             opacity: 0.4;
             cursor: not-allowed;
+            background: #e9ecef;
         }
     </style>
 </head>
@@ -355,8 +372,8 @@
 
     <!-- Right-click menu -->
     <div class="context-menu" id="contextMenu">
-        <div id="menuHighlight">✅ Highlight</div>
-        <div id="menuNote">📝 Add Note</div>
+        <div id="menuHighlight">✅ Highlight Selection</div>
+        <div id="menuNote">📝 Add Note Here</div>
         <div id="menuRemove">❌ Remove Highlight</div>
     </div>
 
@@ -364,7 +381,7 @@
         <!-- Passage Box -->
         <div class="box" id="passageBox">
             <h2 style="text-align:center; margin-bottom:15px;">The psychology of innovation</h2>
-            <h3 style="text-align:center; font-style:italic; color:#555; margin-bottom:20px;">Why are so few companies truly innovative?</h3>
+            <h3 style="text-align:center; font-style:italic; color:#555; margin-bottom:25px;">Why are so few companies truly innovative?</h3>
 
             <p>Innovation is key to business survival, and companies put substantial resources into inspiring employees to develop new ideas. There are, nevertheless, people working in luxurious, state-of-the-art centres designed to stimulate innovation who find that their environment doesn’t make them feel at all creative. And there are those who don’t have a budget, or much space, but who innovate successfully.</p>
 
@@ -391,7 +408,7 @@
 
         <!-- Questions Box -->
         <div class="box">
-            <h3 style="margin-bottom:15px;">Questions 27–40</h3>
+            <h3 style="margin-bottom:20px;">Questions 27–40</h3>
 
             <!-- Questions 27–30: Multiple Choice -->
             <div class="question" id="q27">
@@ -403,7 +420,7 @@
 
                 <p><strong>27</strong> The example of the ‘million-dollar quartet’ underlines the writer’s point about</p>
                 <div class="option">
-                    <input type="radio" name="q27" value="A" data-correct="C"> A recognising talent.
+                    <input type="radio" name="q27" value="A"> A recognising talent.
                 </div>
                 <div class="option">
                     <input type="radio" name="q27" value="B"> B working as a team.
@@ -423,7 +440,7 @@
                     <p><strong>28</strong> James Watson suggests that he and Francis Crick won the race to discover the DNA code because they</p>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q28" value="A" data-correct="A"> A were conscious of their own limitations.
+                    <input type="radio" name="q28" value="A"> A were conscious of their own limitations.
                 </div>
                 <div class="option">
                     <input type="radio" name="q28" value="B"> B brought complementary skills to their partnership.
@@ -443,7 +460,7 @@
                     <p><strong>29</strong> The writer mentions competitions on breakfast cereal packets as an example of how to</p>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q29" value="A" data-correct="D"> A inspire creative thinking.
+                    <input type="radio" name="q29" value="A"> A inspire creative thinking.
                 </div>
                 <div class="option">
                     <input type="radio" name="q29" value="B"> B generate concise writing.
@@ -463,7 +480,7 @@
                     <p><strong>30</strong> In the last paragraph, the writer suggests that it is important for employees to</p>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q30" value="A" data-correct="B"> A be aware of their company’s goals.
+                    <input type="radio" name="q30" value="A"> A be aware of their company’s goals.
                 </div>
                 <div class="option">
                     <input type="radio" name="q30" value="B"> B feel that their contributions are valued.
@@ -487,27 +504,27 @@
 
                 <div class="sentence-container">
                     <div><strong>31</strong> Employees whose values match those of their employers are more likely to</div>
-                    <div class="drop-target" data-question="31" data-correct="G">Drop answer here</div>
+                    <div class="drop-target" data-question="31">Drop answer here</div>
                 </div>
 
                 <div class="sentence-container">
                     <div><strong>32</strong> At times of change, people tend to</div>
-                    <div class="drop-target" data-question="32" data-correct="E">Drop answer here</div>
+                    <div class="drop-target" data-question="32">Drop answer here</div>
                 </div>
 
                 <div class="sentence-container">
                     <div><strong>33</strong> If people are aware of what they might lose, they will often</div>
-                    <div class="drop-target" data-question="33" data-correct="A">Drop answer here</div>
+                    <div class="drop-target" data-question="33">Drop answer here</div>
                 </div>
 
                 <div class="sentence-container">
                     <div><strong>34</strong> People working under a dominant boss are liable to</div>
-                    <div class="drop-target" data-question="34" data-correct="F">Drop answer here</div>
+                    <div class="drop-target" data-question="34">Drop answer here</div>
                 </div>
 
                 <div class="sentence-container">
                     <div><strong>35</strong> Employees working in organisations with few rules are more likely to</div>
-                    <div class="drop-target" data-question="35" data-correct="B">Drop answer here</div>
+                    <div class="drop-target" data-question="35">Drop answer here</div>
                 </div>
 
                 <div class="options-pool" id="optionsPool">
@@ -543,7 +560,7 @@
 
                 <p><strong>36</strong> The physical surroundings in which a person works play a key role in determining their creativity.</p>
                 <div class="option">
-                    <input type="radio" name="q36" value="YES" data-correct="NO"> YES
+                    <input type="radio" name="q36" value="YES"> YES
                 </div>
                 <div class="option">
                     <input type="radio" name="q36" value="NO"> NO
@@ -560,7 +577,7 @@
                     <p><strong>37</strong> Most people have the potential to be creative.</p>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q37" value="YES" data-correct="YES"> YES
+                    <input type="radio" name="q37" value="YES"> YES
                 </div>
                 <div class="option">
                     <input type="radio" name="q37" value="NO"> NO
@@ -577,7 +594,7 @@
                     <p><strong>38</strong> Teams work best when their members are of equally matched intelligence.</p>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q38" value="YES" data-correct="NO"> YES
+                    <input type="radio" name="q38" value="YES"> YES
                 </div>
                 <div class="option">
                     <input type="radio" name="q38" value="NO"> NO
@@ -594,7 +611,7 @@
                     <p><strong>39</strong> It is easier for smaller companies to be innovative.</p>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q39" value="YES" data-correct="NOT GIVEN"> YES
+                    <input type="radio" name="q39" value="YES"> YES
                 </div>
                 <div class="option">
                     <input type="radio" name="q39" value="NO"> NO
@@ -611,7 +628,7 @@
                     <p><strong>40</strong> A manager’s approval of an idea is more persuasive than that of a colleague.</p>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q40" value="YES" data-correct="NO"> YES
+                    <input type="radio" name="q40" value="YES"> YES
                 </div>
                 <div class="option">
                     <input type="radio" name="q40" value="NO"> NO
@@ -627,19 +644,19 @@
     <!-- Question Navigation Bar -->
     <div class="question-status" id="statusBar">
         <span class="nav-section-label">Passage 1:</span>
-        <span id="p1_1"></span><span id="p1_2"></span><span id="p1_3"></span><span id="p1_4"></span><span id="p1_5"></span>
-        <span id="p1_6"></span><span id="p1_7"></span><span id="p1_8"></span><span id="p1_9"></span><span id="p1_10"></span>
-        <span id="p1_11"></span><span id="p1_12"></span><span id="p1_13"></span>
+        <span id="stat1"></span><span id="stat2"></span><span id="stat3"></span><span id="stat4"></span><span id="stat5"></span>
+        <span id="stat6"></span><span id="stat7"></span><span id="stat8"></span><span id="stat9"></span><span id="stat10"></span>
+        <span id="stat11"></span><span id="stat12"></span><span id="stat13"></span>
 
         <span class="nav-section-label">Passage 2:</span>
-        <span id="p2_14"></span><span id="p2_15"></span><span id="p2_16"></span><span id="p2_17"></span><span id="p2_18"></span>
-        <span id="p2_19"></span><span id="p2_20"></span><span id="p2_21"></span><span id="p2_22"></span><span id="p2_23"></span>
-        <span id="p2_24"></span><span id="p2_25"></span><span id="p2_26"></span>
+        <span id="stat14"></span><span id="stat15"></span><span id="stat16"></span><span id="stat17"></span><span id="stat18"></span>
+        <span id="stat19"></span><span id="stat20"></span><span id="stat21"></span><span id="stat22"></span><span id="stat23"></span>
+        <span id="stat24"></span><span id="stat25"></span><span id="stat26"></span>
 
         <span class="nav-section-label">Passage 3:</span>
-        <span id="p3_27"></span><span id="p3_28"></span><span id="p3_29"></span><span id="p3_30"></span><span id="p3_31"></span>
-        <span id="p3_32"></span><span id="p3_33"></span><span id="p3_34"></span><span id="p3_35"></span><span id="p3_36"></span>
-        <span id="p3_37"></span><span id="p3_38"></span><span id="p3_39"></span><span id="p3_40"></span>
+        <span id="stat27"></span><span id="stat28"></span><span id="stat29"></span><span id="stat30"></span><span id="stat31"></span>
+        <span id="stat32"></span><span id="stat33"></span><span id="stat34"></span><span id="stat35"></span><span id="stat36"></span>
+        <span id="stat37"></span><span id="stat38"></span><span id="stat39"></span><span id="stat40"></span>
     </div>
 
     <!-- Bottom controls & navigation -->
@@ -649,7 +666,7 @@
             <button class="clear-btn" onclick="clearAll()">Clear All</button>
         </div>
         <div class="nav">
-            <a href="library.html" class="prev">← Main Menu</a>
+            <a href="../library.html" class="prev">← Main Menu</a>
             <span class="next">End of Test →</span>
         </div>
     </div>
@@ -661,38 +678,37 @@
         let lastNoteId = 0;
         let draggedElement = null;
 
-        // Initialize all question indicators
-        window.onload = function() {
-            const sections = [
-                { start: 1, end: 13, prefix: 'p1_' },
-                { start: 14, end: 26, prefix: 'p2_' },
-                { start: 27, end: 40, prefix: 'p3_' }
-            ];
-            sections.forEach(sec => {
-                for (let q = sec.start; q <= sec.end; q++) {
-                    const el = document.getElementById(sec.prefix + q);
-                    if (el) {
-                        el.className = 'q-indicator';
-                        el.textContent = q;
-                        el.id = 'stat' + q;
-                        el.onclick = () => jumpToQuestion(q);
-                    }
+        // Initialize everything when page loads
+        window.addEventListener('load', function() {
+            initQuestionIndicators();
+            initDragAndDrop();
+            loadAllSavedData();
+        });
+
+        // Create question number indicators
+        function initQuestionIndicators() {
+            for (let q = 1; q <= 40; q++) {
+                const el = document.getElementById('stat' + q);
+                if (el) {
+                    el.className = 'q-indicator';
+                    el.textContent = q;
+                    el.onclick = () => jumpToQuestion(q);
                 }
-            });
-            // Mark current passage
+            }
+            // Highlight current passage questions
             for (let q = 27; q <= 40; q++) {
                 document.getElementById('stat' + q).classList.add('current');
             }
-            initDragAndDrop();
-            loadAllData();
-        };
+        }
 
         function jumpToQuestion(qNum) {
             const el = document.getElementById('q' + qNum);
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // Right-click menu
+        // --------------------------
+        // HIGHLIGHT & NOTE FEATURES
+        // --------------------------
         passageBox.addEventListener('contextmenu', function(e) {
             const selection = window.getSelection();
             if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
@@ -702,14 +718,20 @@
             e.preventDefault();
             currentRange = selection.getRangeAt(0);
             const rect = currentRange.getBoundingClientRect();
-            contextMenu.style.left = (rect.left + window.scrollX) + 'px';
-            contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+            const menuX = rect.left + window.scrollX;
+            const menuY = rect.bottom + window.scrollY + 8;
+            
+            contextMenu.style.left = `${menuX}px`;
+            contextMenu.style.top = `${menuY}px`;
             contextMenu.style.display = 'block';
         });
 
-        document.addEventListener('click', () => contextMenu.style.display = 'none');
+        // Hide menu when clicking anywhere else
+        document.addEventListener('click', () => {
+            contextMenu.style.display = 'none';
+        });
 
-        // Highlight text
+        // Highlight selected text
         document.getElementById('menuHighlight').addEventListener('click', function() {
             if (!currentRange) return;
             const span = document.createElement('span');
@@ -718,77 +740,48 @@
             currentRange.deleteContents();
             currentRange.insertNode(span);
             window.getSelection().removeAllRanges();
-            currentRange = null;
             saveHighlights();
         });
 
-        // Add note
+        // Add sticky note
         document.getElementById('menuNote').addEventListener('click', function() {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
-            const noteId = 'note_' + (++lastNoteId);
+            const noteId = `note_${++lastNoteId}`;
             const note = document.createElement('div');
             note.className = 'sticky-note';
             note.id = noteId;
             note.innerHTML = `
                 <div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
-                <textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>
+                <textarea class="note-textarea" placeholder="Write your note..." oninput="saveNote('${noteId}', this.value)"></textarea>
             `;
-            note.style.left = (rect.right + window.scrollX + 8) + 'px';
-            note.style.top = (rect.top + window.scrollY) + 'px';
+            note.style.left = `${rect.right + window.scrollX + 10}px`;
+            note.style.top = `${rect.top + window.scrollY}px`;
             document.body.appendChild(note);
             window.getSelection().removeAllRanges();
-            currentRange = null;
             saveNotes();
         });
 
-        // Remove Highlight
+        // Remove highlight
         document.getElementById('menuRemove').addEventListener('click', function() {
             if (!currentRange) return;
             try {
-                const container = currentRange.commonAncestorContainer;
-                let span = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
-                if (span && span.classList.contains('user-highlight')) {
-                    const text = document.createTextNode(span.textContent);
-                    span.parentNode.replaceChild(text, span);
-                    span.parentNode.normalize();
+                const node = currentRange.commonAncestorContainer;
+                const element = node.nodeType === Node.TEXT_NODE ? node.parentElement : node;
+                
+                if (element && element.classList.contains('user-highlight')) {
+                    const text = document.createTextNode(element.textContent);
+                    element.parentNode.replaceChild(text, element);
+                    element.parentNode.normalize();
                 } else {
                     currentRange.deleteContents();
                 }
-            } catch (e) {}
+            } catch (err) {
+                console.log('Remove highlight:', err);
+            }
             window.getSelection().removeAllRanges();
-            currentRange = null;
             saveHighlights();
         });
-
-        // Flag system
-        function toggleFlag(qNum) {
-            const flag = document.getElementById('flag' + qNum);
-            const stat = document.getElementById('stat' + qNum);
-            const isFlagged = flag.classList.toggle('flagged');
-            stat.classList.toggle('flagged', isFlagged);
-            localStorage.setItem('flag_' + qNum, isFlagged);
-        }
-
-        function toggleFlagRange(start, end) {
-            const flag = document.getElementById('flag31-35');
-            let anyFlagged = false;
-            for (let q = start; q <= end; q++) {
-                const stat = document.getElementById('stat' + q);
-                if (!stat.classList.contains('flagged')) {
-                    stat.classList.add('flagged');
-                    localStorage.setItem('flag_' + q, true);
-                    anyFlagged = true;
-                }
-            }
-            if (!anyFlagged) {
-                for (let q = start; q <= end; q++) {
-                    document.getElementById('stat' + q).classList.remove('flagged');
-                    localStorage.setItem('flag_' + q, false);
-                }
-            }
-            flag.classList.toggle('flag');
-        }
 
         function closeNote(id) {
             document.getElementById(id)?.remove();
@@ -797,9 +790,12 @@
 
         function saveNote(id, text) {
             localStorage.setItem(id, text);
+            saveNotes();
         }
 
-        // Drag and Drop setup
+        // --------------------------
+        // DRAG & DROP FEATURE
+        // --------------------------
         function initDragAndDrop() {
             const draggables = document.querySelectorAll('.draggable');
             const dropTargets = document.querySelectorAll('.drop-target');
@@ -809,11 +805,6 @@
                     draggedElement = item;
                     e.dataTransfer.effectAllowed = 'move';
                     e.dataTransfer.setData('text/plain', item.dataset.value);
-                    setTimeout(() => item.classList.add('dragging'), 0);
-                });
-                item.addEventListener('dragend', () => {
-                    draggable.classList.remove('dragging');
-                    document.querySelectorAll('.drop-target').forEach(t => t.classList.remove('highlight'));
                 });
             });
 
@@ -831,55 +822,92 @@
                     const value = e.dataTransfer.getData('text/plain');
                     const originalItem = document.querySelector(`.draggable[data-value="${value}"]`);
                     
-                    // Remove previous answer if exists
+                    // Remove previous answer
                     const oldValue = target.dataset.value;
                     if (oldValue) {
                         document.querySelector(`.draggable[data-value="${oldValue}"]`)?.classList.remove('used');
                     }
 
-                    // Update target
+                    // Set new answer
                     target.textContent = `${value} ${originalItem.textContent.substring(2)}`;
                     target.dataset.value = value;
                     originalItem.classList.add('used');
                     
-                    // Save answer
+                    // Save and update status
                     localStorage.setItem(`ans_${target.dataset.question}`, value);
-                    updateStatus(parseInt(target.dataset.question));
+                    updateQuestionStatus(parseInt(target.dataset.question));
                 });
             });
         }
 
-        // Auto-save answers
+        // --------------------------
+        // ANSWER & SAVE SYSTEM
+        // --------------------------
+        // Save radio button answers
         document.querySelectorAll('input[type="radio"]').forEach(input => {
             input.addEventListener('change', () => {
                 const q = input.name.replace('q', '');
                 localStorage.setItem(`ans_${q}`, input.value);
-                updateStatus(parseInt(q));
+                updateQuestionStatus(parseInt(q));
             });
         });
 
-        function updateStatus(qNum) {
+        function updateQuestionStatus(qNum) {
             const stat = document.getElementById('stat' + qNum);
             if (!stat) return;
             let hasAnswer = false;
             
-            if (qNum >= 27 && qNum <= 30 || qNum >= 36 && qNum <= 40) {
+            if ((qNum >= 27 && qNum <= 30) || (qNum >= 36 && qNum <= 40)) {
                 hasAnswer = document.querySelector(`input[name="q${qNum}"]:checked`) !== null;
             } else if (qNum >= 31 && qNum <= 35) {
                 const target = document.querySelector(`.drop-target[data-question="${qNum}"]`);
-                hasAnswer = target && target.dataset.value !== undefined && target.dataset.value !== '';
+                hasAnswer = target && target.dataset.value;
             }
             
             stat.classList.toggle('answered', hasAnswer);
         }
 
-        // Save/load functions
+        function toggleFlag(qNum) {
+            const flag = document.getElementById('flag' + qNum);
+            const stat = document.getElementById('stat' + qNum);
+            const isFlagged = flag.classList.toggle('flagged');
+            stat.classList.toggle('flagged', isFlagged);
+            localStorage.setItem(`flag_${qNum}`, isFlagged);
+        }
+
+        function toggleFlagRange(start, end) {
+            let anyFlagged = false;
+            for (let q = start; q <= end; q++) {
+                const stat = document.getElementById('stat' + q);
+                if (!stat.classList.contains('flagged')) {
+                    stat.classList.add('flagged');
+                    localStorage.setItem(`flag_${q}`, true);
+                    anyFlagged = true;
+                }
+            }
+            if (!anyFlagged) {
+                for (let q = start; q <= end; q++) {
+                    document.getElementById('stat' + q).classList.remove('flagged');
+                    localStorage.setItem(`flag_${q}`, false);
+                }
+            }
+        }
+
+        function toggleAnswers() {
+            document.querySelectorAll('.correct-answer').forEach(ans => {
+                ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
+            });
+        }
+
+        // --------------------------
+        // SAVE / LOAD FUNCTIONS
+        // --------------------------
         function saveHighlights() {
-            localStorage.setItem('passage_highlights_p3', passageBox.innerHTML);
+            localStorage.setItem('reading3_highlights', passageBox.innerHTML);
         }
 
         function loadHighlights() {
-            const saved = localStorage.getItem('passage_highlights_p3');
+            const saved = localStorage.getItem('reading3_highlights');
             if (saved) passageBox.innerHTML = saved;
         }
 
@@ -888,11 +916,11 @@
                 id: n.id, left: n.style.left, top: n.style.top,
                 text: n.querySelector('.note-textarea').value
             }));
-            localStorage.setItem('notes_data_p3', JSON.stringify(notes));
+            localStorage.setItem('reading3_notes', JSON.stringify(notes));
         }
 
         function loadNotes() {
-            const saved = localStorage.getItem('notes_data_p3');
+            const saved = localStorage.getItem('reading3_notes');
             if (!saved) return;
             JSON.parse(saved).forEach(n => {
                 const note = document.createElement('div');
@@ -910,77 +938,71 @@
             });
         }
 
-        function loadAllData() {
-            loadHighlights();
-            loadNotes();
-            
+        function loadAllSavedData() {
             // Load radio answers
             for (let q = 27; q <= 30; q++) {
                 const ans = localStorage.getItem(`ans_${q}`);
                 if (ans) document.querySelector(`input[name="q${q}"][value="${ans}"]`)?.checked = true;
-                updateStatus(q);
+                updateQuestionStatus(q);
             }
             for (let q = 36; q <= 40; q++) {
                 const ans = localStorage.getItem(`ans_${q}`);
                 if (ans) document.querySelector(`input[name="q${q}"][value="${ans}"]`)?.checked = true;
-                updateStatus(q);
+                updateQuestionStatus(q);
             }
             
-            // Load drag and drop answers
+            // Load drag & drop answers
             for (let q = 31; q <= 35; q++) {
                 const ans = localStorage.getItem(`ans_${q}`);
                 if (ans) {
                     const target = document.querySelector(`.drop-target[data-question="${q}"]`);
-                    const originalItem = document.querySelector(`.draggable[data-value="${ans}"]`);
-                    if (target && originalItem) {
-                        target.textContent = `${ans} ${originalItem.textContent.substring(2)}`;
+                    const option = document.querySelector(`.draggable[data-value="${ans}"]`);
+                    if (target && option) {
+                        target.textContent = `${ans} ${option.textContent.substring(2)}`;
                         target.dataset.value = ans;
-                        originalItem.classList.add('used');
+                        option.classList.add('used');
                     }
                 }
-                updateStatus(q);
+                updateQuestionStatus(q);
             }
 
             // Load flags
             for (let q = 27; q <= 40; q++) {
                 if (localStorage.getItem(`flag_${q}`) === 'true') {
                     document.getElementById('stat' + q)?.classList.add('flagged');
+                    document.getElementById('flag' + q)?.classList.add('flagged');
                 }
             }
-        }
 
-        function toggleAnswers() {
-            document.querySelectorAll('.correct-answer').forEach(ans => {
-                ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
-            });
+            loadHighlights();
+            loadNotes();
         }
 
         function clearAll() {
             if (!confirm("Clear all answers, highlights, notes and flags?")) return;
             
-            // Clear Passage 3 data
+            // Clear all saved data
             for (let q = 27; q <= 40; q++) {
                 localStorage.removeItem(`ans_${q}`);
                 localStorage.removeItem(`flag_${q}`);
                 document.getElementById('stat' + q)?.classList.remove('answered', 'flagged');
             }
-            localStorage.removeItem('passage_highlights_p3');
-            localStorage.removeItem('notes_data_p3');
+            localStorage.removeItem('reading3_highlights');
+            localStorage.removeItem('reading3_notes');
             
-            // Reset form elements
-            document.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
+            // Reset UI
+            document.querySelectorAll('input[type="radio"]').forEach(i => i.checked = false);
             document.querySelectorAll('.drop-target').forEach(t => {
                 t.textContent = 'Drop answer here';
                 delete t.dataset.value;
             });
             document.querySelectorAll('.draggable').forEach(d => d.classList.remove('used'));
-            document.querySelectorAll('.user-highlight').forEach(span => {
-                const text = document.createTextNode(span.textContent);
-                span.parentNode.replaceChild(text, span);
-                span.parentNode.normalize();
+            document.querySelectorAll('.user-highlight').forEach(h => {
+                const text = document.createTextNode(h.textContent);
+                h.parentNode.replaceChild(text, h);
             });
             document.querySelectorAll('.sticky-note').forEach(n => n.remove());
-            document.getElementById('flag31-35')?.classList.remove('flagged');
+            document.querySelectorAll('.flag-btn').forEach(f => f.classList.remove('flagged'));
             lastNoteId = 0;
         }
     </script>
