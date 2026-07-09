@@ -201,7 +201,7 @@
             gap: 10px;
         }
 
-        /* ✅ QUESTION NAVIGATOR - 1 TO 40 LIKE REAL EXAM */
+        /* ✅ QUESTION NAVIGATOR - 1 TO 40 WITH STATUS COLORS */
         .question-nav {
             display: flex;
             flex-wrap: wrap;
@@ -221,24 +221,28 @@
             align-items: center;
             justify-content: center;
             border-radius: 3px;
-            border: 1px solid #fecaca;
-            background: #fef2f2;
+            border: 1px solid #ddd;
+            background: #e5e7eb; /* Gray = Unanswered */
+            color: #333;
             font-size: 11px;
             cursor: pointer;
             transition: all 0.2s;
         }
         .q-indicator:hover {
-            background: #fecaca;
+            opacity: 0.9;
         }
         .q-indicator.answered {
-            background: #198754;
+            background: #198754; /* Green = Answered */
             color: white;
             border-color: #198754;
         }
         .q-indicator.flagged {
-            background: #fd7e14;
+            background: #fd7e14; /* Orange = Flagged */
             color: white;
             border-color: #fd7e14;
+        }
+        .q-indicator.answered.flagged {
+            background: #fd7e14; /* If both, show flagged color */
         }
         .q-indicator.current {
             border: 2px solid #dc2626;
@@ -569,7 +573,7 @@
             q11: 'FALSE',
             q12: 'NOT GIVEN',
             q13: 'TRUE'
-            // You can add answers up to q40 here for future use
+            // Add answers up to q40 here when needed
         };
 
         // ✅ Initialize Question Navigator 1–40
@@ -583,9 +587,16 @@
                 btn.onclick = () => jumpToQuestion(i);
                 navContainer.appendChild(btn);
             }
+            updateStatus(); // Update colors right after creating buttons
         }
 
         function jumpToQuestion(qNum) {
+            // Remove current highlight from all
+            document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
+            // Add to selected one
+            const btn = document.getElementById('stat' + qNum);
+            if (btn) btn.classList.add('current');
+            // Scroll to question
             const el = document.getElementById('q' + qNum);
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -730,7 +741,7 @@
                 }
             }
             localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
-            updateStatus();
+            updateStatus(); // Refresh colors after saving
         }
 
         // ✅ Load saved answers
@@ -752,15 +763,31 @@
             updateStatus();
         }
 
-        // ✅ Update question status
+        // ✅ Update question status colors
         function updateStatus() {
-            const saved = localStorage.getItem(`${passageId}_answers`);
-            const answers = saved ? JSON.parse(saved) : {};
+            const savedAnswers = localStorage.getItem(`${passageId}_answers`);
+            const answers = savedAnswers ? JSON.parse(savedAnswers) : {};
+
             for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
-                const stat = document.getElementById('stat' + q);
-                if (stat) stat.classList.toggle('answered', !!answers[`q${q}`]);
-                const flagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
-                if (flagged) document.getElementById('flag' + q)?.classList.add('flagged');
+                const statBtn = document.getElementById('stat' + q);
+                if (!statBtn) continue;
+
+                const hasAnswer = !!answers[`q${q}`];
+                const isFlagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
+
+                // Reset classes first
+                statBtn.classList.remove('answered', 'flagged');
+
+                // Apply status
+                if (isFlagged) {
+                    statBtn.classList.add('flagged');
+                } else if (hasAnswer) {
+                    statBtn.classList.add('answered');
+                }
+
+                // Also update flag icon
+                const flagIcon = document.getElementById('flag' + q);
+                if (flagIcon) flagIcon.classList.toggle('flagged', isFlagged);
             }
         }
 
@@ -810,8 +837,10 @@
         }
 
         // ✅ Auto-save on input
-        document.querySelectorAll('.answer-input, input[type="radio"]').forEach(el => {
-            el.addEventListener('input', saveAnswers);
+        document.addEventListener('input', function(e) {
+            if (e.target.matches('.answer-input, input[type="radio"]')) {
+                saveAnswers();
+            }
         });
 
         // ✅ Initialize everything on load
