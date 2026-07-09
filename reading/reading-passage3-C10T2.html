@@ -23,65 +23,43 @@
             width: 100%;
             background: #ffffff;
             border-bottom: 2px solid #dc2626;
-            padding: 12px 0;
+            padding: 10px 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
         }
         .logo {
-            width: 40%;
-            max-width: 350px;
+            width: 35%;
+            max-width: 320px;
             height: auto;
             display: block;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-            margin: 0 20px 15px;
-            flex-wrap: wrap;
-        }
-
-        .back-btn, .next-btn {
-            padding: 8px 16px;
-            background: #fef2f2;
-            color: #dc2626;
-            text-decoration: none;
-            border-radius: 8px;
-            border: 1px solid #fecaca;
-            font-weight: 500;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .back-btn:hover, .next-btn:hover {
-            background: #ffffff;
         }
 
         /* ✅ TWO‑COLUMN LAYOUT */
         .main-wrapper {
             display: flex;
-            gap: 20px;
-            padding: 0 20px 20px;
-            height: calc(100vh - 100px);
+            gap: 18px;
+            padding: 0 18px 12px;
+            height: calc(100vh - 120px);
         }
 
         .passage-column, .questions-column {
             flex: 1;
             background: #ffffff;
-            border-radius: 12px;
+            border-radius: 10px;
             border: 1px solid #fecaca;
-            padding: 20px;
+            padding: 18px;
             overflow-y: auto;
-            box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07);
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07);
+            position: relative;
         }
 
         h1 {
             color: #dc2626;
-            font-size: 20px;
-            margin-bottom: 15px;
+            font-size: 19px;
+            margin-bottom: 14px;
             text-align: center;
         }
 
@@ -91,9 +69,13 @@
             line-height: 1.8;
         }
 
+        /* ✅ Highlight style */
         .highlight {
-            background-color: #fff350;
-            padding: 2px 0;
+            background-color: #ffd700;
+            padding: 2px 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            color: #000;
         }
 
         .questions-section h2 {
@@ -104,6 +86,24 @@
 
         .question-block {
             margin-bottom: 16px;
+            scroll-margin-top: 15px;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        .flag-btn {
+            font-size: 17px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+            user-select: none;
+        }
+        .flag-btn.flagged {
+            color: #e67700;
         }
 
         .question-block p {
@@ -130,26 +130,179 @@
             background: #fef2f2;
         }
 
-        .action-buttons {
-            margin: 20px 0;
+        /* ✅ Right-click context menu */
+        .context-menu {
+            position: absolute;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 9999;
+            display: none;
+            min-width: 140px;
+        }
+        .context-menu div {
+            padding: 8px 11px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .context-menu div:hover {
+            background: #fef2f2;
+        }
+
+        /* ✅ Sticky notes */
+        .sticky-note {
+            position: absolute;
+            width: 160px;
+            min-height: 60px;
+            background: #fff380;
+            border: 1px solid #e6c200;
+            border-radius: 4px;
+            padding: 6px;
+            box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
+            z-index: 9998;
+            font-size: 12px;
+        }
+        .note-header {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 11px;
+            color: #886a00;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #886a00;
+        }
+        .note-textarea {
+            width: 100%;
+            height: 44px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 12px;
+        }
+
+        /* ✅ Bottom container */
+        .bottom-container {
+            margin: 10px 18px 20px;
+            padding: 10px 12px;
+            background: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #fecaca;
+            box-shadow: 0 -2px 5px rgba(220, 38, 38, 0.07);
+            display: flex;
+            flex-direction: column;
             gap: 10px;
+        }
+
+        /* ✅ Navigation: 1–40 divided into 3 sections */
+        .question-nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 5px;
+        }
+        .nav-section {
+            display: flex;
+            gap: 5px;
+            margin-right: 12px;
+        }
+        .nav-label {
+            font-weight: 600;
+            color: #991b1b;
+            font-size: 13px;
+            margin-right: 4px;
+        }
+        .q-indicator {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+            background: #e5e7eb; /* Gray = Unanswered */
+            color: #333;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .q-indicator:hover {
+            opacity: 0.9;
+        }
+        .q-indicator.answered {
+            background: #198754; /* Green = Answered */
+            color: white;
+            border-color: #198754;
+        }
+        .q-indicator.flagged {
+            background: #fd7e14; /* Orange = Flagged */
+            color: white;
+            border-color: #fd7e14;
+        }
+        .q-indicator.answered.flagged {
+            background: #fd7e14;
+        }
+        .q-indicator.current {
+            border: 2px solid #dc2626;
+        }
+
+        /* ✅ Smaller bottom controls */
+        .bottom-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
-        .toggle-answers, .show-student, .clear-highlight {
-            padding: 8px 16px;
+        .toggle-answers, .show-student {
+            padding: 6px 12px;
             background: #dc2626;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
+            font-weight: 500;
+            font-size: 13px;
         }
 
-        .toggle-answers:hover, .show-student:hover, .clear-highlight:hover {
+        .toggle-answers:hover, .show-student:hover {
             background: #b91c1c;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .back-btn, .menu-btn {
+            padding: 5px 10px;
+            background: #fef2f2;
+            color: #dc2626;
+            text-decoration: none;
+            border-radius: 6px;
+            border: 1px solid #fecaca;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .back-btn:hover, .menu-btn:hover {
+            background: #ffffff;
         }
 
         .answers-box, .student-answers-box {
@@ -173,10 +326,11 @@
         <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
     </div>
 
-    <div class="nav-buttons">
-        <a href="reading-passage2-C10T2.html" class="back-btn">← Previous Passage</a>
-        <a href="../index.html" class="next-btn">Back to Main Menu →</a>
-        <button class="clear-highlight" onclick="clearHighlights()">Clear Highlights</button>
+    <!-- Right-click Context Menu -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
     </div>
 
     <!-- ✅ TWO COLUMNS: LEFT = PASSAGE | RIGHT = QUESTIONS -->
@@ -228,39 +382,50 @@
                     <p>K &nbsp;picture frames &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; L &nbsp;assistants</p>
                 </div>
 
-                <div class="question-block">
-                    <p>The value attached to original works of art</p>
-                    <p>People go to art museums because they accept the value of seeing an original work of art. But they do not go to museums to read original manuscripts of novels, perhaps because the availability of novels has depended on <strong>27.</strong> ......................... for so long, and also because with novels, the <strong>28.</strong> ......................... are the most important thing.</p>
-                    <p>However, in historical times artists such as Leonardo were happy to instruct <strong>29.</strong> ......................... to produce copies of their work and these days new methods of reproduction allow excellent replication of surface relief features as well as colour and <strong>30.</strong> ......................... .</p>
-                    <p>It is regrettable that museums still promote the superiority of original works of art, since this may not be in the interests of the <strong>31.</strong> ......................... .</p>
-                </div>
-
-                <div class="question-block">
-                    <p>27.</p>
+                <div class="question-block" id="q27">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(27)" id="flag27">🚩</span>
+                        <p>27.</p>
+                    </div>
                     <input type="text" class="answer-input" name="q27" placeholder="Write A-L">
                 </div>
-                <div class="question-block">
-                    <p>28.</p>
+                <div class="question-block" id="q28">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(28)" id="flag28">🚩</span>
+                        <p>28.</p>
+                    </div>
                     <input type="text" class="answer-input" name="q28" placeholder="Write A-L">
                 </div>
-                <div class="question-block">
-                    <p>29.</p>
+                <div class="question-block" id="q29">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(29)" id="flag29">🚩</span>
+                        <p>29.</p>
+                    </div>
                     <input type="text" class="answer-input" name="q29" placeholder="Write A-L">
                 </div>
-                <div class="question-block">
-                    <p>30.</p>
+                <div class="question-block" id="q30">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(30)" id="flag30">🚩</span>
+                        <p>30.</p>
+                    </div>
                     <input type="text" class="answer-input" name="q30" placeholder="Write A-L">
                 </div>
-                <div class="question-block">
-                    <p>31.</p>
+                <div class="question-block" id="q31">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(31)" id="flag31">🚩</span>
+                        <p>31.</p>
+                    </div>
                     <input type="text" class="answer-input" name="q31" placeholder="Write A-L">
                 </div>
 
 
                 <h2>Questions 32–35: Multiple Choice</h2>
 
-                <div class="question-block">
-                    <p>32. The writer mentions London’s National Gallery to illustrate</p>
+                <div class="question-block" id="q32">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(32)" id="flag32">🚩</span>
+                        <p>32. The writer mentions London’s National Gallery to illustrate</p>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q32" value="A"> A. the undesirable cost to a nation of maintaining a huge collection of art.</label>
                         <label><input type="radio" name="q32" value="B"> B. the conflict that may arise in society between financial and artistic values.</label>
@@ -269,8 +434,11 @@
                     </div>
                 </div>
 
-                <div class="question-block">
-                    <p>33. The writer says that today, viewers may be unwilling to criticise a work because</p>
+                <div class="question-block" id="q33">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(33)" id="flag33">🚩</span>
+                        <p>33. The writer says that today, viewers may be unwilling to criticise a work because</p>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q33" value="A"> A. they lack the knowledge needed to support an opinion.</label>
                         <label><input type="radio" name="q33" value="B"> B. they fear it may have financial implications.</label>
@@ -279,8 +447,11 @@
                     </div>
                 </div>
 
-                <div class="question-block">
-                    <p>34. According to the writer, the ‘displacement effect’ on the visitor is caused by</p>
+                <div class="question-block" id="q34">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(34)" id="flag34">🚩</span>
+                        <p>34. According to the writer, the ‘displacement effect’ on the visitor is caused by</p>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q34" value="A"> A. the variety of works on display and the way they are arranged.</label>
                         <label><input type="radio" name="q34" value="B"> B. the impossibility of viewing particular works of art over a long period.</label>
@@ -289,8 +460,11 @@
                     </div>
                 </div>
 
-                <div class="question-block">
-                    <p>35. The writer says that unlike other forms of art, a painting does not</p>
+                <div class="question-block" id="q35">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(35)" id="flag35">🚩</span>
+                        <p>35. The writer says that unlike other forms of art, a painting does not</p>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q35" value="A"> A. involve direct contact with an audience.</label>
                         <label><input type="radio" name="q35" value="B"> B. require a specific location for a performance.</label>
@@ -306,8 +480,11 @@
                 <strong>NO</strong> — if the statement contradicts<br>
                 <strong>NOT GIVEN</strong> — if there is no information</p>
 
-                <div class="question-block">
-                    <p>36. Art history should focus on discovering the meaning of art using a range of media.</p>
+                <div class="question-block" id="q36">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(36)" id="flag36">🚩</span>
+                        <p>36. Art history should focus on discovering the meaning of art using a range of media.</p>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q36" value="YES"> YES</label>
                         <label><input type="radio" name="q36" value="NO"> NO</label>
@@ -315,8 +492,11 @@
                     </div>
                 </div>
 
-                <div class="question-block">
-                    <p>37. The approach of art historians conflicts with that of art museums.</p>
+                <div class="question-block" id="q37">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(37)" id="flag37">🚩</span>
+                        <p>37. The approach of art historians conflicts with that of art museums.</p>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q37" value="YES"> YES</label>
                         <label><input type="radio" name="q37" value="NO"> NO</label>
@@ -324,8 +504,11 @@
                     </div>
                 </div>
 
-                <div class="question-block">
-                    <p>38. People should be encouraged to give their opinions openly on works of art.</p>
+                <div class="question-block" id="q38">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(38)" id="flag38">🚩</span>
+                        <p>38. People should be encouraged to give their opinions openly on works of art.</p>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q38" value="YES"> YES</label>
                         <label><input type="radio" name="q38" value="NO"> NO</label>
@@ -333,8 +516,11 @@
                     </div>
                 </div>
 
-                <div class="question-block">
-                    <p>39. Reproductions of fine art should only be sold to the public if they are of high quality.</p>
+                <div class="question-block" id="q39">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(39)" id="flag39">🚩</span>
+                        <p>39. Reproductions of fine art should only be sold to the public if they are of high quality.</p>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q39" value="YES"> YES</label>
                         <label><input type="radio" name="q39" value="NO"> NO</label>
@@ -342,8 +528,11 @@
                     </div>
                 </div>
 
-                <div class="question-block">
-                    <p>40. In the future, those with power are likely to encourage more people to enjoy art.</p>
+                <div class="question-block" id="q40">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(40)" id="flag40">🚩</span>
+                        <p>40. In the future, those with power are likely to encourage more people to enjoy art.</p>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q40" value="YES"> YES</label>
                         <label><input type="radio" name="q40" value="NO"> NO</label>
@@ -385,7 +574,36 @@
         </div>
     </div>
 
+    <!-- ✅ BOTTOM AREA: NAVIGATOR + CONTROLS -->
+    <div class="bottom-container">
+        <!-- ✅ Navigation 1–40 divided into 3 sections -->
+        <div class="question-nav" id="questionNav">
+            <span class="nav-label">Questions:</span>
+            <div class="nav-section" id="sec1"></div>
+            <div class="nav-section" id="sec2"></div>
+            <div class="nav-section" id="sec3"></div>
+        </div>
+
+        <!-- Navigation & Action Buttons -->
+        <div class="bottom-controls">
+            <div class="action-buttons">
+                <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show/Hide Answers</button>
+                <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
+            </div>
+            <div class="nav-buttons">
+                <a href="reading-passage2-C10T2.html" class="back-btn">← Previous</a>
+                <a href="library.html" class="menu-btn">Main Menu</a>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // ✅ Global variables
+        let currentRange = null;
+        let lastNoteId = 0;
+        const passageId = 'C10T2P3';
+        const TOTAL_QUESTIONS = 40;
+
         // ✅ Correct answer data
         const correctAnswers = {
             q27: 'B',
@@ -404,10 +622,161 @@
             q40: 'NO'
         };
 
-        // ✅ Save answers to localStorage
+        // ✅ Initialize navigator in 3 sections
+        function initQuestionNav() {
+            const sec1 = document.getElementById('sec1');
+            const sec2 = document.getElementById('sec2');
+            const sec3 = document.getElementById('sec3');
+            for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+                const btn = document.createElement('div');
+                btn.className = 'q-indicator';
+                btn.textContent = i;
+                btn.id = 'stat' + i;
+                btn.onclick = () => jumpToQuestion(i);
+                if (i <= 13) sec1.appendChild(btn);
+                else if (i <= 26) sec2.appendChild(btn);
+                else sec3.appendChild(btn);
+            }
+            updateStatus();
+        }
+
+        function jumpToQuestion(qNum) {
+            document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
+            const btn = document.getElementById('stat' + qNum);
+            if (btn) btn.classList.add('current');
+            const el = document.getElementById('q' + qNum);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ✅ Toggle Flag
+        function toggleFlag(qNum) {
+            const flag = document.getElementById('flag' + qNum);
+            const stat = document.getElementById('stat' + qNum);
+            const isFlagged = flag.classList.toggle('flagged');
+            stat.classList.toggle('flagged', isFlagged);
+            localStorage.setItem(`${passageId}_flag_${qNum}`, isFlagged);
+        }
+
+        // ✅ Right-click menu
+        const passageArea = document.getElementById('passageArea');
+        const contextMenu = document.getElementById('contextMenu');
+
+        passageArea.addEventListener('contextmenu', function(e) {
+            const selection = window.getSelection();
+            if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
+                contextMenu.style.display = 'none';
+                return;
+            }
+            e.preventDefault();
+            currentRange = selection.getRangeAt(0);
+            const rect = currentRange.getBoundingClientRect();
+            contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+            contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+            contextMenu.style.display = 'block';
+        });
+
+        document.addEventListener('click', () => contextMenu.style.display = 'none');
+
+        // ✅ Highlight
+        document.getElementById('menuHighlight').addEventListener('click', function() {
+            if (!currentRange) return;
+            const span = document.createElement('span');
+            span.className = 'highlight';
+            span.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(span);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        });
+
+        // ✅ Remove highlight
+        document.getElementById('menuRemove').addEventListener('click', function() {
+            if (!currentRange) return;
+            try {
+                const container = currentRange.commonAncestorContainer;
+                let span = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+                if (span && span.classList.contains('highlight')) {
+                    const text = document.createTextNode(span.textContent);
+                    span.parentNode.replaceChild(text, span);
+                    span.parentNode.normalize();
+                }
+            } catch (e) { /* ignore */ }
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        });
+
+        // ✅ Add sticky note
+        document.getElementById('menuNote').addEventListener('click', function() {
+            if (!currentRange) return;
+            const rect = currentRange.getBoundingClientRect();
+            const noteId = 'note_' + (++lastNoteId);
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            note.id = noteId;
+            note.innerHTML = `
+                <div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
+                <textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>
+            `;
+            note.style.left = (rect.right + window.scrollX + 8) + 'px';
+            note.style.top = (rect.top + window.scrollY) + 'px';
+            document.body.appendChild(note);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveNotes();
+        });
+
+        function closeNote(id) {
+            document.getElementById(id)?.remove();
+            saveNotes();
+        }
+
+        function saveNote(id, text) {
+            localStorage.setItem(`${passageId}_${id}`, text);
+        }
+
+        // ✅ Save/Load highlights
+        function saveHighlights() {
+            localStorage.setItem(`${passageId}_highlights`, passageArea.innerHTML);
+        }
+
+        function loadHighlights() {
+            const saved = localStorage.getItem(`${passageId}_highlights`);
+            if (saved) passageArea.innerHTML = saved;
+        }
+
+        // ✅ Save/Load notes
+        function saveNotes() {
+            const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
+                id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
+            }));
+            localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes));
+        }
+
+        function loadNotes() {
+            const saved = localStorage.getItem(`${passageId}_notes`);
+            if (!saved) return;
+            JSON.parse(saved).forEach(n => {
+                const note = document.createElement('div');
+                note.className = 'sticky-note';
+                note.id = n.id;
+                note.innerHTML = `
+                    <div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
+                    <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
+                `;
+                note.style.left = n.left;
+                note.style.top = n.style.top;
+                document.body.appendChild(note);
+                const num = parseInt(n.id.split('_')[1]);
+                if (num > lastNoteId) lastNoteId = num;
+            });
+        }
+
+        // ✅ Save/Load answers
         function saveAnswers() {
             let answers = {};
-            for (let q = 27; q <= 40; q++) {
+            for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
                 const radios = document.getElementsByName(`q${q}`);
                 if (radios.length > 0) {
                     for (let r of radios) {
@@ -418,16 +787,15 @@
                     if (input) answers[`q${q}`] = input.value.trim().toUpperCase();
                 }
             }
-            localStorage.setItem('C10T2P3_answers', JSON.stringify(answers));
+            localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
+            updateStatus();
         }
 
-        // ✅ Load saved answers
         function loadAnswers() {
-            const saved = localStorage.getItem('C10T2P3_answers');
+            const saved = localStorage.getItem(`${passageId}_answers`);
             if (!saved) return;
             const answers = JSON.parse(saved);
             for (let key in answers) {
-                const qNum = key.replace('q', '');
                 const radios = document.getElementsByName(key);
                 if (radios.length > 0) {
                     for (let r of radios) {
@@ -438,40 +806,39 @@
                     if (input) input.value = answers[key];
                 }
             }
+            updateStatus();
         }
 
-        // ✅ Highlight text function
-        document.getElementById('passageArea').addEventListener('mouseup', function() {
-            const selection = window.getSelection();
-            if (selection.toString().trim().length > 0) {
-                const span = document.createElement('span');
-                span.className = 'highlight';
-                span.textContent = selection.toString();
-                const range = selection.getRangeAt(0);
-                range.deleteContents();
-                range.insertNode(span);
-                selection.removeAllRanges();
+        // ✅ Update status colors
+        function updateStatus() {
+            const savedAnswers = localStorage.getItem(`${passageId}_answers`);
+            const answers = savedAnswers ? JSON.parse(savedAnswers) : {};
+            for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+                const statBtn = document.getElementById('stat' + q);
+                if (!statBtn) continue;
+                const hasAnswer = !!answers[`q${q}`];
+                const isFlagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
+                statBtn.classList.remove('answered', 'flagged');
+                if (isFlagged) statBtn.classList.add('flagged');
+                else if (hasAnswer) statBtn.classList.add('answered');
+                const flagIcon = document.getElementById('flag' + q);
+                if (flagIcon) flagIcon.classList.toggle('flagged', isFlagged);
             }
-        });
-
-        function clearHighlights() {
-            document.querySelectorAll('.highlight').forEach(el => {
-                el.outerHTML = el.innerHTML;
-            });
         }
 
+        // ✅ Toggle answers
         function toggleAnswers() {
             const box = document.getElementById('answersBox');
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
+        // ✅ Check answers
         function showStudentAnswers() {
             saveAnswers();
             const box = document.getElementById('studentAnswersBox');
             const resultDiv = document.getElementById('studentResult');
             let html = '';
             let score = 0;
-
             for (let q = 27; q <= 40; q++) {
                 let studentAns = '';
                 const radios = document.getElementsByName(`q${q}`);
@@ -483,8 +850,7 @@
                     const input = document.querySelector(`input[name="q${q}"]`);
                     if (input) studentAns = input.value.trim().toUpperCase();
                 }
-
-                const correct = correctAnswers[`q${q}`];
+                const correct = correctAnswers[`q${q}`] || '-';
                 let status = '';
                 if (!studentAns) {
                     status = '<span class="no-answer">(No Answer)</span>';
@@ -494,17 +860,25 @@
                 } else {
                     status = `<span class="wrong">❌ Wrong (Correct: ${correct})</span>`;
                 }
-
                 html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
             }
-
             html += `<br><strong>Total Score: ${score} / 14</strong>`;
             resultDiv.innerHTML = html;
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
-        // Load saved answers when page opens
-        window.onload = loadAnswers;
+        // ✅ Auto-save on input
+        document.addEventListener('input', function(e) {
+            if (e.target.matches('.answer-input, input[type="radio"]')) saveAnswers();
+        });
+
+        // ✅ Initialize
+        window.onload = function() {
+            initQuestionNav();
+            loadAnswers();
+            loadHighlights();
+            loadNotes();
+        };
     </script>
 
 </body>
