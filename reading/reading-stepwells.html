@@ -538,7 +538,7 @@
         </div>
        <div class="nav">
         <a href="library.html" class="prev">← Previous</a>
-        <span class="next">Next →</span>
+        <a href="reading-transport.html" class="next">Next →</a>
     </div>
 </div>
 
@@ -617,7 +617,7 @@
             note.className = 'sticky-note';
             note.id = noteId;
             note.innerHTML = `
-                <div class="note-header>Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
+                <div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
                 <textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>
             `;
             note.style.left = (rect.right + window.scrollX + 8) + 'px';
