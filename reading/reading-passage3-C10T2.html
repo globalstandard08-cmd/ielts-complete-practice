@@ -21,9 +21,6 @@
         /* ✅ LOGO STYLES */
         .logo-container {
             width: 100%;
-
-
-truncated for brevity>
             border-bottom: 2px solid #dc2626;
             padding: 10px 0;
             display: flex;
@@ -270,7 +267,7 @@ truncated for brevity>
             flex-wrap: wrap;
         }
 
-        .toggle-answers, .show-student {
+        .toggle-answers, .show-student, .clear-all {
             padding: 6px 12px;
             background: #dc2626;
             color: white;
@@ -283,6 +280,13 @@ truncated for brevity>
 
         .toggle-answers:hover, .show-student:hover {
             background: #b91c1c;
+        }
+
+        .clear-all {
+            background: #6b7280;
+        }
+        .clear-all:hover {
+            background: #4b5563;
         }
 
         .nav-buttons {
@@ -624,6 +628,7 @@ truncated for brevity>
                 <div class="action-buttons">
                     <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
                     <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
+                    <button class="clear-all" onclick="clearAllData()">🗑️ Clear All Answers</button>
                 </div>
 
                 <!-- ✅ CORRECT ANSWER KEY -->
@@ -669,6 +674,7 @@ truncated for brevity>
             <div class="action-buttons">
                 <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show/Hide Answers</button>
                 <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
+                <button class="clear-all" onclick="clearAllData()">🗑️ Clear All Answers</button>
             </div>
             <div class="nav-buttons">
                 <a href="reading-passage2-C10T2.html" class="back-btn">← Previous</a>
@@ -945,6 +951,41 @@ truncated for brevity>
             html += `<br><strong>Total Score: ${score} / 14</strong>`;
             resultDiv.innerHTML = html;
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // ✅ NEW: Clear All Answers & Data
+        function clearAllData() {
+            if (!confirm('Are you sure you want to clear ALL answers, flags, highlights, and notes? This cannot be undone.')) return;
+            
+            // Clear localStorage
+            localStorage.removeItem(`${passageId}_answers`);
+            localStorage.removeItem(`${passageId}_highlights`);
+            localStorage.removeItem(`${passageId}_notes`);
+            for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+                localStorage.removeItem(`${passageId}_flag_${q}`);
+            }
+
+            // Reset form inputs
+            document.querySelectorAll('select.answer-input').forEach(sel => sel.value = '');
+            document.querySelectorAll('input[type="radio"]').forEach(rad => rad.checked = false);
+
+            // Remove highlights
+            document.querySelectorAll('.highlight').forEach(span => {
+                const text = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(text, span);
+            });
+            document.querySelector('.passage-text').normalize();
+
+            // Remove sticky notes
+            document.querySelectorAll('.sticky-note').forEach(note => note.remove());
+            lastNoteId = 0;
+
+            // Hide result boxes
+            document.getElementById('answersBox').style.display = 'none';
+            document.getElementById('studentAnswersBox').style.display = 'none';
+
+            // Update status display
+            updateStatus();
         }
 
         // ✅ Auto-save on input
