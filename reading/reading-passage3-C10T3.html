@@ -16,6 +16,7 @@
             background-color: #fef2f2;
             color: #1a1a1a;
             line-height: 1.7;
+            padding-bottom: 80px;
         }
 
         /* ✅ LOGO STYLES */
@@ -71,12 +72,72 @@
             text-align: justify;
         }
 
+        /* ✅ Highlight & Context Menu */
         .highlight {
             background-color: #fff350;
-            padding: 2px 0;
+            padding: 2px 4px;
+            border-radius: 2px;
+            cursor: pointer;
         }
 
-        /* ✅ CLEAR HIGHLIGHTS BUTTON: BOTTOM LEFT OF PASSAGE */
+        .context-menu {
+            position: absolute;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 9999;
+            display: none;
+            min-width: 140px;
+        }
+        .context-menu div {
+            padding: 8px 11px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .context-menu div:hover {
+            background: #fef2f2;
+        }
+
+        /* ✅ Sticky Notes */
+        .sticky-note {
+            position: absolute;
+            width: 160px;
+            min-height: 60px;
+            background: #fff380;
+            border: 1px solid #e6c200;
+            border-radius: 4px;
+            padding: 6px;
+            box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
+            z-index: 9998;
+            font-size: 12px;
+        }
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 11px;
+            color: #886a00;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #886a00;
+        }
+        .note-textarea {
+            width: 100%;
+            height: 44px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 12px;
+        }
+
+        /* ✅ Clear button */
         .clear-highlight {
             margin-top: 20px;
             padding: 8px 16px;
@@ -88,7 +149,6 @@
             font-weight: 500;
             font-size: 14px;
         }
-
         .clear-highlight:hover {
             background: #b91c1c;
         }
@@ -103,11 +163,29 @@
             margin-bottom: 18px;
         }
 
-        .question-block p {
+        /* ✅ Flag before question number */
+        .question-line {
             font-weight: 500;
             margin-bottom: 8px;
             font-size: 14px;
             line-height: 1.8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .flag-btn {
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.2s;
+            padding: 0;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .flag-btn.flagged {
+            color: #f59e0b;
         }
 
         .options label {
@@ -144,7 +222,7 @@
             flex-wrap: wrap;
         }
 
-        .toggle-answers, .show-student {
+        .toggle-answers, .show-student, .clear-all {
             padding: 8px 16px;
             background: #dc2626;
             color: white;
@@ -155,7 +233,7 @@
             font-size: 14px;
         }
 
-        .toggle-answers:hover, .show-student:hover {
+        .toggle-answers:hover, .show-student:hover, .clear-all:hover {
             background: #b91c1c;
         }
 
@@ -174,26 +252,72 @@
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
 
-        /* ✅ NAVIGATION BUTTONS */
-        .nav-buttons {
+        /* ✅ Bottom Navigation Bar */
+        .question-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            border-top: 2px solid #dc2626;
+            padding: 8px 15px;
+            box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
+            z-index: 100;
             display: flex;
-            gap: 10px;
-            margin: 0 20px 25px;
             flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .nav-container {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        .q-nav-btn {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #f9f9f9;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
             justify-content: center;
         }
-
+        .q-nav-btn:hover {
+            background: #fef2f2;
+            border-color: #dc2626;
+        }
+        .q-nav-btn.answered {
+            background: #dcfce7;
+            border-color: #22c55e;
+        }
+        .q-nav-btn.flagged {
+            background: #fffbeb;
+            border-color: #f59e0b;
+        }
+        .q-nav-btn.current {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+        }
+        .nav-page-controls {
+            display: flex;
+            gap: 10px;
+        }
         .back-btn, .next-btn {
-            padding: 10px 20px;
+            padding: 6px 12px;
             background: #fef2f2;
             color: #dc2626;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 6px;
             border: 1px solid #fecaca;
             font-weight: 500;
-            font-size: 15px;
+            font-size: 13px;
+            white-space: nowrap;
         }
-
         .back-btn:hover, .next-btn:hover {
             background: #ffffff;
         }
@@ -205,12 +329,19 @@
         <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
     </div>
 
+    <!-- Right-click Context Menu -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+    </div>
+
     <!-- ✅ TWO COLUMNS: LEFT = PASSAGE | RIGHT = QUESTIONS -->
     <div class="main-wrapper">
         <!-- LEFT SIDE: PASSAGE TEXT -->
         <div class="passage-column" id="passageArea">
             <h1>Reading Passage 3 — Beyond the blue horizon</h1>
-            <div class="passage-text">
+            <div class="passage-text" id="passageText">
                 <p><em>Ancient voyagers who settled the far‑flung islands of the Pacific Ocean</em></p>
 
                 <p>An important archaeological discovery on the island of Éfaté in the Pacific archipelago of Vanuatu has revealed traces of an ancient seafaring people, the distant ancestors of today’s Polynesians. The site came to light only by chance. An agricultural worker, digging in the grounds of a derelict plantation, scraped open a grave – the first of dozens in a burial ground some 3,000 years old. It is the oldest cemetery ever found in the Pacific islands, and it harbors the remains of an ancient people archaeologists call the Lapita.</p>
@@ -241,7 +372,7 @@
         </div>
 
         <!-- RIGHT SIDE: QUESTIONS -->
-        <div class="questions-column">
+        <div class="questions-column" id="questionsArea">
             <div class="questions-section">
                 <h2>Questions 27–31: Summary Completion</h2>
                 <p><em>Complete the summary using the list of words and phrases, A–J, below. Write the correct letter, A–J.</em></p>
@@ -252,44 +383,63 @@
                     <strong>G</strong> burial urn &nbsp;&nbsp;&nbsp;&nbsp; <strong>H</strong> source &nbsp;&nbsp;&nbsp;&nbsp; <strong>I</strong> animals &nbsp;&nbsp;&nbsp;&nbsp; <strong>J</strong> maps
                 </div>
 
-                <div class="question-block">
-                    <p>A 3,000‑year‑old burial ground of a seafaring people called the Lapita has been found on an abandoned
-                    <strong>27.</strong> <input type="text" class="answer-input" name="q27" placeholder="A–J">
-                    on the Pacific island of Éfaté. The cemetery, which is a significant
-                    <strong>28.</strong> <input type="text" class="answer-input" name="q28" placeholder="A–J">
-                    , was uncovered accidentally by an agricultural worker.</p>
+                <div class="question-block" data-q="27">
+                    <div class="question-line">
+                        <button class="flag-btn" onclick="toggleFlag(27)">🚩</button>
+                        <span>27. A 3,000‑year‑old burial ground of a seafaring people called the Lapita has been found on an abandoned <input type="text" class="answer-input" name="q27" placeholder="A–J"> on the Pacific island of Éfaté.</span>
+                    </div>
                 </div>
 
-                <div class="question-block">
-                    <p>The Lapita explored and colonised many Pacific islands over several centuries. They took many things with them on their voyages including
-                    <strong>29.</strong> <input type="text" class="answer-input" name="q29" placeholder="A–J">
-                    and tools.</p>
+                <div class="question-block" data-q="28">
+                    <div class="question-line">
+                        <button class="flag-btn" onclick="toggleFlag(28)">🚩</button>
+                        <span>28. The cemetery, which is a significant <input type="text" class="answer-input" name="q28" placeholder="A–J"> , was uncovered accidentally by an agricultural worker.</span>
+                    </div>
                 </div>
 
-                <div class="question-block">
-                    <p>The burial ground increases the amount of information about the Lapita available to scientists. A team of researchers, led by Matthew Spriggs from the Australian National University, are helping with the excavation of the site. Spriggs believes the
-                    <strong>30.</strong> <input type="text" class="answer-input" name="q30" placeholder="A–J">
-                    which was found at the site is very important since it confirms that the
-                    <strong>31.</strong> <input type="text" class="answer-input" name="q31" placeholder="A–J">
-                    found inside are Lapita.</p>
+                <div class="question-block" data-q="29">
+                    <div class="question-line">
+                        <button class="flag-btn" onclick="toggleFlag(29)">🚩</button>
+                        <span>29. The Lapita explored and colonised many Pacific islands over several centuries. They took many things with them on their voyages including <input type="text" class="answer-input" name="q29" placeholder="A–J"> and tools.</span>
+                    </div>
+                </div>
+
+                <div class="question-block" data-q="30">
+                    <div class="question-line">
+                        <button class="flag-btn" onclick="toggleFlag(30)">🚩</button>
+                        <span>30. The burial ground increases the amount of information about the Lapita available to scientists. A team of researchers, led by Matthew Spriggs from the Australian National University, are helping with the excavation of the site. Spriggs believes the <input type="text" class="answer-input" name="q30" placeholder="A–J"> which was found at the site is very important since it confirms that the</span>
+                    </div>
+                </div>
+
+                <div class="question-block" data-q="31">
+                    <div class="question-line">
+                        <button class="flag-btn" onclick="toggleFlag(31)">🚩</button>
+                        <span>31. <input type="text" class="answer-input" name="q31" placeholder="A–J"> found inside are Lapita.</span>
+                    </div>
                 </div>
 
 
                 <h2>Questions 32–35: Multiple Choice</h2>
                 <p><em>Choose the correct letter, A, B, C or D.</em></p>
 
-                <div class="question-block">
-                    <p>32 According to the writer, there are difficulties explaining how the Lapita accomplished their journeys because</p>
+                <div class="question-block" data-q="32">
+                    <div class="question-line">
+                        <button class="flag-btn" onclick="toggleFlag(32)">🚩</button>
+                        <span>32 According to the writer, there are difficulties explaining how the Lapita accomplished their journeys because</span>
+                    </div>
                     <div class="options">
-                        <label><input type="radio" name="q32" value="C"> A the canoes that have been discovered offer relatively few clues.</label>
+                        <label><input type="radio" name="q32" value="A"> A the canoes that have been discovered offer relatively few clues.</label>
                         <label><input type="radio" name="q32" value="B"> B archaeologists have shown limited interest in this area of research.</label>
                         <label><input type="radio" name="q32" value="C"> C little information relating to this period can be relied upon for accuracy.</label>
                         <label><input type="radio" name="q32" value="D"> D technological advances have altered the way such achievements are viewed.</label>
                     </div>
                 </div>
 
-                <div class="question-block">
-                    <p>33 According to the sixth paragraph, what was extraordinary about the Lapita?</p>
+                <div class="question-block" data-q="33">
+                    <div class="question-line">
+                        <button class="flag-btn" onclick="toggleFlag(33)">🚩</button>
+                        <span>33 According to the sixth paragraph, what was extraordinary about the Lapita?</span>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q33" value="A"> A They sailed beyond the point where land was visible.</label>
                         <label><input type="radio" name="q33" value="B"> B Their cultural heritage discouraged the expression of fear.</label>
@@ -298,8 +448,11 @@
                     </div>
                 </div>
 
-                <div class="question-block">
-                    <p>34 What does ‘This’ refer to in the seventh paragraph?</p>
+                <div class="question-block" data-q="34">
+                    <div class="question-line">
+                        <button class="flag-btn" onclick="toggleFlag(34)">🚩</button>
+                        <span>34 What does ‘This’ refer to in the seventh paragraph?</span>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q34" value="A"> A the Lapita’s seafaring talent</label>
                         <label><input type="radio" name="q34" value="B"> B the Lapita’s ability to detect signs of land</label>
@@ -308,8 +461,11 @@
                     </div>
                 </div>
 
-                <div class="question-block">
-                    <p>35 According to the eighth paragraph, how was the geography of the region significant?</p>
+                <div class="question-block" data-q="35">
+                    <div class="question-line">
+                        <button class="flag-btn" onclick="toggleFlag(35)">🚩</button>
+                        <span>35 According to the eighth paragraph, how was the geography of the region significant?</span>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q35" value="A"> A It played an important role in Lapita culture.</label>
                         <label><input type="radio" name="q35" value="B"> B It meant there were relatively few storms at sea.</label>
@@ -325,8 +481,11 @@
                 <strong>NO</strong> — if the statement contradicts<br>
                 <strong>NOT GIVEN</strong> — if there is no information</p>
 
-                <div class="question-block">
-                    <p>36 It is now clear that the Lapita could sail into a prevailing wind.</p>
+                <div class="question-block" data-q="36">
+                    <div class="question-line">
+                        <button class="flag-btn" onclick="toggleFlag(36)">🚩</button>
+                        <span>36 It is now clear that the Lapita could sail into a prevailing wind.</span>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q36" value="YES"> YES</label>
                         <label><input type="radio" name="q36" value="NO"> NO</label>
@@ -334,8 +493,11 @@
                     </div>
                 </div>
 
-                <div class="question-block">
-                    <p>37 Extreme climate conditions may have played a role in Lapita migration.</p>
+                <div class="question-block" data-q="37">
+                    <div class="question-line">
+                        <button class="flag-btn" onclick="toggleFlag(37)">🚩</button>
+                        <span>37 Extreme climate conditions may have played a role in Lapita migration.</span>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q37" value="YES"> YES</label>
                         <label><input type="radio" name="q37" value="NO"> NO</label>
@@ -343,8 +505,11 @@
                     </div>
                 </div>
 
-                <div class="question-block">
-                    <p>38 The Lapita learnt to predict the duration of El Niños.</p>
+                <div class="question-block" data-q="38">
+                    <div class="question-line">
+                        <button class="flag-btn" onclick="toggleFlag(38)">🚩</button>
+                        <span>38 The Lapita learnt to predict the duration of El Niños.</span>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q38" value="YES"> YES</label>
                         <label><input type="radio" name="q38" value="NO"> NO</label>
@@ -352,8 +517,11 @@
                     </div>
                 </div>
 
-                <div class="question-block">
-                    <p>39 It remains unclear why the Lapita halted their expansion across the Pacific.</p>
+                <div class="question-block" data-q="39">
+                    <div class="question-line">
+                        <button class="flag-btn" onclick="toggleFlag(39)">🚩</button>
+                        <span>39 It remains unclear why the Lapita halted their expansion across the Pacific.</span>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q39" value="YES"> YES</label>
                         <label><input type="radio" name="q39" value="NO"> NO</label>
@@ -361,8 +529,11 @@
                     </div>
                 </div>
 
-                <div class="question-block">
-                    <p>40 It is likely that the majority of Lapita settled on Fiji.</p>
+                <div class="question-block" data-q="40">
+                    <div class="question-line">
+                        <button class="flag-btn" onclick="toggleFlag(40)">🚩</button>
+                        <span>40 It is likely that the majority of Lapita settled on Fiji.</span>
+                    </div>
                     <div class="options">
                         <label><input type="radio" name="q40" value="YES"> YES</label>
                         <label><input type="radio" name="q40" value="NO"> NO</label>
@@ -372,6 +543,7 @@
 
 
                 <div class="action-buttons">
+                    <button class="clear-all" onclick="clearAll()">🧹 Clear All</button>
                     <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
                     <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
                 </div>
@@ -404,14 +576,16 @@
         </div>
     </div>
 
-    <!-- ✅ NAVIGATION BUTTONS AT BOTTOM -->
-    <div class="nav-buttons">
-        <a href="reading-passage2-C10T3.html" class="back-btn">← Previous Passage</a>
-        <a href="../index.html" class="back-btn">← Back to Main Menu</a>
+    <!-- ✅ Bottom Navigation Bar -->
+    <div class="question-nav" id="questionNav">
+        <div class="nav-container" id="navContainer"></div>
+        <div class="nav-page-controls">
+            <a href="reading-passage2-C10T3.html" class="back-btn">← Previous</a>
+            <a href="../index.html" class="next-btn">Back to Main Menu</a>
+        </div>
     </div>
 
     <script>
-        // ✅ Correct answer data
         const correctAnswers = {
             q27: 'B',
             q28: 'F',
@@ -429,87 +603,204 @@
             q40: 'NOT GIVEN'
         };
 
-        // ✅ Save answers to localStorage
+        let currentRange = null;
+        let lastNoteId = 0;
+        const passageId = 'C10T3P3';
+
+        function generateNav() {
+            const container = document.getElementById('navContainer');
+            container.innerHTML = '';
+            for (let i = 1; i <= 40; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'q-nav-btn';
+                btn.textContent = i;
+                btn.onclick = () => goToQuestion(i);
+                btn.id = `nav-q${i}`;
+                container.appendChild(btn);
+            }
+            updateNavStatus();
+        }
+
+        function goToQuestion(qNum) {
+            const qEl = document.querySelector(`.question-block[data-q="${qNum}"]`);
+            if (qEl) {
+                qEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.querySelectorAll('.q-nav-btn').forEach(b => b.classList.remove('current'));
+                document.getElementById(`nav-q${qNum}`).classList.add('current');
+            }
+        }
+
+        function updateNavStatus() {
+            const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`)) || {};
+            const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
+            for (let i = 1; i <= 40; i++) {
+                const btn = document.getElementById(`nav-q${i}`);
+                if (!btn) continue;
+                btn.classList.remove('answered', 'flagged');
+                if (answers[`q${i}`] && answers[`q${i}`].trim() !== '') btn.classList.add('answered');
+                if (flags[i]) btn.classList.add('flagged');
+            }
+        }
+
+        function toggleFlag(qNum) {
+            const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
+            flags[qNum] = !flags[qNum];
+            localStorage.setItem(`${passageId}_flags`, JSON.stringify(flags));
+            document.querySelector(`.question-block[data-q="${qNum}"] .flag-btn`).classList.toggle('flagged', flags[qNum]);
+            updateNavStatus();
+        }
+
         function saveAnswers() {
             let answers = {};
             for (let q = 27; q <= 40; q++) {
                 const radios = document.getElementsByName(`q${q}`);
                 if (radios.length > 0) {
-                    for (let r of radios) {
-                        if (r.checked) answers[`q${q}`] = r.value;
-                    }
+                    for (let r of radios) if (r.checked) answers[`q${q}`] = r.value;
                 } else {
                     const input = document.querySelector(`input[name="q${q}"]`);
                     if (input) answers[`q${q}`] = input.value.trim().toUpperCase();
                 }
             }
-            localStorage.setItem('C10T3P3_answers', JSON.stringify(answers));
+            localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
+            updateNavStatus();
         }
 
-        // ✅ Load saved answers
         function loadAnswers() {
-            const saved = localStorage.getItem('C10T3P3_answers');
+            const saved = localStorage.getItem(`${passageId}_answers`);
             if (!saved) return;
             const answers = JSON.parse(saved);
             for (let key in answers) {
                 const radios = document.getElementsByName(key);
                 if (radios.length > 0) {
-                    for (let r of radios) {
-                        if (r.value.toUpperCase() === answers[key].toUpperCase()) r.checked = true;
-                    }
+                    for (let r of radios) if (r.value.toUpperCase() === answers[key].toUpperCase()) r.checked = true;
                 } else {
                     const input = document.querySelector(`input[name="${key}"]`);
                     if (input) input.value = answers[key];
                 }
             }
+            updateNavStatus();
         }
 
-        // ✅ Highlight text function
-        document.getElementById('passageArea').addEventListener('mouseup', function() {
-            const selection = window.getSelection();
-            if (selection.toString().trim().length > 0) {
-                const span = document.createElement('span');
-                span.className = 'highlight';
-                span.textContent = selection.toString();
-                const range = selection.getRangeAt(0);
-                range.deleteContents();
-                range.insertNode(span);
-                selection.removeAllRanges();
+        function loadFlags() {
+            const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
+            for (let q in flags) {
+                if (flags[q]) {
+                    const btn = document.querySelector(`.question-block[data-q="${q}"] .flag-btn`);
+                    if (btn) btn.classList.add('flagged');
+                }
             }
+        }
+
+        const passageArea = document.getElementById('passageArea');
+        const contextMenu = document.getElementById('contextMenu');
+
+        passageArea.addEventListener('contextmenu', function(e) {
+            const selection = window.getSelection();
+            if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
+                contextMenu.style.display = 'none';
+                return;
+            }
+            e.preventDefault();
+            currentRange = selection.getRangeAt(0);
+            const rect = currentRange.getBoundingClientRect();
+            contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+            contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+            contextMenu.style.display = 'block';
         });
 
+        document.addEventListener('click', () => contextMenu.style.display = 'none');
+
+        document.getElementById('menuHighlight').addEventListener('click', function() {
+            if (!currentRange) return;
+            const span = document.createElement('span');
+            span.className = 'highlight';
+            span.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(span);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        });
+
+        document.getElementById('menuRemove').addEventListener('click', function() {
+            if (!currentRange) return;
+            try {
+                const container = currentRange.commonAncestorContainer;
+                let span = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+                if (span && span.classList.contains('highlight')) {
+                    const text = document.createTextNode(span.textContent);
+                    span.parentNode.replaceChild(text, span);
+                    span.parentNode.normalize();
+                }
+            } catch (e) {}
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        });
+
+        document.getElementById('menuNote').addEventListener('click', function() {
+            if (!currentRange) return;
+            const rect = currentRange.getBoundingClientRect();
+            const noteId = 'note_' + (++lastNoteId);
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            note.id = noteId;
+            note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div><textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>`;
+            note.style.left = (rect.right + window.scrollX + 8) + 'px';
+            note.style.top = (rect.top + window.scrollY) + 'px';
+            document.body.appendChild(note);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveNotes();
+        });
+
+        function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
+        function saveNote(id, text) { localStorage.setItem(`${passageId}_${id}`, text); }
+        function saveHighlights() { localStorage.setItem(`${passageId}_highlights`, passageArea.innerHTML); }
+        function loadHighlights() { const saved = localStorage.getItem(`${passageId}_highlights`); if (saved) passageArea.innerHTML = saved; }
+        function saveNotes() { const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value})); localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes)); }
+        function loadNotes() { const saved = localStorage.getItem(`${passageId}_notes`); if (!saved) return; JSON.parse(saved).forEach(n => { const note = document.createElement('div'); note.className = 'sticky-note'; note.id = n.id; note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>`; note.style.left = n.left; note.style.top = n.top; document.body.appendChild(note); const num = parseInt(n.id.split('_')[1]); if (num > lastNoteId) lastNoteId = num; }); }
+
         function clearHighlights() {
-            document.querySelectorAll('.highlight').forEach(el => {
-                el.outerHTML = el.innerHTML;
+            document.querySelectorAll('.highlight').forEach(span => {
+                const text = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(text, span);
             });
+            passageArea.normalize();
+            saveHighlights();
         }
 
-        // ✅ Toggle answers
-        function toggleAnswers() {
-            const box = document.getElementById('answersBox');
-            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        // ✅ Clear All: answers, flags, highlights, notes
+        function clearAll() {
+            if (!confirm('Clear ALL answers, flags, highlights and notes? This cannot be undone.')) return;
+            localStorage.removeItem(`${passageId}_answers`);
+            localStorage.removeItem(`${passageId}_flags`);
+            localStorage.removeItem(`${passageId}_highlights`);
+            localStorage.removeItem(`${passageId}_notes`);
+            document.querySelectorAll('.answer-input').forEach(i => i.value = '');
+            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+            document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
+            document.querySelectorAll('.sticky-note').forEach(n => n.remove());
+            clearHighlights();
+            updateNavStatus();
         }
 
-        // ✅ Check student answers
+        function toggleAnswers() { const box = document.getElementById('answersBox'); box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
         function showStudentAnswers() {
             saveAnswers();
             const box = document.getElementById('studentAnswersBox');
             const resultDiv = document.getElementById('studentResult');
             let html = '';
             let score = 0;
-
             for (let q = 27; q <= 40; q++) {
                 let studentAns = '';
                 const radios = document.getElementsByName(`q${q}`);
                 if (radios.length > 0) {
-                    for (let r of radios) {
-                        if (r.checked) studentAns = r.value;
-                    }
+                    for (let r of radios) if (r.checked) studentAns = r.value;
                 } else {
                     const input = document.querySelector(`input[name="q${q}"]`);
                     if (input) studentAns = input.value.trim().toUpperCase();
                 }
-
                 const correct = correctAnswers[`q${q}`].toUpperCase();
                 let status = '';
                 if (!studentAns) {
@@ -520,18 +811,15 @@
                 } else {
                     status = `<span class="wrong">❌ Wrong (Correct: ${correctAnswers[`q${q}`]})</span>`;
                 }
-
                 html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
             }
-
             html += `<br><strong>Total Score: ${score} / 14</strong>`;
             resultDiv.innerHTML = html;
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
-        // Load saved answers on page open
-        window.onload = loadAnswers;
+        document.addEventListener('input', function(e) { if (e.target.matches('.answer-input') || e.target.matches('input[type="radio"]')) saveAnswers(); });
+        window.onload = function() { generateNav(); loadAnswers(); loadFlags(); loadHighlights(); loadNotes(); };
     </script>
-
 </body>
 </html>
