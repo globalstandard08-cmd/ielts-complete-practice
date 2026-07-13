@@ -52,6 +52,7 @@
             padding: 16px;
             overflow-y: auto;
             box-shadow: 0 2px 8px rgba(220, 38, 38, 0.08);
+            position: relative;
         }
 
         h1 {
@@ -68,12 +69,70 @@
             text-align: justify;
         }
 
-        /* Highlight style */
-        .user-highlight {
+        /* ✅ Highlight style from working reference */
+        .highlight {
             background-color: #fff350;
-            padding: 2px 3px;
+            padding: 2px 4px;
             border-radius: 2px;
-            display: inline;
+            cursor: pointer;
+        }
+
+        /* ✅ Context menu from working reference */
+        .context-menu {
+            position: absolute;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 9999;
+            display: none;
+            min-width: 140px;
+        }
+        .context-menu div {
+            padding: 8px 11px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .context-menu div:hover {
+            background: #fef2f2;
+        }
+
+        /* ✅ Sticky Notes */
+        .sticky-note {
+            position: absolute;
+            width: 160px;
+            min-height: 60px;
+            background: #fff380;
+            border: 1px solid #e6c200;
+            border-radius: 4px;
+            padding: 6px;
+            box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
+            z-index: 9998;
+            font-size: 12px;
+        }
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 11px;
+            color: #886a00;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #886a00;
+        }
+        .note-textarea {
+            width: 100%;
+            height: 44px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 12px;
         }
 
         /* Flag layout */
@@ -92,6 +151,9 @@
             line-height: 1;
             flex-shrink: 0;
             user-select: none;
+            background: none;
+            border: none;
+            padding: 0;
         }
 
         .flag-btn.flagged {
@@ -129,7 +191,7 @@
             flex-wrap: wrap;
         }
 
-        .toggle-answers, .show-student, .clear-all {
+        .toggle-answers, .show-student, .clear-all, .clear-highlight {
             padding: 7px 12px;
             background: #dc2626;
             color: white;
@@ -197,52 +259,6 @@
         .q-indicator.answered { background: #198754; color: white; }
         .q-indicator.flagged { background: #fd7e14; color: white; }
         .q-indicator.current { border-color: #dc2626; }
-
-        /* Custom Right-Click Menu */
-        .context-menu {
-            position: absolute;
-            z-index: 9999;
-            background: #ffffff;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
-            min-width: 160px;
-            display: none;
-        }
-
-        .context-menu div {
-            padding: 9px 14px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .context-menu div:hover {
-            background-color: #f0f0f0;
-        }
-
-        /* Notes Section */
-        .notes-container {
-            margin-top: 20px;
-            padding: 12px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            border: 1px solid #e2e6ea;
-        }
-
-        .notes-container h4 {
-            margin-bottom: 8px;
-            color: #333;
-        }
-
-        #notes-area {
-            width: 100%;
-            min-height: 90px;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-            font-size: 13px;
-        }
     </style>
 </head>
 <body>
@@ -252,11 +268,11 @@
 
     <div class="question-status" id="statusBar"></div>
 
-    <!-- Custom Right-Click Menu -->
-    <div id="contextMenu" class="context-menu">
-        <div onclick="highlightSelection()">✅ Highlight</div>
-        <div onclick="removeHighlightFromSelection()">❌ Remove Highlight</div>
-        <div onclick="addNoteToSelection()">📝 Add Notes</div>
+    <!-- ✅ Context Menu from working reference -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
     </div>
 
     <div class="main-wrapper">
@@ -297,11 +313,7 @@
                 <p>Over the long term, picking up a new character trait may help you move toward being the person you want to be. And in the short term, the effort itself could be surprisingly rewarding, a kind of internal adventure.</p>
             </div>
 
-            <!-- Notes Section -->
-            <div class="notes-container">
-                <h4>Your Notes</h4>
-                <textarea id="notes-area" placeholder="Type your notes here..."></textarea>
-            </div>
+            <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear All Highlights</button>
         </div>
 
         <!-- Questions Column -->
@@ -310,35 +322,34 @@
                 <h2>Questions 14–18: Summary Completion</h2>
                 <p><em>Choose NO MORE THAN TWO WORDS from the passage for each answer.</em></p>
 
-                <!-- ✅ Flags for 14-18 fixed -->
                 <p style="font-size:14px; line-height:2;">
                     Psychologists have traditionally believed that a personality 
                     <span class="question-row">
-                        <span class="flag-btn" onclick="toggleFlag(14)" id="flag14">🚩</span>
+                        <button class="flag-btn" onclick="toggleFlag(14)" id="flag14">🚩</button>
                         <strong>14.</strong>
                     </span>
                     <input type="text" class="answer-input ans" name="q14" data-q="14" placeholder="______">
                     was impossible and that by a 
                     <span class="question-row">
-                        <span class="flag-btn" onclick="toggleFlag(15)" id="flag15">🚩</span>
+                        <button class="flag-btn" onclick="toggleFlag(15)" id="flag15">🚩</button>
                         <strong>15.</strong>
                     </span>
                     <input type="text" class="answer-input ans" name="q15" data-q="15" placeholder="______">
                     , a person’s character tends to be fixed. This is not true according to positive psychologists, who say that our personal qualities can be seen as habitual behaviour. One of the easiest qualities to acquire is 
                     <span class="question-row">
-                        <span class="flag-btn" onclick="toggleFlag(16)" id="flag16">🚩</span>
+                        <button class="flag-btn" onclick="toggleFlag(16)" id="flag16">🚩</button>
                         <strong>16.</strong>
                     </span>
                     <input type="text" class="answer-input ans" name="q16" data-q="16" placeholder="______">
                     . However, regardless of the quality, it is necessary to learn a wide variety of different 
                     <span class="question-row">
-                        <span class="flag-btn" onclick="toggleFlag(17)" id="flag17">🚩</span>
+                        <button class="flag-btn" onclick="toggleFlag(17)" id="flag17">🚩</button>
                         <strong>17.</strong>
                     </span>
                     <input type="text" class="answer-input ans" name="q17" data-q="17" placeholder="______">
                     in order for a new quality to develop; for example, a person must understand and feel some 
                     <span class="question-row">
-                        <span class="flag-btn" onclick="toggleFlag(18)" id="flag18">🚩</span>
+                        <button class="flag-btn" onclick="toggleFlag(18)" id="flag18">🚩</button>
                         <strong>18.</strong>
                     </span>
                     <input type="text" class="answer-input ans" name="q18" data-q="18" placeholder="______">
@@ -361,25 +372,25 @@
                 </div>
 
                 <div class="question-block" id="q19" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
-                    <span class="flag-btn" onclick="toggleFlag(19)" id="flag19">🚩</span>
+                    <button class="flag-btn" onclick="toggleFlag(19)" id="flag19">🚩</button>
                     <div><strong>19.</strong> People must accept that they do not know much when first trying something new.<br>
                     <input type="text" class="answer-input ans" name="q19" data-q="19" placeholder="A–G"></div>
                 </div>
 
                 <div class="question-block" id="q20" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
-                    <span class="flag-btn" onclick="toggleFlag(20)" id="flag20">🚩</span>
+                    <button class="flag-btn" onclick="toggleFlag(20)" id="flag20">🚩</button>
                     <div><strong>20.</strong> It is important for people to actively notice when good things happen.<br>
                     <input type="text" class="answer-input ans" name="q20" data-q="20" placeholder="A–G"></div>
                 </div>
 
                 <div class="question-block" id="q21" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
-                    <span class="flag-btn" onclick="toggleFlag(21)" id="flag21">🚩</span>
+                    <button class="flag-btn" onclick="toggleFlag(21)" id="flag21">🚩</button>
                     <div><strong>21.</strong> Courage can be learned once its origins in a sense of responsibility are understood.<br>
                     <input type="text" class="answer-input ans" name="q21" data-q="21" placeholder="A–G"></div>
                 </div>
 
                 <div class="question-block" id="q22" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
-                    <span class="flag-btn" onclick="toggleFlag(22)" id="flag22">🚩</span>
+                    <button class="flag-btn" onclick="toggleFlag(22)" id="flag22">🚩</button>
                     <div><strong>22.</strong> It is possible to overcome shyness when faced with the need to speak in public.<br>
                     <input type="text" class="answer-input ans" name="q22" data-q="22" placeholder="A–G"></div>
                 </div>
@@ -389,25 +400,25 @@
                 <p><em>Which section contains the following information? Write A–H.</em></p>
 
                 <div class="question-block" id="q23" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
-                    <span class="flag-btn" onclick="toggleFlag(23)" id="flag23">🚩</span>
+                    <button class="flag-btn" onclick="toggleFlag(23)" id="flag23">🚩</button>
                     <div><strong>23.</strong> a mention of how rational thinking enabled someone to achieve physical goals<br>
                     <input type="text" class="answer-input ans" name="q23" data-q="23" placeholder="A–H"></div>
                 </div>
 
                 <div class="question-block" id="q24" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
-                    <span class="flag-btn" onclick="toggleFlag(24)" id="flag24">🚩</span>
+                    <button class="flag-btn" onclick="toggleFlag(24)" id="flag24">🚩</button>
                     <div><strong>24.</strong> an account of how someone overcame a sad experience<br>
                     <input type="text" class="answer-input ans" name="q24" data-q="24" placeholder="A–H"></div>
                 </div>
 
                 <div class="question-block" id="q25" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
-                    <span class="flag-btn" onclick="toggleFlag(25)" id="flag25">🚩</span>
+                    <button class="flag-btn" onclick="toggleFlag(25)" id="flag25">🚩</button>
                     <div><strong>25.</strong> a description of how someone decided to rethink their academic career path<br>
                     <input type="text" class="answer-input ans" name="q25" data-q="25" placeholder="A–H"></div>
                 </div>
 
                 <div class="question-block" id="q26" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
-                    <span class="flag-btn" onclick="toggleFlag(26)" id="flag26">🚩</span>
+                    <button class="flag-btn" onclick="toggleFlag(26)" id="flag26">🚩</button>
                     <div><strong>26.</strong> an example of how someone risked his career out of a sense of duty<br>
                     <input type="text" class="answer-input ans" name="q26" data-q="26" placeholder="A–H"></div>
                 </div>
@@ -456,78 +467,91 @@
             q19: 'E', q20: 'C', q21: 'G', q22: 'A', q23: 'E', q24: 'C', q25: 'G', q26: 'H'
         };
 
-        let lastSelection = null;
+        let currentRange = null;
+        let lastNoteId = 0;
+        const passageId = 'C10T4P2';
 
-        // Show custom right-click menu only on passage text
-        document.addEventListener('contextmenu', function(e) {
-            const passage = document.getElementById('passageText');
-            if (passage.contains(e.target)) {
-                e.preventDefault();
-                const menu = document.getElementById('contextMenu');
-                menu.style.left = (e.pageX + 5) + 'px';
-                menu.style.top = (e.pageY + 5) + 'px';
-                menu.style.display = 'block';
-                lastSelection = window.getSelection();
-            } else {
-                document.getElementById('contextMenu').style.display = 'none';
-            }
-        });
+        // ✅ Highlight & Context Menu Logic (from working reference)
+        const passageArea = document.getElementById('passageArea');
+        const contextMenu = document.getElementById('contextMenu');
 
-        // Hide menu when clicking anywhere else
-        document.addEventListener('click', function() {
-            document.getElementById('contextMenu').style.display = 'none';
-        });
-
-        // --- Highlight function - FIXED ---
-        function highlightSelection() {
-            if (!lastSelection || lastSelection.isCollapsed) {
-                alert('Please select some text first!');
+        passageArea.addEventListener('contextmenu', function(e) {
+            const selection = window.getSelection();
+            if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
+                contextMenu.style.display = 'none';
                 return;
             }
-            const range = lastSelection.getRangeAt(0);
+            e.preventDefault();
+            currentRange = selection.getRangeAt(0);
+            const rect = currentRange.getBoundingClientRect();
+            contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+            contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+            contextMenu.style.display = 'block';
+        });
+
+        document.addEventListener('click', () => contextMenu.style.display = 'none');
+
+        document.getElementById('menuHighlight').addEventListener('click', function() {
+            if (!currentRange) return;
             const span = document.createElement('span');
-            span.className = 'user-highlight';
-            span.textContent = lastSelection.toString();
+            span.className = 'highlight';
+            span.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(span);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        });
+
+        document.getElementById('menuRemove').addEventListener('click', function() {
+            if (!currentRange) return;
             try {
-                range.deleteContents();
-                range.insertNode(span);
-                lastSelection.removeAllRanges();
-            } catch (err) {
-                alert('Could not highlight this part — try selecting a smaller section.');
-            }
-        }
-
-        // --- Remove highlight function - FIXED ---
-        function removeHighlightFromSelection() {
-            if (!lastSelection || lastSelection.isCollapsed) {
-                alert('Please select some highlighted text first!');
-                return;
-            }
-            const range = lastSelection.getRangeAt(0);
-            const highlights = document.querySelectorAll('.user-highlight');
-            highlights.forEach(span => {
-                if (range.intersectsNode(span)) {
-                    span.outerHTML = span.textContent;
+                const container = currentRange.commonAncestorContainer;
+                let span = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+                if (span && span.classList.contains('highlight')) {
+                    const text = document.createTextNode(span.textContent);
+                    span.parentNode.replaceChild(text, span);
+                    span.parentNode.normalize();
                 }
+            } catch (e) {}
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        });
+
+        document.getElementById('menuNote').addEventListener('click', function() {
+            if (!currentRange) return;
+            const rect = currentRange.getBoundingClientRect();
+            const noteId = 'note_' + (++lastNoteId);
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            note.id = noteId;
+            note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div><textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>`;
+            note.style.left = (rect.right + window.scrollX + 8) + 'px';
+            note.style.top = (rect.top + window.scrollY) + 'px';
+            document.body.appendChild(note);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveNotes();
+        });
+
+        function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
+        function saveNote(id, text) { localStorage.setItem(`${passageId}_${id}`, text); }
+        function saveHighlights() { localStorage.setItem(`${passageId}_highlights`, passageArea.innerHTML); }
+        function loadHighlights() { const saved = localStorage.getItem(`${passageId}_highlights`); if (saved) passageArea.innerHTML = saved; }
+        function saveNotes() { const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value})); localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes)); }
+        function loadNotes() { const saved = localStorage.getItem(`${passageId}_notes`); if (!saved) return; JSON.parse(saved).forEach(n => { const note = document.createElement('div'); note.className = 'sticky-note'; note.id = n.id; note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>`; note.style.left = n.left; note.style.top = n.top; document.body.appendChild(note); const num = parseInt(n.id.split('_')[1]); if (num > lastNoteId) lastNoteId = num; }); }
+
+        function clearHighlights() {
+            document.querySelectorAll('.highlight').forEach(span => {
+                const text = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(text, span);
             });
-            lastSelection.removeAllRanges();
+            passageArea.normalize();
+            saveHighlights();
         }
 
-        // --- Add note function ---
-        function addNoteToSelection() {
-            const text = lastSelection && !lastSelection.isCollapsed ? lastSelection.toString().trim() : '';
-            const note = prompt(text ? `Add note for: "${text}"` : 'Add your note:');
-            if (note && note.trim()) {
-                const notesBox = document.getElementById('notes-area');
-                notesBox.value += (notesBox.value ? '\n\n' : '') + (text ? `• "${text}": ` : '• ') + note.trim();
-                saveNotes();
-            }
-        }
-
-        function saveNotes() {
-            localStorage.setItem('reading_notes', document.getElementById('notes-area').value);
-        }
-
+        // Original functions kept unchanged
         function buildStatusBar() {
             const bar = document.getElementById('statusBar');
             bar.innerHTML = '';
@@ -546,7 +570,7 @@
             const s = document.getElementById('stat' + q);
             const flagged = f.classList.toggle('flagged');
             s.classList.toggle('flagged', flagged);
-            localStorage.setItem('C10T4P2_flag_' + q, flagged);
+            localStorage.setItem(`${passageId}_flag_${q}`, flagged);
         }
 
         function toggleAnswers() {
@@ -559,7 +583,7 @@
             const res = document.getElementById('studentResult');
             let html = '', score = 0;
             for (let q = 14; q <= 26; q++) {
-                const ans = (localStorage.getItem(`C10T4P2_ans_${q}`) || '').trim().toUpperCase();
+                const ans = (localStorage.getItem(`${passageId}_ans_${q}`) || '').trim().toUpperCase();
                 const cor = correctAnswers[`q${q}`].toUpperCase();
                 if (!ans) html += `<strong>${q}.</strong> — No answer<br>`;
                 else if (ans === cor) { html += `<strong>${q}.</strong> ✅ Correct<br>`; score++; }
@@ -572,28 +596,27 @@
         function clearAll() {
             if (!confirm('Clear all saved data?')) return;
             for (let q = 14; q <= 26; q++) {
-                localStorage.removeItem(`C10T4P2_ans_${q}`);
-                localStorage.removeItem(`C10T4P2_flag_${q}`);
+                localStorage.removeItem(`${passageId}_ans_${q}`);
+                localStorage.removeItem(`${passageId}_flag_${q}`);
                 document.querySelector(`[name="q${q}"]`).value = '';
                 document.getElementById('flag' + q).classList.remove('flagged');
                 document.getElementById('stat' + q).className = 'q-indicator current';
             }
-            document.querySelectorAll('.user-highlight').forEach(span => span.outerHTML = span.textContent);
-            document.getElementById('notes-area').value = '';
-            localStorage.removeItem('reading_notes');
+            clearHighlights();
+            document.querySelectorAll('.sticky-note').forEach(n => n.remove());
+            localStorage.removeItem(`${passageId}_highlights`);
+            localStorage.removeItem(`${passageId}_notes`);
         }
 
         window.onload = function() {
             buildStatusBar();
             document.querySelectorAll('.ans').forEach(el => {
                 el.addEventListener('input', () => {
-                    localStorage.setItem(`C10T4P2_ans_${el.dataset.q}`, el.value.trim());
+                    localStorage.setItem(`${passageId}_ans_${el.dataset.q}`, el.value.trim());
                 });
             });
-            // Load saved notes
-            const savedNotes = localStorage.getItem('reading_notes');
-            if (savedNotes) document.getElementById('notes-area').value = savedNotes;
-            document.getElementById('notes-area').addEventListener('input', saveNotes);
+            loadHighlights();
+            loadNotes();
         };
     </script>
 </body>
