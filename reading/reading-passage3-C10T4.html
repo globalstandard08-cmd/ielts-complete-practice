@@ -16,6 +16,7 @@
             background-color: #fef2f2;
             color: #1a1a1a;
             line-height: 1.7;
+            padding-bottom: 120px; /* Space for bottom nav */
         }
 
         /* ✅ LOGO STYLES */
@@ -73,10 +74,11 @@
 
         .highlight {
             background-color: #fff350;
-            padding: 2px 0;
+            padding: 2px 2px;
+            border-radius: 2px;
         }
 
-        /* ✅ CLEAR HIGHLIGHTS BUTTON: BOTTOM LEFT OF PASSAGE */
+        /* ✅ CLEAR HIGHLIGHTS BUTTON */
         .clear-highlight {
             margin-top: 20px;
             padding: 8px 16px;
@@ -144,7 +146,7 @@
             flex-wrap: wrap;
         }
 
-        .toggle-answers, .show-student {
+        .toggle-answers, .show-student, .clear-all {
             padding: 8px 16px;
             background: #dc2626;
             color: white;
@@ -155,7 +157,7 @@
             font-size: 14px;
         }
 
-        .toggle-answers:hover, .show-student:hover {
+        .toggle-answers:hover, .show-student:hover, .clear-all:hover {
             background: #b91c1c;
         }
 
@@ -174,11 +176,122 @@
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
 
-        /* ✅ NAVIGATION BUTTONS */
+        /* ✅ CONTEXT MENU FOR HIGHLIGHTS */
+        .context-menu {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
+            min-width: 140px;
+        }
+        .context-menu div {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .context-menu div:hover {
+            background: #f3f4f6;
+        }
+
+        /* ✅ DRAGGABLE STICKY NOTES */
+        .sticky-note {
+            position: absolute;
+            width: 170px;
+            min-height: 70px;
+            background: #fff380;
+            border: 1px solid #e6c200;
+            border-radius: 4px;
+            padding: 6px;
+            box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+            z-index: 9998;
+            cursor: move;
+            user-select: none;
+        }
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 11px;
+            color: #886a00;
+            padding: 2px 0;
+            border-bottom: 1px solid #f0d860;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #886a00;
+            padding: 0 4px;
+        }
+        .note-textarea {
+            width: 100%;
+            height: 50px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 12px;
+            cursor: text;
+        }
+
+        /* ✅ QUESTION NAVIGATION BAR */
+        .question-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            border-top: 2px solid #dc2626;
+            padding: 12px 20px;
+            box-shadow: 0 -2px 6px rgba(220, 38, 38, 0.1);
+            z-index: 9997;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        .q-nav-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #fecaca;
+            border-radius: 6px;
+            background: #fef2f2;
+            color: #dc2626;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .q-nav-btn:hover {
+            background: #ffe8e8;
+        }
+        .q-nav-btn.answered {
+            background: #dcfce7;
+            border-color: #86efac;
+            color: #166534;
+        }
+        .q-nav-btn.current {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+        }
+
+        /* ✅ PAGE NAVIGATION */
         .nav-buttons {
             display: flex;
             gap: 10px;
-            margin: 0 20px 25px;
+            margin: 20px;
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -205,12 +318,19 @@
         <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
     </div>
 
+    <!-- ✅ CONTEXT MENU -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight Selection</div>
+        <div id="menuRemoveHighlight">❌ Remove Highlight</div>
+        <div id="menuAddNote">📝 Add Note</div>
+    </div>
+
     <!-- ✅ TWO COLUMNS: LEFT = PASSAGE | RIGHT = QUESTIONS -->
     <div class="main-wrapper">
         <!-- LEFT SIDE: PASSAGE TEXT -->
         <div class="passage-column" id="passageArea">
             <h1>Reading Passage 3 — When evolution runs backwards</h1>
-            <div class="passage-text">
+            <div class="passage-text" id="passageText">
                 <p><em>Evolution isn’t supposed to run backwards – yet an increasing number of examples show that it does and that it can sometimes represent the future of a species</em></p>
 
                 <p>The description of any animal as an ‘evolutionary throwback’ is controversial. For the better part of a century, most biologists have been reluctant to use those words, mindful of a principle of evolution that says ‘evolution cannot run backwards’. But as more and more examples come to light and modern genetics enters the scene, that principle is having to be rewritten. Not only are evolutionary throwbacks possible, they sometimes play an important role in the forward march of evolution.</p>
@@ -235,16 +355,16 @@
             </div>
 
             <!-- ✅ CLEAR HIGHLIGHTS BUTTON HERE -->
-            <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear Highlights</button>
+            <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear All Highlights</button>
         </div>
 
         <!-- RIGHT SIDE: QUESTIONS -->
-        <div class="questions-column">
+        <div class="questions-column" id="questionsArea">
             <div class="questions-section">
                 <h2>Questions 27–31: Multiple Choice</h2>
                 <p><em>Choose the correct letter, A, B, C or D.</em></p>
 
-                <div class="question-block">
+                <div class="question-block" data-q="27">
                     <p>27 When discussing the theory developed by Louis Dollo, the writer says that</p>
                     <div class="options">
                         <label><input type="radio" name="q27" value="A"> A it was immediately referred to as Dollo’s law.</label>
@@ -254,7 +374,7 @@
                     </div>
                 </div>
 
-                <div class="question-block">
+                <div class="question-block" data-q="28">
                     <p>28 The humpback whale caught off Vancouver Island is mentioned because of</p>
                     <div class="options">
                         <label><input type="radio" name="q28" value="A"> A the exceptional size of its body.</label>
@@ -264,7 +384,7 @@
                     </div>
                 </div>
 
-                <div class="question-block">
+                <div class="question-block" data-q="29">
                     <p>29 What is said about ‘silent genes’?</p>
                     <div class="options">
                         <label><input type="radio" name="q29" value="A"> A Their numbers vary according to species.</label>
@@ -274,7 +394,7 @@
                     </div>
                 </div>
 
-                <div class="question-block">
+                <div class="question-block" data-q="30">
                     <p>30 The writer mentions the mole salamander because</p>
                     <div class="options">
                         <label><input type="radio" name="q30" value="A"> A it exemplifies what happens in the development of most amphibians.</label>
@@ -284,7 +404,7 @@
                     </div>
                 </div>
 
-                <div class="question-block">
+                <div class="question-block" data-q="31">
                     <p>31 Which of the following does Wagner claim?</p>
                     <div class="options">
                         <label><input type="radio" name="q31" value="A"> A Members of the Bachia lizard family have lost and regained certain features several times.</label>
@@ -308,19 +428,19 @@
                     <strong>G</strong> Dollo’s findings and the convictions held by Lombroso.
                 </div>
 
-                <div class="question-block">
+                <div class="question-block" data-q="32">
                     <p>32 For a long time biologists rejected <input type="text" class="answer-input" name="q32" placeholder="A–G"></p>
                 </div>
-                <div class="question-block">
+                <div class="question-block" data-q="33">
                     <p>33 Opposing views on evolutionary throwbacks are represented by <input type="text" class="answer-input" name="q33" placeholder="A–G"></p>
                 </div>
-                <div class="question-block">
+                <div class="question-block" data-q="34">
                     <p>34 Examples of evolutionary throwbacks have led to <input type="text" class="answer-input" name="q34" placeholder="A–G"></p>
                 </div>
-                <div class="question-block">
+                <div class="question-block" data-q="35">
                     <p>35 The shark and killer whale are mentioned to exemplify <input type="text" class="answer-input" name="q35" placeholder="A–G"></p>
                 </div>
-                <div class="question-block">
+                <div class="question-block" data-q="36">
                     <p>36 One explanation for the findings of Wagner’s research is <input type="text" class="answer-input" name="q36" placeholder="A–G"></p>
                 </div>
 
@@ -331,7 +451,7 @@
                 <strong>NO</strong> — if the statement contradicts<br>
                 <strong>NOT GIVEN</strong> — if there is no information</p>
 
-                <div class="question-block">
+                <div class="question-block" data-q="37">
                     <p>37 Wagner was the first person to do research on South American lizards.</p>
                     <div class="options">
                         <label><input type="radio" name="q37" value="YES"> YES</label>
@@ -340,7 +460,7 @@
                     </div>
                 </div>
 
-                <div class="question-block">
+                <div class="question-block" data-q="38">
                     <p>38 Wagner believes that Bachia lizards with toes had toeless ancestors.</p>
                     <div class="options">
                         <label><input type="radio" name="q38" value="YES"> YES</label>
@@ -349,7 +469,7 @@
                     </div>
                 </div>
 
-                <div class="question-block">
+                <div class="question-block" data-q="39">
                     <p>39 The temporary occurrence of long‑lost traits in embryos is rare.</p>
                     <div class="options">
                         <label><input type="radio" name="q39" value="YES"> YES</label>
@@ -358,7 +478,7 @@
                     </div>
                 </div>
 
-                <div class="question-block">
+                <div class="question-block" data-q="40">
                     <p>40 Evolutionary throwbacks might be caused by developmental problems in the womb.</p>
                     <div class="options">
                         <label><input type="radio" name="q40" value="YES"> YES</label>
@@ -371,6 +491,7 @@
                 <div class="action-buttons">
                     <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
                     <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
+                    <button class="clear-all" onclick="clearAllAnswers()">🗑️ Clear All Answers</button>
                 </div>
 
                 <!-- ✅ CORRECT ANSWER KEY -->
@@ -401,7 +522,12 @@
         </div>
     </div>
 
-    <!-- ✅ NAVIGATION BUTTONS AT BOTTOM -->
+    <!-- ✅ QUESTION NAVIGATION BAR -->
+    <div class="question-nav">
+        <div class="nav-container" id="questionNavContainer"></div>
+    </div>
+
+    <!-- ✅ PAGE NAVIGATION BUTTONS -->
     <div class="nav-buttons">
         <a href="reading-passage2-C10T4.html" class="back-btn">← Previous Passage</a>
         <a href="../index.html" class="back-btn">← Back to Main Menu</a>
@@ -426,7 +552,220 @@
             q40: 'YES'
         };
 
-        // ✅ Save answers to localStorage
+        let currentRange = null;
+        let lastNoteId = 0;
+        let activeNote = null, offsetX, offsetY;
+
+        // ------------------------------
+        // ✅ CONTEXT MENU & HIGHLIGHTS
+        // ------------------------------
+        const contextMenu = document.getElementById('contextMenu');
+        const passageText = document.getElementById('passageText');
+
+        document.addEventListener('contextmenu', function(e) {
+            const selection = window.getSelection();
+            if (!selection.isCollapsed && passageText.contains(e.target)) {
+                e.preventDefault();
+                currentRange = selection.getRangeAt(0);
+                contextMenu.style.left = e.pageX + 'px';
+                contextMenu.style.top = e.pageY + 'px';
+                contextMenu.style.display = 'block';
+            } else {
+                hideContextMenu();
+            }
+        });
+
+        document.addEventListener('click', hideContextMenu);
+        function hideContextMenu() {
+            contextMenu.style.display = 'none';
+        }
+
+        document.getElementById('menuHighlight').addEventListener('click', addHighlight);
+        document.getElementById('menuRemoveHighlight').addEventListener('click', removeHighlight);
+        document.getElementById('menuAddNote').addEventListener('click', addNote);
+
+        function addHighlight() {
+            if (!currentRange) return;
+            const span = document.createElement('span');
+            span.className = 'highlight';
+            span.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(span);
+            window.getSelection().removeAllRanges();
+            saveHighlights();
+            hideContextMenu();
+        }
+
+        function removeHighlight() {
+            if (!currentRange) return;
+            try {
+                const selectedText = currentRange.toString().trim();
+                const highlights = document.querySelectorAll('.highlight');
+                let removed = false;
+                highlights.forEach(span => {
+                    if (span.textContent.trim() === selectedText.trim() && currentRange.intersectsNode(span)) {
+                        span.outerHTML = span.innerHTML;
+                        removed = true;
+                    }
+                });
+                if (!removed) {
+                    const parent = currentRange.commonAncestorContainer.parentElement;
+                    if (parent.classList.contains('highlight')) {
+                        parent.outerHTML = parent.innerHTML;
+                    }
+                }
+                saveHighlights();
+            } catch(e) {}
+            window.getSelection().removeAllRanges();
+            hideContextMenu();
+        }
+
+        function clearHighlights() {
+            document.querySelectorAll('.highlight').forEach(span => {
+                span.outerHTML = span.innerHTML;
+            });
+            localStorage.removeItem('C10T4P3_highlights');
+        }
+
+        function saveHighlights() {
+            localStorage.setItem('C10T4P3_highlights', passageText.innerHTML);
+        }
+
+        function loadHighlights() {
+            const saved = localStorage.getItem('C10T4P3_highlights');
+            if (saved) passageText.innerHTML = saved;
+        }
+
+        // ------------------------------
+        // ✅ DRAGGABLE NOTES
+        // ------------------------------
+        function addNote() {
+            if (!currentRange) return;
+            const rect = currentRange.getBoundingClientRect();
+            const noteId = `note_${++lastNoteId}`;
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            note.id = noteId;
+            note.innerHTML = `
+                <div class="note-header">
+                    <span>Note</span>
+                    <span class="note-close" onclick="closeNote('${noteId}')">×</span>
+                </div>
+                <textarea class="note-textarea" placeholder="Write your note here..." oninput="saveNotes()"></textarea>
+            `;
+            note.style.left = (rect.right + window.scrollX + 10) + 'px';
+            note.style.top = (rect.top + window.scrollY) + 'px';
+            document.body.appendChild(note);
+            makeNoteDraggable(note);
+            saveNotes();
+            hideContextMenu();
+        }
+
+        function makeNoteDraggable(note) {
+            note.addEventListener('mousedown', function(e) {
+                if (e.target.closest('.note-textarea') || e.target.classList.contains('note-close')) return;
+                activeNote = note;
+                const noteRect = note.getBoundingClientRect();
+                offsetX = e.clientX - noteRect.left;
+                offsetY = e.clientY - noteRect.top;
+                note.style.zIndex = 10000;
+            });
+        }
+
+        document.addEventListener('mousemove', function(e) {
+            if (!activeNote) return;
+            const x = e.clientX - offsetX + window.scrollX;
+            const y = e.clientY - offsetY + window.scrollY;
+            activeNote.style.left = x + 'px';
+            activeNote.style.top = y + 'px';
+        });
+
+        document.addEventListener('mouseup', function() {
+            if (activeNote) {
+                saveNotes();
+                activeNote.style.zIndex = 9998;
+                activeNote = null;
+            }
+        });
+
+        function closeNote(id) {
+            document.getElementById(id)?.remove();
+            saveNotes();
+        }
+
+        function saveNotes() {
+            const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
+                id: n.id,
+                left: n.style.left,
+                top: n.style.top,
+                text: n.querySelector('.note-textarea').value
+            }));
+            localStorage.setItem('C10T4P3_notes', JSON.stringify(notes));
+        }
+
+        function loadNotes() {
+            const saved = localStorage.getItem('C10T4P3_notes');
+            if (!saved) return;
+            JSON.parse(saved).forEach(n => {
+                const note = document.createElement('div');
+                note.className = 'sticky-note';
+                note.id = n.id;
+                note.innerHTML = `
+                    <div class="note-header">
+                        <span>Note</span>
+                        <span class="note-close" onclick="closeNote('${n.id}')">×</span>
+                    </div>
+                    <textarea class="note-textarea" oninput="saveNotes()">${n.text}</textarea>
+                `;
+                note.style.left = n.left;
+                note.style.top = n.top;
+                document.body.appendChild(note);
+                makeNoteDraggable(note);
+                const num = parseInt(n.id.split('_')[1]);
+                if (num > lastNoteId) lastNoteId = num;
+            });
+        }
+
+        // ------------------------------
+        // ✅ QUESTION NAVIGATION BAR
+        // ------------------------------
+        function buildQuestionNav() {
+            const container = document.getElementById('questionNavContainer');
+            container.innerHTML = '';
+            for (let q = 1; q <= 40; q++) {
+                const btn = document.createElement('button');
+                btn.className = 'q-nav-btn';
+                btn.textContent = q;
+                btn.onclick = () => scrollToQuestion(q);
+                container.appendChild(btn);
+            }
+            updateNavStatus();
+        }
+
+        function scrollToQuestion(qNum) {
+            const qBlock = document.querySelector(`.question-block[data-q="${qNum}"]`);
+            if (qBlock) {
+                qBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.querySelectorAll('.q-nav-btn').forEach(b => b.classList.remove('current'));
+                event.target.classList.add('current');
+            }
+        }
+
+        function updateNavStatus() {
+            const answers = JSON.parse(localStorage.getItem('C10T4P3_answers') || '{}');
+            document.querySelectorAll('.q-nav-btn').forEach(btn => {
+                const q = parseInt(btn.textContent);
+                if (answers[`q${q}`] && answers[`q${q}`].trim() !== '') {
+                    btn.classList.add('answered');
+                } else {
+                    btn.classList.remove('answered');
+                }
+            });
+        }
+
+        // ------------------------------
+        // ✅ ANSWER MANAGEMENT
+        // ------------------------------
         function saveAnswers() {
             let answers = {};
             for (let q = 27; q <= 40; q++) {
@@ -441,9 +780,9 @@
                 }
             }
             localStorage.setItem('C10T4P3_answers', JSON.stringify(answers));
+            updateNavStatus();
         }
 
-        // ✅ Load saved answers
         function loadAnswers() {
             const saved = localStorage.getItem('C10T4P3_answers');
             if (!saved) return;
@@ -459,35 +798,29 @@
                     if (input) input.value = answers[key];
                 }
             }
+            updateNavStatus();
         }
 
-        // ✅ Highlight text function
-        document.getElementById('passageArea').addEventListener('mouseup', function() {
-            const selection = window.getSelection();
-            if (selection.toString().trim().length > 0) {
-                const span = document.createElement('span');
-                span.className = 'highlight';
-                span.textContent = selection.toString();
-                const range = selection.getRangeAt(0);
-                range.deleteContents();
-                range.insertNode(span);
-                selection.removeAllRanges();
+        function clearAllAnswers() {
+            if (!confirm('Clear all your answers? This cannot be undone.')) return;
+            for (let q = 27; q <= 40; q++) {
+                const radios = document.getElementsByName(`q${q}`);
+                if (radios.length > 0) {
+                    radios.forEach(r => r.checked = false);
+                } else {
+                    const input = document.querySelector(`input[name="q${q}"]`);
+                    if (input) input.value = '';
+                }
             }
-        });
-
-        function clearHighlights() {
-            document.querySelectorAll('.highlight').forEach(el => {
-                el.outerHTML = el.innerHTML;
-            });
+            localStorage.removeItem('C10T4P3_answers');
+            updateNavStatus();
         }
 
-        // ✅ Toggle answers
         function toggleAnswers() {
             const box = document.getElementById('answersBox');
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
-        // ✅ Check student answers
         function showStudentAnswers() {
             saveAnswers();
             const box = document.getElementById('studentAnswersBox');
@@ -526,8 +859,21 @@
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
-        // Load saved answers when page opens
-        window.onload = loadAnswers;
+        // ------------------------------
+        // ✅ INITIALIZE ON LOAD
+        // ------------------------------
+        window.onload = function() {
+            buildQuestionNav();
+            loadAnswers();
+            loadHighlights();
+            loadNotes();
+
+            // Auto-save answers when changed
+            document.querySelectorAll('input[type="radio"], input[type="text"]').forEach(el => {
+                el.addEventListener('change', saveAnswers);
+                if (el.tagName === 'INPUT') el.addEventListener('input', saveAnswers);
+            });
+        };
     </script>
 
 </body>
