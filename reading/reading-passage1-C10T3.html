@@ -16,7 +16,7 @@
             background-color: #fef2f2;
             color: #1a1a1a;
             line-height: 1.6;
-            padding-bottom: 70px; /* Space for bottom nav */
+            padding-bottom: 80px; /* Extra space for new layout */
         }
 
         /* Logo Styles */
@@ -70,7 +70,7 @@
             line-height: 1.8;
         }
 
-        /* ✅ Updated Highlight Style */
+        /* Highlight Style */
         .highlight {
             background-color: #ffd700;
             padding: 2px 4px;
@@ -79,7 +79,7 @@
             color: #000;
         }
 
-        /* ✅ Right-click Context Menu */
+        /* Right-click Context Menu */
         .context-menu {
             position: absolute;
             background: #ffffff;
@@ -99,7 +99,7 @@
             background: #fef2f2;
         }
 
-        /* ✅ Sticky Note Style */
+        /* Sticky Note Style */
         .sticky-note {
             position: absolute;
             width: 160px;
@@ -211,7 +211,7 @@
             background: #b91c1c;
         }
 
-        /* Fixed display for answer boxes */
+        /* Answer Boxes */
         .answers-box, .student-answers-box {
             margin-top: 12px;
             padding: 12px;
@@ -226,7 +226,7 @@
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
 
-        /* Bottom Question Navigation Bar */
+        /* ✅ Updated Bottom Navigation Bar - Exam Style */
         .question-nav {
             position: fixed;
             bottom: 0;
@@ -234,17 +234,19 @@
             width: 100%;
             background: #ffffff;
             border-top: 2px solid #dc2626;
-            padding: 6px 10px;
+            padding: 8px 15px;
             box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
             z-index: 100;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
         }
         .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
             display: flex;
             gap: 5px;
             flex-wrap: wrap;
-            justify-content: center;
         }
         .q-nav-btn {
             width: 28px;
@@ -275,27 +277,22 @@
             color: white;
             border-color: #dc2626;
         }
-
-        /* Page Navigation */
-        .nav-buttons {
+        /* ✅ Previous / Next Buttons inside nav bar */
+        .nav-page-controls {
             display: flex;
             gap: 10px;
-            margin: 0 20px 10px;
-            flex-wrap: wrap;
-            justify-content: center;
         }
-
         .back-btn, .next-btn {
-            padding: 8px 16px;
+            padding: 6px 12px;
             background: #fef2f2;
             color: #dc2626;
             text-decoration: none;
             border-radius: 6px;
             border: 1px solid #fecaca;
             font-weight: 500;
-            font-size: 14px;
+            font-size: 13px;
+            white-space: nowrap;
         }
-
         .back-btn:hover, .next-btn:hover {
             background: #ffffff;
         }
@@ -307,7 +304,7 @@
         <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
     </div>
 
-    <!-- ✅ Right-click Context Menu -->
+    <!-- Right-click Context Menu -->
     <div class="context-menu" id="contextMenu">
         <div id="menuHighlight">✅ Highlight</div>
         <div id="menuRemove">❌ Remove Highlight</div>
@@ -494,15 +491,13 @@
         </div>
     </div>
 
-    <!-- Question Navigation Bar 1-40 -->
+    <!-- ✅ Bottom Question Navigation Bar - Exam Style -->
     <div class="question-nav" id="questionNav">
         <div class="nav-container" id="navContainer"></div>
-    </div>
-
-    <!-- Page Navigation -->
-    <div class="nav-buttons">
-        <a href="../index.html" class="back-btn">← Back to Main Menu</a>
-        <a href="reading-passage2-C10T3.html" class="next-btn">Next Passage →</a>
+        <div class="nav-page-controls">
+            <a href="../index.html" class="back-btn">← Previous</a>
+            <a href="reading-passage2-C10T3.html" class="next-btn">Next →</a>
+        </div>
     </div>
 
     <script>
@@ -522,7 +517,7 @@
             q13: 'domestic tourism'
         };
 
-        // ✅ Global variables for highlight/note
+        // Global variables for highlight/note
         let currentRange = null;
         let lastNoteId = 0;
         const passageId = 'C10T3P1';
@@ -613,7 +608,7 @@
             }
         }
 
-        // ✅ Right-click Context Menu Setup
+        // Right-click Context Menu Setup
         const passageArea = document.getElementById('passageArea');
         const contextMenu = document.getElementById('contextMenu');
 
@@ -633,7 +628,7 @@
 
         document.addEventListener('click', () => contextMenu.style.display = 'none');
 
-        // ✅ Highlight
+        // Highlight
         document.getElementById('menuHighlight').addEventListener('click', function() {
             if (!currentRange) return;
             const span = document.createElement('span');
@@ -646,7 +641,7 @@
             saveHighlights();
         });
 
-        // ✅ Remove Highlight
+        // Remove Highlight
         document.getElementById('menuRemove').addEventListener('click', function() {
             if (!currentRange) return;
             try {
@@ -663,7 +658,7 @@
             saveHighlights();
         });
 
-        // ✅ Add Sticky Note
+        // Add Sticky Note
         document.getElementById('menuNote').addEventListener('click', function() {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
@@ -692,7 +687,7 @@
             localStorage.setItem(`${passageId}_${id}`, text);
         }
 
-        // ✅ Save/Load Highlights
+        // Save/Load Highlights
         function saveHighlights() {
             localStorage.setItem(`${passageId}_highlights`, passageArea.innerHTML);
         }
@@ -702,10 +697,13 @@
             if (saved) passageArea.innerHTML = saved;
         }
 
-        // ✅ Save/Load Notes
+        // Save/Load Notes
         function saveNotes() {
             const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
-                id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
+                id: n.id,
+                left: n.style.left,
+                top: n.style.top,
+                text: n.querySelector('.note-textarea').value
             }));
             localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes));
         }
@@ -722,7 +720,7 @@
                     <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
                 `;
                 note.style.left = n.left;
-                note.style.top = n.style.top;
+                note.style.top = n.top;
                 document.body.appendChild(note);
                 const num = parseInt(n.id.split('_')[1]);
                 if (num > lastNoteId) lastNoteId = num;
@@ -779,7 +777,7 @@
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
-        // ✅ Auto-save on input
+        // Auto-save on input
         document.addEventListener('input', function(e) {
             if (e.target.matches('.answer-input') || e.target.matches('input[type="radio"]')) saveAnswers();
         });
