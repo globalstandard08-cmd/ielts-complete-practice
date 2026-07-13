@@ -17,7 +17,7 @@
             color: #1a1a1a;
             line-height: 1.7;
             position: relative;
-            padding-bottom: 80px; /* Make space for bottom nav */
+            padding-bottom: 80px; /* Space for bottom nav */
         }
 
         /* ✅ LOGO STYLES */
@@ -45,7 +45,7 @@
             text-align: center;
         }
 
-        /* ✅ QUESTION NAVIGATION BAR - MOVED TO BOTTOM */
+        /* ✅ QUESTION NAVIGATION BAR - BOTTOM, 1–40 */
         .question-status {
             position: fixed;
             bottom: 0;
@@ -130,7 +130,7 @@
             background: #dc2626;
         }
 
-        /* ✅ IMPROVED PARAGRAPH SPACING */
+        /* ✅ PARAGRAPH & TEXT STYLES */
         .passage-text p {
             margin-bottom: 16px;
             font-size: 15px;
@@ -138,7 +138,6 @@
             text-align: justify;
         }
 
-        /* Highlight style */
         .user-highlight {
             background-color: #ffd700;
             padding: 2px 4px;
@@ -389,6 +388,12 @@
                     – size of fires: <strong>2.</strong> <input type="text" class="answer-input ans" name="q2" data-q="2" placeholder="______"> greater on average than two decades ago</p>
                 </div>
 
+                <div class="question-block" id="q2">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(2)" id="flag2">🚩</span>
+                    </div>
+                </div>
+
                 <div class="question-block" id="q3">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(3)" id="flag3">🚩</span>
@@ -399,6 +404,24 @@
                     – increase in yearly temperature<br>
                     – extended fire <strong>5.</strong> <input type="text" class="answer-input ans" name="q5" data-q="5" placeholder="______"><br>
                     – more building of <strong>6.</strong> <input type="text" class="answer-input ans" name="q6" data-q="6" placeholder="______"> in vulnerable places</p>
+                </div>
+
+                <div class="question-block" id="q4">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(4)" id="flag4">🚩</span>
+                    </div>
+                </div>
+
+                <div class="question-block" id="q5">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(5)" id="flag5">🚩</span>
+                    </div>
+                </div>
+
+                <div class="question-block" id="q6">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(6)" id="flag6">🚩</span>
+                    </div>
                 </div>
 
 
@@ -556,7 +579,7 @@
         let currentRange = null;
         let lastNoteId = 0;
 
-        // Initialize navigation indicators 1–40, no passage labels
+        // Initialize navigation indicators 1–40
         window.onload = function() {
             statusBar.innerHTML = '';
             for (let q = 1; q <= 40; q++) {
@@ -648,10 +671,12 @@
             saveHighlights();
         });
 
-        // Flag system
+        // ✅ FIXED FLAG SYSTEM — works for ALL questions 1–40
         function toggleFlag(qNum) {
             const flag = document.getElementById('flag' + qNum);
             const stat = document.getElementById('stat' + qNum);
+            if (!flag || !stat) return;
+
             const isFlagged = flag.classList.toggle('flagged');
             stat.classList.toggle('flagged', isFlagged);
             localStorage.setItem('C10T4P1_flag_' + qNum, isFlagged);
