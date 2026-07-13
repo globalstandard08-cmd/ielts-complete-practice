@@ -54,6 +54,7 @@
             padding: 18px;
             overflow-y: auto;
             box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07);
+            position: relative;
         }
 
         h1 {
@@ -69,79 +70,71 @@
             line-height: 1.8;
         }
 
-        /* Highlight Styles */
+        /* ✅ Updated Highlight Style */
         .highlight {
-            background-color: #fff350;
-            padding: 2px 3px;
-            border-radius: 3px;
+            background-color: #ffd700;
+            padding: 2px 4px;
+            border-radius: 2px;
             cursor: pointer;
-        }
-        .highlight:hover {
-            background-color: #ffeb3b;
+            color: #000;
         }
 
-        .note-marker {
-            background-color: #bbdefb;
-            border-bottom: 1px dashed #1976d2;
-            cursor: pointer;
-            padding: 2px 3px;
-            border-radius: 3px;
-        }
-
-        /* Toolbar for Passage Actions */
-        .passage-toolbar {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
-        .passage-toolbar button {
-            padding: 6px 12px;
-            background: #dc2626;
-            color: white;
-            border: none;
+        /* ✅ Right-click Context Menu */
+        .context-menu {
+            position: absolute;
+            background: #ffffff;
+            border: 1px solid #ccc;
             border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 9999;
+            display: none;
+            min-width: 140px;
+        }
+        .context-menu div {
+            padding: 8px 11px;
             cursor: pointer;
             font-size: 13px;
-            font-weight: 500;
         }
-        .passage-toolbar button:hover {
-            background: #b91c1c;
+        .context-menu div:hover {
+            background: #fef2f2;
         }
 
-        /* Notes Modal */
-        .note-modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            z-index: 1000;
-            width: 90%;
-            max-width: 400px;
-        }
-        .note-modal textarea {
-            width: 100%;
-            height: 80px;
-            margin: 10px 0;
-            padding: 8px;
-            border: 1px solid #ddd;
+        /* ✅ Sticky Note Style */
+        .sticky-note {
+            position: absolute;
+            width: 160px;
+            min-height: 60px;
+            background: #fff380;
+            border: 1px solid #e6c200;
             border-radius: 4px;
-            resize: vertical;
+            padding: 6px;
+            box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
+            z-index: 9998;
+            font-size: 12px;
         }
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 11px;
+            color: #886a00;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #886a00;
+        }
+        .note-textarea {
             width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.4);
-            z-index: 999;
+            height: 44px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 12px;
         }
 
         .questions-section h2 {
@@ -203,7 +196,7 @@
             flex-wrap: wrap;
         }
 
-        .toggle-answers, .show-student, .clear-highlight, .clear-all-answers {
+        .toggle-answers, .show-student, .clear-all-answers {
             padding: 8px 14px;
             background: #dc2626;
             color: white;
@@ -214,7 +207,7 @@
             font-size: 13px;
         }
 
-        .toggle-answers:hover, .show-student:hover, .clear-highlight:hover, .clear-all-answers:hover {
+        .toggle-answers:hover, .show-student:hover, .clear-all-answers:hover {
             background: #b91c1c;
         }
 
@@ -314,19 +307,18 @@
         <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
     </div>
 
+    <!-- ✅ Right-click Context Menu -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+    </div>
+
     <!-- Two Column Layout -->
     <div class="main-wrapper">
         <!-- Left: Passage Text -->
         <div class="passage-column" id="passageArea">
             <h1>Reading Passage 1 — The Context, Meaning and Scope of Tourism</h1>
-            
-            <!-- Passage Action Toolbar -->
-            <div class="passage-toolbar">
-                <button onclick="enableHighlight()">🟡 Highlight</button>
-                <button onclick="removeHighlight()">🧹 Remove Highlight</button>
-                <button onclick="addNote()">📝 Add Note</button>
-                <button onclick="clearHighlights()">❌ Clear All Highlights</button>
-            </div>
 
             <div class="passage-text" id="passageText">
                 <p><strong>The Context, Meaning and Scope of Tourism</strong></p>
@@ -507,17 +499,6 @@
         <div class="nav-container" id="navContainer"></div>
     </div>
 
-    <!-- Notes Modal -->
-    <div class="modal-overlay" id="noteOverlay" onclick="closeNoteModal()"></div>
-    <div class="note-modal" id="noteModal">
-        <h4>Add Your Note</h4>
-        <textarea id="noteText" placeholder="Write your note here..."></textarea>
-        <div style="text-align: right; gap: 8px; display: flex; justify-content: flex-end;">
-            <button onclick="closeNoteModal()" style="padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; background: #eee;">Cancel</button>
-            <button onclick="saveNote()" style="padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; background: #1976d2; color: white;">Save Note</button>
-        </div>
-    </div>
-
     <!-- Page Navigation -->
     <div class="nav-buttons">
         <a href="../index.html" class="back-btn">← Back to Main Menu</a>
@@ -541,8 +522,10 @@
             q13: 'domestic tourism'
         };
 
-        let selectionMode = 'highlight';
-        let tempSelection = null;
+        // ✅ Global variables for highlight/note
+        let currentRange = null;
+        let lastNoteId = 0;
+        const passageId = 'C10T3P1';
 
         // Generate Question Navigation 1-40
         function generateNav() {
@@ -569,8 +552,8 @@
         }
 
         function updateNavStatus() {
-            const answers = JSON.parse(localStorage.getItem('C10T3P1_answers')) || {};
-            const flags = JSON.parse(localStorage.getItem('C10T3P1_flags')) || {};
+            const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`)) || {};
+            const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
             
             for (let i = 1; i <= 40; i++) {
                 const btn = document.getElementById(`nav-q${i}`);
@@ -582,9 +565,9 @@
         }
 
         function toggleFlag(qNum) {
-            const flags = JSON.parse(localStorage.getItem('C10T3P1_flags')) || {};
+            const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
             flags[qNum] = !flags[qNum];
-            localStorage.setItem('C10T3P1_flags', JSON.stringify(flags));
+            localStorage.setItem(`${passageId}_flags`, JSON.stringify(flags));
             document.querySelector(`.question-block[data-q="${qNum}"] .flag-btn`).classList.toggle('flagged', flags[qNum]);
             updateNavStatus();
         }
@@ -600,12 +583,12 @@
                     if (input) answers[`q${q}`] = input.value.trim();
                 }
             }
-            localStorage.setItem('C10T3P1_answers', JSON.stringify(answers));
+            localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
             updateNavStatus();
         }
 
         function loadAnswers() {
-            const saved = localStorage.getItem('C10T3P1_answers');
+            const saved = localStorage.getItem(`${passageId}_answers`);
             if (!saved) return;
             const answers = JSON.parse(saved);
             for (let key in answers) {
@@ -621,7 +604,7 @@
         }
 
         function loadFlags() {
-            const flags = JSON.parse(localStorage.getItem('C10T3P1_flags')) || {};
+            const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
             for (let q in flags) {
                 if (flags[q]) {
                     const btn = document.querySelector(`.question-block[data-q="${q}"] .flag-btn`);
@@ -630,82 +613,126 @@
             }
         }
 
-        // Highlight & Note Functions
-        function enableHighlight() {
-            selectionMode = 'highlight';
-        }
+        // ✅ Right-click Context Menu Setup
+        const passageArea = document.getElementById('passageArea');
+        const contextMenu = document.getElementById('contextMenu');
 
-        function removeHighlight() {
-            const sel = window.getSelection();
-            if (!sel.toString().trim()) return;
-            const range = sel.getRangeAt(0);
-            const span = range.commonAncestorContainer.parentElement;
-            if (span && span.classList.contains('highlight')) {
-                span.outerHTML = span.innerHTML;
-                sel.removeAllRanges();
+        passageArea.addEventListener('contextmenu', function(e) {
+            const selection = window.getSelection();
+            if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
+                contextMenu.style.display = 'none';
+                return;
             }
-        }
-
-        function addNote() {
-            selectionMode = 'note';
-            const sel = window.getSelection();
-            if (sel.toString().trim()) {
-                tempSelection = sel;
-                openNoteModal();
-            }
-        }
-
-        function openNoteModal() {
-            document.getElementById('noteOverlay').style.display = 'block';
-            document.getElementById('noteModal').style.display = 'block';
-            document.getElementById('noteText').value = '';
-            document.getElementById('noteText').focus();
-        }
-
-        function closeNoteModal() {
-            document.getElementById('noteOverlay').style.display = 'none';
-            document.getElementById('noteModal').style.display = 'none';
-            tempSelection = null;
-        }
-
-        function saveNote() {
-            const noteText = document.getElementById('noteText').value.trim();
-            if (!noteText || !tempSelection) { closeNoteModal(); return; }
-            const span = document.createElement('span');
-            span.className = 'note-marker';
-            span.title = noteText;
-            span.textContent = tempSelection.toString();
-            const range = tempSelection.getRangeAt(0);
-            range.deleteContents();
-            range.insertNode(span);
-            closeNoteModal();
-        }
-
-        document.getElementById('passageText').addEventListener('mouseup', function() {
-            const sel = window.getSelection();
-            const text = sel.toString().trim();
-            if (!text) return;
-
-            if (selectionMode === 'highlight') {
-                const span = document.createElement('span');
-                span.className = 'highlight';
-                span.textContent = text;
-                const range = sel.getRangeAt(0);
-                range.deleteContents();
-                range.insertNode(span);
-                sel.removeAllRanges();
-            }
+            e.preventDefault();
+            currentRange = selection.getRangeAt(0);
+            const rect = currentRange.getBoundingClientRect();
+            contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+            contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+            contextMenu.style.display = 'block';
         });
 
-        function clearHighlights() {
-            document.querySelectorAll('.highlight').forEach(el => el.outerHTML = el.innerHTML);
-            document.querySelectorAll('.note-marker').forEach(el => el.outerHTML = el.innerHTML);
+        document.addEventListener('click', () => contextMenu.style.display = 'none');
+
+        // ✅ Highlight
+        document.getElementById('menuHighlight').addEventListener('click', function() {
+            if (!currentRange) return;
+            const span = document.createElement('span');
+            span.className = 'highlight';
+            span.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(span);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        });
+
+        // ✅ Remove Highlight
+        document.getElementById('menuRemove').addEventListener('click', function() {
+            if (!currentRange) return;
+            try {
+                const container = currentRange.commonAncestorContainer;
+                let span = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+                if (span && span.classList.contains('highlight')) {
+                    const text = document.createTextNode(span.textContent);
+                    span.parentNode.replaceChild(text, span);
+                    span.parentNode.normalize();
+                }
+            } catch (e) { /* ignore */ }
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        });
+
+        // ✅ Add Sticky Note
+        document.getElementById('menuNote').addEventListener('click', function() {
+            if (!currentRange) return;
+            const rect = currentRange.getBoundingClientRect();
+            const noteId = 'note_' + (++lastNoteId);
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            note.id = noteId;
+            note.innerHTML = `
+                <div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
+                <textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>
+            `;
+            note.style.left = (rect.right + window.scrollX + 8) + 'px';
+            note.style.top = (rect.top + window.scrollY) + 'px';
+            document.body.appendChild(note);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveNotes();
+        });
+
+        function closeNote(id) {
+            document.getElementById(id)?.remove();
+            saveNotes();
+        }
+
+        function saveNote(id, text) {
+            localStorage.setItem(`${passageId}_${id}`, text);
+        }
+
+        // ✅ Save/Load Highlights
+        function saveHighlights() {
+            localStorage.setItem(`${passageId}_highlights`, passageArea.innerHTML);
+        }
+
+        function loadHighlights() {
+            const saved = localStorage.getItem(`${passageId}_highlights`);
+            if (saved) passageArea.innerHTML = saved;
+        }
+
+        // ✅ Save/Load Notes
+        function saveNotes() {
+            const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
+                id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
+            }));
+            localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes));
+        }
+
+        function loadNotes() {
+            const saved = localStorage.getItem(`${passageId}_notes`);
+            if (!saved) return;
+            JSON.parse(saved).forEach(n => {
+                const note = document.createElement('div');
+                note.className = 'sticky-note';
+                note.id = n.id;
+                note.innerHTML = `
+                    <div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
+                    <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
+                `;
+                note.style.left = n.left;
+                note.style.top = n.style.top;
+                document.body.appendChild(note);
+                const num = parseInt(n.id.split('_')[1]);
+                if (num > lastNoteId) lastNoteId = num;
+            });
         }
 
         function clearAllAnswers() {
             if (!confirm('Clear all your answers? This cannot be undone.')) return;
-            localStorage.removeItem('C10T3P1_answers');
-            localStorage.removeItem('C10T3P1_flags');
+            localStorage.removeItem(`${passageId}_answers`);
+            localStorage.removeItem(`${passageId}_flags`);
             document.querySelectorAll('.answer-input').forEach(i => i.value = '');
             document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
             document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
@@ -752,10 +779,17 @@
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
+        // ✅ Auto-save on input
+        document.addEventListener('input', function(e) {
+            if (e.target.matches('.answer-input') || e.target.matches('input[type="radio"]')) saveAnswers();
+        });
+
         window.onload = function() {
             generateNav();
             loadAnswers();
             loadFlags();
+            loadHighlights();
+            loadNotes();
         };
     </script>
 </body>
