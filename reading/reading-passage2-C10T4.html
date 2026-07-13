@@ -19,7 +19,6 @@
             padding-bottom: 50px;
         }
 
-        /* Logo */
         .logo-container {
             width: 100%;
             background: #ffffff;
@@ -38,7 +37,6 @@
             display: block;
         }
 
-        /* Larger content boxes */
         .main-wrapper {
             display: flex;
             gap: 16px;
@@ -87,13 +85,12 @@
             font-size: 13px;
         }
 
-        /* ✅ FIXED: Flag + Question Layout */
-        .question-block {
-            margin-bottom: 20px;
-            display: grid;
-            grid-template-columns: 28px 1fr; /* Fixed width for flag, rest for text */
-            gap: 8px;
-            align-items: flex-start;
+        /* Flag layout */
+        .question-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            vertical-align: top;
         }
 
         .flag-btn {
@@ -101,18 +98,13 @@
             cursor: pointer;
             color: #888;
             transition: color 0.2s;
-            line-height: 1.4;
+            line-height: 1;
             flex-shrink: 0;
             user-select: none;
         }
 
         .flag-btn.flagged {
             color: #fd7e14;
-        }
-
-        .question-text {
-            font-size: 14px;
-            line-height: 1.8;
         }
 
         .answer-input {
@@ -166,7 +158,6 @@
             font-size: 13px;
         }
 
-        /* Navigation */
         .nav-buttons {
             display: flex;
             gap: 8px;
@@ -184,7 +175,6 @@
             font-size: 13px;
         }
 
-        /* Status bar */
         .question-status {
             position: fixed;
             bottom: 0;
@@ -271,13 +261,40 @@
                 <h2>Questions 14–18: Summary Completion</h2>
                 <p><em>Choose NO MORE THAN TWO WORDS from the passage for each answer.</em></p>
 
-                <!-- ✅ CORRECT: Flag directly left of question -->
-                <div class="question-block" id="q14">
-                    <span class="flag-btn" onclick="toggleFlag(14)" id="flag14">🚩</span>
-                    <div class="question-text">
-                        <strong>14.</strong> Psychologists have traditionally believed that a personality <input type="text" class="answer-input ans" name="q14" data-q="14" placeholder="______"> was impossible and that by a <strong>15.</strong> <input type="text" class="answer-input ans" name="q15" data-q="15" placeholder="______">, a person’s character tends to be fixed. This is not true according to positive psychologists, who say that our personal qualities can be seen as habitual behaviour. One of the easiest qualities to acquire is <strong>16.</strong> <input type="text" class="answer-input ans" name="q16" data-q="16" placeholder="______">. However, regardless of the quality, it is necessary to learn a wide variety of different <strong>17.</strong> <input type="text" class="answer-input ans" name="q17" data-q="17" placeholder="______"> in order for a new quality to develop; for example, a person must understand and feel some <strong>18.</strong> <input type="text" class="answer-input ans" name="q18" data-q="18" placeholder="______"> in order to increase their happiness.
-                    </div>
-                </div>
+                <!-- ✅ FIXED: Each of 14-18 has its own flag -->
+                <p style="font-size:14px; line-height:2;">
+                    Psychologists have traditionally believed that a personality 
+                    <span class="question-row">
+                        <span class="flag-btn" onclick="toggleFlag(14)" id="flag14">🚩</span>
+                        <strong>14.</strong>
+                    </span>
+                    <input type="text" class="answer-input ans" name="q14" data-q="14" placeholder="______">
+                    was impossible and that by a 
+                    <span class="question-row">
+                        <span class="flag-btn" onclick="toggleFlag(15)" id="flag15">🚩</span>
+                        <strong>15.</strong>
+                    </span>
+                    <input type="text" class="answer-input ans" name="q15" data-q="15" placeholder="______">
+                    , a person’s character tends to be fixed. This is not true according to positive psychologists, who say that our personal qualities can be seen as habitual behaviour. One of the easiest qualities to acquire is 
+                    <span class="question-row">
+                        <span class="flag-btn" onclick="toggleFlag(16)" id="flag16">🚩</span>
+                        <strong>16.</strong>
+                    </span>
+                    <input type="text" class="answer-input ans" name="q16" data-q="16" placeholder="______">
+                    . However, regardless of the quality, it is necessary to learn a wide variety of different 
+                    <span class="question-row">
+                        <span class="flag-btn" onclick="toggleFlag(17)" id="flag17">🚩</span>
+                        <strong>17.</strong>
+                    </span>
+                    <input type="text" class="answer-input ans" name="q17" data-q="17" placeholder="______">
+                    in order for a new quality to develop; for example, a person must understand and feel some 
+                    <span class="question-row">
+                        <span class="flag-btn" onclick="toggleFlag(18)" id="flag18">🚩</span>
+                        <strong>18.</strong>
+                    </span>
+                    <input type="text" class="answer-input ans" name="q18" data-q="18" placeholder="______">
+                    in order to increase their happiness.
+                </p>
 
 
                 <h2>Questions 19–22: Matching People</h2>
@@ -294,27 +311,27 @@
                     G &nbsp; Cynthia Pury
                 </div>
 
-                <div class="question-block" id="q19">
+                <div class="question-block" id="q19" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <span class="flag-btn" onclick="toggleFlag(19)" id="flag19">🚩</span>
-                    <div class="question-text"><strong>19.</strong> People must accept that they do not know much when first trying something new.<br>
+                    <div><strong>19.</strong> People must accept that they do not know much when first trying something new.<br>
                     <input type="text" class="answer-input ans" name="q19" data-q="19" placeholder="A–G"></div>
                 </div>
 
-                <div class="question-block" id="q20">
+                <div class="question-block" id="q20" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <span class="flag-btn" onclick="toggleFlag(20)" id="flag20">🚩</span>
-                    <div class="question-text"><strong>20.</strong> It is important for people to actively notice when good things happen.<br>
+                    <div><strong>20.</strong> It is important for people to actively notice when good things happen.<br>
                     <input type="text" class="answer-input ans" name="q20" data-q="20" placeholder="A–G"></div>
                 </div>
 
-                <div class="question-block" id="q21">
+                <div class="question-block" id="q21" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <span class="flag-btn" onclick="toggleFlag(21)" id="flag21">🚩</span>
-                    <div class="question-text"><strong>21.</strong> Courage can be learned once its origins in a sense of responsibility are understood.<br>
+                    <div><strong>21.</strong> Courage can be learned once its origins in a sense of responsibility are understood.<br>
                     <input type="text" class="answer-input ans" name="q21" data-q="21" placeholder="A–G"></div>
                 </div>
 
-                <div class="question-block" id="q22">
+                <div class="question-block" id="q22" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <span class="flag-btn" onclick="toggleFlag(22)" id="flag22">🚩</span>
-                    <div class="question-text"><strong>22.</strong> It is possible to overcome shyness when faced with the need to speak in public.<br>
+                    <div><strong>22.</strong> It is possible to overcome shyness when faced with the need to speak in public.<br>
                     <input type="text" class="answer-input ans" name="q22" data-q="22" placeholder="A–G"></div>
                 </div>
 
@@ -322,27 +339,27 @@
                 <h2>Questions 23–26: Matching Information</h2>
                 <p><em>Which section contains the following information? Write A–H.</em></p>
 
-                <div class="question-block" id="q23">
+                <div class="question-block" id="q23" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <span class="flag-btn" onclick="toggleFlag(23)" id="flag23">🚩</span>
-                    <div class="question-text"><strong>23.</strong> a mention of how rational thinking enabled someone to achieve physical goals<br>
+                    <div><strong>23.</strong> a mention of how rational thinking enabled someone to achieve physical goals<br>
                     <input type="text" class="answer-input ans" name="q23" data-q="23" placeholder="A–H"></div>
                 </div>
 
-                <div class="question-block" id="q24">
+                <div class="question-block" id="q24" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <span class="flag-btn" onclick="toggleFlag(24)" id="flag24">🚩</span>
-                    <div class="question-text"><strong>24.</strong> an account of how someone overcame a sad experience<br>
+                    <div><strong>24.</strong> an account of how someone overcame a sad experience<br>
                     <input type="text" class="answer-input ans" name="q24" data-q="24" placeholder="A–H"></div>
                 </div>
 
-                <div class="question-block" id="q25">
+                <div class="question-block" id="q25" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <span class="flag-btn" onclick="toggleFlag(25)" id="flag25">🚩</span>
-                    <div class="question-text"><strong>25.</strong> a description of how someone decided to rethink their academic career path<br>
+                    <div><strong>25.</strong> a description of how someone decided to rethink their academic career path<br>
                     <input type="text" class="answer-input ans" name="q25" data-q="25" placeholder="A–H"></div>
                 </div>
 
-                <div class="question-block" id="q26">
+                <div class="question-block" id="q26" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <span class="flag-btn" onclick="toggleFlag(26)" id="flag26">🚩</span>
-                    <div class="question-text"><strong>26.</strong> an example of how someone risked his career out of a sense of duty<br>
+                    <div><strong>26.</strong> an example of how someone risked his career out of a sense of duty<br>
                     <input type="text" class="answer-input ans" name="q26" data-q="26" placeholder="A–H"></div>
                 </div>
 
@@ -398,7 +415,6 @@
                 d.className = 'q-indicator';
                 d.textContent = q;
                 d.id = 'stat' + q;
-                d.onclick = () => document.getElementById('q' + q)?.scrollIntoView({behavior:'smooth'});
                 bar.appendChild(d);
             }
             for (let q = 14; q <= 26; q++) document.getElementById('stat' + q).classList.add('current');
