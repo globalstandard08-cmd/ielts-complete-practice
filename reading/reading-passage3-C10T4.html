@@ -16,7 +16,7 @@
             background-color: #fef2f2;
             color: #1a1a1a;
             line-height: 1.7;
-            padding-bottom: 120px; /* Space for bottom nav */
+            padding-bottom: 110px; /* Space for bottom nav */
         }
 
         /* ✅ LOGO STYLES */
@@ -103,6 +103,27 @@
 
         .question-block {
             margin-bottom: 18px;
+            position: relative;
+            padding-right: 30px;
+        }
+
+        /* ✅ FLAG BUTTON */
+        .flag-btn {
+            position: absolute;
+            top: 2px;
+            right: 0;
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #ccc;
+            transition: color 0.2s;
+        }
+        .flag-btn.flagged {
+            color: #dc2626;
+        }
+        .flag-btn:hover {
+            color: #dc2626;
         }
 
         .question-block p {
@@ -239,19 +260,19 @@
             cursor: text;
         }
 
-        /* ✅ QUESTION NAVIGATION BAR */
-        .question-nav {
+        /* ✅ QUESTION NAVIGATION BAR — SAME STYLE AS PREVIOUS PASSAGE */
+        .question-status-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             background: #ffffff;
             border-top: 2px solid #dc2626;
-            padding: 12px 20px;
+            padding: 10px 20px;
             box-shadow: 0 -2px 6px rgba(220, 38, 38, 0.1);
             z-index: 9997;
         }
-        .nav-container {
+        .status-container {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
@@ -259,7 +280,7 @@
             gap: 8px;
             justify-content: center;
         }
-        .q-nav-btn {
+        .q-btn {
             width: 32px;
             height: 32px;
             border: 1px solid #fecaca;
@@ -272,16 +293,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.2s;
         }
-        .q-nav-btn:hover {
+        .q-btn:hover {
             background: #ffe8e8;
         }
-        .q-nav-btn.answered {
+        .q-btn.answered {
             background: #dcfce7;
             border-color: #86efac;
             color: #166534;
         }
-        .q-nav-btn.current {
+        .q-btn.flagged {
+            background: #fee2e2;
+            border-color: #fca5a5;
+            color: #991b1b;
+        }
+        .q-btn.current {
             background: #dc2626;
             color: white;
             border-color: #dc2626;
@@ -365,6 +392,7 @@
                 <p><em>Choose the correct letter, A, B, C or D.</em></p>
 
                 <div class="question-block" data-q="27">
+                    <button class="flag-btn" onclick="toggleFlag(27)">⚐</button>
                     <p>27 When discussing the theory developed by Louis Dollo, the writer says that</p>
                     <div class="options">
                         <label><input type="radio" name="q27" value="A"> A it was immediately referred to as Dollo’s law.</label>
@@ -375,6 +403,7 @@
                 </div>
 
                 <div class="question-block" data-q="28">
+                    <button class="flag-btn" onclick="toggleFlag(28)">⚐</button>
                     <p>28 The humpback whale caught off Vancouver Island is mentioned because of</p>
                     <div class="options">
                         <label><input type="radio" name="q28" value="A"> A the exceptional size of its body.</label>
@@ -385,6 +414,7 @@
                 </div>
 
                 <div class="question-block" data-q="29">
+                    <button class="flag-btn" onclick="toggleFlag(29)">⚐</button>
                     <p>29 What is said about ‘silent genes’?</p>
                     <div class="options">
                         <label><input type="radio" name="q29" value="A"> A Their numbers vary according to species.</label>
@@ -395,6 +425,7 @@
                 </div>
 
                 <div class="question-block" data-q="30">
+                    <button class="flag-btn" onclick="toggleFlag(30)">⚐</button>
                     <p>30 The writer mentions the mole salamander because</p>
                     <div class="options">
                         <label><input type="radio" name="q30" value="A"> A it exemplifies what happens in the development of most amphibians.</label>
@@ -405,6 +436,7 @@
                 </div>
 
                 <div class="question-block" data-q="31">
+                    <button class="flag-btn" onclick="toggleFlag(31)">⚐</button>
                     <p>31 Which of the following does Wagner claim?</p>
                     <div class="options">
                         <label><input type="radio" name="q31" value="A"> A Members of the Bachia lizard family have lost and regained certain features several times.</label>
@@ -429,18 +461,23 @@
                 </div>
 
                 <div class="question-block" data-q="32">
+                    <button class="flag-btn" onclick="toggleFlag(32)">⚐</button>
                     <p>32 For a long time biologists rejected <input type="text" class="answer-input" name="q32" placeholder="A–G"></p>
                 </div>
                 <div class="question-block" data-q="33">
+                    <button class="flag-btn" onclick="toggleFlag(33)">⚐</button>
                     <p>33 Opposing views on evolutionary throwbacks are represented by <input type="text" class="answer-input" name="q33" placeholder="A–G"></p>
                 </div>
                 <div class="question-block" data-q="34">
+                    <button class="flag-btn" onclick="toggleFlag(34)">⚐</button>
                     <p>34 Examples of evolutionary throwbacks have led to <input type="text" class="answer-input" name="q34" placeholder="A–G"></p>
                 </div>
                 <div class="question-block" data-q="35">
+                    <button class="flag-btn" onclick="toggleFlag(35)">⚐</button>
                     <p>35 The shark and killer whale are mentioned to exemplify <input type="text" class="answer-input" name="q35" placeholder="A–G"></p>
                 </div>
                 <div class="question-block" data-q="36">
+                    <button class="flag-btn" onclick="toggleFlag(36)">⚐</button>
                     <p>36 One explanation for the findings of Wagner’s research is <input type="text" class="answer-input" name="q36" placeholder="A–G"></p>
                 </div>
 
@@ -452,6 +489,7 @@
                 <strong>NOT GIVEN</strong> — if there is no information</p>
 
                 <div class="question-block" data-q="37">
+                    <button class="flag-btn" onclick="toggleFlag(37)">⚐</button>
                     <p>37 Wagner was the first person to do research on South American lizards.</p>
                     <div class="options">
                         <label><input type="radio" name="q37" value="YES"> YES</label>
@@ -461,6 +499,7 @@
                 </div>
 
                 <div class="question-block" data-q="38">
+                    <button class="flag-btn" onclick="toggleFlag(38)">⚐</button>
                     <p>38 Wagner believes that Bachia lizards with toes had toeless ancestors.</p>
                     <div class="options">
                         <label><input type="radio" name="q38" value="YES"> YES</label>
@@ -470,6 +509,7 @@
                 </div>
 
                 <div class="question-block" data-q="39">
+                    <button class="flag-btn" onclick="toggleFlag(39)">⚐</button>
                     <p>39 The temporary occurrence of long‑lost traits in embryos is rare.</p>
                     <div class="options">
                         <label><input type="radio" name="q39" value="YES"> YES</label>
@@ -479,6 +519,7 @@
                 </div>
 
                 <div class="question-block" data-q="40">
+                    <button class="flag-btn" onclick="toggleFlag(40)">⚐</button>
                     <p>40 Evolutionary throwbacks might be caused by developmental problems in the womb.</p>
                     <div class="options">
                         <label><input type="radio" name="q40" value="YES"> YES</label>
@@ -522,9 +563,9 @@
         </div>
     </div>
 
-    <!-- ✅ QUESTION NAVIGATION BAR -->
-    <div class="question-nav">
-        <div class="nav-container" id="questionNavContainer"></div>
+    <!-- ✅ QUESTION NAVIGATION BAR — SAME STYLE AS PREVIOUS -->
+    <div class="question-status-bar">
+        <div class="status-container" id="questionNavContainer"></div>
     </div>
 
     <!-- ✅ PAGE NAVIGATION BUTTONS -->
@@ -555,6 +596,7 @@
         let currentRange = null;
         let lastNoteId = 0;
         let activeNote = null, offsetX, offsetY;
+        let flaggedQuestions = JSON.parse(localStorage.getItem('C10T4P3_flags') || '[]');
 
         // ------------------------------
         // ✅ CONTEXT MENU & HIGHLIGHTS
@@ -727,6 +769,32 @@
         }
 
         // ------------------------------
+        // ✅ QUESTION FLAG FEATURE
+        // ------------------------------
+        function toggleFlag(qNum) {
+            const index = flaggedQuestions.indexOf(qNum);
+            if (index > -1) {
+                flaggedQuestions.splice(index, 1);
+            } else {
+                flaggedQuestions.push(qNum);
+            }
+            localStorage.setItem('C10T4P3_flags', JSON.stringify(flaggedQuestions));
+            updateFlagsUI();
+            updateNavStatus();
+        }
+
+        function updateFlagsUI() {
+            document.querySelectorAll('.flag-btn').forEach(btn => {
+                const q = parseInt(btn.closest('.question-block').dataset.q);
+                if (flaggedQuestions.includes(q)) {
+                    btn.classList.add('flagged');
+                } else {
+                    btn.classList.remove('flagged');
+                }
+            });
+        }
+
+        // ------------------------------
         // ✅ QUESTION NAVIGATION BAR
         // ------------------------------
         function buildQuestionNav() {
@@ -734,7 +802,7 @@
             container.innerHTML = '';
             for (let q = 1; q <= 40; q++) {
                 const btn = document.createElement('button');
-                btn.className = 'q-nav-btn';
+                btn.className = 'q-btn';
                 btn.textContent = q;
                 btn.onclick = () => scrollToQuestion(q);
                 container.appendChild(btn);
@@ -746,19 +814,20 @@
             const qBlock = document.querySelector(`.question-block[data-q="${qNum}"]`);
             if (qBlock) {
                 qBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                document.querySelectorAll('.q-nav-btn').forEach(b => b.classList.remove('current'));
+                document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('current'));
                 event.target.classList.add('current');
             }
         }
 
         function updateNavStatus() {
             const answers = JSON.parse(localStorage.getItem('C10T4P3_answers') || '{}');
-            document.querySelectorAll('.q-nav-btn').forEach(btn => {
+            document.querySelectorAll('.q-btn').forEach(btn => {
                 const q = parseInt(btn.textContent);
-                if (answers[`q${q}`] && answers[`q${q}`].trim() !== '') {
+                btn.classList.remove('answered', 'flagged');
+                if (flaggedQuestions.includes(q)) {
+                    btn.classList.add('flagged');
+                } else if (answers[`q${q}`] && answers[`q${q}`].trim() !== '') {
                     btn.classList.add('answered');
-                } else {
-                    btn.classList.remove('answered');
                 }
             });
         }
@@ -867,6 +936,8 @@
             loadAnswers();
             loadHighlights();
             loadNotes();
+            updateFlagsUI();
+            updateNavStatus();
 
             // Auto-save answers when changed
             document.querySelectorAll('input[type="radio"], input[type="text"]').forEach(el => {
