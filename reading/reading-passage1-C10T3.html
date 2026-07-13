@@ -16,6 +16,7 @@
             background-color: #fef2f2;
             color: #1a1a1a;
             line-height: 1.6;
+            padding-bottom: 70px; /* Space for bottom nav */
         }
 
         /* Logo Styles */
@@ -23,16 +24,16 @@
             width: 100%;
             background: #ffffff;
             border-bottom: 2px solid #dc2626;
-            padding: 12px 0;
+            padding: 10px 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
         }
         .logo {
-            width: 40%;
-            max-width: 350px;
+            width: 35%;
+            max-width: 320px;
             height: auto;
             display: block;
         }
@@ -40,25 +41,25 @@
         /* Two-Column Layout */
         .main-wrapper {
             display: flex;
-            gap: 20px;
-            padding: 0 20px 20px;
-            height: calc(100vh - 130px);
+            gap: 15px;
+            padding: 0 15px 15px;
+            height: calc(100vh - 110px);
         }
 
         .passage-column, .questions-column {
             flex: 1;
             background: #ffffff;
-            border-radius: 12px;
+            border-radius: 10px;
             border: 1px solid #fecaca;
-            padding: 20px;
+            padding: 18px;
             overflow-y: auto;
-            box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07);
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07);
         }
 
         h1 {
             color: #dc2626;
-            font-size: 20px;
-            margin-bottom: 15px;
+            font-size: 19px;
+            margin-bottom: 12px;
             text-align: center;
         }
 
@@ -68,9 +69,79 @@
             line-height: 1.8;
         }
 
+        /* Highlight Styles */
         .highlight {
             background-color: #fff350;
-            padding: 2px 0;
+            padding: 2px 3px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .highlight:hover {
+            background-color: #ffeb3b;
+        }
+
+        .note-marker {
+            background-color: #bbdefb;
+            border-bottom: 1px dashed #1976d2;
+            cursor: pointer;
+            padding: 2px 3px;
+            border-radius: 3px;
+        }
+
+        /* Toolbar for Passage Actions */
+        .passage-toolbar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .passage-toolbar button {
+            padding: 6px 12px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .passage-toolbar button:hover {
+            background: #b91c1c;
+        }
+
+        /* Notes Modal */
+        .note-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            width: 90%;
+            max-width: 400px;
+        }
+        .note-modal textarea {
+            width: 100%;
+            height: 80px;
+            margin: 10px 0;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 999;
         }
 
         .questions-section h2 {
@@ -81,6 +152,8 @@
 
         .question-block {
             margin-bottom: 16px;
+            position: relative;
+            padding-right: 30px;
         }
 
         .question-block p {
@@ -88,6 +161,22 @@
             margin-bottom: 8px;
             font-size: 14px;
             line-height: 1.6;
+        }
+
+        /* Flag Button */
+        .flag-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.2s;
+        }
+        .flag-btn.flagged {
+            color: #f59e0b;
         }
 
         .options label {
@@ -114,18 +203,18 @@
             flex-wrap: wrap;
         }
 
-        .toggle-answers, .show-student, .clear-highlight {
-            padding: 8px 16px;
+        .toggle-answers, .show-student, .clear-highlight, .clear-all-answers {
+            padding: 8px 14px;
             background: #dc2626;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
+            font-weight: 500;
+            font-size: 13px;
         }
 
-        .toggle-answers:hover, .show-student:hover, .clear-highlight:hover {
+        .toggle-answers:hover, .show-student:hover, .clear-highlight:hover, .clear-all-answers:hover {
             background: #b91c1c;
         }
 
@@ -144,24 +233,74 @@
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
 
-        /* Navigation Buttons */
+        /* Bottom Question Navigation Bar */
+        .question-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            border-top: 2px solid #dc2626;
+            padding: 6px 10px;
+            box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .q-nav-btn {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #f9f9f9;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .q-nav-btn:hover {
+            background: #fef2f2;
+            border-color: #dc2626;
+        }
+        .q-nav-btn.answered {
+            background: #dcfce7;
+            border-color: #22c55e;
+        }
+        .q-nav-btn.flagged {
+            background: #fffbeb;
+            border-color: #f59e0b;
+        }
+        .q-nav-btn.current {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+        }
+
+        /* Page Navigation */
         .nav-buttons {
             display: flex;
             gap: 10px;
-            margin: 0 20px 25px;
+            margin: 0 20px 10px;
             flex-wrap: wrap;
             justify-content: center;
         }
 
         .back-btn, .next-btn {
-            padding: 10px 20px;
+            padding: 8px 16px;
             background: #fef2f2;
             color: #dc2626;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 6px;
             border: 1px solid #fecaca;
             font-weight: 500;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .back-btn:hover, .next-btn:hover {
@@ -180,7 +319,16 @@
         <!-- Left: Passage Text -->
         <div class="passage-column" id="passageArea">
             <h1>Reading Passage 1 — The Context, Meaning and Scope of Tourism</h1>
-            <div class="passage-text">
+            
+            <!-- Passage Action Toolbar -->
+            <div class="passage-toolbar">
+                <button onclick="enableHighlight()">🟡 Highlight</button>
+                <button onclick="removeHighlight()">🧹 Remove Highlight</button>
+                <button onclick="addNote()">📝 Add Note</button>
+                <button onclick="clearHighlights()">❌ Clear All Highlights</button>
+            </div>
+
+            <div class="passage-text" id="passageText">
                 <p><strong>The Context, Meaning and Scope of Tourism</strong></p>
 
                 <p><strong>A</strong></p>
@@ -201,7 +349,7 @@
         </div>
 
         <!-- Right: Questions -->
-        <div class="questions-column">
+        <div class="questions-column" id="questionsArea">
             <div class="questions-section">
                 <h2>Questions 1–4: List of Headings</h2>
                 <p><em>Choose the correct heading for paragraphs B–E from the list of headings below. Write the correct number, i–viii.</em></p>
@@ -217,21 +365,25 @@
                     <p>viii &nbsp;The history of travel</p>
                 </div>
 
-                <div class="question-block">
+                <div class="question-block" data-q="1">
+                    <button class="flag-btn" onclick="toggleFlag(1)">🚩</button>
                     <p>1. Paragraph B</p>
-                    <input type="text" class="answer-input" name="q1" placeholder="Write i–viii">
+                    <input type="text" class="answer-input" name="q1" placeholder="Write i–viii" onchange="saveAnswers();updateNavStatus()">
                 </div>
-                <div class="question-block">
+                <div class="question-block" data-q="2">
+                    <button class="flag-btn" onclick="toggleFlag(2)">🚩</button>
                     <p>2. Paragraph C</p>
-                    <input type="text" class="answer-input" name="q2" placeholder="Write i–viii">
+                    <input type="text" class="answer-input" name="q2" placeholder="Write i–viii" onchange="saveAnswers();updateNavStatus()">
                 </div>
-                <div class="question-block">
+                <div class="question-block" data-q="3">
+                    <button class="flag-btn" onclick="toggleFlag(3)">🚩</button>
                     <p>3. Paragraph D</p>
-                    <input type="text" class="answer-input" name="q3" placeholder="Write i–viii">
+                    <input type="text" class="answer-input" name="q3" placeholder="Write i–viii" onchange="saveAnswers();updateNavStatus()">
                 </div>
-                <div class="question-block">
+                <div class="question-block" data-q="4">
+                    <button class="flag-btn" onclick="toggleFlag(4)">🚩</button>
                     <p>4. Paragraph E</p>
-                    <input type="text" class="answer-input" name="q4" placeholder="Write i–viii">
+                    <input type="text" class="answer-input" name="q4" placeholder="Write i–viii" onchange="saveAnswers();updateNavStatus()">
                 </div>
 
 
@@ -241,52 +393,58 @@
                 <strong>FALSE</strong> — if the statement contradicts<br>
                 <strong>NOT GIVEN</strong> — if there is no information</p>
 
-                <div class="question-block">
+                <div class="question-block" data-q="5">
+                    <button class="flag-btn" onclick="toggleFlag(5)">🚩</button>
                     <p>5. The largest employment figures in the world are found in the travel and tourism industry.</p>
                     <div class="options">
-                        <label><input type="radio" name="q5" value="TRUE"> TRUE</label>
-                        <label><input type="radio" name="q5" value="FALSE"> FALSE</label>
-                        <label><input type="radio" name="q5" value="NOT GIVEN"> NOT GIVEN</label>
+                        <label><input type="radio" name="q5" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
+                        <label><input type="radio" name="q5" value="FALSE" onchange="saveAnswers();updateNavStatus()"> FALSE</label>
+                        <label><input type="radio" name="q5" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
                     </div>
                 </div>
-                <div class="question-block">
+                <div class="question-block" data-q="6">
+                    <button class="flag-btn" onclick="toggleFlag(6)">🚩</button>
                     <p>6. Tourism contributes over six per cent of the Australian gross national product.</p>
                     <div class="options">
-                        <label><input type="radio" name="q6" value="TRUE"> TRUE</label>
-                        <label><input type="radio" name="q6" value="FALSE"> FALSE</label>
-                        <label><input type="radio" name="q6" value="NOT GIVEN"> NOT GIVEN</label>
+                        <label><input type="radio" name="q6" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
+                        <label><input type="radio" name="q6" value="FALSE" onchange="saveAnswers();updateNavStatus()"> FALSE</label>
+                        <label><input type="radio" name="q6" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
                     </div>
                 </div>
-                <div class="question-block">
+                <div class="question-block" data-q="7">
+                    <button class="flag-btn" onclick="toggleFlag(7)">🚩</button>
                     <p>7. Tourism has a social impact because it promotes recreation.</p>
                     <div class="options">
-                        <label><input type="radio" name="q7" value="TRUE"> TRUE</label>
-                        <label><input type="radio" name="q7" value="FALSE"> FALSE</label>
-                        <label><input type="radio" name="q7" value="NOT GIVEN"> NOT GIVEN</label>
+                        <label><input type="radio" name="q7" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
+                        <label><input type="radio" name="q7" value="FALSE" onchange="saveAnswers();updateNavStatus()"> FALSE</label>
+                        <label><input type="radio" name="q7" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
                     </div>
                 </div>
-                <div class="question-block">
+                <div class="question-block" data-q="8">
+                    <button class="flag-btn" onclick="toggleFlag(8)">🚩</button>
                     <p>8. Two main features of the travel and tourism industry make its economic significance difficult to ascertain.</p>
                     <div class="options">
-                        <label><input type="radio" name="q8" value="TRUE"> TRUE</label>
-                        <label><input type="radio" name="q8" value="FALSE"> FALSE</label>
-                        <label><input type="radio" name="q8" value="NOT GIVEN"> NOT GIVEN</label>
+                        <label><input type="radio" name="q8" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
+                        <label><input type="radio" name="q8" value="FALSE" onchange="saveAnswers();updateNavStatus()"> FALSE</label>
+                        <label><input type="radio" name="q8" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
                     </div>
                 </div>
-                <div class="question-block">
+                <div class="question-block" data-q="9">
+                    <button class="flag-btn" onclick="toggleFlag(9)">🚩</button>
                     <p>9. Visitor spending is always greater than the spending of residents in tourist areas.</p>
                     <div class="options">
-                        <label><input type="radio" name="q9" value="TRUE"> TRUE</label>
-                        <label><input type="radio" name="q9" value="FALSE"> FALSE</label>
-                        <label><input type="radio" name="q9" value="NOT GIVEN"> NOT GIVEN</label>
+                        <label><input type="radio" name="q9" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
+                        <label><input type="radio" name="q9" value="FALSE" onchange="saveAnswers();updateNavStatus()"> FALSE</label>
+                        <label><input type="radio" name="q9" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
                     </div>
                 </div>
-                <div class="question-block">
+                <div class="question-block" data-q="10">
+                    <button class="flag-btn" onclick="toggleFlag(10)">🚩</button>
                     <p>10. It is easy to show statistically how tourism affects individual economies.</p>
                     <div class="options">
-                        <label><input type="radio" name="q10" value="TRUE"> TRUE</label>
-                        <label><input type="radio" name="q10" value="FALSE"> FALSE</label>
-                        <label><input type="radio" name="q10" value="NOT GIVEN"> NOT GIVEN</label>
+                        <label><input type="radio" name="q10" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
+                        <label><input type="radio" name="q10" value="FALSE" onchange="saveAnswers();updateNavStatus()"> FALSE</label>
+                        <label><input type="radio" name="q10" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
                     </div>
                 </div>
 
@@ -294,22 +452,25 @@
                 <h2>Questions 11–13: Sentence Completion</h2>
                 <p><em>Complete the sentences below. Choose NO MORE THAN THREE WORDS from the passage for each answer.</em></p>
 
-                <div class="question-block">
+                <div class="question-block" data-q="11">
+                    <button class="flag-btn" onclick="toggleFlag(11)">🚩</button>
                     <p>11. In Greece, tourism is the most important ........................</p>
-                    <input type="text" class="answer-input" name="q11" placeholder="Write your answer">
+                    <input type="text" class="answer-input" name="q11" placeholder="Write your answer" onchange="saveAnswers();updateNavStatus()">
                 </div>
-                <div class="question-block">
+                <div class="question-block" data-q="12">
+                    <button class="flag-btn" onclick="toggleFlag(12)">🚩</button>
                     <p>12. The travel and tourism industry in Jamaica is the major ........................</p>
-                    <input type="text" class="answer-input" name="q12" placeholder="Write your answer">
+                    <input type="text" class="answer-input" name="q12" placeholder="Write your answer" onchange="saveAnswers();updateNavStatus()">
                 </div>
-                <div class="question-block">
+                <div class="question-block" data-q="13">
+                    <button class="flag-btn" onclick="toggleFlag(13)">🚩</button>
                     <p>13. The problems associated with measuring international tourism are often reflected in the measurement of ........................</p>
-                    <input type="text" class="answer-input" name="q13" placeholder="Write your answer">
+                    <input type="text" class="answer-input" name="q13" placeholder="Write your answer" onchange="saveAnswers();updateNavStatus()">
                 </div>
 
 
                 <div class="action-buttons">
-                    <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear Highlights</button>
+                    <button class="clear-all-answers" onclick="clearAllAnswers()">🧹 Clear All Answers</button>
                     <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
                     <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
                 </div>
@@ -341,7 +502,23 @@
         </div>
     </div>
 
-    <!-- Navigation -->
+    <!-- Question Navigation Bar 1-40 -->
+    <div class="question-nav" id="questionNav">
+        <div class="nav-container" id="navContainer"></div>
+    </div>
+
+    <!-- Notes Modal -->
+    <div class="modal-overlay" id="noteOverlay" onclick="closeNoteModal()"></div>
+    <div class="note-modal" id="noteModal">
+        <h4>Add Your Note</h4>
+        <textarea id="noteText" placeholder="Write your note here..."></textarea>
+        <div style="text-align: right; gap: 8px; display: flex; justify-content: flex-end;">
+            <button onclick="closeNoteModal()" style="padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; background: #eee;">Cancel</button>
+            <button onclick="saveNote()" style="padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; background: #1976d2; color: white;">Save Note</button>
+        </div>
+    </div>
+
+    <!-- Page Navigation -->
     <div class="nav-buttons">
         <a href="../index.html" class="back-btn">← Back to Main Menu</a>
         <a href="reading-passage2-C10T3.html" class="next-btn">Next Passage →</a>
@@ -364,6 +541,54 @@
             q13: 'domestic tourism'
         };
 
+        let selectionMode = 'highlight';
+        let tempSelection = null;
+
+        // Generate Question Navigation 1-40
+        function generateNav() {
+            const container = document.getElementById('navContainer');
+            container.innerHTML = '';
+            for (let i = 1; i <= 40; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'q-nav-btn';
+                btn.textContent = i;
+                btn.onclick = () => goToQuestion(i);
+                btn.id = `nav-q${i}`;
+                container.appendChild(btn);
+            }
+            updateNavStatus();
+        }
+
+        function goToQuestion(qNum) {
+            const qEl = document.querySelector(`.question-block[data-q="${qNum}"]`);
+            if (qEl) {
+                qEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.querySelectorAll('.q-nav-btn').forEach(b => b.classList.remove('current'));
+                document.getElementById(`nav-q${qNum}`).classList.add('current');
+            }
+        }
+
+        function updateNavStatus() {
+            const answers = JSON.parse(localStorage.getItem('C10T3P1_answers')) || {};
+            const flags = JSON.parse(localStorage.getItem('C10T3P1_flags')) || {};
+            
+            for (let i = 1; i <= 40; i++) {
+                const btn = document.getElementById(`nav-q${i}`);
+                if (!btn) continue;
+                btn.classList.remove('answered', 'flagged');
+                if (answers[`q${i}`] && answers[`q${i}`].trim() !== '') btn.classList.add('answered');
+                if (flags[i]) btn.classList.add('flagged');
+            }
+        }
+
+        function toggleFlag(qNum) {
+            const flags = JSON.parse(localStorage.getItem('C10T3P1_flags')) || {};
+            flags[qNum] = !flags[qNum];
+            localStorage.setItem('C10T3P1_flags', JSON.stringify(flags));
+            document.querySelector(`.question-block[data-q="${qNum}"] .flag-btn`).classList.toggle('flagged', flags[qNum]);
+            updateNavStatus();
+        }
+
         function saveAnswers() {
             let answers = {};
             for (let q = 1; q <= 13; q++) {
@@ -372,10 +597,11 @@
                     for (let r of radios) if (r.checked) answers[`q${q}`] = r.value;
                 } else {
                     const input = document.querySelector(`input[name="q${q}"]`);
-                    if (input) answers[`q${q}`] = input.value.trim().toLowerCase();
+                    if (input) answers[`q${q}`] = input.value.trim();
                 }
             }
             localStorage.setItem('C10T3P1_answers', JSON.stringify(answers));
+            updateNavStatus();
         }
 
         function loadAnswers() {
@@ -391,23 +617,99 @@
                     if (input) input.value = answers[key];
                 }
             }
+            updateNavStatus();
         }
 
-        document.getElementById('passageArea').addEventListener('mouseup', function() {
-            const selection = window.getSelection();
-            if (selection.toString().trim().length > 0) {
+        function loadFlags() {
+            const flags = JSON.parse(localStorage.getItem('C10T3P1_flags')) || {};
+            for (let q in flags) {
+                if (flags[q]) {
+                    const btn = document.querySelector(`.question-block[data-q="${q}"] .flag-btn`);
+                    if (btn) btn.classList.add('flagged');
+                }
+            }
+        }
+
+        // Highlight & Note Functions
+        function enableHighlight() {
+            selectionMode = 'highlight';
+        }
+
+        function removeHighlight() {
+            const sel = window.getSelection();
+            if (!sel.toString().trim()) return;
+            const range = sel.getRangeAt(0);
+            const span = range.commonAncestorContainer.parentElement;
+            if (span && span.classList.contains('highlight')) {
+                span.outerHTML = span.innerHTML;
+                sel.removeAllRanges();
+            }
+        }
+
+        function addNote() {
+            selectionMode = 'note';
+            const sel = window.getSelection();
+            if (sel.toString().trim()) {
+                tempSelection = sel;
+                openNoteModal();
+            }
+        }
+
+        function openNoteModal() {
+            document.getElementById('noteOverlay').style.display = 'block';
+            document.getElementById('noteModal').style.display = 'block';
+            document.getElementById('noteText').value = '';
+            document.getElementById('noteText').focus();
+        }
+
+        function closeNoteModal() {
+            document.getElementById('noteOverlay').style.display = 'none';
+            document.getElementById('noteModal').style.display = 'none';
+            tempSelection = null;
+        }
+
+        function saveNote() {
+            const noteText = document.getElementById('noteText').value.trim();
+            if (!noteText || !tempSelection) { closeNoteModal(); return; }
+            const span = document.createElement('span');
+            span.className = 'note-marker';
+            span.title = noteText;
+            span.textContent = tempSelection.toString();
+            const range = tempSelection.getRangeAt(0);
+            range.deleteContents();
+            range.insertNode(span);
+            closeNoteModal();
+        }
+
+        document.getElementById('passageText').addEventListener('mouseup', function() {
+            const sel = window.getSelection();
+            const text = sel.toString().trim();
+            if (!text) return;
+
+            if (selectionMode === 'highlight') {
                 const span = document.createElement('span');
                 span.className = 'highlight';
-                span.textContent = selection.toString();
-                const range = selection.getRangeAt(0);
+                span.textContent = text;
+                const range = sel.getRangeAt(0);
                 range.deleteContents();
                 range.insertNode(span);
-                selection.removeAllRanges();
+                sel.removeAllRanges();
             }
         });
 
         function clearHighlights() {
             document.querySelectorAll('.highlight').forEach(el => el.outerHTML = el.innerHTML);
+            document.querySelectorAll('.note-marker').forEach(el => el.outerHTML = el.innerHTML);
+        }
+
+        function clearAllAnswers() {
+            if (!confirm('Clear all your answers? This cannot be undone.')) return;
+            localStorage.removeItem('C10T3P1_answers');
+            localStorage.removeItem('C10T3P1_flags');
+            document.querySelectorAll('.answer-input').forEach(i => i.value = '');
+            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+            document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
+            updateNavStatus();
         }
 
         function toggleAnswers() {
@@ -450,7 +752,11 @@
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
-        window.onload = loadAnswers;
+        window.onload = function() {
+            generateNav();
+            loadAnswers();
+            loadFlags();
+        };
     </script>
 </body>
 </html>
