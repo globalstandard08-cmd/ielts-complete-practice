@@ -68,21 +68,11 @@
             text-align: justify;
         }
 
+        /* Highlight style */
         .user-highlight {
             background-color: #fff350;
             padding: 2px 4px;
             border-radius: 2px;
-        }
-
-        .clear-highlight {
-            margin-top: 16px;
-            padding: 7px 14px;
-            background: #dc2626;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px;
         }
 
         /* Flag layout */
@@ -206,6 +196,52 @@
         .q-indicator.answered { background: #198754; color: white; }
         .q-indicator.flagged { background: #fd7e14; color: white; }
         .q-indicator.current { border-color: #dc2626; }
+
+        /* Custom Right-Click Menu */
+        .context-menu {
+            position: absolute;
+            z-index: 9999;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+            min-width: 150px;
+            display: none;
+        }
+
+        .context-menu div {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .context-menu div:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Notes Section */
+        .notes-container {
+            margin-top: 20px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #e2e6ea;
+        }
+
+        .notes-container h4 {
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        #notes-area {
+            width: 100%;
+            min-height: 80px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            font-size: 13px;
+        }
     </style>
 </head>
 <body>
@@ -215,11 +251,18 @@
 
     <div class="question-status" id="statusBar"></div>
 
+    <!-- Custom Context Menu -->
+    <div id="contextMenu" class="context-menu">
+        <div onclick="highlightSelection()">✅ Highlight</div>
+        <div onclick="removeHighlightFromSelection()">❌ Remove Highlight</div>
+        <div onclick="openNotePrompt()">📝 Add Notes</div>
+    </div>
+
     <div class="main-wrapper">
         <!-- Passage Column -->
         <div class="passage-column" id="passageArea">
             <h1>Reading Passage 2 — Second nature</h1>
-            <div class="passage-text">
+            <div class="passage-text" id="passageText">
                 <p><em>Your personality isn’t necessarily set in stone. With a little experimentation, people can reshape their temperaments and inject passion, optimism, joy and courage into their lives</em></p>
 
                 <p><strong>A</strong></p>
@@ -252,7 +295,12 @@
 
                 <p>Over the long term, picking up a new character trait may help you move toward being the person you want to be. And in the short term, the effort itself could be surprisingly rewarding, a kind of internal adventure.</p>
             </div>
-            <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear All Highlights</button>
+
+            <!-- Notes Section -->
+            <div class="notes-container">
+                <h4>Your Notes</h4>
+                <textarea id="notes-area" placeholder="Type your notes here..."></textarea>
+            </div>
         </div>
 
         <!-- Questions Column -->
@@ -261,7 +309,7 @@
                 <h2>Questions 14–18: Summary Completion</h2>
                 <p><em>Choose NO MORE THAN TWO WORDS from the passage for each answer.</em></p>
 
-                <!-- ✅ FIXED: Each of 14-18 has its own flag -->
+                <!-- ✅ Flags for 14-18 fixed -->
                 <p style="font-size:14px; line-height:2;">
                     Psychologists have traditionally believed that a personality 
                     <span class="question-row">
@@ -407,6 +455,63 @@
             q19: 'E', q20: 'C', q21: 'G', q22: 'A', q23: 'E', q24: 'C', q25: 'G', q26: 'H'
         };
 
+        let lastSelection = null;
+
+        // Show custom right-click menu
+        document.addEventListener('contextmenu', function(e) {
+            const passage = document.getElementById('passageText');
+            if (passage.contains(e.target)) {
+                e.preventDefault();
+                const menu = document.getElementById('contextMenu');
+                menu.style.left = e.pageX + 'px';
+                menu.style.top = e.pageY + 'px';
+                menu.style.display = 'block';
+                lastSelection = window.getSelection();
+            }
+        });
+
+        // Hide menu when clicking elsewhere
+        document.addEventListener('click', function() {
+            document.getElementById('contextMenu').style.display = 'none';
+        });
+
+        // Highlight selected text
+        function highlightSelection() {
+            if (!lastSelection || lastSelection.isCollapsed) return;
+            const range = lastSelection.getRangeAt(0);
+            const span = document.createElement('span');
+            span.className = 'user-highlight';
+            span.textContent = lastSelection.toString();
+            range.deleteContents();
+            range.insertNode(span);
+            lastSelection.removeAllRanges();
+        }
+
+        // Remove highlight from selected text
+        function removeHighlightFromSelection() {
+            if (!lastSelection || lastSelection.isCollapsed) return;
+            const range = lastSelection.getRangeAt(0);
+            const parent = range.commonAncestorContainer;
+            const spans = document.querySelectorAll('.user-highlight');
+            spans.forEach(span => {
+                if (range.intersectsNode(span)) {
+                    span.outerHTML = span.innerHTML;
+                }
+            });
+            lastSelection.removeAllRanges();
+        }
+
+        // Add note for selected text
+        function openNotePrompt() {
+            const text = lastSelection && !lastSelection.isCollapsed ? lastSelection.toString().trim() : '';
+            const note = prompt('Add note for this part:\n' + (text ? `"${text}"` : ''), '');
+            if (note && note.trim()) {
+                const notesBox = document.getElementById('notes-area');
+                notesBox.value += (notesBox.value ? '\n\n' : '') + (text ? `• "${text}": ` : '') + note;
+                notesBox.dispatchEvent(new Event('input'));
+            }
+        }
+
         function buildStatusBar() {
             const bar = document.getElementById('statusBar');
             bar.innerHTML = '';
@@ -426,12 +531,6 @@
             const flagged = f.classList.toggle('flagged');
             s.classList.toggle('flagged', flagged);
             localStorage.setItem('C10T4P2_flag_' + q, flagged);
-        }
-
-        function clearHighlights() {
-            document.querySelectorAll('.user-highlight').forEach(s => {
-                s.parentNode.replaceChild(document.createTextNode(s.textContent), s);
-            });
         }
 
         function toggleAnswers() {
@@ -463,7 +562,9 @@
                 document.getElementById('flag' + q).classList.remove('flagged');
                 document.getElementById('stat' + q).className = 'q-indicator current';
             }
-            clearHighlights();
+            document.querySelectorAll('.user-highlight').forEach(span => span.outerHTML = span.innerHTML);
+            document.getElementById('notes-area').value = '';
+            localStorage.removeItem('reading_notes');
         }
 
         window.onload = function() {
@@ -472,6 +573,13 @@
                 el.addEventListener('input', () => {
                     localStorage.setItem(`C10T4P2_ans_${el.dataset.q}`, el.value.trim());
                 });
+            });
+            // Load saved notes
+            const savedNotes = localStorage.getItem('reading_notes');
+            if (savedNotes) document.getElementById('notes-area').value = savedNotes;
+            // Save notes automatically
+            document.getElementById('notes-area').addEventListener('input', () => {
+                localStorage.setItem('reading_notes', document.getElementById('notes-area').value);
             });
         };
     </script>
