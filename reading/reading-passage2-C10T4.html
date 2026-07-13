@@ -43,7 +43,7 @@
             display: flex;
             gap: 16px;
             padding: 0 16px 8px;
-            height: calc(100vh - 90px); /* Uses almost full screen height */
+            height: calc(100vh - 90px);
         }
 
         .passage-column, .questions-column {
@@ -87,26 +87,23 @@
             font-size: 13px;
         }
 
-        /* Flag icon styling - FIXED ALIGNMENT */
+        /* ✅ FIXED: Flag + Question Layout */
         .question-block {
-            margin-bottom: 18px;
-            display: flex;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: 28px 1fr; /* Fixed width for flag, rest for text */
+            gap: 8px;
             align-items: flex-start;
-            gap: 10px;
         }
 
         .flag-btn {
-            font-size: 20px;
+            font-size: 18px;
             cursor: pointer;
             color: #888;
             transition: color 0.2s;
+            line-height: 1.4;
             flex-shrink: 0;
-            margin-top: 2px;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            user-select: none;
         }
 
         .flag-btn.flagged {
@@ -114,7 +111,6 @@
         }
 
         .question-text {
-            flex: 1;
             font-size: 14px;
             line-height: 1.8;
         }
@@ -170,7 +166,7 @@
             font-size: 13px;
         }
 
-        /* Smaller navigation area */
+        /* Navigation */
         .nav-buttons {
             display: flex;
             gap: 8px;
@@ -275,10 +271,12 @@
                 <h2>Questions 14–18: Summary Completion</h2>
                 <p><em>Choose NO MORE THAN TWO WORDS from the passage for each answer.</em></p>
 
-                <!-- ✅ FIXED: Flags next to each question number -->
+                <!-- ✅ CORRECT: Flag directly left of question -->
                 <div class="question-block" id="q14">
                     <span class="flag-btn" onclick="toggleFlag(14)" id="flag14">🚩</span>
-                    <div class="question-text"><strong>14.</strong> Psychologists have traditionally believed that a personality <input type="text" class="answer-input ans" name="q14" data-q="14" placeholder="______"> was impossible and that by a <strong>15.</strong> <input type="text" class="answer-input ans" name="q15" data-q="15" placeholder="______">, a person’s character tends to be fixed. This is not true according to positive psychologists, who say that our personal qualities can be seen as habitual behaviour. One of the easiest qualities to acquire is <strong>16.</strong> <input type="text" class="answer-input ans" name="q16" data-q="16" placeholder="______">. However, regardless of the quality, it is necessary to learn a wide variety of different <strong>17.</strong> <input type="text" class="answer-input ans" name="q17" data-q="17" placeholder="______"> in order for a new quality to develop; for example, a person must understand and feel some <strong>18.</strong> <input type="text" class="answer-input ans" name="q18" data-q="18" placeholder="______"> in order to increase their happiness.</div>
+                    <div class="question-text">
+                        <strong>14.</strong> Psychologists have traditionally believed that a personality <input type="text" class="answer-input ans" name="q14" data-q="14" placeholder="______"> was impossible and that by a <strong>15.</strong> <input type="text" class="answer-input ans" name="q15" data-q="15" placeholder="______">, a person’s character tends to be fixed. This is not true according to positive psychologists, who say that our personal qualities can be seen as habitual behaviour. One of the easiest qualities to acquire is <strong>16.</strong> <input type="text" class="answer-input ans" name="q16" data-q="16" placeholder="______">. However, regardless of the quality, it is necessary to learn a wide variety of different <strong>17.</strong> <input type="text" class="answer-input ans" name="q17" data-q="17" placeholder="______"> in order for a new quality to develop; for example, a person must understand and feel some <strong>18.</strong> <input type="text" class="answer-input ans" name="q18" data-q="18" placeholder="______"> in order to increase their happiness.
+                    </div>
                 </div>
 
 
