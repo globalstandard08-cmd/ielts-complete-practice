@@ -269,7 +269,7 @@
             flex-wrap: wrap;
         }
 
-        .toggle-answers, .show-student {
+        .toggle-answers, .show-student, .clear-answers {
             padding: 6px 12px;
             background: #dc2626;
             color: white;
@@ -280,8 +280,14 @@
             font-size: 13px;
         }
 
+        .clear-answers {
+            background: #6b7280;
+        }
         .toggle-answers:hover, .show-student:hover {
             background: #b91c1c;
+        }
+        .clear-answers:hover {
+            background: #4b5563;
         }
 
         .nav-buttons {
@@ -482,6 +488,7 @@
                 <div class="action-buttons">
                     <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
                     <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
+                    <button class="clear-answers" onclick="clearAllAnswers()">🗑️ Clear All Answers</button>
                 </div>
 
                 <!-- ✅ CORRECT ANSWER KEY -->
@@ -526,6 +533,7 @@
             <div class="action-buttons">
                 <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show/Hide Answers</button>
                 <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
+                <button class="clear-answers" onclick="clearAllAnswers()">🗑️ Clear All Answers</button>
             </div>
             <div class="nav-buttons">
                 <a href="reading-passage1-C10T2.html" class="back-btn">← Previous</a>
@@ -780,6 +788,19 @@
             html += `<br><strong>Total Score: ${score} / 13</strong>`;
             resultDiv.innerHTML = html;
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // ✅ NEW: Clear All Answers function
+        function clearAllAnswers() {
+            if (!confirm('Are you sure you want to clear all your answers? This cannot be undone.')) return;
+            // Clear all input fields
+            document.querySelectorAll('.answer-input').forEach(input => input.value = '');
+            // Remove saved answers from storage
+            localStorage.removeItem(`${passageId}_answers`);
+            // Reset status indicators
+            updateStatus();
+            // Hide results if open
+            document.getElementById('studentAnswersBox').style.display = 'none';
         }
 
         // ✅ Auto-save on input
