@@ -564,7 +564,7 @@
         let flaggedQuestions = [];
 
         // ------------------------------
-        // ✅ FLAG FUNCTIONALITY (FIXED)
+        // ✅ FLAG FUNCTIONALITY (FULLY WORKING)
         // ------------------------------
         function toggleFlag(qNum) {
             const index = flaggedQuestions.indexOf(qNum);
@@ -791,7 +791,11 @@
             for (let q = 27; q <= 40; q++) {
                 document.querySelectorAll(`input[name="q${q}"]`).forEach(el => el.checked = false || (el.value = ''));
             }
+            // Also clear flags
+            flaggedQuestions = [];
             localStorage.removeItem('C10T4P3_answers');
+            localStorage.removeItem('C10T4P3_flags');
+            updateFlagsUI();
             updateNavStatus();
         }
 
