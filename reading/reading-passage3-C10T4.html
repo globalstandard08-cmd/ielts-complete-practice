@@ -16,7 +16,7 @@
             background-color: #fef2f2;
             color: #1a1a1a;
             line-height: 1.7;
-            padding-bottom: 110px; /* Space for bottom nav */
+            padding-bottom: 110px;
         }
 
         /* ✅ LOGO STYLES */
@@ -64,7 +64,6 @@
             text-align: center;
         }
 
-        /* ✅ IMPROVED PARAGRAPH SPACING */
         .passage-text p {
             margin-bottom: 18px;
             font-size: 15px;
@@ -78,7 +77,6 @@
             border-radius: 2px;
         }
 
-        /* ✅ CLEAR HIGHLIGHTS BUTTON */
         .clear-highlight {
             margin-top: 20px;
             padding: 8px 16px;
@@ -104,23 +102,24 @@
         .question-block {
             margin-bottom: 18px;
             position: relative;
-            padding-right: 30px;
+            padding-right: 35px;
         }
 
-        /* ✅ FLAG BUTTON */
+        /* ✅ FLAG BUTTON STYLE */
         .flag-btn {
             position: absolute;
             top: 2px;
             right: 0;
             background: none;
             border: none;
-            font-size: 18px;
+            font-size: 20px;
             cursor: pointer;
             color: #ccc;
-            transition: color 0.2s;
+            transition: all 0.2s ease;
         }
         .flag-btn.flagged {
             color: #dc2626;
+            transform: scale(1.1);
         }
         .flag-btn:hover {
             color: #dc2626;
@@ -141,7 +140,6 @@
             cursor: pointer;
         }
 
-        /* ✅ INPUT STYLE FOR INLINE BLANKS */
         .answer-input {
             width: auto;
             min-width: 90px;
@@ -182,7 +180,6 @@
             background: #b91c1c;
         }
 
-        /* ✅ Results boxes */
         .answers-box, .student-answers-box {
             margin-top: 12px;
             padding: 12px;
@@ -197,7 +194,6 @@
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
 
-        /* ✅ CONTEXT MENU FOR HIGHLIGHTS */
         .context-menu {
             position: absolute;
             background: #fff;
@@ -217,7 +213,6 @@
             background: #f3f4f6;
         }
 
-        /* ✅ DRAGGABLE STICKY NOTES */
         .sticky-note {
             position: absolute;
             width: 170px;
@@ -260,7 +255,7 @@
             cursor: text;
         }
 
-        /* ✅ QUESTION NAVIGATION BAR — SAME STYLE AS PREVIOUS PASSAGE */
+        /* ✅ NAVIGATION BAR */
         .question-status-bar {
             position: fixed;
             bottom: 0;
@@ -314,7 +309,6 @@
             border-color: #dc2626;
         }
 
-        /* ✅ PAGE NAVIGATION */
         .nav-buttons {
             display: flex;
             gap: 10px;
@@ -322,7 +316,6 @@
             flex-wrap: wrap;
             justify-content: center;
         }
-
         .back-btn, .next-btn {
             padding: 10px 20px;
             background: #fef2f2;
@@ -333,28 +326,23 @@
             font-weight: 500;
             font-size: 15px;
         }
-
         .back-btn:hover, .next-btn:hover {
             background: #ffffff;
         }
     </style>
 </head>
 <body>
-    <!-- Logo -->
     <div class="logo-container">
         <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
     </div>
 
-    <!-- ✅ CONTEXT MENU -->
     <div class="context-menu" id="contextMenu">
         <div id="menuHighlight">✅ Highlight Selection</div>
         <div id="menuRemoveHighlight">❌ Remove Highlight</div>
         <div id="menuAddNote">📝 Add Note</div>
     </div>
 
-    <!-- ✅ TWO COLUMNS: LEFT = PASSAGE | RIGHT = QUESTIONS -->
     <div class="main-wrapper">
-        <!-- LEFT SIDE: PASSAGE TEXT -->
         <div class="passage-column" id="passageArea">
             <h1>Reading Passage 3 — When evolution runs backwards</h1>
             <div class="passage-text" id="passageText">
@@ -380,12 +368,9 @@
 
                 <p>But if silent genes degrade within 6 to 10 million years, how can long‑lost traits be reactivated over longer timescales? The answer may lie in the womb. Early embryos of many species develop ancestral features. Snake embryos, for example, sprout hind limb buds. Later in development these features disappear thanks to developmental programs that say ‘lose the leg’. If for any reason this does not happen, the ancestral feature may not disappear, leading to an atavism.</p>
             </div>
-
-            <!-- ✅ CLEAR HIGHLIGHTS BUTTON HERE -->
             <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear All Highlights</button>
         </div>
 
-        <!-- RIGHT SIDE: QUESTIONS -->
         <div class="questions-column" id="questionsArea">
             <div class="questions-section">
                 <h2>Questions 27–31: Multiple Choice</h2>
@@ -446,10 +431,8 @@
                     </div>
                 </div>
 
-
                 <h2>Questions 32–36: Sentence Endings</h2>
                 <p><em>Complete each sentence with the correct ending, A–G, below.</em></p>
-
                 <div class="options-list">
                     <strong>A</strong> the question of how certain long‑lost traits could reappear.<br>
                     <strong>B</strong> the occurrence of a particular feature in different species.<br>
@@ -480,7 +463,6 @@
                     <button class="flag-btn" onclick="toggleFlag(36)">⚐</button>
                     <p>36 One explanation for the findings of Wagner’s research is <input type="text" class="answer-input" name="q36" placeholder="A–G"></p>
                 </div>
-
 
                 <h2>Questions 37–40: YES / NO / NOT GIVEN</h2>
                 <p><em>Do the following statements agree with the claims of the writer?</em></p>
@@ -528,14 +510,12 @@
                     </div>
                 </div>
 
-
                 <div class="action-buttons">
                     <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
                     <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
                     <button class="clear-all" onclick="clearAllAnswers()">🗑️ Clear All Answers</button>
                 </div>
 
-                <!-- ✅ CORRECT ANSWER KEY -->
                 <div class="answers-box" id="answersBox">
                     <h3>✅ Correct Answers — Passage 3</h3>
                     <p><strong>27.</strong> C<br>
@@ -554,7 +534,6 @@
                     <strong>40.</strong> YES</p>
                 </div>
 
-                <!-- ✅ STUDENT ANSWERS & RESULT -->
                 <div class="student-answers-box" id="studentAnswersBox">
                     <h3>📝 Your Answers & Score</h3>
                     <div id="studentResult"></div>
@@ -563,43 +542,51 @@
         </div>
     </div>
 
-    <!-- ✅ QUESTION NAVIGATION BAR — SAME STYLE AS PREVIOUS -->
     <div class="question-status-bar">
         <div class="status-container" id="questionNavContainer"></div>
     </div>
 
-    <!-- ✅ PAGE NAVIGATION BUTTONS -->
     <div class="nav-buttons">
         <a href="reading-passage2-C10T4.html" class="back-btn">← Previous Passage</a>
         <a href="../index.html" class="back-btn">← Back to Main Menu</a>
     </div>
 
     <script>
-        // ✅ Correct answer data
         const correctAnswers = {
-            q27: 'C',
-            q28: 'D',
-            q29: 'C',
-            q30: 'B',
-            q31: 'A',
-            q32: 'F',
-            q33: 'G',
-            q34: 'A',
-            q35: 'B',
-            q36: 'D',
-            q37: 'NOT GIVEN',
-            q38: 'YES',
-            q39: 'NO',
-            q40: 'YES'
+            q27: 'C', q28: 'D', q29: 'C', q30: 'B', q31: 'A',
+            q32: 'F', q33: 'G', q34: 'A', q35: 'B', q36: 'D',
+            q37: 'NOT GIVEN', q38: 'YES', q39: 'NO', q40: 'YES'
         };
 
         let currentRange = null;
         let lastNoteId = 0;
         let activeNote = null, offsetX, offsetY;
-        let flaggedQuestions = JSON.parse(localStorage.getItem('C10T4P3_flags') || '[]');
+        let flaggedQuestions = [];
 
         // ------------------------------
-        // ✅ CONTEXT MENU & HIGHLIGHTS
+        // ✅ FLAG FUNCTIONALITY (FIXED)
+        // ------------------------------
+        function toggleFlag(qNum) {
+            const index = flaggedQuestions.indexOf(qNum);
+            if (index === -1) {
+                flaggedQuestions.push(qNum);
+            } else {
+                flaggedQuestions.splice(index, 1);
+            }
+            localStorage.setItem('C10T4P3_flags', JSON.stringify(flaggedQuestions));
+            updateFlagsUI();
+            updateNavStatus();
+        }
+
+        function updateFlagsUI() {
+            document.querySelectorAll('.flag-btn').forEach(btn => {
+                const q = parseInt(btn.closest('.question-block').dataset.q);
+                btn.classList.toggle('flagged', flaggedQuestions.includes(q));
+            });
+        }
+
+        // ------------------------------
+        // ✅ HIGHLIGHT & NOTES
         // ------------------------------
         const contextMenu = document.getElementById('contextMenu');
         const passageText = document.getElementById('passageText');
@@ -618,9 +605,7 @@
         });
 
         document.addEventListener('click', hideContextMenu);
-        function hideContextMenu() {
-            contextMenu.style.display = 'none';
-        }
+        function hideContextMenu() { contextMenu.style.display = 'none'; }
 
         document.getElementById('menuHighlight').addEventListener('click', addHighlight);
         document.getElementById('menuRemoveHighlight').addEventListener('click', removeHighlight);
@@ -641,31 +626,18 @@
         function removeHighlight() {
             if (!currentRange) return;
             try {
-                const selectedText = currentRange.toString().trim();
-                const highlights = document.querySelectorAll('.highlight');
-                let removed = false;
-                highlights.forEach(span => {
-                    if (span.textContent.trim() === selectedText.trim() && currentRange.intersectsNode(span)) {
-                        span.outerHTML = span.innerHTML;
-                        removed = true;
-                    }
-                });
-                if (!removed) {
-                    const parent = currentRange.commonAncestorContainer.parentElement;
-                    if (parent.classList.contains('highlight')) {
-                        parent.outerHTML = parent.innerHTML;
-                    }
+                const parent = currentRange.commonAncestorContainer.parentElement;
+                if (parent.classList.contains('highlight')) {
+                    parent.outerHTML = parent.innerHTML;
+                    saveHighlights();
                 }
-                saveHighlights();
-            } catch(e) {}
+            } catch (e) {}
             window.getSelection().removeAllRanges();
             hideContextMenu();
         }
 
         function clearHighlights() {
-            document.querySelectorAll('.highlight').forEach(span => {
-                span.outerHTML = span.innerHTML;
-            });
+            document.querySelectorAll('.highlight').forEach(span => span.outerHTML = span.innerHTML);
             localStorage.removeItem('C10T4P3_highlights');
         }
 
@@ -678,9 +650,6 @@
             if (saved) passageText.innerHTML = saved;
         }
 
-        // ------------------------------
-        // ✅ DRAGGABLE NOTES
-        // ------------------------------
         function addNote() {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
@@ -688,13 +657,7 @@
             const note = document.createElement('div');
             note.className = 'sticky-note';
             note.id = noteId;
-            note.innerHTML = `
-                <div class="note-header">
-                    <span>Note</span>
-                    <span class="note-close" onclick="closeNote('${noteId}')">×</span>
-                </div>
-                <textarea class="note-textarea" placeholder="Write your note here..." oninput="saveNotes()"></textarea>
-            `;
+            note.innerHTML = `<div class="note-header"><span>Note</span><span class="note-close" onclick="closeNote('${noteId}')">×</span></div><textarea class="note-textarea" placeholder="Write your note..." oninput="saveNotes()"></textarea>`;
             note.style.left = (rect.right + window.scrollX + 10) + 'px';
             note.style.top = (rect.top + window.scrollY) + 'px';
             document.body.appendChild(note);
@@ -707,22 +670,20 @@
             note.addEventListener('mousedown', function(e) {
                 if (e.target.closest('.note-textarea') || e.target.classList.contains('note-close')) return;
                 activeNote = note;
-                const noteRect = note.getBoundingClientRect();
-                offsetX = e.clientX - noteRect.left;
-                offsetY = e.clientY - noteRect.top;
+                const r = note.getBoundingClientRect();
+                offsetX = e.clientX - r.left;
+                offsetY = e.clientY - r.top;
                 note.style.zIndex = 10000;
             });
         }
 
-        document.addEventListener('mousemove', function(e) {
+        document.addEventListener('mousemove', e => {
             if (!activeNote) return;
-            const x = e.clientX - offsetX + window.scrollX;
-            const y = e.clientY - offsetY + window.scrollY;
-            activeNote.style.left = x + 'px';
-            activeNote.style.top = y + 'px';
+            activeNote.style.left = (e.clientX - offsetX + window.scrollX) + 'px';
+            activeNote.style.top = (e.clientY - offsetY + window.scrollY) + 'px';
         });
 
-        document.addEventListener('mouseup', function() {
+        document.addEventListener('mouseup', () => {
             if (activeNote) {
                 saveNotes();
                 activeNote.style.zIndex = 9998;
@@ -730,17 +691,11 @@
             }
         });
 
-        function closeNote(id) {
-            document.getElementById(id)?.remove();
-            saveNotes();
-        }
+        function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
 
         function saveNotes() {
             const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
-                id: n.id,
-                left: n.style.left,
-                top: n.style.top,
-                text: n.querySelector('.note-textarea').value
+                id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
             }));
             localStorage.setItem('C10T4P3_notes', JSON.stringify(notes));
         }
@@ -752,13 +707,7 @@
                 const note = document.createElement('div');
                 note.className = 'sticky-note';
                 note.id = n.id;
-                note.innerHTML = `
-                    <div class="note-header">
-                        <span>Note</span>
-                        <span class="note-close" onclick="closeNote('${n.id}')">×</span>
-                    </div>
-                    <textarea class="note-textarea" oninput="saveNotes()">${n.text}</textarea>
-                `;
+                note.innerHTML = `<div class="note-header"><span>Note</span><span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea" oninput="saveNotes()">${n.text}</textarea>`;
                 note.style.left = n.left;
                 note.style.top = n.top;
                 document.body.appendChild(note);
@@ -769,33 +718,7 @@
         }
 
         // ------------------------------
-        // ✅ QUESTION FLAG FEATURE
-        // ------------------------------
-        function toggleFlag(qNum) {
-            const index = flaggedQuestions.indexOf(qNum);
-            if (index > -1) {
-                flaggedQuestions.splice(index, 1);
-            } else {
-                flaggedQuestions.push(qNum);
-            }
-            localStorage.setItem('C10T4P3_flags', JSON.stringify(flaggedQuestions));
-            updateFlagsUI();
-            updateNavStatus();
-        }
-
-        function updateFlagsUI() {
-            document.querySelectorAll('.flag-btn').forEach(btn => {
-                const q = parseInt(btn.closest('.question-block').dataset.q);
-                if (flaggedQuestions.includes(q)) {
-                    btn.classList.add('flagged');
-                } else {
-                    btn.classList.remove('flagged');
-                }
-            });
-        }
-
-        // ------------------------------
-        // ✅ QUESTION NAVIGATION BAR
+        // ✅ NAVIGATION & ANSWERS
         // ------------------------------
         function buildQuestionNav() {
             const container = document.getElementById('questionNavContainer');
@@ -832,17 +755,12 @@
             });
         }
 
-        // ------------------------------
-        // ✅ ANSWER MANAGEMENT
-        // ------------------------------
         function saveAnswers() {
             let answers = {};
             for (let q = 27; q <= 40; q++) {
                 const radios = document.getElementsByName(`q${q}`);
                 if (radios.length > 0) {
-                    for (let r of radios) {
-                        if (r.checked) answers[`q${q}`] = r.value;
-                    }
+                    radios.forEach(r => { if (r.checked) answers[`q${q}`] = r.value; });
                 } else {
                     const input = document.querySelector(`input[name="q${q}"]`);
                     if (input) answers[`q${q}`] = input.value.trim().toUpperCase();
@@ -859,9 +777,7 @@
             for (let key in answers) {
                 const radios = document.getElementsByName(key);
                 if (radios.length > 0) {
-                    for (let r of radios) {
-                        if (r.value.toUpperCase() === answers[key].toUpperCase()) r.checked = true;
-                    }
+                    radios.forEach(r => { if (r.value.toUpperCase() === answers[key].toUpperCase()) r.checked = true; });
                 } else {
                     const input = document.querySelector(`input[name="${key}"]`);
                     if (input) input.value = answers[key];
@@ -873,13 +789,7 @@
         function clearAllAnswers() {
             if (!confirm('Clear all your answers? This cannot be undone.')) return;
             for (let q = 27; q <= 40; q++) {
-                const radios = document.getElementsByName(`q${q}`);
-                if (radios.length > 0) {
-                    radios.forEach(r => r.checked = false);
-                } else {
-                    const input = document.querySelector(`input[name="q${q}"]`);
-                    if (input) input.value = '';
-                }
+                document.querySelectorAll(`input[name="q${q}"]`).forEach(el => el.checked = false || (el.value = ''));
             }
             localStorage.removeItem('C10T4P3_answers');
             updateNavStatus();
@@ -894,44 +804,29 @@
             saveAnswers();
             const box = document.getElementById('studentAnswersBox');
             const resultDiv = document.getElementById('studentResult');
-            let html = '';
-            let score = 0;
-
+            let html = '', score = 0;
             for (let q = 27; q <= 40; q++) {
                 let studentAns = '';
                 const radios = document.getElementsByName(`q${q}`);
-                if (radios.length > 0) {
-                    for (let r of radios) {
-                        if (r.checked) studentAns = r.value;
-                    }
-                } else {
-                    const input = document.querySelector(`input[name="q${q}"]`);
-                    if (input) studentAns = input.value.trim().toUpperCase();
-                }
-
+                if (radios.length > 0) radios.forEach(r => { if (r.checked) studentAns = r.value; });
+                else { const input = document.querySelector(`input[name="q${q}"]`); if (input) studentAns = input.value.trim().toUpperCase(); }
                 const correct = correctAnswers[`q${q}`].toUpperCase();
-                let status = '';
-                if (!studentAns) {
-                    status = '<span class="no-answer">(No Answer)</span>';
-                } else if (studentAns === correct) {
-                    status = '<span class="correct">✅ Correct</span>';
-                    score++;
-                } else {
-                    status = `<span class="wrong">❌ Wrong (Correct: ${correctAnswers[`q${q}`]})</span>`;
-                }
-
+                let status = !studentAns ? '<span class="no-answer">(No Answer)</span>' :
+                             studentAns === correct ? '<span class="correct">✅ Correct</span>' :
+                             `<span class="wrong">❌ Wrong (Correct: ${correctAnswers[`q${q}`]})</span>`;
+                if (studentAns === correct) score++;
                 html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
             }
-
             html += `<br><strong>Total Score: ${score} / 14</strong>`;
             resultDiv.innerHTML = html;
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
         // ------------------------------
-        // ✅ INITIALIZE ON LOAD
+        // ✅ INITIALIZE
         // ------------------------------
         window.onload = function() {
+            flaggedQuestions = JSON.parse(localStorage.getItem('C10T4P3_flags') || '[]');
             buildQuestionNav();
             loadAnswers();
             loadHighlights();
@@ -939,13 +834,11 @@
             updateFlagsUI();
             updateNavStatus();
 
-            // Auto-save answers when changed
             document.querySelectorAll('input[type="radio"], input[type="text"]').forEach(el => {
                 el.addEventListener('change', saveAnswers);
                 if (el.tagName === 'INPUT') el.addEventListener('input', saveAnswers);
             });
         };
     </script>
-
 </body>
 </html>
