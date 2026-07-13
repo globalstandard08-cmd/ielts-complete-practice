@@ -17,6 +17,7 @@
             color: #1a1a1a;
             line-height: 1.7;
             position: relative;
+            padding-bottom: 80px; /* Make space for bottom nav */
         }
 
         /* ✅ LOGO STYLES */
@@ -44,23 +45,22 @@
             text-align: center;
         }
 
-        /* ✅ QUESTION NAVIGATION BAR - SMALLER */
+        /* ✅ QUESTION NAVIGATION BAR - MOVED TO BOTTOM */
         .question-status {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             gap: 5px;
-            margin: 8px 15px;
-            padding: 8px 12px;
+            padding: 8px 15px;
             background: #fff;
-            border-radius: 4px;
-            border: 1px solid #fecaca;
+            border-top: 2px solid #fecaca;
+            box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
             font-size: 13px;
-        }
-        .nav-section-label {
-            font-weight: bold;
-            color: #991b1b;
-            margin: 0 6px;
+            z-index: 999;
         }
         .q-indicator {
             width: 26px;
@@ -97,7 +97,7 @@
             display: flex;
             gap: 15px;
             padding: 0 15px 15px;
-            height: calc(100vh - 180px);
+            height: calc(100vh - 120px);
         }
 
         .passage-column, .questions-column {
@@ -298,7 +298,7 @@
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
 
-        /* ✅ NAVIGATION BUTTONS - SMALLER */
+        /* ✅ NAVIGATION BUTTONS */
         .nav-buttons {
             display: flex;
             gap: 10px;
@@ -338,23 +338,8 @@
         <div id="menuRemove">❌ Remove Highlight</div>
     </div>
 
-    <!-- Question Navigation Bar -->
-    <div class="question-status" id="statusBar">
-        <span class="nav-section-label">Passage 1:</span>
-        <span id="p1_1"></span><span id="p1_2"></span><span id="p1_3"></span><span id="p1_4"></span><span id="p1_5"></span>
-        <span id="p1_6"></span><span id="p1_7"></span><span id="p1_8"></span><span id="p1_9"></span><span id="p1_10"></span>
-        <span id="p1_11"></span><span id="p1_12"></span><span id="p1_13"></span>
-
-        <span class="nav-section-label">Passage 2:</span>
-        <span id="p2_14"></span><span id="p2_15"></span><span id="p2_16"></span><span id="p2_17"></span><span id="p2_18"></span>
-        <span id="p2_19"></span><span id="p2_20"></span><span id="p2_21"></span><span id="p2_22"></span><span id="p2_23"></span>
-        <span id="p2_24"></span><span id="p2_25"></span><span id="p2_26"></span>
-
-        <span class="nav-section-label">Passage 3:</span>
-        <span id="p3_27"></span><span id="p3_28"></span><span id="p3_29"></span><span id="p3_30"></span><span id="p3_31"></span>
-        <span id="p3_32"></span><span id="p3_33"></span><span id="p3_34"></span><span id="p3_35"></span><span id="p3_36"></span>
-        <span id="p3_37"></span><span id="p3_38"></span><span id="p3_39"></span><span id="p3_40"></span>
-    </div>
+    <!-- ✅ QUESTION NAVIGATION BAR - BOTTOM, 1–40 ONLY -->
+    <div class="question-status" id="statusBar"></div>
 
     <!-- ✅ TWO COLUMNS: LEFT = PASSAGE | RIGHT = QUESTIONS -->
     <div class="main-wrapper">
@@ -567,28 +552,22 @@
 
         const passageBox = document.getElementById('passageArea');
         const contextMenu = document.getElementById('contextMenu');
+        const statusBar = document.getElementById('statusBar');
         let currentRange = null;
         let lastNoteId = 0;
 
-        // Initialize navigation indicators
+        // Initialize navigation indicators 1–40, no passage labels
         window.onload = function() {
-            const sections = [
-                { start: 1, end: 13, prefix: 'p1_' },
-                { start: 14, end: 26, prefix: 'p2_' },
-                { start: 27, end: 40, prefix: 'p3_' }
-            ];
-            sections.forEach(sec => {
-                for (let q = sec.start; q <= sec.end; q++) {
-                    const el = document.getElementById(sec.prefix + q);
-                    if (el) {
-                        el.className = 'q-indicator';
-                        el.textContent = q;
-                        el.id = 'stat' + q;
-                        el.onclick = () => jumpToQuestion(q);
-                    }
-                }
-            });
-            // Mark current passage
+            statusBar.innerHTML = '';
+            for (let q = 1; q <= 40; q++) {
+                const el = document.createElement('div');
+                el.className = 'q-indicator';
+                el.textContent = q;
+                el.id = 'stat' + q;
+                el.onclick = () => jumpToQuestion(q);
+                statusBar.appendChild(el);
+            }
+            // Mark current passage questions
             for (let q = 1; q <= 13; q++) {
                 document.getElementById('stat' + q).classList.add('current');
             }
