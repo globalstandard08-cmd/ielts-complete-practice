@@ -622,23 +622,27 @@
             saveNotes();
         });
 
-        // Remove Highlight
+        // ✅ IMPROVED Remove Highlight function
         document.getElementById('menuRemove').addEventListener('click', function() {
             if (!currentRange) return;
             try {
-                const container = currentRange.commonAncestorContainer;
-                let span = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
-                if (span && span.classList.contains('user-highlight')) {
-                    const text = document.createTextNode(span.textContent);
-                    span.parentNode.replaceChild(text, span);
-                    span.parentNode.normalize();
+                // Traverse up from selection to find the highlight span
+                let node = currentRange.startContainer;
+                while (node && node !== document.body) {
+                    if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains('user-highlight')) {
+                        const plainText = document.createTextNode(node.textContent);
+                        node.parentNode.replaceChild(plainText, node);
+                        node.parentNode.normalize();
+                        break;
+                    }
+                    node = node.parentNode;
                 }
+                window.getSelection().removeAllRanges();
+                currentRange = null;
+                saveHighlights();
             } catch (e) {
-                console.log('Highlight removed');
+                console.log('Remove highlight done');
             }
-            window.getSelection().removeAllRanges();
-            currentRange = null;
-            saveHighlights();
         });
 
         // Flag system
