@@ -143,33 +143,27 @@
 
         .question-block {
             margin-bottom: 16px;
-            position: relative;
         }
 
-        /* ✅ Fixed: Flag right after question number */
-        .question-line {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-        }
+        /* ✅ FINAL FIX: Flag directly after number */
         .question-text {
             font-weight: 500;
             font-size: 14px;
             line-height: 1.6;
-            margin: 0;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .flag-btn {
             background: none;
             border: none;
-            font-size: 17px;
+            font-size: 16px;
             cursor: pointer;
             color: #aaa;
             transition: color 0.2s;
             padding: 0;
             line-height: 1;
-            flex-shrink: 0;
         }
         .flag-btn.flagged {
             color: #f59e0b;
@@ -350,30 +344,34 @@
                 </div>
 
                 <div class="question-block" data-q="1">
-                    <div class="question-line">
-                        <p class="question-text">1. Paragraph B</p>
+                    <div class="question-text">
+                        1.
                         <button class="flag-btn" onclick="toggleFlag(1)">🚩</button>
+                        Paragraph B
                     </div>
                     <input type="text" class="answer-input" name="q1" placeholder="Write i–viii" onchange="saveAnswers();updateNavStatus()">
                 </div>
                 <div class="question-block" data-q="2">
-                    <div class="question-line">
-                        <p class="question-text">2. Paragraph C</p>
+                    <div class="question-text">
+                        2.
                         <button class="flag-btn" onclick="toggleFlag(2)">🚩</button>
+                        Paragraph C
                     </div>
                     <input type="text" class="answer-input" name="q2" placeholder="Write i–viii" onchange="saveAnswers();updateNavStatus()">
                 </div>
                 <div class="question-block" data-q="3">
-                    <div class="question-line">
-                        <p class="question-text">3. Paragraph D</p>
+                    <div class="question-text">
+                        3.
                         <button class="flag-btn" onclick="toggleFlag(3)">🚩</button>
+                        Paragraph D
                     </div>
                     <input type="text" class="answer-input" name="q3" placeholder="Write i–viii" onchange="saveAnswers();updateNavStatus()">
                 </div>
                 <div class="question-block" data-q="4">
-                    <div class="question-line">
-                        <p class="question-text">4. Paragraph E</p>
+                    <div class="question-text">
+                        4.
                         <button class="flag-btn" onclick="toggleFlag(4)">🚩</button>
+                        Paragraph E
                     </div>
                     <input type="text" class="answer-input" name="q4" placeholder="Write i–viii" onchange="saveAnswers();updateNavStatus()">
                 </div>
@@ -385,9 +383,10 @@
                 <strong>NOT GIVEN</strong> — if there is no information</p>
 
                 <div class="question-block" data-q="5">
-                    <div class="question-line">
-                        <p class="question-text">5. The largest employment figures in the world are found in the travel and tourism industry.</p>
+                    <div class="question-text">
+                        5.
                         <button class="flag-btn" onclick="toggleFlag(5)">🚩</button>
+                        The largest employment figures in the world are found in the travel and tourism industry.
                     </div>
                     <div class="options">
                         <label><input type="radio" name="q5" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
@@ -396,9 +395,10 @@
                     </div>
                 </div>
                 <div class="question-block" data-q="6">
-                    <div class="question-line">
-                        <p class="question-text">6. Tourism contributes over six per cent of the Australian gross national product.</p>
+                    <div class="question-text">
+                        6.
                         <button class="flag-btn" onclick="toggleFlag(6)">🚩</button>
+                        Tourism contributes over six per cent of the Australian gross national product.
                     </div>
                     <div class="options">
                         <label><input type="radio" name="q6" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
@@ -407,9 +407,10 @@
                     </div>
                 </div>
                 <div class="question-block" data-q="7">
-                    <div class="question-line">
-                        <p class="question-text">7. Tourism has a social impact because it promotes recreation.</p>
+                    <div class="question-text">
+                        7.
                         <button class="flag-btn" onclick="toggleFlag(7)">🚩</button>
+                        Tourism has a social impact because it promotes recreation.
                     </div>
                     <div class="options">
                         <label><input type="radio" name="q7" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
@@ -418,9 +419,10 @@
                     </div>
                 </div>
                 <div class="question-block" data-q="8">
-                    <div class="question-line">
-                        <p class="question-text">8. Two main features of the travel and tourism industry make its economic significance difficult to ascertain.</p>
+                    <div class="question-text">
+                        8.
                         <button class="flag-btn" onclick="toggleFlag(8)">🚩</button>
+                        Two main features of the travel and tourism industry make its economic significance difficult to ascertain.
                     </div>
                     <div class="options">
                         <label><input type="radio" name="q8" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
@@ -429,9 +431,10 @@
                     </div>
                 </div>
                 <div class="question-block" data-q="9">
-                    <div class="question-line">
-                        <p class="question-text">9. Visitor spending is always greater than the spending of residents in tourist areas.</p>
+                    <div class="question-text">
+                        9.
                         <button class="flag-btn" onclick="toggleFlag(9)">🚩</button>
+                        Visitor spending is always greater than the spending of residents in tourist areas.
                     </div>
                     <div class="options">
                         <label><input type="radio" name="q9" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
@@ -440,9 +443,10 @@
                     </div>
                 </div>
                 <div class="question-block" data-q="10">
-                    <div class="question-line">
-                        <p class="question-text">10. It is easy to show statistically how tourism affects individual economies.</p>
+                    <div class="question-text">
+                        10.
                         <button class="flag-btn" onclick="toggleFlag(10)">🚩</button>
+                        It is easy to show statistically how tourism affects individual economies.
                     </div>
                     <div class="options">
                         <label><input type="radio" name="q10" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
@@ -455,23 +459,26 @@
                 <p><em>Complete the sentences below. Choose NO MORE THAN THREE WORDS from the passage for each answer.</em></p>
 
                 <div class="question-block" data-q="11">
-                    <div class="question-line">
-                        <p class="question-text">11. In Greece, tourism is the most important ........................</p>
+                    <div class="question-text">
+                        11.
                         <button class="flag-btn" onclick="toggleFlag(11)">🚩</button>
+                        In Greece, tourism is the most important ........................
                     </div>
                     <input type="text" class="answer-input" name="q11" placeholder="Write your answer" onchange="saveAnswers();updateNavStatus()">
                 </div>
                 <div class="question-block" data-q="12">
-                    <div class="question-line">
-                        <p class="question-text">12. The travel and tourism industry in Jamaica is the major ........................</p>
+                    <div class="question-text">
+                        12.
                         <button class="flag-btn" onclick="toggleFlag(12)">🚩</button>
+                        The travel and tourism industry in Jamaica is the major ........................
                     </div>
                     <input type="text" class="answer-input" name="q12" placeholder="Write your answer" onchange="saveAnswers();updateNavStatus()">
                 </div>
                 <div class="question-block" data-q="13">
-                    <div class="question-line">
-                        <p class="question-text">13. The problems associated with measuring international tourism are often reflected in the measurement of ........................</p>
+                    <div class="question-text">
+                        13.
                         <button class="flag-btn" onclick="toggleFlag(13)">🚩</button>
+                        The problems associated with measuring international tourism are often reflected in the measurement of ........................
                     </div>
                     <input type="text" class="answer-input" name="q13" placeholder="Write your answer" onchange="saveAnswers();updateNavStatus()">
                 </div>
