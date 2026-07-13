@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reading - Autumn Leaves</title>
+    <title>Reading - The Context, Meaning and Scope of Tourism</title>
     <style>
         * {
             margin: 0;
@@ -16,49 +16,51 @@
             background-color: #fef2f2;
             color: #1a1a1a;
             line-height: 1.6;
+            padding-bottom: 80px;
         }
 
-        /* ✅ LOGO STYLES */
+        /* Logo Styles */
         .logo-container {
             width: 100%;
             background: #ffffff;
             border-bottom: 2px solid #dc2626;
-            padding: 12px 0;
+            padding: 10px 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
+            margin-bottom: 10px;
+            box-shadow: 0 2px 2px rgba(0,0,0,0.08);
         }
         .logo {
-            width: 40%;
-            max-width: 350px;
+            width: 35%;
+            max-width: 320px;
             height: auto;
             display: block;
         }
 
-        /* ✅ TWO‑COLUMN LAYOUT */
+        /* Two-Column Layout */
         .main-wrapper {
             display: flex;
-            gap: 20px;
-            padding: 0 20px 20px;
-            height: calc(100vh - 130px);
+            gap: 15px;
+            padding: 0 15px 15px;
+            height: calc(100vh - 110px);
         }
 
         .passage-column, .questions-column {
             flex: 1;
             background: #ffffff;
-            border-radius: 12px;
+            border-radius: 10px;
             border: 1px solid #fecaca;
-            padding: 20px;
+            padding: 18px;
             overflow-y: auto;
-            box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07);
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07);
+            position: relative;
         }
 
         h1 {
             color: #dc2626;
-            font-size: 20px;
-            margin-bottom: 15px;
+            font-size: 19px;
+            margin-bottom: 12px;
             text-align: center;
         }
 
@@ -68,9 +70,71 @@
             line-height: 1.8;
         }
 
+        /* ✅ HIGHLIGHT & NOTE STYLES — FULLY PRESERVED */
         .highlight {
-            background-color: #fff350;
-            padding: 2px 0;
+            background-color: #ffd700;
+            padding: 2px 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            color: #000;
+        }
+
+        /* Right-click Context Menu */
+        .context-menu {
+            position: absolute;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 9999;
+            display: none;
+            min-width: 140px;
+        }
+        .context-menu div {
+            padding: 8px 11px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .context-menu div:hover {
+            background: #fef2f2;
+        }
+
+        /* Sticky Note Style */
+        .sticky-note {
+            position: absolute;
+            width: 160px;
+            min-height: 60px;
+            background: #fff380;
+            border: 1px solid #e6c200;
+            border-radius: 4px;
+            padding: 6px;
+            box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
+            z-index: 9998;
+            font-size: 12px;
+        }
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 11px;
+            color: #886a00;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #886a00;
+        }
+        .note-textarea {
+            width: 100%;
+            height: 44px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 12px;
         }
 
         .questions-section h2 {
@@ -81,13 +145,31 @@
 
         .question-block {
             margin-bottom: 16px;
+            position: relative;
+            padding-right: 30px;
         }
 
         .question-block p {
             font-weight: 500;
             margin-bottom: 8px;
             font-size: 14px;
-            line-height: 1.8;
+            line-height: 1.6;
+        }
+
+        /* Flag Button */
+        .flag-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.2s;
+        }
+        .flag-btn.flagged {
+            color: #f59e0b;
         }
 
         .options label {
@@ -98,23 +180,12 @@
             cursor: pointer;
         }
 
-        /* ✅ INPUT STYLE FOR INLINE BLANKS */
         .answer-input {
-            width: auto;
-            min-width: 90px;
-            padding: 2px 6px;
-            margin: 0 6px;
-            border: 1px solid #dc2626;
-            border-radius: 4px;
-            font-size: 14px;
-            background: #fff;
-            text-align: center;
-        }
-
-        /* For other questions, keep full width */
-        .full-width {
             width: 100%;
             padding: 6px 10px;
+            border: 1px solid #fecaca;
+            border-radius: 6px;
+            font-size: 14px;
             background: #fef2f2;
         }
 
@@ -125,22 +196,22 @@
             flex-wrap: wrap;
         }
 
-        .toggle-answers, .show-student, .clear-highlight {
-            padding: 8px 16px;
+        .toggle-answers, .show-student, .clear-all-answers {
+            padding: 8px 14px;
             background: #dc2626;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
+            font-weight: 500;
+            font-size: 13px;
         }
 
-        .toggle-answers:hover, .show-student:hover, .clear-highlight:hover {
+        .toggle-answers:hover, .show-student:hover, .clear-all-answers:hover {
             background: #b91c1c;
         }
 
-        /* ✅ Proper display setting */
+        /* Answer Boxes */
         .answers-box, .student-answers-box {
             margin-top: 12px;
             padding: 12px;
@@ -155,26 +226,73 @@
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
 
-        /* ✅ NAVIGATION BUTTONS AT BOTTOM */
-        .nav-buttons {
+        /* ✅ Updated Bottom Navigation Bar - Exam Style */
+        .question-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            border-top: 2px solid #dc2626;
+            padding: 8px 15px;
+            box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
+            z-index: 100;
             display: flex;
-            gap: 10px;
-            margin: 0 20px 25px;
             flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .nav-container {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        .q-nav-btn {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #f9f9f9;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
             justify-content: center;
         }
-
+        .q-nav-btn:hover {
+            background: #fef2f2;
+            border-color: #dc2626;
+        }
+        .q-nav-btn.answered {
+            background: #dcfce7;
+            border-color: #22c55e;
+        }
+        .q-nav-btn.flagged {
+            background: #fffbeb;
+            border-color: #f59e0b;
+        }
+        .q-nav-btn.current {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+        }
+        /* ✅ Previous / Next Buttons inside nav bar */
+        .nav-page-controls {
+            display: flex;
+            gap: 10px;
+        }
         .back-btn, .next-btn {
-            padding: 10px 20px;
+            padding: 6px 12px;
             background: #fef2f2;
             color: #dc2626;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 6px;
             border: 1px solid #fecaca;
             font-weight: 500;
-            font-size: 15px;
+            font-size: 13px;
+            white-space: nowrap;
         }
-
         .back-btn:hover, .next-btn:hover {
             background: #ffffff;
         }
@@ -186,169 +304,185 @@
         <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
     </div>
 
-    <!-- ✅ TWO COLUMNS: LEFT = PASSAGE | RIGHT = QUESTIONS -->
+    <!-- Right-click Context Menu -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+    </div>
+
+    <!-- Two Column Layout -->
     <div class="main-wrapper">
-        <!-- LEFT SIDE: PASSAGE TEXT -->
+        <!-- Left: Passage Text -->
         <div class="passage-column" id="passageArea">
-            <h1>Reading Passage 2 — Autumn Leaves</h1>
-            <div class="passage-text">
-                <p><strong>Autumn Leaves</strong></p>
-                <p><em>Canadian writer Jay Ingram investigates the mystery of why leaves turn red in the fall</em></p>
+            <h1>Reading Passage 1 — The Context, Meaning and Scope of Tourism</h1>
+
+            <div class="passage-text" id="passageText">
+                <p><strong>The Context, Meaning and Scope of Tourism</strong></p>
 
                 <p><strong>A</strong></p>
-                <p>One of the most captivating natural events of the year in many areas throughout North America is the turning of the leaves in the fall. The colours are magnificent, but the question of exactly why some trees turn yellow or orange, and others red or purple, is something which has long puzzled scientists.</p>
+                <p>Travel has existed since the beginning of time, when primitive man set out, often traversing great distances in search of game, which provided the food and clothing necessary for his survival. Throughout the course of history, people have travelled for purposes of trade, religious conviction, economic gain, war, migration and other equally compelling motivations. In the Roman era, wealthy aristocrats and high government officials also travelled for pleasure. Seaside resorts located at Pompeii and Herculaneum afforded citizens the opportunity to escape to their vacation villas in order to avoid the summer heat of Rome. Travel, except during the Dark Ages, has continued to grow and, throughout recorded history, has played a vital role in the development of civilisations and their economies.</p>
 
                 <p><strong>B</strong></p>
-                <p>Summer leaves are green because they are full of chlorophyll, the molecule that captures sunlight and converts that energy into new building materials for the tree. As fall approaches in the northern hemisphere, the amount of solar energy available declines considerably. For many trees – evergreen conifers being an exception – the best strategy is to abandon photosynthesis until the spring. So rather than maintaining the now redundant leaves throughout the winter, the tree saves its precious resources and discards them. But before letting its leaves go, the tree dismantles their chlorophyll molecules and ships their valuable nitrogen back into the twigs. As chlorophyll is depleted, other colours that have been dominated by it throughout the summer begin to be revealed. This unmasking explains the autumn colours of yellow and orange, but not the brilliant reds and purples of trees such as the maple or sumac.</p>
-                <p><em>*photosynthesis: the production of new material from sunlight, water and carbon dioxide</em></p>
+                <p>Tourism in the mass form as we know it today is a distinctly twentieth‑century phenomenon. Historians suggest that the advent of mass tourism began in England during the industrial revolution with the rise of the middle class and the availability of relatively inexpensive transportation. The creation of the commercial airline industry following the Second World War and the subsequent development of the jet aircraft in the 1950s signalled the rapid growth and expansion of international travel. This growth led to the development of a major new industry: tourism. In turn, international tourism became the concern of a number of world governments since it not only provided new employment opportunities but also produced a means of earning foreign exchange.</p>
 
                 <p><strong>C</strong></p>
-                <p>The source of the red is widely known: it is created by anthocyanins, water-soluble plant pigments reflecting the red to blue range of the visible spectrum. They belong to a class of sugar-based chemical compounds also known as flavonoids. What’s puzzling is that anthocyanins are actually newly minted, made in the leaves at the same time as the tree is preparing to drop them. But it is hard to make sense of the manufacture of anthocyanins – why should a tree bother making new chemicals in its leaves when it’s already scrambling to withdraw and preserve the ones already there?</p>
+                <p>Tourism today has grown significantly in both economic and social importance. In most industrialised countries over the past few years the fastest growth has been seen in the area of services. One of the largest segments of the service industry, although largely unrecognised as an entity in some of these countries, is travel and tourism. According to the World Travel and Tourism Council (1992), ‘Travel and tourism is the largest industry in the world on virtually any economic measure including value‑added capital investment, employment and tax contributions’. In 1992, the industry’s gross output was estimated to be $3.5 trillion, over 12 per cent of all consumer spending. The travel and tourism industry is the world’s largest employer with almost 130 million jobs, or almost 7 per cent of all employees. This industry is the world’s leading industrial contributor, producing over 6 per cent of the world’s gross national product and accounting for capital investment in excess of $422 billion in direct, indirect and personal taxes each year. Thus, tourism has a profound impact both on the world economy and, because of the educative effect of travel and the effects on employment, on society itself.</p>
 
                 <p><strong>D</strong></p>
-                <p>Some theories about anthocyanins have argued that they might act as a chemical defence against attacks by insects or fungi, or that they might attract fruit-eating birds or increase a leaf’s tolerance to freezing. However there are problems with each of these theories, including the fact that leaves are red for such a relatively short period that the expense of energy needed to manufacture the anthocyanins would outweigh any anti-fungal or anti-herbivore activity achieved.</p>
+                <p>However, the major problems of the travel and tourism industry that have hidden, or obscured, its economic impact are the diversity and fragmentation of the industry itself. The travel industry includes: hotels, motels and other types of accommodation; restaurants and other food services; transportation services and facilities; amusements, attractions and other leisure facilities; gift shops and a large number of other enterprises. Since many of these businesses also serve local residents, the impact of spending by visitors can easily be overlooked or underestimated. In addition, Meis (1992) points out that the tourism industry involves concepts that have remained amorphous to both analysts and decision makers. Moreover, in all nations this problem has made it difficult for the industry to develop any type of reliable or credible tourism information base in order to estimate the contribution it makes to regional, national and global economies. However, the nature of this very diversity makes travel and tourism ideal vehicles for economic development in a wide variety of countries, regions or communities.</p>
 
                 <p><strong>E</strong></p>
-                <p>It has also been proposed that trees may produce vivid red colours to convince herbivorous insects that they are healthy and robust and would be easily able to mount chemical defences against infestation. If insects paid attention to such advertisements, they might be prompted to lay their eggs on a duller, and presumably less resistant host. The flaw in this theory lies in the lack of proof to support it. No one has yet ascertained whether more robust trees sport the brightest leaves, or whether insects make choices according to colour intensity.</p>
-
-                <p><strong>F</strong></p>
-                <p>Perhaps the most plausible suggestion as to why leaves would go to the trouble of making anthocyanins when they’re busy packing up for the winter is the theory known as the ‘light screen’ hypothesis. It sounds paradoxical, because the idea behind this hypothesis is that the red pigment is made in autumn leaves to protect chlorophyll, the light-absorbing chemical, from too much light. Why does chlorophyll need protection when it is the natural world’s supreme light absorber? Why protect chlorophyll at a time when the tree is breaking it down to salvage as much of it as possible?</p>
-
-                <p><strong>G</strong></p>
-                <p>Chlorophyll, although exquisitely evolved to capture the energy of sunlight, can sometimes be overwhelmed by it, especially in situations of drought, low temperatures, or nutrient deficiency. Moreover, the problem of oversensitivity to light is even more acute in the fall, when the leaf is busy preparing for winter by dismantling its internal machinery. The energy absorbed by the chlorophyll molecules of the unstable autumn leaf is not immediately channelled into useful products and processes, as it would be in an intact summer leaf. The weakened fall leaf then becomes vulnerable to the highly destructive effects of the oxygen created by the excited chlorophyll molecules.</p>
-
-                <p><strong>H</strong></p>
-                <p>Even if you had never suspected that this is what was going on when leaves turn red, there are clues out there. One is straightforward: on many trees, the leaves that are the reddest are those on the side of the tree which gets most sun. Not only that, but the red is brighter on the upper side of the leaf. It has also been recognised for decades that the best conditions for intense red colours are dry, sunny days and cool nights, conditions that nicely match those that make leaves susceptible to excess light. And finally, trees such as maples usually get much redder the more north you travel in the northern hemisphere. It’s colder there, they’re more stressed, their chlorophyll is more sensitive and it needs more sunblock.</p>
-
-                <p><strong>I</strong></p>
-                <p>What is still not fully understood, however, is why some trees resort to producing red pigments while others don’t bother, and simply reveal their orange or yellow hues. Do these trees have other means at their disposal to prevent overexposure to light in autumn? Their story, though not as spectacular to the eye, will surely turn out to be as subtle and as complex.</p>
+                <p>Once the exclusive province of the wealthy, travel and tourism have become an institutionalised way of life for most of the population. In fact, McIntosh and Goeldner (1990) suggest that tourism has become the largest commodity in international trade for many nations and, for a significant number of other countries, it ranks second or third. For example, tourism is the major source of income in Bermuda, Greece, Italy, Spain, Switzerland and most Caribbean countries. In addition, Hawkins and Ritchie, quoting from data published by the American Express Company, suggest that the travel and tourism industry is the number one ranked employer in the Bahamas, Brazil, Canada, France, (the former) West Germany, Hong Kong, Italy, Jamaica, Japan, Singapore, the United Kingdom and the United States. However, because of problems of definition, which directly affect statistical measurement, it is not possible with any degree of certainty to provide precise, valid or reliable data about the extent of world‑wide tourism participation or its economic impact. In many cases, similar difficulties arise when attempts are made to measure domestic tourism.</p>
             </div>
         </div>
 
-        <!-- RIGHT SIDE: QUESTIONS -->
-        <div class="questions-column">
+        <!-- Right: Questions -->
+        <div class="questions-column" id="questionsArea">
             <div class="questions-section">
-                <h2>Questions 14–18: Identifying Information</h2>
-                <p><em>Which paragraph contains the following information? Write the correct letter, A–I.</em></p>
-                <p><em>NB You may use any letter more than once.</em></p>
-
-                <div class="question-block">
-                    <p>14. a description of the substance responsible for the red colouration of leaves<br>
-                    <input type="text" class="answer-input full-width" name="q14" placeholder="Write A-I"></p>
-                </div>
-                <div class="question-block">
-                    <p>15. the reason why trees drop their leaves in autumn<br>
-                    <input type="text" class="answer-input full-width" name="q15" placeholder="Write A-I"></p>
-                </div>
-                <div class="question-block">
-                    <p>16. some evidence to confirm a theory about the purpose of the red leaves<br>
-                    <input type="text" class="answer-input full-width" name="q16" placeholder="Write A-I"></p>
-                </div>
-                <div class="question-block">
-                    <p>17. an explanation of the function of chlorophyll<br>
-                    <input type="text" class="answer-input full-width" name="q17" placeholder="Write A-I"></p>
-                </div>
-                <div class="question-block">
-                    <p>18. a suggestion that the red colouration in leaves could serve as a warning signal<br>
-                    <input type="text" class="answer-input full-width" name="q18" placeholder="Write A-I"></p>
+                <h2>Questions 1–4: List of Headings</h2>
+                <p><em>Choose the correct heading for paragraphs B–E from the list of headings below. Write the correct number, i–viii.</em></p>
+                <div class="options" style="margin: 10px 0;">
+                    <p><strong>List of Headings</strong></p>
+                    <p>i &nbsp;&nbsp;&nbsp;Economic and social significance of tourism</p>
+                    <p>ii &nbsp;&nbsp;The development of mass tourism</p>
+                    <p>iii &nbsp;&nbsp;Travel for the wealthy</p>
+                    <p>iv &nbsp;&nbsp;Earning foreign exchange through tourism</p>
+                    <p>v &nbsp;&nbsp;&nbsp;Difficulty in recognising the economic effects of tourism</p>
+                    <p>vi &nbsp;&nbsp;The contribution of air travel to tourism</p>
+                    <p>vii &nbsp;The world impact of tourism</p>
+                    <p>viii &nbsp;The history of travel</p>
                 </div>
 
-
-                <h2>Questions 19–22: Notes Completion</h2>
-                <p><em>Choose ONE WORD ONLY from the passage for each answer.</em></p>
-                <p><strong>Why believe the ‘light screen’ hypothesis?</strong></p>
-
-                <div class="question-block">
-                    <p>• The most vividly coloured red leaves are found on the side of the tree facing the
-                    <strong>19.</strong> <input type="text" class="answer-input" name="q19" placeholder="______"></p>
+                <div class="question-block" data-q="1">
+                    <button class="flag-btn" onclick="toggleFlag(1)">🚩</button>
+                    <p>1. Paragraph B</p>
+                    <input type="text" class="answer-input" name="q1" placeholder="Write i–viii" onchange="saveAnswers();updateNavStatus()">
                 </div>
-                <div class="question-block">
-                    <p>• The
-                    <strong>20.</strong> <input type="text" class="answer-input" name="q20" placeholder="______">
-                    surfaces of leaves contain the most red pigment.</p>
+                <div class="question-block" data-q="2">
+                    <button class="flag-btn" onclick="toggleFlag(2)">🚩</button>
+                    <p>2. Paragraph C</p>
+                    <input type="text" class="answer-input" name="q2" placeholder="Write i–viii" onchange="saveAnswers();updateNavStatus()">
                 </div>
-                <div class="question-block">
-                    <p>• Red leaves are most abundant when daytime weather conditions are
-                    <strong>21.</strong> <input type="text" class="answer-input" name="q21" placeholder="______">
-                    and sunny.</p>
+                <div class="question-block" data-q="3">
+                    <button class="flag-btn" onclick="toggleFlag(3)">🚩</button>
+                    <p>3. Paragraph D</p>
+                    <input type="text" class="answer-input" name="q3" placeholder="Write i–viii" onchange="saveAnswers();updateNavStatus()">
                 </div>
-                <div class="question-block">
-                    <p>• The intensity of the red colour of leaves increases as you go further
-                    <strong>22.</strong> <input type="text" class="answer-input" name="q22" placeholder="______">.</p>
+                <div class="question-block" data-q="4">
+                    <button class="flag-btn" onclick="toggleFlag(4)">🚩</button>
+                    <p>4. Paragraph E</p>
+                    <input type="text" class="answer-input" name="q4" placeholder="Write i–viii" onchange="saveAnswers();updateNavStatus()">
                 </div>
 
 
-                <h2>Questions 23–25: TRUE / FALSE / NOT GIVEN</h2>
-                <p><em>Do the following statements agree with the information given in Reading Passage 2?</em></p>
+                <h2>Questions 5–10: TRUE / FALSE / NOT GIVEN</h2>
+                <p><em>Do the following statements agree with the information given in Reading Passage 1?</em></p>
                 <p><strong>TRUE</strong> — if the statement agrees<br>
                 <strong>FALSE</strong> — if the statement contradicts<br>
                 <strong>NOT GIVEN</strong> — if there is no information</p>
 
-                <div class="question-block">
-                    <p>23. It is likely that the red pigments help to protect the leaf from freezing temperatures.</p>
+                <div class="question-block" data-q="5">
+                    <button class="flag-btn" onclick="toggleFlag(5)">🚩</button>
+                    <p>5. The largest employment figures in the world are found in the travel and tourism industry.</p>
                     <div class="options">
-                        <label><input type="radio" name="q23" value="TRUE"> TRUE</label>
-                        <label><input type="radio" name="q23" value="FALSE"> FALSE</label>
-                        <label><input type="radio" name="q23" value="NOT GIVEN"> NOT GIVEN</label>
+                        <label><input type="radio" name="q5" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
+                        <label><input type="radio" name="q5" value="FALSE" onchange="saveAnswers();updateNavStatus()"> FALSE</label>
+                        <label><input type="radio" name="q5" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
                     </div>
                 </div>
-                <div class="question-block">
-                    <p>24. The ‘light screen’ hypothesis would initially seem to contradict what is known about chlorophyll.</p>
+                <div class="question-block" data-q="6">
+                    <button class="flag-btn" onclick="toggleFlag(6)">🚩</button>
+                    <p>6. Tourism contributes over six per cent of the Australian gross national product.</p>
                     <div class="options">
-                        <label><input type="radio" name="q24" value="TRUE"> TRUE</label>
-                        <label><input type="radio" name="q24" value="FALSE"> FALSE</label>
-                        <label><input type="radio" name="q24" value="NOT GIVEN"> NOT GIVEN</label>
+                        <label><input type="radio" name="q6" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
+                        <label><input type="radio" name="q6" value="FALSE" onchange="saveAnswers();updateNavStatus()"> FALSE</label>
+                        <label><input type="radio" name="q6" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
                     </div>
                 </div>
-                <div class="question-block">
-                    <p>25. Leaves which turn colours other than red are more likely to be damaged by sunlight.</p>
+                <div class="question-block" data-q="7">
+                    <button class="flag-btn" onclick="toggleFlag(7)">🚩</button>
+                    <p>7. Tourism has a social impact because it promotes recreation.</p>
                     <div class="options">
-                        <label><input type="radio" name="q25" value="TRUE"> TRUE</label>
-                        <label><input type="radio" name="q25" value="FALSE"> FALSE</label>
-                        <label><input type="radio" name="q25" value="NOT GIVEN"> NOT GIVEN</label>
+                        <label><input type="radio" name="q7" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
+                        <label><input type="radio" name="q7" value="FALSE" onchange="saveAnswers();updateNavStatus()"> FALSE</label>
+                        <label><input type="radio" name="q7" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
+                    </div>
+                </div>
+                <div class="question-block" data-q="8">
+                    <button class="flag-btn" onclick="toggleFlag(8)">🚩</button>
+                    <p>8. Two main features of the travel and tourism industry make its economic significance difficult to ascertain.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q8" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
+                        <label><input type="radio" name="q8" value="FALSE" onchange="saveAnswers();updateNavStatus()"> FALSE</label>
+                        <label><input type="radio" name="q8" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
+                    </div>
+                </div>
+                <div class="question-block" data-q="9">
+                    <button class="flag-btn" onclick="toggleFlag(9)">🚩</button>
+                    <p>9. Visitor spending is always greater than the spending of residents in tourist areas.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q9" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
+                        <label><input type="radio" name="q9" value="FALSE" onchange="saveAnswers();updateNavStatus()"> FALSE</label>
+                        <label><input type="radio" name="q9" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
+                    </div>
+                </div>
+                <div class="question-block" data-q="10">
+                    <button class="flag-btn" onclick="toggleFlag(10)">🚩</button>
+                    <p>10. It is easy to show statistically how tourism affects individual economies.</p>
+                    <div class="options">
+                        <label><input type="radio" name="q10" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
+                        <label><input type="radio" name="q10" value="FALSE" onchange="saveAnswers();updateNavStatus()"> FALSE</label>
+                        <label><input type="radio" name="q10" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
                     </div>
                 </div>
 
 
-                <h2>Question 26: Multiple Choice</h2>
-                <p><em>Choose the correct letter, A, B, C or D.</em></p>
+                <h2>Questions 11–13: Sentence Completion</h2>
+                <p><em>Complete the sentences below. Choose NO MORE THAN THREE WORDS from the passage for each answer.</em></p>
 
-                <div class="question-block">
-                    <p>26. For which of the following questions does the writer offer an explanation?</p>
-                    <div class="options">
-                        <label><input type="radio" name="q26" value="A"> A why conifers remain green in winter</label>
-                        <label><input type="radio" name="q26" value="B"> B how leaves turn orange and yellow in autumn</label>
-                        <label><input type="radio" name="q26" value="C"> C how herbivorous insects choose which trees to lay their eggs in</label>
-                        <label><input type="radio" name="q26" value="D"> D why anthocyanins are restricted to certain trees</label>
-                    </div>
+                <div class="question-block" data-q="11">
+                    <button class="flag-btn" onclick="toggleFlag(11)">🚩</button>
+                    <p>11. In Greece, tourism is the most important ........................</p>
+                    <input type="text" class="answer-input" name="q11" placeholder="Write your answer" onchange="saveAnswers();updateNavStatus()">
+                </div>
+                <div class="question-block" data-q="12">
+                    <button class="flag-btn" onclick="toggleFlag(12)">🚩</button>
+                    <p>12. The travel and tourism industry in Jamaica is the major ........................</p>
+                    <input type="text" class="answer-input" name="q12" placeholder="Write your answer" onchange="saveAnswers();updateNavStatus()">
+                </div>
+                <div class="question-block" data-q="13">
+                    <button class="flag-btn" onclick="toggleFlag(13)">🚩</button>
+                    <p>13. The problems associated with measuring international tourism are often reflected in the measurement of ........................</p>
+                    <input type="text" class="answer-input" name="q13" placeholder="Write your answer" onchange="saveAnswers();updateNavStatus()">
                 </div>
 
 
                 <div class="action-buttons">
-                    <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear Highlights</button>
+                    <button class="clear-all-answers" onclick="clearAllAnswers()">🧹 Clear All Answers</button>
                     <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
                     <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
                 </div>
 
-                <!-- ✅ CORRECT ANSWER KEY -->
+                <!-- Correct Answers -->
                 <div class="answers-box" id="answersBox">
-                    <h3>✅ Correct Answers — Passage 2</h3>
-                    <p><strong>14.</strong> C<br>
-                    <strong>15.</strong> B<br>
-                    <strong>16.</strong> H<br>
-                    <strong>17.</strong> B<br>
-                    <strong>18.</strong> E<br>
-                    <strong>19.</strong> sun<br>
-                    <strong>20.</strong> upper<br>
-                    <strong>21.</strong> dry<br>
-                    <strong>22.</strong> north<br>
-                    <strong>23.</strong> FALSE<br>
-                    <strong>24.</strong> TRUE<br>
-                    <strong>25.</strong> NOT GIVEN<br>
-                    <strong>26.</strong> B</p>
+                    <h3>✅ Correct Answers — Passage 1</h3>
+                    <p><strong>1.</strong> ii<br>
+                    <strong>2.</strong> i<br>
+                    <strong>3.</strong> v<br>
+                    <strong>4.</strong> vii<br>
+                    <strong>5.</strong> TRUE<br>
+                    <strong>6.</strong> NOT GIVEN<br>
+                    <strong>7.</strong> FALSE<br>
+                    <strong>8.</strong> TRUE<br>
+                    <strong>9.</strong> NOT GIVEN<br>
+                    <strong>10.</strong> FALSE<br>
+                    <strong>11.</strong> source of income<br>
+                    <strong>12.</strong> employer<br>
+                    <strong>13.</strong> domestic tourism</p>
                 </div>
 
-                <!-- ✅ STUDENT ANSWERS & RESULT -->
+                <!-- Student Results -->
                 <div class="student-answers-box" id="studentAnswersBox">
                     <h3>📝 Your Answers & Score</h3>
                     <div id="studentResult"></div>
@@ -357,87 +491,252 @@
         </div>
     </div>
 
-    <!-- ✅ NAVIGATION BUTTONS AT BOTTOM -->
-    <div class="nav-buttons">
-        <a href="reading-passage1-C10T3.html" class="back-btn">← Previous Passage</a>
-        <a href="../index.html" class="back-btn">← Back to Main Menu</a>
-        <a href="reading-passage3-C10T3.html" class="next-btn">Next Passage →</a>
+    <!-- ✅ Bottom Question Navigation Bar - Exam Style -->
+    <div class="question-nav" id="questionNav">
+        <div class="nav-container" id="navContainer"></div>
+        <div class="nav-page-controls">
+            <a href="../index.html" class="back-btn">← Previous</a>
+            <a href="reading-passage2-C10T3.html" class="next-btn">Next →</a>
+        </div>
     </div>
 
     <script>
-        // ✅ Correct answer data
         const correctAnswers = {
-            q14: 'C',
-            q15: 'B',
-            q16: 'H',
-            q17: 'B',
-            q18: 'E',
-            q19: 'sun',
-            q20: 'upper',
-            q21: 'dry',
-            q22: 'north',
-            q23: 'FALSE',
-            q24: 'TRUE',
-            q25: 'NOT GIVEN',
-            q26: 'B'
+            q1: 'ii',
+            q2: 'i',
+            q3: 'v',
+            q4: 'vii',
+            q5: 'TRUE',
+            q6: 'NOT GIVEN',
+            q7: 'FALSE',
+            q8: 'TRUE',
+            q9: 'NOT GIVEN',
+            q10: 'FALSE',
+            q11: 'source of income',
+            q12: 'employer',
+            q13: 'domestic tourism'
         };
 
-        // ✅ Save answers to localStorage
-        function saveAnswers() {
-            let answers = {};
-            for (let q = 14; q <= 26; q++) {
-                const radios = document.getElementsByName(`q${q}`);
-                if (radios.length > 0) {
-                    for (let r of radios) {
-                        if (r.checked) answers[`q${q}`] = r.value;
-                    }
-                } else {
-                    const input = document.querySelector(`input[name="q${q}"]`);
-                    if (input) answers[`q${q}`] = input.value.trim().toLowerCase();
-                }
+        // ✅ HIGHLIGHT & NOTE LOGIC — FULLY KEPT AND WORKING
+        let currentRange = null;
+        let lastNoteId = 0;
+        const passageId = 'C10T3P1';
+
+        // Generate Question Navigation 1-40
+        function generateNav() {
+            const container = document.getElementById('navContainer');
+            container.innerHTML = '';
+            for (let i = 1; i <= 40; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'q-nav-btn';
+                btn.textContent = i;
+                btn.onclick = () => goToQuestion(i);
+                btn.id = `nav-q${i}`;
+                container.appendChild(btn);
             }
-            localStorage.setItem('C10T3P2_answers', JSON.stringify(answers));
+            updateNavStatus();
         }
 
-        // ✅ Load saved answers
+        function goToQuestion(qNum) {
+            const qEl = document.querySelector(`.question-block[data-q="${qNum}"]`);
+            if (qEl) {
+                qEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.querySelectorAll('.q-nav-btn').forEach(b => b.classList.remove('current'));
+                document.getElementById(`nav-q${qNum}`).classList.add('current');
+            }
+        }
+
+        function updateNavStatus() {
+            const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`)) || {};
+            const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
+            
+            for (let i = 1; i <= 40; i++) {
+                const btn = document.getElementById(`nav-q${i}`);
+                if (!btn) continue;
+                btn.classList.remove('answered', 'flagged');
+                if (answers[`q${i}`] && answers[`q${i}`].trim() !== '') btn.classList.add('answered');
+                if (flags[i]) btn.classList.add('flagged');
+            }
+        }
+
+        function toggleFlag(qNum) {
+            const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
+            flags[qNum] = !flags[qNum];
+            localStorage.setItem(`${passageId}_flags`, JSON.stringify(flags));
+            document.querySelector(`.question-block[data-q="${qNum}"] .flag-btn`).classList.toggle('flagged', flags[qNum]);
+            updateNavStatus();
+        }
+
+        function saveAnswers() {
+            let answers = {};
+            for (let q = 1; q <= 13; q++) {
+                const radios = document.getElementsByName(`q${q}`);
+                if (radios.length > 0) {
+                    for (let r of radios) if (r.checked) answers[`q${q}`] = r.value;
+                } else {
+                    const input = document.querySelector(`input[name="q${q}"]`);
+                    if (input) answers[`q${q}`] = input.value.trim();
+                }
+            }
+            localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
+            updateNavStatus();
+        }
+
         function loadAnswers() {
-            const saved = localStorage.getItem('C10T3P2_answers');
+            const saved = localStorage.getItem(`${passageId}_answers`);
             if (!saved) return;
             const answers = JSON.parse(saved);
             for (let key in answers) {
                 const radios = document.getElementsByName(key);
                 if (radios.length > 0) {
-                    for (let r of radios) {
-                        if (r.value.toUpperCase() === answers[key].toUpperCase()) r.checked = true;
-                    }
+                    for (let r of radios) if (r.value.toUpperCase() === answers[key].toUpperCase()) r.checked = true;
                 } else {
                     const input = document.querySelector(`input[name="${key}"]`);
                     if (input) input.value = answers[key];
                 }
             }
+            updateNavStatus();
         }
 
-        // ✅ Highlight text function
-        document.getElementById('passageArea').addEventListener('mouseup', function() {
-            const selection = window.getSelection();
-            if (selection.toString().trim().length > 0) {
-                const span = document.createElement('span');
-                span.className = 'highlight';
-                span.textContent = selection.toString();
-                const range = selection.getRangeAt(0);
-                range.deleteContents();
-                range.insertNode(span);
-                selection.removeAllRanges();
+        function loadFlags() {
+            const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
+            for (let q in flags) {
+                if (flags[q]) {
+                    const btn = document.querySelector(`.question-block[data-q="${q}"] .flag-btn`);
+                    if (btn) btn.classList.add('flagged');
+                }
             }
+        }
+
+        // Right-click Context Menu Setup
+        const passageArea = document.getElementById('passageArea');
+        const contextMenu = document.getElementById('contextMenu');
+
+        passageArea.addEventListener('contextmenu', function(e) {
+            const selection = window.getSelection();
+            if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
+                contextMenu.style.display = 'none';
+                return;
+            }
+            e.preventDefault();
+            currentRange = selection.getRangeAt(0);
+            const rect = currentRange.getBoundingClientRect();
+            contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+            contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+            contextMenu.style.display = 'block';
         });
 
-        function clearHighlights() {
-            document.querySelectorAll('.highlight').forEach(el => {
-                el.outerHTML = el.innerHTML;
+        document.addEventListener('click', () => contextMenu.style.display = 'none');
+
+        // Highlight
+        document.getElementById('menuHighlight').addEventListener('click', function() {
+            if (!currentRange) return;
+            const span = document.createElement('span');
+            span.className = 'highlight';
+            span.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(span);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        });
+
+        // Remove Highlight
+        document.getElementById('menuRemove').addEventListener('click', function() {
+            if (!currentRange) return;
+            try {
+                const container = currentRange.commonAncestorContainer;
+                let span = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+                if (span && span.classList.contains('highlight')) {
+                    const text = document.createTextNode(span.textContent);
+                    span.parentNode.replaceChild(text, span);
+                    span.parentNode.normalize();
+                }
+            } catch (e) { /* ignore */ }
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        });
+
+        // Add Sticky Note
+        document.getElementById('menuNote').addEventListener('click', function() {
+            if (!currentRange) return;
+            const rect = currentRange.getBoundingClientRect();
+            const noteId = 'note_' + (++lastNoteId);
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            note.id = noteId;
+            note.innerHTML = `
+                <div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
+                <textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>
+            `;
+            note.style.left = (rect.right + window.scrollX + 8) + 'px';
+            note.style.top = (rect.top + window.scrollY) + 'px';
+            document.body.appendChild(note);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveNotes();
+        });
+
+        function closeNote(id) {
+            document.getElementById(id)?.remove();
+            saveNotes();
+        }
+
+        function saveNote(id, text) {
+            localStorage.setItem(`${passageId}_${id}`, text);
+        }
+
+        // Save/Load Highlights
+        function saveHighlights() {
+            localStorage.setItem(`${passageId}_highlights`, passageArea.innerHTML);
+        }
+
+        function loadHighlights() {
+            const saved = localStorage.getItem(`${passageId}_highlights`);
+            if (saved) passageArea.innerHTML = saved;
+        }
+
+        // Save/Load Notes
+        function saveNotes() {
+            const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
+                id: n.id,
+                left: n.style.left,
+                top: n.style.top,
+                text: n.querySelector('.note-textarea').value
+            }));
+            localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes));
+        }
+
+        function loadNotes() {
+            const saved = localStorage.getItem(`${passageId}_notes`);
+            if (!saved) return;
+            JSON.parse(saved).forEach(n => {
+                const note = document.createElement('div');
+                note.className = 'sticky-note';
+                note.id = n.id;
+                note.innerHTML = `
+                    <div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
+                    <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
+                `;
+                note.style.left = n.left;
+                note.style.top = n.top;
+                document.body.appendChild(note);
+                const num = parseInt(n.id.split('_')[1]);
+                if (num > lastNoteId) lastNoteId = num;
             });
         }
 
-        // ✅ Fixed toggle function
+        function clearAllAnswers() {
+            if (!confirm('Clear all your answers? This cannot be undone.')) return;
+            localStorage.removeItem(`${passageId}_answers`);
+            localStorage.removeItem(`${passageId}_flags`);
+            document.querySelectorAll('.answer-input').forEach(i => i.value = '');
+            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+            document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
+            updateNavStatus();
+        }
+
         function toggleAnswers() {
             const box = document.getElementById('answersBox');
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
@@ -450,13 +749,11 @@
             let html = '';
             let score = 0;
 
-            for (let q = 14; q <= 26; q++) {
+            for (let q = 1; q <= 13; q++) {
                 let studentAns = '';
                 const radios = document.getElementsByName(`q${q}`);
                 if (radios.length > 0) {
-                    for (let r of radios) {
-                        if (r.checked) studentAns = r.value;
-                    }
+                    for (let r of radios) if (r.checked) studentAns = r.value;
                 } else {
                     const input = document.querySelector(`input[name="q${q}"]`);
                     if (input) studentAns = input.value.trim().toLowerCase();
@@ -464,9 +761,8 @@
 
                 const correct = correctAnswers[`q${q}`].toLowerCase();
                 let status = '';
-                if (!studentAns) {
-                    status = '<span class="no-answer">(No Answer)</span>';
-                } else if (studentAns === correct) {
+                if (!studentAns) status = '<span class="no-answer">(No Answer)</span>';
+                else if (studentAns === correct) {
                     status = '<span class="correct">✅ Correct</span>';
                     score++;
                 } else {
@@ -481,9 +777,18 @@
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
-        // Load saved answers when page opens
-        window.onload = loadAnswers;
-    </script>
+        // Auto-save on input
+        document.addEventListener('input', function(e) {
+            if (e.target.matches('.answer-input') || e.target.matches('input[type="radio"]')) saveAnswers();
+        });
 
+        window.onload = function() {
+            generateNav();
+            loadAnswers();
+            loadFlags();
+            loadHighlights();
+            loadNotes();
+        };
+    </script>
 </body>
 </html>
