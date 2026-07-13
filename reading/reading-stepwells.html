@@ -628,26 +628,31 @@
             saveNotes();
         });
 
-        // Remove Highlight
-        document.getElementById('menuRemove').addEventListener('click', function() {
-            if (!currentRange) return;
-            try {
-                const container = currentRange.commonAncestorContainer;
-                let span = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
-                if (span && span.classList.contains('user-highlight')) {
-                    const text = document.createTextNode(span.textContent);
-                    span.parentNode.replaceChild(text, span);
-                    span.parentNode.normalize();
-                } else {
-                    currentRange.deleteContents();
-                }
-            } catch (e) {
-                console.log('Highlight removed');
-            }
-            window.getSelection().removeAllRanges();
-            currentRange = null;
-            saveHighlights();
-        });
+       // Remove Highlight
+document.getElementById('menuRemove').addEventListener('click', function() {
+    if (!currentRange) return;
+    try {
+        // Search for ANY highlight span inside or around your selection
+        const selectionContainer = currentRange.commonAncestorContainer;
+        // Find the nearest parent highlight span
+        let highlightSpan = selectionContainer.nodeType === Node.TEXT_NODE 
+            ? selectionContainer.parentElement 
+            : selectionContainer;
+
+        // If we found a highlight span, restore it properly
+        if (highlightSpan && highlightSpan.classList.contains('user-highlight')) {
+            const plainText = document.createTextNode(highlightSpan.textContent);
+            highlightSpan.parentNode.replaceChild(plainText, span);
+            highlightSpan.parentNode.normalize();
+        }
+        // ❌ Removed the dangerous else block that deleted text!
+    } catch (e) {
+        console.log('Highlight removed');
+    }
+    window.getSelection().removeAllRanges();
+    currentRange = null;
+    saveHighlights();
+});
 
         // Flag system
         function toggleFlag(qNum) {
