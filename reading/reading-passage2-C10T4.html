@@ -17,7 +17,7 @@
             color: #1a1a1a;
             line-height: 1.7;
             position: relative;
-            padding-bottom: 80px;
+            padding-bottom: 70px; /* Reduced extra space */
         }
 
         /* ✅ LOGO STYLES */
@@ -25,11 +25,11 @@
             width: 100%;
             background: #ffffff;
             border-bottom: 2px solid #dc2626;
-            padding: 12px 0;
+            padding: 10px 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
         }
         .logo {
@@ -39,12 +39,12 @@
             display: block;
         }
 
-        /* ✅ TWO‑COLUMN LAYOUT */
+        /* ✅ TWO‑COLUMN LAYOUT - INCREASED HEIGHT */
         .main-wrapper {
             display: flex;
             gap: 20px;
-            padding: 0 20px 20px;
-            height: calc(100vh - 130px);
+            padding: 0 20px 15px;
+            height: calc(100vh - 110px); /* More height for content */
         }
 
         .passage-column, .questions-column {
@@ -214,9 +214,10 @@
             scroll-margin-top: 20px;
         }
 
+        /* ✅ Fixed: Flag icon layout for all questions */
         .question-header {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 8px;
             margin-bottom: 4px;
         }
@@ -226,6 +227,8 @@
             color: #999;
             transition: color 0.2s;
             user-select: none;
+            margin-top: 2px;
+            flex-shrink: 0;
         }
         .flag-btn.flagged {
             color: #fd7e14;
@@ -236,6 +239,7 @@
             margin-bottom: 8px;
             font-size: 14px;
             line-height: 1.8;
+            flex: 1;
         }
 
         .options label {
@@ -308,24 +312,24 @@
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
 
-        /* ✅ NAVIGATION BUTTONS */
+        /* ✅ NAVIGATION BUTTONS - REDUCED SPACE */
         .nav-buttons {
             display: flex;
             gap: 10px;
-            margin: 0 20px 25px;
+            margin: 10px 20px 15px;
             flex-wrap: wrap;
             justify-content: center;
         }
 
         .back-btn, .next-btn {
-            padding: 10px 20px;
+            padding: 8px 16px;
             background: #fef2f2;
             color: #dc2626;
             text-decoration: none;
             border-radius: 8px;
             border: 1px solid #fecaca;
             font-weight: 500;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .back-btn:hover, .next-btn:hover {
@@ -417,6 +421,7 @@
                 <h2>Questions 14–18: Summary Completion</h2>
                 <p><em>Choose NO MORE THAN TWO WORDS from the passage for each answer.</em></p>
 
+                <!-- ✅ Fixed: Flag icons now inside header for 14-18 -->
                 <div class="question-block" id="q14">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(14)" id="flag14">🚩</span>
