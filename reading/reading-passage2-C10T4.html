@@ -71,8 +71,9 @@
         /* Highlight style */
         .user-highlight {
             background-color: #fff350;
-            padding: 2px 4px;
+            padding: 2px 3px;
             border-radius: 2px;
+            display: inline;
         }
 
         /* Flag layout */
@@ -205,12 +206,12 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
-            min-width: 150px;
+            min-width: 160px;
             display: none;
         }
 
         .context-menu div {
-            padding: 8px 12px;
+            padding: 9px 14px;
             cursor: pointer;
             font-size: 14px;
         }
@@ -235,7 +236,7 @@
 
         #notes-area {
             width: 100%;
-            min-height: 80px;
+            min-height: 90px;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -251,11 +252,11 @@
 
     <div class="question-status" id="statusBar"></div>
 
-    <!-- Custom Context Menu -->
+    <!-- Custom Right-Click Menu -->
     <div id="contextMenu" class="context-menu">
         <div onclick="highlightSelection()">✅ Highlight</div>
         <div onclick="removeHighlightFromSelection()">❌ Remove Highlight</div>
-        <div onclick="openNotePrompt()">📝 Add Notes</div>
+        <div onclick="addNoteToSelection()">📝 Add Notes</div>
     </div>
 
     <div class="main-wrapper">
@@ -457,59 +458,74 @@
 
         let lastSelection = null;
 
-        // Show custom right-click menu
+        // Show custom right-click menu only on passage text
         document.addEventListener('contextmenu', function(e) {
             const passage = document.getElementById('passageText');
             if (passage.contains(e.target)) {
                 e.preventDefault();
                 const menu = document.getElementById('contextMenu');
-                menu.style.left = e.pageX + 'px';
-                menu.style.top = e.pageY + 'px';
+                menu.style.left = (e.pageX + 5) + 'px';
+                menu.style.top = (e.pageY + 5) + 'px';
                 menu.style.display = 'block';
                 lastSelection = window.getSelection();
+            } else {
+                document.getElementById('contextMenu').style.display = 'none';
             }
         });
 
-        // Hide menu when clicking elsewhere
+        // Hide menu when clicking anywhere else
         document.addEventListener('click', function() {
             document.getElementById('contextMenu').style.display = 'none';
         });
 
-        // Highlight selected text
+        // --- Highlight function - FIXED ---
         function highlightSelection() {
-            if (!lastSelection || lastSelection.isCollapsed) return;
+            if (!lastSelection || lastSelection.isCollapsed) {
+                alert('Please select some text first!');
+                return;
+            }
             const range = lastSelection.getRangeAt(0);
             const span = document.createElement('span');
             span.className = 'user-highlight';
             span.textContent = lastSelection.toString();
-            range.deleteContents();
-            range.insertNode(span);
-            lastSelection.removeAllRanges();
+            try {
+                range.deleteContents();
+                range.insertNode(span);
+                lastSelection.removeAllRanges();
+            } catch (err) {
+                alert('Could not highlight this part — try selecting a smaller section.');
+            }
         }
 
-        // Remove highlight from selected text
+        // --- Remove highlight function - FIXED ---
         function removeHighlightFromSelection() {
-            if (!lastSelection || lastSelection.isCollapsed) return;
+            if (!lastSelection || lastSelection.isCollapsed) {
+                alert('Please select some highlighted text first!');
+                return;
+            }
             const range = lastSelection.getRangeAt(0);
-            const parent = range.commonAncestorContainer;
-            const spans = document.querySelectorAll('.user-highlight');
-            spans.forEach(span => {
+            const highlights = document.querySelectorAll('.user-highlight');
+            highlights.forEach(span => {
                 if (range.intersectsNode(span)) {
-                    span.outerHTML = span.innerHTML;
+                    span.outerHTML = span.textContent;
                 }
             });
             lastSelection.removeAllRanges();
         }
 
-        // Add note for selected text
-        function openNotePrompt() {
+        // --- Add note function ---
+        function addNoteToSelection() {
             const text = lastSelection && !lastSelection.isCollapsed ? lastSelection.toString().trim() : '';
-            const note = prompt('Add note for this part:\n' + (text ? `"${text}"` : ''), '');
+            const note = prompt(text ? `Add note for: "${text}"` : 'Add your note:');
             if (note && note.trim()) {
                 const notesBox = document.getElementById('notes-area');
-                notesBox.value += (notesBox.value ? '\n\n' : '') + (text ? `• "${text}": ` : '') + note;
-                notesBox.dispatchEvent(new Event('input'));
+                notesBox.value += (notesBox.value ? '\n\n' : '') + (text ? `• "${text}": ` : '• ') + note.trim();
+                saveNotes();
             }
+        }
+
+        function saveNotes() {
+            localStorage.setItem('reading_notes', document.getElementById('notes-area').value);
         }
 
         function buildStatusBar() {
@@ -562,7 +578,7 @@
                 document.getElementById('flag' + q).classList.remove('flagged');
                 document.getElementById('stat' + q).className = 'q-indicator current';
             }
-            document.querySelectorAll('.user-highlight').forEach(span => span.outerHTML = span.innerHTML);
+            document.querySelectorAll('.user-highlight').forEach(span => span.outerHTML = span.textContent);
             document.getElementById('notes-area').value = '';
             localStorage.removeItem('reading_notes');
         }
@@ -577,10 +593,7 @@
             // Load saved notes
             const savedNotes = localStorage.getItem('reading_notes');
             if (savedNotes) document.getElementById('notes-area').value = savedNotes;
-            // Save notes automatically
-            document.getElementById('notes-area').addEventListener('input', () => {
-                localStorage.setItem('reading_notes', document.getElementById('notes-area').value);
-            });
+            document.getElementById('notes-area').addEventListener('input', saveNotes);
         };
     </script>
 </body>
