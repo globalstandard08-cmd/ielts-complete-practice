@@ -263,10 +263,8 @@
             flex-wrap: wrap;
         }
 
-        .toggle-answers, .show-student {
+        .toggle-answers, .show-student, .clear-answers {
             padding: 6px 12px;
-            background: #dc2626;
-            color: white;
             border: none;
             border-radius: 6px;
             cursor: pointer;
@@ -274,8 +272,22 @@
             font-size: 13px;
         }
 
+        .toggle-answers, .show-student {
+            background: #dc2626;
+            color: white;
+        }
+
         .toggle-answers:hover, .show-student:hover {
             background: #b91c1c;
+        }
+
+        /* ✅ NEW CLEAR BUTTON STYLE */
+        .clear-answers {
+            background: #6b7280;
+            color: white;
+        }
+        .clear-answers:hover {
+            background: #4b5563;
         }
 
         .nav-buttons {
@@ -543,6 +555,8 @@
             <div class="action-buttons">
                 <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show/Hide Answers</button>
                 <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
+                <!-- ✅ NEW CLEAR BUTTON -->
+                <button class="clear-answers" onclick="clearAllAnswers()">🗑️ Clear All Answers</button>
             </div>
             <div class="nav-buttons">
                 <a href="library.html" class="back-btn">← Main Menu</a>
@@ -834,6 +848,31 @@
             html += `<br><strong>Total Score: ${score} / ${TOTAL_QUESTIONS}</strong>`;
             resultDiv.innerHTML = html;
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // ✅ NEW: Clear All Answers function
+        function clearAllAnswers() {
+            // Confirm before clearing
+            if (!confirm('Are you sure you want to clear all answers? This cannot be undone.')) return;
+
+            // Clear all text inputs
+            document.querySelectorAll('.answer-input').forEach(input => {
+                input.value = '';
+            });
+
+            // Clear all radio selections
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+            });
+
+            // Remove saved answers from localStorage
+            localStorage.removeItem(`${passageId}_answers`);
+
+            // Hide results box
+            document.getElementById('studentAnswersBox').style.display = 'none';
+
+            // Update status indicators
+            updateStatus();
         }
 
         // ✅ Auto-save on input
