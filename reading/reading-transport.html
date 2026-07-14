@@ -475,8 +475,8 @@
 
         <span class="nav-section-label">Passage 3:</span>
         <span id="p3_27"></span><span id="p3_28"></span><span id="p3_29"></span><span id="p3_30"></span><span id="p3_31"></span>
-        <span id="p3_32"></span><span id="p3_33"></span><span id="p3_34"></span><span id="p3_35"></span><span id="p3_36"></span>
-        <span id="p3_37"></span><span id="p3_38"></span><span id="p3_39"></span><span id="p3_40"></span>
+        <span id="p3_32"></span><span id="p3_33"></span><span id="p3_34"></span><span id="p3_35"></span>
+        <span id="p3_36"></span><span id="p3_37"></span><span id="p3_38"></span><span id="p3_39"></span><span id="p3_40"></span>
     </div>
 
     <!-- Bottom controls & navigation -->
@@ -492,6 +492,9 @@
     </div>
 
     <script>
+        // ✅ SAME GLOBAL KEY AS PASSAGE 1
+        const GLOBAL_SAVE_KEY = 'stepwells_all_test_data';
+        const CURRENT_PAGE_QS = [14,15,16,17,18,19,20,21,22,23,24,25,26];
         const passageBox = document.getElementById('passageBox');
         const contextMenu = document.getElementById('contextMenu');
         let currentRange = null;
@@ -577,116 +580,145 @@
             saveNotes();
         });
 
-      // Remove Highlight
-document.getElementById('menuRemove').addEventListener('click', function() {
-    if (!currentRange) return;
-    try {
-        // Search for ANY highlight span inside or around your selection
-        const selectionContainer = currentRange.commonAncestorContainer;
-        // Find the nearest parent highlight span
-        let highlightSpan = selectionContainer.nodeType === Node.TEXT_NODE 
-            ? selectionContainer.parentElement 
-            : selectionContainer;
+        // Remove Highlight
+        document.getElementById('menuRemove').addEventListener('click', function() {
+            if (!currentRange) return;
+            try {
+                const selectionContainer = currentRange.commonAncestorContainer;
+                let highlightSpan = selectionContainer.nodeType === Node.TEXT_NODE 
+                    ? selectionContainer.parentElement 
+                    : selectionContainer;
 
-        // If we found a highlight span, restore it properly
-        if (highlightSpan && highlightSpan.classList.contains('user-highlight')) {
-            const plainText = document.createTextNode(highlightSpan.textContent);
-            highlightSpan.parentNode.replaceChild(plainText, highlightSpan);
-            highlightSpan.parentNode.normalize();
-        }
-        // ❌ Removed the dangerous else block that deleted text!
-    } catch (e) {
-        console.log('Highlight removed');
-    }
-    window.getSelection().removeAllRanges();
-    currentRange = null;
-    saveHighlights();
-});
-        // Flag system
-        function toggleFlag(qNum) {
-            const flag = document.getElementById('flag' + qNum);
-            const stat = document.getElementById('stat' + qNum);
-            const isFlagged = flag.classList.toggle('flagged');
-            stat.classList.toggle('flagged', isFlagged);
-            localStorage.setItem('flag_' + qNum, isFlagged);
-        }
-
-        function closeNote(id) {
-            document.getElementById(id)?.remove();
-            saveNotes();
-        }
-
-        function saveNote(id, text) {
-            localStorage.setItem(id, text);
-        }
-
-        // Auto-save answers
-        document.querySelectorAll('.ans').forEach(el => {
-            const q = el.dataset.q;
-            const key = 'ans_' + q;
-            el.value = localStorage.getItem(key) || '';
-            updateStatus(q);
-            el.addEventListener('input', () => {
-                localStorage.setItem(key, el.value);
-                updateStatus(q);
-            });
+                if (highlightSpan && highlightSpan.classList.contains('user-highlight')) {
+                    const plainText = document.createTextNode(highlightSpan.textContent);
+                    highlightSpan.parentNode.replaceChild(plainText, highlightSpan);
+                    highlightSpan.parentNode.normalize();
+                }
+            } catch (e) {
+                console.log('Highlight removed');
+            }
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
         });
 
-        function updateStatus(q) {
-            const val = localStorage.getItem('ans_' + q) || '';
-            const stat = document.getElementById('stat' + q);
-            if (stat) stat.classList.toggle('answered', val.trim() !== '');
+        // --- ✅ GLOBAL SAVE / LOAD SYSTEM ---
+        function getAllData() {
+            const existing = localStorage.getItem(GLOBAL_SAVE_KEY);
+            return existing ? JSON.parse(existing) : {
+                answers: {},
+                flags: {},
+                highlights: {},
+                notes: {}
+            };
         }
 
-        // Save/load highlights
-        function saveHighlights() {
-            localStorage.setItem('passage_highlights_p2', passageBox.innerHTML);
-        }
-
-        function loadHighlights() {
-            const saved = localStorage.getItem('passage_highlights_p2');
-            if (saved) passageBox.innerHTML = saved;
-        }
-
-        // Save/load notes
-        function saveNotes() {
+        function saveAllData() {
+            const data = getAllData();
+            // Save answers
+            document.querySelectorAll('.ans').forEach(el => {
+                const q = el.dataset.q;
+                data.answers[q] = el.value;
+            });
+            // Save highlights
+            data.highlights.p2 = passageBox.innerHTML;
+            // Save notes
             const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
                 id: n.id, left: n.style.left, top: n.style.top,
                 text: n.querySelector('.note-textarea').value
             }));
-            localStorage.setItem('notes_data_p2', JSON.stringify(notes));
-        }
-
-        function loadNotes() {
-            const saved = localStorage.getItem('notes_data_p2');
-            if (!saved) return;
-            JSON.parse(saved).forEach(n => {
-                const note = document.createElement('div');
-                note.className = 'sticky-note';
-                note.id = n.id;
-                note.innerHTML = `
-                    <div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
-                    <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
-                `;
-                note.style.left = n.left;
-                note.style.top = n.top;
-                document.body.appendChild(note);
-                const num = parseInt(n.id.split('_')[1]);
-                if (num > lastNoteId) lastNoteId = num;
-            });
+            data.notes.p2 = notes;
+            localStorage.setItem(GLOBAL_SAVE_KEY, JSON.stringify(data));
+            updateAllStatus();
         }
 
         function loadAllData() {
-            loadHighlights();
-            loadNotes();
-            for (let i = 14; i <= 26; i++) {
-                const flagged = localStorage.getItem('flag_' + i) === 'true';
-                if (flagged) {
-                    document.getElementById('flag' + i)?.classList.add('flagged');
-                    document.getElementById('stat' + i)?.classList.add('flagged');
+            const data = getAllData();
+            // Load answers
+            CURRENT_PAGE_QS.forEach(q => {
+                const el = document.querySelector(`[data-q="${q}"]`);
+                if (el && data.answers[q] !== undefined) {
+                    el.value = data.answers[q];
                 }
-                updateStatus(i);
+            });
+            // Load highlights
+            if (data.highlights.p2) {
+                passageBox.innerHTML = data.highlights.p2;
             }
+            // Load notes
+            if (data.notes.p2) {
+                data.notes.p2.forEach(n => {
+                    const note = document.createElement('div');
+                    note.className = 'sticky-note';
+                    note.id = n.id;
+                    note.innerHTML = `
+                        <div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
+                        <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
+                    `;
+                    note.style.left = n.left;
+                    note.style.top = n.top;
+                    document.body.appendChild(note);
+                    const num = parseInt(n.id.split('_')[1]);
+                    if (num > lastNoteId) lastNoteId = num;
+                });
+            }
+            // Load flags & update all status
+            CURRENT_PAGE_QS.forEach(q => {
+                const flagged = data.flags[q] === true;
+                const flagEl = document.getElementById('flag' + q);
+                const statEl = document.getElementById('stat' + q);
+                if (flagEl) flagEl.classList.toggle('flagged', flagged);
+                if (statEl) statEl.classList.toggle('flagged', flagged);
+            });
+            updateAllStatus();
+        }
+
+        function updateAllStatus() {
+            const data = getAllData();
+            // Update ALL question indicators across all passages
+            for (let q = 1; q <= 40; q++) {
+                const stat = document.getElementById('stat' + q);
+                if (!stat) continue;
+                // Answered status
+                const hasAnswer = data.answers[q] && data.answers[q].trim() !== '';
+                stat.classList.toggle('answered', hasAnswer);
+                // Flagged status
+                stat.classList.toggle('flagged', data.flags[q] === true);
+            }
+        }
+
+        // Flag system (now saves globally)
+        function toggleFlag(qNum) {
+            const data = getAllData();
+            const flag = document.getElementById('flag' + qNum);
+            const stat = document.getElementById('stat' + qNum);
+            data.flags[qNum] = !data.flags[qNum];
+            const isFlagged = data.flags[qNum];
+            flag.classList.toggle('flagged', isFlagged);
+            stat.classList.toggle('flagged', isFlagged);
+            saveAllData();
+        }
+
+        function closeNote(id) {
+            document.getElementById(id)?.remove();
+            saveAllData();
+        }
+
+        function saveNote(id, text) {
+            saveAllData();
+        }
+
+        // Auto-save answers on input
+        document.querySelectorAll('.ans').forEach(el => {
+            el.addEventListener('input', saveAllData);
+        });
+
+        function saveHighlights() {
+            saveAllData();
+        }
+
+        function saveNotes() {
+            saveAllData();
         }
 
         function toggleAnswers() {
@@ -696,28 +728,10 @@ document.getElementById('menuRemove').addEventListener('click', function() {
         }
 
         function clearAll() {
-            if (!confirm("Clear all answers, highlights, notes and flags?")) return;
-            // Clear Passage 2 data
-            for (let i = 14; i <= 26; i++) {
-                localStorage.removeItem('ans_' + i);
-                localStorage.removeItem('flag_' + i);
-            }
-            localStorage.removeItem('passage_highlights_p2');
-            localStorage.removeItem('notes_data_p2');
-            
-            document.querySelectorAll('.ans').forEach(el => el.value = '');
-            document.querySelectorAll('.user-highlight').forEach(span => {
-                const text = document.createTextNode(span.textContent);
-                span.parentNode.replaceChild(text, span);
-                span.parentNode.normalize();
-            });
-            document.querySelectorAll('.sticky-note').forEach(n => n.remove());
-            for (let i = 14; i <= 26; i++) {
-                document.getElementById('flag' + i)?.classList.remove('flagged');
-                const stat = document.getElementById('stat' + i);
-                if (stat) stat.className = 'q-indicator current';
-            }
-            lastNoteId = 0;
+            if (!confirm("Clear ALL answers, highlights, notes and flags for the entire test?")) return;
+            localStorage.removeItem(GLOBAL_SAVE_KEY);
+            // Reset page
+            location.reload();
         }
     </script>
 </body>
