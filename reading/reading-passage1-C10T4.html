@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reading Passage 1 - C10T4</title>
+    <title>Reading - Land of the Rising Sun</title>
     <style>
         * {
             margin: 0;
@@ -16,11 +16,9 @@
             background-color: #fef2f2;
             color: #1a1a1a;
             line-height: 1.7;
-            position: relative;
-            padding-bottom: 80px; /* Make space for bottom nav */
+            padding-bottom: 50px;
         }
 
-        /* ✅ LOGO STYLES */
         .logo-container {
             width: 100%;
             background: #ffffff;
@@ -29,108 +27,41 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 8px;
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
         }
         .logo {
             width: 35%;
-            max-width: 300px;
+            max-width: 320px;
             height: auto;
             display: block;
         }
 
-        h1 {
-            color: #dc2626;
-            font-size: 19px;
-            margin: 10px 0;
-            text-align: center;
-        }
-
-        /* ✅ QUESTION NAVIGATION BAR - MOVED TO BOTTOM */
-        .question-status {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 5px;
-            padding: 8px 15px;
-            background: #fff;
-            border-top: 2px solid #fecaca;
-            box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
-            font-size: 13px;
-            z-index: 999;
-        }
-        .q-indicator {
-            width: 26px;
-            height: 26px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 2px;
-            border: 1px solid #ddd;
-            background: #f9f9f9;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .q-indicator:hover {
-            background: #fecaca;
-        }
-        .q-indicator.answered {
-            background: #198754;
-            color: white;
-            border-color: #198754;
-        }
-        .q-indicator.flagged {
-            background: #fd7e14;
-            color: white;
-            border-color: #fd7e14;
-        }
-        .q-indicator.current {
-            border: 2px solid #dc2626;
-        }
-
-        /* ✅ TWO‑COLUMN LAYOUT */
         .main-wrapper {
             display: flex;
-            gap: 15px;
-            padding: 0 15px 15px;
-            height: calc(100vh - 120px);
+            gap: 16px;
+            padding: 0 16px 8px;
+            height: calc(100vh - 90px);
         }
 
         .passage-column, .questions-column {
             flex: 1;
             background: #ffffff;
-            border-radius: 8px;
+            border-radius: 10px;
             border: 1px solid #fecaca;
-            padding: 18px;
+            padding: 16px;
             overflow-y: auto;
-            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07);
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.08);
             position: relative;
         }
 
-        /* Custom scrollbar */
-        .passage-column::-webkit-scrollbar,
-        .questions-column::-webkit-scrollbar {
-            width: 12px;
-        }
-        .passage-column::-webkit-scrollbar-track,
-        .questions-column::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        .passage-column::-webkit-scrollbar-thumb,
-        .questions-column::-webkit-scrollbar-thumb {
-            background: #dc262680;
-            border-radius: 4px;
-        }
-        .passage-column::-webkit-scrollbar-thumb:hover,
-        .questions-column::-webkit-scrollbar-thumb:hover {
-            background: #dc2626;
+        h1 {
+            color: #dc2626;
+            font-size: 19px;
+            margin-bottom: 16px;
+            text-align: center;
         }
 
-        /* ✅ IMPROVED PARAGRAPH SPACING */
         .passage-text p {
             margin-bottom: 16px;
             font-size: 15px;
@@ -138,36 +69,32 @@
             text-align: justify;
         }
 
-        /* Highlight style */
-        .user-highlight {
-            background-color: #ffd700;
+        .highlight {
+            background-color: #fff350;
             padding: 2px 4px;
             border-radius: 2px;
             cursor: pointer;
-            color: #000;
         }
 
-        /* Right-click context menu */
         .context-menu {
             position: absolute;
             background: #ffffff;
             border: 1px solid #ccc;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
             z-index: 9999;
             display: none;
             min-width: 140px;
         }
         .context-menu div {
-            padding: 8px 12px;
+            padding: 8px 11px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
         }
         .context-menu div:hover {
-            background: #f0f0f0;
+            background: #fef2f2;
         }
 
-        /* Sticky notes */
         .sticky-note {
             position: absolute;
             width: 160px;
@@ -176,9 +103,11 @@
             border: 1px solid #e6c200;
             border-radius: 4px;
             padding: 6px;
-            box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+            box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
             z-index: 9998;
-            font-size: 13px;
+            font-size: 12px;
+            cursor: move;
+            user-select: none;
         }
         .note-header {
             display: flex;
@@ -186,8 +115,9 @@
             align-items: center;
             font-weight: bold;
             margin-bottom: 4px;
-            font-size: 12px;
+            font-size: 11px;
             color: #886a00;
+            padding: 2px 0;
         }
         .note-close {
             cursor: pointer;
@@ -196,69 +126,60 @@
         }
         .note-textarea {
             width: 100%;
-            height: 45px;
+            height: 44px;
             border: none;
             background: transparent;
             resize: none;
             outline: none;
             font-family: inherit;
-            font-size: 13px;
+            font-size: 12px;
+            cursor: text;
         }
 
-        .questions-section h2 {
-            color: #991b1b;
-            font-size: 17px;
-            margin: 18px 0 10px;
-        }
-
-        .question-block {
-            margin-bottom: 18px;
-            scroll-margin-top: 20px;
-        }
-
-        .question-header {
-            display: flex;
+        .question-row {
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 4px;
+            gap: 6px;
+            vertical-align: top;
         }
+
         .flag-btn {
             font-size: 18px;
             cursor: pointer;
-            color: #999;
-            transition: color 0.2s;
+            color: #ccc;
+            transition: all 0.2s ease;
+            line-height: 1;
+            flex-shrink: 0;
             user-select: none;
+            background: none;
+            border: none;
+            padding: 0;
         }
         .flag-btn.flagged {
-            color: #fd7e14;
+            color: #f97316;
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 2px rgba(249, 115, 22, 0.4));
+        }
+        .flag-btn:hover {
+            color: #f97316;
         }
 
-        .question-block p {
-            font-weight: 500;
-            margin-bottom: 8px;
-            font-size: 14px;
-            line-height: 1.8;
-        }
-
-        .options label {
-            display: block;
-            margin-left: 15px;
-            margin-bottom: 6px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        /* ✅ INPUT STYLE FOR INLINE BLANKS */
         .answer-input {
             width: auto;
             min-width: 90px;
             padding: 2px 6px;
-            margin: 0 6px;
+            margin: 0 4px;
             border: 1px solid #dc2626;
             border-radius: 4px;
             font-size: 14px;
             background: #fff;
             text-align: center;
+        }
+
+        h2 {
+            color: #991b1b;
+            font-size: 16px;
+            margin: 20px 0 10px;
         }
 
         .action-buttons {
@@ -268,22 +189,19 @@
             flex-wrap: wrap;
         }
 
-        .toggle-answers, .show-student, .clear-all {
-            padding: 8px 14px;
+        .toggle-answers, .show-student, .clear-all, .clear-highlight {
+            padding: 7px 12px;
             background: #dc2626;
             color: white;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            font-weight: 500;
             font-size: 13px;
         }
-
-        .toggle-answers:hover, .show-student:hover, .clear-all:hover {
+        .toggle-answers:hover, .show-student:hover, .clear-all:hover, .clear-highlight:hover {
             background: #b91c1c;
         }
 
-        /* ✅ Results boxes */
         .answers-box, .student-answers-box {
             margin-top: 12px;
             padding: 12px;
@@ -298,219 +216,216 @@
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
 
-        /* ✅ NAVIGATION BUTTONS */
         .nav-buttons {
             display: flex;
-            gap: 10px;
-            margin: 10px 15px 20px;
-            flex-wrap: wrap;
+            gap: 8px;
+            margin: 6px 16px 10px;
             justify-content: center;
         }
 
         .back-btn, .next-btn {
-            padding: 7px 16px;
-            background: #fff;
+            padding: 7px 12px;
+            background: #fef2f2;
             color: #dc2626;
             text-decoration: none;
             border-radius: 6px;
             border: 1px solid #fecaca;
-            font-weight: 500;
-            font-size: 14px;
+            font-size: 13px;
+        }
+        .back-btn:hover, .next-btn:hover {
+            background: #ffffff;
         }
 
-        .back-btn:hover, .next-btn:hover {
-            background: #fef2f2;
+        .question-status {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            background: #fff;
+            border-top: 2px solid #dc2626;
+            font-size: 12px;
+            z-index: 999;
+        }
+
+        /* ✅ ALL START GRAY / DEFAULT */
+        .q-indicator {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            border: 1px solid #d1d5db;
+            background: #f3f4f6;
+            color: #4b5563;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .q-indicator:hover {
+            background: #e5e7eb;
+            border-color: #9ca3af;
+        }
+        /* ✅ ONLY GREEN WHEN ANSWERED */
+        .q-indicator.answered {
+            background: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #166534 !important;
+        }
+        /* ✅ ONLY ORANGE WHEN FLAGGED */
+        .q-indicator.flagged {
+            background: #ffedd5 !important;
+            border-color: #f97316 !important;
+            color: #c2410c !important;
+        }
+        /* ✅ CURRENT PAGE QUESTIONS — SLIGHTLY DARKER GRAY */
+        .q-indicator.current {
+            background: #e5e7eb;
+            border-color: #6b7280;
+            color: #1f2937;
         }
     </style>
 </head>
 <body>
-    <!-- Logo -->
     <div class="logo-container">
         <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
     </div>
 
-    <h1>Reading Passage 1 — The megafires of California</h1>
-
-    <!-- Right-click context menu -->
-    <div class="context-menu" id="contextMenu">
-        <div id="menuHighlight">✅ Highlight</div>
-        <div id="menuNote">📝 Add Note</div>
-        <div id="menuRemove">❌ Remove Highlight</div>
-    </div>
-
-    <!-- ✅ QUESTION NAVIGATION BAR - BOTTOM, 1–40 ONLY -->
     <div class="question-status" id="statusBar"></div>
 
-    <!-- ✅ TWO COLUMNS: LEFT = PASSAGE | RIGHT = QUESTIONS -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+    </div>
+
     <div class="main-wrapper">
-        <!-- LEFT SIDE: PASSAGE TEXT -->
         <div class="passage-column" id="passageArea">
-            <div class="passage-text">
-                <p><em>Drought, housing expansion, and oversupply of tinder make for bigger, hotter fires in the western United States</em></p>
-
-                <p>Wildfires are becoming an increasing menace in the western United States, with Southern California being the hardest hit area. There's a reason fire squads battling more frequent blazes in Southern California are having such difficulty containing the flames, despite better preparedness than ever and decades of experience fighting fires fanned by the 'Santa Ana Winds'. The wildfires themselves, experts say, are generally hotter, faster, and spread more erratically than in the past.</p>
-
-                <p>Megafires, also called 'siege fires', are the increasingly frequent blazes that burn 500,000 acres or more – 10 times the size of the average forest fire of 20 years ago. Some recent wildfires are among the biggest ever in California in terms of acreage burned, according to state figures and news reports.</p>
-
-                <p>One explanation for the trend to more superhot fires is that the region, which usually has dry summers, has had significantly below normal precipitation in many recent years. Another reason, experts say, is related to the century‑long policy of the US Forest Service to stop wildfires as quickly as possible. The unintentional consequence has been to halt the natural eradication of underbrush, now the primary fuel for megafires.</p>
-
-                <p>Three other factors contribute to the trend, they add. First is climate change, marked by a 1‑degree Fahrenheit rise in average yearly temperature across the western states. Second is fire seasons that on average are 78 days longer than they were 20 years ago. Third is increased construction of homes in wooded areas.</p>
-
-                <p>'We are increasingly building our homes in fire‑prone ecosystems,' says Dominik Kulakowski, adjunct professor of biology at Clark University Graduate School of Geography in Worcester, Massachusetts. 'Doing that in many of the forests of the western US is like building homes on the side of an active volcano.'</p>
-
-                <p>In California, where population growth has averaged more than 600,000 a year for at least a decade, more residential housing is being built. 'What once was open space is now residential homes providing fuel to make fires burn with greater intensity,' says Terry McHale of the California Department of Forestry firefighters' union. 'With so much dryness, so many communities to catch fire, so many fronts to fight, it becomes an almost incredible job.'</p>
-
-                <p>That said, many experts give California high marks for making progress on preparedness in recent years, after some of the largest fires in state history scorched thousands of acres, burned thousands of homes, and killed numerous people. Stung in the past by criticism of bungling that allowed fires to spread when they might have been contained, personnel are meeting the peculiar challenges of neighborhood – and canyon‑hopping fires better than previously, observers say.</p>
-
-                <p>State promises to provide more up‑to‑date engines, planes, and helicopters to fight fires have been fulfilled. Firefighters' unions that in the past complained of dilapidated equipment, old fire engines, and insufficient blueprints for fire safety are now praising the state's commitment, noting that funding for firefighting has increased, despite huge cuts in many other programs. 'We are pleased that the current state administration has been very proactive in its support of us, and [has] come through with budgetary support of the infrastructure needs we have long sought,' says Mr. McHale of the firefighters' union.</p>
-
-                <p>Besides providing money to upgrade the fire engines that must traverse the mammoth state and wind along serpentine canyon roads, the state has invested in better command‑and‑control facilities as well as in the strategies to run them. 'In the fire sieges of earlier years, we found that other jurisdictions and states were willing to offer mutual‑aid help, but we were not able to communicate adequately with them,' says Kim Zagaris, chief of the state's Office of Emergency Services Fire and Rescue Branch. After a commission examined and revamped communications procedures, the statewide response 'has become far more professional and responsive,' he says. There is a sense among both government officials and residents that the speed, dedication, and coordination of firefighters from several states and jurisdictions are resulting in greater efficiency than in past 'siege fire' situations.</p>
-
-                <p>In recent years, the Southern California region has improved building codes, evacuation procedures, and procurement of new technology. 'I am extraordinarily impressed by the improvements we have witnessed,' says Randy Jacobs, a Southern California‑based lawyer who has had to evacuate both his home and business to escape wildfires. 'Notwithstanding all the damage that will continue to be caused by wildfires, we will no longer suffer the loss of life endured in the past because of the fire prevention and firefighting measures that have been put in place,' he says.</p>
+            <h1>Reading Passage 1 — Land of the Rising Sun</h1>
+            <div class="passage-text" id="passageText">
+                <p>Japan has a significantly better record in terms of average mathematical attainment than England and Wales. Large sample international comparisons of pupils' attainments since the 1960s have established that not only did Japanese pupils at age 13 have better scores of average attainment, but there was also a larger proportion of 'low' attainers in England, where, incidentally, the variation in attainment scores was much greater. The percentage of Gross National Product spent on education is reasonably similar in the two countries, so how is this higher and more consistent attainment in maths achieved?</p>
+                <p>There are two key explanations for this excellence in mathematics education in Japan: the nature of education and the way it is organised.</p>
+                <p>First, the type of education offered in Japan is based on the belief that all children can learn to high standards if they are given the right conditions. There is no streaming or setting in primary or lower secondary schools, and all pupils follow the same curriculum. Teachers are also expected to adapt their teaching to the needs of all pupils, and to spend time helping those who are struggling.</p>
+                <p>Second, the organisation of schooling in Japan also contributes to high attainment. The school year is longer than in England and Wales, starting in April and ending in March, with six weeks of summer holiday, two weeks in winter and two weeks in spring. Pupils also spend more time at school each day, and much of this time is spent on whole-class teaching. Teachers are well-qualified and highly respected, and they have opportunities to develop their skills through in-service training and observation of other teachers.</p>
+                <p>Another important factor is the value placed on education by Japanese society. Parents are very involved in their children's education, and many pay for extra tuition at juku, or cram schools, outside normal school hours. There is also a strong belief that effort and hard work are more important than natural ability in determining success. This attitude is reinforced by the way children are taught in school, where they are encouraged to compete against their own previous performance rather than against others.</p>
+                <p>But what is the secret of Japan's success in mathematics? Is it the way the subject is taught, or something else? Research suggests that the approach to teaching mathematics in Japan is very different from that in England. In Japan, the emphasis is on developing a deep understanding of mathematical concepts, rather than just memorising rules and procedures. Teachers spend more time introducing new ideas and helping pupils to see the connections between different areas of mathematics. They also encourage pupils to think for themselves and to explain their reasoning.</p>
+                <p>Lessons in Japan are typically structured in the same way. The teacher begins by presenting a problem or a situation that the pupils are asked to think about. They then work on the problem individually or in small groups, before sharing their ideas with the whole class. The teacher guides the discussion, helping pupils to clarify their thinking and to develop more efficient methods. Finally, the teacher summarises the key points and shows how the new idea can be applied in different contexts.</p>
+                <p>This approach requires a great deal of skill and preparation on the part of the teacher. Japanese teachers spend a lot of time working together to plan lessons and to develop teaching materials. They also observe each other's lessons and give feedback, which helps them to improve their practice.</p>
             </div>
+            <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear All Highlights</button>
         </div>
 
-        <!-- RIGHT SIDE: QUESTIONS -->
         <div class="questions-column">
             <div class="questions-section">
-                <h2>Questions 1–6: Notes Completion</h2>
-                <p><em>Choose ONE WORD AND/OR A NUMBER from the passage for each answer.</em></p>
-
-                <div class="question-block" id="q1">
-                    <p>• Characteristics of wildfires and wildfire conditions today compared to the past:<br>
-                    – occurrence: more frequent<br>
-                    – temperature: hotter<br>
-                    – speed: faster<br>
-                    – movement: <span class="flag-btn" onclick="toggleFlag(1)" id="flag1">🚩</span> <strong>1.</strong> <input type="text" class="answer-input ans" name="q1" data-q="1" placeholder="______"><br>
-                    – size of fires: <span class="flag-btn" onclick="toggleFlag(2)" id="flag2">🚩</span> <strong>2.</strong> <input type="text" class="answer-input ans" name="q2" data-q="2" placeholder="______"> greater on average than two decades ago</p>
-                </div>
-
-                <div class="question-block" id="q3">
-                    <p>• Reasons wildfires cause more damage today compared to the past:<br>
-                    – rainfall: <span class="flag-btn" onclick="toggleFlag(3)" id="flag3">🚩</span> <strong>3.</strong> <input type="text" class="answer-input ans" name="q3" data-q="3" placeholder="______"> average<br>
-                    – more brush to act as <span class="flag-btn" onclick="toggleFlag(4)" id="flag4">🚩</span> <strong>4.</strong> <input type="text" class="answer-input ans" name="q4" data-q="4" placeholder="______"><br>
-                    – increase in yearly temperature<br>
-                    – extended fire <span class="flag-btn" onclick="toggleFlag(5)" id="flag5">🚩</span> <strong>5.</strong> <input type="text" class="answer-input ans" name="q5" data-q="5" placeholder="______"><br>
-                    – more building of <span class="flag-btn" onclick="toggleFlag(6)" id="flag6">🚩</span> <strong>6.</strong> <input type="text" class="answer-input ans" name="q6" data-q="6" placeholder="______"> in vulnerable places</p>
-                </div>
-
-
-                <h2>Questions 7–13: TRUE / FALSE / NOT GIVEN</h2>
+                <h2>Questions 1–7: True / False / Not Given</h2>
                 <p><em>Do the following statements agree with the information given in Reading Passage 1?</em></p>
-                <p><strong>TRUE</strong> — if the statement agrees<br>
-                <strong>FALSE</strong> — if the statement contradicts<br>
-                <strong>NOT GIVEN</strong> — if there is no information</p>
+                <p><strong>TRUE</strong> if the statement agrees with the information<br>
+                <strong>FALSE</strong> if the statement contradicts the information<br>
+                <strong>NOT GIVEN</strong> if there is no information on this</p>
 
-                <div class="question-block" id="q7">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(7)" id="flag7">🚩</span>
-                        <p>7 The amount of open space in California has diminished over the last ten years.</p>
-                    </div>
-                    <div class="options">
-                        <label><input type="radio" class="ans" name="q7" data-q="7" value="TRUE"> TRUE</label>
-                        <label><input type="radio" class="ans" name="q7" data-q="7" value="FALSE"> FALSE</label>
-                        <label><input type="radio" class="ans" name="q7" data-q="7" value="NOT GIVEN"> NOT GIVEN</label>
-                    </div>
+                <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
+                    <button class="flag-btn" onclick="toggleFlag(1)" id="flag1">🚩</button>
+                    <div><strong>1.</strong> There is a wider range of achievement amongst English pupils studying maths than amongst their Japanese counterparts.<br>
+                    <input type="text" class="answer-input ans" name="q1" data-q="1" placeholder="T/F/NG"></div>
+                </div>
+                <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
+                    <button class="flag-btn" onclick="toggleFlag(2)" id="flag2">🚩</button>
+                    <div><strong>2.</strong> The percentage of Gross National Product spent on education is higher in Japan than in England.<br>
+                    <input type="text" class="answer-input ans" name="q2" data-q="2" placeholder="T/F/NG"></div>
+                </div>
+                <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
+                    <button class="flag-btn" onclick="toggleFlag(3)" id="flag3">🚩</button>
+                    <div><strong>3.</strong> Pupils in Japan are streamed according to ability from the start of primary school.<br>
+                    <input type="text" class="answer-input ans" name="q3" data-q="3" placeholder="T/F/NG"></div>
+                </div>
+                <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
+                    <button class="flag-btn" onclick="toggleFlag(4)" id="flag4">🚩</button>
+                    <div><strong>4.</strong> Japanese school years begin in the spring.<br>
+                    <input type="text" class="answer-input ans" name="q4" data-q="4" placeholder="T/F/NG"></div>
+                </div>
+                <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
+                    <button class="flag-btn" onclick="toggleFlag(5)" id="flag5">🚩</button>
+                    <div><strong>5.</strong> Parents in Japan pay for extra education for their children.<br>
+                    <input type="text" class="answer-input ans" name="q5" data-q="5" placeholder="T/F/NG"></div>
+                </div>
+                <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
+                    <button class="flag-btn" onclick="toggleFlag(6)" id="flag6">🚩</button>
+                    <div><strong>6.</strong> Japanese pupils are encouraged to compete against other pupils in their class.<br>
+                    <input type="text" class="answer-input ans" name="q6" data-q="6" placeholder="T/F/NG"></div>
+                </div>
+                <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
+                    <button class="flag-btn" onclick="toggleFlag(7)" id="flag7">🚩</button>
+                    <div><strong>7.</strong> Lessons in Japan often start with pupils working on a problem by themselves.<br>
+                    <input type="text" class="answer-input ans" name="q7" data-q="7" placeholder="T/F/NG"></div>
                 </div>
 
-                <div class="question-block" id="q8">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(8)" id="flag8">🚩</span>
-                        <p>8 Many experts believe California has made little progress in readying itself to fight fires.</p>
-                    </div>
-                    <div class="options">
-                        <label><input type="radio" class="ans" name="q8" data-q="8" value="TRUE"> TRUE</label>
-                        <label><input type="radio" class="ans" name="q8" data-q="8" value="FALSE"> FALSE</label>
-                        <label><input type="radio" class="ans" name="q8" data-q="8" value="NOT GIVEN"> NOT GIVEN</label>
-                    </div>
+                <h2>Questions 8–13: Matching Characteristics</h2>
+                <p><em>Match the characteristics with the country, A or B.</em></p>
+                <div class="list-people">
+                    <strong>List of Countries</strong><br>
+                    A &nbsp; Japan<br>
+                    B &nbsp; England
                 </div>
 
-                <div class="question-block" id="q9">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(9)" id="flag9">🚩</span>
-                        <p>9 Personnel in the past have been criticised for mishandling fire containment.</p>
-                    </div>
-                    <div class="options">
-                        <label><input type="radio" class="ans" name="q9" data-q="9" value="TRUE"> TRUE</label>
-                        <label><input type="radio" class="ans" name="q9" data-q="9" value="FALSE"> FALSE</label>
-                        <label><input type="radio" class="ans" name="q9" data-q="9" value="NOT GIVEN"> NOT GIVEN</label>
-                    </div>
+                <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
+                    <button class="flag-btn" onclick="toggleFlag(8)" id="flag8">🚩</button>
+                    <div><strong>8.</strong> less time spent on whole-class teaching<br>
+                    <input type="text" class="answer-input ans" name="q8" data-q="8" placeholder="A/B"></div>
                 </div>
-
-                <div class="question-block" id="q10">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(10)" id="flag10">🚩</span>
-                        <p>10 California has replaced a range of firefighting tools.</p>
-                    </div>
-                    <div class="options">
-                        <label><input type="radio" class="ans" name="q10" data-q="10" value="TRUE"> TRUE</label>
-                        <label><input type="radio" class="ans" name="q10" data-q="10" value="FALSE"> FALSE</label>
-                        <label><input type="radio" class="ans" name="q10" data-q="10" value="NOT GIVEN"> NOT GIVEN</label>
-                    </div>
+                <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
+                    <button class="flag-btn" onclick="toggleFlag(9)" id="flag9">🚩</button>
+                    <div><strong>9.</strong> teachers working together to prepare lessons<br>
+                    <input type="text" class="answer-input ans" name="q9" data-q="9" placeholder="A/B"></div>
                 </div>
-
-                <div class="question-block" id="q11">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(11)" id="flag11">🚩</span>
-                        <p>11 More firefighters have been hired to improve fire‑fighting capacity.</p>
-                    </div>
-                    <div class="options">
-                        <label><input type="radio" class="ans" name="q11" data-q="11" value="TRUE"> TRUE</label>
-                        <label><input type="radio" class="ans" name="q11" data-q="11" value="FALSE"> FALSE</label>
-                        <label><input type="radio" class="ans" name="q11" data-q="11" value="NOT GIVEN"> NOT GIVEN</label>
-                    </div>
+                <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
+                    <button class="flag-btn" onclick="toggleFlag(10)" id="flag10">🚩</button>
+                    <div><strong>10.</strong> more emphasis on memorising rules<br>
+                    <input type="text" class="answer-input ans" name="q10" data-q="10" placeholder="A/B"></div>
                 </div>
-
-                <div class="question-block" id="q12">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(12)" id="flag12">🚩</span>
-                        <p>12 Citizens and government groups disapprove of the efforts of different states and agencies working together.</p>
-                    </div>
-                    <div class="options">
-                        <label><input type="radio" class="ans" name="q12" data-q="12" value="TRUE"> TRUE</label>
-                        <label><input type="radio" class="ans" name="q12" data-q="12" value="FALSE"> FALSE</label>
-                        <label><input type="radio" class="ans" name="q12" data-q="12" value="NOT GIVEN"> NOT GIVEN</label>
-                    </div>
+                <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
+                    <button class="flag-btn" onclick="toggleFlag(11)" id="flag11">🚩</button>
+                    <div><strong>11.</strong> helping pupils to understand how ideas are linked<br>
+                    <input type="text" class="answer-input ans" name="q11" data-q="11" placeholder="A/B"></div>
                 </div>
-
-                <div class="question-block" id="q13">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(13)" id="flag13">🚩</span>
-                        <p>13 Randy Jacobs believes that loss of life from fires will continue at the same levels, despite changes made.</p>
-                    </div>
-                    <div class="options">
-                        <label><input type="radio" class="ans" name="q13" data-q="13" value="TRUE"> TRUE</label>
-                        <label><input type="radio" class="ans" name="q13" data-q="13" value="FALSE"> FALSE</label>
-                        <label><input type="radio" class="ans" name="q13" data-q="13" value="NOT GIVEN"> NOT GIVEN</label>
-                    </div>
+                <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
+                    <button class="flag-btn" onclick="toggleFlag(12)" id="flag12">🚩</button>
+                    <div><strong>12.</strong> teachers observing each other's lessons<br>
+                    <input type="text" class="answer-input ans" name="q12" data-q="12" placeholder="A/B"></div>
                 </div>
-
+                <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
+                    <button class="flag-btn" onclick="toggleFlag(13)" id="flag13">🚩</button>
+                    <div><strong>13.</strong> shorter school holidays<br>
+                    <input type="text" class="answer-input ans" name="q13" data-q="13" placeholder="A/B"></div>
+                </div>
 
                 <div class="action-buttons">
-                    <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Answers</button>
+                    <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
                     <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
-                    <button class="clear-all" onclick="clearAll()">🗑️ Clear All</button>
+                    <button class="clear-all" onclick="clearAll()">🗑️ Clear All Data</button>
                 </div>
 
-                <!-- ✅ CORRECT ANSWER KEY -->
                 <div class="answers-box" id="answersBox">
                     <h3>✅ Correct Answers — Passage 1</h3>
-                    <p><strong>1.</strong> spread<br>
-                    <strong>2.</strong> 10 times<br>
-                    <strong>3.</strong> below<br>
-                    <strong>4.</strong> fuel<br>
-                    <strong>5.</strong> seasons<br>
-                    <strong>6.</strong> homes<br>
+                    <p><strong>1.</strong> TRUE<br>
+                    <strong>2.</strong> FALSE<br>
+                    <strong>3.</strong> FALSE<br>
+                    <strong>4.</strong> TRUE<br>
+                    <strong>5.</strong> TRUE<br>
+                    <strong>6.</strong> FALSE<br>
                     <strong>7.</strong> TRUE<br>
-                    <strong>8.</strong> FALSE<br>
-                    <strong>9.</strong> TRUE<br>
-                    <strong>10.</strong> TRUE<br>
-                    <strong>11.</strong> NOT GIVEN<br>
-                    <strong>12.</strong> FALSE<br>
-                    <strong>13.</strong> FALSE</p>
+                    <strong>8.</strong> B<br>
+                    <strong>9.</strong> A<br>
+                    <strong>10.</strong> B<br>
+                    <strong>11.</strong> A<br>
+                    <strong>12.</strong> A<br>
+                    <strong>13.</strong> B</p>
                 </div>
 
-                <!-- ✅ STUDENT ANSWERS & RESULT -->
                 <div class="student-answers-box" id="studentAnswersBox">
                     <h3>📝 Your Answers & Score</h3>
                     <div id="studentResult"></div>
@@ -519,81 +434,123 @@
         </div>
     </div>
 
-    <!-- ✅ NAVIGATION BUTTONS AT BOTTOM -->
     <div class="nav-buttons">
-        <a href="library.html" class="back-btn">← Main Menu</a>
+        <a href="../index.html" class="back-btn">← Back to Main Menu</a>
         <a href="reading-passage2-C10T4.html" class="next-btn">Next Passage →</a>
     </div>
 
     <script>
-        // ✅ Correct answer data
         const correctAnswers = {
-            q1: 'spread',
-            q2: '10 times',
-            q3: 'below',
-            q4: 'fuel',
-            q5: 'seasons',
-            q6: 'homes',
-            q7: 'TRUE',
-            q8: 'FALSE',
-            q9: 'TRUE',
-            q10: 'TRUE',
-            q11: 'NOT GIVEN',
-            q12: 'FALSE',
-            q13: 'FALSE'
+            q1: 'TRUE', q2: 'FALSE', q3: 'FALSE', q4: 'TRUE', q5: 'TRUE', q6: 'FALSE', q7: 'TRUE',
+            q8: 'B', q9: 'A', q10: 'B', q11: 'A', q12: 'A', q13: 'B'
         };
+        const CURRENT_PAGE_QUESTIONS = [1,2,3,4,5,6,7,8,9,10,11,12,13];
+        const GLOBAL_SAVE_KEY = 'C10T4_all_answers_flags'; // SAME ON ALL PAGES!
+        const passageId = 'C10T4P1';
 
-        const passageBox = document.getElementById('passageArea');
-        const contextMenu = document.getElementById('contextMenu');
-        const statusBar = document.getElementById('statusBar');
         let currentRange = null;
         let lastNoteId = 0;
+        let activeNote = null, offsetX, offsetY;
 
-        // Initialize navigation indicators 1–40, no passage labels
-        window.onload = function() {
-            statusBar.innerHTML = '';
+        // === Build Navigation Bar with GLOBAL data ===
+        function buildStatusBar() {
+            const bar = document.getElementById('statusBar');
+            bar.innerHTML = '';
+            const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
+            saved.answers = saved.answers || {};
+            saved.flags = saved.flags || {};
+
             for (let q = 1; q <= 40; q++) {
-                const el = document.createElement('div');
-                el.className = 'q-indicator';
-                el.textContent = q;
-                el.id = 'stat' + q;
-                el.onclick = () => jumpToQuestion(q);
-                statusBar.appendChild(el);
-            }
-            // Mark current passage questions
-            for (let q = 1; q <= 13; q++) {
-                document.getElementById('stat' + q).classList.add('current');
-            }
-            loadAllData();
-        };
+                const d = document.createElement('div');
+                d.className = 'q-indicator';
+                d.textContent = q;
+                d.id = 'stat' + q;
+                d.dataset.q = q;
 
-        function jumpToQuestion(qNum) {
-            const el = document.getElementById('q' + qNum);
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (CURRENT_PAGE_QUESTIONS.includes(q)) {
+                    d.classList.add('current');
+                    d.onclick = () => scrollToQuestion(q);
+                }
+
+                if (saved.flags[q]) d.classList.add('flagged');
+                if (saved.answers[q] && saved.answers[q].trim() !== '') d.classList.add('answered');
+                bar.appendChild(d);
+            }
         }
 
-        // Right-click menu
-        passageBox.addEventListener('contextmenu', function(e) {
-            const selection = window.getSelection();
-            if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
+        function updateNavStatus() {
+            const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
+            saved.answers = saved.answers || {};
+            saved.flags = saved.flags || {};
+
+            for (let q = 1; q <= 40; q++) {
+                const btn = document.getElementById('stat' + q);
+                if (!btn) continue;
+                const hasAnswer = saved.answers[q] && saved.answers[q].trim() !== '';
+                btn.classList.toggle('answered', hasAnswer);
+                btn.classList.toggle('flagged', saved.flags[q] === true);
+            }
+        }
+
+        function scrollToQuestion(qNum) {
+            const input = document.querySelector(`[data-q="${qNum}"]`);
+            if (input) input.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function toggleFlag(qNum) {
+            const flagBtn = document.getElementById('flag' + qNum);
+            const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
+            saved.flags = saved.flags || {};
+            saved.flags[qNum] = !saved.flags[qNum];
+            flagBtn.classList.toggle('flagged', saved.flags[qNum]);
+            localStorage.setItem(GLOBAL_SAVE_KEY, JSON.stringify(saved));
+            updateNavStatus();
+        }
+
+        function saveAnswers() {
+            const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
+            saved.answers = saved.answers || {};
+            document.querySelectorAll('.ans').forEach(el => {
+                const q = el.dataset.q;
+                saved.answers[q] = el.value.trim();
+            });
+            localStorage.setItem(GLOBAL_SAVE_KEY, JSON.stringify(saved));
+            updateNavStatus();
+        }
+
+        function loadAnswers() {
+            const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
+            saved.answers = saved.answers || {};
+            saved.flags = saved.flags || {};
+            for (const q of CURRENT_PAGE_QUESTIONS) {
+                const input = document.querySelector(`[data-q="${q}"]`);
+                if (input) input.value = saved.answers[q] || '';
+                const flag = document.getElementById(`flag${q}`);
+                if (flag) flag.classList.toggle('flagged', saved.flags[q] === true);
+            }
+        }
+
+        // === Highlight & Notes ===
+        const passageArea = document.getElementById('passageArea');
+        const contextMenu = document.getElementById('contextMenu');
+        passageArea.addEventListener('contextmenu', e => {
+            const sel = window.getSelection();
+            if (!sel || sel.isCollapsed || sel.toString().trim() === '') {
                 contextMenu.style.display = 'none';
                 return;
             }
             e.preventDefault();
-            currentRange = selection.getRangeAt(0);
+            currentRange = sel.getRangeAt(0);
             const rect = currentRange.getBoundingClientRect();
             contextMenu.style.left = (rect.left + window.scrollX) + 'px';
             contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
             contextMenu.style.display = 'block';
         });
-
         document.addEventListener('click', () => contextMenu.style.display = 'none');
-
-        // Highlight text
-        document.getElementById('menuHighlight').addEventListener('click', function() {
+        document.getElementById('menuHighlight').addEventListener('click', () => {
             if (!currentRange) return;
             const span = document.createElement('span');
-            span.className = 'user-highlight';
+            span.className = 'highlight';
             span.textContent = currentRange.toString();
             currentRange.deleteContents();
             currentRange.insertNode(span);
@@ -601,215 +558,83 @@
             currentRange = null;
             saveHighlights();
         });
-
-        // Add note
-        document.getElementById('menuNote').addEventListener('click', function() {
+        document.getElementById('menuRemove').addEventListener('click', () => {
+            if (!currentRange) return;
+            try {
+                const highlights = document.querySelectorAll('.highlight');
+                highlights.forEach(span => { if (currentRange.intersectsNode(span)) span.outerHTML = span.textContent; });
+            } catch (e) {}
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        });
+        document.getElementById('menuNote').addEventListener('click', () => {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
             const noteId = 'note_' + (++lastNoteId);
             const note = document.createElement('div');
             note.className = 'sticky-note';
             note.id = noteId;
-            note.innerHTML = `
-                <div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
-                <textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>
-            `;
+            note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div><textarea class="note-textarea" placeholder="Type your note..." oninput="saveNotes()"></textarea>`;
             note.style.left = (rect.right + window.scrollX + 8) + 'px';
             note.style.top = (rect.top + window.scrollY) + 'px';
             document.body.appendChild(note);
+            makeNoteDraggable(note);
             window.getSelection().removeAllRanges();
             currentRange = null;
             saveNotes();
         });
-
-        // ✅ IMPROVED Remove Highlight function
-        document.getElementById('menuRemove').addEventListener('click', function() {
-            if (!currentRange) return;
-            try {
-                // Traverse up from selection to find the highlight span
-                let node = currentRange.startContainer;
-                while (node && node !== document.body) {
-                    if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains('user-highlight')) {
-                        const plainText = document.createTextNode(node.textContent);
-                        node.parentNode.replaceChild(plainText, node);
-                        node.parentNode.normalize();
-                        break;
-                    }
-                    node = node.parentNode;
-                }
-                window.getSelection().removeAllRanges();
-                currentRange = null;
-                saveHighlights();
-            } catch (e) {
-                console.log('Remove highlight done');
-            }
-        });
-
-        // Flag system
-        function toggleFlag(qNum) {
-            const flag = document.getElementById('flag' + qNum);
-            const stat = document.getElementById('stat' + qNum);
-            const isFlagged = flag.classList.toggle('flagged');
-            stat.classList.toggle('flagged', isFlagged);
-            localStorage.setItem('C10T4P1_flag_' + qNum, isFlagged);
-        }
-
-        function closeNote(id) {
-            document.getElementById(id)?.remove();
-            saveNotes();
-        }
-
-        function saveNote(id, text) {
-            localStorage.setItem(id, text);
-        }
-
-        // Auto-save answers
-        document.querySelectorAll('.ans').forEach(el => {
-            const q = el.dataset.q;
-            const key = 'C10T4P1_ans_' + q;
-            if (el.type === 'radio') {
-                el.addEventListener('change', () => {
-                    localStorage.setItem(key, el.value);
-                    updateStatus(q);
-                });
-            } else {
-                el.value = localStorage.getItem(key) || '';
-                el.addEventListener('input', () => {
-                    localStorage.setItem(key, el.value.trim());
-                    updateStatus(q);
-                });
-            }
-            updateStatus(q);
-        });
-
-        function updateStatus(q) {
-            const val = localStorage.getItem('C10T4P1_ans_' + q) || '';
-            const stat = document.getElementById('stat' + q);
-            if (stat) stat.classList.toggle('answered', val.trim() !== '');
-        }
-
-        // Save/load highlights
-        function saveHighlights() {
-            localStorage.setItem('C10T4P1_highlights', passageBox.innerHTML);
-        }
-
-        function loadHighlights() {
-            const saved = localStorage.getItem('C10T4P1_highlights');
-            if (saved) passageBox.innerHTML = saved;
-        }
-
-        // Save/load notes
-        function saveNotes() {
-            const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
-                id: n.id, left: n.style.left, top: n.style.top,
-                text: n.querySelector('.note-textarea').value
-            }));
-            localStorage.setItem('C10T4P1_notes', JSON.stringify(notes));
-        }
-
-        function loadNotes() {
-            const saved = localStorage.getItem('C10T4P1_notes');
-            if (!saved) return;
-            JSON.parse(saved).forEach(n => {
-                const note = document.createElement('div');
-                note.className = 'sticky-note';
-                note.id = n.id;
-                note.innerHTML = `
-                    <div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
-                    <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
-                `;
-                note.style.left = n.left;
-                note.style.top = n.top;
-                document.body.appendChild(note);
-                const num = parseInt(n.id.split('_')[1]);
-                if (num > lastNoteId) lastNoteId = num;
+        function makeNoteDraggable(note) {
+            note.addEventListener('mousedown', e => {
+                if (e.target.closest('.note-textarea') || e.target.classList.contains('note-close')) return;
+                activeNote = note;
+                offsetX = e.clientX - note.getBoundingClientRect().left;
+                offsetY = e.clientY - note.getBoundingClientRect().top;
+                note.style.zIndex = 10000;
             });
         }
+        document.addEventListener('mousemove', e => { if (!activeNote) return; activeNote.style.left = (e.clientX - offsetX + window.scrollX) + 'px'; activeNote.style.top = (e.clientY - offsetY + window.scrollY) + 'px'; });
+        document.addEventListener('mouseup', () => { if (activeNote) { saveNotes(); activeNote.style.zIndex = 9998; activeNote = null; } });
+        function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
+        function saveHighlights() { localStorage.setItem(`${passageId}_highlights`, passageArea.innerHTML); }
+        function loadHighlights() { const s = localStorage.getItem(`${passageId}_highlights`); if (s) passageArea.innerHTML = s; }
+        function saveNotes() { const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({id:n.id, left:n.style.left, top:n.style.top, text:n.querySelector('.note-textarea').value})); localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes)); }
+        function loadNotes() { const s = localStorage.getItem(`${passageId}_notes`); if (!s) return; JSON.parse(s).forEach(n => { const note = document.createElement('div'); note.className='sticky-note'; note.id=n.id; note.innerHTML=`<div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea">${n.text}</textarea>`; note.style.left=n.left; note.style.top=n.top; document.body.appendChild(note); makeNoteDraggable(note); }); }
+        function clearHighlights() { document.querySelectorAll('.highlight').forEach(s => s.outerHTML = s.textContent); localStorage.removeItem(`${passageId}_highlights`); }
 
-        function loadAllData() {
+        function toggleAnswers() { const b = document.getElementById('answersBox'); b.style.display = b.style.display === 'block' ? 'none' : 'block'; }
+        function showStudentAnswers() {
+            saveAnswers();
+            const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
+            const b = document.getElementById('studentAnswersBox');
+            const res = document.getElementById('studentResult');
+            let html = '', score = 0;
+            for (let q = 1; q <= 13; q++) {
+                const ans = (saved.answers[q] || '').trim().toUpperCase();
+                const cor = correctAnswers[`q${q}`].toUpperCase();
+                if (!ans) html += `<strong>${q}.</strong> — <span class="no-answer">No answer</span><br>`;
+                else if (ans === cor) { html += `<strong>${q}.</strong> <span class="correct">✅ Correct</span><br>`; score++; }
+                else html += `<strong>${q}.</strong> <span class="wrong">❌ Wrong (Correct: ${correctAnswers[`q${q}`]})</span><br>`;
+            }
+            res.innerHTML = html + `<br><strong>Score: ${score}/13</strong>`;
+            b.style.display = b.style.display === 'block' ? 'none' : 'block';
+        }
+        function clearAll() {
+            if (!confirm('Clear ALL answers and flags for the whole test?')) return;
+            localStorage.removeItem(GLOBAL_SAVE_KEY);
+            for (const q of CURRENT_PAGE_QUESTIONS) { document.querySelector(`[data-q="${q}"]`).value = ''; document.getElementById(`flag${q}`).classList.remove('flagged'); }
+            clearHighlights(); document.querySelectorAll('.sticky-note').forEach(n => n.remove());
+            localStorage.removeItem(`${passageId}_highlights`); localStorage.removeItem(`${passageId}_notes`);
+            buildStatusBar();
+        }
+
+        window.onload = function() {
+            buildStatusBar();
+            loadAnswers();
             loadHighlights();
             loadNotes();
-            for (let i = 1; i <= 13; i++) {
-                const flagged = localStorage.getItem('C10T4P1_flag_' + i) === 'true';
-                if (flagged) {
-                    document.getElementById('flag' + i)?.classList.add('flagged');
-                    document.getElementById('stat' + i)?.classList.add('flagged');
-                }
-                // Load answers
-                const savedAns = localStorage.getItem('C10T4P1_ans_' + i);
-                if (savedAns) {
-                    const inputs = document.querySelectorAll(`[name="q${i}"]`);
-                    if (inputs[0]?.type === 'radio') {
-                        inputs.forEach(r => { if (r.value === savedAns) r.checked = true; });
-                    } else {
-                        inputs[0].value = savedAns;
-                    }
-                }
-                updateStatus(i);
-            }
-        }
-
-        // Toggle answers
-        function toggleAnswers() {
-            const box = document.getElementById('answersBox');
-            box.style.display = box.style.display === 'block' ? 'none' : 'block';
-        }
-
-        // Check student answers
-        function showStudentAnswers() {
-            const box = document.getElementById('studentAnswersBox');
-            const resultDiv = document.getElementById('studentResult');
-            let html = '';
-            let score = 0;
-
-            for (let q = 1; q <= 13; q++) {
-                const studentAns = (localStorage.getItem(`C10T4P1_ans_${q}`) || '').toLowerCase();
-                const correct = correctAnswers[`q${q}`].toLowerCase();
-                let status = '';
-                if (!studentAns) {
-                    status = '<span class="no-answer">(No Answer)</span>';
-                } else if (studentAns === correct) {
-                    status = '<span class="correct">✅ Correct</span>';
-                    score++;
-                } else {
-                    status = `<span class="wrong">❌ Wrong (Correct: ${correctAnswers[`q${q}`]})</span>`;
-                }
-                html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
-            }
-
-            html += `<br><strong>Total Score: ${score} / 13</strong>`;
-            resultDiv.innerHTML = html;
-            box.style.display = box.style.display === 'block' ? 'none' : 'block';
-        }
-
-        // Clear all data
-        function clearAll() {
-            if (!confirm("Clear all answers, highlights, notes and flags?")) return;
-            for (let i = 1; i <= 13; i++) {
-                localStorage.removeItem(`C10T4P1_ans_${i}`);
-                localStorage.removeItem(`C10T4P1_flag_${i}`);
-            }
-            localStorage.removeItem('C10T4P1_highlights');
-            localStorage.removeItem('C10T4P1_notes');
-            
-            document.querySelectorAll('.ans').forEach(el => {
-                if (el.type === 'radio') el.checked = false;
-                else el.value = '';
-            });
-            document.querySelectorAll('.user-highlight').forEach(span => {
-                const text = document.createTextNode(span.textContent);
-                span.parentNode.replaceChild(text, span);
-                span.parentNode.normalize();
-            });
-            document.querySelectorAll('.sticky-note').forEach(n => n.remove());
-            for (let i = 1; i <= 13; i++) {
-                document.getElementById('flag' + i)?.classList.remove('flagged');
-                const stat = document.getElementById('stat' + i);
-                if (stat) stat.className = 'q-indicator current';
-            }
-            lastNoteId = 0;
-        }
+            document.querySelectorAll('.ans').forEach(el => { el.addEventListener('input', saveAnswers); });
+        };
     </script>
-
 </body>
 </html>
