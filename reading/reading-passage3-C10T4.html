@@ -264,7 +264,7 @@
             width: 100%;
             background: #ffffff;
             border-top: 2px solid #dc2626;
-            padding: 10px 20px;
+            padding: 10px 15px;
             box-shadow: 0 -2px 6px rgba(220, 38, 38, 0.1);
             z-index: 9997;
         }
@@ -273,18 +273,18 @@
             margin: 0 auto;
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
             justify-content: center;
         }
         .q-btn {
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             border: 1px solid #fecaca;
             border-radius: 6px;
             background: #fef2f2;
             color: #dc2626;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -308,6 +308,14 @@
             background: #dc2626;
             color: white;
             border-color: #dc2626;
+        }
+        /* Dim buttons for questions not on this page */
+        .q-btn.other-page {
+            opacity: 0.5;
+            cursor: default;
+        }
+        .q-btn.other-page:hover {
+            background: #fef2f2;
         }
 
         .nav-buttons {
@@ -548,6 +556,7 @@
             q32: 'F', q33: 'G', q34: 'A', q35: 'B', q36: 'D',
             q37: 'NOT GIVEN', q38: 'YES', q39: 'NO', q40: 'YES'
         };
+        const CURRENT_PAGE_QUESTIONS = [27,28,29,30,31,32,33,34,35,36,37,38,39,40];
 
         let currentRange = null;
         let lastNoteId = 0;
@@ -556,7 +565,7 @@
         function toggleFlag(qNum) {
             const flagBtn = document.getElementById('flag' + qNum);
             const navBtns = document.querySelectorAll('.q-btn');
-            const navBtn = navBtns[qNum - 27];
+            const navBtn = navBtns[qNum - 1];
             const isFlagged = flagBtn.classList.toggle('flagged');
             navBtn.classList.toggle('flagged', isFlagged);
             localStorage.setItem('C10T4P3_flag_' + qNum, isFlagged);
@@ -694,15 +703,26 @@
         function buildQuestionNav() {
             const container = document.getElementById('questionNavContainer');
             container.innerHTML = '';
-            for (let q = 27; q <= 40; q++) {
+            // Generate ALL 40 questions like real IELTS
+            for (let q = 1; q <= 40; q++) {
                 const btn = document.createElement('button');
                 btn.className = 'q-btn';
                 btn.textContent = q;
-                btn.onclick = () => scrollToQuestion(q);
+                btn.dataset.q = q;
+                
+                // Dim questions not on this page
+                if (!CURRENT_PAGE_QUESTIONS.includes(q)) {
+                    btn.classList.add('other-page');
+                } else {
+                    btn.onclick = () => scrollToQuestion(q);
+                    // Load saved flag status
+                    const isFlagged = localStorage.getItem('C10T4P3_flag_' + q) === 'true';
+                    const flagBtn = document.getElementById('flag' + q);
+                    if (flagBtn) flagBtn.classList.toggle('flagged', isFlagged);
+                    btn.classList.toggle('flagged', isFlagged);
+                }
+                
                 container.appendChild(btn);
-                const isFlagged = localStorage.getItem('C10T4P3_flag_' + q) === 'true';
-                document.getElementById('flag' + q).classList.toggle('flagged', isFlagged);
-                btn.classList.toggle('flagged', isFlagged);
             }
             updateNavStatus();
         }
@@ -712,14 +732,14 @@
             if (qBlock) {
                 qBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('current'));
-                document.querySelectorAll('.q-btn')[qNum - 27].classList.add('current');
+                document.querySelector(`.q-btn[data-q="${qNum}"]`)?.classList.add('current');
             }
         }
 
         function updateNavStatus() {
             const answers = JSON.parse(localStorage.getItem('C10T4P3_answers') || '{}');
-            document.querySelectorAll('.q-btn').forEach((btn, idx) => {
-                const q = 27 + idx;
+            document.querySelectorAll('.q-btn').forEach(btn => {
+                const q = parseInt(btn.dataset.q);
                 btn.classList.remove('answered');
                 if (answers[`q${q}`] && answers[`q${q}`].trim() !== '') {
                     btn.classList.add('answered');
@@ -747,6 +767,7 @@
             if (!saved) return;
             const answers = JSON.parse(saved);
             for (let key in answers) {
+                const qNum = key.replace('q', '');
                 const radios = document.getElementsByName(key);
                 if (radios.length > 0) {
                     radios.forEach(r => { if (r.value.toUpperCase() === answers[key].toUpperCase()) r.checked = true; });
@@ -763,7 +784,8 @@
             for (let q = 27; q <= 40; q++) {
                 document.querySelectorAll(`input[name="q${q}"]`).forEach(el => el.checked = false || (el.value = ''));
                 localStorage.removeItem('C10T4P3_flag_' + q);
-                document.getElementById('flag' + q).classList.remove('flagged');
+                const flagBtn = document.getElementById('flag' + q);
+                if (flagBtn) flagBtn.classList.remove('flagged');
             }
             localStorage.removeItem('C10T4P3_answers');
             buildQuestionNav();
