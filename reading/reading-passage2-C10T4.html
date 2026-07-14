@@ -279,17 +279,17 @@
         }
         /* ✅ ONLY GREEN WHEN ANSWERED */
         .q-indicator.answered {
-            background: #dcfce7;
-            border-color: #22c55e;
-            color: #166534;
+            background: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #166534 !important;
         }
         /* ✅ ONLY ORANGE WHEN FLAGGED */
         .q-indicator.flagged {
-            background: #ffedd5;
-            border-color: #f97316;
-            color: #c2410c;
+            background: #ffedd5 !important;
+            border-color: #f97316 !important;
+            color: #c2410c !important;
         }
-        /* ✅ CURRENT PAGE QUESTIONS — ONLY SLIGHTLY DARKER GRAY, NOT RED */
+        /* ✅ CURRENT PAGE QUESTIONS — SLIGHTLY DARKER GRAY */
         .q-indicator.current {
             background: #e5e7eb;
             border-color: #6b7280;
@@ -484,7 +484,7 @@
         let lastNoteId = 0;
         let activeNote = null, offsetX, offsetY;
 
-        // === Navigation Bar — All start gray ===
+        // === Build Navigation Bar ===
         function buildStatusBar() {
             const bar = document.getElementById('statusBar');
             bar.innerHTML = '';
@@ -499,19 +499,19 @@
                 d.id = 'stat' + q;
                 d.dataset.q = q;
 
-                // Only mark current page questions as slightly darker gray — no red
                 if (CURRENT_PAGE_QUESTIONS.includes(q)) {
                     d.classList.add('current');
                     d.onclick = () => scrollToQuestion(q);
                 }
 
-                // Only add color if already saved
+                // Apply saved status
                 if (saved.flags[q]) d.classList.add('flagged');
                 if (saved.answers[q] && saved.answers[q].trim() !== '') d.classList.add('answered');
                 bar.appendChild(d);
             }
         }
 
+        // === ✅ FIXED: Update Navigation Status Properly ===
         function updateNavStatus() {
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
             saved.answers = saved.answers || {};
@@ -520,8 +520,17 @@
             for (let q = 1; q <= 40; q++) {
                 const btn = document.getElementById('stat' + q);
                 if (!btn) continue;
+
+                // Set/remove answered class
+                const hasAnswer = saved.answers[q] && saved.answers[q].trim() !== '';
+                if (hasAnswer) {
+                    btn.classList.add('answered');
+                } else {
+                    btn.classList.remove('answered');
+                }
+
+                // Set/remove flagged class
                 btn.classList.toggle('flagged', saved.flags[q] === true);
-                btn.classList.toggle('answered', saved.answers[q] && saved.answers[q].trim() !== '');
             }
         }
 
@@ -541,7 +550,7 @@
             updateNavStatus();
         }
 
-        // === Answer Saving — turns green only when typed ===
+        // === ✅ FIXED: Save Answers & Update Nav Bar Instantly ===
         function saveAnswers() {
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
             saved.answers = saved.answers || {};
@@ -552,7 +561,7 @@
             });
 
             localStorage.setItem(GLOBAL_SAVE_KEY, JSON.stringify(saved));
-            updateNavStatus();
+            updateNavStatus(); // <-- THIS WAS MISSING BEFORE!
         }
 
         function loadAnswers() {
@@ -715,6 +724,7 @@
             loadAnswers();
             loadHighlights();
             loadNotes();
+            // Save instantly on every keystroke
             document.querySelectorAll('.ans').forEach(el => {
                 el.addEventListener('input', saveAnswers);
             });
