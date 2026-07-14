@@ -258,6 +258,7 @@
             z-index: 999;
         }
 
+        /* ✅ ALL START GRAY / DEFAULT */
         .q-indicator {
             width: 24px;
             height: 24px;
@@ -266,31 +267,33 @@
             justify-content: center;
             border-radius: 4px;
             border: 1px solid #d1d5db;
-            background: #f9fafb;
-            color: #374151;
+            background: #f3f4f6;
+            color: #4b5563;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
         }
         .q-indicator:hover {
-            background: #f3f4f6;
+            background: #e5e7eb;
             border-color: #9ca3af;
         }
+        /* ✅ ONLY GREEN WHEN ANSWERED */
         .q-indicator.answered {
             background: #dcfce7;
             border-color: #22c55e;
             color: #166534;
         }
+        /* ✅ ONLY ORANGE WHEN FLAGGED */
         .q-indicator.flagged {
             background: #ffedd5;
             border-color: #f97316;
             color: #c2410c;
         }
+        /* ✅ CURRENT PAGE QUESTIONS — ONLY SLIGHTLY DARKER GRAY, NOT RED */
         .q-indicator.current {
-            background: #dc2626;
-            color: white;
-            border-color: #dc2626;
-            box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.3);
+            background: #e5e7eb;
+            border-color: #6b7280;
+            color: #1f2937;
         }
     </style>
 </head>
@@ -481,7 +484,7 @@
         let lastNoteId = 0;
         let activeNote = null, offsetX, offsetY;
 
-        // === Global Navigation Bar ===
+        // === Navigation Bar — All start gray ===
         function buildStatusBar() {
             const bar = document.getElementById('statusBar');
             bar.innerHTML = '';
@@ -496,11 +499,13 @@
                 d.id = 'stat' + q;
                 d.dataset.q = q;
 
+                // Only mark current page questions as slightly darker gray — no red
                 if (CURRENT_PAGE_QUESTIONS.includes(q)) {
                     d.classList.add('current');
                     d.onclick = () => scrollToQuestion(q);
                 }
 
+                // Only add color if already saved
                 if (saved.flags[q]) d.classList.add('flagged');
                 if (saved.answers[q] && saved.answers[q].trim() !== '') d.classList.add('answered');
                 bar.appendChild(d);
@@ -523,8 +528,6 @@
         function scrollToQuestion(qNum) {
             const input = document.querySelector(`[data-q="${qNum}"]`);
             if (input) input.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            document.querySelectorAll('.q-indicator').forEach(b => b.classList.remove('current'));
-            document.getElementById('stat' + qNum)?.classList.add('current');
         }
 
         // === Flag System ===
@@ -538,7 +541,7 @@
             updateNavStatus();
         }
 
-        // === Answer Saving ===
+        // === Answer Saving — turns green only when typed ===
         function saveAnswers() {
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
             saved.answers = saved.answers || {};
@@ -714,7 +717,6 @@
             loadNotes();
             document.querySelectorAll('.ans').forEach(el => {
                 el.addEventListener('input', saveAnswers);
-                el.addEventListener('change', saveAnswers);
             });
         };
     </script>
