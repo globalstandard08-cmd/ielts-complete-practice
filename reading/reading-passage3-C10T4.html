@@ -24,320 +24,127 @@
             background: #ffffff;
             border-bottom: 2px solid #dc2626;
             padding: 12px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             margin-bottom: 15px;
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
         }
-        .logo {
-            width: 40%;
-            max-width: 350px;
-            height: auto;
-            display: block;
-        }
+        .logo { width: 40%; max-width: 350px; height: auto; display: block; }
 
         .main-wrapper {
-            display: flex;
-            gap: 20px;
-            padding: 0 20px 20px;
+            display: flex; gap: 20px; padding: 0 20px 20px;
             height: calc(100vh - 130px);
         }
 
         .passage-column, .questions-column {
-            flex: 1;
-            background: #ffffff;
-            border-radius: 12px;
-            border: 1px solid #fecaca;
-            padding: 20px;
-            overflow-y: auto;
-            box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07);
-            position: relative;
+            flex: 1; background: #ffffff; border-radius: 12px;
+            border: 1px solid #fecaca; padding: 20px; overflow-y: auto;
+            box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07); position: relative;
         }
 
-        h1 {
-            color: #dc2626;
-            font-size: 20px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+        h1 { color: #dc2626; font-size: 20px; margin-bottom: 20px; text-align: center; }
 
-        .passage-text p {
-            margin-bottom: 18px;
-            font-size: 15px;
-            line-height: 1.8;
-            text-align: justify;
-        }
-
-        .highlight {
-            background-color: #fff350;
-            padding: 2px 2px;
-            border-radius: 2px;
-        }
+        .passage-text p { margin-bottom: 18px; font-size: 15px; line-height: 1.8; text-align: justify; }
+        .highlight { background-color: #fff350; padding: 2px 2px; border-radius: 2px; }
 
         .clear-highlight {
-            margin-top: 20px;
-            padding: 8px 16px;
-            background: #dc2626;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 14px;
+            margin-top: 20px; padding: 8px 16px; background: #dc2626; color: white;
+            border: none; border-radius: 8px; cursor: pointer; font-weight: 500; font-size: 14px;
         }
+        .clear-highlight:hover { background: #b91c1c; }
 
-        .clear-highlight:hover {
-            background: #b91c1c;
-        }
-
-        .questions-section h2 {
-            color: #991b1b;
-            font-size: 17px;
-            margin: 20px 0 10px;
-        }
+        .questions-section h2 { color: #991b1b; font-size: 17px; margin: 20px 0 10px; }
 
         .question-block {
-            margin-bottom: 18px;
-            position: relative;
-            padding-right: 0;
-            padding-left: 32px;
+            margin-bottom: 18px; position: relative;
+            padding-right: 0; padding-left: 32px;
         }
 
         .flag-btn {
-            position: absolute;
-            top: 0;
-            left: 0;
-            background: none;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            color: #ccc;
-            transition: all 0.2s ease;
-            user-select: none;
-            padding: 0;
-            line-height: 1;
+            position: absolute; top: 0; left: 0; background: none; border: none;
+            font-size: 18px; cursor: pointer; color: #ccc; transition: all 0.2s ease;
+            user-select: none; padding: 0; line-height: 1;
         }
         .flag-btn.flagged {
-            color: #dc2626;
-            transform: scale(1.1);
+            color: #f97316; transform: scale(1.15);
+            filter: drop-shadow(0 0 2px rgba(249, 115, 22, 0.4));
         }
-        .flag-btn:hover {
-            color: #dc2626;
-        }
+        .flag-btn:hover { color: #f97316; }
 
-        .question-block p {
-            font-weight: 500;
-            margin-bottom: 8px;
-            font-size: 14px;
-            line-height: 1.8;
-            display: inline;
-        }
-
-        .options label {
-            display: block;
-            margin-left: 15px;
-            margin-bottom: 6px;
-            font-size: 14px;
-            cursor: pointer;
-        }
+        .question-block p { font-weight: 500; margin-bottom: 8px; font-size: 14px; line-height: 1.8; display: inline; }
+        .options label { display: block; margin-left: 15px; margin-bottom: 6px; font-size: 14px; cursor: pointer; }
 
         .answer-input {
-            width: auto;
-            min-width: 90px;
-            padding: 2px 6px;
-            margin: 0 6px;
-            border: 1px solid #dc2626;
-            border-radius: 4px;
-            font-size: 14px;
-            background: #fff;
-            text-align: center;
+            width: auto; min-width: 90px; padding: 2px 6px; margin: 0 6px;
+            border: 1px solid #dc2626; border-radius: 4px; font-size: 14px;
+            background: #fff; text-align: center;
         }
 
-        .options-list {
-            margin: 10px 0 15px 20px;
-            font-size: 14px;
-            line-height: 1.7;
-        }
-
-        .action-buttons {
-            margin: 20px 0;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+        .options-list { margin: 10px 0 15px 20px; font-size: 14px; line-height: 1.7; }
+        .action-buttons { margin: 20px 0; display: flex; gap: 10px; flex-wrap: wrap; }
 
         .toggle-answers, .show-student, .clear-all {
-            padding: 8px 16px;
-            background: #dc2626;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
+            padding: 8px 16px; background: #dc2626; color: white;
+            border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px;
         }
-
-        .toggle-answers:hover, .show-student:hover, .clear-all:hover {
-            background: #b91c1c;
-        }
+        .toggle-answers:hover, .show-student:hover, .clear-all:hover { background: #b91c1c; }
 
         .answers-box, .student-answers-box {
-            margin-top: 12px;
-            padding: 12px;
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            border-radius: 8px;
-            display: none;
-            font-size: 13px;
+            margin-top: 12px; padding: 12px; background: #fef2f2;
+            border: 1px solid #fecaca; border-radius: 8px; display: none; font-size: 13px;
         }
-
         .correct { color: green; font-weight: 600; }
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
 
         .context-menu {
-            position: absolute;
-            background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            z-index: 9999;
-            display: none;
-            min-width: 140px;
+            position: absolute; background: #fff; border: 1px solid #ccc; border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 140px;
         }
-        .context-menu div {
-            padding: 8px 12px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .context-menu div:hover {
-            background: #f3f4f6;
-        }
+        .context-menu div { padding: 8px 12px; cursor: pointer; font-size: 14px; }
+        .context-menu div:hover { background: #f3f4f6; }
 
         .sticky-note {
-            position: absolute;
-            width: 170px;
-            min-height: 70px;
-            background: #fff380;
-            border: 1px solid #e6c200;
-            border-radius: 4px;
-            padding: 6px;
-            box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
-            z-index: 9998;
-            cursor: move;
-            user-select: none;
+            position: absolute; width: 170px; min-height: 70px;
+            background: #fff380; border: 1px solid #e6c200; border-radius: 4px;
+            padding: 6px; box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+            z-index: 9998; cursor: move; user-select: none;
         }
         .note-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            margin-bottom: 4px;
-            font-size: 11px;
-            color: #886a00;
-            padding: 2px 0;
-            border-bottom: 1px solid #f0d860;
+            display: flex; justify-content: space-between; align-items: center;
+            font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00;
+            padding: 2px 0; border-bottom: 1px solid #f0d860;
         }
-        .note-close {
-            cursor: pointer;
-            font-weight: bold;
-            color: #886a00;
-            padding: 0 4px;
-        }
+        .note-close { cursor: pointer; font-weight: bold; color: #886a00; padding: 0 4px; }
         .note-textarea {
-            width: 100%;
-            height: 50px;
-            border: none;
-            background: transparent;
-            resize: none;
-            outline: none;
-            font-family: inherit;
-            font-size: 12px;
-            cursor: text;
+            width: 100%; height: 50px; border: none; background: transparent;
+            resize: none; outline: none; font-family: inherit; font-size: 12px; cursor: text;
         }
 
         .question-status-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #ffffff;
-            border-top: 2px solid #dc2626;
-            padding: 10px 15px;
-            box-shadow: 0 -2px 6px rgba(220, 38, 38, 0.1);
-            z-index: 9997;
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: #ffffff; border-top: 2px solid #dc2626; padding: 10px 15px;
+            box-shadow: 0 -2px 6px rgba(220, 38, 38, 0.1); z-index: 9997;
         }
         .status-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            justify-content: center;
+            max-width: 1200px; margin: 0 auto; display: flex;
+            flex-wrap: wrap; gap: 6px; justify-content: center;
         }
         .q-btn {
-            width: 30px;
-            height: 30px;
-            border: 1px solid #fecaca;
-            border-radius: 6px;
-            background: #fef2f2;
-            color: #dc2626;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
+            width: 30px; height: 30px; border: 1px solid #d1d5db; border-radius: 6px;
+            background: #f9fafb; color: #374151; font-weight: 600; font-size: 13px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;
         }
-        .q-btn:hover {
-            background: #ffe8e8;
-        }
-        .q-btn.answered {
-            background: #dcfce7;
-            border-color: #86efac;
-            color: #166534;
-        }
-        .q-btn.flagged {
-            background: #fee2e2;
-            border-color: #fca5a5;
-            color: #991b1b;
-        }
-        .q-btn.current {
-            background: #dc2626;
-            color: white;
-            border-color: #dc2626;
-        }
-        /* Dim buttons for questions not on this page */
-        .q-btn.other-page {
-            opacity: 0.5;
-            cursor: default;
-        }
-        .q-btn.other-page:hover {
-            background: #fef2f2;
-        }
+        .q-btn:hover { background: #f3f4f6; border-color: #9ca3af; }
+        .q-btn.answered { background: #dcfce7; border-color: #22c55e; color: #166534; }
+        .q-btn.flagged { background: #ffedd5; border-color: #f97316; color: #c2410c; }
+        .q-btn.current { background: #dc2626; color: white; border-color: #dc2626; box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.3); }
 
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-            margin: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+        .nav-buttons { display: flex; gap: 10px; margin: 20px; flex-wrap: wrap; justify-content: center; }
         .back-btn, .next-btn {
-            padding: 10px 20px;
-            background: #fef2f2;
-            color: #dc2626;
-            text-decoration: none;
-            border-radius: 8px;
-            border: 1px solid #fecaca;
-            font-weight: 500;
-            font-size: 15px;
+            padding: 10px 20px; background: #fef2f2; color: #dc2626;
+            text-decoration: none; border-radius: 8px; border: 1px solid #fecaca; font-weight: 500; font-size: 15px;
         }
-        .back-btn:hover, .next-btn:hover {
-            background: #ffffff;
-        }
+        .back-btn:hover, .next-btn:hover { background: #ffffff; }
     </style>
 </head>
 <body>
@@ -557,6 +364,7 @@
             q37: 'NOT GIVEN', q38: 'YES', q39: 'NO', q40: 'YES'
         };
         const CURRENT_PAGE_QUESTIONS = [27,28,29,30,31,32,33,34,35,36,37,38,39,40];
+        const GLOBAL_SAVE_KEY = 'C10T4_all_answers_flags';
 
         let currentRange = null;
         let lastNoteId = 0;
@@ -564,32 +372,29 @@
 
         function toggleFlag(qNum) {
             const flagBtn = document.getElementById('flag' + qNum);
-            const navBtns = document.querySelectorAll('.q-btn');
-            const navBtn = navBtns[qNum - 1];
-            const isFlagged = flagBtn.classList.toggle('flagged');
-            navBtn.classList.toggle('flagged', isFlagged);
-            localStorage.setItem('C10T4P3_flag_' + qNum, isFlagged);
+            const navBtn = document.querySelector(`.q-btn[data-q="${qNum}"]`);
+            const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
+            saved.flags = saved.flags || {};
+            saved.flags[qNum] = !saved.flags[qNum];
+            flagBtn.classList.toggle('flagged', saved.flags[qNum]);
+            navBtn.classList.toggle('flagged', saved.flags[qNum]);
+            localStorage.setItem(GLOBAL_SAVE_KEY, JSON.stringify(saved));
         }
 
         const contextMenu = document.getElementById('contextMenu');
         const passageText = document.getElementById('passageText');
-
-        document.addEventListener('contextmenu', function(e) {
-            const selection = window.getSelection();
-            if (!selection.isCollapsed && passageText.contains(e.target)) {
+        document.addEventListener('contextmenu', e => {
+            const sel = window.getSelection();
+            if (!sel.isCollapsed && passageText.contains(e.target)) {
                 e.preventDefault();
-                currentRange = selection.getRangeAt(0);
+                currentRange = sel.getRangeAt(0);
                 contextMenu.style.left = e.pageX + 'px';
                 contextMenu.style.top = e.pageY + 'px';
                 contextMenu.style.display = 'block';
-            } else {
-                hideContextMenu();
-            }
+            } else hideContextMenu();
         });
-
         document.addEventListener('click', hideContextMenu);
         function hideContextMenu() { contextMenu.style.display = 'none'; }
-
         document.getElementById('menuHighlight').addEventListener('click', addHighlight);
         document.getElementById('menuRemoveHighlight').addEventListener('click', removeHighlight);
         document.getElementById('menuAddNote').addEventListener('click', addNote);
@@ -605,189 +410,136 @@
             saveHighlights();
             hideContextMenu();
         }
-
         function removeHighlight() {
             if (!currentRange) return;
             try {
-                const parent = currentRange.commonAncestorContainer.parentElement;
-                if (parent.classList.contains('highlight')) {
-                    parent.outerHTML = parent.innerHTML;
-                    saveHighlights();
-                }
+                const p = currentRange.commonAncestorContainer.parentElement;
+                if (p.classList.contains('highlight')) { p.outerHTML = p.innerHTML; saveHighlights(); }
             } catch (e) {}
             window.getSelection().removeAllRanges();
             hideContextMenu();
         }
-
         function clearHighlights() {
-            document.querySelectorAll('.highlight').forEach(span => span.outerHTML = span.innerHTML);
+            document.querySelectorAll('.highlight').forEach(s => s.outerHTML = s.innerHTML);
             localStorage.removeItem('C10T4P3_highlights');
         }
-
-        function saveHighlights() {
-            localStorage.setItem('C10T4P3_highlights', passageText.innerHTML);
-        }
-
-        function loadHighlights() {
-            const saved = localStorage.getItem('C10T4P3_highlights');
-            if (saved) passageText.innerHTML = saved;
-        }
+        function saveHighlights() { localStorage.setItem('C10T4P3_highlights', passageText.innerHTML); }
+        function loadHighlights() { const s = localStorage.getItem('C10T4P3_highlights'); if (s) passageText.innerHTML = s; }
 
         function addNote() {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
-            const noteId = `note_${++lastNoteId}`;
+            const id = `note_${++lastNoteId}`;
             const note = document.createElement('div');
-            note.className = 'sticky-note';
-            note.id = noteId;
-            note.innerHTML = `<div class="note-header"><span>Note</span><span class="note-close" onclick="closeNote('${noteId}')">×</span></div><textarea class="note-textarea" placeholder="Write your note..." oninput="saveNotes()"></textarea>`;
+            note.className = 'sticky-note'; note.id = id;
+            note.innerHTML = `<div class="note-header"><span>Note</span><span class="note-close" onclick="closeNote('${id}')">×</span></div><textarea class="note-textarea" placeholder="Write your note..." oninput="saveNotes()"></textarea>`;
             note.style.left = (rect.right + window.scrollX + 10) + 'px';
             note.style.top = (rect.top + window.scrollY) + 'px';
             document.body.appendChild(note);
             makeNoteDraggable(note);
-            saveNotes();
-            hideContextMenu();
+            saveNotes(); hideContextMenu();
         }
-
         function makeNoteDraggable(note) {
-            note.addEventListener('mousedown', function(e) {
+            note.addEventListener('mousedown', e => {
                 if (e.target.closest('.note-textarea') || e.target.classList.contains('note-close')) return;
-                activeNote = note;
-                const r = note.getBoundingClientRect();
-                offsetX = e.clientX - r.left;
-                offsetY = e.clientY - r.top;
-                note.style.zIndex = 10000;
+                activeNote = note; const r = note.getBoundingClientRect();
+                offsetX = e.clientX - r.left; offsetY = e.clientY - r.top; note.style.zIndex = 10000;
             });
         }
-
         document.addEventListener('mousemove', e => {
             if (!activeNote) return;
             activeNote.style.left = (e.clientX - offsetX + window.scrollX) + 'px';
             activeNote.style.top = (e.clientY - offsetY + window.scrollY) + 'px';
         });
-
         document.addEventListener('mouseup', () => {
-            if (activeNote) {
-                saveNotes();
-                activeNote.style.zIndex = 9998;
-                activeNote = null;
-            }
+            if (activeNote) { saveNotes(); activeNote.style.zIndex = 9998; activeNote = null; }
         });
-
         function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
-
         function saveNotes() {
             const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
                 id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
             }));
             localStorage.setItem('C10T4P3_notes', JSON.stringify(notes));
         }
-
         function loadNotes() {
-            const saved = localStorage.getItem('C10T4P3_notes');
-            if (!saved) return;
-            JSON.parse(saved).forEach(n => {
-                const note = document.createElement('div');
-                note.className = 'sticky-note';
-                note.id = n.id;
+            const s = localStorage.getItem('C10T4P3_notes'); if (!s) return;
+            JSON.parse(s).forEach(n => {
+                const note = document.createElement('div'); note.className = 'sticky-note'; note.id = n.id;
                 note.innerHTML = `<div class="note-header"><span>Note</span><span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea" oninput="saveNotes()">${n.text}</textarea>`;
-                note.style.left = n.left;
-                note.style.top = n.top;
-                document.body.appendChild(note);
+                note.style.left = n.left; note.style.top = n.top; document.body.appendChild(note);
                 makeNoteDraggable(note);
-                const num = parseInt(n.id.split('_')[1]);
-                if (num > lastNoteId) lastNoteId = num;
+                const num = parseInt(n.id.split('_')[1]); if (num > lastNoteId) lastNoteId = num;
             });
         }
 
         function buildQuestionNav() {
-            const container = document.getElementById('questionNavContainer');
-            container.innerHTML = '';
-            // Generate ALL 40 questions like real IELTS
+            const c = document.getElementById('questionNavContainer'); c.innerHTML = '';
+            const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
+            saved.answers = saved.answers || {}; saved.flags = saved.flags || {};
+
             for (let q = 1; q <= 40; q++) {
                 const btn = document.createElement('button');
-                btn.className = 'q-btn';
-                btn.textContent = q;
-                btn.dataset.q = q;
-                
-                // Dim questions not on this page
-                if (!CURRENT_PAGE_QUESTIONS.includes(q)) {
-                    btn.classList.add('other-page');
-                } else {
+                btn.className = 'q-btn'; btn.textContent = q; btn.dataset.q = q;
+
+                if (CURRENT_PAGE_QUESTIONS.includes(q)) {
                     btn.onclick = () => scrollToQuestion(q);
-                    // Load saved flag status
-                    const isFlagged = localStorage.getItem('C10T4P3_flag_' + q) === 'true';
-                    const flagBtn = document.getElementById('flag' + q);
-                    if (flagBtn) flagBtn.classList.toggle('flagged', isFlagged);
-                    btn.classList.toggle('flagged', isFlagged);
+                    const flagBtn = document.getElementById(`flag${q}`);
+                    if (flagBtn) flagBtn.classList.toggle('flagged', saved.flags[q] === true);
                 }
-                
-                container.appendChild(btn);
+
+                if (saved.flags[q]) btn.classList.add('flagged');
+                if (saved.answers[q] && saved.answers[q].trim() !== '') btn.classList.add('answered');
+                c.appendChild(btn);
             }
-            updateNavStatus();
         }
 
         function scrollToQuestion(qNum) {
-            const qBlock = document.querySelector(`.question-block[data-q="${qNum}"]`);
-            if (qBlock) {
-                qBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const block = document.querySelector(`.question-block[data-q="${qNum}"]`);
+            if (block) {
+                block.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('current'));
                 document.querySelector(`.q-btn[data-q="${qNum}"]`)?.classList.add('current');
             }
         }
 
-        function updateNavStatus() {
-            const answers = JSON.parse(localStorage.getItem('C10T4P3_answers') || '{}');
-            document.querySelectorAll('.q-btn').forEach(btn => {
-                const q = parseInt(btn.dataset.q);
-                btn.classList.remove('answered');
-                if (answers[`q${q}`] && answers[`q${q}`].trim() !== '') {
-                    btn.classList.add('answered');
-                }
-            });
-        }
-
         function saveAnswers() {
-            let answers = {};
+            const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
+            saved.answers = saved.answers || {};
             for (let q = 27; q <= 40; q++) {
                 const radios = document.getElementsByName(`q${q}`);
                 if (radios.length > 0) {
-                    radios.forEach(r => { if (r.checked) answers[`q${q}`] = r.value; });
+                    radios.forEach(r => { if (r.checked) saved.answers[q] = r.value; });
                 } else {
                     const input = document.querySelector(`input[name="q${q}"]`);
-                    if (input) answers[`q${q}`] = input.value.trim().toUpperCase();
+                    saved.answers[q] = input ? input.value.trim().toUpperCase() : '';
                 }
             }
-            localStorage.setItem('C10T4P3_answers', JSON.stringify(answers));
-            updateNavStatus();
+            localStorage.setItem(GLOBAL_SAVE_KEY, JSON.stringify(saved));
+            buildQuestionNav();
         }
 
         function loadAnswers() {
-            const saved = localStorage.getItem('C10T4P3_answers');
-            if (!saved) return;
-            const answers = JSON.parse(saved);
-            for (let key in answers) {
-                const qNum = key.replace('q', '');
+            const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
+            saved.answers = saved.answers || {};
+            for (let q = 27; q <= 40; q++) {
+                const key = `q${q}`;
                 const radios = document.getElementsByName(key);
                 if (radios.length > 0) {
-                    radios.forEach(r => { if (r.value.toUpperCase() === answers[key].toUpperCase()) r.checked = true; });
+                    radios.forEach(r => { if (r.value.toUpperCase() === (saved.answers[q] || '').toUpperCase()) r.checked = true; });
                 } else {
                     const input = document.querySelector(`input[name="${key}"]`);
-                    if (input) input.value = answers[key];
+                    if (input) input.value = saved.answers[q] || '';
                 }
             }
-            updateNavStatus();
         }
 
         function clearAllAnswers() {
-            if (!confirm('Clear all your answers and flags? This cannot be undone.')) return;
+            if (!confirm('Clear all answers and flags for the whole test?')) return;
+            localStorage.removeItem(GLOBAL_SAVE_KEY);
             for (let q = 27; q <= 40; q++) {
                 document.querySelectorAll(`input[name="q${q}"]`).forEach(el => el.checked = false || (el.value = ''));
-                localStorage.removeItem('C10T4P3_flag_' + q);
-                const flagBtn = document.getElementById('flag' + q);
-                if (flagBtn) flagBtn.classList.remove('flagged');
+                const flag = document.getElementById(`flag${q}`); if (flag) flag.classList.remove('flagged');
             }
-            localStorage.removeItem('C10T4P3_answers');
             buildQuestionNav();
         }
 
@@ -798,23 +550,23 @@
 
         function showStudentAnswers() {
             saveAnswers();
+            const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
             const box = document.getElementById('studentAnswersBox');
-            const resultDiv = document.getElementById('studentResult');
+            const div = document.getElementById('studentResult');
             let html = '', score = 0;
             for (let q = 27; q <= 40; q++) {
-                let studentAns = '';
-                const radios = document.getElementsByName(`q${q}`);
-                if (radios.length > 0) radios.forEach(r => { if (r.checked) studentAns = r.value; });
-                else { const input = document.querySelector(`input[name="q${q}"]`); if (input) studentAns = input.value.trim().toUpperCase(); }
+                const ans = saved.answers[q] || '';
                 const correct = correctAnswers[`q${q}`].toUpperCase();
-                let status = !studentAns ? '<span class="no-answer">(No Answer)</span>' :
-                             studentAns === correct ? '<span class="correct">✅ Correct</span>' :
-                             `<span class="wrong">❌ Wrong (Correct: ${correctAnswers[`q${q}`]})</span>`;
-                if (studentAns === correct) score++;
-                html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
+                const match = ans.toUpperCase() === correct;
+                if (match) score++;
+                html += `<strong>${q}.</strong> Your answer: ${ans || '-'} &nbsp; ${
+                    !ans ? '<span class="no-answer">(No Answer)</span>' :
+                    match ? '<span class="correct">✅ Correct</span>' :
+                    `<span class="wrong">❌ Wrong (Correct: ${correctAnswers[`q${q}`]})</span>`
+                }<br>`;
             }
             html += `<br><strong>Total Score: ${score} / 14</strong>`;
-            resultDiv.innerHTML = html;
+            div.innerHTML = html;
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
@@ -823,7 +575,6 @@
             loadAnswers();
             loadHighlights();
             loadNotes();
-
             document.querySelectorAll('input[type="radio"], input[type="text"]').forEach(el => {
                 el.addEventListener('change', saveAnswers);
                 if (el.tagName === 'INPUT') el.addEventListener('input', saveAnswers);
