@@ -522,7 +522,9 @@
             for (let q = 14; q <= 26; q++) {
                 document.getElementById('stat' + q).classList.add('current');
             }
+            // ✅ Load data FIRST, THEN update status
             loadAllData();
+            updateAllStatus();
         };
 
         function jumpToQuestion(qNum) {
@@ -557,7 +559,7 @@
             currentRange.insertNode(span);
             window.getSelection().removeAllRanges();
             currentRange = null;
-            saveHighlights();
+            saveAllData();
         });
 
         // Add note
@@ -570,14 +572,14 @@
             note.id = noteId;
             note.innerHTML = `
                 <div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
-                <textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>
+                <textarea class="note-textarea" placeholder="Type your note..." oninput="saveAllData()"></textarea>
             `;
             note.style.left = (rect.right + window.scrollX + 8) + 'px';
             note.style.top = (rect.top + window.scrollY) + 'px';
             document.body.appendChild(note);
             window.getSelection().removeAllRanges();
             currentRange = null;
-            saveNotes();
+            saveAllData();
         });
 
         // Remove Highlight
@@ -599,7 +601,7 @@
             }
             window.getSelection().removeAllRanges();
             currentRange = null;
-            saveHighlights();
+            saveAllData();
         });
 
         // --- ✅ GLOBAL SAVE / LOAD SYSTEM ---
@@ -629,6 +631,7 @@
             }));
             data.notes.p2 = notes;
             localStorage.setItem(GLOBAL_SAVE_KEY, JSON.stringify(data));
+            // ✅ Refresh status bar immediately after saving
             updateAllStatus();
         }
 
@@ -653,7 +656,7 @@
                     note.id = n.id;
                     note.innerHTML = `
                         <div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
-                        <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
+                        <textarea class="note-textarea" oninput="saveAllData()">${n.text}</textarea>
                     `;
                     note.style.left = n.left;
                     note.style.top = n.top;
@@ -662,28 +665,32 @@
                     if (num > lastNoteId) lastNoteId = num;
                 });
             }
-            // Load flags & update all status
+            // Load flags
             CURRENT_PAGE_QS.forEach(q => {
                 const flagged = data.flags[q] === true;
                 const flagEl = document.getElementById('flag' + q);
-                const statEl = document.getElementById('stat' + q);
                 if (flagEl) flagEl.classList.toggle('flagged', flagged);
-                if (statEl) statEl.classList.toggle('flagged', flagged);
             });
-            updateAllStatus();
         }
 
+        // ✅ Fixed: Properly marks ALL answered/flagged questions
         function updateAllStatus() {
             const data = getAllData();
             // Update ALL question indicators across all passages
             for (let q = 1; q <= 40; q++) {
                 const stat = document.getElementById('stat' + q);
                 if (!stat) continue;
-                // Answered status
-                const hasAnswer = data.answers[q] && data.answers[q].trim() !== '';
-                stat.classList.toggle('answered', hasAnswer);
-                // Flagged status
-                stat.classList.toggle('flagged', data.flags[q] === true);
+                // Reset first
+                stat.classList.remove('answered', 'flagged');
+                // Mark answered if not empty
+                const ansVal = (data.answers[q] || '').trim();
+                if (ansVal !== '') {
+                    stat.classList.add('answered');
+                }
+                // Mark flagged
+                if (data.flags[q] === true) {
+                    stat.classList.add('flagged');
+                }
             }
         }
 
@@ -691,11 +698,9 @@
         function toggleFlag(qNum) {
             const data = getAllData();
             const flag = document.getElementById('flag' + qNum);
-            const stat = document.getElementById('stat' + qNum);
             data.flags[qNum] = !data.flags[qNum];
             const isFlagged = data.flags[qNum];
             flag.classList.toggle('flagged', isFlagged);
-            stat.classList.toggle('flagged', isFlagged);
             saveAllData();
         }
 
@@ -704,22 +709,10 @@
             saveAllData();
         }
 
-        function saveNote(id, text) {
-            saveAllData();
-        }
-
         // Auto-save answers on input
         document.querySelectorAll('.ans').forEach(el => {
             el.addEventListener('input', saveAllData);
         });
-
-        function saveHighlights() {
-            saveAllData();
-        }
-
-        function saveNotes() {
-            saveAllData();
-        }
 
         function toggleAnswers() {
             document.querySelectorAll('.correct-answer').forEach(ans => {
@@ -730,7 +723,6 @@
         function clearAll() {
             if (!confirm("Clear ALL answers, highlights, notes and flags for the entire test?")) return;
             localStorage.removeItem(GLOBAL_SAVE_KEY);
-            // Reset page
             location.reload();
         }
     </script>
