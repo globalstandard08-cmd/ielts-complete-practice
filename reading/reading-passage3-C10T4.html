@@ -19,7 +19,6 @@
             padding-bottom: 110px;
         }
 
-        /* ✅ LOGO STYLES */
         .logo-container {
             width: 100%;
             background: #ffffff;
@@ -38,7 +37,6 @@
             display: block;
         }
 
-        /* ✅ TWO‑COLUMN LAYOUT */
         .main-wrapper {
             display: flex;
             gap: 20px;
@@ -102,21 +100,23 @@
         .question-block {
             margin-bottom: 18px;
             position: relative;
-            padding-right: 35px;
+            padding-right: 0;
+            padding-left: 32px;
         }
 
-        /* ✅ FLAG BUTTON STYLE (MATCHES PREVIOUS CODE) */
         .flag-btn {
             position: absolute;
-            top: 2px;
-            right: 0;
+            top: 0;
+            left: 0;
             background: none;
             border: none;
-            font-size: 20px;
+            font-size: 18px;
             cursor: pointer;
             color: #ccc;
             transition: all 0.2s ease;
             user-select: none;
+            padding: 0;
+            line-height: 1;
         }
         .flag-btn.flagged {
             color: #dc2626;
@@ -131,6 +131,7 @@
             margin-bottom: 8px;
             font-size: 14px;
             line-height: 1.8;
+            display: inline;
         }
 
         .options label {
@@ -256,7 +257,6 @@
             cursor: text;
         }
 
-        /* ✅ NAVIGATION BAR */
         .question-status-bar {
             position: fixed;
             bottom: 0;
@@ -348,25 +348,15 @@
             <h1>Reading Passage 3 — When evolution runs backwards</h1>
             <div class="passage-text" id="passageText">
                 <p><em>Evolution isn’t supposed to run backwards – yet an increasing number of examples show that it does and that it can sometimes represent the future of a species</em></p>
-
                 <p>The description of any animal as an ‘evolutionary throwback’ is controversial. For the better part of a century, most biologists have been reluctant to use those words, mindful of a principle of evolution that says ‘evolution cannot run backwards’. But as more and more examples come to light and modern genetics enters the scene, that principle is having to be rewritten. Not only are evolutionary throwbacks possible, they sometimes play an important role in the forward march of evolution.</p>
-
                 <p>The technical term for an evolutionary throwback is an ‘atavism’, from the Latin atavus, meaning forefather. The word has ugly connotations thanks largely to Cesare Lombroso, a 19th‑century Italian medic who argued that criminals were born not made and could be identified by certain physical features that were throwbacks to a primitive, sub‑human state.</p>
-
                 <p>While Lombroso was measuring criminals, a Belgian palaeontologist called Louis Dollo was studying fossil records and coming to the opposite conclusion. In 1890 he proposed that evolution was irreversible: that ‘an organism is unable to return, even partially, to a previous stage already realised in the ranks of its ancestors’. Early 20th‑century biologists came to a similar conclusion, though they qualified it in terms of probability, stating that there is no reason why evolution cannot run backwards – it is just very unlikely. And so the idea of irreversibility in evolution stuck and came to be known as ‘Dollo’s law’.</p>
-
                 <p>If Dollo’s law is right, atavisms should occur only very rarely, if at all. Yet almost since the idea took root, exceptions have been cropping up. In 1919, for example, a humpback whale with a pair of leg‑like appendages over a metre long, complete with a full set of limb bones, was caught off Vancouver Island in Canada. Explorer Roy Chapman Andrews argued at the time that the whale must be a throwback to a land‑living ancestor. ‘I can see no other explanation,’ he wrote in 1921.</p>
-
                 <p>Since then, so many other examples have been discovered that it no longer makes sense to say that evolution is as good as irreversible. And this poses a puzzle: how can characteristics that disappeared millions of years ago suddenly reappear? In 1994, Rudolf Raff and colleagues at Indiana University in the USA decided to use genetics to put a number on the probability of evolution going into reverse. They reasoned that while some evolutionary changes involve the loss of genes and are therefore irreversible, others may be the result of genes being switched off. If these silent genes are somehow switched back on, they argued, long‑lost traits could reappear.</p>
-
                 <p>Raff’s team went on to calculate the likelihood of it happening. Silent genes accumulate random mutations, they reasoned, eventually rendering them useless. So how long can a gene survive in a species if it is no longer used? The team calculated that there is a good chance of silent genes surviving for up to 6 million years in at least a few individuals in a population, and that some might survive as long as 10 million years. In other words, throwbacks are possible, but only to the relatively recent evolutionary past.</p>
-
                 <p>As a possible example, the team pointed to the mole salamanders of Mexico and California. Like most amphibians these begin life in a juvenile ‘tadpole’ state, then metamorphose into the adult form – except for one species, the axolotl, which famously lives its entire life as a juvenile. The simplest explanation for this is that the axolotl lineage alone lost the ability to metamorphose, while others retained it. From a detailed analysis of the salamanders’ family tree, however, it is clear that the other lineages evolved from an ancestor that itself had lost the ability to metamorphose. In other words, metamorphosis in mole salamanders is an atavism. The salamander example fits with Raff’s 10‑million‑year time frame.</p>
-
                 <p>More recently, however, examples have been reported that break the time limit, suggesting that silent genes may not be the whole story. In a paper published last year, biologist Gunter Wagner of Yale University reported some work on the evolutionary history of a group of South American lizards called Bachia. Many of these have minuscule limbs; some look more like snakes than lizards and a few have completely lost the toes on their hind limbs. Other species, however, sport up to four toes on their hind legs. The simplest explanation is that the toed lineages never lost their toes, but Wagner begs to differ. According to his analysis of the Bachia family tree, the toed species re‑evolved toes from toeless ancestors and, what is more, digit loss and gain has occurred on more than one occasion over tens of millions of years.</p>
-
                 <p>So what’s going on? One possibility is that these traits are lost and then simply reappear, in much the same way that similar structures can independently arise in unrelated species, such as the dorsal fins of sharks and killer whales. Another more intriguing possibility is that the genetic information needed to make toes somehow survived for tens or perhaps hundreds of millions of years in the lizards and was reactivated. These atavistic traits provided an advantage and spread through the population, effectively reversing evolution.</p>
-
                 <p>But if silent genes degrade within 6 to 10 million years, how can long‑lost traits be reactivated over longer timescales? The answer may lie in the womb. Early embryos of many species develop ancestral features. Snake embryos, for example, sprout hind limb buds. Later in development these features disappear thanks to developmental programs that say ‘lose the leg’. If for any reason this does not happen, the ancestral feature may not disappear, leading to an atavism.</p>
             </div>
             <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear All Highlights</button>
@@ -379,7 +369,7 @@
 
                 <div class="question-block" data-q="27">
                     <button class="flag-btn" id="flag27" onclick="toggleFlag(27)">🚩</button>
-                    <p>27 When discussing the theory developed by Louis Dollo, the writer says that</p>
+                    <p><strong>27</strong> When discussing the theory developed by Louis Dollo, the writer says that</p>
                     <div class="options">
                         <label><input type="radio" name="q27" value="A"> A it was immediately referred to as Dollo’s law.</label>
                         <label><input type="radio" name="q27" value="B"> B it supported the possibility of evolutionary throwbacks.</label>
@@ -390,7 +380,7 @@
 
                 <div class="question-block" data-q="28">
                     <button class="flag-btn" id="flag28" onclick="toggleFlag(28)">🚩</button>
-                    <p>28 The humpback whale caught off Vancouver Island is mentioned because of</p>
+                    <p><strong>28</strong> The humpback whale caught off Vancouver Island is mentioned because of</p>
                     <div class="options">
                         <label><input type="radio" name="q28" value="A"> A the exceptional size of its body.</label>
                         <label><input type="radio" name="q28" value="B"> B the way it exemplifies Dollo’s law.</label>
@@ -401,7 +391,7 @@
 
                 <div class="question-block" data-q="29">
                     <button class="flag-btn" id="flag29" onclick="toggleFlag(29)">🚩</button>
-                    <p>29 What is said about ‘silent genes’?</p>
+                    <p><strong>29</strong> What is said about ‘silent genes’?</p>
                     <div class="options">
                         <label><input type="radio" name="q29" value="A"> A Their numbers vary according to species.</label>
                         <label><input type="radio" name="q29" value="B"> B Raff disagreed with the use of the term.</label>
@@ -412,7 +402,7 @@
 
                 <div class="question-block" data-q="30">
                     <button class="flag-btn" id="flag30" onclick="toggleFlag(30)">🚩</button>
-                    <p>30 The writer mentions the mole salamander because</p>
+                    <p><strong>30</strong> The writer mentions the mole salamander because</p>
                     <div class="options">
                         <label><input type="radio" name="q30" value="A"> A it exemplifies what happens in the development of most amphibians.</label>
                         <label><input type="radio" name="q30" value="B"> B it suggests that Raff’s theory is correct.</label>
@@ -423,7 +413,7 @@
 
                 <div class="question-block" data-q="31">
                     <button class="flag-btn" id="flag31" onclick="toggleFlag(31)">🚩</button>
-                    <p>31 Which of the following does Wagner claim?</p>
+                    <p><strong>31</strong> Which of the following does Wagner claim?</p>
                     <div class="options">
                         <label><input type="radio" name="q31" value="A"> A Members of the Bachia lizard family have lost and regained certain features several times.</label>
                         <label><input type="radio" name="q31" value="B"> B Evidence shows that the evolution of the Bachia lizard is due to the environment.</label>
@@ -446,23 +436,23 @@
 
                 <div class="question-block" data-q="32">
                     <button class="flag-btn" id="flag32" onclick="toggleFlag(32)">🚩</button>
-                    <p>32 For a long time biologists rejected <input type="text" class="answer-input" name="q32" placeholder="A–G"></p>
+                    <p><strong>32</strong> For a long time biologists rejected <input type="text" class="answer-input" name="q32" placeholder="A–G"></p>
                 </div>
                 <div class="question-block" data-q="33">
                     <button class="flag-btn" id="flag33" onclick="toggleFlag(33)">🚩</button>
-                    <p>33 Opposing views on evolutionary throwbacks are represented by <input type="text" class="answer-input" name="q33" placeholder="A–G"></p>
+                    <p><strong>33</strong> Opposing views on evolutionary throwbacks are represented by <input type="text" class="answer-input" name="q33" placeholder="A–G"></p>
                 </div>
                 <div class="question-block" data-q="34">
                     <button class="flag-btn" id="flag34" onclick="toggleFlag(34)">🚩</button>
-                    <p>34 Examples of evolutionary throwbacks have led to <input type="text" class="answer-input" name="q34" placeholder="A–G"></p>
+                    <p><strong>34</strong> Examples of evolutionary throwbacks have led to <input type="text" class="answer-input" name="q34" placeholder="A–G"></p>
                 </div>
                 <div class="question-block" data-q="35">
                     <button class="flag-btn" id="flag35" onclick="toggleFlag(35)">🚩</button>
-                    <p>35 The shark and killer whale are mentioned to exemplify <input type="text" class="answer-input" name="q35" placeholder="A–G"></p>
+                    <p><strong>35</strong> The shark and killer whale are mentioned to exemplify <input type="text" class="answer-input" name="q35" placeholder="A–G"></p>
                 </div>
                 <div class="question-block" data-q="36">
                     <button class="flag-btn" id="flag36" onclick="toggleFlag(36)">🚩</button>
-                    <p>36 One explanation for the findings of Wagner’s research is <input type="text" class="answer-input" name="q36" placeholder="A–G"></p>
+                    <p><strong>36</strong> One explanation for the findings of Wagner’s research is <input type="text" class="answer-input" name="q36" placeholder="A–G"></p>
                 </div>
 
                 <h2>Questions 37–40: YES / NO / NOT GIVEN</h2>
@@ -473,7 +463,7 @@
 
                 <div class="question-block" data-q="37">
                     <button class="flag-btn" id="flag37" onclick="toggleFlag(37)">🚩</button>
-                    <p>37 Wagner was the first person to do research on South American lizards.</p>
+                    <p><strong>37</strong> Wagner was the first person to do research on South American lizards.</p>
                     <div class="options">
                         <label><input type="radio" name="q37" value="YES"> YES</label>
                         <label><input type="radio" name="q37" value="NO"> NO</label>
@@ -483,7 +473,7 @@
 
                 <div class="question-block" data-q="38">
                     <button class="flag-btn" id="flag38" onclick="toggleFlag(38)">🚩</button>
-                    <p>38 Wagner believes that Bachia lizards with toes had toeless ancestors.</p>
+                    <p><strong>38</strong> Wagner believes that Bachia lizards with toes had toeless ancestors.</p>
                     <div class="options">
                         <label><input type="radio" name="q38" value="YES"> YES</label>
                         <label><input type="radio" name="q38" value="NO"> NO</label>
@@ -493,7 +483,7 @@
 
                 <div class="question-block" data-q="39">
                     <button class="flag-btn" id="flag39" onclick="toggleFlag(39)">🚩</button>
-                    <p>39 The temporary occurrence of long‑lost traits in embryos is rare.</p>
+                    <p><strong>39</strong> The temporary occurrence of long‑lost traits in embryos is rare.</p>
                     <div class="options">
                         <label><input type="radio" name="q39" value="YES"> YES</label>
                         <label><input type="radio" name="q39" value="NO"> NO</label>
@@ -503,7 +493,7 @@
 
                 <div class="question-block" data-q="40">
                     <button class="flag-btn" id="flag40" onclick="toggleFlag(40)">🚩</button>
-                    <p>40 Evolutionary throwbacks might be caused by developmental problems in the womb.</p>
+                    <p><strong>40</strong> Evolutionary throwbacks might be caused by developmental problems in the womb.</p>
                     <div class="options">
                         <label><input type="radio" name="q40" value="YES"> YES</label>
                         <label><input type="radio" name="q40" value="NO"> NO</label>
@@ -563,20 +553,15 @@
         let lastNoteId = 0;
         let activeNote = null, offsetX, offsetY;
 
-        // ------------------------------
-        // ✅ FULL FLAG SYSTEM (MATCHES YOUR PREVIOUS CODE)
-        // ------------------------------
         function toggleFlag(qNum) {
             const flagBtn = document.getElementById('flag' + qNum);
-            const navBtn = document.querySelector(`.q-btn[textContent="${qNum}"]`) || document.querySelectorAll('.q-btn')[qNum - 1];
+            const navBtns = document.querySelectorAll('.q-btn');
+            const navBtn = navBtns[qNum - 27];
             const isFlagged = flagBtn.classList.toggle('flagged');
             navBtn.classList.toggle('flagged', isFlagged);
             localStorage.setItem('C10T4P3_flag_' + qNum, isFlagged);
         }
 
-        // ------------------------------
-        // ✅ HIGHLIGHT & NOTES
-        // ------------------------------
         const contextMenu = document.getElementById('contextMenu');
         const passageText = document.getElementById('passageText');
 
@@ -706,9 +691,6 @@
             });
         }
 
-        // ------------------------------
-        // ✅ NAVIGATION & ANSWERS
-        // ------------------------------
         function buildQuestionNav() {
             const container = document.getElementById('questionNavContainer');
             container.innerHTML = '';
@@ -718,7 +700,6 @@
                 btn.textContent = q;
                 btn.onclick = () => scrollToQuestion(q);
                 container.appendChild(btn);
-                // Load saved flag state
                 const isFlagged = localStorage.getItem('C10T4P3_flag_' + q) === 'true';
                 document.getElementById('flag' + q).classList.toggle('flagged', isFlagged);
                 btn.classList.toggle('flagged', isFlagged);
@@ -815,9 +796,6 @@
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
-        // ------------------------------
-        // ✅ INITIALIZE
-        // ------------------------------
         window.onload = function() {
             buildQuestionNav();
             loadAnswers();
