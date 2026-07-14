@@ -476,7 +476,8 @@
         <span class="nav-section-label">Passage 3:</span>
         <span id="p3_27"></span><span id="p3_28"></span><span id="p3_29"></span><span id="p3_30"></span><span id="p3_31"></span>
         <span id="p3_32"></span><span id="p3_33"></span><span id="p3_34"></span><span id="p3_35"></span>
-        <span id="p3_36"></span><span id="p3_37"></span><span id="p3_38"></span><span id="p3_39"></span><span id="p3_40"></span>
+        <span id="p3_36"></span><span id="p3_37"></span><span id="p3_38"></span><span id="p3_39"></span>
+        <span id="p3_40"></span>
     </div>
 
     <!-- Bottom controls & navigation -->
@@ -500,8 +501,8 @@
         let currentRange = null;
         let lastNoteId = 0;
 
-        // Initialize all question indicators
-        window.onload = function() {
+        // ✅ Fixed: Build ALL indicators first, then load data
+        function buildAllIndicators() {
             const sections = [
                 { start: 1, end: 13, prefix: 'p1_' },
                 { start: 14, end: 26, prefix: 'p2_' },
@@ -520,11 +521,14 @@
             });
             // Mark current passage
             for (let q = 14; q <= 26; q++) {
-                document.getElementById('stat' + q).classList.add('current');
+                document.getElementById('stat' + q)?.classList.add('current');
             }
-            // ✅ Load data FIRST, THEN update status
-            loadAllData();
-            updateAllStatus();
+        }
+
+        window.onload = function() {
+            buildAllIndicators(); // Create all 40 indicators first
+            loadAllData();       // Load saved answers/flags
+            updateAllStatus();   // Apply colors to ALL indicators
         };
 
         function jumpToQuestion(qNum) {
@@ -631,8 +635,7 @@
             }));
             data.notes.p2 = notes;
             localStorage.setItem(GLOBAL_SAVE_KEY, JSON.stringify(data));
-            // ✅ Refresh status bar immediately after saving
-            updateAllStatus();
+            updateAllStatus(); // Refresh ALL status instantly
         }
 
         function loadAllData() {
@@ -673,34 +676,32 @@
             });
         }
 
-        // ✅ Fixed: Properly marks ALL answered/flagged questions
+        // ✅ Fixed: Shows ALL answered/flagged questions from ALL passages
         function updateAllStatus() {
             const data = getAllData();
-            // Update ALL question indicators across all passages
+            // Update EVERY question indicator 1–40
             for (let q = 1; q <= 40; q++) {
                 const stat = document.getElementById('stat' + q);
                 if (!stat) continue;
-                // Reset first
+                // Reset styles first
                 stat.classList.remove('answered', 'flagged');
-                // Mark answered if not empty
-                const ansVal = (data.answers[q] || '').trim();
-                if (ansVal !== '') {
+                // Mark as answered if there is content
+                if ((data.answers[q] || '').trim() !== '') {
                     stat.classList.add('answered');
                 }
-                // Mark flagged
+                // Mark as flagged
                 if (data.flags[q] === true) {
                     stat.classList.add('flagged');
                 }
             }
         }
 
-        // Flag system (now saves globally)
+        // Flag system (global sync)
         function toggleFlag(qNum) {
             const data = getAllData();
             const flag = document.getElementById('flag' + qNum);
             data.flags[qNum] = !data.flags[qNum];
-            const isFlagged = data.flags[qNum];
-            flag.classList.toggle('flagged', isFlagged);
+            flag.classList.toggle('flagged', data.flags[qNum]);
             saveAllData();
         }
 
