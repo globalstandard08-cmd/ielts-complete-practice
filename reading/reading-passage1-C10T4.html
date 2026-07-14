@@ -518,17 +518,26 @@
             updateNavStatus();
         }
 
-        function loadAnswers() {
-            const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
-            saved.answers = saved.answers || {};
-            saved.flags = saved.flags || {};
-            for (const q of CURRENT_PAGE_QUESTIONS) {
-                const input = document.querySelector(`[data-q="${q}"]`);
-                if (input) input.value = saved.answers[q] || '';
-                const flag = document.getElementById(`flag${q}`);
-                if (flag) flag.classList.toggle('flagged', saved.flags[q] === true);
-            }
+       function loadAnswers() {
+    // Read from the SAME shared storage key
+    const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
+    saved.answers = saved.answers || {};
+    saved.flags = saved.flags || {};
+
+    // Load saved answers into THIS page's input boxes
+    for (const q of CURRENT_PAGE_QUESTIONS) {
+        const input = document.querySelector(`[data-q="${q}"]`);
+        if (input) {
+            // Use saved value if exists, else empty string
+            input.value = saved.answers[q] || '';
         }
+        // Load flag status
+        const flag = document.getElementById(`flag${q}`);
+        if (flag) {
+            flag.classList.toggle('flagged', saved.flags[q] === true);
+        }
+    }
+}
 
         // === Highlight & Notes ===
         const passageArea = document.getElementById('passageArea');
