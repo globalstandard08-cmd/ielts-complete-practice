@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reading - Land of the Rising Sun</title>
+    <title>Reading - The megafires of California</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif; }
         body { background-color: #fef2f2; color: #1a1a1a; line-height: 1.7; padding-bottom: 50px; }
@@ -25,9 +25,9 @@
         .flag-btn { font-size: 18px; cursor: pointer; color: #ccc; transition: all 0.2s ease; line-height: 1; flex-shrink: 0; user-select: none; background: none; border: none; padding: 0; }
         .flag-btn.flagged { color: #f97316; transform: scale(1.15); filter: drop-shadow(0 0 2px rgba(249,115,22,0.4)); }
         .flag-btn:hover { color: #f97316; }
-        .answer-input { width: auto; min-width: 90px; padding: 2px 6px; margin: 0 4px; border: 1px solid #dc2626; border-radius: 4px; font-size: 14px; background: #fff; text-align: center; }
+        .answer-input { width: auto; min-width: 90px; padding: 2px 6px; margin: 0 4px; border: 1px solid #dc2626; border-radius: 4px; font-size: 14px; background: #fff; text-align: center; text-transform: uppercase; }
         h2 { color: #991b1b; font-size: 16px; margin: 20px 0 10px; }
-        .list-people { margin: 10px 0 15px 18px; font-size: 13px; line-height: 1.7; }
+        .notes-box { margin: 10px 0 15px; padding: 10px; background: #fef2f2; border-radius: 6px; font-size: 13px; line-height: 1.7; }
         .action-buttons { margin: 20px 0; display: flex; gap: 10px; flex-wrap: wrap; }
         .toggle-answers, .show-student, .clear-all, .clear-highlight { padding: 7px 12px; background: #dc2626; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; }
         .toggle-answers:hover, .show-student:hover, .clear-all:hover, .clear-highlight:hover { background: #b91c1c; }
@@ -57,82 +57,108 @@
 
     <div class="main-wrapper">
         <div class="passage-column" id="passageArea">
-            <h1>Reading Passage 1 — Land of the Rising Sun</h1>
+            <h1>Reading Passage 1 — The megafires of California</h1>
+            <p style="text-align:center; font-style:italic; margin-bottom:16px;">Drought, housing expansion, and oversupply of tinder make for bigger, hotter fires in the western United States</p>
             <div class="passage-text" id="passageText">
-                <p>Japan has a significantly better record in terms of average mathematical attainment than England and Wales. Large sample international comparisons of pupils' attainments since the 1960s have established that not only did Japanese pupils at age 13 have better scores of average attainment, but there was also a larger proportion of 'low' attainers in England, where, incidentally, the variation in attainment scores was much greater. The percentage of Gross National Product spent on education is reasonably similar in the two countries, so how is this higher and more consistent attainment in maths achieved?</p>
-                <p>There are two key explanations for this excellence in mathematics education in Japan: the nature of education and the way it is organised.</p>
-                <p>First, the type of education offered in Japan is based on the belief that all children can learn to high standards if they are given the right conditions. There is no streaming or setting in primary or lower secondary schools, and all pupils follow the same curriculum. Teachers are also expected to adapt their teaching to the needs of all pupils, and to spend time helping those who are struggling.</p>
-                <p>Second, the organisation of schooling in Japan also contributes to high attainment. The school year is longer than in England and Wales, starting in April and ending in March, with six weeks of summer holiday, two weeks in winter and two weeks in spring. Pupils also spend more time at school each day, and much of this time is spent on whole-class teaching. Teachers are well-qualified and highly respected, and they have opportunities to develop their skills through in-service training and observation of other teachers.</p>
-                <p>Another important factor is the value placed on education by Japanese society. Parents are very involved in their children's education, and many pay for extra tuition at juku, or cram schools, outside normal school hours. There is also a strong belief that effort and hard work are more important than natural ability in determining success. This attitude is reinforced by the way children are taught in school, where they are encouraged to compete against their own previous performance rather than against others.</p>
-                <p>But what is the secret of Japan's success in mathematics? Is it the way the subject is taught, or something else? Research suggests that the approach to teaching mathematics in Japan is very different from that in England. In Japan, the emphasis is on developing a deep understanding of mathematical concepts, rather than just memorising rules and procedures. Teachers spend more time introducing new ideas and helping pupils to see the connections between different areas of mathematics. They also encourage pupils to think for themselves and to explain their reasoning.</p>
-                <p>Lessons in Japan are typically structured in the same way. The teacher begins by presenting a problem or a situation that the pupils are asked to think about. They then work on the problem individually or in small groups, before sharing their ideas with the whole class. The teacher guides the discussion, helping pupils to clarify their thinking and to develop more efficient methods. Finally, the teacher summarises the key points and shows how the new idea can be applied in different contexts.</p>
-                <p>This approach requires a great deal of skill and preparation on the part of the teacher. Japanese teachers spend a lot of time working together to plan lessons and to develop teaching materials. They also observe each other's lessons and give feedback, which helps them to improve their practice.</p>
+                <p>Wildfires are becoming an increasing menace in the western United States, with Southern California being the hardest hit area. There's a reason fire squads battling more frequent blazes in Southern California are having such difficulty containing the flames, despite better preparedness than ever and decades of experience fighting fires fanned by the 'Santa Ana Winds'. The wildfires themselves, experts say, are generally hotter, faster, and spread more erratically than in the past.</p>
+                <p>Megafires, also called 'siege fires', are the increasingly frequent blazes that burn 500,000 acres or more – 10 times the size of the average forest fire of 20 years ago. Some recent wildfires are among the biggest ever in California in terms of acreage burned, according to state figures and news reports.</p>
+                <p>One explanation for the trend to more superhot fires is that the region, which usually has dry summers, has had significantly below normal precipitation in many recent years. Another reason, experts say, is related to the century‑long policy of the US Forest Service to stop wildfires as quickly as possible. The unintentional consequence has been to halt the natural eradication of underbrush, now the primary fuel for megafires.</p>
+                <p>Three other factors contribute to the trend, they add. First is climate change, marked by a 1‑degree Fahrenheit rise in average yearly temperature across the western states. Second is fire seasons that on average are 78 days longer than they were 20 years ago. Third is increased construction of homes in wooded areas.</p>
+                <p>'We are increasingly building our homes in fire‑prone ecosystems,' says Dominik Kulakowski, adjunct professor of biology at Clark University Graduate School of Geography in Worcester, Massachusetts. 'Doing that in many of the forests of the western US is like building homes on the side of an active volcano.'</p>
+                <p>In California, where population growth has averaged more than 600,000 a year for at least a decade, more residential housing is being built. 'What once was open space is now residential homes providing fuel to make fires burn with greater intensity,' says Terry McHale of the California Department of Forestry firefighters' union. 'With so much dryness, so many communities to catch fire, so many fronts to fight, it becomes an almost incredible job.'</p>
+                <p>That said, many experts give California high marks for making progress on preparedness in recent years, after some of the largest fires in state history scorched thousands of acres, burned thousands of homes, and killed numerous people. Stung in the past by criticism of bungling that allowed fires to spread when they might have been contained, personnel are meeting the peculiar challenges of neighborhood – and canyon‑hopping fires better than previously, observers say.</p>
+                <p>State promises to provide more up‑to‑date engines, planes, and helicopters to fight fires have been fulfilled. Firefighters' unions that in the past complained of dilapidated equipment, old fire engines, and insufficient blueprints for fire safety are now praising the state's commitment, noting that funding for firefighting has increased, despite huge cuts in many other programs. 'We are pleased that the current state administration has been very proactive in its support of us, and [has] come through with budgetary support of the infrastructure needs we have long sought,' says Mr. McHale of the firefighters' union.</p>
+                <p>Besides providing money to upgrade the fire engines that must traverse the mammoth state and wind along serpentine canyon roads, the state has invested in better command‑and‑control facilities as well as in the strategies to run them. 'In the fire sieges of earlier years, we found that other jurisdictions and states were willing to offer mutual‑aid help, but we were not able to respond adequately with them,' says Kim Zagaris, chief of the state's Office of Emergency Services Fire and Rescue Branch. After a commission examined and revamped communications procedures, the statewide response 'has become far more professional and responsive,' he says. There is a sense among both government officials and residents that the speed, dedication, and coordination of firefighters from several states and jurisdictions are resulting in greater efficiency than in past 'siege fire' situations.</p>
+                <p>In recent years, the Southern California region has improved building codes, evacuation procedures, and procurement of new technology. 'I am extraordinarily impressed by the improvements we have witnessed,' says Randy Jacobs, a Southern California‑based lawyer who has had to evacuate both his home and business to escape wildfires. 'Notwithstanding all the damage that will continue to be caused by wildfires, we will no longer suffer the loss of life endured in the past because of the fire prevention and firefighting measures that have been put in place,' he says.</p>
             </div>
             <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear All Highlights</button>
         </div>
 
         <div class="questions-column">
             <div class="questions-section">
-                <h2>Questions 1–7: True / False / Not Given</h2>
-                <p><em>Do the following statements agree with the information given in Reading Passage 1?</em></p>
-                <p><strong>TRUE</strong> if the statement agrees with the information<br><strong>FALSE</strong> if the statement contradicts the information<br><strong>NOT GIVEN</strong> if there is no information on this</p>
+                <h2>Questions 1–6: Note Completion</h2>
+                <div class="notes-box">
+                    <p><em>Choose ONE WORD AND/OR A NUMBER from the passage for each answer.</em></p>
+                    <p><strong>Wildfires</strong></p>
+                    <p>• Characteristics of wildfires and wildfire conditions today compared to the past:</p>
+                    <p style="margin-left:20px;">– occurrence: more frequent<br>
+                    – temperature: hotter<br>
+                    – speed: faster<br>
+                    – movement: 1 ............... more unpredictably<br>
+                    – size of fires: 2 ............... greater on average than two decades ago</p>
+                    <p>• Reasons wildfires cause more damage today compared to the past:</p>
+                    <p style="margin-left:20px;">– rainfall: 3 ............... average<br>
+                    – more brush to act as 4 ...............<br>
+                    – increase in yearly temperature<br>
+                    – extended fire 5 ...............<br>
+                    – more building of 6 ............... in vulnerable places</p>
+                </div>
 
                 <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <button class="flag-btn" onclick="toggleFlag(1)" id="flag1">🚩</button>
-                    <div><strong>1.</strong> There is a wider range of achievement amongst English pupils studying maths than amongst their Japanese counterparts.<br><input type="text" class="answer-input ans" name="q1" data-q="1" placeholder="T/F/NG"></div>
+                    <div><strong>1.</strong> <input type="text" class="answer-input ans" name="q1" data-q="1" placeholder="Answer"></div>
                 </div>
                 <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <button class="flag-btn" onclick="toggleFlag(2)" id="flag2">🚩</button>
-                    <div><strong>2.</strong> The percentage of Gross National Product spent on education is higher in Japan than in England.<br><input type="text" class="answer-input ans" name="q2" data-q="2" placeholder="T/F/NG"></div>
+                    <div><strong>2.</strong> <input type="text" class="answer-input ans" name="q2" data-q="2" placeholder="Answer"></div>
                 </div>
                 <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <button class="flag-btn" onclick="toggleFlag(3)" id="flag3">🚩</button>
-                    <div><strong>3.</strong> Pupils in Japan are streamed according to ability from the start of primary school.<br><input type="text" class="answer-input ans" name="q3" data-q="3" placeholder="T/F/NG"></div>
+                    <div><strong>3.</strong> <input type="text" class="answer-input ans" name="q3" data-q="3" placeholder="Answer"></div>
                 </div>
                 <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <button class="flag-btn" onclick="toggleFlag(4)" id="flag4">🚩</button>
-                    <div><strong>4.</strong> Japanese school years begin in the spring.<br><input type="text" class="answer-input ans" name="q4" data-q="4" placeholder="T/F/NG"></div>
+                    <div><strong>4.</strong> <input type="text" class="answer-input ans" name="q4" data-q="4" placeholder="Answer"></div>
                 </div>
                 <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <button class="flag-btn" onclick="toggleFlag(5)" id="flag5">🚩</button>
-                    <div><strong>5.</strong> Parents in Japan pay for extra education for their children.<br><input type="text" class="answer-input ans" name="q5" data-q="5" placeholder="T/F/NG"></div>
+                    <div><strong>5.</strong> <input type="text" class="answer-input ans" name="q5" data-q="5" placeholder="Answer"></div>
                 </div>
                 <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <button class="flag-btn" onclick="toggleFlag(6)" id="flag6">🚩</button>
-                    <div><strong>6.</strong> Japanese pupils are encouraged to compete against other pupils in their class.<br><input type="text" class="answer-input ans" name="q6" data-q="6" placeholder="T/F/NG"></div>
+                    <div><strong>6.</strong> <input type="text" class="answer-input ans" name="q6" data-q="6" placeholder="Answer"></div>
                 </div>
+
+                <h2>Questions 7–13: True / False / Not Given</h2>
+                <p><em>Do the following statements agree with the information given in Reading Passage 1?</em></p>
+                <p><strong>TRUE</strong> if the statement agrees with the information<br>
+                <strong>FALSE</strong> if the statement contradicts the information<br>
+                <strong>NOT GIVEN</strong> if there is no information on this</p>
+
                 <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <button class="flag-btn" onclick="toggleFlag(7)" id="flag7">🚩</button>
-                    <div><strong>7.</strong> Lessons in Japan often start with pupils working on a problem by themselves.<br><input type="text" class="answer-input ans" name="q7" data-q="7" placeholder="T/F/NG"></div>
+                    <div><strong>7.</strong> The amount of open space in California has diminished over the last ten years.<br>
+                    <input type="text" class="answer-input ans" name="q7" data-q="7" placeholder="T/F/NG"></div>
                 </div>
-
-                <h2>Questions 8–13: Matching Characteristics</h2>
-                <p><em>Match the characteristics with the country, A or B.</em></p>
-                <div class="list-people"><strong>List of Countries</strong><br>A &nbsp; Japan<br>B &nbsp; England</div>
-
                 <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <button class="flag-btn" onclick="toggleFlag(8)" id="flag8">🚩</button>
-                    <div><strong>8.</strong> less time spent on whole-class teaching<br><input type="text" class="answer-input ans" name="q8" data-q="8" placeholder="A/B"></div>
+                    <div><strong>8.</strong> Many experts believe California has made little progress in readying itself to fight fires.<br>
+                    <input type="text" class="answer-input ans" name="q8" data-q="8" placeholder="T/F/NG"></div>
                 </div>
                 <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <button class="flag-btn" onclick="toggleFlag(9)" id="flag9">🚩</button>
-                    <div><strong>9.</strong> teachers working together to prepare lessons<br><input type="text" class="answer-input ans" name="q9" data-q="9" placeholder="A/B"></div>
+                    <div><strong>9.</strong> Personnel in the past have been criticised for mishandling fire containment.<br>
+                    <input type="text" class="answer-input ans" name="q9" data-q="9" placeholder="T/F/NG"></div>
                 </div>
                 <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <button class="flag-btn" onclick="toggleFlag(10)" id="flag10">🚩</button>
-                    <div><strong>10.</strong> more emphasis on memorising rules<br><input type="text" class="answer-input ans" name="q10" data-q="10" placeholder="A/B"></div>
+                    <div><strong>10.</strong> California has replaced a range of firefighting tools.<br>
+                    <input type="text" class="answer-input ans" name="q10" data-q="10" placeholder="T/F/NG"></div>
                 </div>
                 <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <button class="flag-btn" onclick="toggleFlag(11)" id="flag11">🚩</button>
-                    <div><strong>11.</strong> helping pupils to understand how ideas are linked<br><input type="text" class="answer-input ans" name="q11" data-q="11" placeholder="A/B"></div>
+                    <div><strong>11.</strong> More firefighters have been hired to improve fire‑fighting capacity.<br>
+                    <input type="text" class="answer-input ans" name="q11" data-q="11" placeholder="T/F/NG"></div>
                 </div>
                 <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <button class="flag-btn" onclick="toggleFlag(12)" id="flag12">🚩</button>
-                    <div><strong>12.</strong> teachers observing each other's lessons<br><input type="text" class="answer-input ans" name="q12" data-q="12" placeholder="A/B"></div>
+                    <div><strong>12.</strong> Citizens and government groups disapprove of the efforts of different states and agencies working together.<br>
+                    <input type="text" class="answer-input ans" name="q12" data-q="12" placeholder="T/F/NG"></div>
                 </div>
                 <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <button class="flag-btn" onclick="toggleFlag(13)" id="flag13">🚩</button>
-                    <div><strong>13.</strong> shorter school holidays<br><input type="text" class="answer-input ans" name="q13" data-q="13" placeholder="A/B"></div>
+                    <div><strong>13.</strong> Randy Jacobs believes that loss of life from fires will continue at the same levels, despite changes made.<br>
+                    <input type="text" class="answer-input ans" name="q13" data-q="13" placeholder="T/F/NG"></div>
                 </div>
 
                 <div class="action-buttons">
@@ -143,7 +169,19 @@
 
                 <div class="answers-box" id="answersBox">
                     <h3>✅ Correct Answers — Passage 1</h3>
-                    <p><strong>1.</strong> TRUE<br><strong>2.</strong> FALSE<br><strong>3.</strong> FALSE<br><strong>4.</strong> TRUE<br><strong>5.</strong> TRUE<br><strong>6.</strong> FALSE<br><strong>7.</strong> TRUE<br><strong>8.</strong> B<br><strong>9.</strong> A<br><strong>10.</strong> B<br><strong>11.</strong> A<br><strong>12.</strong> A<br><strong>13.</strong> B</p>
+                    <p><strong>1.</strong> spread<br>
+                    <strong>2.</strong> 10 times<br>
+                    <strong>3.</strong> below<br>
+                    <strong>4.</strong> fuel<br>
+                    <strong>5.</strong> seasons<br>
+                    <strong>6.</strong> homes<br>
+                    <strong>7.</strong> TRUE<br>
+                    <strong>8.</strong> FALSE<br>
+                    <strong>9.</strong> TRUE<br>
+                    <strong>10.</strong> TRUE<br>
+                    <strong>11.</strong> NOT GIVEN<br>
+                    <strong>12.</strong> FALSE<br>
+                    <strong>13.</strong> FALSE</p>
                 </div>
 
                 <div class="student-answers-box" id="studentAnswersBox">
@@ -161,11 +199,11 @@
 
     <script>
         const correctAnswers = {
-            q1: 'TRUE', q2: 'FALSE', q3: 'FALSE', q4: 'TRUE', q5: 'TRUE', q6: 'FALSE', q7: 'TRUE',
-            q8: 'B', q9: 'A', q10: 'B', q11: 'A', q12: 'A', q13: 'B'
+            q1: 'spread', q2: '10 times', q3: 'below', q4: 'fuel', q5: 'seasons', q6: 'homes',
+            q7: 'TRUE', q8: 'FALSE', q9: 'TRUE', q10: 'TRUE', q11: 'NOT GIVEN', q12: 'FALSE', q13: 'FALSE'
         };
         const CURRENT_PAGE_QUESTIONS = [1,2,3,4,5,6,7,8,9,10,11,12,13];
-        const GLOBAL_SAVE_KEY = 'C10T4_all_answers_flags'; // EXACT SAME ON ALL PAGES
+        const GLOBAL_SAVE_KEY = 'C10T4_all_answers_flags'; // SAME ON ALL PAGES
         const passageId = 'C10T4P1';
 
         let currentRange = null, lastNoteId = 0, activeNote = null, offsetX, offsetY;
@@ -226,46 +264,36 @@
             updateNavStatus();
         }
 
-        // === ✅ PROVEN WORKING SAVE ANSWERS FUNCTION ===
+        // === SAVE ANSWERS (CROSS‑PAGE SAFE) ===
         function saveAnswers() {
-            // 1. READ EXISTING GLOBAL DATA FIRST (never overwrite other pages!)
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{"answers":{},"flags":{}}');
             saved.answers = saved.answers || {};
             saved.flags = saved.flags || {};
 
-            // 2. UPDATE ONLY THIS PAGE'S ANSWERS — keep others safe
             document.querySelectorAll('.ans').forEach(el => {
                 const q = el.dataset.q;
                 saved.answers[q] = el.value;
             });
 
-            // 3. SAVE BACK TO SHARED STORAGE
             localStorage.setItem(GLOBAL_SAVE_KEY, JSON.stringify(saved));
-
-            // 4. UPDATE STATUS BAR IMMEDIATELY
             updateNavStatus();
         }
 
-        // === ✅ PROVEN WORKING LOAD ANSWERS FUNCTION ===
+        // === LOAD ANSWERS ===
         function loadAnswers() {
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{"answers":{},"flags":{}}');
             saved.answers = saved.answers || {};
             saved.flags = saved.flags || {};
 
-            // Fill every input box with saved value
             for (const q of CURRENT_PAGE_QUESTIONS) {
                 const input = document.querySelector(`[data-q="${q}"]`);
-                if (input) {
-                    input.value = saved.answers[q] || '';
-                }
+                if (input) input.value = saved.answers[q] || '';
                 const flag = document.getElementById(`flag${q}`);
-                if (flag) {
-                    flag.classList.toggle('flagged', saved.flags[q] === true);
-                }
+                if (flag) flag.classList.toggle('flagged', saved.flags[q] === true);
             }
         }
 
-        // === HIGHLIGHT & NOTE FUNCTIONS (unchanged) ===
+        // === HIGHLIGHT & NOTE FEATURES ===
         const passageArea = document.getElementById('passageArea');
         const contextMenu = document.getElementById('contextMenu');
         passageArea.addEventListener('contextmenu', e => {
@@ -325,16 +353,12 @@
             buildStatusBar();
         }
 
-        // === FINAL LOAD ORDER — CORRECT AND UNCHANGING ===
         window.onload = function() {
-            buildStatusBar();  // Draw all status first
-            loadAnswers();    // Fill answers into boxes
+            buildStatusBar();
+            loadAnswers();
             loadHighlights();
             loadNotes();
-            // Save instantly on every keystroke
-            document.querySelectorAll('.ans').forEach(el => {
-                el.addEventListener('input', saveAnswers);
-            });
+            document.querySelectorAll('.ans').forEach(el => el.addEventListener('input', saveAnswers));
         };
     </script>
 </body>
