@@ -177,18 +177,21 @@
         .q-indicator:hover {
             background: #dee2e6;
         }
+        /* ✅ Green when answered */
         .q-indicator.answered {
-            background: #198754;
-            color: white;
-            border-color: #198754;
+            background: #198754 !important;
+            color: white !important;
+            border-color: #198754 !important;
         }
+        /* ✅ Orange when flagged */
         .q-indicator.flagged {
-            background: #fd7e14;
-            color: white;
-            border-color: #fd7e14;
+            background: #fd7e14 !important;
+            color: white !important;
+            border-color: #fd7e14 !important;
         }
+        /* ✅ Blue border for current page */
         .q-indicator.current {
-            border: 2px solid #007bff;
+            border: 2px solid #007bff !important;
         }
 
         .question { margin-bottom: 20px; scroll-margin-top: 20px; }
@@ -501,7 +504,7 @@
         let currentRange = null;
         let lastNoteId = 0;
 
-        // ✅ Fixed: Build ALL indicators first, then load data
+        // ✅ Step 1: Create ALL 40 indicators FIRST
         function buildAllIndicators() {
             const sections = [
                 { start: 1, end: 13, prefix: 'p1_' },
@@ -519,16 +522,16 @@
                     }
                 }
             });
-            // Mark current passage
+            // Mark current page questions with blue border
             for (let q = 14; q <= 26; q++) {
                 document.getElementById('stat' + q)?.classList.add('current');
             }
         }
 
         window.onload = function() {
-            buildAllIndicators(); // Create all 40 indicators first
-            loadAllData();       // Load saved answers/flags
-            updateAllStatus();   // Apply colors to ALL indicators
+            buildAllIndicators();  // Make sure boxes exist first
+            loadAllData();         // Load saved answers/flags
+            updateAllStatus();     // Apply colors
         };
 
         function jumpToQuestion(qNum) {
@@ -621,7 +624,7 @@
 
         function saveAllData() {
             const data = getAllData();
-            // Save answers
+            // Save answers from current page
             document.querySelectorAll('.ans').forEach(el => {
                 const q = el.dataset.q;
                 data.answers[q] = el.value;
@@ -635,7 +638,7 @@
             }));
             data.notes.p2 = notes;
             localStorage.setItem(GLOBAL_SAVE_KEY, JSON.stringify(data));
-            updateAllStatus(); // Refresh ALL status instantly
+            updateAllStatus(); // ✅ Refresh status instantly after saving
         }
 
         function loadAllData() {
@@ -676,27 +679,27 @@
             });
         }
 
-        // ✅ Fixed: Shows ALL answered/flagged questions from ALL passages
+        // ✅ Fixed: Reliably marks ALL answered questions
         function updateAllStatus() {
             const data = getAllData();
-            // Update EVERY question indicator 1–40
             for (let q = 1; q <= 40; q++) {
                 const stat = document.getElementById('stat' + q);
                 if (!stat) continue;
-                // Reset styles first
+                // Reset first
                 stat.classList.remove('answered', 'flagged');
-                // Mark as answered if there is content
-                if ((data.answers[q] || '').trim() !== '') {
+                // ✅ Turn GREEN if answer is NOT empty
+                const answerText = (data.answers[q] || '').trim();
+                if (answerText !== '') {
                     stat.classList.add('answered');
                 }
-                // Mark as flagged
+                // Turn ORANGE if flagged
                 if (data.flags[q] === true) {
                     stat.classList.add('flagged');
                 }
             }
         }
 
-        // Flag system (global sync)
+        // Flag system
         function toggleFlag(qNum) {
             const data = getAllData();
             const flag = document.getElementById('flag' + qNum);
@@ -710,7 +713,7 @@
             saveAllData();
         }
 
-        // Auto-save answers on input
+        // Auto-save & update status as you type
         document.querySelectorAll('.ans').forEach(el => {
             el.addEventListener('input', saveAllData);
         });
