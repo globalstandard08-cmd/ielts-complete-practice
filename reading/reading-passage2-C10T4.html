@@ -719,16 +719,15 @@
             buildStatusBar();
         }
 
-        window.onload = function() {
-            buildStatusBar();
-            loadAnswers();
-            loadHighlights();
-            loadNotes();
-            // Save instantly on every keystroke
-            document.querySelectorAll('.ans').forEach(el => {
-                el.addEventListener('input', saveAnswers);
-            });
-        };
+      window.onload = function() {
+    buildStatusBar();  // Rebuild ALL 1–40 numbers with latest global status
+    loadAnswers();     // Load only this page's answers into input boxes
+    loadHighlights();
+    loadNotes();
+    document.querySelectorAll('.ans').forEach(el => {
+        el.addEventListener('input', saveAnswers);
+    });
+};
     </script>
 </body>
 </html>
