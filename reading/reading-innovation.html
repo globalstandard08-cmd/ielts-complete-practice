@@ -122,6 +122,22 @@
         /* Questions */
         .question-block { margin-bottom: 30px; }
         .q-title { font-weight: bold; margin-bottom: 12px; font-size: 16px; }
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .flag-btn {
+            font-size: 18px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+            user-select: none;
+        }
+        .flag-btn.flagged {
+            color: #e67700;
+        }
         .option {
             margin: 8px 0;
             padding: 8px 10px;
@@ -204,6 +220,7 @@
         }
         .q-number:hover { background: #dee2e6; }
         .q-number.answered { background: #198754; color: white; border-color: #198754; }
+        .q-number.flagged { background: #fd7e14; color: white; border-color: #fd7e14; }
         .q-number.current { border: 2px solid #007bff; }
 
         /* Controls */
@@ -289,25 +306,37 @@
 
         <div class="question-block" id="q27-30">
             <p class="q-title">Questions 27–30<br><em>Choose the correct letter, A, B, C or D.</em></p>
-            <p><strong>27</strong> The example of the ‘million-dollar quartet’ underlines the writer’s point about</p>
+            <div class="question-header">
+                <span class="flag-btn" onclick="toggleFlag(27)" id="flag27">🚩</span>
+                <p><strong>27</strong> The example of the ‘million-dollar quartet’ underlines the writer’s point about</p>
+            </div>
             <div class="option"><input type="radio" name="q27" value="A"> A recognising talent.</div>
             <div class="option"><input type="radio" name="q27" value="B"> B working as a team.</div>
             <div class="option"><input type="radio" name="q27" value="C"> C having a shared objective.</div>
             <div class="option"><input type="radio" name="q27" value="D"> D being an effective leader.</div>
 
-            <p><strong>28</strong> James Watson suggests that he and Francis Crick won the race to discover the DNA code because they</p>
+            <div class="question-header">
+                <span class="flag-btn" onclick="toggleFlag(28)" id="flag28">🚩</span>
+                <p><strong>28</strong> James Watson suggests that he and Francis Crick won the race to discover the DNA code because they</p>
+            </div>
             <div class="option"><input type="radio" name="q28" value="A"> A were conscious of their own limitations.</div>
             <div class="option"><input type="radio" name="q28" value="B"> B brought complementary skills to their partnership.</div>
             <div class="option"><input type="radio" name="q28" value="C"> C were determined to outperform their brighter rivals.</div>
             <div class="option"><input type="radio" name="q28" value="D"> D encouraged each other to realise their joint ambition.</div>
 
-            <p><strong>29</strong> The writer mentions competitions on breakfast cereal packets as an example of how to</p>
+            <div class="question-header">
+                <span class="flag-btn" onclick="toggleFlag(29)" id="flag29">🚩</span>
+                <p><strong>29</strong> The writer mentions competitions on breakfast cereal packets as an example of how to</p>
+            </div>
             <div class="option"><input type="radio" name="q29" value="A"> A inspire creative thinking.</div>
             <div class="option"><input type="radio" name="q29" value="B"> B generate concise writing.</div>
             <div class="option"><input type="radio" name="q29" value="C"> C promote loyalty to a group.</div>
             <div class="option"><input type="radio" name="q29" value="D"> D strengthen commitment to an idea.</div>
 
-            <p><strong>30</strong> In the last paragraph, the writer suggests that it is important for employees to</p>
+            <div class="question-header">
+                <span class="flag-btn" onclick="toggleFlag(30)" id="flag30">🚩</span>
+                <p><strong>30</strong> In the last paragraph, the writer suggests that it is important for employees to</p>
+            </div>
             <div class="option"><input type="radio" name="q30" value="A"> A be aware of their company’s goals.</div>
             <div class="option"><input type="radio" name="q30" value="B"> B feel that their contributions are valued.</div>
             <div class="option"><input type="radio" name="q30" value="C"> C have respect for their co-workers’ achievements.</div>
@@ -317,23 +346,38 @@
         <div class="question-block" id="q31-35">
             <p class="q-title">Questions 31–35<br><em>Complete each sentence with the correct ending, A–G, below.</em></p>
             <div class="sentence-row">
-                <span><strong>31</strong> Employees whose values match those of their employers are more likely to</span>
+                <div class="question-header" style="margin:0;">
+                    <span class="flag-btn" onclick="toggleFlag(31)" id="flag31">🚩</span>
+                    <span><strong>31</strong> Employees whose values match those of their employers are more likely to</span>
+                </div>
                 <div class="drop-area" data-q="31">Drop here</div>
             </div>
             <div class="sentence-row">
-                <span><strong>32</strong> At times of change, people tend to</span>
+                <div class="question-header" style="margin:0;">
+                    <span class="flag-btn" onclick="toggleFlag(32)" id="flag32">🚩</span>
+                    <span><strong>32</strong> At times of change, people tend to</span>
+                </div>
                 <div class="drop-area" data-q="32">Drop here</div>
             </div>
             <div class="sentence-row">
-                <span><strong>33</strong> If people are aware of what they might lose, they will often</span>
+                <div class="question-header" style="margin:0;">
+                    <span class="flag-btn" onclick="toggleFlag(33)" id="flag33">🚩</span>
+                    <span><strong>33</strong> If people are aware of what they might lose, they will often</span>
+                </div>
                 <div class="drop-area" data-q="33">Drop here</div>
             </div>
             <div class="sentence-row">
-                <span><strong>34</strong> People working under a dominant boss are liable to</span>
+                <div class="question-header" style="margin:0;">
+                    <span class="flag-btn" onclick="toggleFlag(34)" id="flag34">🚩</span>
+                    <span><strong>34</strong> People working under a dominant boss are liable to</span>
+                </div>
                 <div class="drop-area" data-q="34">Drop here</div>
             </div>
             <div class="sentence-row">
-                <span><strong>35</strong> Employees working in organisations with few rules are more likely to</span>
+                <div class="question-header" style="margin:0;">
+                    <span class="flag-btn" onclick="toggleFlag(35)" id="flag35">🚩</span>
+                    <span><strong>35</strong> Employees working in organisations with few rules are more likely to</span>
+                </div>
                 <div class="drop-area" data-q="35">Drop here</div>
             </div>
             <div class="choices-box">
@@ -350,27 +394,42 @@
         <div class="question-block" id="q36-40">
             <p class="q-title">Questions 36–40<br><em>Do the following statements agree with the claims of the writer?</em><br>
             <strong>YES</strong> = agrees, <strong>NO</strong> = contradicts, <strong>NOT GIVEN</strong> = not stated</p>
-            <p><strong>36</strong> The physical surroundings in which a person works play a key role in determining their creativity.</p>
+            <div class="question-header">
+                <span class="flag-btn" onclick="toggleFlag(36)" id="flag36">🚩</span>
+                <p><strong>36</strong> The physical surroundings in which a person works play a key role in determining their creativity.</p>
+            </div>
             <div class="option"><input type="radio" name="q36" value="YES"> YES</div>
             <div class="option"><input type="radio" name="q36" value="NO"> NO</div>
             <div class="option"><input type="radio" name="q36" value="NOT GIVEN"> NOT GIVEN</div>
 
-            <p><strong>37</strong> Most people have the potential to be creative.</p>
+            <div class="question-header">
+                <span class="flag-btn" onclick="toggleFlag(37)" id="flag37">🚩</span>
+                <p><strong>37</strong> Most people have the potential to be creative.</p>
+            </div>
             <div class="option"><input type="radio" name="q37" value="YES"> YES</div>
             <div class="option"><input type="radio" name="q37" value="NO"> NO</div>
             <div class="option"><input type="radio" name="q37" value="NOT GIVEN"> NOT GIVEN</div>
 
-            <p><strong>38</strong> Teams work best when their members are of equally matched intelligence.</p>
+            <div class="question-header">
+                <span class="flag-btn" onclick="toggleFlag(38)" id="flag38">🚩</span>
+                <p><strong>38</strong> Teams work best when their members are of equally matched intelligence.</p>
+            </div>
             <div class="option"><input type="radio" name="q38" value="YES"> YES</div>
             <div class="option"><input type="radio" name="q38" value="NO"> NO</div>
             <div class="option"><input type="radio" name="q38" value="NOT GIVEN"> NOT GIVEN</div>
 
-            <p><strong>39</strong> It is easier for smaller companies to be innovative.</p>
+            <div class="question-header">
+                <span class="flag-btn" onclick="toggleFlag(39)" id="flag39">🚩</span>
+                <p><strong>39</strong> It is easier for smaller companies to be innovative.</p>
+            </div>
             <div class="option"><input type="radio" name="q39" value="YES"> YES</div>
             <div class="option"><input type="radio" name="q39" value="NO"> NO</div>
             <div class="option"><input type="radio" name="q39" value="NOT GIVEN"> NOT GIVEN</div>
 
-            <p><strong>40</strong> A manager’s approval of an idea is more persuasive than that of a colleague.</p>
+            <div class="question-header">
+                <span class="flag-btn" onclick="toggleFlag(40)" id="flag40">🚩</span>
+                <p><strong>40</strong> A manager’s approval of an idea is more persuasive than that of a colleague.</p>
+            </div>
             <div class="option"><input type="radio" name="q40" value="YES"> YES</div>
             <div class="option"><input type="radio" name="q40" value="NO"> NO</div>
             <div class="option"><input type="radio" name="q40" value="NOT GIVEN"> NOT GIVEN</div>
@@ -403,7 +462,7 @@
         <button class="btn-green" onclick="toggleAnswers()">Show / Hide Answers</button>
         <button class="btn-red" onclick="clearAll()">Clear All</button>
     </div>
-    <a href="../library.html" class="nav-btn">← Main Menu</a>
+    <a href="../reading-transport.html" class="nav-btn">← Previous Passage</a>
 </div>
 
 <!-- Right Click Menu -->
@@ -442,9 +501,19 @@
     }
 
     function removeHighlight() {
-        const el = selectedRange.commonAncestorContainer.parentElement;
-        if (el.classList.contains('highlight')) {
-            el.outerHTML = el.textContent;
+        try {
+            const container = selectedRange.commonAncestorContainer;
+            let highlightSpan = container.nodeType === Node.TEXT_NODE 
+                ? container.parentElement 
+                : container;
+
+            if (highlightSpan && highlightSpan.classList.contains('highlight')) {
+                const plainText = document.createTextNode(highlightSpan.textContent);
+                highlightSpan.parentNode.replaceChild(plainText, highlightSpan);
+                highlightSpan.parentNode.normalize();
+            }
+        } catch (e) {
+            console.log('Highlight removed');
         }
         saveData();
     }
@@ -460,6 +529,15 @@
         note.style.top = event.pageY + 'px';
         document.body.appendChild(note);
         saveData();
+    }
+
+    // --- FLAG SYSTEM ---
+    function toggleFlag(qNum) {
+        const flag = document.getElementById('flag' + qNum);
+        const stat = document.querySelector(`.q-number[data-q="${qNum}"]`);
+        const isFlagged = flag.classList.toggle('flagged');
+        stat.classList.toggle('flagged', isFlagged);
+        localStorage.setItem('flag_p3_' + qNum, isFlagged);
     }
 
     // --- DRAG & DROP ---
@@ -483,7 +561,7 @@
             const val = e.dataTransfer.getData('text/plain');
             const oldVal = area.dataset.value;
             if (oldVal) {
-                document.querySelector(`.draggable[data-val="${oldVal}"]`).classList.remove('used');
+                document.querySelector(`.draggable[data-val="${oldVal}"]`)?.classList.remove('used');
             }
             area.textContent = `${val} ${draggedItem.textContent}`;
             area.dataset.value = val;
@@ -514,6 +592,11 @@
                 done = !!document.querySelector(`.drop-area[data-q="${q}"]`)?.dataset.value;
             }
             btn.classList.toggle('answered', done);
+            const flagged = localStorage.getItem('flag_p3_' + q) === 'true';
+            btn.classList.toggle('flagged', flagged);
+            if (document.getElementById('flag' + q)) {
+                document.getElementById('flag' + q).classList.toggle('flagged', flagged);
+            }
         }
     }
 
@@ -556,8 +639,11 @@
     }
 
     function clearAll() {
-        if (!confirm("Clear all progress?")) return;
+        if (!confirm("Clear all progress, highlights, notes and flags?")) return;
         localStorage.removeItem('reading3_data');
+        for (let q = 27; q <= 40; q++) {
+            localStorage.removeItem('flag_p3_' + q);
+        }
         location.reload();
     }
 
