@@ -744,23 +744,24 @@
 
               // ✅ Save answers to localStorage — fixed for text inputs 1-7
         function saveAnswers() {
-            let answers = {};
-            for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
-                // Handle radio buttons (8-13)
-                const radios = document.getElementsByName(`q${q}`);
-                if (radios.length > 0) {
-                    for (let r of radios) {
-                        if (r.checked) answers[`q${q}`] = r.value;
-                    }
-                } else {
-                    // Handle text inputs (1-7) — save exact value
-                    const input = document.querySelector(`input[name="q${q}"]`);
-                    if (input) answers[`q${q}`] = input.value;
-                }
-            }
-            localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
-            updateStatus(); // Refresh colors immediately
+    let answers = {};
+    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+        // Handle text inputs (1-7)
+        const textInput = document.querySelector(`input[name="q${q}"]`);
+        if (textInput && textInput.type === 'text') {
+            answers[`q${q}`] = textInput.value;
         }
+        // Handle radio buttons (8-13)
+        const radios = document.getElementsByName(`q${q}`);
+        if (radios.length > 0) {
+            for (let r of radios) {
+                if (r.checked) answers[`q${q}`] = r.value;
+            }
+        }
+    }
+    localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
+    updateStatus();
+}
 
         // ✅ Load saved answers
         function loadAnswers() {
@@ -782,33 +783,30 @@
         }
 
                // ✅ FIXED: Reliably update question status colors
-        function updateStatus() {
-            const savedAnswers = localStorage.getItem(`${passageId}_answers`);
-            const answers = savedAnswers ? JSON.parse(savedAnswers) : {};
+       function updateStatus() {
+    const savedAnswers = localStorage.getItem(`${passageId}_answers`);
+    const answers = savedAnswers ? JSON.parse(savedAnswers) : {};
 
-            for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
-                const statBtn = document.getElementById('stat' + q);
-                if (!statBtn) continue;
+    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+        const statBtn = document.getElementById('stat' + q);
+        if (!statBtn) continue;
 
-                const answerKey = `q${q}`;
-                const hasAnswer = !!answers[answerKey] && answers[answerKey].trim() !== '';
-                const isFlagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
+        const answerKey = `q${q}`;
+        const val = answers[answerKey] || '';
+        const hasAnswer = val.trim().length > 0;
+        const isFlagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
 
-                // Reset all status classes first
-                statBtn.classList.remove('answered', 'flagged');
-
-                // Apply correct priority: Flagged > Answered > Unanswered
-                if (isFlagged) {
-                    statBtn.classList.add('flagged');
-                } else if (hasAnswer) {
-                    statBtn.classList.add('answered');
-                }
-
-                // Sync flag icon display
-                const flagIcon = document.getElementById('flag' + q);
-                if (flagIcon) flagIcon.classList.toggle('flagged', isFlagged);
-            }
+        statBtn.classList.remove('answered', 'flagged');
+        if (isFlagged) {
+            statBtn.classList.add('flagged');
+        } else if (hasAnswer) {
+            statBtn.classList.add('answered');
         }
+
+        const flagIcon = document.getElementById('flag' + q);
+        if (flagIcon) flagIcon.classList.toggle('flagged', isFlagged);
+    }
+}
 
         // ✅ Toggle answers
         function toggleAnswers() {
@@ -881,11 +879,11 @@
         }
 
         // ✅ Auto-save on any input change
-        document.addEventListener('input', function(e) {
-            if (e.target.matches('.answer-input, input[type="radio"]')) {
-                saveAnswers();
-            }
-        });
+       document.addEventListener('input', function(e) {
+    if (e.target.name?.startsWith('q')) {
+        saveAnswers();
+    }
+});
 
         // ✅ Initialize everything on load
         window.onload = function() {
