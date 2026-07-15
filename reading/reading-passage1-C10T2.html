@@ -201,7 +201,7 @@
             gap: 10px;
         }
 
-        /* ✅ QUESTION NAVIGATOR - 1 TO 40 WITH STATUS COLORS */
+        /* ✅ QUESTION NAVIGATOR - FIXED COLOR PRIORITY */
         .question-nav {
             display: flex;
             flex-wrap: wrap;
@@ -222,7 +222,7 @@
             justify-content: center;
             border-radius: 3px;
             border: 1px solid #ddd;
-            background: #e5e7eb; /* Gray = Unanswered */
+            background: #e5e7eb !important; /* Gray = Unanswered */
             color: #333;
             font-size: 11px;
             cursor: pointer;
@@ -232,20 +232,20 @@
             opacity: 0.9;
         }
         .q-indicator.answered {
-            background: #198754; /* Green = Answered */
-            color: white;
-            border-color: #198754;
+            background: #198754 !important; /* Green = Answered */
+            color: white !important;
+            border-color: #198754 !important;
         }
         .q-indicator.flagged {
-            background: #fd7e14; /* Orange = Flagged */
-            color: white;
-            border-color: #fd7e14;
+            background: #fd7e14 !important; /* Orange = Flagged */
+            color: white !important;
+            border-color: #fd7e14 !important;
         }
         .q-indicator.answered.flagged {
-            background: #fd7e14; /* If both, show flagged color */
+            background: #fd7e14 !important; /* If both, show flagged color */
         }
         .q-indicator.current {
-            border: 2px solid #dc2626;
+            border: 2px solid #dc2626 !important;
         }
 
         /* ✅ COMPACT NAV & ACTION BUTTONS */
@@ -306,6 +306,8 @@
             font-weight: 500;
             cursor: pointer;
             font-size: 13px;
+            position: relative;
+            z-index: 9999; /* Ensure button is clickable */
         }
 
         .back-btn:hover, .next-btn:hover {
@@ -559,7 +561,7 @@
                 <button class="clear-answers" onclick="clearAllAnswers()">🗑️ Clear All Answers</button>
             </div>
             <div class="nav-buttons">
-                <a href="library.html" class="back-btn">← Main Menu</a>
+                <a href="../library.html" class="back-btn">← Main Menu</a>
                 <a href="reading-passage2-C10T2.html" class="next-btn">Next →</a>
             </div>
         </div>
@@ -777,7 +779,7 @@
             updateStatus();
         }
 
-        // ✅ Update question status colors
+        // ✅ FIXED: Reliably update question status colors
         function updateStatus() {
             const savedAnswers = localStorage.getItem(`${passageId}_answers`);
             const answers = savedAnswers ? JSON.parse(savedAnswers) : {};
@@ -786,20 +788,21 @@
                 const statBtn = document.getElementById('stat' + q);
                 if (!statBtn) continue;
 
-                const hasAnswer = !!answers[`q${q}`];
+                const answerKey = `q${q}`;
+                const hasAnswer = !!answers[answerKey] && answers[answerKey].trim() !== '';
                 const isFlagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
 
-                // Reset classes first
+                // Reset all status classes first
                 statBtn.classList.remove('answered', 'flagged');
 
-                // Apply status
+                // Apply correct priority: Flagged > Answered > Unanswered
                 if (isFlagged) {
                     statBtn.classList.add('flagged');
                 } else if (hasAnswer) {
                     statBtn.classList.add('answered');
                 }
 
-                // Also update flag icon
+                // Sync flag icon display
                 const flagIcon = document.getElementById('flag' + q);
                 if (flagIcon) flagIcon.classList.toggle('flagged', isFlagged);
             }
@@ -875,7 +878,7 @@
             updateStatus();
         }
 
-        // ✅ Auto-save on input
+        // ✅ Auto-save on any input change
         document.addEventListener('input', function(e) {
             if (e.target.matches('.answer-input, input[type="radio"]')) {
                 saveAnswers();
