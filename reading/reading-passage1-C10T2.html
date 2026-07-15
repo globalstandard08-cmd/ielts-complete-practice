@@ -742,22 +742,24 @@
             });
         }
 
-        // ✅ Save answers to localStorage
+              // ✅ Save answers to localStorage — fixed for text inputs 1-7
         function saveAnswers() {
             let answers = {};
             for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+                // Handle radio buttons (8-13)
                 const radios = document.getElementsByName(`q${q}`);
                 if (radios.length > 0) {
                     for (let r of radios) {
                         if (r.checked) answers[`q${q}`] = r.value;
                     }
                 } else {
+                    // Handle text inputs (1-7) — save exact value
                     const input = document.querySelector(`input[name="q${q}"]`);
-                    if (input) answers[`q${q}`] = input.value.trim().toUpperCase();
+                    if (input) answers[`q${q}`] = input.value;
                 }
             }
             localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
-            updateStatus(); // Refresh colors after saving
+            updateStatus(); // Refresh colors immediately
         }
 
         // ✅ Load saved answers
