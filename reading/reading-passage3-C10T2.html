@@ -860,19 +860,27 @@
         }
 
         // ✅ Save/Load answers
-      function saveAnswers() {
+     function saveAnswers() {
     let answers = {};
     for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
-        // Handle text inputs
-        const textInput = document.querySelector(`input[name="q${q}"]`);
-        if (textInput && textInput.type === 'text') {
-            answers[`q${q}`] = textInput.value;
+        const name = `q${q}`;
+        // 1. Handle SELECT dropdowns (this fixes Q27–31!)
+        const select = document.querySelector(`select[name="${name}"]`);
+        if (select) {
+            answers[name] = select.value;
+            continue;
         }
-        // Handle radio buttons
-        const radios = document.getElementsByName(`q${q}`);
+        // 2. Handle text inputs
+        const textInput = document.querySelector(`input[name="${name}"]`);
+        if (textInput && textInput.type === 'text') {
+            answers[name] = textInput.value;
+            continue;
+        }
+        // 3. Handle radio buttons
+        const radios = document.getElementsByName(name);
         if (radios.length > 0) {
             for (let r of radios) {
-                if (r.checked) answers[`q${q}`] = r.value;
+                if (r.checked) answers[name] = r.value;
             }
         }
     }
