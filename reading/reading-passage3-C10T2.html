@@ -687,7 +687,7 @@
         // ✅ Global variables
         let currentRange = null;
         let lastNoteId = 0;
-        const passageId = 'C10T2P3';
+        const passageId = 'C10T2P3'; // Change to match Passage 3
         const TOTAL_QUESTIONS = 40;
 
         // ✅ Correct answer data
@@ -860,22 +860,25 @@
         }
 
         // ✅ Save/Load answers
-        function saveAnswers() {
-            let answers = {};
-            for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
-                const radios = document.getElementsByName(`q${q}`);
-                if (radios.length > 0) {
-                    for (let r of radios) {
-                        if (r.checked) answers[`q${q}`] = r.value;
-                    }
-                } else {
-                    const input = document.querySelector(`select[name="q${q}"]`);
-                    if (input) answers[`q${q}`] = input.value.trim();
-                }
-            }
-            localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
-            updateStatus();
+      function saveAnswers() {
+    let answers = {};
+    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+        // Handle text inputs
+        const textInput = document.querySelector(`input[name="q${q}"]`);
+        if (textInput && textInput.type === 'text') {
+            answers[`q${q}`] = textInput.value;
         }
+        // Handle radio buttons
+        const radios = document.getElementsByName(`q${q}`);
+        if (radios.length > 0) {
+            for (let r of radios) {
+                if (r.checked) answers[`q${q}`] = r.value;
+            }
+        }
+    }
+    localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
+    updateStatus();
+}
 
         function loadAnswers() {
             const saved = localStorage.getItem(`${passageId}_answers`);
@@ -896,21 +899,30 @@
         }
 
         // ✅ Update status colors
-        function updateStatus() {
-            const savedAnswers = localStorage.getItem(`${passageId}_answers`);
-            const answers = savedAnswers ? JSON.parse(savedAnswers) : {};
-            for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
-                const statBtn = document.getElementById('stat' + q);
-                if (!statBtn) continue;
-                const hasAnswer = !!answers[`q${q}`];
-                const isFlagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
-                statBtn.classList.remove('answered', 'flagged');
-                if (isFlagged) statBtn.classList.add('flagged');
-                else if (hasAnswer) statBtn.classList.add('answered');
-                const flagIcon = document.getElementById('flag' + q);
-                if (flagIcon) flagIcon.classList.toggle('flagged', isFlagged);
-            }
+       function updateStatus() {
+    const savedAnswers = localStorage.getItem(`${passageId}_answers`);
+    const answers = savedAnswers ? JSON.parse(savedAnswers) : {};
+
+    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+        const statBtn = document.getElementById('stat' + q);
+        if (!statBtn) continue;
+
+        const answerKey = `q${q}`;
+        const val = answers[answerKey] || '';
+        const hasAnswer = val.trim().length > 0;
+        const isFlagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
+
+        statBtn.classList.remove('answered', 'flagged');
+        if (isFlagged) {
+            statBtn.classList.add('flagged');
+        } else if (hasAnswer) {
+            statBtn.classList.add('answered');
         }
+
+        const flagIcon = document.getElementById('flag' + q);
+        if (flagIcon) flagIcon.classList.toggle('flagged', isFlagged);
+    }
+}
 
         // ✅ Toggle answers
         function toggleAnswers() {
@@ -989,9 +1001,11 @@
         }
 
         // ✅ Auto-save on input
-        document.addEventListener('input', function(e) {
-            if (e.target.matches('.answer-input, input[type="radio"]')) saveAnswers();
-        });
+       document.addEventListener('input', function(e) {
+    if (e.target.name?.startsWith('q')) {
+        saveAnswers();
+    }
+});
 
         // ✅ Initialize
         window.onload = function() {
