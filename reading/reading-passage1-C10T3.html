@@ -557,17 +557,18 @@
             }
         }
 
-        function updateNavStatus() {
-            const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`)) || {};
-            const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
-            for (let i = 1; i <= 40; i++) {
-                const btn = document.getElementById(`nav-q${i}`);
-                if (!btn) continue;
-                btn.classList.remove('answered', 'flagged');
-                if (answers[`q${i}`] && answers[`q${i}`].trim() !== '') btn.classList.add('answered');
-                if (flags[i]) btn.classList.add('flagged');
-            }
-        }
+       function updateNavStatus() {
+    const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`)) || {};
+    const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
+    for (let i = 1; i <= 40; i++) {
+        const btn = document.getElementById(`nav-q${i}`);
+        if (!btn) continue;
+        btn.classList.remove('answered', 'flagged');
+        const val = answers[`q${i}`] || '';
+        if (val.trim().length > 0) btn.classList.add('answered');
+        if (flags[i]) btn.classList.add('flagged');
+    }
+}
 
         function toggleFlag(qNum) {
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
@@ -577,20 +578,20 @@
             updateNavStatus();
         }
 
-        function saveAnswers() {
-            let answers = {};
-            for (let q = 1; q <= 13; q++) {
-                const radios = document.getElementsByName(`q${q}`);
-                if (radios.length > 0) {
-                    for (let r of radios) if (r.checked) answers[`q${q}`] = r.value;
-                } else {
-                    const input = document.querySelector(`input[name="q${q}"]`);
-                    if (input) answers[`q${q}`] = input.value.trim();
-                }
-            }
-            localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
-            updateNavStatus();
+      function saveAnswers() {
+    let answers = {};
+    for (let q = 1; q <= 13; q++) {
+        const radios = document.getElementsByName(`q${q}`);
+        if (radios.length > 0) {
+            for (let r of radios) if (r.checked) answers[`q${q}`] = r.value;
+        } else {
+            const input = document.querySelector(`input[name="q${q}"]`);
+            if (input) answers[`q${q}`] = input.value;
         }
+    }
+    localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
+    updateNavStatus();
+}
 
         function loadAnswers() {
             const saved = localStorage.getItem(`${passageId}_answers`);
