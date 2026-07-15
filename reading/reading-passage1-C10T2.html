@@ -779,7 +779,7 @@
             updateStatus();
         }
 
-        // ✅ FIXED: Reliably update question status colors
+               // ✅ FIXED: Reliably update question status colors
         function updateStatus() {
             const savedAnswers = localStorage.getItem(`${passageId}_answers`);
             const answers = savedAnswers ? JSON.parse(savedAnswers) : {};
