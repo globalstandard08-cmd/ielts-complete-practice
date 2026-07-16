@@ -171,7 +171,13 @@
             margin-top: 10px;
         }
 
-        .show-btn {
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .show-btn, .clear-highlight-btn {
             background-color: #1f3a5f;
             color: white;
             border: none;
@@ -181,11 +187,19 @@
             font-size: 14px;
         }
 
+        .clear-highlight-btn {
+            background-color: #dc2626;
+        }
+
         .show-btn:hover {
             background-color: #2e568c;
         }
 
-        /* --- RESTORED: Full 1-40 Question Bar with Part Labels --- */
+        .clear-highlight-btn:hover {
+            background-color: #b91c1c;
+        }
+
+        /* --- Full 1-40 Question Bar with Part Labels --- */
         .question-status {
             display: flex;
             flex-wrap: wrap;
@@ -460,7 +474,7 @@
                 </div>
             </div>
 
-            <!-- --- FULL 1-40 QUESTION BAR WITH PART LABELS --- -->
+            <!-- Full 1-40 Question Bar -->
             <div class="question-status">
                 <span class="part-label">Part 1</span>
                 <div class="q-indicator current" data-q="1">1</div>
@@ -519,7 +533,10 @@
 
             <div class="answers-section">
                 <h3>Answers for Section 1</h3>
-                <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                <div class="btn-row">
+                    <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+                    <button class="clear-highlight-btn" onclick="clearAllHighlights()">Clear All Highlights</button>
+                </div>
                 <div class="answers-content" id="answers">
                     <strong>Answers:</strong><br>
                     1. River<br>
@@ -578,6 +595,20 @@
         function unmarkAnswered(qNum) {
             const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
             if (el) el.classList.remove('answered');
+        }
+
+        // --- Clear All Highlights & Notes (keeps answers/text intact) ---
+        function clearAllHighlights() {
+            if (!confirm("Clear all highlights and notes? This will NOT remove your answers.")) return;
+            
+            // Remove all highlights
+            document.querySelectorAll('.user-highlight').forEach(span => {
+                span.replaceWith(document.createTextNode(span.textContent));
+            });
+            highlightArea.normalize();
+
+            // Remove all sticky notes
+            document.querySelectorAll('.sticky-note').forEach(note => note.remove());
         }
 
         // --- Right‑click Highlight & Note System ---
