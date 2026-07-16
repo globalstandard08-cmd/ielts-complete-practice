@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IELTS Listening - C10T1 Part 2</title>
+    <title>IELTS Listening - C10 Test 1 Part 3</title>
     <style>
         * {
             margin: 0;
@@ -86,6 +86,14 @@
             font-size: 22px;
         }
 
+        .section-title {
+            font-size: 19px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-align: center;
+            color: #1f3a5f;
+        }
+
         .instruction {
             background-color: #f8fbfe;
             border-left: 4px solid #1f3a5f;
@@ -93,6 +101,29 @@
             margin-bottom: 25px;
             border-radius: 4px;
             font-weight: 500;
+        }
+
+        .mcq-block {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 30px;
+            background-color: #fdfdfd;
+        }
+
+        .mcq-question {
+            margin-bottom: 22px;
+        }
+
+        .q-number {
+            font-weight: bold;
+            display: inline-block;
+            min-width: 30px;
+        }
+
+        .option {
+            margin: 8px 0 8px 35px;
+            cursor: pointer;
         }
 
         .notes-block {
@@ -103,26 +134,12 @@
             background-color: #fdfdfd;
         }
 
-        .notes-title {
-            font-weight: bold;
-            font-size: 18px;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #eee;
-        }
-
         .question-line {
             margin-bottom: 18px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
-        }
-
-        .q-number {
-            font-weight: bold;
-            flex-shrink: 0;
-            min-width: 25px;
         }
 
         .input-field {
@@ -143,18 +160,6 @@
         .input-field.filled {
             background-color: #e6f0ff;
             border-color: #1f3a5f;
-        }
-
-        .option-checkbox {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: #10b981;
-        }
-
-        .option-label {
-            cursor: pointer;
-            font-size: 16px;
         }
 
         .answers-section {
@@ -317,7 +322,6 @@
             background-color: #4b5563;
         }
 
-        /* --- Highlight & Note Styles --- */
         .user-highlight {
             background-color: #ffd700;
             padding: 2px 4px;
@@ -385,7 +389,6 @@
     </style>
 </head>
 <body>
-    <!-- Right-click Context Menu -->
     <div class="context-menu" id="contextMenu">
         <div id="menuHighlight">✅ Highlight</div>
         <div id="menuRemove">❌ Remove Highlight</div>
@@ -398,106 +401,101 @@
         </div>
 
         <div class="header-bar">
-            <span>LISTENING TEST - C10 TEST 1 PART 2</span>
+            <span>LISTENING TEST - C10 TEST 1 PART 3</span>
             <span style="font-size:15px; opacity:0.9;">Exam Mode</span>
         </div>
 
         <div class="audio-player">
-            <h3>Play Recording - Part 2</h3>
+            <h3>Play Recording - Part 3</h3>
             <audio controls preload="auto">
-                <source src="part2.mp3" type="audio/mpeg">
-                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part2.mp3" type="audio/mpeg">
+                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part3.mp3" type="audio/mpeg">
+                <source src="part3.mp3" type="audio/mpeg">
                 Your browser does not support audio playback.
             
         </div>
 
         <div class="content" id="highlightArea">
-            <h2>Section 2 – Questions 11–20</h2>
+            <h2>Section 3 – Questions 21–30</h2>
 
-            <div class="instruction">
-                <strong>Questions 11–12:</strong> Choose TWO letters A–E.<br>
-                Which TWO facilities at the leisure club have recently been improved?
+            <div class="mcq-block">
+                <div class="instruction">
+                    <strong>Questions 21–25:</strong> Choose the correct letter, A, B or C.
+                </div>
+
+                <div class="section-title">Global Design Competition</div>
+
+                <div class="mcq-question">
+                    <span class="q-number">21.</span> Students entering the design competition have to<br>
+                    <div class="option"><input type="radio" name="q21" id="q21a"> <label for="q21a">A produce an energy-efficient design.</label></div>
+                    <div class="option"><input type="radio" name="q21" id="q21b"> <label for="q21b">B adapt an existing energy-saving appliance.</label></div>
+                    <div class="option"><input type="radio" name="q21" id="q21c"> <label for="q21c">C develop a new use for current technology.</label></div>
+                </div>
+
+                <div class="mcq-question">
+                    <span class="q-number">22.</span> John chose a dishwasher because he wanted to make dishwashers<br>
+                    <div class="option"><input type="radio" name="q22" id="q22a"> <label for="q22a">A more appealing.</label></div>
+                    <div class="option"><input type="radio" name="q22" id="q22b"> <label for="q22b">B more common.</label></div>
+                    <div class="option"><input type="radio" name="q22" id="q22c"> <label for="q22c">C more economical.</label></div>
+                </div>
+
+                <div class="mcq-question">
+                    <span class="q-number">23.</span> The stone in John’s ‘Rockpool’ design is used<br>
+                    <div class="option"><input type="radio" name="q23" id="q23a"> <label for="q23a">A for decoration.</label></div>
+                    <div class="option"><input type="radio" name="q23" id="q23b"> <label for="q23b">B to switch it on.</label></div>
+                    <div class="option"><input type="radio" name="q23c"> <label for="q23c">C to stop water escaping.</label></div>
+                </div>
+
+                <div class="mcq-question">
+                    <span class="q-number">24.</span> In the holding chamber, the carbon dioxide<br>
+                    <div class="option"><input type="radio" name="q24" id="q24a"> <label for="q24a">A changes back to a gas.</label></div>
+                    <div class="option"><input type="radio" name="q24" id="q24b"> <label for="q24b">B dries the dishes.</label></div>
+                    <div class="option"><input type="radio" name="q24" id="q24c"> <label for="q24c">C is allowed to cool.</label></div>
+                </div>
+
+                <div class="mcq-question">
+                    <span class="q-number">25.</span> At the end of the cleaning process, the carbon dioxide<br>
+                    <div class="option"><input type="radio" name="q25" id="q25a"> <label for="q25a">A is released into the air.</label></div>
+                    <div class="option"><input type="radio" name="q25" id="q25b"> <label for="q25b">B is disposed of with the waste.</label></div>
+                    <div class="option"><input type="radio" name="q25" id="q25c"> <label for="q25c">C is collected ready to be re-used.</label></div>
+                </div>
             </div>
 
             <div class="notes-block">
-                <div class="question-line">
-                    <input type="checkbox" class="option-checkbox" id="optA" value="A">
-                    <label for="optA" class="option-label">A &nbsp; the gym</label>
-                </div>
-                <div class="question-line">
-                    <input type="checkbox" class="option-checkbox" id="optB" value="B">
-                    <label for="optB" class="option-label">B &nbsp; the tracks</label>
-                </div>
-                <div class="question-line">
-                    <input type="checkbox" class="option-checkbox" id="optC" value="C">
-                    <label for="optC" class="option-label">C &nbsp; the indoor pool</label>
-                </div>
-                <div class="question-line">
-                    <input type="checkbox" class="option-checkbox" id="optD" value="D">
-                    <label for="optD" class="option-label">D &nbsp; the outdoor pool</label>
-                </div>
-                <div class="question-line">
-                    <input type="checkbox" class="option-checkbox" id="optE" value="E">
-                    <label for="optE" class="option-label">E &nbsp; the sports training for children</label>
-                </div>
-            </div>
-
-            <div class="instruction">
-                <strong>Questions 13–20:</strong> Complete the notes below.<br>
-                Write NO MORE THAN TWO WORDS for each answer.
-            </div>
-
-            <div class="notes-block">
-                <div class="notes-title">Joining the leisure club</div>
-
-                <div style="font-weight: bold; margin: 15px 0 10px;">Personal Assessment</div>
-                <div class="question-line">
-                    <span>New members should describe any</span>
-                    <span class="q-number">13.</span>
-                    <input type="text" class="input-field" id="q13" placeholder="_______">
-                </div>
-                <div class="question-line">
-                    <span>The</span>
-                    <span class="q-number">14.</span>
-                    <input type="text" class="input-field" id="q14" placeholder="_______">
-                    <span>will be explained to you before you use the equipment.</span>
-                </div>
-                <div class="question-line">
-                    <span>You will be given a six-week</span>
-                    <span class="q-number">15.</span>
-                    <input type="text" class="input-field" id="q15" placeholder="_______">
+                <div class="instruction">
+                    <strong>Questions 26–30:</strong> Complete the notes below.<br>
+                    <em>Write ONE WORD ONLY for each answer.</em>
                 </div>
 
-                <div style="font-weight: bold; margin: 20px 0 10px;">Types of membership</div>
                 <div class="question-line">
-                    <span>There is a compulsory £90</span>
-                    <span class="q-number">16.</span>
-                    <input type="text" class="input-field" id="q16" placeholder="_______">
-                    <span>fee for members.</span>
+                    <span>• John needs help preparing for his</span>
+                    <span class="q-number">(26)</span>
+                    <input type="text" class="input-field" id="q26" placeholder="__________">
                 </div>
+
                 <div class="question-line">
-                    <span>Gold members are given</span>
-                    <span class="q-number">17.</span>
-                    <input type="text" class="input-field" id="q17" placeholder="_______">
-                    <span>to all the LP clubs.</span>
+                    <span>• The professor advises John to make a</span>
+                    <span class="q-number">(27)</span>
+                    <input type="text" class="input-field" id="q27" placeholder="__________">
+                    <span>of his design.</span>
                 </div>
+
                 <div class="question-line">
-                    <span>Premier members are given priority during</span>
-                    <span class="q-number">18.</span>
-                    <input type="text" class="input-field" id="q18" placeholder="_______">
-                    <span>hours.</span>
+                    <span>• John’s main problem is getting good quality</span>
+                    <span class="q-number">(28)</span>
+                    <input type="text" class="input-field" id="q28" placeholder="__________">
                 </div>
+
                 <div class="question-line">
-                    <span>Premier members can bring some</span>
-                    <span class="q-number">19.</span>
-                    <input type="text" class="input-field" id="q19" placeholder="_______">
-                    <span>every month.</span>
+                    <span>• The professor suggests John apply for a</span>
+                    <span class="q-number">(29)</span>
+                    <input type="text" class="input-field" id="q29" placeholder="__________">
                 </div>
+
                 <div class="question-line">
-                    <span>Members should always take their</span>
-                    <span class="q-number">20.</span>
-                    <input type="text" class="input-field" id="q20" placeholder="_______">
-                    <span>with them.</span>
+                    <span>• The professor will check the</span>
+                    <span class="q-number">(30)</span>
+                    <input type="text" class="input-field" id="q30" placeholder="__________">
+                    <span>information in John’s written report.</span>
                 </div>
             </div>
 
@@ -517,30 +515,30 @@
                 <div class="part-separator"></div>
 
                 <span class="part-label">Part 2</span>
-                <div class="q-indicator current" data-q="11">11</div>
-                <div class="q-indicator current" data-q="12">12</div>
-                <div class="q-indicator current" data-q="13">13</div>
-                <div class="q-indicator current" data-q="14">14</div>
-                <div class="q-indicator current" data-q="15">15</div>
-                <div class="q-indicator current" data-q="16">16</div>
-                <div class="q-indicator current" data-q="17">17</div>
-                <div class="q-indicator current" data-q="18">18</div>
-                <div class="q-indicator current" data-q="19">19</div>
-                <div class="q-indicator current" data-q="20">20</div>
+                <div class="q-indicator other" data-q="11">11</div>
+                <div class="q-indicator other" data-q="12">12</div>
+                <div class="q-indicator other" data-q="13">13</div>
+                <div class="q-indicator other" data-q="14">14</div>
+                <div class="q-indicator other" data-q="15">15</div>
+                <div class="q-indicator other" data-q="16">16</div>
+                <div class="q-indicator other" data-q="17">17</div>
+                <div class="q-indicator other" data-q="18">18</div>
+                <div class="q-indicator other" data-q="19">19</div>
+                <div class="q-indicator other" data-q="20">20</div>
 
                 <div class="part-separator"></div>
 
                 <span class="part-label">Part 3</span>
-                <div class="q-indicator other" data-q="21">21</div>
-                <div class="q-indicator other" data-q="22">22</div>
-                <div class="q-indicator other" data-q="23">23</div>
-                <div class="q-indicator other" data-q="24">24</div>
-                <div class="q-indicator other" data-q="25">25</div>
-                <div class="q-indicator other" data-q="26">26</div>
-                <div class="q-indicator other" data-q="27">27</div>
-                <div class="q-indicator other" data-q="28">28</div>
-                <div class="q-indicator other" data-q="29">29</div>
-                <div class="q-indicator other" data-q="30">30</div>
+                <div class="q-indicator current" data-q="21">21</div>
+                <div class="q-indicator current" data-q="22">22</div>
+                <div class="q-indicator current" data-q="23">23</div>
+                <div class="q-indicator current" data-q="24">24</div>
+                <div class="q-indicator current" data-q="25">25</div>
+                <div class="q-indicator current" data-q="26">26</div>
+                <div class="q-indicator current" data-q="27">27</div>
+                <div class="q-indicator current" data-q="28">28</div>
+                <div class="q-indicator current" data-q="29">29</div>
+                <div class="q-indicator current" data-q="30">30</div>
 
                 <div class="part-separator"></div>
 
@@ -558,31 +556,31 @@
             </div>
 
             <div class="answers-section">
-                <h3>Answers for Section 2</h3>
+                <h3>Answers for Section 3</h3>
                 <div class="btn-row">
                     <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
                     <button class="clear-all-btn" onclick="clearAll()">Clear All</button>
                 </div>
                 <div class="answers-content" id="answers">
                     <strong>Answers:</strong><br>
-                    11. A<br>
-                    12. C<br>
-                    13. health problems<br>
-                    14. safety rules<br>
-                    15. plan<br>
-                    16. joining<br>
-                    17. access<br>
-                    18. peak<br>
-                    19. guests<br>
-                    20. card
+                    21. A<br>
+                    22. C<br>
+                    23. C<br>
+                    24. A<br>
+                    25. C<br>
+                    26. presentation<br>
+                    27. model<br>
+                    28. materials<br>
+                    29. grant<br>
+                    30. technical
                 </div>
             </div>
 
             <div class="nav-container">
                 <a href="../library.html" class="back-main-btn">← Back to Main Page</a>
                 <div class="nav-buttons">
-                    <a href="listening-part1.html" class="nav-btn">←</a>
-                    <a href="listening-part3.html" class="nav-btn">→</a>
+                    <a href="listening-part2.html" class="nav-btn">←</a>
+                    <a href="listening-part4.html" class="nav-btn">→</a>
                 </div>
             </div>
         </div>
@@ -590,20 +588,22 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const checkboxes = document.querySelectorAll('.option-checkbox');
-            checkboxes.forEach(chk => {
-                const saved = localStorage.getItem('C10T1_' + chk.id);
-                if (saved === 'true') {
-                    chk.checked = true;
-                    updateStatus();
+            for (let i = 21; i <= 25; i++) {
+                const radios = document.querySelectorAll(`input[name="q${i}"]`);
+                const saved = localStorage.getItem('C10T1_q' + i);
+                if (saved) {
+                    document.getElementById(`q${i}${saved.toLowerCase()}`).checked = true;
+                    markAnswered(i);
                 }
-                chk.addEventListener('change', function() {
-                    localStorage.setItem('C10T1_' + this.id, this.checked);
-                    updateStatus();
+                radios.forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        localStorage.setItem('C10T1_q' + i, this.id.slice(-1).toUpperCase());
+                        markAnswered(i);
+                    });
                 });
-            });
+            }
 
-            for (let i = 13; i <= 20; i++) {
+            for (let i = 26; i <= 30; i++) {
                 const field = document.getElementById('q' + i);
                 const saved = localStorage.getItem('C10T1_q' + i);
                 if (saved) {
@@ -623,13 +623,6 @@
                     }
                 });
             }
-
-            function updateStatus() {
-                const checked = document.querySelectorAll('.option-checkbox:checked').length;
-                checked >= 1 ? markAnswered(11) : unmarkAnswered(11);
-                checked >= 2 ? markAnswered(12) : unmarkAnswered(12);
-            }
-            updateStatus();
         });
 
         function toggleAnswers() {
@@ -646,27 +639,24 @@
             if (el) el.classList.remove('answered');
         }
 
-        // --- Clear All: answers, highlights, notes ---
         function clearAll() {
             if (!confirm("Clear ALL: your answers, highlights, and notes? This cannot be undone.")) return;
             
-            // Clear checkboxes
-            document.querySelectorAll('.option-checkbox').forEach(chk => {
-                chk.checked = false;
-                localStorage.removeItem('C10T1_' + chk.id);
-            });
+            // Clear radio answers
+            for (let i = 21; i <= 25; i++) {
+                localStorage.removeItem('C10T1_q' + i);
+                document.querySelectorAll(`input[name="q${i}"]`).forEach(r => r.checked = false);
+                unmarkAnswered(i);
+            }
 
-            // Clear text inputs
-            for (let i = 13; i <= 20; i++) {
+            // Clear text answers
+            for (let i = 26; i <= 30; i++) {
                 const field = document.getElementById('q' + i);
                 field.value = '';
                 field.classList.remove('filled');
                 localStorage.removeItem('C10T1_q' + i);
                 unmarkAnswered(i);
             }
-
-            // Reset question status
-            updateStatus();
 
             // Remove all highlights
             document.querySelectorAll('.user-highlight').forEach(span => {
@@ -678,7 +668,7 @@
             document.querySelectorAll('.sticky-note').forEach(note => note.remove());
         }
 
-        // --- Right‑click Highlight & Note System ---
+        // Right‑click Highlight & Note System
         const highlightArea = document.getElementById('highlightArea');
         const contextMenu = document.getElementById('contextMenu');
         let currentRange = null;
@@ -700,7 +690,6 @@
 
         document.addEventListener('click', () => contextMenu.style.display = 'none');
 
-        // Highlight
         document.getElementById('menuHighlight').addEventListener('click', function() {
             if (!currentRange) return;
             const span = document.createElement('span');
@@ -712,7 +701,6 @@
             currentRange = null;
         });
 
-        // Remove Highlight
         document.getElementById('menuRemove').addEventListener('click', function() {
             if (!currentRange) return;
             try {
@@ -727,7 +715,6 @@
             currentRange = null;
         });
 
-        // Add Note
         document.getElementById('menuNote').addEventListener('click', function() {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
