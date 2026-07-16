@@ -144,7 +144,6 @@
             box-shadow: 0 0 3px rgba(31, 58, 95, 0.3);
         }
 
-        /* Highlight input when answered */
         .input-field.filled {
             background-color: #e6f0ff;
             border-color: #1f3a5f;
@@ -186,7 +185,6 @@
             background-color: #2e568c;
         }
 
-        /* ------------------- Question Indicators ------------------- */
         .question-status {
             display: flex;
             justify-content: center;
@@ -217,7 +215,6 @@
             border-color: #1f3a5f;
         }
 
-        /* ------------------- Arrow Navigation Buttons ------------------- */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
@@ -244,61 +241,80 @@
             background-color: #2e568c;
         }
 
-        /* ------------------- UPDATED Highlight Styles ------------------- */
+        /* --- Highlight & Note Styles --- */
         .user-highlight {
-            background-color: #ffd700; /* Brighter, clearer yellow */
+            background-color: #ffd700;
             padding: 2px 4px;
             border-radius: 2px;
             cursor: pointer;
-            color: #000; /* Black text for readability */
+            color: #000;
             display: inline;
         }
 
-        .highlight-tool {
+        .context-menu {
             position: absolute;
             background: #fff;
-            border: 1px solid #1f3a5f;
-            border-radius: 50%;
-            width: 34px;
-            height: 34px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-            z-index: 9999;
-            display: none;
-            cursor: pointer;
-            font-size: 18px;
-            color: #1f3a5f;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .highlight-tool:hover {
-            background: #eef2f7;
-        }
-
-        .remove-highlight {
-            position: absolute;
-            background: #fff;
-            border: 1px solid #dc3545;
+            border: 1px solid #ccc;
             border-radius: 4px;
-            padding: 5px 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             z-index: 9999;
             display: none;
+            min-width: 150px;
+        }
+        .context-menu div {
+            padding: 10px 14px;
             cursor: pointer;
             font-size: 14px;
-            color: #dc3545;
-            font-weight: bold;
+        }
+        .context-menu div:hover {
+            background: #f0f0f0;
         }
 
-        .remove-highlight:hover {
-            background: #ffebee;
+        .sticky-note {
+            position: absolute;
+            width: 170px;
+            min-height: 70px;
+            background: #fff9c4;
+            border: 1px solid #fbc02d;
+            border-radius: 4px;
+            padding: 8px;
+            box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+            z-index: 9998;
+            font-size: 13px;
+        }
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #f57f17;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #f57f17;
+        }
+        .note-textarea {
+            width: 100%;
+            height: 50px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 13px;
         }
     </style>
 </head>
 <body>
-    <!-- Highlight tools -->
-    <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
-    <div class="remove-highlight" id="removeTool" title="Click to remove highlight">✖️ Remove</div>
+    <!-- Right-click Context Menu -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+    </div>
 
     <div class="container">
         <div class="logo-section">
@@ -319,7 +335,6 @@
             
         </div>
 
-        <!-- Highlight area -->
         <div class="content" id="highlightArea">
             <h2>Section 1 – Questions 1–10</h2>
 
@@ -415,7 +430,6 @@
                 </div>
             </div>
 
-            <!-- Question Status Indicators -->
             <div class="question-status">
                 <div class="q-indicator" data-q="1">1</div>
                 <div class="q-indicator" data-q="2">2</div>
@@ -447,7 +461,6 @@
                 </div>
             </div>
 
-            <!-- Arrow Navigation Buttons -->
             <div class="nav-buttons">
                 <a href="listening-intro.html" class="nav-btn">←</a>
                 <a href="listening-part2.html" class="nav-btn">→</a>
@@ -456,7 +469,6 @@
     </div>
 
     <script>
-        // Auto-save answers and update status
         document.addEventListener('DOMContentLoaded', function() {
             for (let i = 1; i <= 10; i++) {
                 const field = document.getElementById('q' + i);
@@ -485,7 +497,6 @@
             ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
         }
 
-        // Update question indicator
         function markAnswered(qNum) {
             document.querySelector(`.q-indicator[data-q="${qNum}"]`).classList.add('answered');
         }
@@ -493,42 +504,30 @@
             document.querySelector(`.q-indicator[data-q="${qNum}"]`).classList.remove('answered');
         }
 
-        // ------------------- Highlight Functionality -------------------
+        // --- Right‑click Highlight & Note System ---
         const highlightArea = document.getElementById('highlightArea');
-        const highlightTool = document.getElementById('highlightTool');
-        const removeTool = document.getElementById('removeTool');
+        const contextMenu = document.getElementById('contextMenu');
         let currentRange = null;
+        let lastNoteId = 0;
 
-        // Show pencil on right-click
         highlightArea.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            const sel = window.getSelection();
-            if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
-            showPencil(e.clientX, e.clientY);
-        });
-
-        // Show pencil when selecting text
-        document.addEventListener('mouseup', function() {
             const sel = window.getSelection();
             if (!sel || sel.isCollapsed || !sel.toString().trim()) {
-                highlightTool.style.display = 'none';
+                contextMenu.style.display = 'none';
                 return;
             }
-            const range = sel.getRangeAt(0);
-            if (!highlightArea.contains(range.commonAncestorContainer)) return;
-            const rect = range.getBoundingClientRect();
-            showPencil(rect.left + rect.width / 2, rect.top);
-            currentRange = range;
+            e.preventDefault();
+            currentRange = sel.getRangeAt(0);
+            const rect = currentRange.getBoundingClientRect();
+            contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+            contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+            contextMenu.style.display = 'block';
         });
 
-        function showPencil(x, y) {
-            highlightTool.style.left = (x + window.scrollX - 17) + 'px';
-            highlightTool.style.top = (y + window.scrollY - 40) + 'px';
-            highlightTool.style.display = 'flex';
-        }
+        document.addEventListener('click', () => contextMenu.style.display = 'none');
 
-        // Apply highlight
-        highlightTool.addEventListener('click', function() {
+        // Highlight
+        document.getElementById('menuHighlight').addEventListener('click', function() {
             if (!currentRange) return;
             const span = document.createElement('span');
             span.className = 'user-highlight';
@@ -536,40 +535,46 @@
             currentRange.deleteContents();
             currentRange.insertNode(span);
             window.getSelection().removeAllRanges();
-            highlightTool.style.display = 'none';
             currentRange = null;
         });
 
-        // Show remove button when clicking highlighted text
-        highlightArea.addEventListener('click', function(e) {
-            if (e.target.classList.contains('user-highlight')) {
-                const rect = e.target.getBoundingClientRect();
-                removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 28) + 'px';
-                removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
-                removeTool.style.display = 'block';
-                removeTool.dataset.target = e.target;
-            } else {
-                removeTool.style.display = 'none';
-            }
+        // Remove Highlight
+        document.getElementById('menuRemove').addEventListener('click', function() {
+            if (!currentRange) return;
+            try {
+                let span = currentRange.commonAncestorContainer;
+                if (span.nodeType === Node.TEXT_NODE) span = span.parentElement;
+                if (span?.classList.contains('user-highlight')) {
+                    span.replaceWith(document.createTextNode(span.textContent));
+                    highlightArea.normalize();
+                }
+            } catch (e) {}
+            window.getSelection().removeAllRanges();
+            currentRange = null;
         });
 
-        // Remove highlight
-        removeTool.addEventListener('click', function() {
-            const span = this.dataset.target;
-            if (!span || !span.parentNode) return;
-            const text = document.createTextNode(span.textContent);
-            span.parentNode.replaceChild(text, span);
-            span.parentNode.normalize();
-            this.style.display = 'none';
+        // Add Note
+        document.getElementById('menuNote').addEventListener('click', function() {
+            if (!currentRange) return;
+            const rect = currentRange.getBoundingClientRect();
+            const noteId = 'note_' + (++lastNoteId);
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            note.id = noteId;
+            note.innerHTML = `
+                <div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
+                <textarea class="note-textarea" placeholder="Type your note..."></textarea>
+            `;
+            note.style.left = (rect.right + window.scrollX + 10) + 'px';
+            note.style.top = (rect.top + window.scrollY) + 'px';
+            document.body.appendChild(note);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
         });
 
-        // Hide tools when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target) && !removeTool.contains(e.target)) {
-                highlightTool.style.display = 'none';
-                removeTool.style.display = 'none';
-            }
-        });
+        function closeNote(id) {
+            document.getElementById(id)?.remove();
+        }
     </script>
 </body>
 </html>
