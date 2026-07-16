@@ -177,7 +177,7 @@
             flex-wrap: wrap;
         }
 
-        .show-btn, .clear-highlight-btn {
+        .show-btn, .clear-all-btn {
             background-color: #1f3a5f;
             color: white;
             border: none;
@@ -187,7 +187,7 @@
             font-size: 14px;
         }
 
-        .clear-highlight-btn {
+        .clear-all-btn {
             background-color: #dc2626;
         }
 
@@ -195,7 +195,7 @@
             background-color: #2e568c;
         }
 
-        .clear-highlight-btn:hover {
+        .clear-all-btn:hover {
             background-color: #b91c1c;
         }
 
@@ -535,7 +535,7 @@
                 <h3>Answers for Section 1</h3>
                 <div class="btn-row">
                     <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
-                    <button class="clear-highlight-btn" onclick="clearAllHighlights()">Clear All Highlights</button>
+                    <button class="clear-all-btn" onclick="clearAll()">Clear All</button>
                 </div>
                 <div class="answers-content" id="answers">
                     <strong>Answers:</strong><br>
@@ -597,17 +597,26 @@
             if (el) el.classList.remove('answered');
         }
 
-        // --- Clear All Highlights & Notes (keeps answers/text intact) ---
-        function clearAllHighlights() {
-            if (!confirm("Clear all highlights and notes? This will NOT remove your answers.")) return;
+        // --- Clear All: highlights, notes, answers, saved data ---
+        function clearAll() {
+            if (!confirm("Clear ALL: your answers, highlights, and notes? This cannot be undone.")) return;
             
-            // Remove all highlights
+            // 1. Clear all input fields
+            for (let i = 1; i <= 10; i++) {
+                const field = document.getElementById('q' + i);
+                field.value = '';
+                field.classList.remove('filled');
+                unmarkAnswered(i);
+                localStorage.removeItem('listening_c10t1_q' + i);
+            }
+
+            // 2. Remove all highlights
             document.querySelectorAll('.user-highlight').forEach(span => {
                 span.replaceWith(document.createTextNode(span.textContent));
             });
             highlightArea.normalize();
 
-            // Remove all sticky notes
+            // 3. Remove all sticky notes
             document.querySelectorAll('.sticky-note').forEach(note => note.remove());
         }
 
