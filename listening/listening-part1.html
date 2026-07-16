@@ -186,7 +186,7 @@
             background-color: #2e568c;
         }
 
-        /* ------------------- NEW: Question Indicators ------------------- */
+        /* ------------------- Question Indicators ------------------- */
         .question-status {
             display: flex;
             justify-content: center;
@@ -217,7 +217,7 @@
             border-color: #1f3a5f;
         }
 
-        /* ------------------- NEW: Arrow Navigation Buttons ------------------- */
+        /* ------------------- Arrow Navigation Buttons ------------------- */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
@@ -244,12 +244,14 @@
             background-color: #2e568c;
         }
 
-        /* ------------------- Highlight Styles ------------------- */
+        /* ------------------- UPDATED Highlight Styles ------------------- */
         .user-highlight {
-            background-color: #fff3cd;
-            padding: 2px 3px;
+            background-color: #ffd700; /* Brighter, clearer yellow */
+            padding: 2px 4px;
             border-radius: 2px;
             cursor: pointer;
+            color: #000; /* Black text for readability */
+            display: inline;
         }
 
         .highlight-tool {
@@ -278,13 +280,14 @@
             background: #fff;
             border: 1px solid #dc3545;
             border-radius: 4px;
-            padding: 4px 8px;
+            padding: 5px 10px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.15);
             z-index: 9999;
             display: none;
             cursor: pointer;
             font-size: 14px;
             color: #dc3545;
+            font-weight: bold;
         }
 
         .remove-highlight:hover {
@@ -295,7 +298,7 @@
 <body>
     <!-- Highlight tools -->
     <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
-    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
+    <div class="remove-highlight" id="removeTool" title="Click to remove highlight">✖️ Remove</div>
 
     <div class="container">
         <div class="logo-section">
@@ -412,7 +415,7 @@
                 </div>
             </div>
 
-            <!-- ✅ NEW: Question Status Indicators -->
+            <!-- Question Status Indicators -->
             <div class="question-status">
                 <div class="q-indicator" data-q="1">1</div>
                 <div class="q-indicator" data-q="2">2</div>
@@ -444,7 +447,7 @@
                 </div>
             </div>
 
-            <!-- ✅ NEW: Arrow Navigation Buttons -->
+            <!-- Arrow Navigation Buttons -->
             <div class="nav-buttons">
                 <a href="listening-intro.html" class="nav-btn">←</a>
                 <a href="listening-part2.html" class="nav-btn">→</a>
@@ -537,7 +540,7 @@
             currentRange = null;
         });
 
-        // Show remove button
+        // Show remove button when clicking highlighted text
         highlightArea.addEventListener('click', function(e) {
             if (e.target.classList.contains('user-highlight')) {
                 const rect = e.target.getBoundingClientRect();
