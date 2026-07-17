@@ -185,7 +185,7 @@
             background: #f0f0f0;
         }
 
-        /* Sticky Notes */
+        /* Sticky Notes - Draggable */
         .sticky-note {
             position: absolute;
             width: 170px;
@@ -193,34 +193,46 @@
             background: #fff9c4;
             border: 1px solid #fbc02d;
             border-radius: 4px;
-            padding: 8px;
+            padding: 0;
             box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
             z-index: 9998;
             font-size: 13px;
+            user-select: none;
         }
         .note-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 6px 8px;
             font-weight: bold;
-            margin-bottom: 5px;
             font-size: 12px;
             color: #f57f17;
+            background: #fff3cd;
+            border-bottom: 1px solid #ffe082;
+            cursor: move;
         }
         .note-close {
             cursor: pointer;
             font-weight: bold;
-            color: #f57f17;
+            color: #d84315;
+            font-size: 14px;
+            padding: 0 4px;
+            line-height: 1;
+        }
+        .note-close:hover {
+            color: #b71c1c;
         }
         .note-textarea {
             width: 100%;
-            height: 50px;
+            height: 70px;
             border: none;
             background: transparent;
             resize: none;
             outline: none;
             font-family: inherit;
             font-size: 13px;
+            padding: 8px;
+            user-select: text;
         }
 
         /* Question Status Bar */
@@ -405,7 +417,7 @@
             <span style="font-size:15px; opacity:0.9;">Exam Mode</span>
         </div>
 
-        <!-- Audio Player - Fixed closing tag -->
+        <!-- Audio Player -->
         <div class="audio-player">
             <h3>Play Recording - Part 4</h3>
             <audio controls preload="auto">
@@ -650,7 +662,12 @@
                 currentRange = null;
             });
 
-            // Add sticky note
+            // --- Draggable Sticky Notes ---
+            let dragNote = null;
+            let dragOffsetX = 0;
+            let dragOffsetY = 0;
+
+            // Add new note
             document.getElementById('menuNote').addEventListener('click', function() {
                 if (!currentRange) return;
                 const rect = currentRange.getBoundingClientRect();
@@ -659,7 +676,9 @@
                 note.className = 'sticky-note';
                 note.id = noteId;
                 note.innerHTML = `
-                    <div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
+                    <div class="note-header" onmousedown="startDrag(event, '${noteId}')">
+                        Note <span class="note-close" onclick="closeNote('${noteId}')">×</span>
+                    </div>
                     <textarea class="note-textarea" placeholder="Type your note..."></textarea>
                 `;
                 note.style.left = (rect.right + window.scrollX + 10) + 'px';
@@ -669,9 +688,32 @@
                 currentRange = null;
             });
 
-            function closeNote(id) {
-                document.getElementById(id)?.remove();
-            }
+            // Start dragging
+            window.startDrag = function(e, id) {
+                dragNote = document.getElementById(id);
+                dragOffsetX = e.clientX - dragNote.getBoundingClientRect().left;
+                dragOffsetY = e.clientY - dragNote.getBoundingClientRect().top;
+                dragNote.style.zIndex = '10000';
+            };
+
+            // Move note
+            document.addEventListener('mousemove', function(e) {
+                if (!dragNote) return;
+                dragNote.style.left = (e.clientX - dragOffsetX + window.scrollX) + 'px';
+                dragNote.style.top = (e.clientY - dragOffsetY + window.scrollY) + 'px';
+            });
+
+            // Stop dragging
+            document.addEventListener('mouseup', function() {
+                if (dragNote) dragNote.style.zIndex = '9998';
+                dragNote = null;
+            });
+
+            // Close note function (works globally)
+            window.closeNote = function(id) {
+                const note = document.getElementById(id);
+                if (note) note.remove();
+            };
         });
 
         function toggleAnswers() {
