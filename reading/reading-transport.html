@@ -543,7 +543,7 @@
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // ✅ Check if selected text is valid for highlighting
+        // ✅ Valid selection check
         function isSelectionValid(selection) {
             if (!selection || selection.isCollapsed || selection.toString().trim() === '') return false;
             try {
@@ -559,7 +559,7 @@
             }
         }
 
-        // ✅ Works on BOTH passage and questions, blocks default menu
+        // ✅ Right-click works everywhere, no default menu
         document.addEventListener('contextmenu', function(e) {
             const selection = window.getSelection();
             if (!isSelectionValid(selection)) {
@@ -578,13 +578,13 @@
 
         document.addEventListener('click', () => contextMenu.style.display = 'none');
 
-        // ✅ Highlight works reliably on all text types
+        // ✅ Highlight: NO MORE POPUP, works for any length
         document.getElementById('menuHighlight').addEventListener('click', function() {
             if (!currentRange) return;
             try {
                 const span = document.createElement('span');
                 span.className = 'user-highlight';
-                span.textContent = currentRange.toString().trim();
+                span.textContent = currentRange.toString();
                 currentRange.deleteContents();
                 currentRange.insertNode(span);
                 window.getSelection().removeAllRanges();
@@ -592,7 +592,6 @@
                 saveAllData();
             } catch (err) {
                 console.error('Highlight error:', err);
-                alert('Please select shorter text to highlight.');
             }
         });
 
@@ -654,7 +653,6 @@
                 const q = el.dataset.q;
                 data.answers[q] = el.value;
             });
-            // Save both passage and question highlights separately
             data.highlights.p2_passage = passageBox.innerHTML;
             data.highlights.p2_questions = questionsBox.innerHTML;
             const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
@@ -671,7 +669,6 @@
                 const el = document.querySelector(`[data-q="${q}"]`);
                 if (el && data.answers[q] !== undefined) el.value = data.answers[q];
             });
-            // Load both passage and question highlights
             if (data.highlights.p2_passage) passageBox.innerHTML = data.highlights.p2_passage;
             if (data.highlights.p2_questions) questionsBox.innerHTML = data.highlights.p2_questions;
             if (data.notes.p2) {
