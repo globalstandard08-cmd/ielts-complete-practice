@@ -74,7 +74,7 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            z-index: 9999;
+            z-index: 99999;
             display: none;
             min-width: 140px;
         }
@@ -97,7 +97,7 @@
             border-radius: 4px;
             padding: 6px;
             box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
-            z-index: 9998;
+            z-index: 99998;
             font-size: 13px;
         }
         .note-header {
@@ -332,7 +332,7 @@
         </div>
 
         <!-- Questions Box -->
-        <div class="box">
+        <div class="box" id="questionsBox">
             <h3 style="margin-bottom:15px;">Questions 1–13</h3>
 
             <!-- Questions 1–5: TRUE/FALSE/NOT GIVEN -->
@@ -546,6 +546,7 @@
         const GLOBAL_SAVE_KEY = 'stepwells_all_test_data';
         const CURRENT_PAGE_QS = [1,2,3,4,5,6,7,8,9,10,11,12,13];
         const passageBox = document.getElementById('passageBox');
+        const questionsBox = document.getElementById('questionsBox');
         const contextMenu = document.getElementById('contextMenu');
         let currentRange = null;
         let lastNoteId = 0;
@@ -644,15 +645,27 @@
             }
         }
 
-        // === HIGHLIGHT & NOTE FEATURES (FIXED) ===
-        passageBox.addEventListener('contextmenu', function(e) {
+        // === HELPER: Check if selection is inside a valid box (not textarea) ===
+        function isSelectionValid(selection) {
+            if (!selection || selection.isCollapsed || selection.toString().trim() === '') return false;
+            const range = selection.getRangeAt(0);
+            const container = range.commonAncestorContainer;
+            const parent = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+            const validBoxes = [passageBox, questionsBox];
+            const inValidArea = validBoxes.some(box => box.contains(parent));
+            const inTextarea = parent.closest('textarea') !== null;
+            return inValidArea && !inTextarea;
+        }
+
+        // === HIGHLIGHT & NOTE FEATURES — WORKS ON PASSAGE + QUESTIONS ===
+        document.addEventListener('contextmenu', function(e) {
             const selection = window.getSelection();
-            if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
+            if (!isSelectionValid(selection)) {
                 contextMenu.style.display = 'none';
                 return;
             }
             e.preventDefault();
-            currentRange = selection.getRangeAt(0);
+            currentRange = selection.getRangeAt(0).cloneRange();
             const rect = currentRange.getBoundingClientRect();
             contextMenu.style.left = (rect.left + window.scrollX) + 'px';
             contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
@@ -698,8 +711,10 @@
                 const container = currentRange.commonAncestorContainer;
                 let span = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
                 if (span?.classList.contains('user-highlight')) {
-                    span.replaceWith(document.createTextNode(span.textContent));
-                    passageBox.normalize();
+                    const parent = span.parentNode;
+                    parent.insertBefore(document.createTextNode(span.textContent), span);
+                    parent.removeChild(span);
+                    parent.normalize();
                 }
             } catch (e) {}
             window.getSelection().removeAllRanges();
@@ -713,12 +728,15 @@
         }
 
         function saveHighlights() {
-            localStorage.setItem('stepwells_p1_highlights', passageBox.innerHTML);
+            localStorage.setItem('stepwells_p1_passage_highlights', passageBox.innerHTML);
+            localStorage.setItem('stepwells_p1_questions_highlights', questionsBox.innerHTML);
         }
 
         function loadHighlights() {
-            const s = localStorage.getItem('stepwells_p1_highlights');
-            if (s) passageBox.innerHTML = s;
+            const passHtml = localStorage.getItem('stepwells_p1_passage_highlights');
+            const quesHtml = localStorage.getItem('stepwells_p1_questions_highlights');
+            if (passHtml) passageBox.innerHTML = passHtml;
+            if (quesHtml) questionsBox.innerHTML = quesHtml;
         }
 
         function saveNotes() {
@@ -756,13 +774,19 @@
         function clearAll() {
             if (!confirm("⚠️ Clear ALL answers, flags, highlights and notes for the ENTIRE test?")) return;
             localStorage.removeItem(GLOBAL_SAVE_KEY);
-            localStorage.removeItem('stepwells_p1_highlights');
+            localStorage.removeItem('stepwells_p1_passage_highlights');
+            localStorage.removeItem('stepwells_p1_questions_highlights');
             localStorage.removeItem('stepwells_p1_notes');
             
             // Reset page
             document.querySelectorAll('.ans').forEach(el => el.value = '');
             document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
-            document.querySelectorAll('.user-highlight').forEach(s => s.replaceWith(document.createTextNode(s.textContent)));
+            document.querySelectorAll('.user-highlight').forEach(s => {
+                const parent = s.parentNode;
+                parent.insertBefore(document.createTextNode(s.textContent), s);
+                parent.removeChild(s);
+                parent.normalize();
+            });
             document.querySelectorAll('.sticky-note').forEach(n => n.remove());
             buildStatusBar();
         }
