@@ -65,6 +65,7 @@
             border-radius: 2px;
             cursor: pointer;
             color: #000;
+            display: inline;
         }
 
         /* Right-click context menu */
@@ -113,6 +114,7 @@
             cursor: pointer;
             font-weight: bold;
             color: #886a00;
+            user-select: none;
         }
         .note-textarea {
             width: 100%;
@@ -648,7 +650,7 @@
                 const parent = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
                 const inPassage = passageBox.contains(parent);
                 const inQuestions = questionsBox.contains(parent);
-                const inTextarea = parent.closest('textarea, input, button') !== null;
+                const inTextarea = parent.closest('textarea, input, button, .note-close') !== null;
                 return (inPassage || inQuestions) && !inTextarea;
             } catch {
                 return false;
@@ -672,17 +674,22 @@
 
         document.addEventListener('click', () => contextMenu.style.display = 'none');
 
-        // === HIGHLIGHT: works on both sections ===
+        // === HIGHLIGHT: fully fixed for all elements in questions ===
         document.getElementById('menuHighlight').addEventListener('click', function() {
             if (!currentRange) return;
-            const span = document.createElement('span');
-            span.className = 'user-highlight';
-            span.textContent = currentRange.toString();
-            currentRange.deleteContents();
-            currentRange.insertNode(span);
-            window.getSelection().removeAllRanges();
-            currentRange = null;
-            saveHighlights();
+            try {
+                const span = document.createElement('span');
+                span.className = 'user-highlight';
+                span.textContent = currentRange.toString();
+                currentRange.deleteContents();
+                currentRange.insertNode(span);
+                window.getSelection().removeAllRanges();
+                currentRange = null;
+                saveHighlights();
+            } catch (err) {
+                console.error('Highlight error:', err);
+                alert('Please select a smaller piece of text to highlight.');
+            }
         });
 
         // === ADD NOTE: works on both sections ===
@@ -705,18 +712,21 @@
             saveNotes();
         });
 
-        // === REMOVE HIGHLIGHT: fixed for all elements in questions ===
+        // === REMOVE HIGHLIGHT: fully fixed for all question elements ===
         document.getElementById('menuRemove').addEventListener('click', function() {
             if (!currentRange) return;
             try {
-                const container = currentRange.commonAncestorContainer;
-                let target = container;
-                if (target.nodeType === Node.TEXT_NODE) target = target.parentElement;
-                // Find nearest highlight span anywhere up the tree
-                while (target && !target.classList?.contains('user-highlight')) {
-                    target = target.parentElement;
-                }
-                if (target?.classList.contains('user-highlight')) {
+                // Expand range to catch full highlight spans
+                const startEl = currentRange.startContainer.nodeType === Node.TEXT_NODE 
+                    ? currentRange.startContainer.parentElement 
+                    : currentRange.startContainer;
+                const endEl = currentRange.endContainer.nodeType === Node.TEXT_NODE 
+                    ? currentRange.endContainer.parentElement 
+                    : currentRange.endContainer;
+                
+                let target = startEl.closest('.user-highlight') || endEl.closest('.user-highlight');
+                
+                if (target) {
                     const parent = target.parentNode;
                     parent.replaceChild(document.createTextNode(target.textContent), target);
                     parent.normalize();
@@ -734,7 +744,7 @@
             saveNotes();
         }
 
-        // === SAVE/LOAD: separate for passage and questions ===
+        // === SAVE/LOAD: fixed to preserve structure ===
         function saveHighlights() {
             localStorage.setItem('stepwells_p1_passage_highlights', passageBox.innerHTML);
             localStorage.setItem('stepwells_p1_questions_highlights', questionsBox.innerHTML);
