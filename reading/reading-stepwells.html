@@ -615,18 +615,13 @@
 
         // === SAVE ANSWERS — CROSS‑PAGE SAFE ===
         function saveAnswers() {
-            // Read existing global data first (never overwrite other pages!)
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{"answers":{},"flags":{}}');
             saved.answers = saved.answers || {};
             saved.flags = saved.flags || {};
-
-            // Update only this page's answers
             document.querySelectorAll('.ans').forEach(el => {
                 const q = el.dataset.q;
                 saved.answers[q] = el.value;
             });
-
-            // Save back to shared storage
             localStorage.setItem(GLOBAL_SAVE_KEY, JSON.stringify(saved));
             updateAllStatus();
         }
@@ -636,7 +631,6 @@
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{"answers":{},"flags":{}}');
             saved.answers = saved.answers || {};
             saved.flags = saved.flags || {};
-
             for (const q of CURRENT_PAGE_QS) {
                 const input = document.querySelector(`[data-q="${q}"]`);
                 if (input) input.value = saved.answers[q] || '';
@@ -645,19 +639,23 @@
             }
         }
 
-        // === HELPER: Check if selection is inside a valid box (not textarea) ===
+        // === VALID SELECTION CHECK: works for both passage + questions ===
         function isSelectionValid(selection) {
             if (!selection || selection.isCollapsed || selection.toString().trim() === '') return false;
-            const range = selection.getRangeAt(0);
-            const container = range.commonAncestorContainer;
-            const parent = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
-            const validBoxes = [passageBox, questionsBox];
-            const inValidArea = validBoxes.some(box => box.contains(parent));
-            const inTextarea = parent.closest('textarea') !== null;
-            return inValidArea && !inTextarea;
+            try {
+                const range = selection.getRangeAt(0);
+                const container = range.commonAncestorContainer;
+                const parent = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+                const inPassage = passageBox.contains(parent);
+                const inQuestions = questionsBox.contains(parent);
+                const inTextarea = parent.closest('textarea, input, button') !== null;
+                return (inPassage || inQuestions) && !inTextarea;
+            } catch {
+                return false;
+            }
         }
 
-        // === HIGHLIGHT & NOTE FEATURES — WORKS ON PASSAGE + QUESTIONS ===
+        // === RIGHT‑CLICK MENU: works on BOTH sections ===
         document.addEventListener('contextmenu', function(e) {
             const selection = window.getSelection();
             if (!isSelectionValid(selection)) {
@@ -674,6 +672,7 @@
 
         document.addEventListener('click', () => contextMenu.style.display = 'none');
 
+        // === HIGHLIGHT: works on both sections ===
         document.getElementById('menuHighlight').addEventListener('click', function() {
             if (!currentRange) return;
             const span = document.createElement('span');
@@ -686,6 +685,7 @@
             saveHighlights();
         });
 
+        // === ADD NOTE: works on both sections ===
         document.getElementById('menuNote').addEventListener('click', function() {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
@@ -705,18 +705,25 @@
             saveNotes();
         });
 
+        // === REMOVE HIGHLIGHT: fixed for all elements in questions ===
         document.getElementById('menuRemove').addEventListener('click', function() {
             if (!currentRange) return;
             try {
                 const container = currentRange.commonAncestorContainer;
-                let span = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
-                if (span?.classList.contains('user-highlight')) {
-                    const parent = span.parentNode;
-                    parent.insertBefore(document.createTextNode(span.textContent), span);
-                    parent.removeChild(span);
+                let target = container;
+                if (target.nodeType === Node.TEXT_NODE) target = target.parentElement;
+                // Find nearest highlight span anywhere up the tree
+                while (target && !target.classList?.contains('user-highlight')) {
+                    target = target.parentElement;
+                }
+                if (target?.classList.contains('user-highlight')) {
+                    const parent = target.parentNode;
+                    parent.replaceChild(document.createTextNode(target.textContent), target);
                     parent.normalize();
                 }
-            } catch (e) {}
+            } catch (e) {
+                console.error('Remove highlight error:', e);
+            }
             window.getSelection().removeAllRanges();
             currentRange = null;
             saveHighlights();
@@ -727,6 +734,7 @@
             saveNotes();
         }
 
+        // === SAVE/LOAD: separate for passage and questions ===
         function saveHighlights() {
             localStorage.setItem('stepwells_p1_passage_highlights', passageBox.innerHTML);
             localStorage.setItem('stepwells_p1_questions_highlights', questionsBox.innerHTML);
@@ -783,21 +791,19 @@
             document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
             document.querySelectorAll('.user-highlight').forEach(s => {
                 const parent = s.parentNode;
-                parent.insertBefore(document.createTextNode(s.textContent), s);
-                parent.removeChild(s);
+                parent.replaceChild(document.createTextNode(s.textContent), s);
                 parent.normalize();
             });
             document.querySelectorAll('.sticky-note').forEach(n => n.remove());
             buildStatusBar();
         }
 
-        // === FINAL LOAD ORDER — GUARANTEED WORKING ===
+        // === FINAL LOAD ORDER ===
         window.onload = function() {
-            buildStatusBar();   // Draw status bar first
-            loadAnswers();      // Fill answers into boxes
+            buildStatusBar();
+            loadAnswers();
             loadHighlights();
             loadNotes();
-            // Auto‑save on every input
             document.querySelectorAll('.ans').forEach(el => {
                 el.addEventListener('input', saveAnswers);
             });
