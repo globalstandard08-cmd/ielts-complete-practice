@@ -147,7 +147,7 @@
         .option:hover { background: #f9f9f9; }
         input[type="radio"] { margin-right: 6px; transform: scale(1); }
 
-        /* Drag & Drop */
+        /* Drag & Drop - Fixed */
         .sentence-row {
             display: flex;
             align-items: center;
@@ -157,6 +157,8 @@
             border: 1px solid #eee;
             border-radius: 4px;
             font-size: 15px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         .drop-area {
             width: 140px;
@@ -169,6 +171,8 @@
             background: #fafafa;
             font-weight: 500;
             font-size: 14px;
+            text-align: center;
+            padding: 4px;
         }
         .drop-area.highlight-hover { border-color: #2196f3; background: #e3f2fd; }
         .choices-box {
@@ -188,9 +192,10 @@
             cursor: grab;
             user-select: none;
             font-size: 14px;
+            transition: all 0.15s;
         }
-        .draggable:active { cursor: grabbing; opacity: 0.8; }
-        .draggable.used { opacity: 0.4; pointer-events: none; }
+        .draggable:active { cursor: grabbing; opacity: 0.8; transform: scale(0.98); }
+        .draggable.used { opacity: 0.4; pointer-events: none; background: #f0f0f0; }
 
         /* Navigation Bar */
         .nav-bar {
@@ -487,7 +492,66 @@
     let currentRange = null;
     let lastNoteId = 0;
 
-    // ✅ Allow selection in BOTH passage AND questions area
+    // --- ✅ DRAG & DROP INITIALISATION (FIXED) ---
+    function initDragDrop() {
+        let draggedItem = null;
+
+        // Remove old listeners first to avoid duplicates
+        document.querySelectorAll('.draggable').forEach(item => {
+            item.removeEventListener('dragstart', item._dragStart);
+        });
+        document.querySelectorAll('.drop-area').forEach(area => {
+            area.removeEventListener('dragover', area._dragOver);
+            area.removeEventListener('dragleave', area._dragLeave);
+            area.removeEventListener('drop', area._drop);
+        });
+
+        // Add fresh listeners
+        document.querySelectorAll('.draggable').forEach(item => {
+            item._dragStart = function(e) {
+                draggedItem = this;
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/plain', this.dataset.val);
+            };
+            item.addEventListener('dragstart', item._dragStart);
+        });
+
+        document.querySelectorAll('.drop-area').forEach(area => {
+            area._dragOver = function(e) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                this.classList.add('highlight-hover');
+            };
+            area._dragLeave = function() {
+                this.classList.remove('highlight-hover');
+            };
+            area._drop = function(e) {
+                e.preventDefault();
+                this.classList.remove('highlight-hover');
+                const val = e.dataTransfer.getData('text/plain');
+                const oldVal = this.dataset.value;
+
+                // Clear old selection if exists
+                if (oldVal) {
+                    document.querySelector(`.draggable[data-val="${oldVal}"]`)?.classList.remove('used');
+                }
+
+                // Set new selection
+                this.textContent = `${val} ${draggedItem.textContent}`;
+                this.dataset.value = val;
+                draggedItem.classList.add('used');
+                draggedItem = null;
+
+                saveAllData();
+                updateNavStatus();
+            };
+            area.addEventListener('dragover', area._dragOver);
+            area.addEventListener('dragleave', area._dragLeave);
+            area.addEventListener('drop', area._drop);
+        });
+    }
+
+    // --- HIGHLIGHT SYSTEM ---
     function isSelectionValid(selection) {
         if (!selection || selection.isCollapsed || selection.toString().trim() === '') return false;
         try {
@@ -502,7 +566,6 @@
         }
     }
 
-    // ✅ Right-click works everywhere
     document.addEventListener('contextmenu', function(e) {
         const selection = window.getSelection();
         if (!isSelectionValid(selection)) {
@@ -521,7 +584,6 @@
 
     document.addEventListener('click', () => rightMenu.style.display = 'none');
 
-    // ✅ Highlight: NO limits, works anywhere
     document.getElementById('menuHighlight').addEventListener('click', function() {
         if (!currentRange) return;
         try {
@@ -538,7 +600,6 @@
         }
     });
 
-    // ✅ Add note anywhere
     document.getElementById('menuNote').addEventListener('click', function() {
         if (!currentRange) return;
         const rect = currentRange.getBoundingClientRect();
@@ -558,7 +619,6 @@
         saveAllData();
     });
 
-    // ✅ Remove highlight
     document.getElementById('menuRemove').addEventListener('click', function() {
         if (!currentRange) return;
         try {
@@ -600,38 +660,6 @@
         saveAllData();
     }
 
-    // --- DRAG & DROP ---
-    let draggedItem = null;
-    document.querySelectorAll('.draggable').forEach(item => {
-        item.addEventListener('dragstart', e => {
-            draggedItem = item;
-            e.dataTransfer.setData('text/plain', item.dataset.val);
-        });
-    });
-
-    document.querySelectorAll('.drop-area').forEach(area => {
-        area.addEventListener('dragover', e => {
-            e.preventDefault();
-            area.classList.add('highlight-hover');
-        });
-        area.addEventListener('dragleave', () => area.classList.remove('highlight-hover'));
-        area.addEventListener('drop', e => {
-            e.preventDefault();
-            area.classList.remove('highlight-hover');
-            const val = e.dataTransfer.getData('text/plain');
-            const oldVal = area.dataset.value;
-            if (oldVal) {
-                document.querySelector(`.draggable[data-val="${oldVal}"]`)?.classList.remove('used');
-            }
-            area.textContent = `${val} ${draggedItem.textContent}`;
-            area.dataset.value = val;
-            draggedItem.classList.add('used');
-            draggedItem = null;
-            saveAllData();
-            updateNavStatus();
-        });
-    });
-
     // --- NAVIGATION ---
     document.querySelectorAll('.q-number').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -665,8 +693,6 @@
             answers: {},
             drag: {},
             flags: {},
-            passageHtml: passageArea.innerHTML,
-            questionsHtml: questionsArea.innerHTML,
             notes: []
         };
     }
@@ -674,21 +700,22 @@
     function saveAllData() {
         const data = getAllData();
         // Answers
+        data.answers = {};
         document.querySelectorAll('input[type="radio"]:checked').forEach(i => {
             data.answers[i.name] = i.value;
         });
         // Drag & drop
+        data.drag = {};
         document.querySelectorAll('.drop-area').forEach(d => {
             if (d.dataset.value) data.drag[d.dataset.q] = d.dataset.value;
         });
         // Flags
+        data.flags = {};
         for (let q = 27; q <= 40; q++) {
             const flag = document.getElementById('flag'+q);
             data.flags[q] = flag?.classList.contains('flagged') || false;
         }
-        // Highlights & notes
-        data.passageHtml = passageArea.innerHTML;
-        data.questionsHtml = questionsArea.innerHTML;
+        // Notes
         data.notes = Array.from(document.querySelectorAll('.note')).map(n => ({
             id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-text').value
         }));
@@ -698,15 +725,17 @@
 
     function loadAllData() {
         const data = getAllData();
-        // Passage & questions (with highlights)
-        if (data.passageHtml) passageArea.innerHTML = data.passageHtml;
-        if (data.questionsHtml) questionsArea.innerHTML = data.questionsHtml;
+        
         // Answers
         Object.entries(data.answers || {}).forEach(([name, val]) => {
             const inp = document.querySelector(`input[name="${name}"][value="${val}"]`);
             if (inp) inp.checked = true;
         });
-        // Drag & drop
+
+        // ✅ Re-initialize drag-drop BEFORE loading saved values
+        initDragDrop();
+
+        // Load saved drag-drop values
         Object.entries(data.drag || {}).forEach(([q, val]) => {
             const area = document.querySelector(`.drop-area[data-q="${q}"]`);
             const item = document.querySelector(`.draggable[data-val="${val}"]`);
@@ -716,7 +745,8 @@
                 item.classList.add('used');
             }
         });
-        // Notes
+
+        // Load notes
         (data.notes || []).forEach(n => {
             const note = document.createElement('div');
             note.className = 'note';
@@ -731,6 +761,7 @@
             const num = parseInt(n.id.split('_')[2]);
             if (num > lastNoteId) lastNoteId = num;
         });
+
         updateNavStatus();
     }
 
@@ -746,7 +777,12 @@
     }
 
     document.querySelectorAll('input[type="radio"]').forEach(i => i.addEventListener('change', saveAllData));
-    window.onload = loadAllData;
+
+    // Run on page load
+    window.onload = function() {
+        initDragDrop();
+        loadAllData();
+    };
 </script>
 
 </body>
