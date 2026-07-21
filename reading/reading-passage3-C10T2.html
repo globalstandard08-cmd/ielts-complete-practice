@@ -69,7 +69,7 @@
             transition: background-color 0.3s ease;
         }
 
-        /* ✅ Highlight style */
+        /* ✅ Text Highlight Style (Right-click feature) */
         .highlight {
             background-color: #ffd700;
             padding: 2px 4px;
@@ -78,7 +78,7 @@
             color: #000;
         }
 
-        /* ✅ QUESTION MATCH HIGHLIGHT */
+        /* ✅ Question Jump Matching Highlight */
         .match-highlight {
             background-color: #fef08a !important;
             border-left: 3px solid #eab308;
@@ -138,7 +138,7 @@
             background: #fef2f2;
         }
 
-        /* ✅ Right-click context menu */
+        /* ✅ Right-click Context Menu */
         .context-menu {
             position: absolute;
             background: #ffffff;
@@ -158,7 +158,7 @@
             background: #fef2f2;
         }
 
-        /* ✅ Sticky notes */
+        /* ✅ Sticky Notes */
         .sticky-note {
             position: absolute;
             width: 160px;
@@ -196,7 +196,7 @@
             font-size: 12px;
         }
 
-        /* ✅ Bottom container */
+        /* ✅ Bottom Container */
         .bottom-container {
             margin: 10px 18px 20px;
             padding: 10px 12px;
@@ -261,7 +261,7 @@
             border: 2px solid #dc2626;
         }
 
-        /* ✅ Smaller bottom controls */
+        /* ✅ Bottom Controls */
         .bottom-controls {
             display: flex;
             justify-content: space-between;
@@ -404,7 +404,6 @@
                     <p>It is regrettable that museums still promote the superiority of original works of art, since this may not be in the interests of the <strong>31.</strong> ......................... .</p>
                 </div>
 
-                <!-- ✅ UPDATED: Dropdown select menus for 27–31 -->
                 <div class="question-block" id="q27" onclick="highlightPassage('p4')">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(27)" id="flag27">🚩</span>
@@ -717,7 +716,7 @@
             q40: 'NO'
         };
 
-        // ✅ HIGHLIGHT MATCHING PASSAGE WHEN CLICKING QUESTION
+        // ✅ Highlight matching passage when clicking question
         function highlightPassage(paraId) {
             // Remove all previous match highlights
             document.querySelectorAll('.match-highlight').forEach(el => el.classList.remove('match-highlight'));
@@ -765,7 +764,7 @@
             localStorage.setItem(`${passageId}_flag_${qNum}`, isFlagged);
         }
 
-        // ✅ Right-click menu
+        // ✅ Right-click menu setup
         const passageArea = document.getElementById('passageArea');
         const contextMenu = document.getElementById('contextMenu');
 
@@ -785,7 +784,7 @@
 
         document.addEventListener('click', () => contextMenu.style.display = 'none');
 
-        // ✅ Highlight
+        // ✅ Highlight selected text
         document.getElementById('menuHighlight').addEventListener('click', function() {
             if (!currentRange) return;
             const span = document.createElement('span');
@@ -809,7 +808,7 @@
                     span.parentNode.replaceChild(text, span);
                     span.parentNode.normalize();
                 }
-            } catch (e) { /* ignore */ }
+            } catch (e) { /* ignore errors */ }
             window.getSelection().removeAllRanges();
             currentRange = null;
             saveHighlights();
@@ -1012,8 +1011,12 @@
             document.querySelectorAll('select.answer-input').forEach(sel => sel.value = '');
             document.querySelectorAll('input[type="radio"]').forEach(rad => rad.checked = false);
 
-            // Remove highlights
-            document.querySelectorAll('.highlight, .match-highlight').forEach(el => {
-                const text = document.createTextNode(el.textContent);
-                el.parentNode.replaceChild(text, el);
-           
+            // Remove highlights and reset passage content
+            window.location.reload();
+        }
+
+        // ✅ Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initQuestionNav();
+            loadAnswers();
+            loadHigh
