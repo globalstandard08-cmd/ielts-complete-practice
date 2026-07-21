@@ -18,7 +18,7 @@
             line-height: 1.6;
         }
 
-        /* ✅ LOGO STYLES */
+        /* LOGO STYLES */
         .logo-container {
             width: 100%;
             border-bottom: 2px solid #dc2626;
@@ -36,7 +36,7 @@
             display: block;
         }
 
-        /* ✅ TWO‑COLUMN LAYOUT */
+        /* TWO‑COLUMN LAYOUT */
         .main-wrapper {
             display: flex;
             gap: 18px;
@@ -69,7 +69,7 @@
             transition: background-color 0.3s ease;
         }
 
-        /* ✅ Text Highlight Style (Right-click feature) */
+        /* ✅ Manual text highlight (only for passage) */
         .highlight {
             background-color: #ffd700;
             padding: 2px 4px;
@@ -78,7 +78,7 @@
             color: #000;
         }
 
-        /* ✅ Question Jump Matching Highlight */
+        /* ✅ Question jump highlight (only for passage) */
         .match-highlight {
             background-color: #fef08a !important;
             border-left: 3px solid #eab308;
@@ -138,7 +138,7 @@
             background: #fef2f2;
         }
 
-        /* ✅ Right-click Context Menu */
+        /* Right-click Context Menu */
         .context-menu {
             position: absolute;
             background: #ffffff;
@@ -158,7 +158,7 @@
             background: #fef2f2;
         }
 
-        /* ✅ Sticky Notes */
+        /* Sticky Notes */
         .sticky-note {
             position: absolute;
             width: 160px;
@@ -196,7 +196,7 @@
             font-size: 12px;
         }
 
-        /* ✅ Bottom Container */
+        /* Bottom Container */
         .bottom-container {
             margin: 10px 18px 20px;
             padding: 10px 12px;
@@ -209,7 +209,7 @@
             gap: 10px;
         }
 
-        /* ✅ Navigation: 1–40 divided into 3 sections */
+        /* Navigation: 1–40 divided into 3 sections */
         .question-nav {
             display: flex;
             flex-wrap: wrap;
@@ -235,7 +235,7 @@
             justify-content: center;
             border-radius: 3px;
             border: 1px solid #ddd;
-            background: #e5e7eb; /* Gray = Unanswered */
+            background: #e5e7eb;
             color: #333;
             font-size: 11px;
             cursor: pointer;
@@ -245,12 +245,12 @@
             opacity: 0.9;
         }
         .q-indicator.answered {
-            background: #198754; /* Green = Answered */
+            background: #198754;
             color: white;
             border-color: #198754;
         }
         .q-indicator.flagged {
-            background: #fd7e14; /* Orange = Flagged */
+            background: #fd7e14;
             color: white;
             border-color: #fd7e14;
         }
@@ -261,7 +261,6 @@
             border: 2px solid #dc2626;
         }
 
-        /* ✅ Bottom Controls */
         .bottom-controls {
             display: flex;
             justify-content: space-between;
@@ -336,53 +335,36 @@
     </style>
 </head>
 <body>
-    <!-- Logo -->
     <div class="logo-container">
         <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
     </div>
 
-    <!-- Right-click Context Menu -->
     <div class="context-menu" id="contextMenu">
         <div id="menuHighlight">✅ Highlight</div>
         <div id="menuRemove">❌ Remove Highlight</div>
         <div id="menuNote">📝 Add Note</div>
     </div>
 
-    <!-- ✅ TWO COLUMNS: LEFT = PASSAGE | RIGHT = QUESTIONS -->
     <div class="main-wrapper">
-        <!-- LEFT SIDE: PASSAGE TEXT -->
         <div class="passage-column" id="passageArea">
             <h1>Reading Passage 3 — Museums of fine art and their public</h1>
             <div class="passage-text" id="passageContent">
                 <p id="p1"><strong>Museums of fine art and their public</strong></p>
-
                 <p id="p2">The fact that people go to the Louvre museum in Paris to see the original painting Mona Lisa when they can see a reproduction anywhere leads us to question some assumptions about the role of museums of fine art in today’s world.</p>
-
                 <p id="p3">One of the most famous works of art in the world is Leonardo da Vinci’s Mona Lisa. Nearly everyone who goes to see the original will already be familiar with it from reproductions, but they accept that fine art is more rewardingly viewed in its original form.</p>
-
                 <p id="p4">However, if Mona Lisa was a famous novel, few people would bother to go to a museum to read the writer’s actual manuscript rather than a printed reproduction. This might be explained by the fact that the novel has evolved precisely because of technological developments that made it possible to print out huge numbers of texts, whereas oil paintings have always been produced as unique objects. In addition, it could be argued that the practice of interpreting or ‘reading’ each medium follows different conventions. With novels, the reader attends mainly to the meaning of words rather than the way they are printed on the page, whereas the ‘reader’ of a painting must attend just as closely to the material form of marks and shapes in the picture as to any ideas they may signify.</p>
-
                 <p id="p5">Yet it has always been possible to make very accurate facsimiles of pretty well any fine art work. The seven surviving versions of Mona Lisa bear witness to the fact that in the 16th century, artists seemed perfectly content to assign the reproduction of their creations to their workshop apprentices as regular ‘bread and butter’ work. And today the task of reproducing pictures is incomparably more simple and reliable, with reprographic techniques that allow the production of high-quality prints made exactly to the original scale, with faithful colour values, and even with duplication of the surface relief of the painting.</p>
-
                 <p id="p6">But despite an implicit recognition that the spread of good reproductions can be culturally valuable, museums continue to promote the special status of original work.</p>
-
                 <p id="p7">Unfortunately, this seems to place severe limitations on the kind of experience offered to visitors.</p>
-
                 <p id="p8">One limitation is related to the way the museum presents its exhibits. As repositories of unique historical objects, art museums are often called ‘treasure houses’. We are reminded of this even before we view a collection by the presence of security guards, attendants, ropes and display cases to keep us away from the exhibits. In many cases, the architectural style of the building further reinforces that notion. In addition, a major collection like that of London’s National Gallery is housed in numerous rooms, each with dozens of works, any one of which is likely to be worth more than all the average visitor possesses. In a society that judges the personal status of the individual so much by their material worth, it is therefore difficult not to be impressed by one’s own relative ‘worthlessness’ in such an environment.</p>
-
                 <p id="p9">Furthermore, consideration of the ‘value’ of the original work in its treasure house setting impresses upon the viewer that, since these works were originally produced, they have been assigned a huge monetary value by some person or institution more powerful than themselves. Evidently, nothing the viewer thinks about the work is going to alter that value, and so today’s viewer is deterred from trying to extend that spontaneous, immediate, self-reliant kind of reading which would originally have met the work.</p>
-
                 <p id="p10">The visitor may then be struck by the strangeness of seeing such diverse paintings, drawings and sculptures brought together in an environment for which they were not originally created. This ‘displacement effect’ is further heightened by the sheer volume of exhibits. In the case of a major collection, there are probably more works on display than we could realistically view in weeks or even months.</p>
-
                 <p id="p11">This is particularly distressing because time seems to be a vital factor in the appreciation of all art forms. A fundamental difference between paintings and other art forms is that there is no prescribed time over which a painting is viewed. By contrast, the audience encounters an opera or a play over a specific time, which is the duration of the performance. Similarly, novels and poems are read in a prescribed temporal sequence, whereas a picture has no clear place at which to start viewing, or at which to finish. Thus art works themselves encourage us to view them superficially, without appreciating the richness of detail and labour that is involved.</p>
-
                 <p id="p12">Consequently, the dominant critical approach becomes that of the art historian, a specialised academic approach devoted to ‘discovering the meaning’ of art within the cultural context of its time. This is in perfect harmony with the museum’s function, since the approach is dedicated to seeking out and conserving ‘authentic’, ‘original’ readings of the exhibits. Again, this seems to put paid to that spontaneous, participatory criticism which can be found in abundance in criticism of classic works of literature, but is absent from most art history.</p>
-
                 <p id="p13">The displays of art museums serve as a warning of what critical practices can emerge when spontaneous criticism is suppressed. The museum public, like any other audience, experience art more rewardingly when given the confidence to express their views. If appropriate works of fine art could be rendered permanently accessible to the public by means of high-fidelity reproductions, as literature and music already are, the public may feel somewhat less in awe of them. Unfortunately, that may be too much to ask from those who seek to maintain and control the art establishment.</p>
             </div>
         </div>
 
-        <!-- RIGHT SIDE: QUESTIONS -->
         <div class="questions-column">
             <div class="questions-section">
                 <h2>Questions 27–31: Summary Completion</h2>
@@ -405,119 +387,54 @@
                 </div>
 
                 <div class="question-block" id="q27" onclick="highlightPassage('p4')">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(27)" id="flag27">🚩</span>
-                        <p>27.</p>
-                    </div>
+                    <div class="question-header"><span class="flag-btn" onclick="toggleFlag(27)" id="flag27">🚩</span><p>27.</p></div>
                     <select class="answer-input" name="q27">
                         <option value="">-- Select --</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                        <option value="H">H</option>
-                        <option value="I">I</option>
-                        <option value="J">J</option>
-                        <option value="K">K</option>
-                        <option value="L">L</option>
+                        <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+                        <option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+                        <option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option>
                     </select>
                 </div>
                 <div class="question-block" id="q28" onclick="highlightPassage('p4')">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(28)" id="flag28">🚩</span>
-                        <p>28.</p>
-                    </div>
+                    <div class="question-header"><span class="flag-btn" onclick="toggleFlag(28)" id="flag28">🚩</span><p>28.</p></div>
                     <select class="answer-input" name="q28">
                         <option value="">-- Select --</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                        <option value="H">H</option>
-                        <option value="I">I</option>
-                        <option value="J">J</option>
-                        <option value="K">K</option>
-                        <option value="L">L</option>
+                        <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+                        <option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+                        <option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option>
                     </select>
                 </div>
                 <div class="question-block" id="q29" onclick="highlightPassage('p5')">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(29)" id="flag29">🚩</span>
-                        <p>29.</p>
-                    </div>
+                    <div class="question-header"><span class="flag-btn" onclick="toggleFlag(29)" id="flag29">🚩</span><p>29.</p></div>
                     <select class="answer-input" name="q29">
                         <option value="">-- Select --</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                        <option value="H">H</option>
-                        <option value="I">I</option>
-                        <option value="J">J</option>
-                        <option value="K">K</option>
-                        <option value="L">L</option>
+                        <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+                        <option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+                        <option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option>
                     </select>
                 </div>
                 <div class="question-block" id="q30" onclick="highlightPassage('p5')">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(30)" id="flag30">🚩</span>
-                        <p>30.</p>
-                    </div>
+                    <div class="question-header"><span class="flag-btn" onclick="toggleFlag(30)" id="flag30">🚩</span><p>30.</p></div>
                     <select class="answer-input" name="q30">
                         <option value="">-- Select --</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                        <option value="H">H</option>
-                        <option value="I">I</option>
-                        <option value="J">J</option>
-                        <option value="K">K</option>
-                        <option value="L">L</option>
+                        <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+                        <option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+                        <option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option>
                     </select>
                 </div>
                 <div class="question-block" id="q31" onclick="highlightPassage('p13')">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(31)" id="flag31">🚩</span>
-                        <p>31.</p>
-                    </div>
+                    <div class="question-header"><span class="flag-btn" onclick="toggleFlag(31)" id="flag31">🚩</span><p>31.</p></div>
                     <select class="answer-input" name="q31">
                         <option value="">-- Select --</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                        <option value="H">H</option>
-                        <option value="I">I</option>
-                        <option value="J">J</option>
-                        <option value="K">K</option>
-                        <option value="L">L</option>
+                        <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+                        <option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+                        <option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option>
                     </select>
                 </div>
 
-
                 <h2>Questions 32–35: Multiple Choice</h2>
-
                 <div class="question-block" id="q32" onclick="highlightPassage('p8')">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(32)" id="flag32">🚩</span>
-                        <p>32. The writer mentions London’s National Gallery to illustrate</p>
-                    </div>
+                    <div class="question-header"><span class="flag-btn" onclick="toggleFlag(32)" id="flag32">🚩</span><p>32. The writer mentions London’s National Gallery to illustrate</p></div>
                     <div class="options">
                         <label><input type="radio" name="q32" value="A"> A. the undesirable cost to a nation of maintaining a huge collection of art.</label>
                         <label><input type="radio" name="q32" value="B"> B. the conflict that may arise in society between financial and artistic values.</label>
@@ -525,12 +442,8 @@
                         <label><input type="radio" name="q32" value="D"> D. the need to put individual well-being above large-scale artistic schemes.</label>
                     </div>
                 </div>
-
                 <div class="question-block" id="q33" onclick="highlightPassage('p9')">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(33)" id="flag33">🚩</span>
-                        <p>33. The writer says that today, viewers may be unwilling to criticise a work because</p>
-                    </div>
+                    <div class="question-header"><span class="flag-btn" onclick="toggleFlag(33)" id="flag33">🚩</span><p>33. The writer says that today, viewers may be unwilling to criticise a work because</p></div>
                     <div class="options">
                         <label><input type="radio" name="q33" value="A"> A. they lack the knowledge needed to support an opinion.</label>
                         <label><input type="radio" name="q33" value="B"> B. they fear it may have financial implications.</label>
@@ -538,12 +451,8 @@
                         <label><input type="radio" name="q33" value="D"> D. they feel their personal reaction is of no significance.</label>
                     </div>
                 </div>
-
                 <div class="question-block" id="q34" onclick="highlightPassage('p10')">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(34)" id="flag34">🚩</span>
-                        <p>34. According to the writer, the ‘displacement effect’ on the visitor is caused by</p>
-                    </div>
+                    <div class="question-header"><span class="flag-btn" onclick="toggleFlag(34)" id="flag34">🚩</span><p>34. According to the writer, the ‘displacement effect’ on the visitor is caused by</p></div>
                     <div class="options">
                         <label><input type="radio" name="q34" value="A"> A. the variety of works on display and the way they are arranged.</label>
                         <label><input type="radio" name="q34" value="B"> B. the impossibility of viewing particular works of art over a long period.</label>
@@ -551,12 +460,8 @@
                         <label><input type="radio" name="q34" value="D"> D. the inappropriate nature of the individual works selected for exhibition.</label>
                     </div>
                 </div>
-
                 <div class="question-block" id="q35" onclick="highlightPassage('p11')">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(35)" id="flag35">🚩</span>
-                        <p>35. The writer says that unlike other forms of art, a painting does not</p>
-                    </div>
+                    <div class="question-header"><span class="flag-btn" onclick="toggleFlag(35)" id="flag35">🚩</span><p>35. The writer says that unlike other forms of art, a painting does not</p></div>
                     <div class="options">
                         <label><input type="radio" name="q35" value="A"> A. involve direct contact with an audience.</label>
                         <label><input type="radio" name="q35" value="B"> B. require a specific location for a performance.</label>
@@ -565,66 +470,42 @@
                     </div>
                 </div>
 
-
                 <h2>Questions 36–40: YES / NO / NOT GIVEN</h2>
-                <p><em>Do the following statements agree with the views of the writer in the passage?</em></p>
-                <p><strong>YES</strong> — if the statement agrees<br>
-                <strong>NO</strong> — if the statement contradicts<br>
-                <strong>NOT GIVEN</strong> — if there is no information</p>
-
+                <p><strong>YES</strong> — if the statement agrees<br><strong>NO</strong> — if the statement contradicts<br><strong>NOT GIVEN</strong> — if there is no information</p>
                 <div class="question-block" id="q36" onclick="highlightPassage('p12')">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(36)" id="flag36">🚩</span>
-                        <p>36. Art history should focus on discovering the meaning of art using a range of media.</p>
-                    </div>
+                    <div class="question-header"><span class="flag-btn" onclick="toggleFlag(36)" id="flag36">🚩</span><p>36. Art history should focus on discovering the meaning of art using a range of media.</p></div>
                     <div class="options">
                         <label><input type="radio" name="q36" value="YES"> YES</label>
                         <label><input type="radio" name="q36" value="NO"> NO</label>
                         <label><input type="radio" name="q36" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-
                 <div class="question-block" id="q37" onclick="highlightPassage('p12')">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(37)" id="flag37">🚩</span>
-                        <p>37. The approach of art historians conflicts with that of art museums.</p>
-                    </div>
+                    <div class="question-header"><span class="flag-btn" onclick="toggleFlag(37)" id="flag37">🚩</span><p>37. The approach of art historians conflicts with that of art museums.</p></div>
                     <div class="options">
                         <label><input type="radio" name="q37" value="YES"> YES</label>
                         <label><input type="radio" name="q37" value="NO"> NO</label>
                         <label><input type="radio" name="q37" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-
                 <div class="question-block" id="q38" onclick="highlightPassage('p13')">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(38)" id="flag38">🚩</span>
-                        <p>38. People should be encouraged to give their opinions openly on works of art.</p>
-                    </div>
+                    <div class="question-header"><span class="flag-btn" onclick="toggleFlag(38)" id="flag38">🚩</span><p>38. People should be encouraged to give their opinions openly on works of art.</p></div>
                     <div class="options">
                         <label><input type="radio" name="q38" value="YES"> YES</label>
                         <label><input type="radio" name="q38" value="NO"> NO</label>
                         <label><input type="radio" name="q38" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-
                 <div class="question-block" id="q39" onclick="highlightPassage('p13')">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(39)" id="flag39">🚩</span>
-                        <p>39. Reproductions of fine art should only be sold to the public if they are of high quality.</p>
-                    </div>
+                    <div class="question-header"><span class="flag-btn" onclick="toggleFlag(39)" id="flag39">🚩</span><p>39. Reproductions of fine art should only be sold to the public if they are of high quality.</p></div>
                     <div class="options">
                         <label><input type="radio" name="q39" value="YES"> YES</label>
                         <label><input type="radio" name="q39" value="NO"> NO</label>
                         <label><input type="radio" name="q39" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-
                 <div class="question-block" id="q40" onclick="highlightPassage('p13')">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(40)" id="flag40">🚩</span>
-                        <p>40. In the future, those with power are likely to encourage more people to enjoy art.</p>
-                    </div>
+                    <div class="question-header"><span class="flag-btn" onclick="toggleFlag(40)" id="flag40">🚩</span><p>40. In the future, those with power are likely to encourage more people to enjoy art.</p></div>
                     <div class="options">
                         <label><input type="radio" name="q40" value="YES"> YES</label>
                         <label><input type="radio" name="q40" value="NO"> NO</label>
@@ -632,33 +513,16 @@
                     </div>
                 </div>
 
-
                 <div class="action-buttons">
                     <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
                     <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
                     <button class="clear-all" onclick="clearAllData()">🗑️ Clear All Answers</button>
                 </div>
 
-                <!-- ✅ CORRECT ANSWER KEY -->
                 <div class="answers-box" id="answersBox">
                     <h3>✅ Correct Answers — Passage 3</h3>
-                    <p><strong>27.</strong> B<br>
-                    <strong>28.</strong> H<br>
-                    <strong>29.</strong> L<br>
-                    <strong>30.</strong> G<br>
-                    <strong>31.</strong> D<br>
-                    <strong>32.</strong> C<br>
-                    <strong>33.</strong> D<br>
-                    <strong>34.</strong> A<br>
-                    <strong>35.</strong> D<br>
-                    <strong>36.</strong> NO<br>
-                    <strong>37.</strong> NO<br>
-                    <strong>38.</strong> YES<br>
-                    <strong>39.</strong> NOT GIVEN<br>
-                    <strong>40.</strong> NO</p>
+                    <p><strong>27.</strong> B<br><strong>28.</strong> H<br><strong>29.</strong> L<br><strong>30.</strong> G<br><strong>31.</strong> D<br><strong>32.</strong> C<br><strong>33.</strong> D<br><strong>34.</strong> A<br><strong>35.</strong> D<br><strong>36.</strong> NO<br><strong>37.</strong> NO<br><strong>38.</strong> YES<br><strong>39.</strong> NOT GIVEN<br><strong>40.</strong> NO</p>
                 </div>
-
-                <!-- ✅ STUDENT ANSWERS & RESULT -->
                 <div class="student-answers-box" id="studentAnswersBox">
                     <h3>📝 Your Answers & Score</h3>
                     <div id="studentResult"></div>
@@ -667,17 +531,13 @@
         </div>
     </div>
 
-    <!-- ✅ BOTTOM AREA: NAVIGATOR + CONTROLS -->
     <div class="bottom-container">
-        <!-- ✅ Navigation 1–40 divided into 3 sections -->
         <div class="question-nav" id="questionNav">
             <span class="nav-label">Questions:</span>
             <div class="nav-section" id="sec1"></div>
             <div class="nav-section" id="sec2"></div>
             <div class="nav-section" id="sec3"></div>
         </div>
-
-        <!-- Navigation & Action Buttons -->
         <div class="bottom-controls">
             <div class="action-buttons">
                 <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show/Hide Answers</button>
@@ -692,44 +552,27 @@
     </div>
 
     <script>
-        // ✅ Global variables
         let currentRange = null;
         let lastNoteId = 0;
-        const passageId = 'C10T2P3'; // Change to match Passage 3
+        const passageId = 'C10T2P3';
         const TOTAL_QUESTIONS = 40;
 
-        // ✅ Correct answer data
         const correctAnswers = {
-            q27: 'B',
-            q28: 'H',
-            q29: 'L',
-            q30: 'G',
-            q31: 'D',
-            q32: 'C',
-            q33: 'D',
-            q34: 'A',
-            q35: 'D',
-            q36: 'NO',
-            q37: 'NO',
-            q38: 'YES',
-            q39: 'NOT GIVEN',
-            q40: 'NO'
+            q27: 'B', q28: 'H', q29: 'L', q30: 'G', q31: 'D',
+            q32: 'C', q33: 'D', q34: 'A', q35: 'D',
+            q36: 'NO', q37: 'NO', q38: 'YES', q39: 'NOT GIVEN', q40: 'NO'
         };
 
-        // ✅ Highlight matching passage when clicking question
+        // Highlight matching paragraph when clicking question
         function highlightPassage(paraId) {
-            // Remove all previous match highlights
             document.querySelectorAll('.match-highlight').forEach(el => el.classList.remove('match-highlight'));
-            // Add highlight to target paragraph
             const targetPara = document.getElementById(paraId);
             if (targetPara) {
                 targetPara.classList.add('match-highlight');
-                // Scroll to the paragraph
                 targetPara.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
 
-        // ✅ Initialize navigator in 3 sections
         function initQuestionNav() {
             const sec1 = document.getElementById('sec1');
             const sec2 = document.getElementById('sec2');
@@ -749,43 +592,36 @@
 
         function jumpToQuestion(qNum) {
             document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
-            const btn = document.getElementById('stat' + qNum);
-            if (btn) btn.classList.add('current');
-            const el = document.getElementById('q' + qNum);
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('stat' + qNum)?.classList.add('current');
+            document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // ✅ Toggle Flag
         function toggleFlag(qNum) {
-            const flag = document.getElementById('flag' + qNum);
-            const stat = document.getElementById('stat' + qNum);
-            const isFlagged = flag.classList.toggle('flagged');
-            stat.classList.toggle('flagged', isFlagged);
-            localStorage.setItem(`${passageId}_flag_${qNum}`, isFlagged);
+            const flagged = document.getElementById('flag' + qNum).classList.toggle('flagged');
+            document.getElementById('stat' + qNum).classList.toggle('flagged', flagged);
+            localStorage.setItem(`${passageId}_flag_${qNum}`, flagged);
         }
 
-        // ✅ Right-click menu setup
+        // Right-click menu only works on passage area
         const passageArea = document.getElementById('passageArea');
         const contextMenu = document.getElementById('contextMenu');
-
-        passageArea.addEventListener('contextmenu', function(e) {
-            const selection = window.getSelection();
-            if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
+        passageArea.addEventListener('contextmenu', e => {
+            const sel = window.getSelection();
+            if (!sel || sel.isCollapsed || !sel.toString().trim()) {
                 contextMenu.style.display = 'none';
                 return;
             }
             e.preventDefault();
-            currentRange = selection.getRangeAt(0);
+            currentRange = sel.getRangeAt(0);
             const rect = currentRange.getBoundingClientRect();
-            contextMenu.style.left = (rect.left + window.scrollX) + 'px';
-            contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+            contextMenu.style.left = `${rect.left + window.scrollX}px`;
+            contextMenu.style.top = `${rect.bottom + window.scrollY + 5}px`;
             contextMenu.style.display = 'block';
         });
-
         document.addEventListener('click', () => contextMenu.style.display = 'none');
 
-        // ✅ Highlight selected text
-        document.getElementById('menuHighlight').addEventListener('click', function() {
+        // Manual highlight functions
+        document.getElementById('menuHighlight').onclick = () => {
             if (!currentRange) return;
             const span = document.createElement('span');
             span.className = 'highlight';
@@ -795,70 +631,52 @@
             window.getSelection().removeAllRanges();
             currentRange = null;
             saveHighlights();
-        });
+        };
 
-        // ✅ Remove highlight
-        document.getElementById('menuRemove').addEventListener('click', function() {
+        document.getElementById('menuRemove').onclick = () => {
             if (!currentRange) return;
             try {
-                const container = currentRange.commonAncestorContainer;
-                let span = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
-                if (span && span.classList.contains('highlight')) {
-                    const text = document.createTextNode(span.textContent);
-                    span.parentNode.replaceChild(text, span);
-                    span.parentNode.normalize();
+                let el = currentRange.commonAncestorContainer;
+                el = el.nodeType === Node.TEXT_NODE ? el.parentElement : el;
+                if (el?.classList.contains('highlight')) {
+                    el.replaceWith(el.textContent);
+                    passageArea.normalize();
                 }
-            } catch (e) { /* ignore errors */ }
+            } catch {}
             window.getSelection().removeAllRanges();
             currentRange = null;
             saveHighlights();
-        });
+        };
 
-        // ✅ Add sticky note
-        document.getElementById('menuNote').addEventListener('click', function() {
+        document.getElementById('menuNote').onclick = () => {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
-            const noteId = 'note_' + (++lastNoteId);
+            const id = `note_${++lastNoteId}`;
             const note = document.createElement('div');
             note.className = 'sticky-note';
-            note.id = noteId;
-            note.innerHTML = `
-                <div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
-                <textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>
-            `;
-            note.style.left = (rect.right + window.scrollX + 8) + 'px';
-            note.style.top = (rect.top + window.scrollY) + 'px';
+            note.id = id;
+            note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${id}')">×</span></div><textarea class="note-textarea" oninput="saveNote('${id}', this.value)"></textarea>`;
+            note.style.left = `${rect.right + window.scrollX + 8}px`;
+            note.style.top = `${rect.top + window.scrollY}px`;
             document.body.appendChild(note);
             window.getSelection().removeAllRanges();
             currentRange = null;
             saveNotes();
-        });
+        };
 
-        function closeNote(id) {
-            document.getElementById(id)?.remove();
-            saveNotes();
-        }
-
-        function saveNote(id, text) {
-            localStorage.setItem(`${passageId}_${id}`, text);
-        }
-
-        // ✅ Save/Load highlights
-        function saveHighlights() {
-            localStorage.setItem(`${passageId}_highlights`, passageArea.innerHTML);
+        function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
+        function saveNote(id, val) { localStorage.setItem(`${passageId}_${id}`, val); }
+        function saveHighlights() { localStorage.setItem(`${passageId}_highlights`, passageArea.innerHTML); }
+        function saveNotes() {
+            const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
+                id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('textarea').value
+            }));
+            localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes));
         }
 
         function loadHighlights() {
             const saved = localStorage.getItem(`${passageId}_highlights`);
             if (saved) passageArea.innerHTML = saved;
-        }
-
-        // ✅ Save/Load notes
-        function saveNotes() {
-            const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
-                id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
-            }));
-            localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes));
         }
 
         function loadNotes() {
@@ -868,155 +686,96 @@
                 const note = document.createElement('div');
                 note.className = 'sticky-note';
                 note.id = n.id;
-                note.innerHTML = `
-                    <div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
-                    <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
-                `;
+                note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>`;
                 note.style.left = n.left;
                 note.style.top = n.top;
                 document.body.appendChild(note);
-                const num = parseInt(n.id.split('_')[1]);
-                if (num > lastNoteId) lastNoteId = num;
+                lastNoteId = Math.max(lastNoteId, parseInt(n.id.split('_')[1]));
             });
         }
 
-        // ✅ Save/Load answers
         function saveAnswers() {
-            let answers = {};
+            const ans = {};
             for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
-                const name = `q${q}`;
-                // Handle SELECT dropdowns
-                const select = document.querySelector(`select[name="${name}"]`);
-                if (select) {
-                    answers[name] = select.value;
-                    continue;
-                }
-                // Handle radio buttons
-                const radios = document.getElementsByName(name);
-                if (radios.length > 0) {
-                    for (let r of radios) {
-                        if (r.checked) answers[name] = r.value;
-                    }
-                }
+                const sel = document.querySelector(`select[name="q${q}"]`);
+                if (sel) { ans[`q${q}`] = sel.value; continue; }
+                const rad = document.querySelectorAll(`input[name="q${q}"]:checked`);
+                if (rad.length) ans[`q${q}`] = rad[0].value;
             }
-            localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
+            localStorage.setItem(`${passageId}_answers`, JSON.stringify(ans));
             updateStatus();
         }
 
         function loadAnswers() {
             const saved = localStorage.getItem(`${passageId}_answers`);
             if (!saved) return;
-            const answers = JSON.parse(saved);
-            for (let key in answers) {
-                // Load select values
-                const select = document.querySelector(`select[name="${key}"]`);
-                if (select) {
-                    select.value = answers[key] || '';
-                    continue;
-                }
-                // Load radio values
-                const radios = document.getElementsByName(key);
-                if (radios.length > 0) {
-                    for (let r of radios) {
-                        r.checked = (r.value === answers[key]);
-                    }
-                }
+            const ans = JSON.parse(saved);
+            for (const k in ans) {
+                const sel = document.querySelector(`select[name="${k}"]`);
+                if (sel) { sel.value = ans[k]; continue; }
+                document.querySelectorAll(`input[name="${k}"]`).forEach(r => r.checked = r.value === ans[k]);
             }
             updateStatus();
         }
 
-        // ✅ Update status colors
         function updateStatus() {
-            const savedAnswers = localStorage.getItem(`${passageId}_answers`);
-            const answers = savedAnswers ? JSON.parse(savedAnswers) : {};
-
+            const ans = JSON.parse(localStorage.getItem(`${passageId}_answers`) || '{}');
             for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
-                const statBtn = document.getElementById('stat' + q);
-                if (!statBtn) continue;
-
-                const answerKey = `q${q}`;
-                const val = answers[answerKey] || '';
-                const hasAnswer = val.trim().length > 0;
-                const isFlagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
-
-                statBtn.classList.remove('answered', 'flagged');
-                if (isFlagged) {
-                    statBtn.classList.add('flagged');
-                } else if (hasAnswer) {
-                    statBtn.classList.add('answered');
-                }
-
-                const flagIcon = document.getElementById('flag' + q);
-                if (flagIcon) flagIcon.classList.toggle('flagged', isFlagged);
+                const stat = document.getElementById('stat' + q);
+                if (!stat) continue;
+                const val = ans[`q${q}`] || '';
+                const flagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
+                stat.classList.remove('answered', 'flagged');
+                stat.classList.add(flagged ? 'flagged' : val.trim() ? 'answered' : '');
+                document.getElementById(`flag${q}`)?.classList.toggle('flagged', flagged);
             }
         }
 
-        // ✅ Toggle answers
         function toggleAnswers() {
             const box = document.getElementById('answersBox');
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
-        // ✅ Check answers
         function showStudentAnswers() {
             saveAnswers();
             const box = document.getElementById('studentAnswersBox');
-            const resultDiv = document.getElementById('studentResult');
-            let html = '';
-            let score = 0;
+            const res = document.getElementById('studentResult');
+            let html = '', score = 0;
             for (let q = 27; q <= 40; q++) {
-                let studentAns = '';
-                const name = `q${q}`;
-                // Get select answer
-                const select = document.querySelector(`select[name="${name}"]`);
-                if (select) {
-                    studentAns = select.value.trim();
-                } else {
-                    // Get radio answer
-                    const radios = document.getElementsByName(name);
-                    for (let r of radios) {
-                        if (r.checked) studentAns = r.value;
-                    }
-                }
-                const correct = correctAnswers[name] || '-';
-                let status = '';
-                if (!studentAns) {
-                    status = '<span class="no-answer">(No Answer)</span>';
-                } else if (studentAns === correct) {
-                    status = '<span class="correct">✅ Correct</span>';
-                    score++;
-                } else {
-                    status = `<span class="wrong">❌ Wrong (Correct: ${correct})</span>`;
-                }
-                html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
+                let myAns = '';
+                const sel = document.querySelector(`select[name="q${q}"]`);
+                if (sel) myAns = sel.value.trim();
+                else document.querySelectorAll(`input[name="q${q}"]:checked`).forEach(r => myAns = r.value);
+                const cor = correctAnswers[`q${q}`];
+                let st = '';
+                if (!myAns) st = '<span class="no-answer">(No Answer)</span>';
+                else if (myAns === cor) { st = '<span class="correct">✅ Correct</span>'; score++; }
+                else st = `<span class="wrong">❌ Wrong (Correct: ${cor})</span>`;
+                html += `<strong>${q}.</strong> Your answer: ${myAns || '-'} &nbsp; ${st}<br>`;
             }
             html += `<br><strong>Total Score: ${score} / 14</strong>`;
-            resultDiv.innerHTML = html;
+            res.innerHTML = html;
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
-        // ✅ Clear All Answers & Data
         function clearAllData() {
-            if (!confirm('Are you sure you want to clear ALL answers, flags, highlights, and notes? This cannot be undone.')) return;
-            
-            // Clear localStorage
+            if (!confirm('Clear all answers, flags, highlights and notes? This cannot be undone.')) return;
             localStorage.removeItem(`${passageId}_answers`);
             localStorage.removeItem(`${passageId}_highlights`);
             localStorage.removeItem(`${passageId}_notes`);
-            for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
-                localStorage.removeItem(`${passageId}_flag_${q}`);
-            }
-
-            // Reset form inputs
-            document.querySelectorAll('select.answer-input').forEach(sel => sel.value = '');
-            document.querySelectorAll('input[type="radio"]').forEach(rad => rad.checked = false);
-
-            // Remove highlights and reset passage content
-            window.location.reload();
+            for (let q = 1; q <= TOTAL_QUESTIONS; q++) localStorage.removeItem(`${passageId}_flag_${q}`);
+            document.querySelectorAll('select').forEach(s => s.value = '');
+            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+            location.reload();
         }
 
-        // ✅ Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             initQuestionNav();
             loadAnswers();
-            loadHigh
+            loadHighlights();
+            loadNotes();
+            document.querySelectorAll('select, input[type="radio"]').forEach(el => el.addEventListener('change', saveAnswers));
+        });
+    </script>
+</body>
+</html>
