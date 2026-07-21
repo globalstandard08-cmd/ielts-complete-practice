@@ -70,7 +70,7 @@
             line-height: 1.8;
         }
 
-        /* Highlight & Note Styles */
+        /* Highlight & Note Styles (works for both columns) */
         .highlight {
             background-color: #ffd700;
             padding: 2px 4px;
@@ -145,7 +145,7 @@
             margin-bottom: 16px;
         }
 
-        /* Flag BEFORE question number */
+        /* Flag BEFORE question number — kept exactly as you had */
         .question-line {
             font-weight: 500;
             font-size: 14px;
@@ -620,21 +620,25 @@
             }
         }
 
+        // Context menu works for BOTH passage and questions columns
         const passageArea = document.getElementById('passageArea');
+        const questionsArea = document.getElementById('questionsArea');
         const contextMenu = document.getElementById('contextMenu');
 
-        passageArea.addEventListener('contextmenu', function(e) {
-            const selection = window.getSelection();
-            if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
-                contextMenu.style.display = 'none';
-                return;
-            }
-            e.preventDefault();
-            currentRange = selection.getRangeAt(0);
-            const rect = currentRange.getBoundingClientRect();
-            contextMenu.style.left = (rect.left + window.scrollX) + 'px';
-            contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
-            contextMenu.style.display = 'block';
+        [passageArea, questionsArea].forEach(area => {
+            area.addEventListener('contextmenu', function(e) {
+                const selection = window.getSelection();
+                if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
+                    contextMenu.style.display = 'none';
+                    return;
+                }
+                e.preventDefault();
+                currentRange = selection.getRangeAt(0);
+                const rect = currentRange.getBoundingClientRect();
+                contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+                contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+                contextMenu.style.display = 'block';
+            });
         });
 
         document.addEventListener('click', () => contextMenu.style.display = 'none');
@@ -685,8 +689,16 @@
 
         function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
         function saveNote(id, text) { localStorage.setItem(`${passageId}_${id}`, text); }
-        function saveHighlights() { localStorage.setItem(`${passageId}_highlights`, passageArea.innerHTML); }
-        function loadHighlights() { const saved = localStorage.getItem(`${passageId}_highlights`); if (saved) passageArea.innerHTML = saved; }
+        function saveHighlights() { 
+            localStorage.setItem(`${passageId}_passageHighlights`, passageArea.innerHTML);
+            localStorage.setItem(`${passageId}_questionHighlights`, questionsArea.innerHTML);
+        }
+        function loadHighlights() { 
+            const savedPassage = localStorage.getItem(`${passageId}_passageHighlights`);
+            const savedQuestions = localStorage.getItem(`${passageId}_questionHighlights`);
+            if (savedPassage) passageArea.innerHTML = savedPassage;
+            if (savedQuestions) questionsArea.innerHTML = savedQuestions;
+        }
         function saveNotes() { const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value})); localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes)); }
         function loadNotes() { const saved = localStorage.getItem(`${passageId}_notes`); if (!saved) return; JSON.parse(saved).forEach(n => { const note = document.createElement('div'); note.className = 'sticky-note'; note.id = n.id; note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>`; note.style.left = n.left; note.style.top = n.top; document.body.appendChild(note); const num = parseInt(n.id.split('_')[1]); if (num > lastNoteId) lastNoteId = num; }); }
 
@@ -695,19 +707,10 @@
             if (!confirm('Clear ALL answers, flags, highlights and notes? This cannot be undone.')) return;
             localStorage.removeItem(`${passageId}_answers`);
             localStorage.removeItem(`${passageId}_flags`);
-            localStorage.removeItem(`${passageId}_highlights`);
+            localStorage.removeItem(`${passageId}_passageHighlights`);
+            localStorage.removeItem(`${passageId}_questionHighlights`);
             localStorage.removeItem(`${passageId}_notes`);
-            document.querySelectorAll('.answer-input').forEach(i => i.value = '');
-            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
-            document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
-            document.querySelectorAll('.sticky-note').forEach(n => n.remove());
-            // Remove highlights
-            document.querySelectorAll('.highlight').forEach(span => {
-                const text = document.createTextNode(span.textContent);
-                span.parentNode.replaceChild(text, span);
-            });
-            passageArea.normalize();
-            updateNavStatus();
+            location.reload();
         }
 
         function toggleAnswers() { const box = document.getElementById('answersBox'); box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
