@@ -77,6 +77,7 @@
             border-radius: 2px;
             cursor: pointer;
             color: #000;
+            display: inline;
         }
 
         .questions-section h2 {
@@ -151,7 +152,7 @@
             background: #fef2f2;
         }
 
-        /* ✅ Sticky notes */
+        /* ✅ Sticky notes - FULLY DRAGGABLE */
         .sticky-note {
             position: absolute;
             width: 160px;
@@ -163,6 +164,7 @@
             box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
             z-index: 9998;
             font-size: 12px;
+            user-select: none;
         }
         .note-header {
             display: flex;
@@ -172,11 +174,13 @@
             margin-bottom: 4px;
             font-size: 11px;
             color: #886a00;
+            cursor: move;
         }
         .note-close {
             cursor: pointer;
             font-weight: bold;
             color: #886a00;
+            user-select: none;
         }
         .note-textarea {
             width: 100%;
@@ -187,6 +191,7 @@
             outline: none;
             font-family: inherit;
             font-size: 12px;
+            user-select: text;
         }
 
         /* ✅ Bottom container */
@@ -369,7 +374,7 @@
         </div>
 
         <!-- RIGHT SIDE: QUESTIONS -->
-        <div class="questions-column">
+        <div class="questions-column" id="questionsArea">
             <div class="questions-section">
                 <h2>Questions 14–17: Matching Paragraphs</h2>
                 <p><em>Which paragraph contains the following information? Write the correct letter, A–F. You may use any letter more than once.</em></p>
@@ -546,6 +551,9 @@
         // ✅ Global variables
         let currentRange = null;
         let lastNoteId = 0;
+        let dragNote = null;
+        let dragOffsetX = 0;
+        let dragOffsetY = 0;
         const passageId = 'C10T2P2';
         const TOTAL_QUESTIONS = 40;
 
@@ -564,7 +572,6 @@
             q24: 'internal regulation',
             q25: 'emotional awareness',
             q26: 'spoon-feeding'
-            // Add answers up to q40 as needed
         };
 
         // ✅ Initialize navigator in 3 sections
@@ -602,18 +609,35 @@
             localStorage.setItem(`${passageId}_flag_${qNum}`, isFlagged);
         }
 
-        // ✅ Right-click menu
+        // ✅ VALID SELECTION CHECK (works for BOTH passage AND questions)
+        function isSelectionValid(selection) {
+            if (!selection || selection.isCollapsed || selection.toString().trim() === '') return false;
+            try {
+                const range = selection.getRangeAt(0);
+                const container = range.commonAncestorContainer;
+                const parent = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+                const inPassage = document.getElementById('passageArea').contains(parent);
+                const inQuestions = document.getElementById('questionsArea').contains(parent);
+                const inInput = parent.closest('input, textarea, button, .note-close, label input') !== null;
+                return (inPassage || inQuestions) && !inInput;
+            } catch {
+                return false;
+            }
+        }
+
+        // ✅ Right-click menu (works for BOTH columns)
         const passageArea = document.getElementById('passageArea');
+        const questionsArea = document.getElementById('questionsArea');
         const contextMenu = document.getElementById('contextMenu');
 
-        passageArea.addEventListener('contextmenu', function(e) {
+        document.addEventListener('contextmenu', function(e) {
             const selection = window.getSelection();
-            if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
+            if (!isSelectionValid(selection)) {
                 contextMenu.style.display = 'none';
                 return;
             }
             e.preventDefault();
-            currentRange = selection.getRangeAt(0);
+            currentRange = selection.getRangeAt(0).cloneRange();
             const rect = currentRange.getBoundingClientRect();
             contextMenu.style.left = (rect.left + window.scrollX) + 'px';
             contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
@@ -622,37 +646,51 @@
 
         document.addEventListener('click', () => contextMenu.style.display = 'none');
 
-        // ✅ Highlight
+        // ✅ Highlight text
         document.getElementById('menuHighlight').addEventListener('click', function() {
             if (!currentRange) return;
-            const span = document.createElement('span');
-            span.className = 'highlight';
-            span.textContent = currentRange.toString();
-            currentRange.deleteContents();
-            currentRange.insertNode(span);
-            window.getSelection().removeAllRanges();
-            currentRange = null;
-            saveHighlights();
+            try {
+                const span = document.createElement('span');
+                span.className = 'highlight';
+                span.textContent = currentRange.toString();
+                currentRange.deleteContents();
+                currentRange.insertNode(span);
+                window.getSelection().removeAllRanges();
+                currentRange = null;
+                saveHighlights();
+            } catch (err) {
+                console.error('Highlight error:', err);
+                alert('Please select a smaller piece of text to highlight.');
+            }
         });
 
         // ✅ Remove highlight
         document.getElementById('menuRemove').addEventListener('click', function() {
             if (!currentRange) return;
             try {
-                const container = currentRange.commonAncestorContainer;
-                let span = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
-                if (span && span.classList.contains('highlight')) {
-                    const text = document.createTextNode(span.textContent);
-                    span.parentNode.replaceChild(text, span);
-                    span.parentNode.normalize();
+                const startEl = currentRange.startContainer.nodeType === Node.TEXT_NODE 
+                    ? currentRange.startContainer.parentElement 
+                    : currentRange.startContainer;
+                const endEl = currentRange.endContainer.nodeType === Node.TEXT_NODE 
+                    ? currentRange.endContainer.parentElement 
+                    : currentRange.endContainer;
+                
+                let target = startEl.closest('.highlight') || endEl.closest('.highlight');
+                
+                if (target) {
+                    const parent = target.parentNode;
+                    parent.replaceChild(document.createTextNode(target.textContent), target);
+                    parent.normalize();
                 }
-            } catch (e) { /* ignore */ }
+            } catch (e) {
+                console.log('Remove highlight error:', e);
+            }
             window.getSelection().removeAllRanges();
             currentRange = null;
             saveHighlights();
         });
 
-        // ✅ Add sticky note
+        // ✅ Add Sticky Note + Draggable Setup
         document.getElementById('menuNote').addEventListener('click', function() {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
@@ -661,8 +699,8 @@
             note.className = 'sticky-note';
             note.id = noteId;
             note.innerHTML = `
-                <div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
-                <textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>
+                <div class="note-header" onmousedown="startDrag(event, '${noteId}')">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
+                <textarea class="note-textarea" placeholder="Type your note..." oninput="saveNotes()"></textarea>
             `;
             note.style.left = (rect.right + window.scrollX + 8) + 'px';
             note.style.top = (rect.top + window.scrollY) + 'px';
@@ -672,26 +710,49 @@
             saveNotes();
         });
 
+        // ✅ Draggable Note Functions
+        function startDrag(e, noteId) {
+            dragNote = document.getElementById(noteId);
+            const rect = dragNote.getBoundingClientRect();
+            dragOffsetX = e.clientX - rect.left;
+            dragOffsetY = e.clientY - rect.top;
+            dragNote.style.zIndex = '10000';
+            e.preventDefault();
+        }
+
+        document.addEventListener('mousemove', function(e) {
+            if (!dragNote) return;
+            dragNote.style.left = (e.pageX - dragOffsetX) + 'px';
+            dragNote.style.top = (e.pageY - dragOffsetY) + 'px';
+        });
+
+        document.addEventListener('mouseup', function() {
+            if (dragNote) {
+                dragNote.style.zIndex = '9998';
+                dragNote = null;
+                saveNotes();
+            }
+        });
+
         function closeNote(id) {
             document.getElementById(id)?.remove();
             saveNotes();
         }
 
-        function saveNote(id, text) {
-            localStorage.setItem(`${passageId}_${id}`, text);
-        }
-
-        // ✅ Save/Load highlights
+        // ✅ Save/Load Highlights (BOTH columns)
         function saveHighlights() {
-            localStorage.setItem(`${passageId}_highlights`, passageArea.innerHTML);
+            localStorage.setItem(`${passageId}_passage_highlights`, passageArea.innerHTML);
+            localStorage.setItem(`${passageId}_questions_highlights`, questionsArea.innerHTML);
         }
 
         function loadHighlights() {
-            const saved = localStorage.getItem(`${passageId}_highlights`);
-            if (saved) passageArea.innerHTML = saved;
+            const passHtml = localStorage.getItem(`${passageId}_passage_highlights`);
+            const quesHtml = localStorage.getItem(`${passageId}_questions_highlights`);
+            if (passHtml) passageArea.innerHTML = passHtml;
+            if (quesHtml) questionsArea.innerHTML = quesHtml;
         }
 
-        // ✅ Save/Load notes
+        // ✅ Save/Load Notes
         function saveNotes() {
             const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
                 id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
@@ -707,11 +768,11 @@
                 note.className = 'sticky-note';
                 note.id = n.id;
                 note.innerHTML = `
-                    <div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
-                    <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
+                    <div class="note-header" onmousedown="startDrag(event, '${n.id}')">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
+                    <textarea class="note-textarea">${n.text}</textarea>
                 `;
                 note.style.left = n.left;
-                note.style.top = n.style.top;
+                note.style.top = n.top;
                 document.body.appendChild(note);
                 const num = parseInt(n.id.split('_')[1]);
                 if (num > lastNoteId) lastNoteId = num;
@@ -790,22 +851,34 @@
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
-        // ✅ NEW: Clear All Answers function
+        // ✅ Clear All Answers + Highlights + Notes
         function clearAllAnswers() {
-            if (!confirm('Are you sure you want to clear all your answers? This cannot be undone.')) return;
-            // Clear all input fields
+            if (!confirm('⚠️ This will clear ALL answers, flags, highlights and notes. Continue?')) return;
+
             document.querySelectorAll('.answer-input').forEach(input => input.value = '');
-            // Remove saved answers from storage
+            document.querySelectorAll('.flag-btn').forEach(f => f.classList.remove('flagged'));
+            document.querySelectorAll('.highlight').forEach(s => {
+                const p = s.parentNode;
+                p.replaceChild(document.createTextNode(s.textContent), p);
+                p.normalize();
+            });
+            document.querySelectorAll('.sticky-note').forEach(n => n.remove());
+
             localStorage.removeItem(`${passageId}_answers`);
-            // Reset status indicators
-            updateStatus();
-            // Hide results if open
+            localStorage.removeItem(`${passageId}_passage_highlights`);
+            localStorage.removeItem(`${passageId}_questions_highlights`);
+            localStorage.removeItem(`${passageId}_notes`);
+            
             document.getElementById('studentAnswersBox').style.display = 'none';
+            updateStatus();
         }
 
-        // ✅ Auto-save on input
+        // ✅ Auto-save
         document.addEventListener('input', function(e) {
-            if (e.target.matches('.answer-input')) saveAnswers();
+            if (e.target.name?.startsWith('q') || e.target.classList.contains('note-textarea')) {
+                saveAnswers();
+                if (e.target.classList.contains('note-textarea')) saveNotes();
+            }
         });
 
         // ✅ Initialize
