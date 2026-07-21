@@ -41,7 +41,7 @@
             display: flex;
             gap: 18px;
             padding: 0 18px 12px;
-            height: calc(100vh - 120px);
+            min-height: calc(100vh - 160px);
         }
 
         .passage-column, .questions-column {
@@ -211,6 +211,7 @@
             display: flex;
             gap: 5px;
             margin-right: 12px;
+            margin-bottom: 5px;
         }
         .nav-label {
             font-weight: 600;
@@ -324,6 +325,20 @@
         .correct { color: green; font-weight: 600; }
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
+
+        /* ✅ Mobile Responsiveness */
+        @media (max-width: 900px) {
+            .main-wrapper {
+                flex-direction: column;
+                height: auto;
+            }
+            .passage-column, .questions-column {
+                max-height: 500px;
+            }
+            .logo {
+                width: 60%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -852,7 +867,7 @@
                     <textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>
                 `;
                 note.style.left = n.left;
-                note.style.top = n.style.top;
+                note.style.top = n.top;
                 document.body.appendChild(note);
                 const num = parseInt(n.id.split('_')[1]);
                 if (num > lastNoteId) lastNoteId = num;
@@ -860,77 +875,75 @@
         }
 
         // ✅ Save/Load answers
-     function saveAnswers() {
-    let answers = {};
-    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
-        const name = `q${q}`;
-        // 1. Handle SELECT dropdowns (this fixes Q27–31!)
-        const select = document.querySelector(`select[name="${name}"]`);
-        if (select) {
-            answers[name] = select.value;
-            continue;
-        }
-        // 2. Handle text inputs
-        const textInput = document.querySelector(`input[name="${name}"]`);
-        if (textInput && textInput.type === 'text') {
-            answers[name] = textInput.value;
-            continue;
-        }
-        // 3. Handle radio buttons
-        const radios = document.getElementsByName(name);
-        if (radios.length > 0) {
-            for (let r of radios) {
-                if (r.checked) answers[name] = r.value;
+        function saveAnswers() {
+            let answers = {};
+            for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+                const name = `q${q}`;
+                // Handle SELECT dropdowns
+                const select = document.querySelector(`select[name="${name}"]`);
+                if (select) {
+                    answers[name] = select.value;
+                    continue;
+                }
+                // Handle radio buttons
+                const radios = document.getElementsByName(name);
+                if (radios.length > 0) {
+                    for (let r of radios) {
+                        if (r.checked) answers[name] = r.value;
+                    }
+                }
             }
+            localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
+            updateStatus();
         }
-    }
-    localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
-    updateStatus();
-}
 
         function loadAnswers() {
             const saved = localStorage.getItem(`${passageId}_answers`);
             if (!saved) return;
             const answers = JSON.parse(saved);
             for (let key in answers) {
+                // Load select values
+                const select = document.querySelector(`select[name="${key}"]`);
+                if (select) {
+                    select.value = answers[key] || '';
+                    continue;
+                }
+                // Load radio values
                 const radios = document.getElementsByName(key);
                 if (radios.length > 0) {
                     for (let r of radios) {
-                        if (r.value === answers[key]) r.checked = true;
+                        r.checked = (r.value === answers[key]);
                     }
-                } else {
-                    const input = document.querySelector(`select[name="${key}"]`);
-                    if (input) input.value = answers[key];
                 }
             }
             updateStatus();
         }
 
         // ✅ Update status colors
-       function updateStatus() {
-    const savedAnswers = localStorage.getItem(`${passageId}_answers`);
-    const answers = savedAnswers ? JSON.parse(savedAnswers) : {};
+        function updateStatus() {
+            const savedAnswers = localStorage.getItem(`${passageId}_answers`);
+            const answers = savedAnswers ? JSON.parse(savedAnswers) : {};
 
-    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
-        const statBtn = document.getElementById('stat' + q);
-        if (!statBtn) continue;
+            for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+                const statBtn = document.getElementById('stat' + q);
+                if (!statBtn) continue;
 
-        const answerKey = `q${q}`;
-        const val = answers[answerKey] || '';
-        const hasAnswer = val.trim().length > 0;
-        const isFlagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
+                const answerKey = `q${q}`;
+                const val = answers[answerKey] || '';
+                const hasAnswer = val.trim().length > 0;
+                const isFlagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
 
-        statBtn.classList.remove('answered', 'flagged');
-        if (isFlagged) {
-            statBtn.classList.add('flagged');
-        } else if (hasAnswer) {
-            statBtn.classList.add('answered');
+                statBtn.classList.remove('answered', 'flagged');
+                if (isFlagged) {
+                    statBtn.classList.add('flagged');
+                } else if (hasAnswer) {
+                    statBtn.classList.add('answered');
+                }
+
+                const flagIcon = document.getElementById('flag' + q);
+                if (flagIcon) flagIcon.classList.toggle('flagged', isFlagged);
+            }
         }
-
-        const flagIcon = document.getElementById('flag' + q);
-        if (flagIcon) flagIcon.classList.toggle('flagged', isFlagged);
-    }
-}
 
         // ✅ Toggle answers
         function toggleAnswers() {
@@ -947,16 +960,19 @@
             let score = 0;
             for (let q = 27; q <= 40; q++) {
                 let studentAns = '';
-                const radios = document.getElementsByName(`q${q}`);
-                if (radios.length > 0) {
+                const name = `q${q}`;
+                // Get select answer
+                const select = document.querySelector(`select[name="${name}"]`);
+                if (select) {
+                    studentAns = select.value.trim();
+                } else {
+                    // Get radio answer
+                    const radios = document.getElementsByName(name);
                     for (let r of radios) {
                         if (r.checked) studentAns = r.value;
                     }
-                } else {
-                    const input = document.querySelector(`select[name="q${q}"]`);
-                    if (input) studentAns = input.value.trim();
                 }
-                const correct = correctAnswers[`q${q}`] || '-';
+                const correct = correctAnswers[name] || '-';
                 let status = '';
                 if (!studentAns) {
                     status = '<span class="no-answer">(No Answer)</span>';
@@ -973,7 +989,7 @@
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
-        // ✅ NEW: Clear All Answers & Data
+        // ✅ Clear All Answers & Data
         function clearAllData() {
             if (!confirm('Are you sure you want to clear ALL answers, flags, highlights, and notes? This cannot be undone.')) return;
             
@@ -1009,11 +1025,11 @@
         }
 
         // ✅ Auto-save on input
-       document.addEventListener('input', function(e) {
-    if (e.target.name?.startsWith('q')) {
-        saveAnswers();
-    }
-});
+        document.addEventListener('change', function(e) {
+            if (e.target.name?.startsWith('q') || e.target.classList.contains('answer-input')) {
+                saveAnswers();
+            }
+        });
 
         // ✅ Initialize
         window.onload = function() {
@@ -1023,6 +1039,5 @@
             loadNotes();
         };
     </script>
-
 </body>
 </html>
