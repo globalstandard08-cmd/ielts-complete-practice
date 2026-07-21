@@ -41,7 +41,7 @@
             display: flex;
             gap: 18px;
             padding: 0 18px 12px;
-            min-height: calc(100vh - 160px);
+            height: calc(100vh - 120px);
         }
 
         .passage-column, .questions-column {
@@ -66,6 +66,7 @@
             margin-bottom: 12px;
             font-size: 15px;
             line-height: 1.8;
+            transition: background-color 0.3s ease;
         }
 
         /* ✅ Highlight style */
@@ -75,6 +76,14 @@
             border-radius: 2px;
             cursor: pointer;
             color: #000;
+        }
+
+        /* ✅ QUESTION MATCH HIGHLIGHT */
+        .match-highlight {
+            background-color: #fef08a !important;
+            border-left: 3px solid #eab308;
+            padding-left: 8px;
+            border-radius: 4px;
         }
 
         .questions-section h2 {
@@ -211,7 +220,6 @@
             display: flex;
             gap: 5px;
             margin-right: 12px;
-            margin-bottom: 5px;
         }
         .nav-label {
             font-weight: 600;
@@ -325,20 +333,6 @@
         .correct { color: green; font-weight: 600; }
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
-
-        /* ✅ Mobile Responsiveness */
-        @media (max-width: 900px) {
-            .main-wrapper {
-                flex-direction: column;
-                height: auto;
-            }
-            .passage-column, .questions-column {
-                max-height: 500px;
-            }
-            .logo {
-                width: 60%;
-            }
-        }
     </style>
 </head>
 <body>
@@ -359,32 +353,32 @@
         <!-- LEFT SIDE: PASSAGE TEXT -->
         <div class="passage-column" id="passageArea">
             <h1>Reading Passage 3 — Museums of fine art and their public</h1>
-            <div class="passage-text">
-                <p><strong>Museums of fine art and their public</strong></p>
+            <div class="passage-text" id="passageContent">
+                <p id="p1"><strong>Museums of fine art and their public</strong></p>
 
-                <p>The fact that people go to the Louvre museum in Paris to see the original painting Mona Lisa when they can see a reproduction anywhere leads us to question some assumptions about the role of museums of fine art in today’s world.</p>
+                <p id="p2">The fact that people go to the Louvre museum in Paris to see the original painting Mona Lisa when they can see a reproduction anywhere leads us to question some assumptions about the role of museums of fine art in today’s world.</p>
 
-                <p>One of the most famous works of art in the world is Leonardo da Vinci’s Mona Lisa. Nearly everyone who goes to see the original will already be familiar with it from reproductions, but they accept that fine art is more rewardingly viewed in its original form.</p>
+                <p id="p3">One of the most famous works of art in the world is Leonardo da Vinci’s Mona Lisa. Nearly everyone who goes to see the original will already be familiar with it from reproductions, but they accept that fine art is more rewardingly viewed in its original form.</p>
 
-                <p>However, if Mona Lisa was a famous novel, few people would bother to go to a museum to read the writer’s actual manuscript rather than a printed reproduction. This might be explained by the fact that the novel has evolved precisely because of technological developments that made it possible to print out huge numbers of texts, whereas oil paintings have always been produced as unique objects. In addition, it could be argued that the practice of interpreting or ‘reading’ each medium follows different conventions. With novels, the reader attends mainly to the meaning of words rather than the way they are printed on the page, whereas the ‘reader’ of a painting must attend just as closely to the material form of marks and shapes in the picture as to any ideas they may signify.</p>
+                <p id="p4">However, if Mona Lisa was a famous novel, few people would bother to go to a museum to read the writer’s actual manuscript rather than a printed reproduction. This might be explained by the fact that the novel has evolved precisely because of technological developments that made it possible to print out huge numbers of texts, whereas oil paintings have always been produced as unique objects. In addition, it could be argued that the practice of interpreting or ‘reading’ each medium follows different conventions. With novels, the reader attends mainly to the meaning of words rather than the way they are printed on the page, whereas the ‘reader’ of a painting must attend just as closely to the material form of marks and shapes in the picture as to any ideas they may signify.</p>
 
-                <p>Yet it has always been possible to make very accurate facsimiles of pretty well any fine art work. The seven surviving versions of Mona Lisa bear witness to the fact that in the 16th century, artists seemed perfectly content to assign the reproduction of their creations to their workshop apprentices as regular ‘bread and butter’ work. And today the task of reproducing pictures is incomparably more simple and reliable, with reprographic techniques that allow the production of high-quality prints made exactly to the original scale, with faithful colour values, and even with duplication of the surface relief of the painting.</p>
+                <p id="p5">Yet it has always been possible to make very accurate facsimiles of pretty well any fine art work. The seven surviving versions of Mona Lisa bear witness to the fact that in the 16th century, artists seemed perfectly content to assign the reproduction of their creations to their workshop apprentices as regular ‘bread and butter’ work. And today the task of reproducing pictures is incomparably more simple and reliable, with reprographic techniques that allow the production of high-quality prints made exactly to the original scale, with faithful colour values, and even with duplication of the surface relief of the painting.</p>
 
-                <p>But despite an implicit recognition that the spread of good reproductions can be culturally valuable, museums continue to promote the special status of original work.</p>
+                <p id="p6">But despite an implicit recognition that the spread of good reproductions can be culturally valuable, museums continue to promote the special status of original work.</p>
 
-                <p>Unfortunately, this seems to place severe limitations on the kind of experience offered to visitors.</p>
+                <p id="p7">Unfortunately, this seems to place severe limitations on the kind of experience offered to visitors.</p>
 
-                <p>One limitation is related to the way the museum presents its exhibits. As repositories of unique historical objects, art museums are often called ‘treasure houses’. We are reminded of this even before we view a collection by the presence of security guards, attendants, ropes and display cases to keep us away from the exhibits. In many cases, the architectural style of the building further reinforces that notion. In addition, a major collection like that of London’s National Gallery is housed in numerous rooms, each with dozens of works, any one of which is likely to be worth more than all the average visitor possesses. In a society that judges the personal status of the individual so much by their material worth, it is therefore difficult not to be impressed by one’s own relative ‘worthlessness’ in such an environment.</p>
+                <p id="p8">One limitation is related to the way the museum presents its exhibits. As repositories of unique historical objects, art museums are often called ‘treasure houses’. We are reminded of this even before we view a collection by the presence of security guards, attendants, ropes and display cases to keep us away from the exhibits. In many cases, the architectural style of the building further reinforces that notion. In addition, a major collection like that of London’s National Gallery is housed in numerous rooms, each with dozens of works, any one of which is likely to be worth more than all the average visitor possesses. In a society that judges the personal status of the individual so much by their material worth, it is therefore difficult not to be impressed by one’s own relative ‘worthlessness’ in such an environment.</p>
 
-                <p>Furthermore, consideration of the ‘value’ of the original work in its treasure house setting impresses upon the viewer that, since these works were originally produced, they have been assigned a huge monetary value by some person or institution more powerful than themselves. Evidently, nothing the viewer thinks about the work is going to alter that value, and so today’s viewer is deterred from trying to extend that spontaneous, immediate, self-reliant kind of reading which would originally have met the work.</p>
+                <p id="p9">Furthermore, consideration of the ‘value’ of the original work in its treasure house setting impresses upon the viewer that, since these works were originally produced, they have been assigned a huge monetary value by some person or institution more powerful than themselves. Evidently, nothing the viewer thinks about the work is going to alter that value, and so today’s viewer is deterred from trying to extend that spontaneous, immediate, self-reliant kind of reading which would originally have met the work.</p>
 
-                <p>The visitor may then be struck by the strangeness of seeing such diverse paintings, drawings and sculptures brought together in an environment for which they were not originally created. This ‘displacement effect’ is further heightened by the sheer volume of exhibits. In the case of a major collection, there are probably more works on display than we could realistically view in weeks or even months.</p>
+                <p id="p10">The visitor may then be struck by the strangeness of seeing such diverse paintings, drawings and sculptures brought together in an environment for which they were not originally created. This ‘displacement effect’ is further heightened by the sheer volume of exhibits. In the case of a major collection, there are probably more works on display than we could realistically view in weeks or even months.</p>
 
-                <p>This is particularly distressing because time seems to be a vital factor in the appreciation of all art forms. A fundamental difference between paintings and other art forms is that there is no prescribed time over which a painting is viewed. By contrast, the audience encounters an opera or a play over a specific time, which is the duration of the performance. Similarly, novels and poems are read in a prescribed temporal sequence, whereas a picture has no clear place at which to start viewing, or at which to finish. Thus art works themselves encourage us to view them superficially, without appreciating the richness of detail and labour that is involved.</p>
+                <p id="p11">This is particularly distressing because time seems to be a vital factor in the appreciation of all art forms. A fundamental difference between paintings and other art forms is that there is no prescribed time over which a painting is viewed. By contrast, the audience encounters an opera or a play over a specific time, which is the duration of the performance. Similarly, novels and poems are read in a prescribed temporal sequence, whereas a picture has no clear place at which to start viewing, or at which to finish. Thus art works themselves encourage us to view them superficially, without appreciating the richness of detail and labour that is involved.</p>
 
-                <p>Consequently, the dominant critical approach becomes that of the art historian, a specialised academic approach devoted to ‘discovering the meaning’ of art within the cultural context of its time. This is in perfect harmony with the museum’s function, since the approach is dedicated to seeking out and conserving ‘authentic’, ‘original’ readings of the exhibits. Again, this seems to put paid to that spontaneous, participatory criticism which can be found in abundance in criticism of classic works of literature, but is absent from most art history.</p>
+                <p id="p12">Consequently, the dominant critical approach becomes that of the art historian, a specialised academic approach devoted to ‘discovering the meaning’ of art within the cultural context of its time. This is in perfect harmony with the museum’s function, since the approach is dedicated to seeking out and conserving ‘authentic’, ‘original’ readings of the exhibits. Again, this seems to put paid to that spontaneous, participatory criticism which can be found in abundance in criticism of classic works of literature, but is absent from most art history.</p>
 
-                <p>The displays of art museums serve as a warning of what critical practices can emerge when spontaneous criticism is suppressed. The museum public, like any other audience, experience art more rewardingly when given the confidence to express their views. If appropriate works of fine art could be rendered permanently accessible to the public by means of high-fidelity reproductions, as literature and music already are, the public may feel somewhat less in awe of them. Unfortunately, that may be too much to ask from those who seek to maintain and control the art establishment.</p>
+                <p id="p13">The displays of art museums serve as a warning of what critical practices can emerge when spontaneous criticism is suppressed. The museum public, like any other audience, experience art more rewardingly when given the confidence to express their views. If appropriate works of fine art could be rendered permanently accessible to the public by means of high-fidelity reproductions, as literature and music already are, the public may feel somewhat less in awe of them. Unfortunately, that may be too much to ask from those who seek to maintain and control the art establishment.</p>
             </div>
         </div>
 
@@ -411,7 +405,7 @@
                 </div>
 
                 <!-- ✅ UPDATED: Dropdown select menus for 27–31 -->
-                <div class="question-block" id="q27">
+                <div class="question-block" id="q27" onclick="highlightPassage('p4')">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(27)" id="flag27">🚩</span>
                         <p>27.</p>
@@ -432,7 +426,7 @@
                         <option value="L">L</option>
                     </select>
                 </div>
-                <div class="question-block" id="q28">
+                <div class="question-block" id="q28" onclick="highlightPassage('p4')">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(28)" id="flag28">🚩</span>
                         <p>28.</p>
@@ -453,7 +447,7 @@
                         <option value="L">L</option>
                     </select>
                 </div>
-                <div class="question-block" id="q29">
+                <div class="question-block" id="q29" onclick="highlightPassage('p5')">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(29)" id="flag29">🚩</span>
                         <p>29.</p>
@@ -474,7 +468,7 @@
                         <option value="L">L</option>
                     </select>
                 </div>
-                <div class="question-block" id="q30">
+                <div class="question-block" id="q30" onclick="highlightPassage('p5')">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(30)" id="flag30">🚩</span>
                         <p>30.</p>
@@ -495,7 +489,7 @@
                         <option value="L">L</option>
                     </select>
                 </div>
-                <div class="question-block" id="q31">
+                <div class="question-block" id="q31" onclick="highlightPassage('p13')">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(31)" id="flag31">🚩</span>
                         <p>31.</p>
@@ -520,7 +514,7 @@
 
                 <h2>Questions 32–35: Multiple Choice</h2>
 
-                <div class="question-block" id="q32">
+                <div class="question-block" id="q32" onclick="highlightPassage('p8')">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(32)" id="flag32">🚩</span>
                         <p>32. The writer mentions London’s National Gallery to illustrate</p>
@@ -533,7 +527,7 @@
                     </div>
                 </div>
 
-                <div class="question-block" id="q33">
+                <div class="question-block" id="q33" onclick="highlightPassage('p9')">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(33)" id="flag33">🚩</span>
                         <p>33. The writer says that today, viewers may be unwilling to criticise a work because</p>
@@ -546,7 +540,7 @@
                     </div>
                 </div>
 
-                <div class="question-block" id="q34">
+                <div class="question-block" id="q34" onclick="highlightPassage('p10')">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(34)" id="flag34">🚩</span>
                         <p>34. According to the writer, the ‘displacement effect’ on the visitor is caused by</p>
@@ -559,7 +553,7 @@
                     </div>
                 </div>
 
-                <div class="question-block" id="q35">
+                <div class="question-block" id="q35" onclick="highlightPassage('p11')">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(35)" id="flag35">🚩</span>
                         <p>35. The writer says that unlike other forms of art, a painting does not</p>
@@ -579,7 +573,7 @@
                 <strong>NO</strong> — if the statement contradicts<br>
                 <strong>NOT GIVEN</strong> — if there is no information</p>
 
-                <div class="question-block" id="q36">
+                <div class="question-block" id="q36" onclick="highlightPassage('p12')">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(36)" id="flag36">🚩</span>
                         <p>36. Art history should focus on discovering the meaning of art using a range of media.</p>
@@ -591,7 +585,7 @@
                     </div>
                 </div>
 
-                <div class="question-block" id="q37">
+                <div class="question-block" id="q37" onclick="highlightPassage('p12')">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(37)" id="flag37">🚩</span>
                         <p>37. The approach of art historians conflicts with that of art museums.</p>
@@ -603,7 +597,7 @@
                     </div>
                 </div>
 
-                <div class="question-block" id="q38">
+                <div class="question-block" id="q38" onclick="highlightPassage('p13')">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(38)" id="flag38">🚩</span>
                         <p>38. People should be encouraged to give their opinions openly on works of art.</p>
@@ -615,7 +609,7 @@
                     </div>
                 </div>
 
-                <div class="question-block" id="q39">
+                <div class="question-block" id="q39" onclick="highlightPassage('p13')">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(39)" id="flag39">🚩</span>
                         <p>39. Reproductions of fine art should only be sold to the public if they are of high quality.</p>
@@ -627,7 +621,7 @@
                     </div>
                 </div>
 
-                <div class="question-block" id="q40">
+                <div class="question-block" id="q40" onclick="highlightPassage('p13')">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(40)" id="flag40">🚩</span>
                         <p>40. In the future, those with power are likely to encourage more people to enjoy art.</p>
@@ -722,6 +716,19 @@
             q39: 'NOT GIVEN',
             q40: 'NO'
         };
+
+        // ✅ HIGHLIGHT MATCHING PASSAGE WHEN CLICKING QUESTION
+        function highlightPassage(paraId) {
+            // Remove all previous match highlights
+            document.querySelectorAll('.match-highlight').forEach(el => el.classList.remove('match-highlight'));
+            // Add highlight to target paragraph
+            const targetPara = document.getElementById(paraId);
+            if (targetPara) {
+                targetPara.classList.add('match-highlight');
+                // Scroll to the paragraph
+                targetPara.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
 
         // ✅ Initialize navigator in 3 sections
         function initQuestionNav() {
@@ -1006,38 +1013,7 @@
             document.querySelectorAll('input[type="radio"]').forEach(rad => rad.checked = false);
 
             // Remove highlights
-            document.querySelectorAll('.highlight').forEach(span => {
-                const text = document.createTextNode(span.textContent);
-                span.parentNode.replaceChild(text, span);
-            });
-            document.querySelector('.passage-text').normalize();
-
-            // Remove sticky notes
-            document.querySelectorAll('.sticky-note').forEach(note => note.remove());
-            lastNoteId = 0;
-
-            // Hide result boxes
-            document.getElementById('answersBox').style.display = 'none';
-            document.getElementById('studentAnswersBox').style.display = 'none';
-
-            // Update status display
-            updateStatus();
-        }
-
-        // ✅ Auto-save on input
-        document.addEventListener('change', function(e) {
-            if (e.target.name?.startsWith('q') || e.target.classList.contains('answer-input')) {
-                saveAnswers();
-            }
-        });
-
-        // ✅ Initialize
-        window.onload = function() {
-            initQuestionNav();
-            loadAnswers();
-            loadHighlights();
-            loadNotes();
-        };
-    </script>
-</body>
-</html>
+            document.querySelectorAll('.highlight, .match-highlight').forEach(el => {
+                const text = document.createTextNode(el.textContent);
+                el.parentNode.replaceChild(text, el);
+           
