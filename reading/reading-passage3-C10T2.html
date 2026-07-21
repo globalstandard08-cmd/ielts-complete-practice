@@ -69,7 +69,7 @@
             transition: background-color 0.3s ease;
         }
 
-        /* ✅ Manual text highlight (only for passage) */
+        /* ✅ Manual highlight works on ALL text */
         .highlight {
             background-color: #ffd700;
             padding: 2px 4px;
@@ -365,7 +365,7 @@
             </div>
         </div>
 
-        <div class="questions-column">
+        <div class="questions-column" id="questionsArea">
             <div class="questions-section">
                 <h2>Questions 27–31: Summary Completion</h2>
                 <p><em>Complete the summary using the list of words, A–L, below. Write the correct letter, A–L.</em></p>
@@ -602,10 +602,9 @@
             localStorage.setItem(`${passageId}_flag_${qNum}`, flagged);
         }
 
-        // Right-click menu only works on passage area
-        const passageArea = document.getElementById('passageArea');
+        // ✅ Right-click menu works on the WHOLE page now
         const contextMenu = document.getElementById('contextMenu');
-        passageArea.addEventListener('contextmenu', e => {
+        document.addEventListener('contextmenu', e => {
             const sel = window.getSelection();
             if (!sel || sel.isCollapsed || !sel.toString().trim()) {
                 contextMenu.style.display = 'none';
@@ -620,7 +619,7 @@
         });
         document.addEventListener('click', () => contextMenu.style.display = 'none');
 
-        // Manual highlight functions
+        // Manual highlight works on any text
         document.getElementById('menuHighlight').onclick = () => {
             if (!currentRange) return;
             const span = document.createElement('span');
@@ -630,7 +629,7 @@
             currentRange.insertNode(span);
             window.getSelection().removeAllRanges();
             currentRange = null;
-            saveHighlights();
+            saveAllHighlights();
         };
 
         document.getElementById('menuRemove').onclick = () => {
@@ -640,12 +639,12 @@
                 el = el.nodeType === Node.TEXT_NODE ? el.parentElement : el;
                 if (el?.classList.contains('highlight')) {
                     el.replaceWith(el.textContent);
-                    passageArea.normalize();
+                    document.body.normalize();
                 }
             } catch {}
             window.getSelection().removeAllRanges();
             currentRange = null;
-            saveHighlights();
+            saveAllHighlights();
         };
 
         document.getElementById('menuNote').onclick = () => {
@@ -666,7 +665,10 @@
 
         function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
         function saveNote(id, val) { localStorage.setItem(`${passageId}_${id}`, val); }
-        function saveHighlights() { localStorage.setItem(`${passageId}_highlights`, passageArea.innerHTML); }
+        function saveAllHighlights() {
+            localStorage.setItem(`${passageId}_passageHTML`, document.getElementById('passageArea').innerHTML);
+            localStorage.setItem(`${passageId}_questionsHTML`, document.getElementById('questionsArea').innerHTML);
+        }
         function saveNotes() {
             const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
                 id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('textarea').value
@@ -675,8 +677,10 @@
         }
 
         function loadHighlights() {
-            const saved = localStorage.getItem(`${passageId}_highlights`);
-            if (saved) passageArea.innerHTML = saved;
+            const savedPassage = localStorage.getItem(`${passageId}_passageHTML`);
+            const savedQuestions = localStorage.getItem(`${passageId}_questionsHTML`);
+            if (savedPassage) document.getElementById('passageArea').innerHTML = savedPassage;
+            if (savedQuestions) document.getElementById('questionsArea').innerHTML = savedQuestions;
         }
 
         function loadNotes() {
@@ -761,18 +765,17 @@
         function clearAllData() {
             if (!confirm('Clear all answers, flags, highlights and notes? This cannot be undone.')) return;
             localStorage.removeItem(`${passageId}_answers`);
-            localStorage.removeItem(`${passageId}_highlights`);
+            localStorage.removeItem(`${passageId}_passageHTML`);
+            localStorage.removeItem(`${passageId}_questionsHTML`);
             localStorage.removeItem(`${passageId}_notes`);
             for (let q = 1; q <= TOTAL_QUESTIONS; q++) localStorage.removeItem(`${passageId}_flag_${q}`);
-            document.querySelectorAll('select').forEach(s => s.value = '');
-            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
             location.reload();
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             initQuestionNav();
-            loadAnswers();
             loadHighlights();
+            loadAnswers();
             loadNotes();
             document.querySelectorAll('select, input[type="radio"]').forEach(el => el.addEventListener('change', saveAnswers));
         });
