@@ -259,19 +259,19 @@
             border-color: #dc2626;
         }
         .q-nav-btn.answered {
-            background: #dcfce7;
-            border-color: #22c55e;
-            color: #166534;
+            background: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #166534 !important;
         }
         .q-nav-btn.flagged {
-            background: #fffbeb;
-            border-color: #f59e0b;
-            color: #92400e;
+            background: #fffbeb !important;
+            border-color: #f59e0b !important;
+            color: #92400e !important;
         }
         .q-nav-btn.current {
-            background: #dc2626;
-            color: white;
-            border-color: #dc2626;
+            background: #dc2626 !important;
+            color: white !important;
+            border-color: #dc2626 !important;
         }
         .nav-page-controls {
             display: flex;
@@ -525,7 +525,6 @@
             q11: 'source of income', q12: 'employer', q13: 'domestic tourism'
         };
 
-        // ✅ Exact list of questions on THIS page — only these get updated
         const QUESTIONS_ON_PAGE = [1,2,3,4,5,6,7,8,9,10,11,12,13];
         let currentRange = null;
         let lastNoteId = 0;
@@ -554,25 +553,21 @@
             }
         }
 
-        // ✅ Fixed: No more errors — safely updates only existing buttons
         function updateNavStatus() {
             const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`)) || {};
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
             
-            // Loop ONLY through questions that exist on this page
             QUESTIONS_ON_PAGE.forEach(qNum => {
                 const btn = document.getElementById(`nav-q${qNum}`);
-                if (!btn) return; // Skip safely if button not found
+                if (!btn) return;
                 
                 btn.classList.remove('answered', 'flagged');
                 
-                // Mark green if answered
                 const answer = answers[`q${qNum}`] || '';
                 if (answer.trim() !== '') {
                     btn.classList.add('answered');
                 }
                 
-                // Mark yellow if flagged
                 if (flags[qNum]) {
                     btn.classList.add('flagged');
                 }
@@ -600,7 +595,7 @@
                 }
             }
             localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
-            updateNavStatus(); // ✅ Refresh shading immediately after saving
+            updateNavStatus();
         }
 
         function loadAnswers() {
@@ -707,12 +702,12 @@
         function toggleAnswers() { const box = document.getElementById('answersBox'); box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
         function showStudentAnswers() { saveAnswers(); const box = document.getElementById('studentAnswersBox'); const resultDiv = document.getElementById('studentResult'); let html = ''; let score = 0; for (let q = 1; q <= 13; q++) { let studentAns = ''; const radios = document.getElementsByName(`q${q}`); if (radios.length > 0) { for (let r of radios) if (r.checked) studentAns = r.value; } else { const input = document.querySelector(`input[name="q${q}"]`); if (input) studentAns = input.value.trim().toLowerCase(); } const correct = correctAnswers[`q${q}`].toLowerCase(); let status = ''; if (!studentAns) status = '<span class="no-answer">(No Answer)</span>'; else if (studentAns === correct) { status = '<span class="correct">✅ Correct</span>'; score++; } else { status = `<span class="wrong">❌ Wrong (Correct: ${correctAnswers[`q${q}`]})</span>`; } html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`; } html += `<br><strong>Total Score: ${score} / 13</strong>`; resultDiv.innerHTML = html; box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
 
-        // ✅ Instant update for both text typing AND radio clicks
+        // ✅ Fixed: Reliable triggers for ALL input types
         document.addEventListener('input', function(e) {
             if (e.target.name?.startsWith('q')) saveAnswers();
         });
-        document.addEventListener('click', function(e) {
-            if (e.target.type === 'radio' && e.target.name?.startsWith('q')) saveAnswers();
+        document.addEventListener('change', function(e) {
+            if (e.target.name?.startsWith('q')) saveAnswers();
         });
 
         window.onload = function() { generateNav(); loadAnswers(); loadFlags(); loadNotes(); };
