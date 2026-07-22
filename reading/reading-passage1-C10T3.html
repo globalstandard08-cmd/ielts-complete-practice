@@ -651,7 +651,7 @@
             currentRange.insertNode(span);
             window.getSelection().removeAllRanges();
             currentRange = null;
-            saveHighlights();
+            // No save to localStorage — highlights vanish on refresh
         });
 
         document.getElementById('menuRemove').addEventListener('click', function() {
@@ -667,7 +667,6 @@
             } catch (e) {}
             window.getSelection().removeAllRanges();
             currentRange = null;
-            saveHighlights();
         });
 
         document.getElementById('menuNote').addEventListener('click', function() {
@@ -688,16 +687,6 @@
 
         function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
         function saveNote(id, text) { localStorage.setItem(`${passageId}_${id}`, text); }
-        function saveHighlights() { 
-            localStorage.setItem(`${passageId}_passageHighlights`, passageArea.innerHTML);
-            localStorage.setItem(`${passageId}_questionHighlights`, questionsArea.innerHTML);
-        }
-        function loadHighlights() { 
-            const savedPassage = localStorage.getItem(`${passageId}_passageHighlights`);
-            const savedQuestions = localStorage.getItem(`${passageId}_questionHighlights`);
-            if (savedPassage) passageArea.innerHTML = savedPassage;
-            if (savedQuestions) questionsArea.innerHTML = savedQuestions;
-        }
         function saveNotes() { const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value})); localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes)); }
         function loadNotes() { const saved = localStorage.getItem(`${passageId}_notes`); if (!saved) return; JSON.parse(saved).forEach(n => { const note = document.createElement('div'); note.className = 'sticky-note'; note.id = n.id; note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>`; note.style.left = n.left; note.style.top = n.top; document.body.appendChild(note); const num = parseInt(n.id.split('_')[1]); if (num > lastNoteId) lastNoteId = num; }); }
 
@@ -705,8 +694,6 @@
             if (!confirm('Clear all your answers, highlights and notes? This cannot be undone.')) return; 
             localStorage.removeItem(`${passageId}_answers`); 
             localStorage.removeItem(`${passageId}_flags`); 
-            localStorage.removeItem(`${passageId}_passageHighlights`);
-            localStorage.removeItem(`${passageId}_questionHighlights`);
             localStorage.removeItem(`${passageId}_notes`);
             location.reload();
         }
@@ -719,7 +706,7 @@
                 saveAnswers();
             }
         });
-        window.onload = function() { generateNav(); loadAnswers(); loadFlags(); loadHighlights(); loadNotes(); };
+        window.onload = function() { generateNav(); loadAnswers(); loadFlags(); loadNotes(); };
     </script>
 </body>
 </html>
