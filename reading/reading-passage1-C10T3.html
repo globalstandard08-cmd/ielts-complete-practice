@@ -12,11 +12,16 @@
             font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
 
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             background-color: #fef2f2;
             color: #1a1a1a;
-            line-height: 1.6;
-            padding-bottom: 80px;
+            display: flex;
+            flex-direction: column;
         }
 
         .logo-container {
@@ -27,7 +32,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 10px;
+            flex-shrink: 0;
             box-shadow: 0 2px 2px rgba(0,0,0,0.08);
         }
         .logo {
@@ -40,8 +45,9 @@
         .main-wrapper {
             display: flex;
             gap: 15px;
-            padding: 0 15px 15px;
-            height: calc(100vh - 110px);
+            padding: 15px;
+            flex: 1;
+            overflow: hidden;
         }
 
         .passage-column, .questions-column {
@@ -218,16 +224,14 @@
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
 
+        /* ✅ Fixed Navigation Bar: Always visible, taller, clearer */
         .question-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
             width: 100%;
             background: #ffffff;
-            border-top: 2px solid #dc2626;
-            padding: 8px 15px;
-            box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
-            z-index: 100;
+            border-top: 3px solid #dc2626;
+            padding: 12px 15px;
+            flex-shrink: 0;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
             display: flex;
             flex-wrap: wrap;
             align-items: center;
@@ -236,16 +240,17 @@
         }
         .nav-container {
             display: flex;
-            gap: 5px;
+            gap: 6px;
             flex-wrap: wrap;
         }
         .q-nav-btn {
-            width: 28px;
-            height: 28px;
-            border: 1px solid #ddd;
+            width: 32px;
+            height: 32px;
+            border: 1px solid #bbb;
             border-radius: 4px;
             background: #f9f9f9;
-            font-size: 12px;
+            font-size: 13px;
+            font-weight: 500;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -258,10 +263,12 @@
         .q-nav-btn.answered {
             background: #dcfce7;
             border-color: #22c55e;
+            color: #166534;
         }
         .q-nav-btn.flagged {
             background: #fffbeb;
             border-color: #f59e0b;
+            color: #92400e;
         }
         .q-nav-btn.current {
             background: #dc2626;
@@ -273,18 +280,19 @@
             gap: 10px;
         }
         .back-btn, .next-btn {
-            padding: 6px 12px;
+            padding: 8px 16px;
             background: #fef2f2;
             color: #dc2626;
             text-decoration: none;
             border-radius: 6px;
             border: 1px solid #fecaca;
-            font-weight: 500;
-            font-size: 13px;
+            font-weight: 600;
+            font-size: 14px;
             white-space: nowrap;
         }
         .back-btn:hover, .next-btn:hover {
             background: #ffffff;
+            border-color: #dc2626;
         }
     </style>
 </head>
@@ -550,7 +558,6 @@
         function updateNavStatus() {
             const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`)) || {};
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
-            // Only update buttons for questions that exist on THIS page
             QUESTIONS_ON_PAGE.forEach(i => {
                 const btn = document.getElementById(`nav-q${i}`);
                 if (!btn) return;
@@ -572,7 +579,7 @@
 
         function saveAnswers() {
             let answers = {};
-            for (let q of 1; q <= 13; q++) {
+            for (let q = 1; q <= 13; q++) {
                 const radios = document.getElementsByName(`q${q}`);
                 if (radios.length > 0) {
                     for (let r of radios) if (r.checked) answers[`q${q}`] = r.value;
@@ -689,7 +696,6 @@
         function toggleAnswers() { const box = document.getElementById('answersBox'); box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
         function showStudentAnswers() { saveAnswers(); const box = document.getElementById('studentAnswersBox'); const resultDiv = document.getElementById('studentResult'); let html = ''; let score = 0; for (let q = 1; q <= 13; q++) { let studentAns = ''; const radios = document.getElementsByName(`q${q}`); if (radios.length > 0) { for (let r of radios) if (r.checked) studentAns = r.value; } else { const input = document.querySelector(`input[name="q${q}"]`); if (input) studentAns = input.value.trim().toLowerCase(); } const correct = correctAnswers[`q${q}`].toLowerCase(); let status = ''; if (!studentAns) status = '<span class="no-answer">(No Answer)</span>'; else if (studentAns === correct) { status = '<span class="correct">✅ Correct</span>'; score++; } else { status = `<span class="wrong">❌ Wrong (Correct: ${correctAnswers[`q${q}`]})</span>`; } html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`; } html += `<br><strong>Total Score: ${score} / 13</strong>`; resultDiv.innerHTML = html; box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
 
-        // ✅ Fixed: Listen for BOTH text input AND radio selection, update instantly
         document.addEventListener('input', function(e) {
             if (e.target.name?.startsWith('q')) saveAnswers();
         });
