@@ -565,6 +565,7 @@
                 if (!btn) continue;
                 btn.classList.remove('answered', 'flagged');
                 const val = answers[`q${i}`] || '';
+                // Fixed: marks as answered for ALL question types
                 if (val.trim().length > 0) btn.classList.add('answered');
                 if (flags[i]) btn.classList.add('flagged');
             }
@@ -651,7 +652,7 @@
             currentRange.insertNode(span);
             window.getSelection().removeAllRanges();
             currentRange = null;
-            // No save to localStorage — highlights vanish on refresh
+            // No save — highlights vanish on refresh
         });
 
         document.getElementById('menuRemove').addEventListener('click', function() {
