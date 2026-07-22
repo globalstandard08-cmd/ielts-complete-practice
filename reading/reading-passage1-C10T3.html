@@ -223,7 +223,7 @@
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
 
-        /* ✅ Slim Navigation Bar */
+        /* Slim Navigation Bar */
         .question-nav {
             width: 100%;
             background: #ffffff;
@@ -525,6 +525,7 @@
             q11: 'source of income', q12: 'employer', q13: 'domestic tourism'
         };
 
+        // ✅ Exact list of questions on THIS page — only these get updated
         const QUESTIONS_ON_PAGE = [1,2,3,4,5,6,7,8,9,10,11,12,13];
         let currentRange = null;
         let lastNoteId = 0;
@@ -553,16 +554,28 @@
             }
         }
 
+        // ✅ Fixed: No more errors — safely updates only existing buttons
         function updateNavStatus() {
             const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`)) || {};
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
-            QUESTIONS_ON_PAGE.forEach(i => {
-                const btn = document.getElementById(`nav-q${i}`);
-                if (!btn) return;
+            
+            // Loop ONLY through questions that exist on this page
+            QUESTIONS_ON_PAGE.forEach(qNum => {
+                const btn = document.getElementById(`nav-q${qNum}`);
+                if (!btn) return; // Skip safely if button not found
+                
                 btn.classList.remove('answered', 'flagged');
-                const val = answers[`q${i}`] || '';
-                if (val.trim().length > 0) btn.classList.add('answered');
-                if (flags[i]) btn.classList.add('flagged');
+                
+                // Mark green if answered
+                const answer = answers[`q${qNum}`] || '';
+                if (answer.trim() !== '') {
+                    btn.classList.add('answered');
+                }
+                
+                // Mark yellow if flagged
+                if (flags[qNum]) {
+                    btn.classList.add('flagged');
+                }
             });
         }
 
@@ -587,7 +600,7 @@
                 }
             }
             localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
-            updateNavStatus();
+            updateNavStatus(); // ✅ Refresh shading immediately after saving
         }
 
         function loadAnswers() {
@@ -694,6 +707,7 @@
         function toggleAnswers() { const box = document.getElementById('answersBox'); box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
         function showStudentAnswers() { saveAnswers(); const box = document.getElementById('studentAnswersBox'); const resultDiv = document.getElementById('studentResult'); let html = ''; let score = 0; for (let q = 1; q <= 13; q++) { let studentAns = ''; const radios = document.getElementsByName(`q${q}`); if (radios.length > 0) { for (let r of radios) if (r.checked) studentAns = r.value; } else { const input = document.querySelector(`input[name="q${q}"]`); if (input) studentAns = input.value.trim().toLowerCase(); } const correct = correctAnswers[`q${q}`].toLowerCase(); let status = ''; if (!studentAns) status = '<span class="no-answer">(No Answer)</span>'; else if (studentAns === correct) { status = '<span class="correct">✅ Correct</span>'; score++; } else { status = `<span class="wrong">❌ Wrong (Correct: ${correctAnswers[`q${q}`]})</span>`; } html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`; } html += `<br><strong>Total Score: ${score} / 13</strong>`; resultDiv.innerHTML = html; box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
 
+        // ✅ Instant update for both text typing AND radio clicks
         document.addEventListener('input', function(e) {
             if (e.target.name?.startsWith('q')) saveAnswers();
         });
