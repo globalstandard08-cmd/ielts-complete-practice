@@ -14,7 +14,6 @@
 
         html, body {
             height: 100%;
-            overflow: hidden;
         }
 
         body {
@@ -28,7 +27,7 @@
             width: 100%;
             background: #ffffff;
             border-bottom: 2px solid #dc2626;
-            padding: 10px 0;
+            padding: 8px 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -36,18 +35,18 @@
             box-shadow: 0 2px 2px rgba(0,0,0,0.08);
         }
         .logo {
-            width: 35%;
-            max-width: 320px;
+            width: 30%;
+            max-width: 280px;
             height: auto;
             display: block;
         }
 
         .main-wrapper {
             display: flex;
-            gap: 15px;
-            padding: 15px;
+            gap: 12px;
+            padding: 12px;
             flex: 1;
-            overflow: hidden;
+            min-height: 0;
         }
 
         .passage-column, .questions-column {
@@ -55,7 +54,7 @@
             background: #ffffff;
             border-radius: 10px;
             border: 1px solid #fecaca;
-            padding: 18px;
+            padding: 16px;
             overflow-y: auto;
             box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07);
             position: relative;
@@ -63,7 +62,7 @@
 
         h1 {
             color: #dc2626;
-            font-size: 19px;
+            font-size: 18px;
             margin-bottom: 12px;
             text-align: center;
         }
@@ -140,7 +139,7 @@
 
         .questions-section h2 {
             color: #991b1b;
-            font-size: 17px;
+            font-size: 16px;
             margin: 15px 0 8px;
         }
 
@@ -196,11 +195,11 @@
         }
 
         .toggle-answers, .show-student, .clear-all-answers {
-            padding: 8px 14px;
+            padding: 7px 12px;
             background: #dc2626;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: 500;
             font-size: 13px;
@@ -224,33 +223,32 @@
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
 
-        /* ✅ Fixed Navigation Bar: Always visible, taller, clearer */
+        /* ✅ Slim Navigation Bar */
         .question-nav {
             width: 100%;
             background: #ffffff;
-            border-top: 3px solid #dc2626;
-            padding: 12px 15px;
+            border-top: 2px solid #dc2626;
+            padding: 6px 15px;
             flex-shrink: 0;
-            box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
+            gap: 10px;
         }
         .nav-container {
             display: flex;
-            gap: 6px;
+            gap: 4px;
             flex-wrap: wrap;
         }
         .q-nav-btn {
-            width: 32px;
-            height: 32px;
-            border: 1px solid #bbb;
-            border-radius: 4px;
+            width: 26px;
+            height: 26px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
             background: #f9f9f9;
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 11px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -277,17 +275,17 @@
         }
         .nav-page-controls {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
         .back-btn, .next-btn {
-            padding: 8px 16px;
+            padding: 5px 12px;
             background: #fef2f2;
             color: #dc2626;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 4px;
             border: 1px solid #fecaca;
-            font-weight: 600;
-            font-size: 14px;
+            font-weight: 500;
+            font-size: 12px;
             white-space: nowrap;
         }
         .back-btn:hover, .next-btn:hover {
