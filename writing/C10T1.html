@@ -142,6 +142,8 @@
             padding: 15px 25px;
             border-top: 1px solid #fecaca;
             background: #ffffff;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .nav-btn {
@@ -164,6 +166,10 @@
         .nav-btn:disabled {
             opacity: 0.4;
             cursor: not-allowed;
+        }
+
+        .back-lib-btn {
+            display: none;
         }
 
         .task-indicator {
@@ -250,6 +256,7 @@
     <div class="nav-bar">
         <button class="nav-btn" id="prevBtn">⬅️ Previous</button>
         <div class="task-indicator" id="taskIndicator">Task 1 of 2</div>
+        <button class="nav-btn back-lib-btn" id="backLibBtn" onclick="window.location.href='../library.html'">🏠 Back to Library</button>
         <button class="nav-btn" id="nextBtn">Next ➡️</button>
     </div>
 </div>
@@ -259,16 +266,21 @@ let currentTask = 1;
 const totalTasks = 2;
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
+const backLibBtn = document.getElementById('backLibBtn');
 
 // Set button actions
 function updateButtons() {
     if (currentTask === 1) {
         prevBtn.onclick = () => window.location.href = '../library.html';
+        backLibBtn.style.display = 'none';
+        nextBtn.style.display = 'inline-flex';
+        nextBtn.onclick = () => goToTask(2);
+        nextBtn.disabled = false;
     } else {
         prevBtn.onclick = () => goToTask(1);
+        backLibBtn.style.display = 'inline-flex';
+        nextBtn.style.display = 'none';
     }
-    nextBtn.onclick = currentTask === 1 ? () => goToTask(2) : null;
-    nextBtn.disabled = currentTask === totalTasks;
     document.getElementById('taskIndicator').textContent = `Task ${currentTask} of ${totalTasks}`;
 }
 
