@@ -44,7 +44,7 @@
             min-height: 550px;
         }
 
-        /* Left Panel: Question — scrollbar added */
+        /* Left Panel: Question — scrollbar active */
         .question-panel {
             width: 48%;
             padding: 20px 25px;
@@ -155,6 +155,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            text-decoration: none;
         }
 
         .nav-btn:hover:not(:disabled) {
@@ -250,7 +251,7 @@
     </div>
 
     <div class="nav-bar">
-        <button class="nav-btn" id="prevBtn" onclick="switchTask(-1)" disabled>⬅️ Previous</button>
+        <a href="library.html" class="nav-btn" id="prevBtn">⬅️ Previous</a>
         <div class="task-indicator" id="taskIndicator">Task 1 of 2</div>
         <button class="nav-btn" id="nextBtn" onclick="switchTask(1)">Next ➡️</button>
     </div>
@@ -265,9 +266,17 @@ function switchTask(direction) {
     document.querySelectorAll('.task-section').forEach(sec => sec.classList.remove('active'));
     document.getElementById(`task${currentTask}Question`).classList.add('active');
     document.getElementById(`task${currentTask}Write`).classList.add('active');
-    document.getElementById('prevBtn').disabled = currentTask === 1;
-    document.getElementById('nextBtn').disabled = currentTask === totalTasks;
+    
+    // Update Previous button: goes to library when on Task 1, stays disabled when on Task 2? No — now always links to library
     document.getElementById('taskIndicator').textContent = `Task ${currentTask} of ${totalTasks}`;
+    if (currentTask === 1) {
+        document.getElementById('prevBtn').href = "library.html";
+        document.getElementById('nextBtn').disabled = false;
+    } else {
+        document.getElementById('prevBtn').removeAttribute('href');
+        document.getElementById('nextBtn').disabled = true;
+    }
+    
     if (currentTask === 1) countWords('task1Input','task1Count',150);
     else countWords('task2Input','task2Count',250);
 }
