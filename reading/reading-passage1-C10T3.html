@@ -108,7 +108,7 @@
             border: 1px solid #e6c200;
             border-radius: 4px;
             padding: 6px;
-            box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
+            box-shadow: 2px 7px rgba(0,0,0,0.15);
             z-index: 9998;
             font-size: 12px;
         }
@@ -588,10 +588,17 @@
             for (let q = 1; q <= 13; q++) {
                 const radios = document.getElementsByName(`q${q}`);
                 if (radios.length > 0) {
-                    for (let r of radios) if (r.checked) answers[`q${q}`] = r.value;
+                    for (let r of radios) {
+                        if (r.checked) {
+                            answers[`q${q}`] = r.value;
+                            break;
+                        }
+                    }
                 } else {
                     const input = document.querySelector(`input[name="q${q}"]`);
-                    if (input) answers[`q${q}`] = input.value;
+                    if (input) {
+                        answers[`q${q}`] = input.value;
+                    }
                 }
             }
             localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
