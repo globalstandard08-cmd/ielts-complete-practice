@@ -201,7 +201,7 @@
 
 <div class="container">
     <div class="header">
-        <img src="ielts-logo.png" alt="Global Standard English Learning Center" class="ielts-logo">
+        <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="ielts-logo">
     </div>
 
     <div class="split-layout">
@@ -251,7 +251,7 @@
     </div>
 
     <div class="nav-bar">
-        <a href="../library.html" class="nav-btn" id="prevBtn">⬅️ Previous</a>
+        <button class="nav-btn" id="prevBtn">⬅️ Previous</button>
         <div class="task-indicator" id="taskIndicator">Task 1 of 2</div>
         <button class="nav-btn" id="nextBtn" onclick="switchTask(1)">Next ➡️</button>
     </div>
@@ -260,23 +260,32 @@
 <script>
 let currentTask = 1;
 const totalTasks = 2;
+const prevBtn = document.getElementById('prevBtn');
+
+// Set initial click action for Task 1
+prevBtn.addEventListener('click', () => window.location.href = '../library.html');
 
 function switchTask(direction) {
     currentTask += direction;
     document.querySelectorAll('.task-section').forEach(sec => sec.classList.remove('active'));
     document.getElementById(`task${currentTask}Question`).classList.add('active');
     document.getElementById(`task${currentTask}Write`).classList.add('active');
-    
-    // Update Previous button: goes to library when on Task 1, stays disabled when on Task 2? No — now always links to library
-    document.getElementById('taskIndicator').textContent = `Task ${currentTask} of ${totalTasks}`;
+
+    // Update Previous button action
+    prevBtn.removeAttribute('onclick');
+    prevBtn.onclick = null;
+    prevBtn.style.pointerEvents = 'auto';
+
     if (currentTask === 1) {
-        document.getElementById('prevBtn').href = "library.html";
-        document.getElementById('nextBtn').disabled = false;
+        // On Task 1: go back to library
+        prevBtn.onclick = () => window.location.href = '../library.html';
     } else {
-        document.getElementById('prevBtn').removeAttribute('href');
-        document.getElementById('nextBtn').disabled = true;
+        // On Task 2: go back to Task 1
+        prevBtn.onclick = () => switchTask(-1);
     }
-    
+
+    document.getElementById('nextBtn').disabled = currentTask === totalTasks;
+    document.getElementById('taskIndicator').textContent = `Task ${currentTask} of ${totalTasks}`;
     if (currentTask === 1) countWords('task1Input','task1Count',150);
     else countWords('task2Input','task2Count',250);
 }
