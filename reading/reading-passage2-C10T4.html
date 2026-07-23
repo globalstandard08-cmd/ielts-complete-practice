@@ -258,7 +258,6 @@
             z-index: 999;
         }
 
-        /* ✅ ALL START GRAY / DEFAULT */
         .q-indicator {
             width: 24px;
             height: 24px;
@@ -277,19 +276,16 @@
             background: #e5e7eb;
             border-color: #9ca3af;
         }
-        /* ✅ ONLY GREEN WHEN ANSWERED */
         .q-indicator.answered {
             background: #dcfce7 !important;
             border-color: #22c55e !important;
             color: #166534 !important;
         }
-        /* ✅ ONLY ORANGE WHEN FLAGGED */
         .q-indicator.flagged {
             background: #ffedd5 !important;
             border-color: #f97316 !important;
             color: #c2410c !important;
         }
-        /* ✅ CURRENT PAGE QUESTIONS — SLIGHTLY DARKER GRAY */
         .q-indicator.current {
             background: #e5e7eb;
             border-color: #6b7280;
@@ -338,7 +334,7 @@
             <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear All Highlights</button>
         </div>
 
-        <div class="questions-column">
+        <div class="questions-column" id="questionsArea">
             <div class="questions-section">
                 <h2>Questions 14–18: Summary Completion</h2>
                 <p><em>Choose NO MORE THAN TWO WORDS from the passage for each answer.</em></p>
@@ -484,7 +480,6 @@
         let lastNoteId = 0;
         let activeNote = null, offsetX, offsetY;
 
-        // === Build Navigation Bar ===
         function buildStatusBar() {
             const bar = document.getElementById('statusBar');
             bar.innerHTML = '';
@@ -504,14 +499,12 @@
                     d.onclick = () => scrollToQuestion(q);
                 }
 
-                // Apply saved status
                 if (saved.flags[q]) d.classList.add('flagged');
                 if (saved.answers[q] && saved.answers[q].trim() !== '') d.classList.add('answered');
                 bar.appendChild(d);
             }
         }
 
-        // === ✅ FIXED: Update Navigation Status Properly ===
         function updateNavStatus() {
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
             saved.answers = saved.answers || {};
@@ -521,15 +514,8 @@
                 const btn = document.getElementById('stat' + q);
                 if (!btn) continue;
 
-                // Set/remove answered class
                 const hasAnswer = saved.answers[q] && saved.answers[q].trim() !== '';
-                if (hasAnswer) {
-                    btn.classList.add('answered');
-                } else {
-                    btn.classList.remove('answered');
-                }
-
-                // Set/remove flagged class
+                btn.classList.toggle('answered', hasAnswer);
                 btn.classList.toggle('flagged', saved.flags[q] === true);
             }
         }
@@ -539,7 +525,6 @@
             if (input) input.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // === Flag System ===
         function toggleFlag(qNum) {
             const flagBtn = document.getElementById('flag' + qNum);
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
@@ -550,7 +535,6 @@
             updateNavStatus();
         }
 
-        // === ✅ FIXED: Save Answers & Update Nav Bar Instantly ===
         function saveAnswers() {
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
             saved.answers = saved.answers || {};
@@ -561,7 +545,7 @@
             });
 
             localStorage.setItem(GLOBAL_SAVE_KEY, JSON.stringify(saved));
-            updateNavStatus(); // <-- THIS WAS MISSING BEFORE!
+            updateNavStatus();
         }
 
         function loadAnswers() {
@@ -577,22 +561,25 @@
             }
         }
 
-        // === Highlight & Notes ===
+        // === RIGHT‑CLICK / HIGHLIGHT / NOTE — NOW ON BOTH COLUMNS ===
         const passageArea = document.getElementById('passageArea');
+        const questionsArea = document.getElementById('questionsArea');
         const contextMenu = document.getElementById('contextMenu');
 
-        passageArea.addEventListener('contextmenu', e => {
-            const sel = window.getSelection();
-            if (!sel || sel.isCollapsed || sel.toString().trim() === '') {
-                contextMenu.style.display = 'none';
-                return;
-            }
-            e.preventDefault();
-            currentRange = sel.getRangeAt(0);
-            const rect = currentRange.getBoundingClientRect();
-            contextMenu.style.left = (rect.left + window.scrollX) + 'px';
-            contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
-            contextMenu.style.display = 'block';
+        [passageArea, questionsArea].forEach(area => {
+            area.addEventListener('contextmenu', e => {
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || sel.toString().trim() === '') {
+                    contextMenu.style.display = 'none';
+                    return;
+                }
+                e.preventDefault();
+                currentRange = sel.getRangeAt(0);
+                const rect = currentRange.getBoundingClientRect();
+                contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+                contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+                contextMenu.style.display = 'block';
+            });
         });
 
         document.addEventListener('click', () => contextMenu.style.display = 'none');
@@ -612,11 +599,8 @@
         document.getElementById('menuRemove').addEventListener('click', () => {
             if (!currentRange) return;
             try {
-                const highlights = document.querySelectorAll('.highlight');
-                highlights.forEach(span => {
-                    if (currentRange.intersectsNode(span)) {
-                        span.outerHTML = span.textContent;
-                    }
+                document.querySelectorAll('.highlight').forEach(span => {
+                    if (currentRange.intersectsNode(span)) span.outerHTML = span.textContent;
                 });
             } catch (e) {}
             window.getSelection().removeAllRanges();
@@ -659,8 +643,17 @@
             if (activeNote) { saveNotes(); activeNote.style.zIndex = 9998; activeNote = null; }
         });
         function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
-        function saveHighlights() { localStorage.setItem(`${passageId}_highlights`, passageArea.innerHTML); }
-        function loadHighlights() { const s = localStorage.getItem(`${passageId}_highlights`); if (s) passageArea.innerHTML = s; }
+
+        function saveHighlights() {
+            localStorage.setItem(`${passageId}_highlights_passage`, passageArea.innerHTML);
+            localStorage.setItem(`${passageId}_highlights_questions`, questionsArea.innerHTML);
+        }
+        function loadHighlights() {
+            const p = localStorage.getItem(`${passageId}_highlights_passage`);
+            const q = localStorage.getItem(`${passageId}_highlights_questions`);
+            if (p) passageArea.innerHTML = p;
+            if (q) questionsArea.innerHTML = q;
+        }
         function saveNotes() {
             const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
                 id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
@@ -678,10 +671,10 @@
         }
         function clearHighlights() {
             document.querySelectorAll('.highlight').forEach(s => s.outerHTML = s.textContent);
-            localStorage.removeItem(`${passageId}_highlights`);
+            localStorage.removeItem(`${passageId}_highlights_passage`);
+            localStorage.removeItem(`${passageId}_highlights_questions`);
         }
 
-        // === Other Functions ===
         function toggleAnswers() {
             const b = document.getElementById('answersBox');
             b.style.display = b.style.display === 'block' ? 'none' : 'block';
@@ -714,20 +707,21 @@
             }
             clearHighlights();
             document.querySelectorAll('.sticky-note').forEach(n => n.remove());
-            localStorage.removeItem(`${passageId}_highlights`);
+            localStorage.removeItem(`${passageId}_highlights_passage`);
+            localStorage.removeItem(`${passageId}_highlights_questions`);
             localStorage.removeItem(`${passageId}_notes`);
             buildStatusBar();
         }
 
-      window.onload = function() {
-    buildStatusBar();  // Rebuild ALL 1–40 numbers with latest global status
-    loadAnswers();     // Load only this page's answers into input boxes
-    loadHighlights();
-    loadNotes();
-    document.querySelectorAll('.ans').forEach(el => {
-        el.addEventListener('input', saveAnswers);
-    });
-};
+        window.onload = function() {
+            buildStatusBar();
+            loadAnswers();
+            loadHighlights();
+            loadNotes();
+            document.querySelectorAll('.ans').forEach(el => {
+                el.addEventListener('input', saveAnswers);
+            });
+        };
     </script>
 </body>
 </html>
