@@ -44,13 +44,14 @@
             min-height: 550px;
         }
 
-        /* Left Panel: Question */
+        /* Left Panel: Question — scrollbar added */
         .question-panel {
             width: 48%;
             padding: 20px 25px;
             background-color: #fef2f2;
             border-right: 1px solid #fecaca;
             overflow-y: auto;
+            max-height: calc(100vh - 220px);
         }
 
         .question-panel h2 {
@@ -187,6 +188,7 @@
                 width: 100%;
                 border-right: none;
                 border-bottom: 1px solid #fecaca;
+                max-height: none;
             }
             textarea {
                 min-height: 280px;
@@ -215,7 +217,7 @@
                 <img src="task1.png" alt="Task 1 charts" class="task-image">
             </div>
 
-            <!-- Task 2 - updated text, no task2.png -->
+            <!-- Task 2 -->
             <div class="task-section" id="task2Question">
                 <h2>WRITING TASK 2</h2>
                 <div class="instruction-box">
