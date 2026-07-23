@@ -21,23 +21,23 @@
             position: relative;
         }
 
-        /* ✅ Flag - Fixed small size, upper left, below background1 */
+        /* ✅ Flag - small, fixed top-left */
         .flag-decoration {
             position: absolute;
             top: 8px;
             left: 8px;
-            width: 60px; /* ✅ Small fixed size */
+            width: 60px;
             height: auto;
             z-index: 9998;
             display: block !important;
             visibility: visible !important;
         }
 
-        /* ✅ Background Decoration - EXACTLY AS ORIGINAL */
+        /* ✅ Background - fixed at FAR TOP-RIGHT CORNER */
         .top-right-decoration {
             position: absolute;
-            top: 5px;
-            right: 5px;
+            top: 0;
+            right: 0;
             width: 380px;
             height: auto;
             z-index: 9999;
@@ -45,7 +45,6 @@
             visibility: visible !important;
         }
 
-        /* ✅ Logo Bar - NO CHANGES */
         .top-logo-bar {
             width: 100%;
             background: #ffffff;
@@ -66,7 +65,6 @@
             display: block;
         }
 
-        /* ✅ Layout - NO CHANGES */
         .content-wrapper {
             display: flex;
             flex: 1;
@@ -211,7 +209,6 @@
             background: #ffffff;
         }
 
-        /* ✅ ONLY CHANGE HERE: 2 cards per row */
         .tests-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -365,7 +362,7 @@
             display: block;
         }
 
-        /* Mobile fix - no changes to design */
+        /* ✅ Mobile adjustments */
         @media (max-width: 768px) {
             .content-wrapper {
                 flex-direction: column;
@@ -392,12 +389,14 @@
             }
             .top-right-decoration {
                 width: 200px;
+                top: 0;
+                right: 0;
             }
             .tests-grid {
-                grid-template-columns: 1fr; /* 1 per row on mobile */
+                grid-template-columns: 1fr;
             }
             .flag-decoration {
-                width: 45px; /* Even smaller on mobile */
+                width: 45px;
             }
         }
     </style>
@@ -437,11 +436,8 @@
                 <button class="tab" data-target="speaking">🎤 Speaking</button>
             </div>
 
-            <!-- ✅ READING SECTION - ALL 4 TESTS, 2 PER ROW -->
             <div class="section-content active" id="reading">
                 <div class="tests-grid">
-
-                    <!-- ✅ CAMBRIDGE 10 TEST 1 - ORIGINAL, NO CHANGES -->
                     <div class="test-card">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 10 Test 1</h3>
@@ -450,17 +446,14 @@
                             <span>⏱️ 60 min</span>
                             <span>❓ 40 questions</span>
                         </div>
-                        
                         <div style="margin: 12px 0; display: flex; flex-direction: row; gap: 8px; width: 100%;">
                             <a href="reading/reading-stepwells.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Stepwells</a>
                             <a href="reading/reading-transport.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Transport</a>
                             <a href="reading/reading-innovation.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Innovation</a>
                         </div>
-
                         <button class="btn-start toggle-answers" style="background: #fef2f2; color: #dc2626; border:1px solid #fecaca; margin: 8px 0;">
                             👁️ Show / Hide Answers
                         </button>
-
                         <div class="answers-container">
                             <h4>📖 Reading Answers — Cambridge 10 Test 1</h4>
                             <div class="answers-list">
@@ -472,11 +465,9 @@
                                 27. C&nbsp;&nbsp;28. A&nbsp;&nbsp;29. D&nbsp;&nbsp;30. B&nbsp;&nbsp;31. G&nbsp;&nbsp;32. E&nbsp;&nbsp;33. A&nbsp;&nbsp;34. F&nbsp;&nbsp;35. B&nbsp;&nbsp;36. NO&nbsp;&nbsp;37. YES&nbsp;&nbsp;38. NOT GIVEN&nbsp;&nbsp;39. NOT GIVEN&nbsp;&nbsp;40. NO
                             </div>
                         </div>
-
                         <a href="reading/C10T1.html" class="btn-start">Start Full Test →</a>
                     </div>
 
-                    <!-- ✅ CAMBRIDGE 10 TEST 2 -->
                     <div class="test-card">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 10 Test 2</h3>
@@ -485,17 +476,14 @@
                             <span>⏱️ 60 min</span>
                             <span>❓ 40 questions</span>
                         </div>
-                        
                         <div style="margin: 12px 0; display: flex; flex-direction: row; gap: 8px; width: 100%;">
                             <a href="reading/reading-passage1-C10T2.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 1</a>
                             <a href="reading/reading-passage2-C10T2.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 2</a>
                             <a href="reading/reading-passage3-C10T2.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 3</a>
                         </div>
-
                         <button class="btn-start toggle-answers" style="background: #fef2f2; color: #dc2626; border:1px solid #fecaca; margin: 8px 0;">
                             👁️ Show / Hide Answers
                         </button>
-
                         <div class="answers-container">
                             <h4>📖 Reading Answers — Cambridge 10 Test 2</h4>
                             <div class="answers-list">
@@ -507,11 +495,9 @@
                                 27. &nbsp;&nbsp;28. &nbsp;&nbsp;29. &nbsp;&nbsp;30. &nbsp;&nbsp;31. &nbsp;&nbsp;32. &nbsp;&nbsp;33. &nbsp;&nbsp;34. &nbsp;&nbsp;35. &nbsp;&nbsp;36. &nbsp;&nbsp;37. &nbsp;&nbsp;38. &nbsp;&nbsp;39. &nbsp;&nbsp;40.
                             </div>
                         </div>
-
                         <a href="reading/C10T2.html" class="btn-start">Start Full Test →</a>
                     </div>
 
-                    <!-- ✅ CAMBRIDGE 10 TEST 3 -->
                     <div class="test-card">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 10 Test 3</h3>
@@ -520,17 +506,14 @@
                             <span>⏱️ 60 min</span>
                             <span>❓ 40 questions</span>
                         </div>
-                        
                         <div style="margin: 12px 0; display: flex; flex-direction: row; gap: 8px; width: 100%;">
                             <a href="reading/reading-passage1-C10T3.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 1</a>
                             <a href="reading/reading-passage2-C10T3.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 2</a>
                             <a href="reading/reading-passage3-C10T3.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 3</a>
                         </div>
-
                         <button class="btn-start toggle-answers" style="background: #fef2f2; color: #dc2626; border:1px solid #fecaca; margin: 8px 0;">
                             👁️ Show / Hide Answers
                         </button>
-
                         <div class="answers-container">
                             <h4>📖 Reading Answers — Cambridge 10 Test 3</h4>
                             <div class="answers-list">
@@ -542,11 +525,9 @@
                                 27. &nbsp;&nbsp;28. &nbsp;&nbsp;29. &nbsp;&nbsp;30. &nbsp;&nbsp;31. &nbsp;&nbsp;32. &nbsp;&nbsp;33. &nbsp;&nbsp;34. &nbsp;&nbsp;35. &nbsp;&nbsp;36. &nbsp;&nbsp;37. &nbsp;&nbsp;38. &nbsp;&nbsp;39. &nbsp;&nbsp;40.
                             </div>
                         </div>
-
                         <a href="reading/C10T3.html" class="btn-start">Start Full Test →</a>
                     </div>
 
-                    <!-- ✅ CAMBRIDGE 10 TEST 4 -->
                     <div class="test-card">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 10 Test 4</h3>
@@ -555,17 +536,14 @@
                             <span>⏱️ 60 min</span>
                             <span>❓ 40 questions</span>
                         </div>
-                        
                         <div style="margin: 12px 0; display: flex; flex-direction: row; gap: 8px; width: 100%;">
                             <a href="reading/reading-passage1-C10T4.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 1</a>
                             <a href="reading/reading-passage2-C10T4.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 2</a>
                             <a href="reading/reading-passage3-C10T4.html" class="btn-start" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 12px; padding: 6px 0; flex: 1; margin: 0;">📄 Passage 3</a>
                         </div>
-
                         <button class="btn-start toggle-answers" style="background: #fef2f2; color: #dc2626; border:1px solid #fecaca; margin: 8px 0;">
                             👁️ Show / Hide Answers
                         </button>
-
                         <div class="answers-container">
                             <h4>📖 Reading Answers — Cambridge 10 Test 4</h4>
                             <div class="answers-list">
@@ -577,14 +555,11 @@
                                 27. &nbsp;&nbsp;28. &nbsp;&nbsp;29. &nbsp;&nbsp;30. &nbsp;&nbsp;31. &nbsp;&nbsp;32. &nbsp;&nbsp;33. &nbsp;&nbsp;34. &nbsp;&nbsp;35. &nbsp;&nbsp;36. &nbsp;&nbsp;37. &nbsp;&nbsp;38. &nbsp;&nbsp;39. &nbsp;&nbsp;40.
                             </div>
                         </div>
-
                         <a href="reading/C10T4.html" class="btn-start">Start Full Test →</a>
                     </div>
-
                 </div>
             </div>
 
-            <!-- ✅ LISTENING SECTION -->
             <div class="section-content" id="listening">
                 <div class="tests-grid">
                     <div class="test-card">
@@ -630,7 +605,6 @@
                 </div>
             </div>
 
-            <!-- ✅ WRITING SECTION -->
             <div class="section-content" id="writing">
                 <div class="tests-grid">
                     <div class="test-card">
@@ -676,7 +650,6 @@
                 </div>
             </div>
 
-            <!-- ✅ SPEAKING SECTION -->
             <div class="section-content" id="speaking">
                 <div class="tests-grid">
                     <div class="test-card">
