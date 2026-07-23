@@ -553,9 +553,8 @@
             }
         }
 
-        // ✅ FULLY FIXED: Reliable check for ALL question types
+        // ✅ FINAL FIX: Checks ACTUAL input values directly — just like your working code
         function updateNavStatus() {
-            const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`)) || {};
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
             
             QUESTIONS_ON_PAGE.forEach(qNum => {
@@ -563,16 +562,24 @@
                 if (!btn) return;
                 
                 btn.classList.remove('answered', 'flagged');
-                
-                // Always get answer safely as string
-                const answer = String(answers[`q${qNum}`] || '').trim();
-                if (answer !== '') {
-                    btn.classList.add('answered');
+
+                // Check radio first
+                const radios = document.getElementsByName(`q${qNum}`);
+                let hasAnswer = false;
+                if (radios.length > 0) {
+                    for (let r of radios) {
+                        if (r.checked) { hasAnswer = true; break; }
+                    }
+                } else {
+                    // Check text input directly — no localStorage guesswork
+                    const input = document.querySelector(`input[name="q${qNum}"]`);
+                    if (input && input.value.trim() !== '') {
+                        hasAnswer = true;
+                    }
                 }
-                
-                if (flags[qNum]) {
-                    btn.classList.add('flagged');
-                }
+
+                if (hasAnswer) btn.classList.add('answered');
+                if (flags[qNum]) btn.classList.add('flagged');
             });
         }
 
@@ -585,13 +592,11 @@
             updateNavStatus();
         }
 
-        // ✅ FULLY FIXED: Saves both radio AND text inputs correctly
         function saveAnswers() {
             let answers = {};
             for (let q = 1; q <= 13; q++) {
                 const radios = document.getElementsByName(`q${q}`);
                 if (radios.length > 0) {
-                    // Radio questions (5-10)
                     for (let r of radios) {
                         if (r.checked) {
                             answers[`q${q}`] = r.value;
@@ -599,11 +604,8 @@
                         }
                     }
                 } else {
-                    // Text questions (1-4, 11-13)
                     const input = document.querySelector(`input[name="q${q}"]`);
-                    if (input) {
-                        answers[`q${q}`] = input.value;
-                    }
+                    if (input) answers[`q${q}`] = input.value;
                 }
             }
             localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
@@ -623,6 +625,7 @@
                     if (input) input.value = answers[key];
                 }
             }
+            // ✅ Update nav AFTER loading answers
             updateNavStatus();
         }
 
