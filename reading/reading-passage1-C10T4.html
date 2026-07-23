@@ -74,7 +74,7 @@
             <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear All Highlights</button>
         </div>
 
-        <div class="questions-column">
+        <div class="questions-column" id="questionsArea">
             <div class="questions-section">
                 <h2>Questions 1–6: Note Completion</h2>
                 <div class="notes-box">
@@ -203,12 +203,11 @@
             q7: 'TRUE', q8: 'FALSE', q9: 'TRUE', q10: 'TRUE', q11: 'NOT GIVEN', q12: 'FALSE', q13: 'FALSE'
         };
         const CURRENT_PAGE_QUESTIONS = [1,2,3,4,5,6,7,8,9,10,11,12,13];
-        const GLOBAL_SAVE_KEY = 'C10T4_all_answers_flags'; // SAME ON ALL PAGES
+        const GLOBAL_SAVE_KEY = 'C10T4_all_answers_flags';
         const passageId = 'C10T4P1';
 
         let currentRange = null, lastNoteId = 0, activeNote = null, offsetX, offsetY;
 
-        // === BUILD STATUS BAR FROM GLOBAL DATA ===
         function buildStatusBar() {
             const bar = document.getElementById('statusBar');
             bar.innerHTML = '';
@@ -234,7 +233,6 @@
             }
         }
 
-        // === UPDATE STATUS BAR COLORS ===
         function updateNavStatus() {
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{"answers":{},"flags":{}}');
             saved.answers = saved.answers || {};
@@ -253,7 +251,6 @@
             if (input) input.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // === FLAG SAVE ===
         function toggleFlag(qNum) {
             const flagBtn = document.getElementById('flag' + qNum);
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{"answers":{},"flags":{}}');
@@ -264,7 +261,6 @@
             updateNavStatus();
         }
 
-        // === SAVE ANSWERS (CROSS‑PAGE SAFE) ===
         function saveAnswers() {
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{"answers":{},"flags":{}}');
             saved.answers = saved.answers || {};
@@ -279,7 +275,6 @@
             updateNavStatus();
         }
 
-        // === LOAD ANSWERS ===
         function loadAnswers() {
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{"answers":{},"flags":{}}');
             saved.answers = saved.answers || {};
@@ -293,44 +288,127 @@
             }
         }
 
-        // === HIGHLIGHT & NOTE FEATURES ===
+        // === RIGHT‑CLICK MENU NOW WORKS ON PASSAGE + QUESTIONS ===
         const passageArea = document.getElementById('passageArea');
+        const questionsArea = document.getElementById('questionsArea');
         const contextMenu = document.getElementById('contextMenu');
-        passageArea.addEventListener('contextmenu', e => {
-            const sel = window.getSelection();
-            if (!sel || sel.isCollapsed || sel.toString().trim() === '') { contextMenu.style.display = 'none'; return; }
-            e.preventDefault(); currentRange = sel.getRangeAt(0);
-            const rect = currentRange.getBoundingClientRect();
-            contextMenu.style.left = (rect.left + window.scrollX) + 'px';
-            contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
-            contextMenu.style.display = 'block';
+
+        [passageArea, questionsArea].forEach(area => {
+            area.addEventListener('contextmenu', e => {
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || sel.toString().trim() === '') {
+                    contextMenu.style.display = 'none';
+                    return;
+                }
+                e.preventDefault();
+                currentRange = sel.getRangeAt(0);
+                const rect = currentRange.getBoundingClientRect();
+                contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+                contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+                contextMenu.style.display = 'block';
+            });
         });
+
         document.addEventListener('click', () => contextMenu.style.display = 'none');
-        document.getElementById('menuHighlight').addEventListener('click', () => {
+
+        document.getElementById('menuHighlight').onclick = () => {
             if (!currentRange) return;
-            const span = document.createElement('span'); span.className = 'highlight'; span.textContent = currentRange.toString();
-            currentRange.deleteContents(); currentRange.insertNode(span); window.getSelection().removeAllRanges(); currentRange = null; saveHighlights();
-        });
-        document.getElementById('menuRemove').addEventListener('click', () => {
-            if (!currentRange) return; try { document.querySelectorAll('.highlight').forEach(span => { if (currentRange.intersectsNode(span)) span.outerHTML = span.textContent; }); } catch(e) {}
-            window.getSelection().removeAllRanges(); currentRange = null; saveHighlights();
-        });
-        document.getElementById('menuNote').addEventListener('click', () => {
-            if (!currentRange) return; const rect = currentRange.getBoundingClientRect(); const noteId = 'note_' + (++lastNoteId);
-            const note = document.createElement('div'); note.className = 'sticky-note'; note.id = noteId;
+            const span = document.createElement('span');
+            span.className = 'highlight';
+            span.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(span);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        };
+
+        document.getElementById('menuRemove').onclick = () => {
+            if (!currentRange) return;
+            try {
+                document.querySelectorAll('.highlight').forEach(span => {
+                    if (currentRange.intersectsNode(span)) span.outerHTML = span.textContent;
+                });
+            } catch(e) {}
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveHighlights();
+        };
+
+        document.getElementById('menuNote').onclick = () => {
+            if (!currentRange) return;
+            const rect = currentRange.getBoundingClientRect();
+            const noteId = 'note_' + (++lastNoteId);
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            note.id = noteId;
             note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div><textarea class="note-textarea" placeholder="Type your note..." oninput="saveNotes()"></textarea>`;
-            note.style.left = (rect.right + window.scrollX + 8) + 'px'; note.style.top = (rect.top + window.scrollY) + 'px';
-            document.body.appendChild(note); makeNoteDraggable(note); window.getSelection().removeAllRanges(); currentRange = null; saveNotes();
+            note.style.left = (rect.right + window.scrollX + 8) + 'px';
+            note.style.top = (rect.top + window.scrollY) + 'px';
+            document.body.appendChild(note);
+            makeNoteDraggable(note);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+            saveNotes();
+        };
+
+        function makeNoteDraggable(note) {
+            note.addEventListener('mousedown', e => {
+                if (e.target.closest('.note-textarea') || e.target.classList.contains('note-close')) return;
+                activeNote = note;
+                offsetX = e.clientX - note.getBoundingClientRect().left;
+                offsetY = e.clientY - note.getBoundingClientRect().top;
+                note.style.zIndex = 10000;
+            });
+        }
+        document.addEventListener('mousemove', e => {
+            if (!activeNote) return;
+            activeNote.style.left = (e.clientX - offsetX + window.scrollX) + 'px';
+            activeNote.style.top = (e.clientY - offsetY + window.scrollY) + 'px';
         });
-        function makeNoteDraggable(note) { note.addEventListener('mousedown', e => { if (e.target.closest('.note-textarea') || e.target.classList.contains('note-close')) return; activeNote = note; offsetX = e.clientX - note.getBoundingClientRect().left; offsetY = e.clientY - note.getBoundingClientRect().top; note.style.zIndex = 10000; }); }
-        document.addEventListener('mousemove', e => { if (!activeNote) return; activeNote.style.left = (e.clientX - offsetX + window.scrollX) + 'px'; activeNote.style.top = (e.clientY - offsetY + window.scrollY) + 'px'; });
-        document.addEventListener('mouseup', () => { if (activeNote) { saveNotes(); activeNote.style.zIndex = 9998; activeNote = null; } });
+        document.addEventListener('mouseup', () => {
+            if (activeNote) {
+                saveNotes();
+                activeNote.style.zIndex = 9998;
+                activeNote = null;
+            }
+        });
         function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
-        function saveHighlights() { localStorage.setItem(`${passageId}_highlights`, passageArea.innerHTML); }
-        function loadHighlights() { const s = localStorage.getItem(`${passageId}_highlights`); if (s) passageArea.innerHTML = s; }
-        function saveNotes() { const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({id:n.id, left:n.style.left, top:n.style.top, text:n.querySelector('.note-textarea').value})); localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes)); }
-        function loadNotes() { const s = localStorage.getItem(`${passageId}_notes`); if (!s) return; JSON.parse(s).forEach(n => { const note = document.createElement('div'); note.className='sticky-note'; note.id=n.id; note.innerHTML=`<div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea">${n.text}</textarea>`; note.style.left=n.left; note.style.top=n.top; document.body.appendChild(note); makeNoteDraggable(note); }); }
-        function clearHighlights() { document.querySelectorAll('.highlight').forEach(s => s.outerHTML = s.textContent); localStorage.removeItem(`${passageId}_highlights`); }
+        function saveHighlights() {
+            localStorage.setItem(`${passageId}_highlights_passage`, passageArea.innerHTML);
+            localStorage.setItem(`${passageId}_highlights_questions`, questionsArea.innerHTML);
+        }
+        function loadHighlights() {
+            const p = localStorage.getItem(`${passageId}_highlights_passage`);
+            const q = localStorage.getItem(`${passageId}_highlights_questions`);
+            if (p) passageArea.innerHTML = p;
+            if (q) questionsArea.innerHTML = q;
+        }
+        function saveNotes() {
+            const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
+                id:n.id, left:n.style.left, top:n.style.top, text:n.querySelector('.note-textarea').value
+            }));
+            localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes));
+        }
+        function loadNotes() {
+            const s = localStorage.getItem(`${passageId}_notes`);
+            if (!s) return;
+            JSON.parse(s).forEach(n => {
+                const note = document.createElement('div');
+                note.className='sticky-note';
+                note.id=n.id;
+                note.innerHTML=`<div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea">${n.text}</textarea>`;
+                note.style.left=n.left;
+                note.style.top=n.top;
+                document.body.appendChild(note);
+                makeNoteDraggable(note);
+            });
+        }
+        function clearHighlights() {
+            document.querySelectorAll('.highlight').forEach(s => s.outerHTML = s.textContent);
+            localStorage.removeItem(`${passageId}_highlights_passage`);
+            localStorage.removeItem(`${passageId}_highlights_questions`);
+        }
 
         function toggleAnswers() { const b = document.getElementById('answersBox'); b.style.display = b.style.display === 'block' ? 'none' : 'block'; }
         function showStudentAnswers() {
@@ -349,7 +427,9 @@
             localStorage.removeItem(GLOBAL_SAVE_KEY);
             for (const q of CURRENT_PAGE_QUESTIONS) { document.querySelector(`[data-q="${q}"]`).value = ''; document.getElementById(`flag${q}`).classList.remove('flagged'); }
             clearHighlights(); document.querySelectorAll('.sticky-note').forEach(n => n.remove());
-            localStorage.removeItem(`${passageId}_highlights`); localStorage.removeItem(`${passageId}_notes`);
+            localStorage.removeItem(`${passageId}_highlights_passage`);
+            localStorage.removeItem(`${passageId}_highlights_questions`);
+            localStorage.removeItem(`${passageId}_notes`);
             buildStatusBar();
         }
 
