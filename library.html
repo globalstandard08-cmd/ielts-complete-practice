@@ -21,6 +21,18 @@
             position: relative;
         }
 
+        /* ✅ Flag - Upper left, below background1 */
+        .flag-decoration {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: auto;
+            height: auto;
+            z-index: 9998;
+            display: block !important;
+            visibility: visible !important;
+        }
+
         /* ✅ Background Decoration - EXACTLY AS ORIGINAL */
         .top-right-decoration {
             position: absolute;
@@ -389,6 +401,7 @@
 </head>
 <body>
 
+    <img src="flag.jpg" alt="Flag" class="flag-decoration">
     <img src="background1.png" alt="Decoration" class="top-right-decoration">
 
     <div class="top-logo-bar">
