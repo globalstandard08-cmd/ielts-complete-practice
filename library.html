@@ -21,12 +21,12 @@
             position: relative;
         }
 
-        /* ✅ Flag - Upper left, below background1 */
+        /* ✅ Flag - Fixed small size, upper left, below background1 */
         .flag-decoration {
             position: absolute;
-            top: 5px;
-            left: 5px;
-            width: auto;
+            top: 8px;
+            left: 8px;
+            width: 60px; /* ✅ Small fixed size */
             height: auto;
             z-index: 9998;
             display: block !important;
@@ -395,6 +395,9 @@
             }
             .tests-grid {
                 grid-template-columns: 1fr; /* 1 per row on mobile */
+            }
+            .flag-decoration {
+                width: 45px; /* Even smaller on mobile */
             }
         }
     </style>
