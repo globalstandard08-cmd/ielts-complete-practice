@@ -62,7 +62,7 @@
             text-align: center;
         }
 
-        .passage-text p {
+        .passage-text p, .question-block p, .options-list, .options label {
             margin-bottom: 18px;
             font-size: 15px;
             line-height: 1.8;
@@ -340,7 +340,6 @@
             background: #ffffff;
         }
 
-        /* Responsive layout for mobile */
         @media (max-width: 900px) {
             .main-wrapper {
                 flex-direction: column;
@@ -588,10 +587,12 @@
 
         const contextMenu = document.getElementById('contextMenu');
         const passageText = document.getElementById('passageText');
+        const questionsArea = document.getElementById('questionsArea');
 
+        // FIX: Now works on BOTH passage AND questions
         document.addEventListener('contextmenu', e => {
             const sel = window.getSelection();
-            if (!sel.isCollapsed && passageText.contains(e.target)) {
+            if (!sel.isCollapsed && (passageText.contains(e.target) || questionsArea.contains(e.target))) {
                 e.preventDefault();
                 currentRange = sel.getRangeAt(0);
                 contextMenu.style.left = `${e.pageX}px`;
@@ -637,12 +638,25 @@
         }
 
         function saveHighlights() {
-            localStorage.setItem('C10T4P3_highlights', passageText.innerHTML);
+            localStorage.setItem('C10T4P3_highlights', document.body.innerHTML);
         }
 
         function loadHighlights() {
             const saved = localStorage.getItem('C10T4P3_highlights');
-            if (saved) passageText.innerHTML = saved;
+            if (saved) document.body.innerHTML = saved;
+            // Re-bind events after loading saved highlights
+            rebindEvents();
+        }
+
+        function rebindEvents() {
+            document.getElementById('menuHighlight').addEventListener('click', addHighlight);
+            document.getElementById('menuRemoveHighlight').addEventListener('click', removeHighlight);
+            document.getElementById('menuAddNote').addEventListener('click', addNote);
+            buildQuestionNav();
+            document.querySelectorAll('input[type="radio"], input[type="text"]').forEach(el => {
+                el.addEventListener('change', saveAnswers);
+                el.addEventListener('input', saveAnswers);
+            });
         }
 
         function addNote() {
@@ -732,6 +746,7 @@
 
         function buildQuestionNav() {
             const container = document.getElementById('questionNavContainer');
+            if (!container) return;
             container.innerHTML = '';
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
             saved.answers = saved.answers || {};
@@ -812,7 +827,7 @@
 
         function toggleAnswers() {
             const box = document.getElementById('answersBox');
-            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+            if (box) box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
         function showStudentAnswers() {
@@ -820,6 +835,7 @@
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
             const box = document.getElementById('studentAnswersBox');
             const resultDiv = document.getElementById('studentResult');
+            if (!box || !resultDiv) return;
             let html = '';
             let score = 0;
 
