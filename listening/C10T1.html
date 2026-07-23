@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IELTS Listening - C10T1 Part 1</title>
+    <title>IELTS Listening - Part 1</title>
     <style>
         * {
             margin: 0;
@@ -17,10 +17,6 @@
             padding: 20px;
             line-height: 1.7;
             position: relative;
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            -ms-user-select: text;
-            user-select: text;
         }
 
         .container {
@@ -181,7 +177,7 @@
             flex-wrap: wrap;
         }
 
-        .show-btn, .clear-btn {
+        .show-btn, .clear-all-btn {
             background-color: #1f3a5f;
             color: white;
             border: none;
@@ -191,7 +187,7 @@
             font-size: 14px;
         }
 
-        .clear-btn {
+        .clear-all-btn {
             background-color: #dc2626;
         }
 
@@ -199,11 +195,10 @@
             background-color: #2e568c;
         }
 
-        .clear-btn:hover {
+        .clear-all-btn:hover {
             background-color: #b91c1c;
         }
 
-        /* --- Updated with Part labels --- */
         .question-status {
             display: flex;
             flex-wrap: wrap;
@@ -218,7 +213,6 @@
             font-size: 12px;
         }
 
-        /* Part label style */
         .part-label {
             font-size: 11px;
             font-weight: bold;
@@ -227,7 +221,6 @@
             margin-left: 8px;
         }
 
-        /* Gap between parts */
         .part-separator {
             width: 12px;
             height: 24px;
@@ -247,40 +240,28 @@
             color: #333;
         }
 
-        /* Current part = darker, clear */
         .q-indicator.current {
             background: #d9dce1;
             color: #000;
             border-color: #b0b4b9;
         }
 
-        /* Other parts = lighter gray */
         .q-indicator.other {
             background: #efefef;
             color: #999;
             border-color: #e5e7eb;
         }
 
-        /* Answered = green */
         .q-indicator.answered {
             background: #10b981;
             color: white;
             border-color: #10b981;
         }
 
-        /* Navigation area */
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-
         .nav-buttons {
             display: flex;
-            gap: 15px;
+            justify-content: space-between;
+            margin-top: 20px;
         }
 
         .nav-btn {
@@ -303,78 +284,85 @@
             background-color: #2e568c;
         }
 
-        /* Back to Main Page button */
-        .back-main-btn {
-            background-color: #6b7280;
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 4px;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.2s;
-        }
-
-        .back-main-btn:hover {
-            background-color: #4b5563;
-        }
-
-        /* --- UPDATED: Darker, clearer highlight --- */
+        /* --- Highlight & Context Menu --- */
         .user-highlight {
-            background-color: #ffd700; /* Golden / dark yellow */
+            background-color: #ffd700;
             padding: 2px 4px;
             border-radius: 2px;
             cursor: pointer;
-            display: inline;
             color: #000;
+            display: inline;
         }
 
-        .highlight-tool {
+        .context-menu {
             position: absolute;
             background: #fff;
-            border: 1px solid #1f3a5f;
-            border-radius: 50%;
-            width: 34px;
-            height: 34px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-            z-index: 9999;
-            display: none;
-            cursor: pointer;
-            font-size: 18px;
-            color: #1f3a5f;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .highlight-tool:hover {
-            background: #eef2f7;
-        }
-
-        .remove-highlight {
-            position: absolute;
-            background: #fff;
-            border: 1px solid #dc3545;
+            border: 1px solid #ccc;
             border-radius: 4px;
-            padding: 5px 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             z-index: 9999;
             display: none;
+            min-width: 160px;
+        }
+        .context-menu div {
+            padding: 10px 14px;
             cursor: pointer;
             font-size: 14px;
-            color: #dc3545;
-            font-weight: bold;
+        }
+        .context-menu div:hover {
+            background: #f0f0f0;
         }
 
-        .remove-highlight:hover {
-            background: #ffebee;
+        /* --- Draggable Sticky Note --- */
+        .sticky-note {
+            position: absolute;
+            width: 170px;
+            min-height: 70px;
+            background: #fff9c4;
+            border: 1px solid #fbc02d;
+            border-radius: 4px;
+            padding: 8px;
+            box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+            z-index: 9998;
+            font-size: 13px;
+            cursor: move;
+            user-select: none;
+        }
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #f57f17;
+            cursor: grab;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #f57f17;
+        }
+        .note-textarea {
+            width: 100%;
+            height: 50px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 13px;
+            cursor: text;
         }
     </style>
 </head>
 <body>
-    <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
-    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
+    <!-- Right-click Context Menu -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+    </div>
 
     <div class="container">
         <div class="logo-section">
@@ -382,15 +370,15 @@
         </div>
 
         <div class="header-bar">
-            <span>LISTENING TEST - C10 TEST 1 PART 1</span>
+            <span>LISTENING TEST - PART 1</span>
             <span style="font-size:15px; opacity:0.9;">Exam Mode</span>
         </div>
 
         <div class="audio-player">
-            <h3>Play Recording</h3>
+            <h3>Play Recording - Part 1</h3>
             <audio controls preload="auto">
-                <source src="part1.mp3" type="audio/mpeg">
                 <source src="https://raw.githubusercontent.com/globalstandard08-cmd/C10T1listening/main/part1.mp3" type="audio/mpeg">
+                <source src="part1.mp3" type="audio/mpeg">
                 Your browser does not support audio playback.
             
         </div>
@@ -490,9 +478,7 @@
                 </div>
             </div>
 
-            <!-- --- Question Bar with Part labels --- -->
             <div class="question-status">
-                <!-- Part 1: 1–10 -->
                 <span class="part-label">Part 1</span>
                 <div class="q-indicator current" data-q="1">1</div>
                 <div class="q-indicator current" data-q="2">2</div>
@@ -505,10 +491,8 @@
                 <div class="q-indicator current" data-q="9">9</div>
                 <div class="q-indicator current" data-q="10">10</div>
 
-                <!-- Gap between parts -->
                 <div class="part-separator"></div>
 
-                <!-- Part 2: 11–20 -->
                 <span class="part-label">Part 2</span>
                 <div class="q-indicator other" data-q="11">11</div>
                 <div class="q-indicator other" data-q="12">12</div>
@@ -521,10 +505,8 @@
                 <div class="q-indicator other" data-q="19">19</div>
                 <div class="q-indicator other" data-q="20">20</div>
 
-                <!-- Gap between parts -->
                 <div class="part-separator"></div>
 
-                <!-- Part 3: 21–30 -->
                 <span class="part-label">Part 3</span>
                 <div class="q-indicator other" data-q="21">21</div>
                 <div class="q-indicator other" data-q="22">22</div>
@@ -537,10 +519,8 @@
                 <div class="q-indicator other" data-q="29">29</div>
                 <div class="q-indicator other" data-q="30">30</div>
 
-                <!-- Gap between parts -->
                 <div class="part-separator"></div>
 
-                <!-- Part 4: 31–40 -->
                 <span class="part-label">Part 4</span>
                 <div class="q-indicator other" data-q="31">31</div>
                 <div class="q-indicator other" data-q="32">32</div>
@@ -558,7 +538,7 @@
                 <h3>Answers for Section 1</h3>
                 <div class="btn-row">
                     <button class="show-btn" onclick="toggleAnswers()">Show / Hide Answers</button>
-                    <button class="clear-btn" onclick="clearAllAnswers()">Clear All Answers</button>
+                    <button class="clear-all-btn" onclick="clearAll()">Clear All</button>
                 </div>
                 <div class="answers-content" id="answers">
                     <strong>Answers:</strong><br>
@@ -575,23 +555,18 @@
                 </div>
             </div>
 
-            <!-- Navigation with Back to Main Page button -->
-            <div class="nav-container">
-                <a href="index.html" class="back-main-btn">← Back to Main Page</a>
-                <div class="nav-buttons">
-                    <a href="listening-intro.html" class="nav-btn">←</a>
-                    <a href="listening-part2.html" class="nav-btn">→</a>
-                </div>
+            <div class="nav-buttons">
+                <a href="listening-intro.html" class="nav-btn">←</a>
+                <a href="listening-part2.html" class="nav-btn">→</a>
             </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Load saved answers
             for (let i = 1; i <= 10; i++) {
                 const field = document.getElementById('q' + i);
-                const saved = localStorage.getItem('C10T1_q' + i);
+                const saved = localStorage.getItem('listening_c10t1_q' + i);
                 if (saved) {
                     field.value = saved;
                     field.classList.add('filled');
@@ -599,7 +574,7 @@
                 }
                 field.addEventListener('input', function() {
                     const val = this.value.trim();
-                    localStorage.setItem('C10T1_q' + i, val);
+                    localStorage.setItem('listening_c10t1_q' + i, val);
                     if (val) {
                         this.classList.add('filled');
                         markAnswered(i);
@@ -609,112 +584,121 @@
                     }
                 });
             }
+        });
 
-            // --- NEW: Clear All Answers function ---
-            window.clearAllAnswers = function() {
-                if (!confirm("Clear all answers for this section?")) return;
-                for (let i = 1; i <= 10; i++) {
-                    localStorage.removeItem('C10T1_q' + i);
-                    const field = document.getElementById('q' + i);
-                    if (field) {
-                        field.value = '';
-                        field.classList.remove('filled');
-                    }
-                    unmarkAnswered(i);
+        function toggleAnswers() {
+            const ansDiv = document.getElementById('answers');
+            ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function markAnswered(qNum) {
+            const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+            if (el) el.classList.add('answered');
+        }
+        function unmarkAnswered(qNum) {
+            const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+            if (el) el.classList.remove('answered');
+        }
+
+        function clearAll() {
+            if (!confirm("Clear ALL: your answers, highlights, and notes? This cannot be undone.")) return;
+            for (let i = 1; i <= 10; i++) {
+                const field = document.getElementById('q' + i);
+                field.value = '';
+                field.classList.remove('filled');
+                unmarkAnswered(i);
+                localStorage.removeItem('listening_c10t1_q' + i);
+            }
+            document.querySelectorAll('.user-highlight').forEach(span => {
+                span.replaceWith(document.createTextNode(span.textContent));
+            });
+            highlightArea.normalize();
+            document.querySelectorAll('.sticky-note').forEach(note => note.remove());
+        }
+
+        const highlightArea = document.getElementById('highlightArea');
+        const contextMenu = document.getElementById('contextMenu');
+        let currentRange = null;
+        let lastNoteId = 0;
+        let draggedNote = null, offsetX = 0, offsetY = 0;
+
+        highlightArea.addEventListener('contextmenu', function(e) {
+            const sel = window.getSelection();
+            if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+                contextMenu.style.display = 'none';
+                return;
+            }
+            e.preventDefault();
+            currentRange = sel.getRangeAt(0);
+            const rect = currentRange.getBoundingClientRect();
+            contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+            contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+            contextMenu.style.display = 'block';
+        });
+
+        document.addEventListener('click', () => contextMenu.style.display = 'none');
+
+        document.getElementById('menuHighlight').addEventListener('click', function() {
+            if (!currentRange) return;
+            const span = document.createElement('span');
+            span.className = 'user-highlight';
+            span.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(span);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+        });
+
+        document.getElementById('menuRemove').addEventListener('click', function() {
+            if (!currentRange) return;
+            try {
+                let span = currentRange.commonAncestorContainer;
+                if (span.nodeType === Node.TEXT_NODE) span = span.parentElement;
+                if (span?.classList.contains('user-highlight')) {
+                    span.replaceWith(document.createTextNode(span.textContent));
+                    highlightArea.normalize();
                 }
-            };
+            } catch (e) {}
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+        });
 
-            function toggleAnswers() {
-                const ansDiv = document.getElementById('answers');
-                ansDiv.style.display = ansDiv.style.display === 'block' ? 'none' : 'block';
-            }
+        document.getElementById('menuNote').addEventListener('click', function() {
+            if (!currentRange) return;
+            const rect = currentRange.getBoundingClientRect();
+            const noteId = 'note_' + (++lastNoteId);
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            note.id = noteId;
+            note.innerHTML = `
+                <div class="note-header">Note <span class="note-close" onclick="document.getElementById('${noteId}').remove()">×</span></div>
+                <textarea class="note-textarea" placeholder="Type your note..."></textarea>
+            `;
+            note.style.left = (rect.right + window.scrollX + 10) + 'px';
+            note.style.top = (rect.top + window.scrollY) + 'px';
+            document.body.appendChild(note);
+            window.getSelection().removeAllRanges();
+            currentRange = null;
+        });
 
-            function markAnswered(qNum) {
-                const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
-                if (el) el.classList.add('answered');
-            }
-            function unmarkAnswered(qNum) {
-                const el = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
-                if (el) el.classList.remove('answered');
-            }
-
-            // Highlight system
-            const highlightArea = document.getElementById('highlightArea');
-            const highlightTool = document.getElementById('highlightTool');
-            const removeTool = document.getElementById('removeTool');
-            let currentRange = null;
-
-            // Right-click to show pencil
-            highlightArea.addEventListener('contextmenu', function(e) {
+        // --- Draggable Notes ---
+        document.addEventListener('mousedown', e => {
+            if (e.target.closest('.note-header')) {
+                draggedNote = e.target.closest('.sticky-note');
+                draggedNote.style.cursor = 'grabbing';
+                offsetX = e.pageX - draggedNote.getBoundingClientRect().left - window.scrollX;
+                offsetY = e.pageY - draggedNote.getBoundingClientRect().top - window.scrollY;
                 e.preventDefault();
-                const sel = window.getSelection();
-                if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
-                showPencil(e.clientX, e.clientY);
-            });
-
-            // Show pencil when selecting text
-            document.addEventListener('mouseup', function() {
-                const sel = window.getSelection();
-                if (!sel || sel.isCollapsed || !sel.toString().trim()) {
-                    highlightTool.style.display = 'none';
-                    return;
-                }
-                const range = sel.getRangeAt(0);
-                if (!highlightArea.contains(range.commonAncestorContainer)) return;
-                const rect = range.getBoundingClientRect();
-                showPencil(rect.left + rect.width / 2, rect.top);
-                currentRange = range;
-            });
-
-            function showPencil(x, y) {
-                highlightTool.style.left = (x + window.scrollX - 17) + 'px';
-                highlightTool.style.top = (y + window.scrollY - 40) + 'px';
-                highlightTool.style.display = 'flex';
             }
-
-            // Apply highlight
-            highlightTool.addEventListener('click', function() {
-                if (!currentRange) return;
-                const span = document.createElement('span');
-                span.className = 'user-highlight';
-                span.textContent = currentRange.toString();
-                currentRange.deleteContents();
-                currentRange.insertNode(span);
-                window.getSelection().removeAllRanges();
-                highlightTool.style.display = 'none';
-                currentRange = null;
-            });
-
-            // Show remove button when clicking existing highlight
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('user-highlight')) {
-                    const rect = e.target.getBoundingClientRect();
-                    removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 30) + 'px';
-                    removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
-                    removeTool.style.display = 'block';
-                    removeTool.dataset.target = e.target;
-                } else if (!removeTool.contains(e.target)) {
-                    removeTool.style.display = 'none';
-                }
-            });
-
-            // Remove highlight on click
-            removeTool.addEventListener('click', function() {
-                const span = this.dataset.target;
-                if (!span || !span.parentNode) return;
-                const text = document.createTextNode(span.textContent);
-                span.parentNode.replaceChild(text, span);
-                span.parentNode.normalize();
-                this.style.display = 'none';
-                delete this.dataset.target;
-            });
-
-            // Hide tools when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target) && !removeTool.contains(e.target)) {
-                    highlightTool.style.display = 'none';
-                }
-            });
+        });
+        document.addEventListener('mousemove', e => {
+            if (!draggedNote) return;
+            draggedNote.style.left = (e.pageX - offsetX) + 'px';
+            draggedNote.style.top = (e.pageY - offsetY) + 'px';
+        });
+        document.addEventListener('mouseup', () => {
+            if (draggedNote) draggedNote.style.cursor = 'move';
+            draggedNote = null;
         });
     </script>
 </body>
