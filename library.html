@@ -52,7 +52,7 @@
             width: 100%;
             background: #ffffff;
             border-bottom: 2px solid #dc2626;
-            padding: 12px 0;
+            padding: 15px 0;
             margin-top: 110px;
             display: flex;
             align-items: center;
@@ -62,11 +62,13 @@
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
         }
 
+        /* ✅ Replaced logo with flag.jpg — BIG SIZE */
         .logo-img {
-            width: 40%;
-            max-width: 350px;
+            width: 60%;
+            max-width: 500px;
             height: auto;
             display: block;
+            object-fit: contain;
         }
 
         .content-wrapper {
@@ -402,6 +404,10 @@
             .top-logo-bar {
                 margin-top: 80px;
             }
+            .logo-img {
+                width: 80%;
+                max-width: 320px;
+            }
             .tests-grid {
                 grid-template-columns: 1fr;
             }
@@ -414,7 +420,8 @@
     <img src="background1.png" alt="Decoration" class="top-right-decoration">
 
     <div class="top-logo-bar">
-        <img src="ielts-logo.png" alt="IELTS Logo" class="logo-img">
+        <!-- ✅ Replaced with flag.jpg, big size -->
+        <img src="flag.jpg" alt="Flag" class="logo-img">
     </div>
 
     <div class="content-wrapper">
