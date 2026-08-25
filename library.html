@@ -9,19 +9,152 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
         body {
             background-color: #fef2f2;
             color: #1a1a1a;
-            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
         }
-        h2 {
+        .top-right-decoration {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 380px;
+            height: auto;
+            z-index: 9999;
+            display: block !important;
+            visibility: visible !important;
+            background: transparent !important;
+            margin: 0;
+            padding: 0;
+        }
+        .top-logo-bar {
+            width: 100%;
+            background: #ffffff;
+            border-bottom: 2px solid #dc2626;
+            padding: 15px 0;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
+        }
+        .logo-img {
+            width: 60%;
+            max-width: 500px;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+        .content-wrapper {
+            display: flex;
+            flex: 1;
+            position: relative;
+            z-index: 10;
+            background-color: #fef2f2;
+        }
+        .sidebar {
+            width: 220px;
+            background: #fef2f2;
+            border-right: 1px solid #fecaca;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 8px rgba(220, 38, 38, 0.08);
+        }
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #991b1b;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin: 0 8px;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        .menu-item.active {
+            background: #ffffff;
             color: #dc2626;
-            margin-bottom: 12px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(220, 38, 38, 0.1);
+        }
+        .menu-item:hover:not(.active) {
+            background: #ffffff;
+            color: #dc2626;
+        }
+        .main-content {
+            flex: 1;
+            padding: 30px 40px;
+            max-width: 820px;
+            background: #ffffff;
+            border-radius: 12px;
+            margin: 15px;
+            box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07);
+        }
+        .page-header {
+            background: #fef2f2;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            border: 1px solid #fecaca;
+        }
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #dc2626;
+        }
+        .page-header p {
+            color: #7f1d1d;
+            font-size: 15px;
+        }
+        .search-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            align-items: center;
+            background: #fef2f2;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #fecaca;
+        }
+        .search-input {
+            flex: 1;
+            max-width: 500px;
+            padding: 10px 14px;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            font-size: 15px;
+            background: #ffffff;
+        }
+        .filter-btn {
+            padding: 10px 16px;
+            border: 1px solid #fecaca;
+            background: #ffffff;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #dc2626;
+            font-weight: 500;
         }
 
-        /* ✅ Book Buttons */
+        /* ✅ CAMBRIDGE BUTTONS — YOUR ORIGINAL STYLE */
         .book-selector-label {
             color: #991b1b;
             font-weight: 600;
@@ -36,31 +169,30 @@
             flex-wrap: wrap;
         }
         .book-btn {
-            padding: 10px 18px;
+            padding: 8px 16px;
             border-radius: 8px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             border: none;
+            transition: all 0.2s;
             background: #fef2f2;
             color: #991b1b;
             border: 1px solid #fecaca;
-            transition: all 0.2s;
         }
         .book-btn.active {
             background: #dc2626;
             color: white;
             border-color: #dc2626;
         }
-        .book-btn:hover:not(.active) {
+        .book-btn:not(.active):hover {
             background: #ffffff;
         }
 
-        /* ✅ Tabs (Reading / Listening / Writing / Speaking) */
         .tabs {
             display: flex;
             gap: 12px;
-            margin-bottom: 30px;
+            margin-bottom: 32px;
             flex-wrap: wrap;
         }
         .tab {
@@ -70,6 +202,7 @@
             font-weight: 600;
             cursor: pointer;
             border: none;
+            transition: all 0.2s;
             background: #fef2f2;
             color: #991b1b;
             border: 1px solid #fecaca;
@@ -77,9 +210,12 @@
         .tab.active {
             background: #dc2626;
             color: white;
+            border-color: #dc2626;
+        }
+        .tab:not(.active):hover {
+            background: #ffffff;
         }
 
-        /* ✅ Test Cards Grid */
         .tests-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -90,182 +226,367 @@
             border-radius: 12px;
             border: 1px solid #fecaca;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
             transition: transform 0.2s;
         }
         .test-card:hover {
             transform: translateY(-2px);
         }
-        /* ✅ THIS HIDDES NON-MATCHING CARDS WHEN YOU CLICK */
+        /* ✅ HIDE RULE — THIS MAKES THE FILTER WORK */
         .test-card.hidden-by-book,
         .section-content.hidden-by-tab {
             display: none !important;
         }
-        .test-card h3 {
-            color: #991b1b;
-            margin-bottom: 8px;
+        .test-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #dc2626;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 4px;
         }
-        .test-card p {
-            color: #7f1d1d;
+        .test-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #991b1b;
+        }
+        .test-desc {
             font-size: 14px;
-            margin-bottom: 10px;
+            color: #7f1d1d;
+            line-height: 1.5;
+        }
+        .test-meta {
+            font-size: 13px;
+            color: #991b1b;
+            display: flex;
+            gap: 16px;
+            margin: 4px 0 12px 0;
         }
         .btn-start {
-            display: block;
-            width: 100%;
-            padding: 10px;
+            padding: 10px 0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
             background: #dc2626;
             color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            margin-top: 10px;
+            width: 100%;
+            transition: background 0.2s;
         }
         .btn-start:hover {
             background: #b91c1c;
         }
 
+        /* ✅ COPYRIGHT NOTICE */
+        .copyright-box {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 40px 0 20px 0;
+            color: #7f1d1d;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .copyright-box strong {
+            color: #dc2626;
+        }
+
+        /* ✅ TEACHERS SECTION — YOUR PICTURES AT THE BOTTOM */
+        .teachers-section {
+            width: 100%;
+            background: #ffffff;
+            padding: 25px 20px;
+            border-top: 2px solid #fecaca;
+            margin-top: auto;
+            position: relative;
+            z-index: 10;
+        }
+        .teachers-section h2 {
+            color: #dc2626;
+            font-size: 22px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+        .teachers-grid {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+        }
+        .teacher-card {
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .teacher-card img {
+            width: auto;
+            height: 110px;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 3px solid #dc2626;
+            margin-bottom: 8px;
+            box-shadow: 0 3px 8px rgba(220, 38, 38, 0.12);
+            display: block;
+            image-rendering: auto;
+        }
+        .teacher-name {
+            font-weight: 600;
+            color: #991b1b;
+            font-size: 14px;
+        }
+
+        .section-content {
+            display: block;
+        }
+
+        /* ✅ MOBILE */
         @media (max-width: 768px) {
+            .content-wrapper { flex-direction: column; }
+            .sidebar { width: 100%; flex-direction: row; overflow-x: auto; border-right: none; border-bottom: 1px solid #fecaca; padding: 10px 0; }
+            .sidebar-menu { flex-direction: row; gap: 4px; }
+            .menu-item { padding: 8px 12px; font-size: 14px; }
+            .main-content { margin: 10px; padding: 20px; }
+            .top-right-decoration { width: 180px; }
+            .top-logo-bar { margin-top: 15px; }
+            .logo-img { width: 80%; max-width: 320px; }
             .tests-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <h2>📚 Select Cambridge Book:</h2>
-    <div class="book-buttons">
-        <button class="book-btn active" data-book="all">All</button>
-        <button class="book-btn" data-book="10">Cambridge 10</button>
-        <button class="book-btn" data-book="11">Cambridge 11</button>
-        <button class="book-btn" data-book="12">Cambridge 12</button>
-        <button class="book-btn" data-book="13">Cambridge 13</button>
-        <button class="book-btn" data-book="14">Cambridge 14</button>
-        <button class="book-btn" data-book="15">Cambridge 15</button>
-        <button class="book-btn" data-book="16">Cambridge 16</button>
-        <button class="book-btn" data-book="17">Cambridge 17</button>
-        <button class="book-btn" data-book="18">Cambridge 18</button>
-        <button class="book-btn" data-book="19">Cambridge 19</button>
+    <!-- ✅ DECORATION IMAGE TOP RIGHT -->
+    <img src="background1.png" alt="Decoration" class="top-right-decoration">
+
+    <!-- ✅ LOGO BAR WITH FLAG -->
+    <div class="top-logo-bar">
+        <img src="flag.jpg" alt="Flag" class="logo-img">
     </div>
 
-    <div class="tabs">
-        <button class="tab active" data-tab="reading">📖 Reading</button>
-        <button class="tab" data-tab="listening">🎧 Listening</button>
-        <button class="tab" data-tab="writing">✍️ Writing</button>
-        <button class="tab" data-tab="speaking">🎤 Speaking</button>
-    </div>
+    <div class="content-wrapper">
+        <!-- ✅ SIDEBAR -->
+        <div class="sidebar">
+            <div class="sidebar-menu">
+                <a href="#" class="menu-item">📊 Dashboard</a>
+                <a href="#" class="menu-item active">📝 Practice Tests</a>
+            </div>
+        </div>
 
-    <!-- ================================== READING SECTION ================================== -->
-    <div class="section-content" id="reading">
-        <div class="tests-grid">
-            <!-- CAMBRIDGE 10 -->
-            <div class="test-card" data-book="10">
-                <h3>📖 Cambridge 10 Test 1</h3>
-                <p>Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
-                <p>⏱️ 60 min | ❓ 40 questions</p>
-                <a href="#" class="btn-start">Start Full Test →</a>
-            </div>
-            <div class="test-card" data-book="10">
-                <h3>📖 Cambridge 10 Test 2</h3>
-                <p>Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
-                <p>⏱️ 60 min | ❓ 40 questions</p>
-                <a href="#" class="btn-start">Start Full Test →</a>
-            </div>
-            <div class="test-card" data-book="10">
-                <h3>📖 Cambridge 10 Test 3</h3>
-                <p>Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
-                <p>⏱️ 60 min | ❓ 40 questions</p>
-                <a href="#" class="btn-start">Start Full Test →</a>
-            </div>
-            <div class="test-card" data-book="10">
-                <h3>📖 Cambridge 10 Test 4</h3>
-                <p>Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
-                <p>⏱️ 60 min | ❓ 40 questions</p>
-                <a href="#" class="btn-start">Start Full Test →</a>
+        <!-- ✅ MAIN CONTENT -->
+        <div class="main-content">
+            <div class="page-header">
+                <h1>Practice Library</h1>
+                <p>High-quality practice tests for all IELTS modules.</p>
             </div>
 
-            <!-- CAMBRIDGE 11 -->
-            <div class="test-card" data-book="11">
-                <h3>📖 Cambridge 11 Test 1</h3>
-                <p>Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
-                <p>⏱️ 60 min | ❓ 40 questions</p>
-                <a href="#" class="btn-start">Start Full Test →</a>
-            </div>
-            <div class="test-card" data-book="11">
-                <h3>📖 Cambridge 11 Test 2</h3>
-                <p>Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
-                <p>⏱️ 60 min | ❓ 40 questions</p>
-                <a href="#" class="btn-start">Start Full Test →</a>
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search by name...">
+                <button class="filter-btn">🔍 Filters</button>
             </div>
 
-            <!-- CAMBRIDGE 12 -->
-            <div class="test-card" data-book="12">
-                <h3>📖 Cambridge 12 Test 1</h3>
-                <p>Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
-                <p>⏱️ 60 min | ❓ 40 questions</p>
-                <a href="#" class="btn-start">Start Full Test →</a>
+            <!-- ✅ CAMBRIDGE BUTTONS -->
+            <span class="book-selector-label">📚 Select Cambridge Book:</span>
+            <div class="book-buttons">
+                <button class="book-btn active" data-book="all">All</button>
+                <button class="book-btn" data-book="10">Cambridge 10</button>
+                <button class="book-btn" data-book="11">Cambridge 11</button>
+                <button class="book-btn" data-book="12">Cambridge 12</button>
+                <button class="book-btn" data-book="13">Cambridge 13</button>
+                <button class="book-btn" data-book="14">Cambridge 14</button>
+                <button class="book-btn" data-book="15">Cambridge 15</button>
+                <button class="book-btn" data-book="16">Cambridge 16</button>
+                <button class="book-btn" data-book="17">Cambridge 17</button>
+                <button class="book-btn" data-book="18">Cambridge 18</button>
+                <button class="book-btn" data-book="19">Cambridge 19</button>
+            </div>
+
+            <!-- ✅ TABS -->
+            <div class="tabs">
+                <button class="tab active" data-tab="reading">📖 Reading</button>
+                <button class="tab" data-tab="listening">🎧 Listening</button>
+                <button class="tab" data-tab="writing">✍️ Writing</button>
+                <button class="tab" data-tab="speaking">🎤 Speaking</button>
+            </div>
+
+            <!-- ✅ READING SECTION -->
+            <div class="section-content" id="reading">
+                <div class="tests-grid">
+                    <!-- CAMBRIDGE 10 -->
+                    <div class="test-card" data-book="10">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 10 Test 1</h3>
+                        <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 60 min</span>
+                            <span>❓ 40 questions</span>
+                        </div>
+                        <a href="#" class="btn-start">Start Full Test →</a>
+                    </div>
+                    <div class="test-card" data-book="10">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 10 Test 2</h3>
+                        <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 60 min</span>
+                            <span>❓ 40 questions</span>
+                        </div>
+                        <a href="#" class="btn-start">Start Full Test →</a>
+                    </div>
+                    <div class="test-card" data-book="10">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 10 Test 3</h3>
+                        <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 60 min</span>
+                            <span>❓ 40 questions</span>
+                        </div>
+                        <a href="#" class="btn-start">Start Full Test →</a>
+                    </div>
+                    <div class="test-card" data-book="10">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 10 Test 4</h3>
+                        <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 60 min</span>
+                            <span>❓ 40 questions</span>
+                        </div>
+                        <a href="#" class="btn-start">Start Full Test →</a>
+                    </div>
+
+                    <!-- CAMBRIDGE 11 -->
+                    <div class="test-card" data-book="11">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 11 Test 1</h3>
+                        <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 60 min</span>
+                            <span>❓ 40 questions</span>
+                        </div>
+                        <a href="#" class="btn-start">Start Full Test →</a>
+                    </div>
+                    <div class="test-card" data-book="11">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 11 Test 2</h3>
+                        <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 60 min</span>
+                            <span>❓ 40 questions</span>
+                        </div>
+                        <a href="#" class="btn-start">Start Full Test →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ✅ LISTENING SECTION -->
+            <div class="section-content hidden-by-tab" id="listening">
+                <div class="tests-grid">
+                    <div class="test-card" data-book="10">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 10 Test 1</h3>
+                        <p class="test-desc">Full IELTS Listening test — 4 sections, 40 questions.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 30 min</span>
+                            <span>❓ 40 questions</span>
+                        </div>
+                        <a href="#" class="btn-start">Start Listening →</a>
+                    </div>
+                    <div class="test-card" data-book="11">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 11 Test 1</h3>
+                        <p class="test-desc">Full IELTS Listening test — 4 sections, 40 questions.</p>
+                        <div class="test-meta">
+                            <span>⏱️ 30 min</span>
+                            <span>❓ 40 questions</span>
+                        </div>
+                        <a href="#" class="btn-start">Start Listening →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ✅ WRITING SECTION -->
+            <div class="section-content hidden-by-tab" id="writing">
+                <div class="tests-grid">
+                    <div class="test-card" data-book="10">
+                        <div class="test-icon">✍️</div>
+                        <h3 class="test-title">Cambridge 10 Writing</h3>
+                        <p class="test-desc">Writing Task 1 & Task 2 with sample answers.</p>
+                        <a href="#" class="btn-start">View Writing →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ✅ SPEAKING SECTION -->
+            <div class="section-content hidden-by-tab" id="speaking">
+                <div class="tests-grid">
+                    <div class="test-card" data-book="10">
+                        <div class="test-icon">🎤</div>
+                        <h3 class="test-title">Cambridge 10 Speaking</h3>
+                        <p class="test-desc">Speaking topics, questions, and sample answers.</p>
+                        <a href="#" class="btn-start">View Speaking →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ✅ COPYRIGHT BOX -->
+            <div class="copyright-box">
+                <strong>© Copyright Notice:</strong> All materials are for educational and personal practice only. Content from Cambridge IELTS books is the property of Cambridge University Press. This page is not affiliated with or endorsed by Cambridge University Press.
             </div>
         </div>
     </div>
 
-    <!-- ================================== LISTENING SECTION ================================== -->
-    <div class="section-content hidden-by-tab" id="listening">
-        <div class="tests-grid">
-            <div class="test-card" data-book="10">
-                <h3>🎧 Cambridge 10 Test 1</h3>
-                <p>Full IELTS Listening test — 4 sections, 40 questions.</p>
-                <p>⏱️ 30 min | ❓ 40 questions</p>
-                <a href="#" class="btn-start">Start Listening →</a>
+    <!-- ✅ TEACHERS SECTION WITH ALL YOUR PICTURES -->
+    <div class="teachers-section">
+        <h2>👨‍🏫 Meet Our Teachers</h2>
+        <div class="teachers-grid">
+            <div class="teacher-card">
+                <img src="teacher1.jpg" alt="Teacher 1">
+                <div class="teacher-name">Teacher 1</div>
             </div>
-            <div class="test-card" data-book="11">
-                <h3>🎧 Cambridge 11 Test 1</h3>
-                <p>Full IELTS Listening test — 4 sections, 40 questions.</p>
-                <p>⏱️ 30 min | ❓ 40 questions</p>
-                <a href="#" class="btn-start">Start Listening →</a>
+            <div class="teacher-card">
+                <img src="teacher2.jpg" alt="Teacher 2">
+                <div class="teacher-name">Teacher 2</div>
             </div>
-        </div>
-    </div>
-
-    <!-- ================================== WRITING SECTION ================================== -->
-    <div class="section-content hidden-by-tab" id="writing">
-        <div class="tests-grid">
-            <div class="test-card" data-book="10">
-                <h3>✍️ Cambridge 10 Writing</h3>
-                <p>Writing Task 1 & Task 2 with sample answers.</p>
-                <a href="#" class="btn-start">View Writing →</a>
+            <div class="teacher-card">
+                <img src="teacher3.jpg" alt="Teacher 3">
+                <div class="teacher-name">Teacher 3</div>
             </div>
-        </div>
-    </div>
-
-    <!-- ================================== SPEAKING SECTION ================================== -->
-    <div class="section-content hidden-by-tab" id="speaking">
-        <div class="tests-grid">
-            <div class="test-card" data-book="10">
-                <h3>🎤 Cambridge 10 Speaking</h3>
-                <p>Speaking topics, questions, and sample answers.</p>
-                <a href="#" class="btn-start">View Speaking →</a>
+            <div class="teacher-card">
+                <img src="teacher4.jpg" alt="Teacher 4">
+                <div class="teacher-name">Teacher 4</div>
+            </div>
+            <div class="teacher-card">
+                <img src="teacher5.jpg" alt="Teacher 5">
+                <div class="teacher-name">Teacher 5</div>
             </div>
         </div>
     </div>
 
 <!-- ==============================================================
-     ✅ THIS SCRIPT BELOW MAKES EVERYTHING WORK. DO NOT DELETE IT.
+     ✅ THIS SCRIPT MAKES THE BUTTONS WORK — DO NOT DELETE
      ============================================================== -->
 <script>
-// === BOOK FILTER — Show only selected Cambridge book ===
+// === CAMBRIDGE BOOK FILTER ===
 const bookButtons = document.querySelectorAll('.book-btn');
 const testCards = document.querySelectorAll('.test-card');
 
 bookButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-        // Update button active style
         bookButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-
         const selectedBook = btn.dataset.book;
-
-        // Show only cards matching selected book
         testCards.forEach(card => {
             const cardBook = card.dataset.book;
             if (selectedBook === 'all' || cardBook === selectedBook) {
@@ -277,25 +598,17 @@ bookButtons.forEach(btn => {
     });
 });
 
-// === TAB FILTER — Switch Reading / Listening / Writing / Speaking ===
+// === READING/LISTENING/WRITING/SPEAKING TABS ===
 const tabButtons = document.querySelectorAll('.tab');
 const sections = document.querySelectorAll('.section-content');
 
 tabButtons.forEach(tab => {
     tab.addEventListener('click', () => {
-        // Update tab active style
         tabButtons.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
-
         const targetTab = tab.dataset.tab;
-
-        // Show only selected section
         sections.forEach(sec => {
-            if (sec.id === targetTab) {
-                sec.classList.remove('hidden-by-tab');
-            } else {
-                sec.classList.add('hidden-by-tab');
-            }
+            sec.classList.toggle('hidden-by-tab', sec.id !== targetTab);
         });
     });
 });
