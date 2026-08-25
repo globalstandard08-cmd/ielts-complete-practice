@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cambridge 11 Test 1 — Passage 2</title>
+    <title>Cambridge 11 Test 1 — Passage 1</title>
     <style>
         * {
             margin: 0;
@@ -28,9 +28,11 @@
             margin-bottom: 25px;
             transition: background 0.2s;
         }
-        .back-btn:hover {
-            background: #b91c1c;
-        }
+        .back-btn:hover { background: #b91c1c; }
+        .nav-btn-next { background: #16a34a; }
+        .nav-btn-next:hover { background: #15803d; }
+        .clear-btn { background: #f59e0b; margin-left: 10px; }
+        .clear-btn:hover { background: #d97706; }
         .container {
             max-width: 900px;
             margin: 0 auto;
@@ -40,117 +42,28 @@
             border: 1px solid #fecaca;
             box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07);
         }
-        h1 {
-            text-align: center;
-            color: #dc2626;
-            font-size: 32px;
-            margin-bottom: 5px;
-        }
-        h2 {
-            text-align: center;
-            color: #7f1d1d;
-            font-size: 17px;
-            font-weight: 500;
-            margin-bottom: 35px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #fecaca;
-        }
-        .passage {
-            margin-bottom: 50px;
-            font-size: 16px;
-            color: #2b2b2b;
-        }
-        .passage p {
-            margin-bottom: 18px;
-            text-align: justify;
-        }
-        .instructions {
-            background: #fef2f2;
-            padding: 18px 22px;
-            border-radius: 10px;
-            border: 1px solid #fecaca;
-            margin-bottom: 25px;
-        }
-        .instructions h3 {
-            color: #991b1b;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-        .answer-key {
-            margin: 12px 0;
-            padding-left: 15px;
-        }
-        .answer-key span {
-            display: inline-block;
-            margin-right: 25px;
-            font-weight: 500;
-        }
-        .answer-key strong {
-            color: #dc2626;
-        }
-        .questions-section {
-            margin-bottom: 50px;
-        }
-        .questions-section h3 {
-            color: #991b1b;
-            font-size: 18px;
-            margin-bottom: 20px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #fecaca;
-        }
-        .question-row {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            margin-bottom: 14px;
-            padding: 10px 12px;
-            border-radius: 8px;
-            background: #fef2f2;
-        }
-        .q-number {
-            font-weight: 700;
-            color: #dc2626;
-            min-width: 30px;
-        }
-        .q-text {
-            flex: 1;
-            font-size: 15px;
-        }
-        .q-input {
-            width: 140px;
-            padding: 8px 10px;
-            border: 1px solid #fecaca;
-            border-radius: 6px;
-            font-size: 14px;
-            text-align: center;
-            background: #fff;
-        }
-        .diagram-box {
-            background: #fef2f2;
-            padding: 25px;
-            border-radius: 10px;
-            border: 1px solid #fecaca;
-            margin-top: 20px;
-        }
-        .diagram-placeholder {
-            background: #fff;
-            border: 1px dashed #fecaca;
-            padding: 40px;
-            text-align: center;
-            color: #991b1b;
-            margin-bottom: 20px;
-            border-radius: 8px;
-        }
-        .note {
-            font-size: 13px;
-            color: #7f1d1d;
-            margin-top: 8px;
-        }
+        h1 { text-align: center; color: #dc2626; font-size: 32px; margin-bottom: 5px; }
+        h2 { text-align: center; color: #7f1d1d; font-size: 17px; font-weight: 500; margin-bottom: 35px; padding-bottom: 15px; border-bottom: 2px solid #fecaca; }
+        .passage { margin-bottom: 50px; font-size: 16px; color: #2b2b2b; }
+        .passage p { margin-bottom: 18px; text-align: justify; }
+        .instructions { background: #fef2f2; padding: 18px 22px; border-radius: 10px; border: 1px solid #fecaca; margin-bottom: 25px; }
+        .instructions h3 { color: #991b1b; margin-bottom: 10px; font-size: 16px; }
+        .answer-key { margin: 12px 0; padding-left: 15px; }
+        .answer-key span { display: inline-block; margin-right: 25px; font-weight: 500; }
+        .answer-key strong { color: #dc2626; }
+        .questions-section { margin-bottom: 50px; }
+        .questions-section h3 { color: #991b1b; font-size: 18px; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 1px solid #fecaca; }
+        .question-row { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 14px; padding: 10px 12px; border-radius: 8px; background: #fef2f2; }
+        .q-number { font-weight: 700; color: #dc2626; min-width: 30px; }
+        .q-text { flex: 1; font-size: 15px; }
+        .q-input { width: 140px; padding: 8px 10px; border: 1px solid #fecaca; border-radius: 6px; font-size: 14px; text-align: center; background: #fff; }
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; padding-top: 20px; border-top: 2px solid #fecaca; }
         @media (max-width: 768px) {
             body { padding: 15px; }
             .container { padding: 20px; }
             .question-row { flex-wrap: wrap; }
             .q-input { width: 120px; }
+            .nav-bar { flex-direction: column; gap: 15px; }
         }
     </style>
 </head>
@@ -159,135 +72,113 @@
     <a href="../library.html" class="back-btn">← Back to Practice Library</a>
 
     <div class="container">
-        <h1>The Falkirk Wheel</h1>
-        <h2>A unique engineering achievement</h2>
+        <h1>Growing crops in the city</h1>
+        <h2>Passage 1 — Crop-growing skyscrapers</h2>
 
-        <!-- READING PASSAGE -->
+        <!-- YOUR PASSAGE TEXT HERE -->
         <div class="passage">
-            <p>The Falkirk Wheel in Scotland is the world's first and only rotating boat lift. Opened in 2002, it is central to the ambitious £84.5M Millennium Link project to restore navigability across Scotland by reconnecting the historic waterways of the Forth & Clyde and Union Canals.</p>
-
-            <p>The major challenge of the project lay in the fact that the Forth & Clyde Canal is situated 35 metres below the level of the Union Canal. Historically the two canals had been joined near the town of Falkirk by a sequence of 11 locks — enclosed sections of canal in which the water level could be raised or lowered — which dropped boats across a distance of 34.5 m. This had last been used in 1939, shortly breaking the link. When the project was launched in 1994, the British Waterways authority were keen to create a dramatic twenty-first-century landmark which would not only be a fitting commemoration of the Millennium, but also a lasting symbol of the economic regeneration of the region.</p>
-
-            <p>Numerous ideas were submitted for the project, including concepts ranging from rolling eggs to tilting tanks, from giant see-saws to overhead monorails. The eventual winner was a plan for the huge rotating steel boat lift which was to become The Falkirk Wheel. The unique shape of the structure is claimed to have been inspired by various sources, both man-made and natural, most notably a Celtic double-headed axe, but also the vast turning propeller of a ship, the ribcage of a whale or the spine of a fish.</p>
-
-            <p>The various parts of The Falkirk Wheel were all constructed and assembled, like one giant toy building set, at Butterley Engineering's Steelworks in Derbyshire, some 400 km from Falkirk. A team there carefully assembled the 1,200 tonnes of steel, painstakingly fitting the pieces together to an accuracy of just 10 mm to ensure a perfect fit. In the summer of 2001, the structure was then dismantled and transported on 35 lorries to Falkirk, before all being bolted back together again on the ground, and finally lifted into position in five large sections by crane. The Wheel would need to withstand immense and constantly changing stresses as it rotated, so to make the structure more robust, the steel sections were bolted rather than welded together. Over 45,000 bolt holes were matched with their bolts, and each bolt was hand-tightened.</p>
-
-            <p>The Wheel consists of two sets of opposing axe-shaped arms, attached about 25 metres apart to a fixed central spine. Two diametrically opposed water-filled 'gondolas', each with a capacity of 300,000 litres, are fitted between the ends of the arms. These gondolas always weigh the same, whether or not they are carrying boats. This is because, according to Archimedes' principle of displacement, floating objects displace their own weight in water. So when a boat enters the gondola, the amount of water leaving the gondola weighs exactly the same as the boat. This keeps the Wheel balanced and so, despite its enormous mass, it rotates through 180° in five and a half minutes while using very little power. It takes just 1.5 kilowatt-hours (5.4 MJ) of energy to rotate the Wheel — roughly the same as boiling eight small domestic kettles of water.</p>
-
-            <p>Boats needing to be lifted up enter the canal basin at the level of the Forth & Clyde Canal and then enter the lower gondola of the Wheel. Two hydraulic steel gates are raised, so as to seal the gondola off from the water in the canal basin. The water between the gates is then pumped out. A hydraulic clamp, which prevents the arms of the Wheel moving while the gondola is docked, is removed, allowing the Wheel to turn. In the central machine room an array of ten hydraulic motors then begins to rotate the central axle. The axle connects to the outer arms of the Wheel, which begin to rotate at a speed of 1/8 of a revolution per minute. As the wheel rotates, the gondolas are kept in the upright position by a simple gearing system. Two eight-metre-wide cogs orbit a fixed inner cog of the same width, connected by two smaller cogs travelling in the opposite direction to the outer cogs — so ensuring that the gondolas always remain level. When the gondola reaches the top, the boat passes straight onto the aqueduct situated 24 metres above the canal basin.</p>
-
-            <p>The remaining 11 metres of lift needed to reach the Union Canal is achieved by means of a pair of locks. The Wheel could not be constructed to elevate boats over the full 35-metre difference between the two canals, owing to the presence of the historically important Antonine Wall, which was built by the Romans in the second century AD. Boats travel under this wall via a tunnel, then through the locks, and finally on to the Union Canal.</p>
+            <p>By the year 2050, nearly 80% of the Earth's population will live in urban areas. This means that huge amounts of land are needed to feed city dwellers. Currently, agriculture takes up 38% of the Earth's land surface. If we continue with traditional farming methods, we will need an area the size of Brazil to feed the world's population by 2050. This is simply not possible.</p>
+            <p>One possible solution is vertical farming — growing crops in skyscrapers in the heart of the city. Vertical farms would use hydroponic systems, where plants are grown in water with added nutrients rather than soil. This uses 90% less water than traditional farming. Crops would be grown under special lights, allowing harvests all year round, completely independent of weather and seasons.</p>
+            <p>Scientists estimate that one vertical farm occupying a 30-storey building with a base of just one hectare could produce the same amount of food as 400 hectares of traditional farmland. Pesticides would not be needed because crops would be grown in a controlled environment free from pests. Transport costs and pollution would be greatly reduced because food would be consumed close to where it is grown.</p>
         </div>
 
-        <!-- QUESTIONS 14–19: TRUE / FALSE / NOT GIVEN -->
+        <!-- QUESTIONS -->
         <div class="questions-section">
-            <h3>Questions 14–19</h3>
+            <h3>Questions 1–13</h3>
             <div class="instructions">
-                <h3>Do the following statements agree with the information given in Reading Passage 2?</h3>
-                <p>In boxes <strong>14–19</strong> on your answer sheet, write:</p>
+                <h3>Do the following statements agree with the information given in Reading Passage 1?</h3>
+                <p>In boxes <strong>1–13</strong> on your answer sheet, write:</p>
                 <div class="answer-key">
-                    <span><strong>TRUE</strong> &nbsp;&nbsp;&nbsp;&nbsp; if the statement agrees with the information</span>
-                    <span><strong>FALSE</strong> &nbsp; if the statement contradicts the information</span>
+                    <span><strong>TRUE</strong> &nbsp;&nbsp;&nbsp;&nbsp; if the statement agrees with the information</span><br>
+                    <span><strong>FALSE</strong> &nbsp; if the statement contradicts the information</span><br>
                     <span><strong>NOT GIVEN</strong> &nbsp; if there is no information on this</span>
                 </div>
             </div>
 
             <div class="question-row">
-                <span class="q-number">14</span>
-                <p class="q-text">The Falkirk Wheel has linked the Forth & Clyde Canal with the Union Canal for the first time in their history.</p>
-                <input type="text" class="q-input" placeholder="TRUE / FALSE / NOT GIVEN">
+                <span class="q-number">1</span>
+                <p class="q-text">By 2050, the majority of people will live in cities.</p>
+                <input type="text" class="q-input" data-q="q1" placeholder="TRUE/FALSE/NOT GIVEN">
             </div>
-
             <div class="question-row">
-                <span class="q-number">15</span>
-                <p class="q-text">There was some opposition to the design of the Falkirk Wheel at first.</p>
-                <input type="text" class="q-input" placeholder="TRUE / FALSE / NOT GIVEN">
+                <span class="q-number">2</span>
+                <p class="q-text">Traditional farming will be completely replaced by 2050.</p>
+                <input type="text" class="q-input" data-q="q2" placeholder="TRUE/FALSE/NOT GIVEN">
             </div>
-
             <div class="question-row">
-                <span class="q-number">16</span>
-                <p class="q-text">The Falkirk Wheel was initially put together at the location where its components were manufactured.</p>
-                <input type="text" class="q-input" placeholder="TRUE / FALSE / NOT GIVEN">
+                <span class="q-number">3</span>
+                <p class="q-text">Vertical farming uses significantly less water than conventional agriculture.</p>
+                <input type="text" class="q-input" data-q="q3" placeholder="TRUE/FALSE/NOT GIVEN">
             </div>
-
             <div class="question-row">
-                <span class="q-number">17</span>
-                <p class="q-text">The Falkirk Wheel is the only boat lift in the world which has steel sections bolted together by hand.</p>
-                <input type="text" class="q-input" placeholder="TRUE / FALSE / NOT GIVEN">
+                <span class="q-number">4</span>
+                <p class="q-text">Crops in vertical farms are affected by seasonal weather conditions.</p>
+                <input type="text" class="q-input" data-q="q4" placeholder="TRUE/FALSE/NOT GIVEN">
             </div>
-
             <div class="question-row">
-                <span class="q-number">18</span>
-                <p class="q-text">The weight of the gondolas varies according to the size of boat being carried.</p>
-                <input type="text" class="q-input" placeholder="TRUE / FALSE / NOT GIVEN">
+                <span class="q-number">5</span>
+                <p class="q-text">A 30-storey vertical farm could match the output of hundreds of hectares of farmland.</p>
+                <input type="text" class="q-input" data-q="q5" placeholder="TRUE/FALSE/NOT GIVEN">
             </div>
-
             <div class="question-row">
-                <span class="q-number">19</span>
-                <p class="q-text">The construction of the Falkirk Wheel site took into account the presence of a nearby ancient monument.</p>
-                <input type="text" class="q-input" placeholder="TRUE / FALSE / NOT GIVEN">
+                <span class="q-number">6</span>
+                <p class="q-text">Vertical farming produces crops that are less nutritious than field-grown food.</p>
+                <input type="text" class="q-input" data-q="q6" placeholder="TRUE/FALSE/NOT GIVEN">
+            </div>
+            <div class="question-row">
+                <span class="q-number">7</span>
+                <p class="q-text">Vertical farming reduces the environmental impact of transporting food.</p>
+                <input type="text" class="q-input" data-q="q7" placeholder="TRUE/FALSE/NOT GIVEN">
             </div>
         </div>
 
-        <!-- QUESTIONS 20–26: DIAGRAM LABELLING -->
-        <div class="questions-section">
-            <h3>Questions 20–26</h3>
-            <div class="instructions">
-                <h3>Label the diagram below.</h3>
-                <p>Choose <strong>ONE WORD ONLY</strong> from the passage for each answer.</p>
-                <p>Write your answers in boxes <strong>20–26</strong> on your answer sheet.</p>
+        <!-- NAVIGATION BUTTONS -->
+        <div class="nav-bar">
+            <div>
+                <a href="../library.html" class="back-btn">← Back to Library</a>
+                <button class="back-btn clear-btn" id="clearAnswers">Clear Answers</button>
             </div>
-
-            <div class="diagram-box">
-                <h3 style="text-align:center; color:#991b1b; margin-bottom:15px;">How a boat is lifted on the Falkirk Wheel</h3>
-                
-                <div class="diagram-placeholder">
-                    <p style="font-weight:600; margin-bottom:10px;">[ Diagram: How a boat is lifted on the Falkirk Wheel ]</p>
-                    <p class="note">Insert your diagram image here when ready</p>
-                </div>
-
-                <p style="margin-bottom:15px; font-weight:500;">A pair of 20 ____________ are lifted in order to shut out water from canal basin.</p>
-                <p style="margin-bottom:15px; font-weight:500;">A 21 ____________ is taken out, enabling Wheel to rotate.</p>
-                <p style="margin-bottom:15px; font-weight:500;">Hydraulic motors drive 22 ____________</p>
-                <p style="margin-bottom:15px; font-weight:500;">A range of different-sized 23 ____________ ensures boat keeps upright.</p>
-                <p style="margin-bottom:15px; font-weight:500;">Boat reaches top Wheel, then moves directly onto 24 ____________</p>
-                <p style="margin-bottom:15px; font-weight:500;">Boat travels through tunnel beneath Roman 25 ____________</p>
-                <p style="margin-bottom:15px; font-weight:500;">26 ____________ raise boat 11 m to level of Union Canal</p>
-            </div>
-
-            <div style="margin-top:20px;">
-                <div class="question-row">
-                    <span class="q-number">20</span>
-                    <input type="text" class="q-input" placeholder="ONE WORD">
-                </div>
-                <div class="question-row">
-                    <span class="q-number">21</span>
-                    <input type="text" class="q-input" placeholder="ONE WORD">
-                </div>
-                <div class="question-row">
-                    <span class="q-number">22</span>
-                    <input type="text" class="q-input" placeholder="ONE WORD">
-                </div>
-                <div class="question-row">
-                    <span class="q-number">23</span>
-                    <input type="text" class="q-input" placeholder="ONE WORD">
-                </div>
-                <div class="question-row">
-                    <span class="q-number">24</span>
-                    <input type="text" class="q-input" placeholder="ONE WORD">
-                </div>
-                <div class="question-row">
-                    <span class="q-number">25</span>
-                    <input type="text" class="q-input" placeholder="ONE WORD">
-                </div>
-                <div class="question-row">
-                    <span class="q-number">26</span>
-                    <input type="text" class="q-input" placeholder="ONE WORD">
-                </div>
-            </div>
+            <a href="reading-passage2-C11T1.html" class="back-btn nav-btn-next">Next Passage →</a>
         </div>
-
     </div>
+
+<script>
+const STORAGE_KEY = 'c11t1-passage1-answers';
+const inputs = document.querySelectorAll('.q-input');
+
+// Load saved answers when page opens
+window.addEventListener('load', () => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+        const answers = JSON.parse(saved);
+        inputs.forEach(input => {
+            const qid = input.getAttribute('data-q');
+            if (answers[qid]) input.value = answers[qid];
+        });
+    }
+});
+
+// Auto-save on every keystroke
+inputs.forEach(input => {
+    input.addEventListener('input', saveAnswers);
+});
+
+function saveAnswers() {
+    const answers = {};
+    inputs.forEach(input => {
+        answers[input.getAttribute('data-q')] = input.value;
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
+}
+
+// Clear answers button
+document.getElementById('clearAnswers').addEventListener('click', () => {
+    if (confirm('Clear ALL answers? This cannot be undone!')) {
+        inputs.forEach(input => input.value = '');
+        localStorage.removeItem(STORAGE_KEY);
+    }
+});
+</script>
 
 </body>
 </html>
