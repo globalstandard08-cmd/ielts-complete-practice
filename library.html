@@ -19,7 +19,6 @@
             min-height: 100vh;
             position: relative;
         }
-        /* ✅ background1.png — LOCKED TO ABSOLUTE TOP‑RIGHT CORNER, NO GAP */
         .top-right-decoration {
             position: absolute;
             top: 0;
@@ -46,7 +45,6 @@
             z-index: 10;
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
         }
-        /* ✅ ONLY BIG FLAG HERE — NO DUPLICATE */
         .logo-img {
             width: 60%;
             max-width: 500px;
@@ -126,7 +124,7 @@
         .search-bar {
             display: flex;
             gap: 12px;
-            margin-bottom: 28px;
+            margin-bottom: 20px;
             align-items: center;
             background: #fef2f2;
             padding: 12px;
@@ -155,7 +153,7 @@
             font-weight: 500;
         }
 
-        /* ✅ CAMBRIDGE BOOK SELECTOR BUTTONS */
+        /* ✅ CAMBRIDGE BOOK SELECTOR — YOUR EXACT DESIGN */
         .book-selector-label {
             color: #991b1b;
             font-weight: 600;
@@ -170,7 +168,7 @@
             flex-wrap: wrap;
         }
         .book-btn {
-            padding: 8px 14px;
+            padding: 8px 16px;
             border-radius: 8px;
             font-size: 14px;
             font-weight: 600;
@@ -231,8 +229,9 @@
             gap: 12px;
             transition: transform 0.2s;
         }
+        /* ✅ HIDE CARDS THAT DON'T MATCH SELECTED BOOK */
         .test-card.hidden-by-book {
-            display: none;
+            display: none !important;
         }
         .test-card:hover {
             transform: translateY(-2px);
@@ -412,10 +411,8 @@
     </style>
 </head>
 <body>
-    <!-- ✅ REMOVED THE EXTRA SMALL FLAG HERE -->
     <img src="background1.png" alt="Decoration" class="top-right-decoration">
     <div class="top-logo-bar">
-        <!-- ✅ ONLY THE BIG FLAG REMAINS -->
         <img src="flag.jpg" alt="Flag" class="logo-img">
     </div>
     <div class="content-wrapper">
@@ -435,7 +432,7 @@
                 <button class="filter-btn">🔍 Filters</button>
             </div>
 
-            <!-- ✅ CAMBRIDGE BOOK SELECTOR -->
+            <!-- ✅ YOUR CAMBRIDGE SELECTOR BUTTONS -->
             <span class="book-selector-label">📚 Select Cambridge Book:</span>
             <div class="book-buttons">
                 <button class="book-btn active" data-book="all">All</button>
@@ -458,10 +455,10 @@
                 <button class="tab" data-target="speaking">🎤 Speaking</button>
             </div>
 
-            <!-- ========== READING SECTION ========== -->
+            <!-- ================================== READING ================================== -->
             <div class="section-content active" id="reading">
                 <div class="tests-grid">
-                    <!-- CAMBRIDGE 10 -->
+                    <!-- CAMBRIDGE 10 READING -->
                     <div class="test-card" data-book="10">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 10 Test 1</h3>
@@ -491,6 +488,7 @@
                         </div>
                         <a href="reading/C10T1.html" class="btn-start">Start Full Test →</a>
                     </div>
+
                     <div class="test-card" data-book="10">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 10 Test 2</h3>
@@ -520,6 +518,7 @@
                         </div>
                         <a href="reading/C10T2.html" class="btn-start">Start Full Test →</a>
                     </div>
+
                     <div class="test-card" data-book="10">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 10 Test 3</h3>
@@ -549,6 +548,7 @@
                         </div>
                         <a href="reading/C10T3.html" class="btn-start">Start Full Test →</a>
                     </div>
+
                     <div class="test-card" data-book="10">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 10 Test 4</h3>
@@ -579,7 +579,7 @@
                         <a href="reading/C10T4.html" class="btn-start">Start Full Test →</a>
                     </div>
 
-                    <!-- CAMBRIDGE 11 READING TEMPLATES (Ready to Fill) -->
+                    <!-- CAMBRIDGE 11 READING (READY FOR YOUR CONTENT) -->
                     <div class="test-card" data-book="11">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 11 Test 1</h3>
@@ -609,6 +609,7 @@
                         </div>
                         <a href="reading/C11T1.html" class="btn-start">Start Full Test →</a>
                     </div>
+
                     <div class="test-card" data-book="11">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 11 Test 2</h3>
@@ -638,6 +639,7 @@
                         </div>
                         <a href="reading/C11T2.html" class="btn-start">Start Full Test →</a>
                     </div>
+
                     <div class="test-card" data-book="11">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 11 Test 3</h3>
@@ -667,6 +669,7 @@
                         </div>
                         <a href="reading/C11T3.html" class="btn-start">Start Full Test →</a>
                     </div>
+
                     <div class="test-card" data-book="11">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 11 Test 4</h3>
@@ -699,14 +702,17 @@
                 </div>
             </div>
 
-            <!-- ========== LISTENING SECTION ========== -->
+            <!-- ================================== LISTENING ================================== -->
             <div class="section-content" id="listening">
                 <div class="tests-grid">
-                    <!-- CAMBRIDGE 10 -->
                     <div class="test-card" data-book="10">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 10 Test 1</h3>
                         <p class="test-desc">Full IELTS Academic Listening test — 4 sections, 40 questions.</p>
                         <div class="test-meta">
                             <span>⏱️ 30 min</span>
-                            <span>❓ 40 questions
+                            <span>❓ 40 questions</span>
+                        </div>
+                        <a href="listening/C10T1.html" class="btn-start">Start Practice →</a>
+                    </div>
+                    <div class="test-card" data-book="10">
