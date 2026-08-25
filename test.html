@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge Filter Test</title>
+    <style>
+        body { background: #fef2f2; font-family: sans-serif; padding: 30px; }
+        .book-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+        .book-btn { padding: 8px 16px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+        .book-btn.active { background: #dc2626; color: white; border-color: #dc2626; }
+        .tests-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .test-card { background: #fff; border: 1px solid #fecaca; border-radius: 10px; padding: 20px; }
+        .hidden-by-book { display: none !important; }
+    </style>
+</head>
+<body>
+
+<h3>📚 Select Cambridge Book:</h3>
+<div class="book-buttons">
+    <button class="book-btn active" data-book="all">All</button>
+    <button class="book-btn" data-book="10">Cambridge 10</button>
+    <button class="book-btn" data-book="11">Cambridge 11</button>
+    <button class="book-btn" data-book="12">Cambridge 12</button>
+</div>
+
+<div class="tests-grid">
+    <div class="test-card" data-book="10">
+        <h4>📖 Cambridge 10 — Test 1</h4>
+        <p>Reading Test — 3 passages, 40 questions</p>
+    </div>
+    <div class="test-card" data-book="10">
+        <h4>📖 Cambridge 10 — Test 2</h4>
+        <p>Reading Test — 3 passages, 40 questions</p>
+    </div>
+    <div class="test-card" data-book="11">
+        <h4>📖 Cambridge 11 — Test 1</h4>
+        <p>Reading Test — 3 passages, 40 questions</p>
+    </div>
+    <div class="test-card" data-book="12">
+        <h4>📖 Cambridge 12 — Test 1</h4>
+        <p>Reading Test — 3 passages, 40 questions</p>
+    </div>
+</div>
+
+<script>
+// ✅ THIS IS THE PART THAT MAKES IT WORK — IT WAS MISSING BEFORE!
+const bookButtons = document.querySelectorAll('.book-btn');
+const testCards = document.querySelectorAll('.test-card');
+
+bookButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Remove active from all buttons
+        bookButtons.forEach(b => b.classList.remove('active'));
+        // Add active to clicked button
+        btn.classList.add('active');
+
+        const selectedBook = btn.dataset.book;
+
+        // Show/hide cards based on selected book
+        testCards.forEach(card => {
+            const cardBook = card.dataset.book;
+            if (selectedBook === 'all' || cardBook === selectedBook) {
+                card.classList.remove('hidden-by-book');
+            } else {
+                card.classList.add('hidden-by-book');
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>
