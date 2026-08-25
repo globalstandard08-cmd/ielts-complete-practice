@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Passage 1 — Crop-growing skyscrapers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        body {
+            background-color: #fef2f2;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+        .logo-container {
+            width: 100%;
+            background: #ffffff;
+            border-bottom: 2px solid #dc2626;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
+        }
+        .logo {
+            width: 35%;
+            max-width: 320px;
+            height: auto;
+            display: block;
+        }
+        .main-wrapper {
+            display: flex;
+            gap: 18px;
+            padding: 0 18px 12px;
+            height: calc(100vh - 120px);
+        }
+        .passage-column, .questions-column {
+            flex: 1;
+            background: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #fecaca;
+            padding: 18px;
+            overflow-y: auto;
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07);
+            position: relative;
+        }
+        h1 {
+            color: #dc2626;
+            font-size: 19px;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+        .passage-text p {
+            margin-bottom: 12px;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+        .highlight {
+            background-color: #ffd700;
+            padding: 2px 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            color: #000;
+            display: inline;
+        }
+        .questions-section h2 {
+            color: #991b1b;
+            font-size: 17px;
+            margin: 15px 0 8px;
+        }
+        .question-block {
+            margin-bottom: 16px;
+            scroll-margin-top: 15px;
+        }
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        .flag-btn {
+            font-size: 17px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+            user-select: none;
+        }
+        .flag-btn.flagged {
+            color: #e67700;
+        }
+        .question-block p {
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .options label {
+            display: block;
+            margin-left: 15px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .answer-input {
+            width: 100%;
+            padding: 6px 10px;
+            border: 1px solid #fecaca;
+            border-radius: 6px;
+            font-size: 14px;
+            background: #fef2f2;
+        }
+        .context-menu {
+            position: absolute;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 9999;
+            display: none;
+            min-width: 140px;
+        }
+        .context-menu div {
+            padding: 8px 11px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .context-menu div:hover {
+            background: #fef2f2;
+        }
+        .sticky-note {
+            position: absolute;
+            width: 160px;
+            min-height: 60px;
+            background: #fff380;
+            border: 1px solid #e6c200;
+            border-radius: 4px;
+            padding: 6px;
+            box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
+            z-index: 9998;
+            font-size: 12px;
+            user-select: none;
+        }
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 11px;
+            color: #886a00;
+            cursor: move;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #886a00;
+            user-select: none;
+        }
+        .note-textarea {
+            width: 100%;
+            height: 44px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 12px;
+            user-select: text;
+        }
+        .bottom-container {
+            margin: 10px 18px 20px;
+            padding: 10px 12px;
+            background: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #fecaca;
+            box-shadow: 0 -2px 5px rgba(220, 38, 38, 0.07);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .question-nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 5px;
+        }
+        .nav-label {
+            font-weight: 600;
+            color: #991b1b;
+            font-size: 13px;
+            margin-right: 4px;
+        }
+        .q-indicator {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+            background: #e5e7eb !important;
+            color: #333;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .q-indicator:hover { opacity: 0.9; }
+        .q-indicator.answered {
+            background: #198754 !important;
+            color: white !important;
+            border-color: #198754 !important;
+        }
+        .q-indicator.flagged {
+            background: #fd7e14 !important;
+            color: white !important;
+            border-color: #fd7e14 !important;
+        }
+        .q-indicator.answered.flagged {
+            background: #fd7e14 !important;
+        }
+        .q-indicator.current {
+            border: 2px solid #dc2626 !important;
+        }
+        .bottom-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .show-student, .clear-answers {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 13px;
+        }
+        .show-student {
+            background: #dc2626;
+            color: white;
+        }
+        .show-student:hover {
+            background: #b91c1c;
+        }
+        .clear-answers {
+            background: #6b7280;
+            color: white;
+        }
+        .clear-answers:hover {
+            background: #4b5563;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .back-btn, .next-btn {
+            padding: 6px 12px;
+            background: #fef2f2;
+            color: #dc2626;
+            text-decoration: none;
+            border-radius: 6px;
+            border: 1px solid #fecaca;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 13px;
+            position: relative;
+            z-index: 9999;
+        }
+        .back-btn:hover, .next-btn:hover {
+            background: #ffffff;
+        }
+        .student-answers-box {
+            margin-top: 12px;
+            padding: 12px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            display: none;
+            font-size: 13px;
+        }
+        .correct { color: green; font-weight: 600; }
+        .wrong { color: red; font-weight: 600; }
+        .no-answer { color: #888; }
+        @media (max-width: 768px) {
+            .main-wrapper { flex-direction: column; height: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo-container">
+        <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
+    </div>
+
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="passage-column" id="passageArea">
+            <h1>Reading Passage 1 — Crop-growing skyscrapers</h1>
+            <div class="passage-text">
+                <p><strong>Crop-growing skyscrapers</strong></p>
+                <p>By the year 2050, nearly 80% of the Earth's population will live in urban centres. Applying the most conservative estimates to current demographic trends, the human population will increase by about three billion people by then. An estimated 10⁹ hectares of new land (about 20% larger than Brazil) will be needed to grow enough food to feed them, if traditional farming methods continue as they are practised today. At present, throughout the world, over 80% of the land that is suitable for raising crops is in use. Historically, some 15% of that has been laid waste by poor management practices. What can be done to ensure enough food for the world's population to live on?</p>
+                <p>The concept of indoor farming is not new, since hothouse production of tomatoes and other produce has been in vogue for some time. What is new is the urgent need to scale up this technology to accommodate another three billion people. Many believe an entirely new approach to indoor farming is required, employing cutting-edge technologies. One such proposal is for the 'Vertical Farm'. The concept is of multi-storey buildings in which food crops are grown in environmentally controlled conditions. Situated in the heart of urban centres, they would drastically reduce the amount of transportation required to bring food to consumers. Vertical farms would need to be efficient, cheap to construct and safe to operate. If successfully implemented, proponents claim, vertical farms offer the promise of urban renewal, sustainable production of a safe and varied food supply (through year-round production of all crops), and the eventual repair of ecosystems that have been sacrificed for horizontal farming.</p>
+                <p>It took humans 10,000 years to learn how to grow most of the crops we now take for granted. Along the way, we despoiled most of the land we worked, often turning verdant, natural ecozones into semi-arid deserts. Within that same time frame, we evolved into an urban species, in which 60% of the human population now lives vertically in cities. This means that, for the majority, we humans have shelter from the elements, yet we subject our food-bearing plants to the rigours of the great outdoors and can do no more than hope for a good weather year. However, more often than not, due to a rapidly changing climate, that is not what happens. Massive floods, long droughts, hurricanes and severe monsoons take their toll each year, destroying millions of tons of valuable crops.</p>
+                <p>The supporters of vertical farming claim many potential advantages for the system. For instance, crops would be produced all year round, as they would be kept in artificially controlled, optimum growing conditions. There would be no weather-related crop failures due to droughts, floods or pests. All the food could be grown organically, eliminating the need for herbicides, pesticides and fertilisers. The system would greatly reduce the incidence of many infectious diseases that are acquired at the agricultural interface. Although the system would consume energy, it would return energy to the grid via methane generation from composting non-edible parts of plants. It would also dramatically reduce fossil fuel use, by cutting out the need for tractors, ploughs and shipping.</p>
+                <p>A major drawback of vertical farming, however, is that the plants would require artificial light. Without it, those plants nearest the windows would be exposed to more sunlight and grow more quickly, reducing the efficiency of the system. Single-storey greenhouses have the benefit of natural overhead light: even so, many still need artificial lighting. A multi-storey facility with no natural overhead light would require far more. Generating enough light could be prohibitively expensive, unless cheap, renewable energy is available, and this appears to be rather a future aspiration than a likelihood for the near future.</p>
+                <p>One variation on vertical farming that has been developed is to grow plants in stacked trays that move on rails. Moving the trays allows the plants to get enough sunlight. This system is already in operation, and works well within a single-storey greenhouse with light reaching it from above: it is not certain, however, that it can be made to work without that overhead natural light.</p>
+                <p>Vertical farming is an attempt to address the undoubted problems that we face in producing enough food for a growing population. At the moment, though, more needs to be done to reduce the detrimental impact it would have on the environment, particularly as regards the use of energy. While it is possible that much of our food will be grown in skyscrapers in future, most experts currently believe it is far more likely that we will simply use the space available on urban rooftops.</p>
+            </div>
+        </div>
+
+        <div class="questions-column" id="questionsArea">
+            <div class="questions-section">
+                <h2>Questions 1–7: Sentence Completion</h2>
+                <p><em>Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.</em></p>
+
+                <div class="question-block" id="q1">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(1)" id="flag1">🚩</span>
+                        <p><strong>1.</strong> Some food plants, including __________, are already grown indoors.</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q1" placeholder="Write your answer">
+                </div>
+                <div class="question-block" id="q2">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(2)" id="flag2">🚩</span>
+                        <p><strong>2.</strong> Vertical farms would be located in __________, meaning that there would be less need to take them long distances to customers.</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q2" placeholder="Write your answer">
+                </div>
+                <div class="question-block" id="q3">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(3)" id="flag3">🚩</span>
+                        <p><strong>3.</strong> Vertical farms could use methane from plants and animals to produce __________.</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q3" placeholder="Write your answer">
+                </div>
+                <div class="question-block" id="q4">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(4)" id="flag4">🚩</span>
+                        <p><strong>4.</strong> The consumption of __________ would be cut because agricultural vehicles would be unnecessary.</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q4" placeholder="Write your answer">
+                </div>
+                <div class="question-block" id="q5">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(5)" id="flag5">🚩</span>
+                        <p><strong>5.</strong> The fact that vertical farms would need __________ light is a disadvantage.</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q5" placeholder="Write your answer">
+                </div>
+                <div class="question-block" id="q6">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(6)" id="flag6">🚩</span>
+                        <p><strong>6.</strong> One form of vertical farming involves planting in __________ which are not fixed.</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q6" placeholder="Write your answer">
+                </div>
+                <div class="question-block" id="q7">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(7)" id="flag7">🚩</span>
+                        <p><strong>7.</strong> The most probable development is that food will be grown on __________ in towns and cities.</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q7" placeholder="Write your answer">
+                </div>
+
+                <h2>Questions 8–13: TRUE / FALSE / NOT GIVEN</h2>
+                <p><em>Do the following statements agree with the information given in Reading Passage 1?</em></p>
+                <p><strong>TRUE</strong> — if the statement agrees<br>
+                <strong>FALSE</strong> — if the statement contradicts<br>
+                <strong>NOT GIVEN</strong> — if there is no information</p>
+
+                <div class="question-block" id="q8">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(8)" id="flag8">🚩</span>
+                        <p><strong>8.</strong> Methods for predicting the Earth's population have recently changed.</p>
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="q8" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q8" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q8" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+                <div class="question-block" id="q9">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(9)" id="flag9">🚩</span>
+                        <p><strong>9.</strong> Human beings are responsible for some of the destruction to food-producing land.</p>
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="q9" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q9" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q9" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+                <div class="question-block" id="q10">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(10)" id="flag10">🚩</span>
+                        <p><strong>10.</strong> The crops produced in vertical farms will depend on the season.</p>
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="q10" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q10" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q10" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+                <div class="question-block" id="q11">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(11)" id="flag11">🚩</span>
+                        <p><strong>11.</strong> Some damage to food crops is caused by climate change.</p>
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="q11" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q11" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q11" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+                <div class="question-block" id="q12">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(12)" id="flag12">🚩</span>
+                        <p><strong>12.</strong> Fertilisers will be needed for certain crops in vertical farms.</p>
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="q12" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q12" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q12" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+                <div class="question-block" id="q13">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(13)" id="flag13">🚩</span>
+                        <p><strong>13.</strong> Vertical farming will make plants less likely to be affected by infectious diseases.</p>
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="q13" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q13" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q13" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+
+                <div class="student-answers-box" id="studentAnswersBox">
+                    <h3>📝 Your Answers & Score</h3>
+                    <div id="studentResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-container">
+        <div class="question-nav" id="questionNav">
+            <span class="nav-label">Questions:</span>
+        </div>
+        <div class="bottom-controls">
+            <div class="action-buttons">
+                <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
+                <button class="clear-answers" onclick="clearAllAnswers()">🗑️ Clear All</button>
+            </div>
+            <div class="nav-buttons">
+                <a href="../library.html" class="back-btn">← Main Menu</a>
+                <a href="#" class="next-btn">Next →</a>
+            </div>
+        </div>
+    </div>
+
+<script>
+let currentRange = null;
+let lastNoteId = 0;
+const passageId = 'C11T1P1';
+const TOTAL_QUESTIONS = 40;
+let dragNote = null;
+let dragOffsetX = 0;
+let dragOffsetY = 0;
+
+const correctAnswers = {
+    q1: 'tomatoes',
+    q2: 'urban centres',
+    q3: 'energy',
+    q4: 'fossil fuel',
+    q5: 'artificial',
+    q6: 'stacked trays',
+    q7: 'urban rooftops',
+    q8: 'NOT GIVEN',
+    q9: 'TRUE',
+    q10: 'FALSE',
+    q11: 'TRUE',
+    q12: 'FALSE',
+    q13: 'TRUE'
+};
+
+function initQuestionNav() {
+    const navContainer = document.getElementById('questionNav');
+    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+        const btn = document.createElement('div');
+        btn.className = 'q-indicator';
+        btn.textContent = i;
+        btn.id = 'stat' + i;
+        btn.onclick = () => jumpToQuestion(i);
+        navContainer.appendChild(btn);
+    }
+    updateStatus();
+}
+function jumpToQuestion(qNum) {
+    document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
+    const btn = document.getElementById('stat' + qNum);
+    if (btn) btn.classList.add('current');
+    const el = document.getElementById('q' + qNum);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function toggleFlag(qNum) {
+    const flag = document.getElementById('flag' + qNum);
+    const stat = document.getElementById('stat' + qNum);
+    const isFlagged = flag.classList.toggle('flagged');
+    stat.classList.toggle('flagged', isFlagged);
+    localStorage.setItem(`${passageId}_flag_${qNum}`, isFlagged);
+}
+function isSelectionValid(selection) {
+    if (!selection || selection.isCollapsed || selection.toString().trim() === '') return false;
+    try {
+        const range = selection.getRangeAt(0);
+        const container = range.commonAncestorContainer;
+        const parent = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+        const inPassage = document.getElementById('passageArea').contains(parent);
+        const inQuestions = document.getElementById('questionsArea').contains(parent);
+        const inInput = parent.closest('input, textarea, button, .note-close, label input') !== null;
+        return (inPassage || inQuestions) && !inInput;
+    } catch { return false; }
+}
+const passageArea = document.getElementById('passageArea');
+const questionsArea = document.getElementById('questionsArea');
+const contextMenu = document.getElementById('contextMenu');
+document.addEventListener('contextmenu', function(e) {
+    const selection = window.getSelection();
+    if (!isSelectionValid(selection)) { contextMenu.style.display = 'none'; return; }
+    e.preventDefault();
+    currentRange = selection.getRangeAt(0).cloneRange();
+    const rect = currentRange.getBoundingClientRect();
+    contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+    contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+    contextMenu.style.display = 'block';
+});
+document.addEventListener('click', () => contextMenu.style.display = 'none');
+
+document.getElementById('menuHighlight').addEventListener('click', function() {
+    if (!currentRange) return;
+    try {
+        const span = document.createElement('span');
+        span.className = 'highlight';
+        span.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(span);
+        window.getSelection().removeAllRanges();
+        currentRange = null;
+        saveHighlights();
+    } catch { alert('Please select a smaller piece of text.'); }
+});
+document.getElementById('menuRemove').addEventListener('click', function() {
+    if (!currentRange) return;
+    try {
+        const startEl = currentRange.startContainer.nodeType === Node.TEXT_NODE ? currentRange.startContainer.parentElement : currentRange.startContainer;
+        const endEl = currentRange.endContainer.nodeType === Node.TEXT_NODE ? currentRange.endContainer.parentElement : currentRange.endContainer;
+        let target = startEl.closest('.highlight') || endEl.closest('.highlight');
+        if (target) {
+            const parent = target.parentNode;
+            parent.replaceChild(document.createTextNode(target.textContent), target);
+            parent.normalize();
+        }
+    } catch(e) { console.log(e); }
+    window.getSelection().removeAllRanges();
+    currentRange = null;
+    saveHighlights();
+});
+document.getElementById('menuNote').addEventListener('click', function() {
+    if (!currentRange) return;
+    const rect = currentRange.getBoundingClientRect();
+    const noteId = 'note_' + (++lastNoteId);
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.id = noteId;
+    note.innerHTML = `<div class="note-header" onmousedown="startDrag(event, '${noteId}')">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div><textarea class="note-textarea" placeholder="Type your note..." oninput="saveNotes()"></textarea>`;
+    note.style.left = (rect.right + window.scrollX + 8) + 'px';
+    note.style.top = (rect.top + window.scrollY) + 'px';
+    document.body.appendChild(note);
+    window.getSelection().removeAllRanges();
+    currentRange = null;
+    saveNotes();
+});
+function startDrag(e, noteId) {
+    dragNote = document.getElementById(noteId);
+    const rect = dragNote.getBoundingClientRect();
+    dragOffsetX = e.clientX - rect.left;
+    dragOffsetY = e.clientY - rect.top;
+    dragNote.style.zIndex = '10000';
+    e.preventDefault();
+}
+document.addEventListener('mousemove', function(e) {
+    if (!dragNote) return;
+    dragNote.style.left = (e.pageX - dragOffsetX) + 'px';
+    dragNote.style.top = (e.pageY - dragOffsetY) + 'px';
+});
+document.addEventListener('mouseup', function() {
+    if (dragNote) { dragNote.style.zIndex = '9998'; dragNote = null; saveNotes(); }
+});
+function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
+function saveHighlights() {
+    localStorage.setItem(`${passageId}_passage_highlights`, passageArea.innerHTML);
+    localStorage.setItem(`${passageId}_questions_highlights`, questionsArea.innerHTML);
+}
+function loadHighlights() {
+    const passHtml = localStorage.getItem(`${passageId}_passage_highlights`);
+    const quesHtml = localStorage.getItem(`${passageId}_questions_highlights`);
+    if (passHtml) passageArea.innerHTML = passHtml;
+    if (quesHtml) questionsArea.innerHTML = quesHtml;
+}
+function saveNotes() {
+    const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({id:n.id, left:n.style.left, top:n.style.top, text:n.querySelector('.note-textarea').value}));
+    localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes));
+}
+function loadNotes() {
+    const saved = localStorage.getItem(`${passageId}_notes`);
+    if (!saved) return;
+    JSON.parse(saved).forEach(n => {
+        const note = document.createElement('div');
+        note.className = 'sticky-note';
+        note.id = n.id;
+        note.innerHTML = `<div class="note-header" onmousedown="startDrag(event, '${n.id}')">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea">${n.text}</textarea>`;
+        note.style.left = n.left;
+        note.style.top = n.top;
+        document.body.appendChild(note);
+        const num = parseInt(n.id.split('_')[1]);
+        if (num > lastNoteId) lastNoteId = num;
+    });
+}
+function saveAnswers() {
+    let answers = {};
+    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+        const textInput = document.querySelector(`input[name="q${q}"]`);
+        if (textInput && textInput.type === 'text') answers[`q${q}`] = textInput.value;
+        const radios = document.getElementsByName(`q${q}`);
+        if (radios.length > 0) { for (let r of radios) { if (r.checked) answers[`q${q}`] = r.value; } }
+    }
+    localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
+    updateStatus();
+}
+function loadAnswers() {
+    const saved = localStorage.getItem(`${passageId}_answers`);
+    if (!saved) return;
+    const answers = JSON.parse(saved);
+    for (let key in answers) {
+        const radios = document.getElementsByName(key);
+        if (radios.length > 0) { for (let r of radios) { if (r.value === answers[key]) r.checked = true; } }
+        else { const input = document.querySelector(`input[name="${key}"]`); if (input) input.value = answers[key]; }
+    }
+    updateStatus();
+}
+function updateStatus() {
+    const savedAnswers = localStorage.getItem(`${passageId}_answers`);
+    const answers = savedAnswers ? JSON.parse(savedAnswers) : {};
+    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+        const statBtn = document.getElementById('stat' + q);
+        if (!statBtn) continue;
+        const answerKey = `q${q}`;
+        const val = answers[answerKey] || '';
+        const hasAnswer = val.trim().length > 0;
+        const isFlagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
+        statBtn.classList.remove('answered', 'flagged');
+        if (isFlagged) statBtn.classList.add('flagged');
+        else if (hasAnswer) statBtn.classList.add('answered');
+        const flagIcon = document.getElementById('flag' + q);
+        if (flagIcon) flagIcon.classList.toggle('flagged', isFlagged);
+    }
+}
+function showStudentAnswers() {
+    saveAnswers();
+    const box = document.getElementById('studentAnswersBox');
+    const resultDiv = document.getElementById('studentResult');
+    let html = '';
+    let score = 0;
+    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+        let studentAns = '';
+        const radios = document.getElementsByName(`q${q}`);
+        if (radios.length > 0) { for (let r of radios) { if (r.checked) studentAns = r.value; } }
+        else { const input = document.querySelector(`input[name="q${q}"]`); if (input) studentAns = input.value.trim(); }
+        const correct = correctAnswers[`q${q}`] || '-';
+        let status = '';
+        if (!studentAns) status = '<span class="no-answer">(No Answer)</span>';
+        else if (studentAns.toUpperCase() === correct.toUpperCase()) { status = '<span class="correct">✅ Correct</span>'; score++; }
+        else status = `<span class="wrong">❌ Wrong (Correct: ${correct})</span>`;
+        html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
+    }
+    html += `<br><strong>Total Score: ${score} / 13</strong>`;
+    resultDiv.innerHTML = html;
+    box.style.display = box.style.display === 'block' ? 'none' : 'block';
+}
+function clearAllAnswers() {
+    if (!confirm('⚠️ Clear ALL answers, flags, highlights and notes?')) return;
+    document.querySelectorAll('.answer-input').forEach(i => i.value = '');
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.flag-btn').forEach(f => f.classList.remove('flagged'));
+    document.querySelectorAll('.highlight').forEach(s => {const p=s.parentNode; p.replaceChild(document.createTextNode(s.textContent),p); p.normalize();});
+    document.querySelectorAll('.sticky-note').forEach(n => n.remove());
+    localStorage.removeItem(`${passageId}_answers`);
+    localStorage.removeItem(`${passageId}_passage_highlights`);
+    localStorage.removeItem(`${passageId}_questions_highlights`);
+    localStorage.removeItem(`${passageId}_notes`);
+    document.getElementById('studentAnswersBox').style.display = 'none';
+    updateStatus();
+}
+document.addEventListener('input', function(e) {
+    if (e.target.name?.startsWith('q') || e.target.classList.contains('note-textarea')) {
+        saveAnswers();
+        if (e.target.classList.contains('note-textarea')) saveNotes();
+    }
+});
+window.onload = function() {
+    initQuestionNav();
+    loadAnswers();
+    loadHighlights();
+    loadNotes();
+};
+</script>
+</body>
+</html>
