@@ -153,8 +153,6 @@
             color: #dc2626;
             font-weight: 500;
         }
-
-        /* ✅ CAMBRIDGE BUTTONS — YOUR ORIGINAL STYLE */
         .book-selector-label {
             color: #991b1b;
             font-weight: 600;
@@ -188,7 +186,6 @@
         .book-btn:not(.active):hover {
             background: #ffffff;
         }
-
         .tabs {
             display: flex;
             gap: 12px;
@@ -215,7 +212,6 @@
         .tab:not(.active):hover {
             background: #ffffff;
         }
-
         .tests-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -234,7 +230,6 @@
         .test-card:hover {
             transform: translateY(-2px);
         }
-        /* ✅ HIDE RULE — THIS MAKES THE FILTER WORK */
         .test-card.hidden-by-book,
         .section-content.hidden-by-tab {
             display: none !important;
@@ -285,8 +280,6 @@
         .btn-start:hover {
             background: #b91c1c;
         }
-
-        /* ✅ COPYRIGHT NOTICE */
         .copyright-box {
             background: #fef2f2;
             border: 1px solid #fecaca;
@@ -300,8 +293,6 @@
         .copyright-box strong {
             color: #dc2626;
         }
-
-        /* ✅ TEACHERS SECTION — ALL 7 TEACHERS WITH CORRECT FILE NAMES */
         .teachers-section {
             width: 100%;
             background: #ffffff;
@@ -346,12 +337,9 @@
             color: #991b1b;
             font-size: 14px;
         }
-
         .section-content {
             display: block;
         }
-
-        /* ✅ MOBILE */
         @media (max-width: 768px) {
             .content-wrapper { flex-direction: column; }
             .sidebar { width: 100%; flex-direction: row; overflow-x: auto; border-right: none; border-bottom: 1px solid #fecaca; padding: 10px 0; }
@@ -366,37 +354,26 @@
     </style>
 </head>
 <body>
-
-    <!-- ✅ DECORATION IMAGE TOP RIGHT -->
     <img src="background1.png" alt="Decoration" class="top-right-decoration">
-
-    <!-- ✅ LOGO BAR WITH FLAG -->
     <div class="top-logo-bar">
         <img src="flag.jpg" alt="Flag" class="logo-img">
     </div>
-
     <div class="content-wrapper">
-        <!-- ✅ SIDEBAR -->
         <div class="sidebar">
             <div class="sidebar-menu">
                 <a href="#" class="menu-item">📊 Dashboard</a>
                 <a href="#" class="menu-item active">📝 Practice Tests</a>
             </div>
         </div>
-
-        <!-- ✅ MAIN CONTENT -->
         <div class="main-content">
             <div class="page-header">
                 <h1>Practice Library</h1>
                 <p>High-quality practice tests for all IELTS modules.</p>
             </div>
-
             <div class="search-bar">
                 <input type="text" class="search-input" placeholder="Search by name...">
                 <button class="filter-btn">🔍 Filters</button>
             </div>
-
-            <!-- ✅ CAMBRIDGE BUTTONS -->
             <span class="book-selector-label">📚 Select Cambridge Book:</span>
             <div class="book-buttons">
                 <button class="book-btn active" data-book="all">All</button>
@@ -411,8 +388,6 @@
                 <button class="book-btn" data-book="18">Cambridge 18</button>
                 <button class="book-btn" data-book="19">Cambridge 19</button>
             </div>
-
-            <!-- ✅ TABS -->
             <div class="tabs">
                 <button class="tab active" data-tab="reading">📖 Reading</button>
                 <button class="tab" data-tab="listening">🎧 Listening</button>
@@ -423,46 +398,184 @@
             <!-- ================================== READING SECTION ================================== -->
             <div class="section-content" id="reading">
                 <div class="tests-grid">
-                    <!-- CAMBRIDGE 10 READING -->
+                    <!-- === CAMBRIDGE 10 READING === -->
                     <div class="test-card" data-book="10">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 10 Test 1</h3>
                         <p class="test-desc">Full IELTS Academic Reading test — 3 passages, 40 questions.</p>
-                        <div class="test-meta">
-                            <span>⏱️ 60 min</span>
-                            <span>❓ 40 questions</span>
-                        </div>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
                         <a href="reading/reading-innovation.html" class="btn-start">Start Full Test →</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 10 Test 2</h3>
                         <p class="test-desc">Reading Passages 1–3 complete.</p>
-                        <div class="test-meta">
-                            <span>⏱️ 60 min</span>
-                            <span>❓ 40 questions</span>
-                        </div>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
                         <a href="reading/reading-passage1-C10T2.html" class="btn-start">Start Full Test →</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 10 Test 3</h3>
                         <p class="test-desc">Reading Passages 1–3 complete.</p>
-                        <div class="test-meta">
-                            <span>⏱️ 60 min</span>
-                            <span>❓ 40 questions</span>
-                        </div>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
                         <a href="reading/reading-passage1-C10T3.html" class="btn-start">Start Full Test →</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 10 Test 4</h3>
                         <p class="test-desc">Reading Passages 1–3 complete.</p>
-                        <div class="test-meta">
-                            <span>⏱️ 60 min</span>
-                            <span>❓ 40 questions</span>
-                        </div>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
                         <a href="reading/reading-passage1-C10T4.html" class="btn-start">Start Full Test →</a>
+                    </div>
+
+                    <!-- === CAMBRIDGE 11 READING === -->
+                    <div class="test-card" data-book="11">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 11 Test 1</h3>
+                        <p class="test-desc">Passage 1 — Crop-growing skyscrapers.</p>
+                        <div class="test-meta"><span>⏱️ ~20 min</span><span>❓ 13 questions</span></div>
+                        <a href="reading/reading-passage1-C11T1.html" class="btn-start">Start Test →</a>
+                    </div>
+                    <div class="test-card" data-book="11">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 11 Test 2</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="11">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 11 Test 3</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="11">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 11 Test 4</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+
+                    <!-- === CAMBRIDGE 12 READING === -->
+                    <div class="test-card" data-book="12">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 12 Test 1</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="12">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 12 Test 2</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="12">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 12 Test 3</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="12">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 12 Test 4</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+
+                    <!-- === CAMBRIDGE 13 READING === -->
+                    <div class="test-card" data-book="13">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 13 Test 1</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="13">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 13 Test 2</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="13">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 13 Test 3</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="13">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 13 Test 4</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+
+                    <!-- === CAMBRIDGE 14 READING === -->
+                    <div class="test-card" data-book="14">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 14 Test 1</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="14">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 14 Test 2</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="14">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 14 Test 3</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="14">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 14 Test 4</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+
+                    <!-- === CAMBRIDGE 15 READING === -->
+                    <div class="test-card" data-book="15">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 15 Test 1</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="15">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 15 Test 2</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="15">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 15 Test 3</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="15">
+                        <div class="test-icon">📖</div>
+                        <h3 class="test-title">Cambridge 15 Test 4</h3>
+                        <p class="test-desc">Reading Passages 1–3 — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 60 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
                     </div>
                 </div>
             </div>
@@ -470,46 +583,184 @@
             <!-- ================================== LISTENING SECTION ================================== -->
             <div class="section-content hidden-by-tab" id="listening">
                 <div class="tests-grid">
-                    <!-- CAMBRIDGE 10 LISTENING -->
+                    <!-- CAMBRIDGE 10 -->
                     <div class="test-card" data-book="10">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 10 Test 1</h3>
-                        <p class="test-desc">Full Listening test — 4 sections, audio included.</p>
-                        <div class="test-meta">
-                            <span>⏱️ 30 min</span>
-                            <span>❓ 40 questions</span>
-                        </div>
+                        <p class="test-desc">Full Listening test — 4 sections.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
                         <a href="listening/C10T1.html" class="btn-start">Start Listening →</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 10 Test 2</h3>
-                        <p class="test-desc">Full Listening test — 4 sections, audio included.</p>
-                        <div class="test-meta">
-                            <span>⏱️ 30 min</span>
-                            <span>❓ 40 questions</span>
-                        </div>
-                        <a href="listening/C10T1.html" class="btn-start">Start Listening →</a>
+                        <p class="test-desc">Full Listening test — 4 sections.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="listening/C10T2.html" class="btn-start">Start Listening →</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 10 Test 3</h3>
-                        <p class="test-desc">Full Listening test — 4 sections, audio included.</p>
-                        <div class="test-meta">
-                            <span>⏱️ 30 min</span>
-                            <span>❓ 40 questions</span>
-                        </div>
-                        <a href="listening/C10T1.html" class="btn-start">Start Listening →</a>
+                        <p class="test-desc">Full Listening test — 4 sections.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="listening/C10T3.html" class="btn-start">Start Listening →</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 10 Test 4</h3>
-                        <p class="test-desc">Full Listening test — 4 sections, audio included.</p>
-                        <div class="test-meta">
-                            <span>⏱️ 30 min</span>
-                            <span>❓ 40 questions</span>
-                        </div>
-                        <a href="listening/C10T1.html" class="btn-start">Start Listening →</a>
+                        <p class="test-desc">Full Listening test — 4 sections.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="listening/C10T4.html" class="btn-start">Start Listening →</a>
+                    </div>
+
+                    <!-- CAMBRIDGE 11 -->
+                    <div class="test-card" data-book="11">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 11 Test 1</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="11">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 11 Test 2</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="11">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 11 Test 3</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="11">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 11 Test 4</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+
+                    <!-- CAMBRIDGE 12 -->
+                    <div class="test-card" data-book="12">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 12 Test 1</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="12">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 12 Test 2</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="12">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 12 Test 3</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="12">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 12 Test 4</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+
+                    <!-- CAMBRIDGE 13 -->
+                    <div class="test-card" data-book="13">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 13 Test 1</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="13">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 13 Test 2</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="13">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 13 Test 3</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="13">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 13 Test 4</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+
+                    <!-- CAMBRIDGE 14 -->
+                    <div class="test-card" data-book="14">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 14 Test 1</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="14">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 14 Test 2</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="14">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 14 Test 3</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="14">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 14 Test 4</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+
+                    <!-- CAMBRIDGE 15 -->
+                    <div class="test-card" data-book="15">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 15 Test 1</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="15">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 15 Test 2</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="15">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 15 Test 3</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="15">
+                        <div class="test-icon">🎧</div>
+                        <h3 class="test-title">Cambridge 15 Test 4</h3>
+                        <p class="test-desc">Listening — Coming Soon.</p>
+                        <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
                     </div>
                 </div>
             </div>
@@ -517,127 +768,83 @@
             <!-- ================================== WRITING SECTION ================================== -->
             <div class="section-content hidden-by-tab" id="writing">
                 <div class="tests-grid">
-                    <!-- CAMBRIDGE 10 WRITING -->
+                    <!-- CAMBRIDGE 10 -->
                     <div class="test-card" data-book="10">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 10 Test 1</h3>
-                        <p class="test-desc">Writing Task 1 & Task 2 — prompts + samples.</p>
+                        <p class="test-desc">Writing Task 1 & Task 2 + samples.</p>
                         <a href="writing/C10T1.html" class="btn-start">View Writing →</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 10 Test 2</h3>
-                        <p class="test-desc">Writing Task 1 & Task 2 — prompts + samples.</p>
+                        <p class="test-desc">Writing Task 1 & Task 2 + samples.</p>
                         <a href="writing/C10T2.html" class="btn-start">View Writing →</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 10 Test 3</h3>
-                        <p class="test-desc">Writing Task 1 & Task 2 — prompts + samples.</p>
+                        <p class="test-desc">Writing Task 1 & Task 2 + samples.</p>
                         <a href="writing/C10T3.html" class="btn-start">View Writing →</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 10 Test 4</h3>
-                        <p class="test-desc">Writing Task 1 & Task 2 — prompts + samples.</p>
+                        <p class="test-desc">Writing Task 1 & Task 2 + samples.</p>
                         <a href="writing/C10T4.html" class="btn-start">View Writing →</a>
                     </div>
-                </div>
-            </div>
 
-            <!-- ================================== SPEAKING SECTION ================================== -->
-            <div class="section-content hidden-by-tab" id="speaking">
-                <div class="tests-grid">
-                    <div class="test-card" data-book="10">
-                        <div class="test-icon">🎤</div>
-                        <h3 class="test-title">Cambridge 10 Speaking</h3>
-                        <p class="test-desc">Speaking topics, questions, and sample answers.</p>
-                        <a href="#" class="btn-start">View Speaking →</a>
+                    <!-- CAMBRIDGE 11–15 -->
+                    <div class="test-card" data-book="11">
+                        <div class="test-icon">✍️</div>
+                        <h3 class="test-title">Cambridge 11 Test 1</h3>
+                        <p class="test-desc">Writing — Coming Soon.</p>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
                     </div>
-                </div>
-            </div>
+                    <div class="test-card" data-book="11">
+                        <div class="test-icon">✍️</div>
+                        <h3 class="test-title">Cambridge 11 Test 2</h3>
+                        <p class="test-desc">Writing — Coming Soon.</p>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="11">
+                        <div class="test-icon">✍️</div>
+                        <h3 class="test-title">Cambridge 11 Test 3</h3>
+                        <p class="test-desc">Writing — Coming Soon.</p>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="11">
+                        <div class="test-icon">✍️</div>
+                        <h3 class="test-title">Cambridge 11 Test 4</h3>
+                        <p class="test-desc">Writing — Coming Soon.</p>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
 
-            <!-- ✅ COPYRIGHT BOX -->
-            <div class="copyright-box">
-                <strong>© Copyright Notice:</strong> All materials are for educational and personal practice only. Content from Cambridge IELTS books is the property of Cambridge University Press. This page is not affiliated with or endorsed by Cambridge University Press.
-            </div>
-        </div>
-    </div>
+                    <div class="test-card" data-book="12">
+                        <div class="test-icon">✍️</div>
+                        <h3 class="test-title">Cambridge 12 Test 1</h3>
+                        <p class="test-desc">Writing — Coming Soon.</p>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="12">
+                        <div class="test-icon">✍️</div>
+                        <h3 class="test-title">Cambridge 12 Test 2</h3>
+                        <p class="test-desc">Writing — Coming Soon.</p>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="12">
+                        <div class="test-icon">✍️</div>
+                        <h3 class="test-title">Cambridge 12 Test 3</h3>
+                        <p class="test-desc">Writing — Coming Soon.</p>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="12">
+                        <div class="test-icon">✍️</div>
+                        <h3 class="test-title">Cambridge 12 Test 4</h3>
+                        <p class="test-desc">Writing — Coming Soon.</p>
+                        <a href="#" class="btn-start" style="background:#9ca3af;">Not Ready</a>
+                    </div>
 
-    <!-- ✅ TEACHERS SECTION — ALL 7 TEACHERS WITH CORRECT FILE NAMES -->
-    <div class="teachers-section">
-        <h2>👨‍🏫 Meet Our Teachers</h2>
-        <div class="teachers-grid">
-            <div class="teacher-card">
-                <img src="teacher1.jpeg" alt="Teacher 1">
-                <div class="teacher-name">Teacher 1</div>
-            </div>
-            <div class="teacher-card">
-                <img src="teacher2.jpeg" alt="Teacher 2">
-                <div class="teacher-name">Teacher 2</div>
-            </div>
-            <div class="teacher-card">
-                <img src="teacher3.jpeg" alt="Teacher 3">
-                <div class="teacher-name">Teacher 3</div>
-            </div>
-            <div class="teacher-card">
-                <img src="teacher4.jpeg" alt="Teacher 4">
-                <div class="teacher-name">Teacher 4</div>
-            </div>
-            <div class="teacher-card">
-                <img src="teacher5.jpeg" alt="Teacher 5">
-                <div class="teacher-name">Teacher 5</div>
-            </div>
-            <div class="teacher-card">
-                <img src="teacher6.jpg" alt="Teacher 6">
-                <div class="teacher-name">Teacher 6</div>
-            </div>
-            <div class="teacher-card">
-                <img src="teacher7.jpg" alt="Teacher 7">
-                <div class="teacher-name">Teacher 7</div>
-            </div>
-        </div>
-    </div>
-
-<!-- ==============================================================
-     ✅ THIS SCRIPT MAKES THE BUTTONS WORK — DO NOT DELETE
-     ============================================================== -->
-<script>
-// === CAMBRIDGE BOOK FILTER ===
-const bookButtons = document.querySelectorAll('.book-btn');
-const testCards = document.querySelectorAll('.test-card');
-
-bookButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        bookButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const selectedBook = btn.dataset.book;
-        testCards.forEach(card => {
-            const cardBook = card.dataset.book;
-            if (selectedBook === 'all' || cardBook === selectedBook) {
-                card.classList.remove('hidden-by-book');
-            } else {
-                card.classList.add('hidden-by-book');
-            }
-        });
-    });
-});
-
-// === READING/LISTENING/WRITING/SPEAKING TABS ===
-const tabButtons = document.querySelectorAll('.tab');
-const sections = document.querySelectorAll('.section-content');
-
-tabButtons.forEach(tab => {
-    tab.addEventListener('click', () => {
-        tabButtons.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        const targetTab = tab.dataset.tab;
-        sections.forEach(sec => {
-            sec.classList.toggle('hidden-by-tab', sec.id !== targetTab);
-        });
-    });
-});
-</script>
-
-</body>
-</html>
+                    <div class="test-card" data-book="13">
+                        <div class="test-icon">✍️</div>
+                        <h3 class="test-title">Cambridge 1
