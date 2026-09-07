@@ -30,7 +30,7 @@
             display: flex;
             gap: 15px;
             padding: 5px 15px 15px;
-            height: calc(100vh - 90px);
+            height: calc(100vh - 70px); /* ✅ Adjusted for smaller nav */
         }
         .passage-column, .questions-column {
             flex: 1;
@@ -65,7 +65,7 @@
             width: 100%;
             background: #ffffff;
             border-top: 2px solid #dc2626;
-            padding: 8px 15px;
+            padding: 4px 10px; /* ✅ Smaller padding */
             display: flex;
             flex-wrap: wrap;
             align-items: center;
@@ -75,18 +75,20 @@
         }
         .nav-container {
             display: flex;
-            gap: 5px;
+            gap: 3px; /* ✅ Tighter gap */
             flex-wrap: wrap;
         }
         .q-nav-btn {
-            width: 32px;
-            height: 32px;
+            width: 24px; /* ✅ Smaller buttons */
+            height: 24px; /* ✅ Smaller buttons */
             border: 2px solid #bbb;
-            border-radius: 4px;
+            border-radius: 3px;
             background: #fff;
-            font-size: 13px;
+            font-size: 11px; /* ✅ Smaller font */
             font-weight: bold;
             cursor: pointer;
+            line-height: 1;
+            padding: 0;
         }
         .q-nav-btn.answered {
             background: #22c55e;
@@ -109,15 +111,15 @@
             color: #bbb;
             cursor: not-allowed;
         }
-        .nav-page-controls { display: flex; gap: 10px; }
+        .nav-page-controls { display: flex; gap: 8px; }
         .back-btn, .next-btn {
-            padding: 6px 12px;
+            padding: 4px 8px; /* ✅ Smaller buttons */
             background: #fef2f2;
             color: #dc2626;
-            border-radius: 6px;
+            border-radius: 4px;
             border: 1px solid #fecaca;
             text-decoration: none;
-            font-size: 13px;
+            font-size: 12px; /* ✅ Smaller font */
         }
         .questions-section h2 { color: #991b1b; font-size: 17px; margin: 15px 0 8px; }
         .question-block { margin-bottom: 16px; }
@@ -400,7 +402,7 @@
             </div>
         </div>
     </div>
-    <!-- ✅ NAVIGATION BAR — Questions 1–40 (1–13 & 27–40 greyed out) -->
+    <!-- ✅ NAVIGATION BAR — Questions 1–40 -->
     <div class="question-nav">
         <div class="nav-container" id="navContainer"></div>
         <div class="nav-page-controls">
@@ -411,25 +413,20 @@
     <script>
         const CORRECT = {q14:'C',q15:'B',q16:'H',q17:'B',q18:'E',q19:'sun',q20:'upper',q21:'dry',q22:'north',q23:'FALSE',q24:'TRUE',q25:'NOT GIVEN',q26:'B'};
         const STORAGE = 'P2_DATA';
-        const PASSAGE_QUESTIONS = { start:14, end:26 }; // Only 14-26 active on this page
+        const PASSAGE_QUESTIONS = { start:14, end:26 };
         let currentRange = null, lastNoteId = 0;
 
-        // ✅ PAGE START — build ALL 1-40 buttons
         window.onload = function() {
             const nav = document.getElementById('navContainer');
-            // Build Questions 1–40
             for (let i = 1; i <= 40; i++) {
                 const btn = document.createElement('button');
                 btn.className = 'q-nav-btn';
                 btn.textContent = i;
                 btn.id = 'Q' + i;
-                
-                // Grey out inactive questions (1-13 and 27-40)
                 if (i < PASSAGE_QUESTIONS.start || i > PASSAGE_QUESTIONS.end) {
                     btn.classList.add('inactive');
                     btn.disabled = true;
                 } else {
-                    // Active questions → clickable
                     btn.onclick = () => goToQ(i);
                 }
                 nav.appendChild(btn);
@@ -439,24 +436,20 @@
             updateShading();
         };
 
-        // ✅ Auto-save & refresh shading
         function saveAndUpdate() {
             saveAll();
             updateShading();
         }
 
-        // ✅ Shading logic — only for active questions 14-26
         function updateShading() {
             const data = JSON.parse(localStorage.getItem(STORAGE) || '{}');
             for (let q = PASSAGE_QUESTIONS.start; q <= PASSAGE_QUESTIONS.end; q++) {
                 const btn = document.getElementById('Q' + q);
                 if (!btn) continue;
                 btn.classList.remove('answered', 'flagged');
-                // Green = has answer
                 if (data['a' + q] && String(data['a' + q]).trim() !== '') {
                     btn.classList.add('answered');
                 }
-                // Orange = flagged
                 if (data['f' + q]) {
                     btn.classList.add('flagged');
                 }
@@ -473,15 +466,12 @@
 
         function saveAll() {
             const data = {};
-            // Preserve flags
             const old = JSON.parse(localStorage.getItem(STORAGE) || '{}');
             for (let k in old) if (k[0] === 'f') data[k] = old[k];
-            // Text inputs 14-22
             for (let q = 14; q <= 22; q++) {
                 const el = document.getElementById('ans-q' + q);
                 if (el) data['a' + q] = el.value.trim();
             }
-            // Radio inputs 23-26
             for (let q = 23; q <= 26; q++) {
                 const rs = document.getElementsByName('q' + q);
                 for (let r of rs) if (r.checked) data['a' + q] = r.value;
@@ -511,7 +501,6 @@
             if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // ✅ HIGHLIGHT / NOTE FUNCTIONS — UNCHANGED
         const PA = document.getElementById('passageArea'), QA = document.getElementById('questionsArea'), CM = document.getElementById('contextMenu');
         [PA, QA].forEach(area=>{
             area.addEventListener('contextmenu',e=>{
