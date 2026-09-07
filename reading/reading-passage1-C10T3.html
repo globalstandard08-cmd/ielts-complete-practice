@@ -11,23 +11,22 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
-
         html, body {
             height: 100%;
+            /* ✅ MAIN SCROLLBAR REMAINS — NOT hidden */
         }
-
         body {
             background-color: #fef2f2;
             color: #1a1a1a;
             display: flex;
             flex-direction: column;
         }
-
+        /* ✅ SMALLER LOGO */
         .logo-container {
             width: 100%;
             background: #ffffff;
             border-bottom: 2px solid #dc2626;
-            padding: 8px 0;
+            padding: 4px 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -35,44 +34,40 @@
             box-shadow: 0 2px 2px rgba(0,0,0,0.08);
         }
         .logo {
-            width: 30%;
-            max-width: 280px;
+            width: 18%;
+            max-width: 160px;
             height: auto;
             display: block;
         }
-
+        /* ✅ BIGGER BOXES — moved UP, less space at top */
         .main-wrapper {
             display: flex;
             gap: 12px;
-            padding: 12px;
+            padding: 4px 12px; /* ✅ less top padding → boxes go UP & bigger */
             flex: 1;
             min-height: 0;
         }
-
         .passage-column, .questions-column {
             flex: 1;
             background: #ffffff;
             border-radius: 10px;
             border: 1px solid #fecaca;
-            padding: 16px;
+            padding: 14px;
             overflow-y: auto;
             box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07);
             position: relative;
         }
-
         h1 {
             color: #dc2626;
             font-size: 18px;
             margin-bottom: 12px;
             text-align: center;
         }
-
         .passage-text p {
             margin-bottom: 12px;
             font-size: 15px;
             line-height: 1.8;
         }
-
         .highlight {
             background-color: #ffd700;
             padding: 2px 4px;
@@ -80,7 +75,6 @@
             cursor: pointer;
             color: #000;
         }
-
         .context-menu {
             position: absolute;
             background: #ffffff;
@@ -99,7 +93,6 @@
         .context-menu div:hover {
             background: #fef2f2;
         }
-
         .sticky-note {
             position: absolute;
             width: 160px;
@@ -136,17 +129,14 @@
             font-family: inherit;
             font-size: 12px;
         }
-
         .questions-section h2 {
             color: #991b1b;
             font-size: 16px;
             margin: 15px 0 8px;
         }
-
         .question-block {
             margin-bottom: 16px;
         }
-
         .question-text {
             font-weight: 500;
             font-size: 14px;
@@ -169,7 +159,6 @@
         .flag-btn.flagged {
             color: #f59e0b;
         }
-
         .options label {
             display: block;
             margin-left: 0;
@@ -177,7 +166,6 @@
             font-size: 14px;
             cursor: pointer;
         }
-
         .answer-input {
             width: 100%;
             padding: 6px 10px;
@@ -186,14 +174,12 @@
             font-size: 14px;
             background: #fef2f2;
         }
-
         .action-buttons {
             margin: 20px 0;
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
         }
-
         .toggle-answers, .show-student, .clear-all-answers {
             padding: 7px 12px;
             background: #dc2626;
@@ -204,11 +190,9 @@
             font-weight: 500;
             font-size: 13px;
         }
-
         .toggle-answers:hover, .show-student:hover, .clear-all-answers:hover {
             background: #b91c1c;
         }
-
         .answers-box, .student-answers-box {
             margin-top: 12px;
             padding: 12px;
@@ -218,12 +202,9 @@
             display: none;
             font-size: 13px;
         }
-
         .correct { color: green; font-weight: 600; }
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
-
-        /* Slim Navigation Bar */
         .question-nav {
             width: 100%;
             background: #ffffff;
@@ -298,13 +279,11 @@
     <div class="logo-container">
         <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
     </div>
-
     <div class="context-menu" id="contextMenu">
         <div id="menuHighlight">✅ Highlight</div>
         <div id="menuRemove">❌ Remove Highlight</div>
         <div id="menuNote">📝 Add Note</div>
     </div>
-
     <div class="main-wrapper">
         <div class="passage-column" id="passageArea">
             <h1>Reading Passage 1 — The Context, Meaning and Scope of Tourism</h1>
@@ -322,7 +301,6 @@
                 <p>Once the exclusive province of the wealthy, travel and tourism have become an institutionalised way of life for most of the population. In fact, McIntosh and Goeldner (1990) suggest that tourism has become the largest commodity in international trade for many nations and, for a significant number of other countries, it ranks second or third. For example, tourism is the major source of income in Bermuda, Greece, Italy, Spain, Switzerland and most Caribbean countries. In addition, Hawkins and Ritchie, quoting from data published by the American Express Company, suggest that the travel and tourism industry is the number one ranked employer in the Bahamas, Brazil, Canada, France, (the former) West Germany, Hong Kong, Italy, Jamaica, Japan, Singapore, the United Kingdom and the United States. However, because of problems of definition, which directly affect statistical measurement, it is not possible with any degree of certainty to provide precise, valid or reliable data about the extent of world‑wide tourism participation or its economic impact. In many cases, similar difficulties arise when attempts are made to measure domestic tourism.</p>
             </div>
         </div>
-
         <div class="questions-column" id="questionsArea">
             <div class="questions-section">
                 <h2>Questions 1–4: List of Headings</h2>
@@ -338,7 +316,6 @@
                     <p>vii &nbsp;The world impact of tourism</p>
                     <p>viii &nbsp;The history of travel</p>
                 </div>
-
                 <div class="question-block" data-q="1">
                     <div class="question-text">
                         1.
@@ -371,13 +348,11 @@
                     </div>
                     <input type="text" class="answer-input" name="q4" placeholder="Write i–viii">
                 </div>
-
                 <h2>Questions 5–10: TRUE / FALSE / NOT GIVEN</h2>
                 <p><em>Do the following statements agree with the information given in Reading Passage 1?</em></p>
                 <p><strong>TRUE</strong> — if the statement agrees<br>
                 <strong>FALSE</strong> — if the statement contradicts<br>
                 <strong>NOT GIVEN</strong> — if there is no information</p>
-
                 <div class="question-block" data-q="5">
                     <div class="question-text">
                         5.
@@ -450,10 +425,8 @@
                         <label><input type="radio" name="q10" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-
                 <h2>Questions 11–13: Sentence Completion</h2>
                 <p><em>Complete the sentences below. Choose NO MORE THAN THREE WORDS from the passage for each answer.</em></p>
-
                 <div class="question-block" data-q="11">
                     <div class="question-text">
                         11.
@@ -478,13 +451,11 @@
                     </div>
                     <input type="text" class="answer-input" name="q13" placeholder="Write your answer">
                 </div>
-
                 <div class="action-buttons">
                     <button class="clear-all-answers" onclick="clearAllAnswers()">🧹 Clear All Answers</button>
                     <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
                     <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
                 </div>
-
                 <div class="answers-box" id="answersBox">
                     <h3>✅ Correct Answers — Passage 1</h3>
                     <p><strong>1.</strong> ii<br>
@@ -501,7 +472,6 @@
                     <strong>12.</strong> employer<br>
                     <strong>13.</strong> domestic tourism</p>
                 </div>
-
                 <div class="student-answers-box" id="studentAnswersBox">
                     <h3>📝 Your Answers & Score</h3>
                     <div id="studentResult"></div>
@@ -509,7 +479,6 @@
             </div>
         </div>
     </div>
-
     <div class="question-nav" id="questionNav">
         <div class="nav-container" id="navContainer"></div>
         <div class="nav-page-controls">
@@ -517,19 +486,16 @@
             <a href="reading-passage2-C10T3.html" class="next-btn">Next →</a>
         </div>
     </div>
-
     <script>
         const correctAnswers = {
             q1: 'ii', q2: 'i', q3: 'v', q4: 'vii',
             q5: 'TRUE', q6: 'NOT GIVEN', q7: 'FALSE', q8: 'TRUE', q9: 'NOT GIVEN', q10: 'FALSE',
             q11: 'source of income', q12: 'employer', q13: 'domestic tourism'
         };
-
         const QUESTIONS_ON_PAGE = [1,2,3,4,5,6,7,8,9,10,11,12,13];
         let currentRange = null;
         let lastNoteId = 0;
         const passageId = 'C10T3P1';
-
         function generateNav() {
             const container = document.getElementById('navContainer');
             container.innerHTML = '';
@@ -543,7 +509,6 @@
             }
             updateNavStatus();
         }
-
         function goToQuestion(qNum) {
             const qEl = document.querySelector(`.question-block[data-q="${qNum}"]`);
             if (qEl) {
@@ -552,18 +517,12 @@
                 document.getElementById(`nav-q${qNum}`).classList.add('current');
             }
         }
-
-        // ✅ FINAL FIX: Checks ACTUAL input values directly — just like your working code
         function updateNavStatus() {
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
-            
             QUESTIONS_ON_PAGE.forEach(qNum => {
                 const btn = document.getElementById(`nav-q${qNum}`);
                 if (!btn) return;
-                
                 btn.classList.remove('answered', 'flagged');
-
-                // Check radio first
                 const radios = document.getElementsByName(`q${qNum}`);
                 let hasAnswer = false;
                 if (radios.length > 0) {
@@ -571,18 +530,15 @@
                         if (r.checked) { hasAnswer = true; break; }
                     }
                 } else {
-                    // Check text input directly — no localStorage guesswork
                     const input = document.querySelector(`input[name="q${qNum}"]`);
                     if (input && input.value.trim() !== '') {
                         hasAnswer = true;
                     }
                 }
-
                 if (hasAnswer) btn.classList.add('answered');
                 if (flags[qNum]) btn.classList.add('flagged');
             });
         }
-
         function toggleFlag(qNum) {
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
             flags[qNum] = !flags[qNum];
@@ -591,7 +547,6 @@
             if (btn) btn.classList.toggle('flagged', flags[qNum]);
             updateNavStatus();
         }
-
         function saveAnswers() {
             let answers = {};
             for (let q = 1; q <= 13; q++) {
@@ -611,7 +566,6 @@
             localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
             updateNavStatus();
         }
-
         function loadAnswers() {
             const saved = localStorage.getItem(`${passageId}_answers`);
             if (!saved) return;
@@ -625,10 +579,8 @@
                     if (input) input.value = answers[key];
                 }
             }
-            // ✅ Update nav AFTER loading answers
             updateNavStatus();
         }
-
         function loadFlags() {
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
             for (let q in flags) {
@@ -638,11 +590,9 @@
                 }
             }
         }
-
         const passageArea = document.getElementById('passageArea');
         const questionsArea = document.getElementById('questionsArea');
         const contextMenu = document.getElementById('contextMenu');
-
         [passageArea, questionsArea].forEach(area => {
             area.addEventListener('contextmenu', function(e) {
                 const selection = window.getSelection();
@@ -658,9 +608,7 @@
                 contextMenu.style.display = 'block';
             });
         });
-
         document.addEventListener('click', () => contextMenu.style.display = 'none');
-
         document.getElementById('menuHighlight').addEventListener('click', function() {
             if (!currentRange) return;
             const span = document.createElement('span');
@@ -671,7 +619,6 @@
             window.getSelection().removeAllRanges();
             currentRange = null;
         });
-
         document.getElementById('menuRemove').addEventListener('click', function() {
             if (!currentRange) return;
             try {
@@ -685,7 +632,6 @@
             window.getSelection().removeAllRanges();
             currentRange = null;
         });
-
         document.getElementById('menuNote').addEventListener('click', function() {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
@@ -701,12 +647,10 @@
             currentRange = null;
             saveNotes();
         });
-
         function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
         function saveNote(id, text) { localStorage.setItem(`${passageId}_${id}`, text); }
         function saveNotes() { const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value})); localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes)); }
         function loadNotes() { const saved = localStorage.getItem(`${passageId}_notes`); if (!saved) return; JSON.parse(saved).forEach(n => { const note = document.createElement('div'); note.className = 'sticky-note'; note.id = n.id; note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>`; note.style.left = n.left; note.style.top = n.top; document.body.appendChild(note); const num = parseInt(n.id.split('_')[1]); if (num > lastNoteId) lastNoteId = num; }); }
-
         function clearAllAnswers() { 
             if (!confirm('Clear all your answers, highlights and notes? This cannot be undone.')) return; 
             localStorage.removeItem(`${passageId}_answers`); 
@@ -716,14 +660,12 @@
         }
         function toggleAnswers() { const box = document.getElementById('answersBox'); box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
         function showStudentAnswers() { saveAnswers(); const box = document.getElementById('studentAnswersBox'); const resultDiv = document.getElementById('studentResult'); let html = ''; let score = 0; for (let q = 1; q <= 13; q++) { let studentAns = ''; const radios = document.getElementsByName(`q${q}`); if (radios.length > 0) { for (let r of radios) if (r.checked) studentAns = r.value; } else { const input = document.querySelector(`input[name="q${q}"]`); if (input) studentAns = input.value.trim().toLowerCase(); } const correct = correctAnswers[`q${q}`].toLowerCase(); let status = ''; if (!studentAns) status = '<span class="no-answer">(No Answer)</span>'; else if (studentAns === correct) { status = '<span class="correct">✅ Correct</span>'; score++; } else { status = `<span class="wrong">❌ Wrong (Correct: ${correctAnswers[`q${q}`]})</span>`; } html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`; } html += `<br><strong>Total Score: ${score} / 13</strong>`; resultDiv.innerHTML = html; box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
-
         document.addEventListener('input', function(e) {
             if (e.target.name?.startsWith('q')) saveAnswers();
         });
         document.addEventListener('change', function(e) {
             if (e.target.name?.startsWith('q')) saveAnswers();
         });
-
         window.onload = function() { generateNav(); loadAnswers(); loadFlags(); loadNotes(); };
     </script>
 </body>
