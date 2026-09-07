@@ -11,66 +11,60 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
-
+        html, body {
+            height: 100%;
+            /* ✅ MAIN SCROLLBAR REMAINS — visible on right */
+        }
         body {
             background-color: #fef2f2;
             color: #1a1a1a;
-            line-height: 1.6;
-            padding-bottom: 80px;
         }
-
-        /* Logo Styles */
+        /* ✅ SMALLER LOGO — less space at top */
         .logo-container {
             width: 100%;
             background: #ffffff;
             border-bottom: 2px solid #dc2626;
-            padding: 10px 0;
+            padding: 4px 0; /* ✅ smaller top padding */
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 10px;
             box-shadow: 0 2px 2px rgba(0,0,0,0.08);
         }
         .logo {
-            width: 35%;
-            max-width: 320px;
+            width: 18%; /* ✅ smaller logo — matches Passage 1 */
+            max-width: 160px;
             height: auto;
             display: block;
         }
-
-        /* Two-Column Layout */
+        /* ✅ BIGGER BOXES — moved UP, fill more space */
         .main-wrapper {
             display: flex;
-            gap: 15px;
-            padding: 0 15px 15px;
-            height: calc(100vh - 110px);
+            gap: 12px;
+            padding: 4px 12px; /* ✅ almost no top padding → boxes go UP & BIGGER */
+            flex: 1;
+            min-height: 0;
         }
-
         .passage-column, .questions-column {
             flex: 1;
             background: #ffffff;
             border-radius: 10px;
             border: 1px solid #fecaca;
-            padding: 18px;
-            overflow-y: auto;
+            padding: 14px;
+            overflow-y: auto; /* ✅ scroll inside boxes only */
             box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07);
             position: relative;
         }
-
         h1 {
             color: #dc2626;
-            font-size: 19px;
+            font-size: 18px;
             margin-bottom: 12px;
             text-align: center;
         }
-
         .passage-text p {
             margin-bottom: 12px;
             font-size: 15px;
             line-height: 1.8;
         }
-
-        /* Highlight style — no extra spacing, no line breaks */
         .highlight {
             background-color: #ffd700;
             padding: 1px 3px;
@@ -79,7 +73,6 @@
             display: inline;
             white-space: normal;
         }
-
         .context-menu {
             position: absolute;
             background: #ffffff;
@@ -98,7 +91,6 @@
         .context-menu div:hover {
             background: #fef2f2;
         }
-
         .sticky-note {
             position: absolute;
             width: 160px;
@@ -135,17 +127,14 @@
             font-family: inherit;
             font-size: 12px;
         }
-
         .questions-section h2 {
             color: #991b1b;
-            font-size: 17px;
+            font-size: 16px;
             margin: 15px 0 8px;
         }
-
         .question-block {
             margin-bottom: 16px;
         }
-
         .question-line {
             font-weight: 500;
             font-size: 14px;
@@ -171,7 +160,6 @@
         .flag-btn.flagged {
             color: #f59e0b;
         }
-
         .options label {
             display: block;
             margin-left: 0;
@@ -179,7 +167,6 @@
             font-size: 14px;
             cursor: pointer;
         }
-
         .answer-input {
             width: 100%;
             padding: 6px 10px;
@@ -188,29 +175,25 @@
             font-size: 14px;
             background: #fef2f2;
         }
-
         .action-buttons {
             margin: 20px 0;
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
         }
-
         .toggle-answers, .show-student, .clear-all-answers {
-            padding: 8px 14px;
+            padding: 7px 12px;
             background: #dc2626;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: 500;
             font-size: 13px;
         }
-
         .toggle-answers:hover, .show-student:hover, .clear-all-answers:hover {
             background: #b91c1c;
         }
-
         .answers-box, .student-answers-box {
             margin-top: 12px;
             padding: 12px;
@@ -220,40 +203,34 @@
             display: none;
             font-size: 13px;
         }
-
         .correct { color: green; font-weight: 600; }
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
-
-        /* Bottom Navigation Bar */
         .question-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
             width: 100%;
             background: #ffffff;
             border-top: 2px solid #dc2626;
-            padding: 8px 15px;
+            padding: 6px 15px;
+            flex-shrink: 0;
             box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
-            z-index: 100;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
+            gap: 10px;
         }
         .nav-container {
             display: flex;
-            gap: 5px;
+            gap: 4px;
             flex-wrap: wrap;
         }
         .q-nav-btn {
-            width: 28px;
-            height: 28px;
+            width: 26px;
+            height: 26px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 3px;
             background: #f9f9f9;
-            font-size: 12px;
+            font-size: 11px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -278,81 +255,64 @@
         }
         .nav-page-controls {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
         .back-btn, .next-btn {
-            padding: 6px 12px;
+            padding: 5px 12px;
             background: #fef2f2;
             color: #dc2626;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 4px;
             border: 1px solid #fecaca;
             font-weight: 500;
-            font-size: 13px;
+            font-size: 12px;
             white-space: nowrap;
         }
         .back-btn:hover, .next-btn:hover {
             background: #ffffff;
+            border-color: #dc2626;
         }
     </style>
 </head>
 <body>
-    <!-- Logo -->
     <div class="logo-container">
         <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
     </div>
-
-    <!-- Right-click Context Menu -->
     <div class="context-menu" id="contextMenu">
         <div id="menuHighlight">✅ Highlight</div>
         <div id="menuRemove">❌ Remove Highlight</div>
         <div id="menuNote">📝 Add Note</div>
     </div>
-
-    <!-- Two Column Layout -->
     <div class="main-wrapper">
-        <!-- Left: Passage Text -->
         <div class="passage-column" id="passageArea">
             <h1>Reading Passage 2 — Autumn Leaves</h1>
             <div class="passage-text" id="passageText">
                 <p><strong>Autumn leaves</strong></p>
                 <p><em>Canadian writer Jay Ingram investigates the mystery of why leaves turn red in the fall</em></p>
-
                 <p><strong>A</strong></p>
                 <p>One of the most captivating natural events of the year in many areas throughout North America is the turning of the leaves in the fall. The colours are magnificent, but the question of exactly why some trees turn yellow or orange, and others red or purple, is something which has long puzzled scientists.</p>
-
                 <p><strong>B</strong></p>
                 <p>Summer leaves are green because they are full of chlorophyll, the molecule that captures sunlight and converts that energy into new building materials for the tree. As fall approaches in the northern hemisphere, the amount of solar energy available declines considerably. For many trees – evergreen conifers being an exception – the best strategy is to abandon photosynthesis until the spring. So rather than maintaining the now redundant leaves throughout the winter, the tree saves its precious resources and discards them. But before letting its leaves go, the tree dismantles their chlorophyll molecules and ships their valuable nitrogen back into the twigs. As chlorophyll is depleted, other colours that have been dominated by it throughout the summer begin to be revealed. This unmasking explains the autumn colours of yellow and orange, but not the brilliant reds and purples of trees such as the maple or sumac.</p>
-
                 <p><strong>C</strong></p>
                 <p>The source of the red is widely known: it is created by anthocyanins, water-soluble plant pigments reflecting the red to blue range of the visible spectrum. They belong to a class of sugar-based chemical compounds also known as flavonoids. What’s puzzling is that anthocyanins are actually newly minted, made in the leaves at the same time as the tree is preparing to drop them. But it is hard to make sense of the manufacture of anthocyanins – why should a tree bother making new chemicals in its leaves when it’s already scrambling to withdraw and preserve the ones already there?</p>
-
                 <p><strong>D</strong></p>
                 <p>Some theories about anthocyanins have argued that they might act as a chemical defence against attacks by insects or fungi, or that they might attract fruit-eating birds or increase a leaf’s tolerance to freezing. However there are problems with each of these theories, including the fact that leaves are red for such a relatively short period that the expense of energy needed to manufacture the anthocyanins would outweigh any anti-fungal or anti-herbivore activity achieved.</p>
-
                 <p><strong>E</strong></p>
                 <p>It has also been proposed that trees may produce vivid red colours to convince herbivorous insects that they are healthy and robust and would be easily able to mount chemical defences against infestation. If insects paid attention to such advertisements, they might be prompted to lay their eggs on a duller, and presumably less resistant host. The flaw in this theory lies in the lack of proof to support it. No one has yet ascertained whether more robust trees sport the brightest leaves, or whether insects make choices according to colour intensity.</p>
-
                 <p><strong>F</strong></p>
                 <p>Perhaps the most plausible suggestion as to why leaves would go to the trouble of making anthocyanins when they’re busy packing up for the winter is the theory known as the ‘light screen’ hypothesis. It sounds paradoxical, because the idea behind this hypothesis is that the red pigment is made in autumn leaves to protect chlorophyll, the light-absorbing chemical, from too much light. Why does chlorophyll need protection when it is the natural world’s supreme light absorber? Why protect chlorophyll at a time when the tree is breaking it down to salvage as much of it as possible?</p>
-
                 <p><strong>G</strong></p>
                 <p>Chlorophyll, although exquisitely evolved to capture the energy of sunlight, can sometimes be overwhelmed by it, especially in situations of drought, low temperatures, or nutrient deficiency. Moreover, the problem of oversensitivity to light is even more acute in the fall, when the leaf is busy preparing for winter by dismantling its internal machinery. The energy absorbed by the chlorophyll molecules of the unstable autumn leaf is not immediately channelled into useful products and processes, as it would be in an intact summer leaf. The weakened fall leaf then becomes vulnerable to the highly destructive effects of the oxygen created by the excited chlorophyll molecules.</p>
-
                 <p><strong>H</strong></p>
                 <p>Even if you had never suspected that this is what was going on when leaves turn red, there are clues out there. One is straightforward: on many trees, the leaves that are the reddest are those on the side of the tree which gets most sun. Not only that, but the red is brighter on the upper side of the leaf. It has also been recognised for decades that the best conditions for intense red colours are dry, sunny days and cool nights, conditions that nicely match those that make leaves susceptible to excess light. And finally, trees such as maples usually get much redder the more north you travel in the northern hemisphere. It’s colder there, they’re more stressed, their chlorophyll is more sensitive and it needs more sunblock.</p>
-
                 <p><strong>I</strong></p>
                 <p>What is still not fully understood, however, is why some trees resort to producing red pigments while others don’t bother, and simply reveal their orange or yellow hues. Do these trees have other means at their disposal to prevent overexposure to light in autumn? Their story, though not as spectacular to the eye, will surely turn out to be as subtle and as complex.</p>
             </div>
         </div>
-
-        <!-- Right: Questions -->
         <div class="questions-column" id="questionsArea">
             <div class="questions-section">
                 <h2>Questions 14–18</h2>
                 <p><em>Reading Passage 2 has nine paragraphs, A–I. Which paragraph contains the following information? Write the correct letter, A–I.</em></p>
-
                 <div class="question-block" data-q="14">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(14)">🚩</button>
@@ -360,7 +320,6 @@
                     </div>
                     <input type="text" class="answer-input" name="q14" placeholder="Write A–I" onchange="saveAnswers();updateNavStatus()">
                 </div>
-
                 <div class="question-block" data-q="15">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(15)">🚩</button>
@@ -368,7 +327,6 @@
                     </div>
                     <input type="text" class="answer-input" name="q15" placeholder="Write A–I" onchange="saveAnswers();updateNavStatus()">
                 </div>
-
                 <div class="question-block" data-q="16">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(16)">🚩</button>
@@ -376,7 +334,6 @@
                     </div>
                     <input type="text" class="answer-input" name="q16" placeholder="Write A–I" onchange="saveAnswers();updateNavStatus()">
                 </div>
-
                 <div class="question-block" data-q="17">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(17)">🚩</button>
@@ -384,7 +341,6 @@
                     </div>
                     <input type="text" class="answer-input" name="q17" placeholder="Write A–I" onchange="saveAnswers();updateNavStatus()">
                 </div>
-
                 <div class="question-block" data-q="18">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(18)">🚩</button>
@@ -392,11 +348,9 @@
                     </div>
                     <input type="text" class="answer-input" name="q18" placeholder="Write A–I" onchange="saveAnswers();updateNavStatus()">
                 </div>
-
                 <h2>Questions 19–22</h2>
                 <p><em>Complete the notes below. Choose ONE WORD ONLY from the passage for each answer.</em></p>
                 <p><strong>Why believe the ‘light screen’ hypothesis?</strong></p>
-
                 <div class="question-block" data-q="19">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(19)">🚩</button>
@@ -404,7 +358,6 @@
                     </div>
                     <input type="text" class="answer-input" name="q19" placeholder="Write one word" onchange="saveAnswers();updateNavStatus()">
                 </div>
-
                 <div class="question-block" data-q="20">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(20)">🚩</button>
@@ -412,7 +365,6 @@
                     </div>
                     <input type="text" class="answer-input" name="q20" placeholder="Write one word" onchange="saveAnswers();updateNavStatus()">
                 </div>
-
                 <div class="question-block" data-q="21">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(21)">🚩</button>
@@ -420,7 +372,6 @@
                     </div>
                     <input type="text" class="answer-input" name="q21" placeholder="Write one word" onchange="saveAnswers();updateNavStatus()">
                 </div>
-
                 <div class="question-block" data-q="22">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(22)">🚩</button>
@@ -428,13 +379,11 @@
                     </div>
                     <input type="text" class="answer-input" name="q22" placeholder="Write one word" onchange="saveAnswers();updateNavStatus()">
                 </div>
-
                 <h2>Questions 23–25</h2>
                 <p><em>Do the following statements agree with the information given in Reading Passage 2?</em></p>
                 <p><strong>TRUE</strong> if the statement agrees<br>
                 <strong>FALSE</strong> if the statement contradicts<br>
                 <strong>NOT GIVEN</strong> if there is no information</p>
-
                 <div class="question-block" data-q="23">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(23)">🚩</button>
@@ -446,7 +395,6 @@
                         <label><input type="radio" name="q23" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="24">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(24)">🚩</button>
@@ -458,7 +406,6 @@
                         <label><input type="radio" name="q24" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="25">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(25)">🚩</button>
@@ -470,10 +417,8 @@
                         <label><input type="radio" name="q25" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
                     </div>
                 </div>
-
                 <h2>Question 26</h2>
                 <p><em>Choose the correct letter, A, B, C or D.</em></p>
-
                 <div class="question-block" data-q="26">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(26)">🚩</button>
@@ -486,13 +431,11 @@
                         <label><input type="radio" name="q26" value="D" onchange="saveAnswers();updateNavStatus()"> D why anthocyanins are restricted to certain trees</label>
                     </div>
                 </div>
-
                 <div class="action-buttons">
                     <button class="clear-all-answers" onclick="clearAll()">🧹 Clear All</button>
                     <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
                     <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
                 </div>
-
                 <div class="answers-box" id="answersBox">
                     <h3>✅ Correct Answers — Passage 2</h3>
                     <p><strong>14.</strong> C<br>
@@ -509,7 +452,6 @@
                     <strong>25.</strong> NOT GIVEN<br>
                     <strong>26.</strong> B</p>
                 </div>
-
                 <div class="student-answers-box" id="studentAnswersBox">
                     <h3>📝 Your Answers & Score</h3>
                     <div id="studentResult"></div>
@@ -517,8 +459,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Bottom Navigation Bar -->
     <div class="question-nav" id="questionNav">
         <div class="nav-container" id="navContainer"></div>
         <div class="nav-page-controls">
@@ -526,18 +466,15 @@
             <a href="reading-passage3-C10T3.html" class="next-btn">Next →</a>
         </div>
     </div>
-
     <script>
         const correctAnswers = {
             q14: 'C', q15: 'B', q16: 'H', q17: 'B', q18: 'E',
             q19: 'sun', q20: 'upper', q21: 'dry', q22: 'north',
             q23: 'FALSE', q24: 'TRUE', q25: 'NOT GIVEN', q26: 'B'
         };
-
         let currentRange = null;
         let lastNoteId = 0;
         const passageId = 'C10T3P2';
-
         function generateNav() {
             const container = document.getElementById('navContainer');
             container.innerHTML = '';
@@ -551,7 +488,6 @@
             }
             updateNavStatus();
         }
-
         function goToQuestion(qNum) {
             const qEl = document.querySelector(`.question-block[data-q="${qNum}"]`);
             if (qEl) {
@@ -560,11 +496,10 @@
                 document.getElementById(`nav-q${qNum}`).classList.add('current');
             }
         }
-
         function updateNavStatus() {
             const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`)) || {};
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
-            for (let i = 1; i <= 40; i++) {
+            for (let i = 14; i <= 26; i++) {
                 const btn = document.getElementById(`nav-q${i}`);
                 if (!btn) continue;
                 btn.classList.remove('answered', 'flagged');
@@ -572,7 +507,6 @@
                 if (flags[i]) btn.classList.add('flagged');
             }
         }
-
         function toggleFlag(qNum) {
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
             flags[qNum] = !flags[qNum];
@@ -580,7 +514,6 @@
             document.querySelector(`.question-block[data-q="${qNum}"] .flag-btn`).classList.toggle('flagged', flags[qNum]);
             updateNavStatus();
         }
-
         function saveAnswers() {
             let answers = {};
             for (let q = 14; q <= 26; q++) {
@@ -595,7 +528,6 @@
             localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
             updateNavStatus();
         }
-
         function loadAnswers() {
             const saved = localStorage.getItem(`${passageId}_answers`);
             if (!saved) return;
@@ -611,7 +543,6 @@
             }
             updateNavStatus();
         }
-
         function loadFlags() {
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
             for (let q in flags) {
@@ -621,12 +552,9 @@
                 }
             }
         }
-
-        // Context menu works for both columns
         const passageArea = document.getElementById('passageArea');
         const questionsArea = document.getElementById('questionsArea');
         const contextMenu = document.getElementById('contextMenu');
-
         [passageArea, questionsArea].forEach(area => {
             area.addEventListener('contextmenu', function(e) {
                 const selection = window.getSelection();
@@ -642,10 +570,7 @@
                 contextMenu.style.display = 'block';
             });
         });
-
         document.addEventListener('click', () => contextMenu.style.display = 'none');
-
-        // Add highlight — clean wrapping
         document.getElementById('menuHighlight').addEventListener('click', function() {
             if (!currentRange) return;
             const span = document.createElement('span');
@@ -654,20 +579,16 @@
             try {
                 currentRange.deleteContents();
                 currentRange.insertNode(span);
-                // Merge adjacent text nodes to avoid splits
                 span.parentNode.normalize();
             } catch (e) {}
             window.getSelection().removeAllRanges();
             currentRange = null;
             saveHighlights();
         });
-
-        // Remove highlight — fully restores original text without breaks
         document.getElementById('menuRemove').addEventListener('click', function() {
             if (!currentRange) return;
             try {
                 let container = currentRange.commonAncestorContainer;
-                // Find the highlight span even if selection is partial
                 while (container && container !== passageArea && container !== questionsArea) {
                     if (container.nodeType === 1 && container.classList.contains('highlight')) break;
                     container = container.parentNode;
@@ -675,7 +596,6 @@
                 if (container && container.classList.contains('highlight')) {
                     const plainText = document.createTextNode(container.textContent);
                     container.parentNode.replaceChild(plainText, container);
-                    // Merge all split text nodes completely
                     plainText.parentNode.normalize();
                 }
             } catch (e) {}
@@ -683,7 +603,6 @@
             currentRange = null;
             saveHighlights();
         });
-
         document.getElementById('menuNote').addEventListener('click', function() {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
@@ -699,10 +618,8 @@
             currentRange = null;
             saveNotes();
         });
-
         function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
         function saveNote(id, text) { localStorage.setItem(`${passageId}_${id}`, text); }
-
         function saveHighlights() { 
             localStorage.setItem(`${passageId}_passageHighlights`, passageArea.innerHTML);
             localStorage.setItem(`${passageId}_questionHighlights`, questionsArea.innerHTML);
@@ -712,10 +629,8 @@
             const savedQuestions = localStorage.getItem(`${passageId}_questionHighlights`);
             if (savedPassage) passageArea.innerHTML = savedPassage;
             if (savedQuestions) questionsArea.innerHTML = savedQuestions;
-            // Clean up any leftover splits on load
             [passageArea, questionsArea].forEach(el => el.normalize());
         }
-
         function saveNotes() { 
             const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
                 id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
@@ -737,7 +652,6 @@
                 if (num > lastNoteId) lastNoteId = num; 
             }); 
         }
-
         function clearAll() {
             if (!confirm('Clear ALL answers, flags, highlights and notes? This cannot be undone.')) return;
             localStorage.removeItem(`${passageId}_answers`);
@@ -747,7 +661,6 @@
             localStorage.removeItem(`${passageId}_notes`);
             location.reload();
         }
-
         function toggleAnswers() { const box = document.getElementById('answersBox'); box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
         function showStudentAnswers() {
             saveAnswers();
@@ -780,7 +693,6 @@
             resultDiv.innerHTML = html;
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
-
         document.addEventListener('input', function(e) { if (e.target.matches('.answer-input') || e.target.matches('input[type="radio"]')) saveAnswers(); });
         window.onload = function() { generateNav(); loadAnswers(); loadFlags(); loadHighlights(); loadNotes(); };
     </script>
