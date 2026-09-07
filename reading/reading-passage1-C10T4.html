@@ -29,8 +29,8 @@
         h2 { color: #991b1b; font-size: 16px; margin: 20px 0 10px; }
         .notes-box { margin: 10px 0 15px; padding: 10px; background: #fef2f2; border-radius: 6px; font-size: 13px; line-height: 1.7; }
         .action-buttons { margin: 20px 0; display: flex; gap: 10px; flex-wrap: wrap; }
-        .toggle-answers, .show-student, .clear-all, .clear-highlight { padding: 7px 12px; background: #dc2626; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; }
-        .toggle-answers:hover, .show-student:hover, .clear-all:hover, .clear-highlight:hover { background: #b91c1c; }
+        .show-student, .clear-all, .clear-highlight { padding: 7px 12px; background: #dc2626; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; }
+        .show-student:hover, .clear-all:hover, .clear-highlight:hover { background: #b91c1c; }
         .answers-box, .student-answers-box { margin-top: 12px; padding: 12px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; display: none; font-size: 13px; }
         .correct { color: green; font-weight: 600; }
         .wrong { color: red; font-weight: 600; }
@@ -54,7 +54,6 @@
         <div id="menuRemove">❌ Remove Highlight</div>
         <div id="menuNote">📝 Add Note</div>
     </div>
-
     <div class="main-wrapper">
         <div class="passage-column" id="passageArea">
             <h1>Reading Passage 1 — The megafires of California</h1>
@@ -73,7 +72,6 @@
             </div>
             <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear All Highlights</button>
         </div>
-
         <div class="questions-column" id="questionsArea">
             <div class="questions-section">
                 <h2>Questions 1–6: Note Completion</h2>
@@ -93,7 +91,6 @@
                     – extended fire 5 ...............<br>
                     – more building of 6 ............... in vulnerable places</p>
                 </div>
-
                 <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <button class="flag-btn" onclick="toggleFlag(1)" id="flag1">🚩</button>
                     <div><strong>1.</strong> <input type="text" class="answer-input ans" name="q1" data-q="1" placeholder="Answer"></div>
@@ -118,13 +115,11 @@
                     <button class="flag-btn" onclick="toggleFlag(6)" id="flag6">🚩</button>
                     <div><strong>6.</strong> <input type="text" class="answer-input ans" name="q6" data-q="6" placeholder="Answer"></div>
                 </div>
-
                 <h2>Questions 7–13: True / False / Not Given</h2>
                 <p><em>Do the following statements agree with the information given in Reading Passage 1?</em></p>
                 <p><strong>TRUE</strong> if the statement agrees with the information<br>
                 <strong>FALSE</strong> if the statement contradicts the information<br>
                 <strong>NOT GIVEN</strong> if there is no information on this</p>
-
                 <div class="question-block" style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
                     <button class="flag-btn" onclick="toggleFlag(7)" id="flag7">🚩</button>
                     <div><strong>7.</strong> The amount of open space in California has diminished over the last ten years.<br>
@@ -160,13 +155,10 @@
                     <div><strong>13.</strong> Randy Jacobs believes that loss of life from fires will continue at the same levels, despite changes made.<br>
                     <input type="text" class="answer-input ans" name="q13" data-q="13" placeholder="T/F/NG"></div>
                 </div>
-
                 <div class="action-buttons">
-                    <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
                     <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
                     <button class="clear-all" onclick="clearAll()">🗑️ Clear All Data</button>
                 </div>
-
                 <div class="answers-box" id="answersBox">
                     <h3>✅ Correct Answers — Passage 1</h3>
                     <p><strong>1.</strong> spread<br>
@@ -183,7 +175,6 @@
                     <strong>12.</strong> FALSE<br>
                     <strong>13.</strong> FALSE</p>
                 </div>
-
                 <div class="student-answers-box" id="studentAnswersBox">
                     <h3>📝 Your Answers & Score</h3>
                     <div id="studentResult"></div>
@@ -191,12 +182,10 @@
             </div>
         </div>
     </div>
-
     <div class="nav-buttons">
         <a href="../index.html" class="back-btn">← Back to Main Menu</a>
         <a href="reading-passage2-C10T4.html" class="next-btn">Next Passage →</a>
     </div>
-
     <script>
         const correctAnswers = {
             q1: 'spread', q2: '10 times', q3: 'below', q4: 'fuel', q5: 'seasons', q6: 'homes',
@@ -205,34 +194,28 @@
         const CURRENT_PAGE_QUESTIONS = [1,2,3,4,5,6,7,8,9,10,11,12,13];
         const GLOBAL_SAVE_KEY = 'C10T4_all_answers_flags';
         const passageId = 'C10T4P1';
-
         let currentRange = null, lastNoteId = 0, activeNote = null, offsetX, offsetY;
-
         function buildStatusBar() {
             const bar = document.getElementById('statusBar');
             bar.innerHTML = '';
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{"answers":{},"flags":{}}');
             saved.answers = saved.answers || {};
             saved.flags = saved.flags || {};
-
             for (let q = 1; q <= 40; q++) {
                 const d = document.createElement('div');
                 d.className = 'q-indicator';
                 d.textContent = q;
                 d.id = 'stat' + q;
                 d.dataset.q = q;
-
                 if (CURRENT_PAGE_QUESTIONS.includes(q)) {
                     d.classList.add('current');
                     d.onclick = () => scrollToQuestion(q);
                 }
-
                 if (saved.flags[q]) d.classList.add('flagged');
                 if (saved.answers[q] && saved.answers[q].trim() !== '') d.classList.add('answered');
                 bar.appendChild(d);
             }
         }
-
         function updateNavStatus() {
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{"answers":{},"flags":{}}');
             saved.answers = saved.answers || {};
@@ -245,12 +228,10 @@
                 btn.classList.toggle('flagged', saved.flags[q] === true);
             }
         }
-
         function scrollToQuestion(qNum) {
             const input = document.querySelector(`[data-q="${qNum}"]`);
             if (input) input.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-
         function toggleFlag(qNum) {
             const flagBtn = document.getElementById('flag' + qNum);
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{"answers":{},"flags":{}}');
@@ -260,26 +241,21 @@
             localStorage.setItem(GLOBAL_SAVE_KEY, JSON.stringify(saved));
             updateNavStatus();
         }
-
         function saveAnswers() {
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{"answers":{},"flags":{}}');
             saved.answers = saved.answers || {};
             saved.flags = saved.flags || {};
-
             document.querySelectorAll('.ans').forEach(el => {
                 const q = el.dataset.q;
                 saved.answers[q] = el.value;
             });
-
             localStorage.setItem(GLOBAL_SAVE_KEY, JSON.stringify(saved));
             updateNavStatus();
         }
-
         function loadAnswers() {
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{"answers":{},"flags":{}}');
             saved.answers = saved.answers || {};
             saved.flags = saved.flags || {};
-
             for (const q of CURRENT_PAGE_QUESTIONS) {
                 const input = document.querySelector(`[data-q="${q}"]`);
                 if (input) input.value = saved.answers[q] || '';
@@ -287,12 +263,10 @@
                 if (flag) flag.classList.toggle('flagged', saved.flags[q] === true);
             }
         }
-
         // === RIGHT‑CLICK MENU NOW WORKS ON PASSAGE + QUESTIONS ===
         const passageArea = document.getElementById('passageArea');
         const questionsArea = document.getElementById('questionsArea');
         const contextMenu = document.getElementById('contextMenu');
-
         [passageArea, questionsArea].forEach(area => {
             area.addEventListener('contextmenu', e => {
                 const sel = window.getSelection();
@@ -308,9 +282,7 @@
                 contextMenu.style.display = 'block';
             });
         });
-
         document.addEventListener('click', () => contextMenu.style.display = 'none');
-
         document.getElementById('menuHighlight').onclick = () => {
             if (!currentRange) return;
             const span = document.createElement('span');
@@ -322,7 +294,6 @@
             currentRange = null;
             saveHighlights();
         };
-
         document.getElementById('menuRemove').onclick = () => {
             if (!currentRange) return;
             try {
@@ -334,7 +305,6 @@
             currentRange = null;
             saveHighlights();
         };
-
         document.getElementById('menuNote').onclick = () => {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
@@ -351,7 +321,6 @@
             currentRange = null;
             saveNotes();
         };
-
         function makeNoteDraggable(note) {
             note.addEventListener('mousedown', e => {
                 if (e.target.closest('.note-textarea') || e.target.classList.contains('note-close')) return;
@@ -409,8 +378,6 @@
             localStorage.removeItem(`${passageId}_highlights_passage`);
             localStorage.removeItem(`${passageId}_highlights_questions`);
         }
-
-        function toggleAnswers() { const b = document.getElementById('answersBox'); b.style.display = b.style.display === 'block' ? 'none' : 'block'; }
         function showStudentAnswers() {
             saveAnswers(); const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{"answers":{},"flags":{}}');
             const b = document.getElementById('studentAnswersBox'); const res = document.getElementById('studentResult'); let html = '', score = 0;
@@ -432,7 +399,6 @@
             localStorage.removeItem(`${passageId}_notes`);
             buildStatusBar();
         }
-
         window.onload = function() {
             buildStatusBar();
             loadAnswers();
