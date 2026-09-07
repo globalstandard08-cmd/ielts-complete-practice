@@ -103,6 +103,12 @@
             border-color: #991b1b;
             color: #fff;
         }
+        .q-nav-btn.inactive {
+            background: #f3f4f6;
+            border-color: #ddd;
+            color: #bbb;
+            cursor: not-allowed;
+        }
         .nav-page-controls { display: flex; gap: 10px; }
         .back-btn, .next-btn {
             padding: 6px 12px;
@@ -394,7 +400,7 @@
             </div>
         </div>
     </div>
-    <!-- ✅ NAVIGATION BAR -->
+    <!-- ✅ NAVIGATION BAR — Questions 1–40 (1–13 & 27–40 greyed out) -->
     <div class="question-nav">
         <div class="nav-container" id="navContainer"></div>
         <div class="nav-page-controls">
@@ -405,43 +411,52 @@
     <script>
         const CORRECT = {q14:'C',q15:'B',q16:'H',q17:'B',q18:'E',q19:'sun',q20:'upper',q21:'dry',q22:'north',q23:'FALSE',q24:'TRUE',q25:'NOT GIVEN',q26:'B'};
         const STORAGE = 'P2_DATA';
+        const PASSAGE_QUESTIONS = { start:14, end:26 }; // Only 14-26 active on this page
         let currentRange = null, lastNoteId = 0;
 
-        // ✅ PAGE START — build buttons, load, shade
+        // ✅ PAGE START — build ALL 1-40 buttons
         window.onload = function() {
             const nav = document.getElementById('navContainer');
-            for (let i = 14; i <= 26; i++) {
+            // Build Questions 1–40
+            for (let i = 1; i <= 40; i++) {
                 const btn = document.createElement('button');
                 btn.className = 'q-nav-btn';
                 btn.textContent = i;
                 btn.id = 'Q' + i;
-                btn.onclick = () => goToQ(i);
+                
+                // Grey out inactive questions (1-13 and 27-40)
+                if (i < PASSAGE_QUESTIONS.start || i > PASSAGE_QUESTIONS.end) {
+                    btn.classList.add('inactive');
+                    btn.disabled = true;
+                } else {
+                    // Active questions → clickable
+                    btn.onclick = () => goToQ(i);
+                }
                 nav.appendChild(btn);
             }
             loadAll();
             loadNotes();
-            updateShading(); // ✅ SHADE ON PAGE LOAD
+            updateShading();
         };
 
-        // ✅ CALLED ON EVERY KEYPRESS → shade instantly
+        // ✅ Auto-save & refresh shading
         function saveAndUpdate() {
             saveAll();
-            updateShading(); // ✅ INSTANT SHADE
+            updateShading();
         }
 
-        // ✅ THE SHADING FUNCTION — FIXED MATCHING KEYS
+        // ✅ Shading logic — only for active questions 14-26
         function updateShading() {
             const data = JSON.parse(localStorage.getItem(STORAGE) || '{}');
-            for (let q = 14; q <= 26; q++) {
+            for (let q = PASSAGE_QUESTIONS.start; q <= PASSAGE_QUESTIONS.end; q++) {
                 const btn = document.getElementById('Q' + q);
                 if (!btn) continue;
-                // ALWAYS remove first — clean slate
                 btn.classList.remove('answered', 'flagged');
-                // ✅ Has answer? data['a14'] etc. → GREEN
+                // Green = has answer
                 if (data['a' + q] && String(data['a' + q]).trim() !== '') {
                     btn.classList.add('answered');
                 }
-                // ✅ Flagged? data['f14'] etc. → ORANGE
+                // Orange = flagged
                 if (data['f' + q]) {
                     btn.classList.add('flagged');
                 }
@@ -452,21 +467,21 @@
             const data = JSON.parse(localStorage.getItem(STORAGE) || '{}');
             data['f' + q] = !data['f' + q];
             localStorage.setItem(STORAGE, JSON.stringify(data));
-            document.getElementById('flag-q' + q).classList.toggle('flagged', data['f' + q]);
-            updateShading(); // ✅ UPDATE SHADE WHEN FLAG TOGGLED
+            document.getElementById('flag-q' + q)?.classList.toggle('flagged', data['f' + q]);
+            updateShading();
         }
 
         function saveAll() {
             const data = {};
-            // Preserve existing flags FIRST
+            // Preserve flags
             const old = JSON.parse(localStorage.getItem(STORAGE) || '{}');
             for (let k in old) if (k[0] === 'f') data[k] = old[k];
-            // Save text inputs (14-22)
+            // Text inputs 14-22
             for (let q = 14; q <= 22; q++) {
                 const el = document.getElementById('ans-q' + q);
                 if (el) data['a' + q] = el.value.trim();
             }
-            // Save radio inputs (23-26)
+            // Radio inputs 23-26
             for (let q = 23; q <= 26; q++) {
                 const rs = document.getElementsByName('q' + q);
                 for (let r of rs) if (r.checked) data['a' + q] = r.value;
@@ -476,17 +491,14 @@
 
         function loadAll() {
             const data = JSON.parse(localStorage.getItem(STORAGE) || '{}');
-            // Load text inputs
             for (let q = 14; q <= 22; q++) {
                 const el = document.getElementById('ans-q' + q);
                 if (el && data['a' + q]) el.value = data['a' + q];
             }
-            // Load radio inputs
             for (let q = 23; q <= 26; q++) {
                 const rs = document.getElementsByName('q' + q);
                 for (let r of rs) if (r.value === data['a' + q]) r.checked = true;
             }
-            // Load flag buttons
             for (let q = 14; q <= 26; q++) {
                 if (data['f' + q]) document.getElementById('flag-q' + q)?.classList.add('flagged');
             }
@@ -494,12 +506,12 @@
 
         function goToQ(q) {
             document.querySelectorAll('.q-nav-btn').forEach(b => b.classList.remove('current'));
-            document.getElementById('Q' + q).classList.add('current');
+            document.getElementById('Q' + q)?.classList.add('current');
             const el = document.querySelector(`.question-block[data-q="${q}"]`);
             if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // ✅ === HIGHLIGHT / NOTE FUNCTIONS — UNCHANGED ===
+        // ✅ HIGHLIGHT / NOTE FUNCTIONS — UNCHANGED
         const PA = document.getElementById('passageArea'), QA = document.getElementById('questionsArea'), CM = document.getElementById('contextMenu');
         [PA, QA].forEach(area=>{
             area.addEventListener('contextmenu',e=>{
