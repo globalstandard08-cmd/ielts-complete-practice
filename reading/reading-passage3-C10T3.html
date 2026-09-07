@@ -11,41 +11,37 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
-
         body {
             background-color: #fef2f2;
             color: #1a1a1a;
             line-height: 1.7;
             padding-bottom: 80px;
         }
-
-        /* ✅ LOGO STYLES */
+        /* ✅ LOGO STYLES — SHRUNK */
         .logo-container {
             width: 100%;
             background: #ffffff;
             border-bottom: 2px solid #dc2626;
-            padding: 12px 0;
+            padding: 4px 0; /* ✅ reduced from 12px → 4px */
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* ✅ reduced from 15px → 10px */
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
         }
         .logo {
-            width: 40%;
-            max-width: 350px;
+            width: 25%; /* ✅ reduced from 40% → 25% */
+            max-width: 200px; /* ✅ reduced from 350px → 200px */
             height: auto;
             display: block;
         }
-
         /* ✅ TWO‑COLUMN LAYOUT */
         .main-wrapper {
             display: flex;
             gap: 20px;
             padding: 0 20px 20px;
-            height: calc(100vh - 130px);
+            height: calc(100vh - 100px); /* ✅ adjusted to match smaller header */
         }
-
         .passage-column, .questions-column {
             flex: 1;
             background: #ffffff;
@@ -56,14 +52,12 @@
             box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07);
             position: relative;
         }
-
         h1 {
             color: #dc2626;
             font-size: 20px;
             margin-bottom: 20px;
             text-align: center;
         }
-
         /* ✅ IMPROVED PARAGRAPH SPACING */
         .passage-text p {
             margin-bottom: 18px;
@@ -71,7 +65,6 @@
             line-height: 1.8;
             text-align: justify;
         }
-
         /* ✅ Highlight: NO broken text, NO extra spacing */
         .highlight {
             background-color: #fff350;
@@ -80,7 +73,6 @@
             display: inline;
             white-space: normal;
         }
-
         .context-menu {
             position: absolute;
             background: #ffffff;
@@ -99,7 +91,6 @@
         .context-menu div:hover {
             background: #fef2f2;
         }
-
         /* ✅ Sticky Notes */
         .sticky-note {
             position: absolute;
@@ -137,7 +128,6 @@
             font-family: inherit;
             font-size: 12px;
         }
-
         /* ✅ Clear button */
         .clear-highlight {
             margin-top: 20px;
@@ -153,17 +143,14 @@
         .clear-highlight:hover {
             background: #b91c1c;
         }
-
         .questions-section h2 {
             color: #991b1b;
             font-size: 17px;
             margin: 20px 0 10px;
         }
-
         .question-block {
             margin-bottom: 18px;
         }
-
         /* ✅ Flag before question number */
         .question-line {
             font-weight: 500;
@@ -190,7 +177,6 @@
         .flag-btn.flagged {
             color: #f59e0b;
         }
-
         .options label {
             display: block;
             margin-left: 15px;
@@ -198,7 +184,6 @@
             font-size: 14px;
             cursor: pointer;
         }
-
         /* ✅ INPUT STYLE FOR INLINE BLANKS */
         .answer-input {
             width: auto;
@@ -211,20 +196,17 @@
             background: #fff;
             text-align: center;
         }
-
         .options-list {
             margin: 10px 0 15px 20px;
             font-size: 14px;
             line-height: 1.7;
         }
-
         .action-buttons {
             margin: 20px 0;
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
         }
-
         .toggle-answers, .show-student, .clear-all {
             padding: 8px 16px;
             background: #dc2626;
@@ -235,11 +217,9 @@
             font-weight: 600;
             font-size: 14px;
         }
-
         .toggle-answers:hover, .show-student:hover, .clear-all:hover {
             background: #b91c1c;
         }
-
         /* ✅ Results boxes */
         .answers-box, .student-answers-box {
             margin-top: 12px;
@@ -250,11 +230,9 @@
             display: none;
             font-size: 13px;
         }
-
         .correct { color: green; font-weight: 600; }
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
-
         /* ✅ Bottom Navigation Bar */
         .question-nav {
             position: fixed;
@@ -331,14 +309,12 @@
     <div class="logo-container">
         <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
     </div>
-
     <!-- Right-click Context Menu -->
     <div class="context-menu" id="contextMenu">
         <div id="menuHighlight">✅ Highlight</div>
         <div id="menuRemove">❌ Remove Highlight</div>
         <div id="menuNote">📝 Add Note</div>
     </div>
-
     <!-- ✅ TWO COLUMNS: LEFT = PASSAGE | RIGHT = QUESTIONS -->
     <div class="main-wrapper">
         <!-- LEFT SIDE: PASSAGE TEXT -->
@@ -346,85 +322,63 @@
             <h1>Reading Passage 3 — Beyond the blue horizon</h1>
             <div class="passage-text" id="passageText">
                 <p><em>Ancient voyagers who settled the far‑flung islands of the Pacific Ocean</em></p>
-
                 <p>An important archaeological discovery on the island of Éfaté in the Pacific archipelago of Vanuatu has revealed traces of an ancient seafaring people, the distant ancestors of today’s Polynesians. The site came to light only by chance. An agricultural worker, digging in the grounds of a derelict plantation, scraped open a grave – the first of dozens in a burial ground some 3,000 years old. It is the oldest cemetery ever found in the Pacific islands, and it harbors the remains of an ancient people archaeologists call the Lapita.</p>
-
                 <p>They were daring blue‑water adventurers who used basic canoes to rove across the ocean. But they were not just explorers. They were also pioneers who carried with them everything they would need to build new lives – their livestock, taro seedlings and stone tools. Within the span of several centuries, the Lapita stretched the boundaries of their world from the jungle‑clad volcanoes of Papua New Guinea to the loneliest coral outliers of Tonga.</p>
-
                 <p>The Lapita left precious few clues about themselves, but Éfaté expands the volume of data available to researchers dramatically. The remains of 62 individuals have been uncovered so far, and archaeologists were also thrilled to find six complete Lapita pots. Other items included a Lapita burial urn with modeled birds arranged on the rim as though peering down at the human remains sealed inside. ‘It’s an important discovery,’ says Matthew Spriggs, professor of archaeology at the Australian National University and head of the international team digging up the site, ‘for it conclusively identifies the remains as Lapita.’</p>
-
                 <p>DNA teased from these human remains may help answer one of the most puzzling questions in Pacific anthropology: did all Pacific islanders spring from one source or many? Was there only one outward migration from a single point in Asia, or several from different points? ‘This represents the best opportunity we’ve had yet,’ says Spriggs, ‘to find out who the Lapita actually were, where they came from, and who their closest descendants are today.’</p>
-
                 <p>There is one stubborn question for which archaeology has yet to provide any answers: how did the Lapita accomplish the ancient equivalent of a moon landing, many times over? No‑one has found one of their canoes or any rigging, which could reveal how the canoes were sailed. Nor do the oral histories and traditions of later Polynesians offer any insights, for they turn into myths long before they reach as far back in time as the Lapita.</p>
-
                 <p>‘All we can say for certain is that the Lapita had canoes that were capable of ocean voyages, and they had the ability to sail them,’ says Geoff Irwin, a professor of archaeology at the University of Auckland. Those sailing skills, he says, were developed and passed down over thousands of years by earlier mariners who worked their way through the archipelagos of the western Pacific, making short crossings to nearby islands. The real adventure didn’t begin, however, until their Lapita descendants sailed out of sight of land, with empty horizons on every side. This must have been as difficult for them as landing on the moon is for us today. Certainly it distinguished them from their ancestors, but what gave them the courage to launch out on such risky voyages?</p>
-
                 <p>The Lapita’s thrust into the Pacific was eastward, against the prevailing trade winds, Irwin notes. Those nagging headwinds, he argues, may have been the key to their success. ‘They could sail out for days into the unknown and assess the area, secure in the knowledge that if they didn’t find anything, they could turn about and catch a swift ride back on the trade winds. This is what would have made the whole thing work.’ Once out there, skilled seafarers would have detected abundant leads to follow to land: seabirds, coconuts and twigs carried out to sea by the tides, and the afternoon pile‑up of clouds on the horizon which often indicates an island in the distance.</p>
-
                 <p>For returning explorers, successful or not, the geography of their own archipelagos would have provided a safety net. Without this to go by, overshooting their home ports, getting lost and sailing off into eternity would have been all too easy. Vanuatu, for example, stretches more than 500 miles in a northwest‑southeast trend, its scores of intervisible islands forming a backstop for mariners riding the trade winds home.</p>
-
                 <p>All this presupposes one essential detail, says Atholl Anderson, professor of prehistory at the Australian National University: the Lapita had mastered the advanced art of sailing against the wind. ‘And there’s no proof they could do any such thing,’ Anderson says. ‘There has been this assumption they did, and people have built canoes to re‑create those early voyages based on that assumption. But nobody has any idea what their canoes looked like or how they were rigged.’</p>
-
                 <p>Rather than give all the credit to human skill, Anderson invokes the winds of chance. El Niño, the same climate disruption that affects the Pacific today, may have helped scatter the Lapita, Anderson suggests. He points out that climate data obtained from slow‑growing corals around the Pacific indicate a series of unusually frequent El Niños around the time of the Lapita expansion. By reversing the regular east‑to‑west flow of the trade winds for weeks at a time, these ‘super El Niños’ might have taken the Lapita on long unplanned voyages.</p>
-
                 <p>However they did it, the Lapita spread themselves a third of the way across the Pacific, then called it quits for reasons known only to them. Ahead lay the vast emptiness of the central Pacific and perhaps they were too thinly stretched to venture farther. They probably never numbered more than a few thousand in total, and in their rapid migration eastward they encountered hundreds of islands – more than 300 in Fiji alone.</p>
             </div>
-
             <!-- ✅ CLEAR HIGHLIGHTS BUTTON HERE -->
             <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear Highlights</button>
         </div>
-
         <!-- RIGHT SIDE: QUESTIONS -->
         <div class="questions-column" id="questionsArea">
             <div class="questions-section">
                 <h2>Questions 27–31: Summary Completion</h2>
                 <p><em>Complete the summary using the list of words and phrases, A–J, below. Write the correct letter, A–J.</em></p>
-
                 <div class="options-list">
                     <strong>A</strong> proof &nbsp;&nbsp;&nbsp;&nbsp; <strong>B</strong> plantation &nbsp;&nbsp;&nbsp;&nbsp; <strong>C</strong> harbour<br>
                     <strong>D</strong> bones &nbsp;&nbsp;&nbsp;&nbsp; <strong>E</strong> data &nbsp;&nbsp;&nbsp;&nbsp; <strong>F</strong> archaeological discovery<br>
                     <strong>G</strong> burial urn &nbsp;&nbsp;&nbsp;&nbsp; <strong>H</strong> source &nbsp;&nbsp;&nbsp;&nbsp; <strong>I</strong> animals &nbsp;&nbsp;&nbsp;&nbsp; <strong>J</strong> maps
                 </div>
-
                 <div class="question-block" data-q="27">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(27)">🚩</button>
                         <span>27. A 3,000‑year‑old burial ground of a seafaring people called the Lapita has been found on an abandoned <input type="text" class="answer-input" name="q27" placeholder="A–J"> on the Pacific island of Éfaté.</span>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="28">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(28)">🚩</button>
                         <span>28. The cemetery, which is a significant <input type="text" class="answer-input" name="q28" placeholder="A–J"> , was uncovered accidentally by an agricultural worker.</span>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="29">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(29)">🚩</button>
                         <span>29. The Lapita explored and colonised many Pacific islands over several centuries. They took many things with them on their voyages including <input type="text" class="answer-input" name="q29" placeholder="A–J"> and tools.</span>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="30">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(30)">🚩</button>
                         <span>30. The burial ground increases the amount of information about the Lapita available to scientists. A team of researchers, led by Matthew Spriggs from the Australian National University, are helping with the excavation of the site. Spriggs believes the <input type="text" class="answer-input" name="q30" placeholder="A–J"> which was found at the site is very important since it confirms that the</span>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="31">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(31)">🚩</button>
                         <span>31. <input type="text" class="answer-input" name="q31" placeholder="A–J"> found inside are Lapita.</span>
                     </div>
                 </div>
-
-
                 <h2>Questions 32–35: Multiple Choice</h2>
                 <p><em>Choose the correct letter, A, B, C or D.</em></p>
-
                 <div class="question-block" data-q="32">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(32)">🚩</button>
@@ -437,7 +391,6 @@
                         <label><input type="radio" name="q32" value="D"> D technological advances have altered the way such achievements are viewed.</label>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="33">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(33)">🚩</button>
@@ -450,7 +403,6 @@
                         <label><input type="radio" name="q33" value="D"> D Their navigational skills were passed on from one generation to the next.</label>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="34">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(34)">🚩</button>
@@ -463,7 +415,6 @@
                         <label><input type="radio" name="q34" value="D"> D the Lapita’s belief they would be able to return home</label>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="35">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(35)">🚩</button>
@@ -476,14 +427,11 @@
                         <label><input type="radio" name="q35" value="D"> D It made a large number of islands habitable.</label>
                     </div>
                 </div>
-
-
                 <h2>Questions 36–40: YES / NO / NOT GIVEN</h2>
                 <p><em>Do the following statements agree with the views of the writer?</em></p>
                 <p><strong>YES</strong> — if the statement agrees<br>
                 <strong>NO</strong> — if the statement contradicts<br>
                 <strong>NOT GIVEN</strong> — if there is no information</p>
-
                 <div class="question-block" data-q="36">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(36)">🚩</button>
@@ -495,7 +443,6 @@
                         <label><input type="radio" name="q36" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="37">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(37)">🚩</button>
@@ -507,7 +454,6 @@
                         <label><input type="radio" name="q37" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="38">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(38)">🚩</button>
@@ -519,7 +465,6 @@
                         <label><input type="radio" name="q38" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="39">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(39)">🚩</button>
@@ -531,7 +476,6 @@
                         <label><input type="radio" name="q39" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="40">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(40)">🚩</button>
@@ -543,14 +487,11 @@
                         <label><input type="radio" name="q40" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-
-
                 <div class="action-buttons">
                     <button class="clear-all" onclick="clearAll()">🧹 Clear All</button>
                     <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
                     <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
                 </div>
-
                 <!-- ✅ CORRECT ANSWER KEY -->
                 <div class="answers-box" id="answersBox">
                     <h3>✅ Correct Answers — Passage 3</h3>
@@ -569,7 +510,6 @@
                     <strong>39.</strong> YES<br>
                     <strong>40.</strong> NOT GIVEN</p>
                 </div>
-
                 <!-- ✅ STUDENT ANSWERS & RESULT -->
                 <div class="student-answers-box" id="studentAnswersBox">
                     <h3>📝 Your Answers & Score</h3>
@@ -578,7 +518,6 @@
             </div>
         </div>
     </div>
-
     <!-- ✅ Bottom Navigation Bar -->
     <div class="question-nav" id="questionNav">
         <div class="nav-container" id="navContainer"></div>
@@ -587,7 +526,6 @@
             <a href="../index.html" class="next-btn">Back to Main Menu</a>
         </div>
     </div>
-
     <script>
         const correctAnswers = {
             q27: 'B',
@@ -605,11 +543,9 @@
             q39: 'YES',
             q40: 'NOT GIVEN'
         };
-
         let currentRange = null;
         let lastNoteId = 0;
         const passageId = 'C10T3P3';
-
         function generateNav() {
             const container = document.getElementById('navContainer');
             container.innerHTML = '';
@@ -623,7 +559,6 @@
             }
             updateNavStatus();
         }
-
         function goToQuestion(qNum) {
             const qEl = document.querySelector(`.question-block[data-q="${qNum}"]`);
             if (qEl) {
@@ -632,7 +567,6 @@
                 document.getElementById(`nav-q${qNum}`).classList.add('current');
             }
         }
-
         function updateNavStatus() {
             const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`)) || {};
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
@@ -644,7 +578,6 @@
                 if (flags[i]) btn.classList.add('flagged');
             }
         }
-
         function toggleFlag(qNum) {
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
             flags[qNum] = !flags[qNum];
@@ -652,7 +585,6 @@
             document.querySelector(`.question-block[data-q="${qNum}"] .flag-btn`).classList.toggle('flagged', flags[qNum]);
             updateNavStatus();
         }
-
         function saveAnswers() {
             let answers = {};
             for (let q = 27; q <= 40; q++) {
@@ -667,7 +599,6 @@
             localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
             updateNavStatus();
         }
-
         function loadAnswers() {
             const saved = localStorage.getItem(`${passageId}_answers`);
             if (!saved) return;
@@ -683,7 +614,6 @@
             }
             updateNavStatus();
         }
-
         function loadFlags() {
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
             for (let q in flags) {
@@ -693,12 +623,10 @@
                 }
             }
         }
-
         /* ✅ NOW WORKS FOR BOTH PASSAGE AND QUESTIONS */
         const passageArea = document.getElementById('passageArea');
         const questionsArea = document.getElementById('questionsArea');
         const contextMenu = document.getElementById('contextMenu');
-
         [passageArea, questionsArea].forEach(area => {
             area.addEventListener('contextmenu', function(e) {
                 const selection = window.getSelection();
@@ -714,9 +642,7 @@
                 contextMenu.style.display = 'block';
             });
         });
-
         document.addEventListener('click', () => contextMenu.style.display = 'none');
-
         /* ✅ Highlight: clean wrapping, no splits */
         document.getElementById('menuHighlight').addEventListener('click', function() {
             if (!currentRange) return;
@@ -732,7 +658,6 @@
             currentRange = null;
             saveHighlights();
         });
-
         /* ✅ Remove Highlight: fully restores text, no broken sentences */
         document.getElementById('menuRemove').addEventListener('click', function() {
             if (!currentRange) return;
@@ -752,7 +677,6 @@
             currentRange = null;
             saveHighlights();
         });
-
         document.getElementById('menuNote').addEventListener('click', function() {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
@@ -768,10 +692,8 @@
             currentRange = null;
             saveNotes();
         });
-
         function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
         function saveNote(id, text) { localStorage.setItem(`${passageId}_${id}`, text); }
-
         function saveHighlights() { 
             localStorage.setItem(`${passageId}_passageHighlights`, passageArea.innerHTML);
             localStorage.setItem(`${passageId}_questionHighlights`, questionsArea.innerHTML);
@@ -784,7 +706,6 @@
             passageArea.normalize();
             questionsArea.normalize();
         }
-
         function saveNotes() { 
             const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
                 id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
@@ -806,7 +727,6 @@
                 if (num > lastNoteId) lastNoteId = num; 
             }); 
         }
-
         function clearHighlights() {
             document.querySelectorAll('.highlight').forEach(span => {
                 const text = document.createTextNode(span.textContent);
@@ -816,7 +736,6 @@
             questionsArea.normalize();
             saveHighlights();
         }
-
         // ✅ Clear All: answers, flags, highlights, notes
         function clearAll() {
             if (!confirm('Clear ALL answers, flags, highlights and notes? This cannot be undone.')) return;
@@ -832,7 +751,6 @@
             clearHighlights();
             updateNavStatus();
         }
-
         function toggleAnswers() { const box = document.getElementById('answersBox'); box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
         function showStudentAnswers() {
             saveAnswers();
@@ -865,7 +783,6 @@
             resultDiv.innerHTML = html;
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
-
         document.addEventListener('input', function(e) { if (e.target.matches('.answer-input') || e.target.matches('input[type="radio"]')) saveAnswers(); });
         window.onload = function() { generateNav(); loadAnswers(); loadFlags(); loadHighlights(); loadNotes(); };
     </script>
