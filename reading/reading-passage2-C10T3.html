@@ -78,10 +78,6 @@
             gap: 5px;
             flex-wrap: wrap;
         }
-
-        /* ==========================================
-           ✅ SIMPLE, CLEAR SHADING — NO TRICKS
-           ========================================== */
         .q-nav-btn {
             width: 32px;
             height: 32px;
@@ -92,25 +88,21 @@
             font-weight: bold;
             cursor: pointer;
         }
-        /* ✅ ANSWERED — GREEN */
         .q-nav-btn.answered {
             background: #22c55e;
             border-color: #16a34a;
             color: #fff;
         }
-        /* ✅ FLAGGED — ORANGE */
         .q-nav-btn.flagged {
             background: #f97316;
             border-color: #c2410c;
             color: #fff;
         }
-        /* ✅ CURRENT — RED */
         .q-nav-btn.current {
             background: #dc2626;
             border-color: #991b1b;
             color: #fff;
         }
-
         .nav-page-controls { display: flex; gap: 10px; }
         .back-btn, .next-btn {
             padding: 6px 12px;
@@ -402,7 +394,6 @@
             </div>
         </div>
     </div>
-
     <!-- ✅ NAVIGATION BAR -->
     <div class="question-nav">
         <div class="nav-container" id="navContainer"></div>
@@ -411,7 +402,6 @@
             <a href="reading-passage3-C10T3.html" class="next-btn">Next →</a>
         </div>
     </div>
-
     <script>
         const CORRECT = {q14:'C',q15:'B',q16:'H',q17:'B',q18:'E',q19:'sun',q20:'upper',q21:'dry',q22:'north',q23:'FALSE',q24:'TRUE',q25:'NOT GIVEN',q26:'B'};
         const STORAGE = 'P2_DATA';
@@ -429,6 +419,7 @@
                 nav.appendChild(btn);
             }
             loadAll();
+            loadNotes();
             updateShading(); // ✅ SHADE ON PAGE LOAD
         };
 
@@ -438,74 +429,77 @@
             updateShading(); // ✅ INSTANT SHADE
         }
 
-        // ✅ THE SHADING FUNCTION — SIMPLE AND DIRECT
+        // ✅ THE SHADING FUNCTION — FIXED MATCHING KEYS
         function updateShading() {
-            const data = JSON.parse(localStorage.getItem(STORAGE)||'{}');
-            for (let q=14; q<=26; q++) {
-                const btn = document.getElementById('Q'+q);
+            const data = JSON.parse(localStorage.getItem(STORAGE) || '{}');
+            for (let q = 14; q <= 26; q++) {
+                const btn = document.getElementById('Q' + q);
                 if (!btn) continue;
-                // ALWAYS remove first
-                btn.classList.remove('answered','flagged');
-                // ANSWERED? → GREEN
-                if (data['a'+q] && String(data['a'+q]).trim()!=='') {
+                // ALWAYS remove first — clean slate
+                btn.classList.remove('answered', 'flagged');
+                // ✅ Has answer? data['a14'] etc. → GREEN
+                if (data['a' + q] && String(data['a' + q]).trim() !== '') {
                     btn.classList.add('answered');
                 }
-                // FLAGGED? → ORANGE
-                if (data['f'+q]) {
+                // ✅ Flagged? data['f14'] etc. → ORANGE
+                if (data['f' + q]) {
                     btn.classList.add('flagged');
                 }
             }
         }
 
         function toggleFlag(q) {
-            const data = JSON.parse(localStorage.getItem(STORAGE)||'{}');
-            data['f'+q] = !data['f'+q];
+            const data = JSON.parse(localStorage.getItem(STORAGE) || '{}');
+            data['f' + q] = !data['f' + q];
             localStorage.setItem(STORAGE, JSON.stringify(data));
-            document.getElementById('flag-q'+q).classList.toggle('flagged', data['f'+q]);
-            updateShading();
+            document.getElementById('flag-q' + q).classList.toggle('flagged', data['f' + q]);
+            updateShading(); // ✅ UPDATE SHADE WHEN FLAG TOGGLED
         }
 
         function saveAll() {
             const data = {};
-            // Save text inputs
-            for (let q=14; q<=22; q++) {
-                const el = document.getElementById('ans-q'+q);
-                if (el) data['a'+q] = el.value.trim();
+            // Preserve existing flags FIRST
+            const old = JSON.parse(localStorage.getItem(STORAGE) || '{}');
+            for (let k in old) if (k[0] === 'f') data[k] = old[k];
+            // Save text inputs (14-22)
+            for (let q = 14; q <= 22; q++) {
+                const el = document.getElementById('ans-q' + q);
+                if (el) data['a' + q] = el.value.trim();
             }
-            // Save radio inputs
-            for (let q=23; q<=26; q++) {
-                const rs = document.getElementsByName('q'+q);
-                for (let r of rs) if (r.checked) data['a'+q] = r.value;
+            // Save radio inputs (23-26)
+            for (let q = 23; q <= 26; q++) {
+                const rs = document.getElementsByName('q' + q);
+                for (let r of rs) if (r.checked) data['a' + q] = r.value;
             }
-            // Preserve flags
-            const old = JSON.parse(localStorage.getItem(STORAGE)||'{}');
-            for (let k in old) if (k[0]==='f') data[k]=old[k];
             localStorage.setItem(STORAGE, JSON.stringify(data));
         }
 
         function loadAll() {
-            const data = JSON.parse(localStorage.getItem(STORAGE)||'{}');
-            for (let q=14; q<=22; q++) {
-                const el = document.getElementById('ans-q'+q);
-                if (el && data['a'+q]) el.value = data['a'+q];
+            const data = JSON.parse(localStorage.getItem(STORAGE) || '{}');
+            // Load text inputs
+            for (let q = 14; q <= 22; q++) {
+                const el = document.getElementById('ans-q' + q);
+                if (el && data['a' + q]) el.value = data['a' + q];
             }
-            for (let q=23; q<=26; q++) {
-                const rs = document.getElementsByName('q'+q);
-                for (let r of rs) if (r.value === data['a'+q]) r.checked = true;
+            // Load radio inputs
+            for (let q = 23; q <= 26; q++) {
+                const rs = document.getElementsByName('q' + q);
+                for (let r of rs) if (r.value === data['a' + q]) r.checked = true;
             }
-            for (let q=14; q<=26; q++) {
-                if (data['f'+q]) document.getElementById('flag-q'+q)?.classList.add('flagged');
+            // Load flag buttons
+            for (let q = 14; q <= 26; q++) {
+                if (data['f' + q]) document.getElementById('flag-q' + q)?.classList.add('flagged');
             }
         }
 
         function goToQ(q) {
-            document.querySelectorAll('.q-nav-btn').forEach(b=>b.classList.remove('current'));
-            document.getElementById('Q'+q).classList.add('current');
+            document.querySelectorAll('.q-nav-btn').forEach(b => b.classList.remove('current'));
+            document.getElementById('Q' + q).classList.add('current');
             const el = document.querySelector(`.question-block[data-q="${q}"]`);
-            if (el) el.scrollIntoView({behavior:'smooth'});
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // highlight / note / answer functions
+        // ✅ === HIGHLIGHT / NOTE FUNCTIONS — UNCHANGED ===
         const PA = document.getElementById('passageArea'), QA = document.getElementById('questionsArea'), CM = document.getElementById('contextMenu');
         [PA, QA].forEach(area=>{
             area.addEventListener('contextmenu',e=>{
@@ -520,6 +514,7 @@
             });
         });
         document.addEventListener('click',()=>CM.style.display='none');
+
         document.getElementById('menuHighlight').onclick=()=>{
             if(!currentRange)return;
             const sp=document.createElement('span');sp.className='highlight';sp.textContent=currentRange.toString();
@@ -527,9 +522,77 @@
             window.getSelection().removeAllRanges();currentRange=null;
             localStorage.setItem('P2_ph',PA.innerHTML);localStorage.setItem('P2_qh',QA.innerHTML);
         };
-        document.getElementById('menuRemove').onclick=()=>{/* ... */};
-        document.getElementById('menuNote').onclick=()=>{/* ... */};
-        function clearAll(){if(confirm('Clear all?')){localStorage.removeItem(STORAGE);location.reload();}}
+
+        document.getElementById('menuRemove').onclick=()=>{
+            if(!currentRange)return;
+            try{
+                let container = currentRange.commonAncestorContainer;
+                while(container && container !== PA && container !== QA){
+                    if(container.nodeType===1 && container.classList.contains('highlight'))break;
+                    container = container.parentNode;
+                }
+                if(container && container.classList.contains('highlight')){
+                    const plain = document.createTextNode(container.textContent);
+                    container.parentNode.replaceChild(plain, container);
+                    plain.parentNode.normalize();
+                }
+            }catch(e){}
+            window.getSelection().removeAllRanges();currentRange=null;
+            localStorage.setItem('P2_ph',PA.innerHTML);localStorage.setItem('P2_qh',QA.innerHTML);
+        };
+
+        document.getElementById('menuNote').onclick=()=>{
+            if(!currentRange)return;
+            const rect = currentRange.getBoundingClientRect();
+            const noteId = 'note_' + (++lastNoteId);
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            note.id = noteId;
+            note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div><textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>`;
+            note.style.left = (rect.right + window.scrollX + 8) + 'px';
+            note.style.top = (rect.top + window.scrollY) + 'px';
+            document.body.appendChild(note);
+            window.getSelection().removeAllRanges();currentRange=null;
+            saveNotes();
+        };
+
+        function closeNote(id){document.getElementById(id)?.remove();saveNotes();}
+        function saveNote(id,text){localStorage.setItem(id,text);}
+        function saveNotes(){
+            const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n=>({
+                id:n.id, left:n.style.left, top:n.style.top, text:n.querySelector('.note-textarea').value
+            }));
+            localStorage.setItem('P2_notes',JSON.stringify(notes));
+        }
+        function loadNotes(){
+            const saved = localStorage.getItem('P2_notes');
+            if(!saved)return;
+            JSON.parse(saved).forEach(n=>{
+                const note = document.createElement('div');
+                note.className='sticky-note'; note.id=n.id;
+                note.innerHTML=`<div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea">${n.text}</textarea>`;
+                note.style.left=n.left; note.style.top=n.top;
+                document.body.appendChild(note);
+            });
+        }
+        function clearHighlights(){
+            document.querySelectorAll('.highlight').forEach(span=>{
+                const text=document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(text,span);
+            });
+            PA.normalize(); QA.normalize();
+            localStorage.setItem('P2_ph',PA.innerHTML);localStorage.setItem('P2_qh',QA.innerHTML);
+        }
+
+        function clearAll(){
+            if(confirm('Clear ALL answers, flags, highlights and notes?')){
+                localStorage.removeItem(STORAGE);
+                localStorage.removeItem('P2_ph');
+                localStorage.removeItem('P2_qh');
+                localStorage.removeItem('P2_notes');
+                location.reload();
+            }
+        }
         function toggleAnswers(){const b=document.getElementById('answersBox');b.style.display=b.style.display==='block'?'none':'block';}
         function showStudentAnswers(){
             saveAll();
