@@ -11,14 +11,12 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
-
         body {
             background-color: #fef2f2;
             color: #1a1a1a;
             line-height: 1.7;
             padding-bottom: 110px;
         }
-
         .logo-container {
             width: 100%;
             background: #ffffff;
@@ -29,36 +27,28 @@
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
         }
         .logo { width: 40%; max-width: 350px; height: auto; display: block; }
-
         .main-wrapper {
             display: flex; gap: 20px; padding: 0 20px 20px;
             height: calc(100vh - 130px);
         }
-
         .passage-column, .questions-column {
             flex: 1; background: #ffffff; border-radius: 12px;
             border: 1px solid #fecaca; padding: 20px; overflow-y: auto;
             box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07); position: relative;
         }
-
         h1 { color: #dc2626; font-size: 20px; margin-bottom: 20px; text-align: center; }
-
         .passage-text p { margin-bottom: 18px; font-size: 15px; line-height: 1.8; text-align: justify; }
         .highlight { background-color: #fff350; padding: 2px 2px; border-radius: 2px; }
-
         .clear-highlight {
             margin-top: 20px; padding: 8px 16px; background: #dc2626; color: white;
             border: none; border-radius: 8px; cursor: pointer; font-weight: 500; font-size: 14px;
         }
         .clear-highlight:hover { background: #b91c1c; }
-
         .questions-section h2 { color: #991b1b; font-size: 17px; margin: 20px 0 10px; }
-
         .question-block {
             margin-bottom: 18px; position: relative;
             padding-right: 0; padding-left: 32px;
         }
-
         .flag-btn {
             position: absolute; top: 0; left: 0; background: none; border: none;
             font-size: 18px; cursor: pointer; color: #ccc; transition: all 0.2s ease;
@@ -69,40 +59,33 @@
             filter: drop-shadow(0 0 2px rgba(249, 115, 22, 0.4));
         }
         .flag-btn:hover { color: #f97316; }
-
         .question-block p { font-weight: 500; margin-bottom: 8px; font-size: 14px; line-height: 1.8; display: inline; }
         .options label { display: block; margin-left: 15px; margin-bottom: 6px; font-size: 14px; cursor: pointer; }
-
         .answer-input {
             width: auto; min-width: 90px; padding: 2px 6px; margin: 0 6px;
             border: 1px solid #dc2626; border-radius: 4px; font-size: 14px;
             background: #fff; text-align: center;
         }
-
         .options-list { margin: 10px 0 15px 20px; font-size: 14px; line-height: 1.7; }
         .action-buttons { margin: 20px 0; display: flex; gap: 10px; flex-wrap: wrap; }
-
-        .toggle-answers, .show-student, .clear-all {
+        .show-student, .clear-all {
             padding: 8px 16px; background: #dc2626; color: white;
             border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px;
         }
-        .toggle-answers:hover, .show-student:hover, .clear-all:hover { background: #b91c1c; }
-
-        .answers-box, .student-answers-box {
+        .show-student:hover, .clear-all:hover { background: #b91c1c; }
+        .student-answers-box {
             margin-top: 12px; padding: 12px; background: #fef2f2;
             border: 1px solid #fecaca; border-radius: 8px; display: none; font-size: 13px;
         }
         .correct { color: green; font-weight: 600; }
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
-
         .context-menu {
             position: absolute; background: #fff; border: 1px solid #ccc; border-radius: 6px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 140px;
         }
         .context-menu div { padding: 8px 12px; cursor: pointer; font-size: 14px; }
         .context-menu div:hover { background: #f3f4f6; }
-
         .sticky-note {
             position: absolute; width: 170px; min-height: 70px;
             background: #fff380; border: 1px solid #e6c200; border-radius: 4px;
@@ -119,7 +102,6 @@
             width: 100%; height: 50px; border: none; background: transparent;
             resize: none; outline: none; font-family: inherit; font-size: 12px; cursor: text;
         }
-
         .question-status-bar {
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: #ffffff; border-top: 2px solid #dc2626; padding: 10px 15px;
@@ -138,7 +120,6 @@
         .q-btn.answered { background: #dcfce7; border-color: #22c55e; color: #166534; }
         .q-btn.flagged { background: #ffedd5; border-color: #f97316; color: #c2410c; }
         .q-btn.current { background: #dc2626; color: white; border-color: #dc2626; box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.3); }
-
         .nav-buttons { display: flex; gap: 10px; margin: 20px; flex-wrap: wrap; justify-content: center; }
         .back-btn, .next-btn {
             padding: 10px 20px; background: #fef2f2; color: #dc2626;
@@ -151,13 +132,11 @@
     <div class="logo-container">
         <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
     </div>
-
     <div class="context-menu" id="contextMenu">
         <div id="menuHighlight">✅ Highlight Selection</div>
         <div id="menuRemoveHighlight">❌ Remove Highlight</div>
         <div id="menuAddNote">📝 Add Note</div>
     </div>
-
     <div class="main-wrapper">
         <div class="passage-column" id="passageArea">
             <h1>Reading Passage 3 — When evolution runs backwards</h1>
@@ -176,12 +155,10 @@
             </div>
             <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear All Highlights</button>
         </div>
-
         <div class="questions-column" id="questionsArea">
             <div class="questions-section">
                 <h2>Questions 27–31: Multiple Choice</h2>
                 <p><em>Choose the correct letter, A, B, C or D.</em></p>
-
                 <div class="question-block" data-q="27">
                     <button class="flag-btn" id="flag27" onclick="toggleFlag(27)">🚩</button>
                     <p><strong>27</strong> When discussing the theory developed by Louis Dollo, the writer says that</p>
@@ -192,7 +169,6 @@
                         <label><input type="radio" name="q27" value="D"> D it was based on many years of research.</label>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="28">
                     <button class="flag-btn" id="flag28" onclick="toggleFlag(28)">🚩</button>
                     <p><strong>28</strong> The humpback whale caught off Vancouver Island is mentioned because of</p>
@@ -203,7 +179,6 @@
                         <label><input type="radio" name="q28" value="D"> D the reason given for its unusual features.</label>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="29">
                     <button class="flag-btn" id="flag29" onclick="toggleFlag(29)">🚩</button>
                     <p><strong>29</strong> What is said about ‘silent genes’?</p>
@@ -214,7 +189,6 @@
                         <label><input type="radio" name="q29" value="D"> D They can have an unlimited life span.</label>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="30">
                     <button class="flag-btn" id="flag30" onclick="toggleFlag(30)">🚩</button>
                     <p><strong>30</strong> The writer mentions the mole salamander because</p>
@@ -225,7 +199,6 @@
                         <label><input type="radio" name="q30" value="D"> D its ancestors have become the subject of extensive research.</label>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="31">
                     <button class="flag-btn" id="flag31" onclick="toggleFlag(31)">🚩</button>
                     <p><strong>31</strong> Which of the following does Wagner claim?</p>
@@ -236,7 +209,6 @@
                         <label><input type="radio" name="q31" value="D"> D His findings will apply to other species of South American lizards.</label>
                     </div>
                 </div>
-
                 <h2>Questions 32–36: Sentence Endings</h2>
                 <p><em>Complete each sentence with the correct ending, A–G, below.</em></p>
                 <div class="options-list">
@@ -248,7 +220,6 @@
                     <strong>F</strong> the possibility of evolution being reversible.<br>
                     <strong>G</strong> Dollo’s findings and the convictions held by Lombroso.
                 </div>
-
                 <div class="question-block" data-q="32">
                     <button class="flag-btn" id="flag32" onclick="toggleFlag(32)">🚩</button>
                     <p><strong>32</strong> For a long time biologists rejected <input type="text" class="answer-input" name="q32" placeholder="A–G"></p>
@@ -269,13 +240,11 @@
                     <button class="flag-btn" id="flag36" onclick="toggleFlag(36)">🚩</button>
                     <p><strong>36</strong> One explanation for the findings of Wagner’s research is <input type="text" class="answer-input" name="q36" placeholder="A–G"></p>
                 </div>
-
                 <h2>Questions 37–40: YES / NO / NOT GIVEN</h2>
                 <p><em>Do the following statements agree with the claims of the writer?</em></p>
                 <p><strong>YES</strong> — if the statement agrees<br>
                 <strong>NO</strong> — if the statement contradicts<br>
                 <strong>NOT GIVEN</strong> — if there is no information</p>
-
                 <div class="question-block" data-q="37">
                     <button class="flag-btn" id="flag37" onclick="toggleFlag(37)">🚩</button>
                     <p><strong>37</strong> Wagner was the first person to do research on South American lizards.</p>
@@ -285,7 +254,6 @@
                         <label><input type="radio" name="q37" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="38">
                     <button class="flag-btn" id="flag38" onclick="toggleFlag(38)">🚩</button>
                     <p><strong>38</strong> Wagner believes that Bachia lizards with toes had toeless ancestors.</p>
@@ -295,7 +263,6 @@
                         <label><input type="radio" name="q38" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="39">
                     <button class="flag-btn" id="flag39" onclick="toggleFlag(39)">🚩</button>
                     <p><strong>39</strong> The temporary occurrence of long‑lost traits in embryos is rare.</p>
@@ -305,7 +272,6 @@
                         <label><input type="radio" name="q39" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-
                 <div class="question-block" data-q="40">
                     <button class="flag-btn" id="flag40" onclick="toggleFlag(40)">🚩</button>
                     <p><strong>40</strong> Evolutionary throwbacks might be caused by developmental problems in the womb.</p>
@@ -315,31 +281,10 @@
                         <label><input type="radio" name="q40" value="NOT GIVEN"> NOT GIVEN</label>
                     </div>
                 </div>
-
                 <div class="action-buttons">
-                    <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
                     <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
                     <button class="clear-all" onclick="clearAllAnswers()">🗑️ Clear All Answers</button>
                 </div>
-
-                <div class="answers-box" id="answersBox">
-                    <h3>✅ Correct Answers — Passage 3</h3>
-                    <p><strong>27.</strong> C<br>
-                    <strong>28.</strong> D<br>
-                    <strong>29.</strong> C<br>
-                    <strong>30.</strong> B<br>
-                    <strong>31.</strong> A<br>
-                    <strong>32.</strong> F<br>
-                    <strong>33.</strong> G<br>
-                    <strong>34.</strong> A<br>
-                    <strong>35.</strong> B<br>
-                    <strong>36.</strong> D<br>
-                    <strong>37.</strong> NOT GIVEN<br>
-                    <strong>38.</strong> YES<br>
-                    <strong>39.</strong> NO<br>
-                    <strong>40.</strong> YES</p>
-                </div>
-
                 <div class="student-answers-box" id="studentAnswersBox">
                     <h3>📝 Your Answers & Score</h3>
                     <div id="studentResult"></div>
@@ -347,16 +292,13 @@
             </div>
         </div>
     </div>
-
     <div class="question-status-bar">
         <div class="status-container" id="questionNavContainer"></div>
     </div>
-
     <div class="nav-buttons">
         <a href="reading-passage2-C10T4.html" class="back-btn">← Previous Passage</a>
         <a href="../library.html" class="back-btn">🏠 Main Menu</a>
     </div>
-
     <script>
         const correctAnswers = {
             q27: 'C', q28: 'D', q29: 'C', q30: 'B', q31: 'A',
@@ -365,11 +307,9 @@
         };
         const CURRENT_PAGE_QUESTIONS = [27,28,29,30,31,32,33,34,35,36,37,38,39,40];
         const GLOBAL_SAVE_KEY = 'C10T4_all_answers_flags';
-
         let currentRange = null;
         let lastNoteId = 0;
         let activeNote = null, offsetX, offsetY;
-
         function toggleFlag(qNum) {
             const flagBtn = document.getElementById('flag' + qNum);
             const navBtn = document.querySelector(`.q-btn[data-q="${qNum}"]`);
@@ -380,9 +320,7 @@
             navBtn.classList.toggle('flagged', saved.flags[qNum]);
             localStorage.setItem(GLOBAL_SAVE_KEY, JSON.stringify(saved));
         }
-
         const contextMenu = document.getElementById('contextMenu');
-        // Allow highlight on passage AND questions area
         document.addEventListener('contextmenu', e => {
             const sel = window.getSelection();
             if (!sel.isCollapsed && (e.target.closest('.passage-column') || e.target.closest('.questions-column'))) {
@@ -398,7 +336,6 @@
         document.getElementById('menuHighlight').addEventListener('click', addHighlight);
         document.getElementById('menuRemoveHighlight').addEventListener('click', removeHighlight);
         document.getElementById('menuAddNote').addEventListener('click', addNote);
-
         function addHighlight() {
             if (!currentRange) return;
             const span = document.createElement('span');
@@ -429,7 +366,6 @@
                 document.getElementById('questionsArea').innerHTML); 
         }
         function loadHighlights() { 
-            // Load highlights for both sections
             const s = localStorage.getItem('C10T4P3_highlights'); 
             if (s) {
                 const splitAt = '</div><div class="questions-section">';
@@ -440,7 +376,6 @@
                 }
             }
         }
-
         function addNote() {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
@@ -486,28 +421,23 @@
                 const num = parseInt(n.id.split('_')[1]); if (num > lastNoteId) lastNoteId = num;
             });
         }
-
         function buildQuestionNav() {
             const c = document.getElementById('questionNavContainer'); c.innerHTML = '';
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
             saved.answers = saved.answers || {}; saved.flags = saved.flags || {};
-
             for (let q = 1; q <= 40; q++) {
                 const btn = document.createElement('button');
                 btn.className = 'q-btn'; btn.textContent = q; btn.dataset.q = q;
-
                 if (CURRENT_PAGE_QUESTIONS.includes(q)) {
                     btn.onclick = () => scrollToQuestion(q);
                     const flagBtn = document.getElementById(`flag${q}`);
                     if (flagBtn) flagBtn.classList.toggle('flagged', saved.flags[q] === true);
                 }
-
                 if (saved.flags[q]) btn.classList.add('flagged');
                 if (saved.answers[q] && saved.answers[q].trim() !== '') btn.classList.add('answered');
                 c.appendChild(btn);
             }
         }
-
         function scrollToQuestion(qNum) {
             const block = document.querySelector(`.question-block[data-q="${qNum}"]`);
             if (block) {
@@ -516,7 +446,6 @@
                 document.querySelector(`.q-btn[data-q="${qNum}"]`)?.classList.add('current');
             }
         }
-
         function saveAnswers() {
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
             saved.answers = saved.answers || {};
@@ -532,7 +461,6 @@
             localStorage.setItem(GLOBAL_SAVE_KEY, JSON.stringify(saved));
             buildQuestionNav();
         }
-
         function loadAnswers() {
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
             saved.answers = saved.answers || {};
@@ -547,7 +475,6 @@
                 }
             }
         }
-
         function clearAllAnswers() {
             if (!confirm('Clear all answers and flags for the whole test?')) return;
             localStorage.removeItem(GLOBAL_SAVE_KEY);
@@ -557,12 +484,6 @@
             }
             buildQuestionNav();
         }
-
-        function toggleAnswers() {
-            const box = document.getElementById('answersBox');
-            box.style.display = box.style.display === 'block' ? 'none' : 'block';
-        }
-
         function showStudentAnswers() {
             saveAnswers();
             const saved = JSON.parse(localStorage.getItem(GLOBAL_SAVE_KEY) || '{}');
@@ -584,7 +505,6 @@
             div.innerHTML = html;
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
-
         window.onload = function() {
             buildQuestionNav();
             loadAnswers();
