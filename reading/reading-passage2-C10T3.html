@@ -13,35 +13,32 @@
         }
         html, body {
             height: 100%;
-            /* ✅ MAIN PAGE SCROLLBAR — VISIBLE on right */
         }
         body {
             background-color: #fef2f2;
             color: #1a1a1a;
         }
-        /* ✅ SMALLER LOGO & TOP AREA — boxes show MORE */
         .logo-container {
             width: 100%;
             background: #ffffff;
             border-bottom: 2px solid #dc2626;
-            padding: 5px 0; /* ✅ smaller top padding */
+            padding: 5px 0;
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 0 2px 2px rgba(0,0,0,0.08);
         }
         .logo {
-            width: 22%; /* ✅ smaller logo — not too tiny */
+            width: 22%;
             max-width: 180px;
             height: auto;
             display: block;
         }
-        /* ✅ BOXES BIGGER — less space wasted at top, scrollbars INSIDE preserved */
         .main-wrapper {
             display: flex;
             gap: 15px;
-            padding: 5px 15px 15px; /* ✅ minimal top padding → boxes go UP & expand */
-            height: calc(100vh - 90px); /* ✅ boxes fill screen nicely */
+            padding: 5px 15px 15px;
+            height: calc(100vh - 90px);
         }
         .passage-column, .questions-column {
             flex: 1;
@@ -49,7 +46,7 @@
             border-radius: 10px;
             border: 1px solid #fecaca;
             padding: 18px;
-            overflow-y: auto; /* ✅ INTERNAL SCROLLBARS — KEPT! */
+            overflow-y: auto; /* ✅ INTERNAL SCROLLBARS — PRESERVED */
             box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07);
             position: relative;
         }
@@ -237,23 +234,31 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.2s ease;
         }
         .q-nav-btn:hover {
             background: #fef2f2;
             border-color: #dc2626;
         }
+        /* ✅ ANSWERED — GREEN SHADE */
         .q-nav-btn.answered {
             background: #dcfce7;
             border-color: #22c55e;
+            color: #166534;
+            font-weight: 600;
         }
+        /* ✅ FLAGGED — ORANGE SHADE */
         .q-nav-btn.flagged {
             background: #fffbeb;
             border-color: #f59e0b;
+            color: #92400e;
         }
+        /* ✅ CURRENT — RED HIGHLIGHT */
         .q-nav-btn.current {
             background: #dc2626;
             color: white;
             border-color: #dc2626;
+            font-weight: 600;
         }
         .nav-page-controls {
             display: flex;
@@ -319,35 +324,35 @@
                         <button class="flag-btn" onclick="toggleFlag(14)">🚩</button>
                         <span>14. a description of the substance responsible for the red colouration of leaves</span>
                     </div>
-                    <input type="text" class="answer-input" name="q14" placeholder="Write A–I" onchange="saveAnswers();updateNavStatus()">
+                    <input type="text" class="answer-input" name="q14" placeholder="Write A–I" oninput="saveAnswers();updateNavStatus()">
                 </div>
                 <div class="question-block" data-q="15">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(15)">🚩</button>
                         <span>15. the reason why trees drop their leaves in autumn</span>
                     </div>
-                    <input type="text" class="answer-input" name="q15" placeholder="Write A–I" onchange="saveAnswers();updateNavStatus()">
+                    <input type="text" class="answer-input" name="q15" placeholder="Write A–I" oninput="saveAnswers();updateNavStatus()">
                 </div>
                 <div class="question-block" data-q="16">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(16)">🚩</button>
                         <span>16. some evidence to confirm a theory about the purpose of the red leaves</span>
                     </div>
-                    <input type="text" class="answer-input" name="q16" placeholder="Write A–I" onchange="saveAnswers();updateNavStatus()">
+                    <input type="text" class="answer-input" name="q16" placeholder="Write A–I" oninput="saveAnswers();updateNavStatus()">
                 </div>
                 <div class="question-block" data-q="17">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(17)">🚩</button>
                         <span>17. an explanation of the function of chlorophyll</span>
                     </div>
-                    <input type="text" class="answer-input" name="q17" placeholder="Write A–I" onchange="saveAnswers();updateNavStatus()">
+                    <input type="text" class="answer-input" name="q17" placeholder="Write A–I" oninput="saveAnswers();updateNavStatus()">
                 </div>
                 <div class="question-block" data-q="18">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(18)">🚩</button>
                         <span>18. a suggestion that the red colouration in leaves could serve as a warning signal</span>
                     </div>
-                    <input type="text" class="answer-input" name="q18" placeholder="Write A–I" onchange="saveAnswers();updateNavStatus()">
+                    <input type="text" class="answer-input" name="q18" placeholder="Write A–I" oninput="saveAnswers();updateNavStatus()">
                 </div>
                 <h2>Questions 19–22</h2>
                 <p><em>Complete the notes below. Choose ONE WORD ONLY from the passage for each answer.</em></p>
@@ -357,28 +362,28 @@
                         <button class="flag-btn" onclick="toggleFlag(19)">🚩</button>
                         <span>19. The most vividly coloured red leaves are found on the side of the tree facing the ....................</span>
                     </div>
-                    <input type="text" class="answer-input" name="q19" placeholder="Write one word" onchange="saveAnswers();updateNavStatus()">
+                    <input type="text" class="answer-input" name="q19" placeholder="Write one word" oninput="saveAnswers();updateNavStatus()">
                 </div>
                 <div class="question-block" data-q="20">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(20)">🚩</button>
                         <span>20. The .................... surfaces of leaves contain the most red pigment.</span>
                     </div>
-                    <input type="text" class="answer-input" name="q20" placeholder="Write one word" onchange="saveAnswers();updateNavStatus()">
+                    <input type="text" class="answer-input" name="q20" placeholder="Write one word" oninput="saveAnswers();updateNavStatus()">
                 </div>
                 <div class="question-block" data-q="21">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(21)">🚩</button>
                         <span>21. Red leaves are most abundant when daytime weather conditions are .................... and sunny.</span>
                     </div>
-                    <input type="text" class="answer-input" name="q21" placeholder="Write one word" onchange="saveAnswers();updateNavStatus()">
+                    <input type="text" class="answer-input" name="q21" placeholder="Write one word" oninput="saveAnswers();updateNavStatus()">
                 </div>
                 <div class="question-block" data-q="22">
                     <div class="question-line">
                         <button class="flag-btn" onclick="toggleFlag(22)">🚩</button>
                         <span>22. The intensity of the red colour of leaves increases as you go further .................... .</span>
                     </div>
-                    <input type="text" class="answer-input" name="q22" placeholder="Write one word" onchange="saveAnswers();updateNavStatus()">
+                    <input type="text" class="answer-input" name="q22" placeholder="Write one word" oninput="saveAnswers();updateNavStatus()">
                 </div>
                 <h2>Questions 23–25</h2>
                 <p><em>Do the following statements agree with the information given in Reading Passage 2?</em></p>
@@ -391,9 +396,9 @@
                         <span>23. It is likely that the red pigments help to protect the leaf from freezing temperatures.</span>
                     </div>
                     <div class="options">
-                        <label><input type="radio" name="q23" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
-                        <label><input type="radio" name="q23" value="FALSE" onchange="saveAnswers();updateNavStatus()"> FALSE</label>
-                        <label><input type="radio" name="q23" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
+                        <label><input type="radio" name="q23" value="TRUE" oninput="saveAnswers();updateNavStatus()"> TRUE</label>
+                        <label><input type="radio" name="q23" value="FALSE" oninput="saveAnswers();updateNavStatus()"> FALSE</label>
+                        <label><input type="radio" name="q23" value="NOT GIVEN" oninput="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
                     </div>
                 </div>
                 <div class="question-block" data-q="24">
@@ -402,9 +407,9 @@
                         <span>24. The ‘light screen’ hypothesis would initially seem to contradict what is known about chlorophyll.</span>
                     </div>
                     <div class="options">
-                        <label><input type="radio" name="q24" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
-                        <label><input type="radio" name="q24" value="FALSE" onchange="saveAnswers();updateNavStatus()"> FALSE</label>
-                        <label><input type="radio" name="q24" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
+                        <label><input type="radio" name="q24" value="TRUE" oninput="saveAnswers();updateNavStatus()"> TRUE</label>
+                        <label><input type="radio" name="q24" value="FALSE" oninput="saveAnswers();updateNavStatus()"> FALSE</label>
+                        <label><input type="radio" name="q24" value="NOT GIVEN" oninput="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
                     </div>
                 </div>
                 <div class="question-block" data-q="25">
@@ -413,9 +418,9 @@
                         <span>25. Leaves which turn colours other than red are more likely to be damaged by sunlight.</span>
                     </div>
                     <div class="options">
-                        <label><input type="radio" name="q25" value="TRUE" onchange="saveAnswers();updateNavStatus()"> TRUE</label>
-                        <label><input type="radio" name="q25" value="FALSE" onchange="saveAnswers();updateNavStatus()"> FALSE</label>
-                        <label><input type="radio" name="q25" value="NOT GIVEN" onchange="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
+                        <label><input type="radio" name="q25" value="TRUE" oninput="saveAnswers();updateNavStatus()"> TRUE</label>
+                        <label><input type="radio" name="q25" value="FALSE" oninput="saveAnswers();updateNavStatus()"> FALSE</label>
+                        <label><input type="radio" name="q25" value="NOT GIVEN" oninput="saveAnswers();updateNavStatus()"> NOT GIVEN</label>
                     </div>
                 </div>
                 <h2>Question 26</h2>
@@ -426,10 +431,10 @@
                         <span>26. For which of the following questions does the writer offer an explanation?</span>
                     </div>
                     <div class="options">
-                        <label><input type="radio" name="q26" value="A" onchange="saveAnswers();updateNavStatus()"> A why conifers remain green in winter</label>
-                        <label><input type="radio" name="q26" value="B" onchange="saveAnswers();updateNavStatus()"> B how leaves turn orange and yellow in autumn</label>
-                        <label><input type="radio" name="q26" value="C" onchange="saveAnswers();updateNavStatus()"> C how herbivorous insects choose which trees to lay their eggs in</label>
-                        <label><input type="radio" name="q26" value="D" onchange="saveAnswers();updateNavStatus()"> D why anthocyanins are restricted to certain trees</label>
+                        <label><input type="radio" name="q26" value="A" oninput="saveAnswers();updateNavStatus()"> A why conifers remain green in winter</label>
+                        <label><input type="radio" name="q26" value="B" oninput="saveAnswers();updateNavStatus()"> B how leaves turn orange and yellow in autumn</label>
+                        <label><input type="radio" name="q26" value="C" oninput="saveAnswers();updateNavStatus()"> C how herbivorous insects choose which trees to lay their eggs in</label>
+                        <label><input type="radio" name="q26" value="D" oninput="saveAnswers();updateNavStatus()"> D why anthocyanins are restricted to certain trees</label>
                     </div>
                 </div>
                 <div class="action-buttons">
@@ -476,10 +481,11 @@
         let currentRange = null;
         let lastNoteId = 0;
         const passageId = 'C10T3P2';
+
         function generateNav() {
             const container = document.getElementById('navContainer');
             container.innerHTML = '';
-            for (let i = 1; i <= 40; i++) {
+            for (let i = 14; i <= 26; i++) {
                 const btn = document.createElement('button');
                 btn.className = 'q-nav-btn';
                 btn.textContent = i;
@@ -497,15 +503,23 @@
                 document.getElementById(`nav-q${qNum}`).classList.add('current');
             }
         }
+        // ✅ FIXED: Update navigation highlights properly
         function updateNavStatus() {
             const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`)) || {};
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
             for (let i = 14; i <= 26; i++) {
                 const btn = document.getElementById(`nav-q${i}`);
                 if (!btn) continue;
+                // Remove old states first
                 btn.classList.remove('answered', 'flagged');
-                if (answers[`q${i}`] && answers[`q${i}`].trim() !== '') btn.classList.add('answered');
-                if (flags[i]) btn.classList.add('flagged');
+                // Mark answered if has value
+                if (answers[`q${i}`] && String(answers[`q${i}`]).trim() !== '') {
+                    btn.classList.add('answered');
+                }
+                // Mark flagged
+                if (flags[i]) {
+                    btn.classList.add('flagged');
+                }
             }
         }
         function toggleFlag(qNum) {
@@ -542,7 +556,6 @@
                     if (input) input.value = answers[key];
                 }
             }
-            updateNavStatus();
         }
         function loadFlags() {
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
@@ -694,8 +707,14 @@
             resultDiv.innerHTML = html;
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
-        document.addEventListener('input', function(e) { if (e.target.matches('.answer-input') || e.target.matches('input[type="radio"]')) saveAnswers(); });
-        window.onload = function() { generateNav(); loadAnswers(); loadFlags(); loadHighlights(); loadNotes(); };
+        window.onload = function() {
+            generateNav();
+            loadAnswers();
+            loadFlags();
+            loadHighlights();
+            loadNotes();
+            updateNavStatus(); // ✅ Ensure highlights apply on page load
+        };
     </script>
 </body>
 </html>
