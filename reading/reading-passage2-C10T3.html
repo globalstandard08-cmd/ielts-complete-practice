@@ -11,9 +11,7 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
-        html, body {
-            height: 100%;
-        }
+        html, body { height: 100%; }
         body {
             background-color: #fef2f2;
             color: #1a1a1a;
@@ -46,7 +44,7 @@
             border-radius: 10px;
             border: 1px solid #fecaca;
             padding: 18px;
-            overflow-y: auto; /* ✅ INTERNAL SCROLLBARS — PRESERVED */
+            overflow-y: auto;
             box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07);
             position: relative;
         }
@@ -67,11 +65,10 @@
             border-radius: 2px;
             color: #000;
             display: inline;
-            white-space: normal;
         }
         .context-menu {
             position: absolute;
-            background: #ffffff;
+            background: #fff;
             border: 1px solid #ccc;
             border-radius: 6px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.2);
@@ -84,9 +81,7 @@
             cursor: pointer;
             font-size: 13px;
         }
-        .context-menu div:hover {
-            background: #fef2f2;
-        }
+        .context-menu div:hover { background: #fef2f2; }
         .sticky-note {
             position: absolute;
             width: 160px;
@@ -120,7 +115,6 @@
             background: transparent;
             resize: none;
             outline: none;
-            font-family: inherit;
             font-size: 12px;
         }
         .questions-section h2 {
@@ -128,9 +122,7 @@
             font-size: 17px;
             margin: 15px 0 8px;
         }
-        .question-block {
-            margin-bottom: 16px;
-        }
+        .question-block { margin-bottom: 16px; }
         .question-line {
             font-weight: 500;
             font-size: 14px;
@@ -150,15 +142,11 @@
             transition: color 0.2s;
             padding: 0;
             line-height: 1;
-            flex-shrink: 0;
             margin-top: -2px;
         }
-        .flag-btn.flagged {
-            color: #f59e0b;
-        }
+        .flag-btn.flagged { color: #f59e0b; }
         .options label {
             display: block;
-            margin-left: 0;
             margin-bottom: 5px;
             font-size: 14px;
             cursor: pointer;
@@ -187,9 +175,7 @@
             font-weight: 500;
             font-size: 13px;
         }
-        .toggle-answers:hover, .show-student:hover, .clear-all-answers:hover {
-            background: #b91c1c;
-        }
+        .toggle-answers:hover, .show-student:hover, .clear-all-answers:hover { background: #b91c1c; }
         .answers-box, .student-answers-box {
             margin-top: 12px;
             padding: 12px;
@@ -202,6 +188,8 @@
         .correct { color: green; font-weight: 600; }
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
+
+        /* ✅ QUESTION NAVIGATION BAR — FULLY RESTORED */
         .question-nav {
             position: fixed;
             bottom: 0;
@@ -224,41 +212,43 @@
             flex-wrap: wrap;
         }
         .q-nav-btn {
-            width: 28px;
-            height: 28px;
-            border: 1px solid #ddd;
+            width: 34px;
+            height: 34px;
+            border: 2px solid #bbb;
             border-radius: 4px;
-            background: #f9f9f9;
-            font-size: 12px;
+            background: #ffffff;
+            font-size: 13px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
+            font-weight: 600;
         }
         .q-nav-btn:hover {
             background: #fef2f2;
             border-color: #dc2626;
         }
-        /* ✅ ANSWERED — GREEN SHADE */
+        /* ✅ ANSWERED — BOLD GREEN, HIGHLY VISIBLE */
         .q-nav-btn.answered {
-            background: #dcfce7;
-            border-color: #22c55e;
-            color: #166534;
-            font-weight: 600;
+            background-color: #22c55e !important;
+            border-color: #15803d !important;
+            color: #ffffff !important;
+            font-weight: bold !important;
         }
-        /* ✅ FLAGGED — ORANGE SHADE */
+        /* ✅ FLAGGED — BOLD ORANGE, HIGHLY VISIBLE */
         .q-nav-btn.flagged {
-            background: #fffbeb;
-            border-color: #f59e0b;
-            color: #92400e;
+            background-color: #f97316 !important;
+            border-color: #c2410c !important;
+            color: #ffffff !important;
+            font-weight: bold !important;
         }
-        /* ✅ CURRENT — RED HIGHLIGHT */
+        /* ✅ CURRENT QUESTION — BOLD RED */
         .q-nav-btn.current {
-            background: #dc2626;
-            color: white;
-            border-color: #dc2626;
-            font-weight: 600;
+            background-color: #dc2626 !important;
+            border-color: #991b1b !important;
+            color: #ffffff !important;
+            font-weight: bold !important;
         }
         .nav-page-controls {
             display: flex;
@@ -275,9 +265,7 @@
             font-size: 13px;
             white-space: nowrap;
         }
-        .back-btn:hover, .next-btn:hover {
-            background: #ffffff;
-        }
+        .back-btn:hover, .next-btn:hover { background: #ffffff; }
     </style>
 </head>
 <body>
@@ -465,6 +453,8 @@
             </div>
         </div>
     </div>
+
+    <!-- ✅ QUESTION NAVIGATION BAR — FULLY RESTORED -->
     <div class="question-nav" id="questionNav">
         <div class="nav-container" id="navContainer"></div>
         <div class="nav-page-controls">
@@ -472,6 +462,7 @@
             <a href="reading-passage3-C10T3.html" class="next-btn">Next →</a>
         </div>
     </div>
+
     <script>
         const correctAnswers = {
             q14: 'C', q15: 'B', q16: 'H', q17: 'B', q18: 'E',
@@ -482,6 +473,7 @@
         let lastNoteId = 0;
         const passageId = 'C10T3P2';
 
+        // ✅ Generate navigation buttons 14–26
         function generateNav() {
             const container = document.getElementById('navContainer');
             container.innerHTML = '';
@@ -503,20 +495,17 @@
                 document.getElementById(`nav-q${qNum}`).classList.add('current');
             }
         }
-        // ✅ FIXED: Update navigation highlights properly
+        // ✅ Update shaded colors — BOLD & VISIBLE
         function updateNavStatus() {
             const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`)) || {};
             const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
             for (let i = 14; i <= 26; i++) {
                 const btn = document.getElementById(`nav-q${i}`);
                 if (!btn) continue;
-                // Remove old states first
                 btn.classList.remove('answered', 'flagged');
-                // Mark answered if has value
                 if (answers[`q${i}`] && String(answers[`q${i}`]).trim() !== '') {
                     btn.classList.add('answered');
                 }
-                // Mark flagged
                 if (flags[i]) {
                     btn.classList.add('flagged');
                 }
@@ -566,18 +555,18 @@
                 }
             }
         }
+        // Highlight & Note functions kept...
         const passageArea = document.getElementById('passageArea');
         const questionsArea = document.getElementById('questionsArea');
         const contextMenu = document.getElementById('contextMenu');
         [passageArea, questionsArea].forEach(area => {
-            area.addEventListener('contextmenu', function(e) {
-                const selection = window.getSelection();
-                if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
-                    contextMenu.style.display = 'none';
-                    return;
+            area.addEventListener('contextmenu', e => {
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+                    contextMenu.style.display = 'none'; return;
                 }
                 e.preventDefault();
-                currentRange = selection.getRangeAt(0);
+                currentRange = sel.getRangeAt(0);
                 const rect = currentRange.getBoundingClientRect();
                 contextMenu.style.left = (rect.left + window.scrollX) + 'px';
                 contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
@@ -585,135 +574,114 @@
             });
         });
         document.addEventListener('click', () => contextMenu.style.display = 'none');
-        document.getElementById('menuHighlight').addEventListener('click', function() {
+        document.getElementById('menuHighlight').onclick = () => {
             if (!currentRange) return;
             const span = document.createElement('span');
             span.className = 'highlight';
             span.textContent = currentRange.toString();
-            try {
-                currentRange.deleteContents();
-                currentRange.insertNode(span);
-                span.parentNode.normalize();
-            } catch (e) {}
-            window.getSelection().removeAllRanges();
-            currentRange = null;
-            saveHighlights();
-        });
-        document.getElementById('menuRemove').addEventListener('click', function() {
+            try { currentRange.deleteContents(); currentRange.insertNode(span); span.parentNode.normalize(); } catch(e) {}
+            window.getSelection().removeAllRanges(); currentRange = null; saveHighlights();
+        };
+        document.getElementById('menuRemove').onclick = () => {
             if (!currentRange) return;
             try {
-                let container = currentRange.commonAncestorContainer;
-                while (container && container !== passageArea && container !== questionsArea) {
-                    if (container.nodeType === 1 && container.classList.contains('highlight')) break;
-                    container = container.parentNode;
+                let n = currentRange.commonAncestorContainer;
+                while(n && n !== passageArea && n !== questionsArea) {
+                    if (n.nodeType===1 && n.classList.contains('highlight')) break;
+                    n = n.parentNode;
                 }
-                if (container && container.classList.contains('highlight')) {
-                    const plainText = document.createTextNode(container.textContent);
-                    container.parentNode.replaceChild(plainText, container);
-                    plainText.parentNode.normalize();
+                if (n && n.classList.contains('highlight')) {
+                    n.parentNode.replaceChild(document.createTextNode(n.textContent), n);
+                    n.parentNode.normalize();
                 }
-            } catch (e) {}
-            window.getSelection().removeAllRanges();
-            currentRange = null;
-            saveHighlights();
-        });
-        document.getElementById('menuNote').addEventListener('click', function() {
+            } catch(e) {}
+            window.getSelection().removeAllRanges(); currentRange = null; saveHighlights();
+        };
+        document.getElementById('menuNote').onclick = () => {
             if (!currentRange) return;
             const rect = currentRange.getBoundingClientRect();
-            const noteId = 'note_' + (++lastNoteId);
+            const id = 'note_' + (++lastNoteId);
             const note = document.createElement('div');
-            note.className = 'sticky-note';
-            note.id = noteId;
-            note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div><textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>`;
+            note.className='sticky-note'; note.id=id;
+            note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${id}')">×</span></div><textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${id}',this.value)"></textarea>`;
             note.style.left = (rect.right + window.scrollX + 8) + 'px';
             note.style.top = (rect.top + window.scrollY) + 'px';
             document.body.appendChild(note);
-            window.getSelection().removeAllRanges();
-            currentRange = null;
-            saveNotes();
-        });
-        function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
-        function saveNote(id, text) { localStorage.setItem(`${passageId}_${id}`, text); }
-        function saveHighlights() { 
+            window.getSelection().removeAllRanges(); currentRange = null; saveNotes();
+        };
+        window.closeNote = id => document.getElementById(id)?.remove() && saveNotes();
+        window.saveNote = (id, t) => localStorage.setItem(`${passageId}_${id}`, t);
+        function saveHighlights() {
             localStorage.setItem(`${passageId}_passageHighlights`, passageArea.innerHTML);
             localStorage.setItem(`${passageId}_questionHighlights`, questionsArea.innerHTML);
         }
-        function loadHighlights() { 
-            const savedPassage = localStorage.getItem(`${passageId}_passageHighlights`);
-            const savedQuestions = localStorage.getItem(`${passageId}_questionHighlights`);
-            if (savedPassage) passageArea.innerHTML = savedPassage;
-            if (savedQuestions) questionsArea.innerHTML = savedQuestions;
-            [passageArea, questionsArea].forEach(el => el.normalize());
+        function loadHighlights() {
+            const p = localStorage.getItem(`${passageId}_passageHighlights`);
+            const q = localStorage.getItem(`${passageId}_questionHighlights`);
+            if (p) passageArea.innerHTML = p;
+            if (q) questionsArea.innerHTML = q;
         }
-        function saveNotes() { 
-            const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
-                id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
-            })); 
-            localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes)); 
+        function saveNotes() {
+            const arr = Array.from(document.querySelectorAll('.sticky-note')).map(n=>({
+                id:n.id, left:n.style.left, top:n.style.top,
+                text:n.querySelector('.note-textarea').value
+            }));
+            localStorage.setItem(`${passageId}_notes`, JSON.stringify(arr));
         }
-        function loadNotes() { 
-            const saved = localStorage.getItem(`${passageId}_notes`); 
-            if (!saved) return; 
-            JSON.parse(saved).forEach(n => { 
-                const note = document.createElement('div'); 
-                note.className = 'sticky-note'; 
-                note.id = n.id; 
-                note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>`; 
-                note.style.left = n.left; 
-                note.style.top = n.top; 
-                document.body.appendChild(note); 
-                const num = parseInt(n.id.split('_')[1]); 
-                if (num > lastNoteId) lastNoteId = num; 
-            }); 
+        function loadNotes() {
+            const s = localStorage.getItem(`${passageId}_notes`);
+            if (!s) return;
+            JSON.parse(s).forEach(n=>{
+                const note = document.createElement('div');
+                note.className='sticky-note'; note.id=n.id;
+                note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea" oninput="saveNote('${n.id}',this.value)">${n.text}</textarea>`;
+                note.style.left=n.left; note.style.top=n.top;
+                document.body.appendChild(note);
+                const num = parseInt(n.id.split('_')[1]);
+                if (num>lastNoteId) lastNoteId=num;
+            });
         }
-        function clearAll() {
-            if (!confirm('Clear ALL answers, flags, highlights and notes? This cannot be undone.')) return;
+        window.clearAll = () => {
+            if (!confirm('Clear ALL answers, flags, highlights and notes?')) return;
             localStorage.removeItem(`${passageId}_answers`);
             localStorage.removeItem(`${passageId}_flags`);
             localStorage.removeItem(`${passageId}_passageHighlights`);
             localStorage.removeItem(`${passageId}_questionHighlights`);
             localStorage.removeItem(`${passageId}_notes`);
             location.reload();
-        }
-        function toggleAnswers() { const box = document.getElementById('answersBox'); box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
-        function showStudentAnswers() {
+        };
+        window.toggleAnswers = () => {
+            const box = document.getElementById('answersBox');
+            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        };
+        window.showStudentAnswers = () => {
             saveAnswers();
             const box = document.getElementById('studentAnswersBox');
-            const resultDiv = document.getElementById('studentResult');
-            let html = '';
-            let score = 0;
-            for (let q = 14; q <= 26; q++) {
-                let studentAns = '';
-                const radios = document.getElementsByName(`q${q}`);
-                if (radios.length > 0) {
-                    for (let r of radios) if (r.checked) studentAns = r.value;
-                } else {
-                    const input = document.querySelector(`input[name="q${q}"]`);
-                    if (input) studentAns = input.value.trim().toLowerCase();
-                }
-                const correct = correctAnswers[`q${q}`].toLowerCase();
+            const div = document.getElementById('studentResult');
+            let html='', score=0;
+            for(let q=14; q<=26; q++) {
+                let ans='';
+                const rs = document.getElementsByName(`q${q}`);
+                if (rs.length>0) { for(let r of rs) if(r.checked) ans=r.value; }
+                else { const i=document.querySelector(`input[name="q${q}"]`); if(i) ans=i.value.trim().toLowerCase(); }
+                const corr = correctAnswers[`q${q}`].toLowerCase();
                 let status = '';
-                if (!studentAns) {
-                    status = '<span class="no-answer">(No Answer)</span>';
-                } else if (studentAns === correct) {
-                    status = '<span class="correct">✅ Correct</span>';
-                    score++;
-                } else {
-                    status = `<span class="wrong">❌ Wrong (Correct: ${correctAnswers[`q${q}`]})</span>`;
-                }
-                html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
+                if (!ans) status='<span class="no-answer">(No Answer)</span>';
+                else if (ans===corr) { status='<span class="correct">✅ Correct</span>'; score++; }
+                else status=`<span class="wrong">❌ Wrong (Correct: ${correctAnswers['q'+q]})</span>`;
+                html += `<strong>${q}.</strong> Your answer: ${ans||'-'} &nbsp; ${status}<br>`;
             }
-            html += `<br><strong>Total Score: ${score} / 13</strong>`;
-            resultDiv.innerHTML = html;
-            box.style.display = box.style.display === 'block' ? 'none' : 'block';
-        }
+            html += `<br><strong>Total Score: ${score}/13</strong>`;
+            div.innerHTML=html;
+            box.style.display = box.style.display==='block'?'none':'block';
+        };
         window.onload = function() {
             generateNav();
             loadAnswers();
             loadFlags();
             loadHighlights();
             loadNotes();
-            updateNavStatus(); // ✅ Ensure highlights apply on page load
+            updateNavStatus();
         };
     </script>
 </body>
