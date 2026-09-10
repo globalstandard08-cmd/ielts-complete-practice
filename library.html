@@ -358,7 +358,6 @@
                 <button class="tab" data-tab="writing">✍️ Writing</button>
                 <button class="tab" data-tab="speaking">🎤 Speaking</button>
             </div>
-
             <!-- ======================================= -->
             <!-- READING SECTION -->
             <!-- ======================================= -->
@@ -461,7 +460,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- ======================================= -->
             <!-- LISTENING SECTION — AUTO-DETECTION ENABLED -->
             <!-- ======================================= -->
@@ -532,7 +530,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- ======================================= -->
             <!-- WRITING SECTION -->
             <!-- ======================================= -->
@@ -582,7 +579,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- ======================================= -->
             <!-- SPEAKING SECTION -->
             <!-- ======================================= -->
@@ -634,7 +630,6 @@
             </div>
         </div>
     </div>
-
 <script>
 // === BOOK FILTER BUTTONS ===
 const bookButtons = document.querySelectorAll('.book-btn');
@@ -654,7 +649,6 @@ bookButtons.forEach(btn => {
     });
   });
 });
-
 // === TAB BUTTONS ===
 const tabButtons = document.querySelectorAll('.tab');
 const tabContents = document.querySelectorAll('.section-content');
@@ -672,44 +666,42 @@ tabButtons.forEach(tab => {
     });
   });
 });
-
 // ==================================================
-// ✅ LISTENING AUTO-DETECTION — MATCHES YOUR FILENAMES
+// ✅ LISTENING AUTO-DETECTION — FIXED: Test 1 uses plain part1/part2/part3/part4
 // ==================================================
 const LISTENING_PATH = "./listening/";
 
-// Which tests to scan
 const LISTENING_TESTS = [
-  { id: "c10t1", edition: 10, test: 1 },
-  { id: "c10t2", edition: 10, test: 2 },
-  { id: "c10t3", edition: 10, test: 3 },
-  { id: "c10t4", edition: 10, test: 4 },
+  { id: "c10t1", edition: 10, test: 1,
+    mp3Prefix: "", htmlPrefix: "listening-" },  // Test 1 = part1.mp3 / listening-part1.html
+  { id: "c10t2", edition: 10, test: 2,
+    mp3Prefix: "c10t2-", htmlPrefix: "listening-c10t2-" },
+  { id: "c10t3", edition: 10, test: 3,
+    mp3Prefix: "c10t3-", htmlPrefix: "listening-c10t3-" },
+  { id: "c10t4", edition: 10, test: 4,
+    mp3Prefix: "c10t4-", htmlPrefix: "listening-c10t4-" },
 ];
 
-// Check if ALL 4 parts exist (MP3 + HTML)
-async function checkListeningTest(edition, test) {
+async function checkListeningTest(testConfig) {
   for (let part = 1; part <= 4; part++) {
-    // YOUR filename pattern: c10t2-part1.mp3  +  listening-c10t2-part1.html
-    const mp3 = `${LISTENING_PATH}c${edition}t${test}-part${part}.mp3`;
-    const html = `${LISTENING_PATH}listening-c${edition}t${test}-part${part}.html`;
+    const mp3 = `${LISTENING_PATH}${testConfig.mp3Prefix}part${part}.mp3`;
+    const html = `${LISTENING_PATH}${testConfig.htmlPrefix}part${part}.html`;
     try {
       const mp3Check = await fetch(mp3, { method: "HEAD" });
       const htmlCheck = await fetch(html, { method: "HEAD" });
       if (!mp3Check.ok || !htmlCheck.ok) return false;
     } catch {
-      return false; // File missing
+      return false;
     }
   }
-  return true; // ✅ All files found!
+  return true;
 }
 
-// Update button appearance
 async function updateListeningButtons() {
   for (const t of LISTENING_TESTS) {
-    const ready = await checkListeningTest(t.edition, t.test);
+    const ready = await checkListeningTest(t);
     const btn = document.getElementById(`${t.id}-btn`);
     if (!btn) continue;
-
     if (ready) {
       btn.textContent = "▶ Start Test";
       btn.classList.remove("gray");
@@ -724,7 +716,6 @@ async function updateListeningButtons() {
   }
 }
 
-// Run when page loads
 window.addEventListener("load", updateListeningButtons);
 </script>
 </body>
