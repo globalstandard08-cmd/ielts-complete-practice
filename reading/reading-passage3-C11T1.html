@@ -22,10 +22,9 @@
             background: #ffffff;
             padding: 15px 30px;
             border-bottom: 2px solid #dc2626;
-            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
         }
         .page-header h1 {
-            font-size: 22px;
+            font-size: 20px;
             color: #dc2626;
             margin-bottom: 4px;
         }
@@ -33,106 +32,105 @@
             font-size: 14px;
             color: #7f1d1d;
         }
+        /* ✅ MAIN WRAPPER — SCROLLABLE COLUMNS */
         .content-wrapper {
             display: flex;
+            gap: 18px;
+            padding: 18px;
             flex: 1;
-            gap: 20px;
-            padding: 20px;
-            height: calc(100vh - 200px);
+            height: calc(100vh - 280px);
         }
         .passage-column, .questions-column {
-            padding: 20px;
+            flex: 1;
             background: #ffffff;
             border-radius: 10px;
             border: 1px solid #fecaca;
-            overflow-y: auto;
-            /* ✅ VISIBLE SCROLLBARS */
+            padding: 18px;
+            /* ✅ ALWAYS VISIBLE SCROLLBARS */
+            overflow-y: scroll;
             scrollbar-width: thin;
             scrollbar-color: #dc2626 #fef2f2;
-            position: relative;
         }
+        /* ✅ SCROLLBAR STYLING */
         .passage-column::-webkit-scrollbar,
         .questions-column::-webkit-scrollbar {
-            width: 10px;
+            width: 12px;
+            display: block;
         }
         .passage-column::-webkit-scrollbar-track,
         .questions-column::-webkit-scrollbar-track {
             background: #fef2f2;
-            border-radius: 5px;
+            border-radius: 6px;
         }
         .passage-column::-webkit-scrollbar-thumb,
         .questions-column::-webkit-scrollbar-thumb {
             background: #dc2626;
-            border-radius: 5px;
-        }
-        .passage-column {
-            width: 50%;
-            line-height: 1.7;
-            font-size: 15px;
+            border-radius: 6px;
+            border: 2px solid #fef2f2;
         }
         .passage-column h2 {
             text-align: center;
-            font-size: 22px;
+            font-size: 20px;
             color: #dc2626;
-            margin-bottom: 20px;
-            font-weight: 700;
+            margin-bottom: 16px;
             line-height: 1.3;
-        }
-        .passage-text {
-            cursor: pointer;
         }
         .passage-text p {
             margin-bottom: 12px;
+            font-size: 15px;
+            line-height: 1.7;
         }
-        .passage-text strong {
-            color: #991b1b;
-        }
+        .passage-text strong { color: #991b1b; }
         .highlight {
-            background-color: #fef08a;
+            background-color: #ffd700;
             padding: 2px 4px;
-            border-radius: 3px;
-        }
-        .questions-column {
-            width: 50%;
+            border-radius: 2px;
         }
         .questions-column h3 {
             font-size: 16px;
             color: #991b1b;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             padding-bottom: 8px;
             border-bottom: 1px solid #fecaca;
         }
         .instruction {
-            font-size: 14px;
+            font-size: 13px;
             color: #7f1d1d;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
             line-height: 1.5;
         }
-        .question-group {
-            margin-bottom: 30px;
-        }
+        .question-group { margin-bottom: 24px; }
         .question-row {
             display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 10px;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
             padding: 6px 8px;
             border-radius: 6px;
             transition: background 0.2s;
-            flex-wrap: wrap;
         }
-        .question-row:hover {
-            background: #fef2f2;
-        }
+        .question-row:hover { background: #fef2f2; }
         .q-number {
             font-weight: 700;
             color: #dc2626;
-            min-width: 24px;
-            flex-shrink: 0;
+            min-width: 28px;
+            transition: background 0.3s;
+        }
+        .q-number.answered {
+            background: #198754;
+            color: white;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+        .q-number.flagged {
+            background: #fd7e14;
+            color: white;
+            padding: 0 4px;
+            border-radius: 4px;
         }
         .q-text {
             flex: 1;
-            font-size: 15px;
+            font-size: 14px;
             line-height: 1.5;
         }
         .flag-btn {
@@ -140,13 +138,25 @@
             border: none;
             cursor: pointer;
             font-size: 16px;
-            opacity: 0.4;
-            transition: opacity 0.2s;
-            flex-shrink: 0;
+            color: #ccc;
         }
-        .flag-btn.flagged {
-            opacity: 1;
-            color: #dc2626;
+        .flag-btn.flagged { color: #fd7e14; }
+        /* ✅ ANSWER INPUT — FULLY TYPEABLE */
+        .answer-input {
+            padding: 6px 10px;
+            border: 1px solid #fecaca;
+            border-radius: 5px;
+            font-size: 14px;
+            background: #fef2f2;
+            outline: none;
+            width: 110px;
+            text-transform: uppercase;
+            z-index: 1;
+            position: relative;
+        }
+        .answer-input:focus {
+            border-color: #dc2626;
+            background: #fff;
         }
         .match-table {
             width: 100%;
@@ -156,13 +166,14 @@
         }
         .match-table th, .match-table td {
             border: 1px solid #fecaca;
-            padding: 8px 10px;
+            padding: 10px;
             text-align: left;
         }
         .match-table th {
             background: #fef2f2;
             color: #991b1b;
         }
+        .table-input { width: 90px; }
         .list-box {
             border: 1px solid #fecaca;
             border-radius: 8px;
@@ -175,33 +186,48 @@
             margin-bottom: 8px;
             font-size: 14px;
         }
-        /* ✅ ANSWER INPUT FIELDS */
-        .answer-input {
-            padding: 4px 8px;
-            border: 1px solid #fecaca;
-            border-radius: 4px;
-            font-size: 14px;
-            background: #fef2f2;
-            outline: none;
-            width: 100px;
-            text-transform: uppercase;
-        }
-        .answer-input:focus {
-            border-color: #dc2626;
+        /* ✅ BOTTOM BUTTONS AREA */
+        .bottom-area {
+            padding: 12px 20px;
             background: #fff;
+            border-top: 2px solid #fecaca;
         }
-        .table-input {
-            width: 80px;
-            margin-left: 6px;
+        .question-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
         }
-        /* ✅ BUTTONS */
-        .action-buttons {
+        .q-indicator {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background: #eee;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .q-indicator.answered {
+            background: #198754;
+            color: white;
+            border-color: #198754;
+        }
+        .q-indicator.flagged {
+            background: #fd7e14;
+            color: white;
+            border-color: #fd7e14;
+        }
+        .button-bar {
             display: flex;
             gap: 10px;
-            margin: 15px 0;
+            margin-bottom: 12px;
         }
         .check-answers, .clear-all-data {
-            padding: 8px 16px;
+            padding: 8px 18px;
             border: none;
             border-radius: 6px;
             font-size: 14px;
@@ -212,56 +238,45 @@
             background: #16a34a;
             color: white;
         }
-        .check-answers:hover {
-            background: #15803d;
-        }
+        .check-answers:hover { background: #15803d; }
         .clear-all-data {
             background: #dc2626;
             color: white;
         }
-        .clear-all-data:hover {
-            background: #b91c1c;
-        }
-        /* ✅ RESULTS BOX */
+        .clear-all-data:hover { background: #b91c1c; }
         .results-box {
-            margin-top: 15px;
-            padding: 15px;
+            margin-bottom: 12px;
+            padding: 12px;
             background: #fef2f2;
             border: 1px solid #fecaca;
-            border-radius: 8px;
+            border-radius: 6px;
             display: none;
             font-size: 14px;
-        }
-        .results-box h4 {
-            color: #dc2626;
-            margin-bottom: 10px;
         }
         .correct { color: green; font-weight: 600; }
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
+        /* ✅ NAVIGATION BAR */
         .nav-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 15px 20px;
-            background: #ffffff;
-            border-top: 2px solid #fecaca;
-            margin-top: auto;
+            padding: 12px 20px;
+            background: #fff;
+            border-top: 1px solid #fecaca;
         }
         .nav-btn {
             padding: 10px 20px;
             background: #dc2626;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             text-decoration: none;
         }
-        .nav-btn:hover {
-            background: #b91c1c;
-        }
+        .nav-btn:hover { background: #b91c1c; }
         .passage-tabs {
             display: flex;
             gap: 8px;
@@ -283,7 +298,7 @@
         }
         @media (max-width: 900px) {
             .content-wrapper { flex-direction: column; height: auto; }
-            .passage-column, .questions-column { width: 100%; max-height: 600px; }
+            .passage-column, .questions-column { max-height: 500px; }
         }
     </style>
 </head>
@@ -292,8 +307,9 @@
         <h1>READING PASSAGE 3 — Cambridge 11 Test 1</h1>
         <p>You should spend about 20 minutes on Questions 27–40, which are based on Reading Passage 3 below.</p>
     </div>
+
     <div class="content-wrapper">
-        <!-- LEFT COLUMN: PASSAGE -->
+        <!-- LEFT: PASSAGE -->
         <div class="passage-column">
             <h2>Reducing the Effects of Climate Change<br>being explored by scientists</h2>
             <div class="passage-text" id="passageText">
@@ -307,34 +323,29 @@
                 <p><strong>H</strong> The main reason why geo-engineering is supported by many in the scientific community is that most researchers have little faith in the ability of politicians to agree — and then bring in — the necessary carbon cuts. Even leading conservation organisations see the value of investigating the potential of geo-engineering. According to Dr Martin Sommerkorn, climate change advisor for the World Wildlife Fund's International Arctic Programme, 'Human-induced climate change has brought humanity to a position where we shouldn't exclude thinking thoroughly about this topic and its possibilities.'</p>
             </div>
         </div>
-        <!-- RIGHT COLUMN: QUESTIONS -->
+
+        <!-- RIGHT: QUESTIONS -->
         <div class="questions-column">
             <h3>Questions 27–40</h3>
 
-            <!-- ✅ BUTTONS -->
-            <div class="action-buttons">
-                <button class="check-answers" onclick="checkAnswers()">✅ Check Answers</button>
-                <button class="clear-all-data" onclick="clearAllData()">🗑️ Clear All Data</button>
-            </div>
-
             <!-- Q27-29 -->
             <div class="question-group">
-                <h4 style="margin-bottom:10px; font-size:15px; color:#991b1b;">Questions 27–29</h4>
+                <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 27–29</h4>
                 <p class="instruction">Reading Passage 3 has eight paragraphs <strong>A–H</strong>.<br>Which paragraph contains the following information?<br>Write the correct letter, <strong>A–H</strong>, in boxes 27–29 on your answer sheet.</p>
                 <div class="question-row">
-                    <span class="q-number">27</span>
+                    <span class="q-number" id="qnum27">27</span>
                     <span class="q-text">mention of a geo-engineering project based on an earlier natural phenomenon</span>
                     <input type="text" class="answer-input" name="q27" placeholder="A–H" maxlength="1" autocomplete="off">
                     <button class="flag-btn" data-q="27">🚩</button>
                 </div>
                 <div class="question-row">
-                    <span class="q-number">28</span>
+                    <span class="q-number" id="qnum28">28</span>
                     <span class="q-text">an example of a successful use of geo-engineering</span>
                     <input type="text" class="answer-input" name="q28" placeholder="A–H" maxlength="1" autocomplete="off">
                     <button class="flag-btn" data-q="28">🚩</button>
                 </div>
                 <div class="question-row">
-                    <span class="q-number">29</span>
+                    <span class="q-number" id="qnum29">29</span>
                     <span class="q-text">a common definition of geo-engineering</span>
                     <input type="text" class="answer-input" name="q29" placeholder="A–H" maxlength="1" autocomplete="off">
                     <button class="flag-btn" data-q="29">🚩</button>
@@ -343,38 +354,35 @@
 
             <!-- Q30-36 TABLE -->
             <div class="question-group">
-                <h4 style="margin-bottom:10px; font-size:15px; color:#991b1b;">Questions 30–36</h4>
+                <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 30–36</h4>
                 <p class="instruction">Complete the table below.<br>Choose <strong>ONE WORD</strong> from the passage for each answer.</p>
                 <table class="match-table">
                     <thead>
-                        <tr>
-                            <th>Procedure</th>
-                            <th>Aim</th>
-                        </tr>
+                        <tr><th>Procedure</th><th>Aim</th></tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>put a large number of tiny spacecraft into orbit far above Earth</td>
-                            <td>to create a <strong>30 <input type="text" class="answer-input table-input" name="q30" placeholder="" autocomplete="off"></strong> that would reduce the amount of light reaching Earth</td>
+                            <td>to create a <strong id="qnum30">30</strong> <input type="text" class="answer-input table-input" name="q30" autocomplete="off"> that would reduce the amount of light reaching Earth</td>
                         </tr>
                         <tr>
-                            <td>place <strong>31 <input type="text" class="answer-input table-input" name="q31" placeholder="" autocomplete="off"></strong> in the sea</td>
-                            <td>to encourage <strong>32 <input type="text" class="answer-input table-input" name="q32" placeholder="" autocomplete="off"></strong> to form</td>
+                            <td>place <strong id="qnum31">31</strong> <input type="text" class="answer-input table-input" name="q31" autocomplete="off"> in the sea</td>
+                            <td>to encourage <strong id="qnum32">32</strong> <input type="text" class="answer-input table-input" name="q32" autocomplete="off"> to form</td>
                         </tr>
                         <tr>
                             <td>release aerosol sprays into the stratosphere</td>
-                            <td>to create <strong>33 <input type="text" class="answer-input table-input" name="q33" placeholder="" autocomplete="off"></strong> that would reduce the amount of light reaching Earth</td>
+                            <td>to create <strong id="qnum33">33</strong> <input type="text" class="answer-input table-input" name="q33" autocomplete="off"> that would reduce the amount of light reaching Earth</td>
                         </tr>
                         <tr>
-                            <td>fix strong <strong>34 <input type="text" class="answer-input table-input" name="q34" placeholder="" autocomplete="off"></strong> to Greenland ice sheets</td>
+                            <td>fix strong <strong id="qnum34">34</strong> <input type="text" class="answer-input table-input" name="q34" autocomplete="off"> to Greenland ice sheets</td>
                             <td>to prevent icebergs moving into the sea</td>
                         </tr>
                         <tr>
                             <td>plant trees in Russian Arctic that would lose their leaves in winter</td>
-                            <td>to allow the <strong>35 <input type="text" class="answer-input table-input" name="q35" placeholder="" autocomplete="off"></strong> to reflect radiation</td>
+                            <td>to allow the <strong id="qnum35">35</strong> <input type="text" class="answer-input table-input" name="q35" autocomplete="off"> to reflect radiation</td>
                         </tr>
                         <tr>
-                            <td>change the direction of <strong>36 <input type="text" class="answer-input table-input" name="q36" placeholder="" autocomplete="off"></strong></td>
+                            <td>change the direction of <strong id="qnum36">36</strong> <input type="text" class="answer-input table-input" name="q36" autocomplete="off"></td>
                             <td>to bring more cold water into ice-forming areas</td>
                         </tr>
                     </tbody>
@@ -383,50 +391,54 @@
 
             <!-- Q37-40 MATCHING -->
             <div class="question-group">
-                <h4 style="margin-bottom:10px; font-size:15px; color:#991b1b;">Questions 37–40</h4>
+                <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 37–40</h4>
                 <p class="instruction">Look at the following statements (Questions 37–40) and the list of scientists below.<br>Match each statement with the correct scientist, <strong>A–D</strong>.</p>
                 <div class="list-box">
                     <h4>List of Scientists</h4>
-                    <p><strong>A</strong> Roger Angel<br>
-                    <strong>B</strong> Phil Rasch<br>
-                    <strong>C</strong> Dan Lunt<br>
-                    <strong>D</strong> Martin Sommerkorn</p>
+                    <p><strong>A</strong> Roger Angel<br><strong>B</strong> Phil Rasch<br><strong>C</strong> Dan Lunt<br><strong>D</strong> Martin Sommerkorn</p>
                 </div>
                 <div class="question-row">
-                    <span class="q-number">37</span>
+                    <span class="q-number" id="qnum37">37</span>
                     <span class="q-text">The effects of geo-engineering may not be long-lasting.</span>
                     <input type="text" class="answer-input" name="q37" placeholder="A–D" maxlength="1" autocomplete="off">
                     <button class="flag-btn" data-q="37">🚩</button>
                 </div>
                 <div class="question-row">
-                    <span class="q-number">38</span>
+                    <span class="q-number" id="qnum38">38</span>
                     <span class="q-text">Geo-engineering is a topic worth exploring.</span>
                     <input type="text" class="answer-input" name="q38" placeholder="A–D" maxlength="1" autocomplete="off">
                     <button class="flag-btn" data-q="38">🚩</button>
                 </div>
                 <div class="question-row">
-                    <span class="q-number">39</span>
+                    <span class="q-number" id="qnum39">39</span>
                     <span class="q-text">It may be necessary to limit the effectiveness of geo-engineering projects.</span>
                     <input type="text" class="answer-input" name="q39" placeholder="A–D" maxlength="1" autocomplete="off">
                     <button class="flag-btn" data-q="39">🚩</button>
                 </div>
                 <div class="question-row">
-                    <span class="q-number">40</span>
+                    <span class="q-number" id="qnum40">40</span>
                     <span class="q-text">Research into non-fossil-based fuels cannot be replaced by geo-engineering.</span>
                     <input type="text" class="answer-input" name="q40" placeholder="A–D" maxlength="1" autocomplete="off">
                     <button class="flag-btn" data-q="40">🚩</button>
                 </div>
             </div>
-
-            <!-- ✅ RESULTS BOX -->
-            <div class="results-box" id="resultsBox">
-                <h4>📝 Your Results</h4>
-                <div id="resultsContent"></div>
-            </div>
-
         </div>
     </div>
-    <!-- BOTTOM NAVIGATION -->
+
+    <!-- ✅ BOTTOM AREA: INDICATORS + BUTTONS + NAV -->
+    <div class="bottom-area">
+        <div class="question-nav" id="qNav"></div>
+        <div class="button-bar">
+            <button class="check-answers" onclick="checkAnswers()">✅ Check Answers</button>
+            <button class="clear-all-data" onclick="clearAllData()">🗑️ Clear All Data</button>
+        </div>
+        <div class="results-box" id="resultsBox">
+            <h4 style="color:#dc2626; margin-bottom:8px;">📝 Your Results</h4>
+            <div id="resultsContent"></div>
+        </div>
+    </div>
+
+    <!-- ✅ NAVIGATION BAR -->
     <div class="nav-bar">
         <a href="reading-passage2-C11T1.html" class="nav-btn">&larr; Previous</a>
         <div class="passage-tabs">
@@ -438,170 +450,155 @@
     </div>
 
 <script>
-    // ✅ GLOBAL VARIABLES
     const passageId = 'C11T1P3';
-    const TOTAL_QUESTIONS = 14;
-    // ✅ CORRECT ANSWERS — HIDDEN UNTIL CHECKED
+    const Q_LIST = [27,28,29,30,31,32,33,34,35,36,37,38,39,40];
     const correctAnswers = {
-        q27: 'D',
-        q28: 'B',
-        q29: 'A',
-        q30: 'sunshade',
-        q31: 'iron',
-        q32: 'algae',
-        q33: 'clouds',
-        q34: 'cables',
-        q35: 'snow',
-        q36: 'rivers',
-        q37: 'B',
-        q38: 'D',
-        q39: 'C',
-        q40: 'A'
+        q27:'D',q28:'B',q29:'A',q30:'sunshade',q31:'iron',q32:'algae',
+        q33:'clouds',q34:'cables',q35:'snow',q36:'rivers',q37:'B',q38:'D',q39:'C',q40:'A'
     };
 
-    // ✅ HIGHLIGHT FEATURE
-    const passageText = document.getElementById('passageText');
-    let lastSelection = null;
-    passageText.addEventListener('mouseup', () => {
-        const selection = window.getSelection();
-        if (selection.toString().trim().length > 0) {
-            const range = selection.getRangeAt(0);
-            if (lastSelection && lastSelection.toString() === selection.toString()) {
-                removeHighlights();
-                lastSelection = null;
-            } else {
-                removeHighlights();
-                const span = document.createElement('span');
-                span.className = 'highlight';
-                try {
-                    range.surroundContents(span);
-                } catch(e) {}
-                lastSelection = window.getSelection().toString();
-                selection.removeAllRanges();
-                saveHighlights();
+    // ✅ Question indicators
+    function initIndicators() {
+        const nav = document.getElementById('qNav');
+        Q_LIST.forEach(q=>{
+            const b=document.createElement('span');
+            b.className='q-indicator'; b.textContent=q; b.id='ind'+q;
+            b.onclick=()=>document.querySelector(`input[name="q${q}"]`)?.focus();
+            nav.appendChild(b);
+        });
+    }
+    function updateIndicators() {
+        Q_LIST.forEach(q=>{
+            const inp=document.querySelector(`input[name="q${q}"]`);
+            const ind=document.getElementById('ind'+q);
+            const qnum=document.getElementById('qnum'+q);
+            const val=inp?(inp.value||'').trim():'';
+            const flagged=localStorage.getItem(`${passageId}_flag_${q}`)==='true';
+            ind.classList.remove('answered','flagged');
+            if(qnum) qnum.classList.remove('answered','flagged');
+            if(flagged){
+                ind.classList.add('flagged');
+                if(qnum) qnum.classList.add('flagged');
+            }else if(val){
+                ind.classList.add('answered');
+                if(qnum) qnum.classList.add('answered');
             }
-        }
-    });
-    function removeHighlights() {
-        const highlights = passageText.querySelectorAll('.highlight');
-        highlights.forEach(h => {
-            const parent = h.parentNode;
-            parent.replaceChild(h.firstChild, h);
-            parent.normalize();
         });
     }
 
-    // ✅ FLAG FEATURE
-    const flagBtns = document.querySelectorAll('.flag-btn');
-    flagBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
+    // ✅ Highlight
+    const passageText=document.getElementById('passageText');
+    passageText.addEventListener('mouseup',()=>{
+        const s=window.getSelection();
+        if(s.toString().trim().length>0){
+            const r=s.getRangeAt(0);
+            const span=document.createElement('span');
+            span.className='highlight';
+            try{r.surroundContents(span);}catch(e){}
+            s.removeAllRanges();
+            saveHighlights();
+        }
+    });
+    function removeHighlights(){
+        passageText.querySelectorAll('.highlight').forEach(h=>{
+            const p=h.parentNode; p.replaceChild(h.firstChild,h); p.normalize();
+        });
+    }
+    function saveHighlights(){
+        localStorage.setItem(`${passageId}_passage_html`,passageText.innerHTML);
+    }
+    function loadHighlights(){
+        const s=localStorage.getItem(`${passageId}_passage_html`);
+        if(s) passageText.innerHTML=s;
+    }
+
+    // ✅ Flags
+    document.querySelectorAll('.flag-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>{
             btn.classList.toggle('flagged');
-            const qNum = btn.dataset.q;
-            const isFlagged = btn.classList.contains('flagged');
-            localStorage.setItem(`${passageId}_flag_${qNum}`, isFlagged);
+            const q=btn.dataset.q;
+            const f=btn.classList.contains('flagged');
+            localStorage.setItem(`${passageId}_flag_${q}`,f);
+            updateIndicators();
         });
     });
-
-    // ✅ SAVE/LOAD HIGHLIGHTS
-    function saveHighlights() {
-        localStorage.setItem(`${passageId}_passage_html`, passageText.innerHTML);
-    }
-    function loadHighlights() {
-        const saved = localStorage.getItem(`${passageId}_passage_html`);
-        if (saved) passageText.innerHTML = saved;
-    }
-
-    // ✅ SAVE/LOAD ANSWERS
-    function saveAnswers() {
-        const answers = {};
-        for (let q = 27; q <= 40; q++) {
-            const inp = document.querySelector(`input[name="q${q}"]`);
-            if (inp) answers[`q${q}`] = inp.value;
-        }
-        localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
-    }
-    function loadAnswers() {
-        const saved = localStorage.getItem(`${passageId}_answers`);
-        if (!saved) return;
-        const answers = JSON.parse(saved);
-        for (let q = 27; q <= 40; q++) {
-            const inp = document.querySelector(`input[name="q${q}"]`);
-            if (inp && answers[`q${q}`]) inp.value = answers[`q${q}`];
-        }
-    }
-
-    // ✅ CHECK ANSWERS — SHOW SCORE ONLY
-    window.checkAnswers = function() {
-        saveAnswers();
-        const box = document.getElementById('resultsBox');
-        const content = document.getElementById('resultsContent');
-        let html = '';
-        let score = 0;
-        for (let q = 27; q <= 40; q++) {
-            const inp = document.querySelector(`input[name="q${q}"]`);
-            const student = inp ? inp.value.trim().toUpperCase() : '';
-            const correct = (correctAnswers[`q${q}`] || '').toUpperCase();
-            let status = '';
-            if (!student) {
-                status = '<span class="no-answer">(No Answer)</span>';
-            } else if (student === correct) {
-                status = '<span class="correct">✅ Correct</span>'; score++;
-            } else {
-                status = '<span class="wrong">❌ Wrong</span>';
+    function loadFlags(){
+        Q_LIST.forEach(q=>{
+            if(localStorage.getItem(`${passageId}_flag_${q}`)==='true'){
+                document.querySelector(`.flag-btn[data-q="${q}"]`)?.classList.add('flagged');
             }
-            html += `<strong>${q}.</strong> ${student || '-'} &nbsp; ${status}<br>`;
-        }
-        html += `<br><strong>Score: ${score} / ${TOTAL_QUESTIONS}</strong>`;
-        content.innerHTML = html;
-        box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        });
+    }
+
+    // ✅ Save/Load Answers
+    function saveAnswers(){
+        const ans={};
+        Q_LIST.forEach(q=>{
+            const inp=document.querySelector(`input[name="q${q}"]`);
+            if(inp) ans[`q${q}`]=inp.value;
+        });
+        localStorage.setItem(`${passageId}_answers`,JSON.stringify(ans));
+        updateIndicators();
+    }
+    function loadAnswers(){
+        const s=localStorage.getItem(`${passageId}_answers`);
+        if(!s) return;
+        const ans=JSON.parse(s);
+        Q_LIST.forEach(q=>{
+            const inp=document.querySelector(`input[name="q${q}"]`);
+            if(inp&&ans[`q${q}`]) inp.value=ans[`q${q}`];
+        });
+    }
+
+    // ✅ Check Answers
+    window.checkAnswers=function(){
+        saveAnswers();
+        const box=document.getElementById('resultsBox');
+        const content=document.getElementById('resultsContent');
+        let html='',score=0;
+        Q_LIST.forEach(q=>{
+            const inp=document.querySelector(`input[name="q${q}"]`);
+            const stu=(inp?(inp.value||'').trim().toUpperCase():'').replace(/\s+/g,'');
+            const ans=(correctAnswers[`q${q}`]||'').toUpperCase().replace(/\s+/g,'');
+            let st='';
+            if(!stu) st='<span class="no-answer">(No Answer)</span>';
+            else if(stu===ans){st='<span class="correct">✅ Correct</span>'; score++;}
+            else st='<span class="wrong">❌ Wrong</span>';
+            html+=`<strong>${q}.</strong> ${stu||'-'} &nbsp; ${st}<br>`;
+        });
+        html+=`<br><strong>Score: ${score} / ${Q_LIST.length}</strong>`;
+        content.innerHTML=html;
+        box.style.display=box.style.display==='block'?'none':'block';
     };
 
-    // ✅ CLEAR ALL DATA — ANSWERS + HIGHLIGHTS + FLAGS
-    window.clearAllData = function() {
-        if (!confirm('⚠️ Clear ALL answers, highlights and flags? This cannot be undone!')) return;
-        
-        // Clear all input fields
-        document.querySelectorAll('.answer-input').forEach(inp => inp.value = '');
-        
-        // Remove ALL highlights
+    // ✅ Clear All Data
+    window.clearAllData=function(){
+        if(!confirm('⚠️ Clear ALL answers, highlights and flags? This cannot be undone!')) return;
+        Q_LIST.forEach(q=>{
+            document.querySelector(`input[name="q${q}"]`).value='';
+            localStorage.removeItem(`${passageId}_flag_${q}`);
+        });
+        document.querySelectorAll('.flag-btn').forEach(b=>b.classList.remove('flagged'));
         removeHighlights();
-        
-        // Remove flags
-        document.querySelectorAll('.flag-btn').forEach(f => f.classList.remove('flagged'));
-        
-        // Hide results box
-        document.getElementById('resultsBox').style.display = 'none';
-        
-        // ✅ CLEAR EVERYTHING FROM LOCALSTORAGE
         localStorage.removeItem(`${passageId}_answers`);
         localStorage.removeItem(`${passageId}_passage_html`);
-        for (let q = 27; q <= 40; q++) {
-            localStorage.removeItem(`${passageId}_flag_${q}`);
-        }
-        
+        document.getElementById('resultsBox').style.display='none';
+        updateIndicators();
         alert('✅ ALL DATA CLEARED!');
     };
 
-    // ✅ AUTO-SAVE ON INPUT
-    document.addEventListener('input', e => {
-        if (e.target.name && e.target.name.startsWith('q')) saveAnswers();
+    // ✅ Auto-save on type
+    document.addEventListener('input',e=>{
+        if(e.target.name&&e.target.name.startsWith('q')) saveAnswers();
     });
 
-    // ✅ RESTORE FLAGS ON LOAD
-    function loadFlags() {
-        for (let q = 27; q <= 40; q++) {
-            const flagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
-            if (flagged) {
-                document.querySelector(`.flag-btn[data-q="${q}"]`)?.classList.add('flagged');
-            }
-        }
-    }
-
-    // ✅ INIT ON PAGE LOAD
-    window.onload = function() {
+    // ✅ Init
+    window.onload=function(){
+        initIndicators();
         loadAnswers();
         loadHighlights();
         loadFlags();
+        updateIndicators();
     };
 </script>
 </body>
