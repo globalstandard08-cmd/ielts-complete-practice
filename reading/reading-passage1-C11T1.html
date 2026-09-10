@@ -279,6 +279,10 @@
             z-index: 9999;
         }
         .back-btn:hover, .next-btn:hover { background: #ffffff; }
+        .back-btn {
+            background: #fef2f2;
+            color: #dc2626;
+        }
         .next-btn {
             background: #16a34a;
             color: white;
@@ -297,6 +301,12 @@
         .correct { color: green; font-weight: 600; }
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
+        .instruction {
+            font-size: 13px;
+            color: #7f1d1d;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
@@ -316,80 +326,140 @@
         <div class="passage-column" id="passageArea">
             <h1>Reading Passage 1 — Crop-growing skyscrapers</h1>
             <div class="passage-text">
-                <p>By the year 2050, nearly 80% of the Earth's population will live in urban areas. This means that huge amounts of land are needed to feed city dwellers. Currently, agriculture takes up 38% of the Earth's land surface. If we continue with traditional farming methods, we will need an area the size of Brazil to feed the world's population by 2050. This is simply not possible.</p>
-                <p>One possible solution is vertical farming — growing crops in skyscrapers in the heart of the city. Vertical farms would use hydroponic systems, where plants are grown in water with added nutrients rather than soil. This uses 90% less water than traditional farming. Crops would be grown under special lights, allowing harvests all year round, completely independent of weather and seasons.</p>
-                <p>Scientists estimate that one vertical farm occupying a 30-storey building with a base of just one hectare could produce the same amount of food as 400 hectares of traditional farmland. Pesticides would not be needed because crops would be grown in a controlled environment free from pests. Transport costs and pollution would be greatly reduced because food would be consumed close to where it is grown.</p>
+                <p>By the year 2050, nearly 80% of the Earth's population will live in urban centres. Applying the most conservative estimates to current demographic trends, the human population will increase by about three billion people by then. An estimated 10⁹ hectares of new land (about 20% larger than Brazil) will be needed to grow enough food to feed them, if traditional farming methods continue as they are practised today.</p>
+                <p>At present, throughout the world, over 80% of the land that is suitable for raising crops is in use. Historically, some 15% of that has been laid waste by poor management practices. What can be done to ensure enough food for the world's population to live on?</p>
+                <p>The concept of indoor farming is not new, since hothouse production of tomatoes and other produce has been in vogue for some time. What is new is the urgent need to scale up this technology to accommodate another three billion people. Many believe an entirely new approach to indoor farming is required, employing cutting-edge technologies. One such proposal is for the 'Vertical Farm'.</p>
+                <p>The concept is of multi-storey buildings in which food crops are grown in environmentally controlled conditions. Situated in the heart of urban centres, they would drastically reduce the amount of transportation required to bring food to consumers. Vertical farms would need to be efficient, cheap to construct and safe to operate. If successfully implemented, proponents claim, vertical farms offer the promise of urban renewal, sustainable production of a safe and varied food supply (through year-round production of all crops), and the eventual repair of ecosystems that have been sacrificed for horizontal farming.</p>
+                <p>It took humans 10,000 years to learn how to grow most of the crops we now take for granted. Along the way, we despoiled most of the land we worked, often turning verdant, natural ecozones into semi-arid deserts. Within that same time frame, we evolved into an urban species, in which 60% of the human population now lives vertically in cities. This means that, for the majority, we humans have shelter from the elements, yet we subject our food-bearing plants to the rigours of the great outdoors and can do no more than hope for a good weather year.</p>
+                <p>However, more often than not now, due to a rapidly changing climate, that is not what happens. Massive floods, long droughts, hurricanes and severe monsoons take their toll each year, destroying millions of tons of valuable crops.</p>
+                <p>The supporters of vertical farming claim many potential advantages for the system. For instance, crops would be produced all year round, as they would be kept in artificially controlled, optimum growing conditions. There would be no weather-related crop failures due to droughts, floods or pests. All the food could be grown organically, eliminating the need for herbicides, pesticides and fertilisers. The system would greatly reduce the incidence of many infectious diseases that are acquired at the agricultural interface. Although the system would consume energy, it would return energy to the grid via methane generation from composting non-edible parts of plants. It would also dramatically reduce fossil fuel use, by cutting out the need for tractors, ploughs and shipping.</p>
+                <p>A major drawback of vertical farming, however, is that the plants would require artificial light. Without it, those plants nearest the windows would be exposed to more sunlight and grow more quickly, reducing the efficiency of the system. Single-storey greenhouses have the benefit of natural overhead light: even so, many still need artificial lighting. A multi-storey facility with no natural overhead light would require far more. Generating enough light could be prohibitively expensive, unless cheap, renewable energy is available, and this appears to be rather a future aspiration than a likelihood for the near future.</p>
+                <p>One variation on vertical farming that has been developed is to grow plants in stacked trays that move on rails. Moving the trays allows the plants to get enough sunlight. This system is already in operation, and works well within a single-storey greenhouse with light reaching it from above: it is not made to work without that overhead natural light.</p>
+                <p>Vertical farming is an attempt to address the undoubted problems that we face in producing enough food for a growing population. At the moment, though, more needs to be done to reduce the detrimental impact it would have on the environment, particularly as regards the use of energy. While it is possible that much of our food will be grown in skyscrapers in future, most experts currently believe it is far more likely that we will simply use the space available on urban rooftops.</p>
             </div>
         </div>
         <!-- RIGHT SIDE: QUESTIONS -->
         <div class="questions-column" id="questionsArea">
             <div class="questions-section">
-                <h2>Questions 1–7: TRUE / FALSE / NOT GIVEN</h2>
-                <p><em>Do the following statements agree with the information given in Reading Passage 1?</em></p>
-                <p><strong>TRUE</strong> — if the statement agrees<br>
-                <strong>FALSE</strong> — if the statement contradicts<br>
-                <strong>NOT GIVEN</strong> — if there is no information</p>
+                <h2>Questions 1–7: Completion</h2>
+                <p class="instruction">Complete the sentences below.<br>Choose <strong>NO MORE THAN TWO WORDS</strong> from the passage for each answer.</p>
 
                 <div class="question-block" id="q1">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(1)" id="flag1">🚩</span>
-                        <p><strong>1.</strong> By 2050, the majority of people will live in cities.</p>
+                        <p><strong>1.</strong> Some food plants, including _______________, are already grown indoors.</p>
                     </div>
-                    <input type="text" class="answer-input" name="q1" placeholder="TRUE / FALSE / NOT GIVEN">
+                    <input type="text" class="answer-input" name="q1" placeholder="Your answer">
                 </div>
                 <div class="question-block" id="q2">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(2)" id="flag2">🚩</span>
-                        <p><strong>2.</strong> Traditional farming will be completely replaced by 2050.</p>
+                        <p><strong>2.</strong> Vertical farms would be located in _______________, meaning that there would be less need to take them long distances to customers.</p>
                     </div>
-                    <input type="text" class="answer-input" name="q2" placeholder="TRUE / FALSE / NOT GIVEN">
+                    <input type="text" class="answer-input" name="q2" placeholder="Your answer">
                 </div>
                 <div class="question-block" id="q3">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(3)" id="flag3">🚩</span>
-                        <p><strong>3.</strong> Vertical farming uses significantly less water than conventional agriculture.</p>
+                        <p><strong>3.</strong> Vertical farms could use methane from plants and animals to produce _______________.</p>
                     </div>
-                    <input type="text" class="answer-input" name="q3" placeholder="TRUE / FALSE / NOT GIVEN">
+                    <input type="text" class="answer-input" name="q3" placeholder="Your answer">
                 </div>
                 <div class="question-block" id="q4">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(4)" id="flag4">🚩</span>
-                        <p><strong>4.</strong> Crops in vertical farms are affected by seasonal weather conditions.</p>
+                        <p><strong>4.</strong> The consumption of _______________ would be cut because agricultural vehicles would be unnecessary.</p>
                     </div>
-                    <input type="text" class="answer-input" name="q4" placeholder="TRUE / FALSE / NOT GIVEN">
+                    <input type="text" class="answer-input" name="q4" placeholder="Your answer">
                 </div>
                 <div class="question-block" id="q5">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(5)" id="flag5">🚩</span>
-                        <p><strong>5.</strong> A 30-storey vertical farm could match the output of hundreds of hectares of farmland.</p>
+                        <p><strong>5.</strong> The fact that vertical farms would need _______________ light is a disadvantage.</p>
                     </div>
-                    <input type="text" class="answer-input" name="q5" placeholder="TRUE / FALSE / NOT GIVEN">
+                    <input type="text" class="answer-input" name="q5" placeholder="Your answer">
                 </div>
                 <div class="question-block" id="q6">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(6)" id="flag6">🚩</span>
-                        <p><strong>6.</strong> Vertical farming produces crops that are less nutritious than field-grown food.</p>
+                        <p><strong>6.</strong> One form of vertical farming involves planting in _______________ which are not fixed.</p>
                     </div>
-                    <input type="text" class="answer-input" name="q6" placeholder="TRUE / FALSE / NOT GIVEN">
+                    <input type="text" class="answer-input" name="q6" placeholder="Your answer">
                 </div>
                 <div class="question-block" id="q7">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(7)" id="flag7">🚩</span>
-                        <p><strong>7.</strong> Vertical farming reduces the environmental impact of transporting food.</p>
+                        <p><strong>7.</strong> The most probable development is that food will be grown on _______________ in towns and cities.</p>
                     </div>
-                    <input type="text" class="answer-input" name="q7" placeholder="TRUE / FALSE / NOT GIVEN">
+                    <input type="text" class="answer-input" name="q7" placeholder="Your answer">
+                </div>
+
+                <h2>Questions 8–13: TRUE / FALSE / NOT GIVEN</h2>
+                <p class="instruction">Do the following statements agree with the information given in Reading Passage 1?<br>
+                    <strong>TRUE</strong> — if the statement agrees with the information<br>
+                    <strong>FALSE</strong> — if the statement contradicts the information<br>
+                    <strong>NOT GIVEN</strong> — if there is no information on this
+                </p>
+
+                <div class="question-block" id="q8">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(8)" id="flag8">🚩</span>
+                        <p><strong>8.</strong> Methods for predicting the Earth's population have recently changed.</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q8" placeholder="TRUE / FALSE / NOT GIVEN">
+                </div>
+                <div class="question-block" id="q9">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(9)" id="flag9">🚩</span>
+                        <p><strong>9.</strong> Human beings are responsible for some of the destruction to food-producing land.</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q9" placeholder="TRUE / FALSE / NOT GIVEN">
+                </div>
+                <div class="question-block" id="q10">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(10)" id="flag10">🚩</span>
+                        <p><strong>10.</strong> The crops produced in vertical farms will depend on the season.</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q10" placeholder="TRUE / FALSE / NOT GIVEN">
+                </div>
+                <div class="question-block" id="q11">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(11)" id="flag11">🚩</span>
+                        <p><strong>11.</strong> Some damage to food crops is caused by climate change.</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q11" placeholder="TRUE / FALSE / NOT GIVEN">
+                </div>
+                <div class="question-block" id="q12">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(12)" id="flag12">🚩</span>
+                        <p><strong>12.</strong> Fertilisers will be needed for certain crops in vertical farms.</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q12" placeholder="TRUE / FALSE / NOT GIVEN">
+                </div>
+                <div class="question-block" id="q13">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(13)" id="flag13">🚩</span>
+                        <p><strong>13.</strong> Vertical farming will make plants less likely to be affected by infectious diseases.</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q13" placeholder="TRUE / FALSE / NOT GIVEN">
                 </div>
 
                 <!-- ✅ CORRECT ANSWER KEY -->
                 <div class="answers-box" id="answersBox">
                     <h3>✅ Correct Answers — Passage 1</h3>
-                    <p><strong>1.</strong> TRUE<br>
-                    <strong>2.</strong> NOT GIVEN<br>
-                    <strong>3.</strong> TRUE<br>
-                    <strong>4.</strong> FALSE<br>
-                    <strong>5.</strong> TRUE<br>
-                    <strong>6.</strong> NOT GIVEN<br>
-                    <strong>7.</strong> TRUE</p>
+                    <p><strong>1.</strong> tomatoes<br>
+                    <strong>2.</strong> urban centres<br>
+                    <strong>3.</strong> energy<br>
+                    <strong>4.</strong> fossil fuel<br>
+                    <strong>5.</strong> artificial<br>
+                    <strong>6.</strong> (stacked) trays<br>
+                    <strong>7.</strong> (urban) rooftops<br>
+                    <strong>8.</strong> NOT GIVEN<br>
+                    <strong>9.</strong> TRUE<br>
+                    <strong>10.</strong> FALSE<br>
+                    <strong>11.</strong> TRUE<br>
+                    <strong>12.</strong> FALSE<br>
+                    <strong>13.</strong> TRUE</p>
                 </div>
                 <!-- ✅ STUDENT ANSWERS & RESULT -->
                 <div class="student-answers-box" id="studentAnswersBox">
@@ -416,28 +486,31 @@
             </div>
         </div>
     </div>
-
 <script>
         // ✅ Global variables
         let currentRange = null;
         let lastNoteId = 0;
         const passageId = 'C11T1P1';
-        const TOTAL_QUESTIONS = 7;
+        const TOTAL_QUESTIONS = 13;
         let dragNote = null;
         let dragOffsetX = 0;
         let dragOffsetY = 0;
-
         // ✅ Correct answer data
         const correctAnswers = {
-            q1: 'TRUE',
-            q2: 'NOT GIVEN',
-            q3: 'TRUE',
-            q4: 'FALSE',
-            q5: 'TRUE',
-            q6: 'NOT GIVEN',
-            q7: 'TRUE'
+            q1: 'tomatoes',
+            q2: 'urban centres',
+            q3: 'energy',
+            q4: 'fossil fuel',
+            q5: 'artificial',
+            q6: 'stacked trays',
+            q7: 'urban rooftops',
+            q8: 'NOT GIVEN',
+            q9: 'TRUE',
+            q10: 'FALSE',
+            q11: 'TRUE',
+            q12: 'FALSE',
+            q13: 'TRUE'
         };
-
         // ✅ Initialize Question Navigator
         function initQuestionNav() {
             const navContainer = document.getElementById('questionNav');
@@ -458,7 +531,6 @@
             const el = document.getElementById('q' + qNum);
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-
         // ✅ Toggle Flag
         function toggleFlag(qNum) {
             const flag = document.getElementById('flag' + qNum);
@@ -467,7 +539,6 @@
             stat.classList.toggle('flagged', isFlagged);
             localStorage.setItem(`${passageId}_flag_${qNum}`, isFlagged);
         }
-
         // ✅ VALID SELECTION CHECK
         function isSelectionValid(selection) {
             if (!selection || selection.isCollapsed || selection.toString().trim() === '') return false;
@@ -481,7 +552,6 @@
                 return (inPassage || inQuestions) && !inInput;
             } catch { return false; }
         }
-
         // ✅ Right-click menu
         const passageArea = document.getElementById('passageArea');
         const questionsArea = document.getElementById('questionsArea');
@@ -497,7 +567,6 @@
             contextMenu.style.display = 'block';
         });
         document.addEventListener('click', () => contextMenu.style.display = 'none');
-
         // ✅ Highlight text
         document.getElementById('menuHighlight').addEventListener('click', function() {
             if (!currentRange) return;
@@ -512,7 +581,6 @@
                 saveHighlights();
             } catch (err) { alert('Please select a smaller piece of text to highlight.'); }
         });
-
         // ✅ Remove highlight
         document.getElementById('menuRemove').addEventListener('click', function() {
             if (!currentRange) return;
@@ -530,7 +598,6 @@
             currentRange = null;
             saveHighlights();
         });
-
         // ✅ Add Sticky Note + Draggable Setup
         document.getElementById('menuNote').addEventListener('click', function() {
             if (!currentRange) return;
@@ -547,7 +614,6 @@
             currentRange = null;
             saveNotes();
         });
-
         // ✅ Draggable Note Functions
         function startDrag(e, noteId) {
             dragNote = document.getElementById(noteId);
@@ -566,7 +632,6 @@
             if (dragNote) { dragNote.style.zIndex = '9998'; dragNote = null; saveNotes(); }
         });
         function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
-
         // ✅ Save/Load Highlights
         function saveHighlights() {
             localStorage.setItem(`${passageId}_passage_highlights`, passageArea.innerHTML);
@@ -578,7 +643,6 @@
             if (passHtml) passageArea.innerHTML = passHtml;
             if (quesHtml) questionsArea.innerHTML = quesHtml;
         }
-
         // ✅ Save/Load Notes
         function saveNotes() {
             const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
@@ -601,7 +665,6 @@
                 if (num > lastNoteId) lastNoteId = num;
             });
         }
-
         // ✅ Save answers
         function saveAnswers() {
             let answers = {};
@@ -614,7 +677,6 @@
             localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
             updateStatus();
         }
-
         // ✅ Load saved answers
         function loadAnswers() {
             const saved = localStorage.getItem(`${passageId}_answers`);
@@ -627,7 +689,6 @@
             }
             updateStatus();
         }
-
         // ✅ Update status colors
         function updateStatus() {
             const savedAnswers = localStorage.getItem(`${passageId}_answers`);
@@ -646,13 +707,11 @@
                 if (flagIcon) flagIcon.classList.toggle('flagged', isFlagged);
             }
         }
-
         // ✅ Toggle answers
         function toggleAnswers() {
             const box = document.getElementById('answersBox');
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
-
         // ✅ Check answers
         function showStudentAnswers() {
             saveAnswers();
@@ -664,21 +723,24 @@
                 let studentAns = '';
                 const radios = document.getElementsByName(`q${q}`);
                 if (radios.length > 0) { for (let r of radios) { if (r.checked) studentAns = r.value; } }
-                else { const input = document.querySelector(`input[name="q${q}"]`); if (input) studentAns = input.value.trim().toUpperCase(); }
+                else { const input = document.querySelector(`input[name="q${q}"]`); if (input) studentAns = input.value.trim(); }
                 const correct = correctAnswers[`q${q}`] || '-';
-                const studentNorm = studentAns.trim().toUpperCase();
-                const correctNorm = correct.trim().toUpperCase();
+                const studentNorm = studentAns.trim().toUpperCase().replace(/\s+/g, ' ');
+                const correctNorm = correct.trim().toUpperCase().replace(/\s+/g, ' ');
                 let status = '';
-                if (!studentAns) { status = '<span class="no-answer">(No Answer)</span>'; }
-                else if (studentNorm === correctNorm) { status = '<span class="correct">✅ Correct</span>'; score++; }
-                else { status = `<span class="wrong">❌ Wrong (Correct: ${correct})</span>`; }
+                if (!studentAns.trim()) {
+                    status = '<span class="no-answer">(No Answer)</span>';
+                } else if (studentNorm === correctNorm || studentNorm.includes(correctNorm) || correctNorm.includes(studentNorm)) {
+                    status = '<span class="correct">✅ Correct</span>'; score++;
+                } else {
+                    status = `<span class="wrong">❌ Wrong (Correct: ${correct})</span>`;
+                }
                 html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
             }
             html += `<br><strong>Total Score: ${score} / ${TOTAL_QUESTIONS}</strong>`;
             resultDiv.innerHTML = html;
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
-
         // ✅ Clear All
         function clearAllAnswers() {
             if (!confirm('⚠️ This will clear ALL answers, flags, highlights and notes. Continue?')) return;
@@ -694,7 +756,6 @@
             document.getElementById('studentAnswersBox').style.display = 'none';
             updateStatus();
         }
-
         // ✅ Auto-save on input
         document.addEventListener('input', function(e) {
             if (e.target.name?.startsWith('q') || e.target.classList.contains('note-textarea')) {
@@ -702,7 +763,6 @@
                 if (e.target.classList.contains('note-textarea')) saveNotes();
             }
         });
-
         // ✅ Initialize everything on load
         window.onload = function() {
             initQuestionNav();
