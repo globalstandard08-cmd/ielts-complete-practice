@@ -277,12 +277,14 @@
             width: 100%;
             transition: background 0.2s;
         }
-        .btn-start:hover {
+        .btn-start:hover:not(.gray) {
             background: #b91c1c;
         }
         .btn-start.gray {
             background: #9ca3af;
             cursor: not-allowed;
+            pointer-events: none;
+            opacity: 0.7;
         }
         .passage-links {
             display: flex;
@@ -358,12 +360,10 @@
             </div>
 
             <!-- ======================================= -->
-            <!-- ✅ READING — GROUPED BY TEST (Clean!) -->
+            <!-- READING SECTION -->
             <!-- ======================================= -->
             <div class="section-content" id="reading">
                 <div class="tests-grid">
-
-                    <!-- === CAMBRIDGE 10 — TEST 1 === -->
                     <div class="test-card" data-book="10">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 10 — Test 1</h3>
@@ -375,8 +375,6 @@
                             <a href="reading/reading-passage3-C10T1.html" class="passage-btn ready">Passage 3</a>
                         </div>
                     </div>
-
-                    <!-- === CAMBRIDGE 10 — TEST 2 === -->
                     <div class="test-card" data-book="10">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 10 — Test 2</h3>
@@ -388,8 +386,6 @@
                             <a href="reading/reading-passage3-C10T2.html" class="passage-btn">Passage 3</a>
                         </div>
                     </div>
-
-                    <!-- === CAMBRIDGE 10 — TEST 3 === -->
                     <div class="test-card" data-book="10">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 10 — Test 3</h3>
@@ -401,8 +397,6 @@
                             <a href="reading/reading-passage3-C10T3.html" class="passage-btn">Passage 3</a>
                         </div>
                     </div>
-
-                    <!-- === CAMBRIDGE 10 — TEST 4 === -->
                     <div class="test-card" data-book="10">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 10 — Test 4</h3>
@@ -414,8 +408,6 @@
                             <a href="reading/reading-passage3-C10T4.html" class="passage-btn">Passage 3</a>
                         </div>
                     </div>
-
-                    <!-- === CAMBRIDGE 11 — TEST 1 === -->
                     <div class="test-card" data-book="11">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 11 — Test 1</h3>
@@ -427,8 +419,6 @@
                             <a href="#" class="passage-btn gray">Passage 3</a>
                         </div>
                     </div>
-
-                    <!-- === CAMBRIDGE 12–15 === -->
                     <div class="test-card" data-book="12">
                         <div class="test-icon">📖</div>
                         <h3 class="test-title">Cambridge 12 — Test 1</h3>
@@ -473,7 +463,7 @@
             </div>
 
             <!-- ======================================= -->
-            <!-- LISTENING SECTION -->
+            <!-- LISTENING SECTION — AUTO-DETECTION ENABLED -->
             <!-- ======================================= -->
             <div class="section-content hidden-by-tab" id="listening">
                 <div class="tests-grid">
@@ -482,28 +472,28 @@
                         <h3 class="test-title">Cambridge 10 — Test 1</h3>
                         <p class="test-desc">Full Listening · 4 Sections</p>
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
-                        <a href="listening/listening-C10T1.html" class="btn-start gray">Not Ready</a>
+                        <a href="listening/listening-c10t1-part1.html" id="c10t1-btn" class="btn-start gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 10 — Test 2</h3>
                         <p class="test-desc">Full Listening · 4 Sections</p>
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
-                        <a href="listening/listening-C10T2.html" class="btn-start gray">Not Ready</a>
+                        <a href="listening/listening-c10t2-part1.html" id="c10t2-btn" class="btn-start gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 10 — Test 3</h3>
                         <p class="test-desc">Full Listening · 4 Sections</p>
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
-                        <a href="listening/listening-C10T3.html" class="btn-start gray">Not Ready</a>
+                        <a href="listening/listening-c10t3-part1.html" id="c10t3-btn" class="btn-start gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 10 — Test 4</h3>
                         <p class="test-desc">Full Listening · 4 Sections</p>
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
-                        <a href="listening/listening-C10T4.html" class="btn-start gray">Not Ready</a>
+                        <a href="listening/listening-c10t4-part1.html" id="c10t4-btn" class="btn-start gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="11">
                         <div class="test-icon">🎧</div>
@@ -664,6 +654,7 @@ bookButtons.forEach(btn => {
     });
   });
 });
+
 // === TAB BUTTONS ===
 const tabButtons = document.querySelectorAll('.tab');
 const tabContents = document.querySelectorAll('.section-content');
@@ -681,6 +672,60 @@ tabButtons.forEach(tab => {
     });
   });
 });
+
+// ==================================================
+// ✅ LISTENING AUTO-DETECTION — MATCHES YOUR FILENAMES
+// ==================================================
+const LISTENING_PATH = "./listening/";
+
+// Which tests to scan
+const LISTENING_TESTS = [
+  { id: "c10t1", edition: 10, test: 1 },
+  { id: "c10t2", edition: 10, test: 2 },
+  { id: "c10t3", edition: 10, test: 3 },
+  { id: "c10t4", edition: 10, test: 4 },
+];
+
+// Check if ALL 4 parts exist (MP3 + HTML)
+async function checkListeningTest(edition, test) {
+  for (let part = 1; part <= 4; part++) {
+    // YOUR filename pattern: c10t2-part1.mp3  +  listening-c10t2-part1.html
+    const mp3 = `${LISTENING_PATH}c${edition}t${test}-part${part}.mp3`;
+    const html = `${LISTENING_PATH}listening-c${edition}t${test}-part${part}.html`;
+    try {
+      const mp3Check = await fetch(mp3, { method: "HEAD" });
+      const htmlCheck = await fetch(html, { method: "HEAD" });
+      if (!mp3Check.ok || !htmlCheck.ok) return false;
+    } catch {
+      return false; // File missing
+    }
+  }
+  return true; // ✅ All files found!
+}
+
+// Update button appearance
+async function updateListeningButtons() {
+  for (const t of LISTENING_TESTS) {
+    const ready = await checkListeningTest(t.edition, t.test);
+    const btn = document.getElementById(`${t.id}-btn`);
+    if (!btn) continue;
+
+    if (ready) {
+      btn.textContent = "▶ Start Test";
+      btn.classList.remove("gray");
+      btn.style.pointerEvents = "auto";
+      btn.style.opacity = "1";
+    } else {
+      btn.textContent = "Not Ready";
+      btn.classList.add("gray");
+      btn.style.pointerEvents = "none";
+      btn.style.opacity = "0.7";
+    }
+  }
+}
+
+// Run when page loads
+window.addEventListener("load", updateListeningButtons);
 </script>
 </body>
 </html>
