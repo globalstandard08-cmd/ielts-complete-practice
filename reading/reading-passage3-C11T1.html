@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Passage 3 — Cambridge 11 Test 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        body {
+            background-color: #fef2f2;
+            color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .page-header {
+            background: #ffffff;
+            padding: 15px 30px;
+            border-bottom: 2px solid #dc2626;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
+        }
+        .page-header h1 {
+            font-size: 22px;
+            color: #dc2626;
+            margin-bottom: 4px;
+        }
+        .page-header p {
+            font-size: 14px;
+            color: #7f1d1d;
+        }
+        .content-wrapper {
+            display: flex;
+            flex: 1;
+            gap: 20px;
+            padding: 20px;
+        }
+        .passage-column, .questions-column {
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #fecaca;
+        }
+        .passage-column {
+            width: 50%;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+        .passage-column h2 {
+            text-align: center;
+            font-size: 24px;
+            color: #dc2626;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .passage-text {
+            cursor: pointer;
+        }
+        .passage-text p {
+            margin-bottom: 12px;
+        }
+        .passage-text strong {
+            color: #991b1b;
+        }
+        .highlight {
+            background-color: #fef08a;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .questions-column {
+            width: 50%;
+        }
+        .questions-column h3 {
+            font-size: 16px;
+            color: #991b1b;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #fecaca;
+        }
+        .instruction {
+            font-size: 14px;
+            color: #7f1d1d;
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+        .question-group {
+            margin-bottom: 30px;
+        }
+        .question-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 6px 8px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .question-row:hover {
+            background: #fef2f2;
+        }
+        .q-number {
+            font-weight: 700;
+            color: #dc2626;
+            min-width: 24px;
+        }
+        .q-text {
+            flex: 1;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        .flag-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            opacity: 0.4;
+            transition: opacity 0.2s;
+        }
+        .flag-btn.flagged {
+            opacity: 1;
+            color: #dc2626;
+        }
+        .match-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+        .match-table th, .match-table td {
+            border: 1px solid #fecaca;
+            padding: 8px 10px;
+            text-align: left;
+        }
+        .match-table th {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+        .list-box {
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 12px;
+            background: #fef2f2;
+            margin: 10px 0;
+        }
+        .list-box h4 {
+            color: #dc2626;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background: #ffffff;
+            border-top: 2px solid #fecaca;
+            margin-top: auto;
+        }
+        .nav-btn {
+            padding: 10px 20px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .nav-btn:hover {
+            background: #b91c1c;
+        }
+        .passage-tabs {
+            display: flex;
+            gap: 8px;
+        }
+        .passage-tab {
+            padding: 8px 16px;
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .passage-tab.active {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+        }
+        .answer-key {
+            margin-top: 30px;
+            padding: 15px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+        }
+        .answer-key h4 {
+            color: #dc2626;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+        .answer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            font-size: 14px;
+        }
+        @media (max-width: 900px) {
+            .content-wrapper { flex-direction: column; }
+            .passage-column, .questions-column { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <h1>READING PASSAGE 3 — Cambridge 11 Test 1</h1>
+        <p>You should spend about 20 minutes on Questions 27–40, which are based on Reading Passage 3 below.</p>
+    </div>
+
+    <div class="content-wrapper">
+        <!-- LEFT COLUMN: PASSAGE -->
+        <div class="passage-column">
+            <h2>Reducing the Effects of Climate Change<br>being explored by scientists</h2>
+            <div class="passage-text" id="passageText">
+                <p><strong>A</strong> Such is our dependence on fossil fuels, and such is the volume of carbon dioxide already released into the atmosphere, that many experts agree that significant global warming is inevitable. They believe that the best we can do is keep it at a reasonable level, and at present the only serious option for doing this is cutting back on carbon emissions. But while a few countries are making major strides in this regard, the majority are having great difficulty even stemming the rate of increase, let alone reversing it. Consequently, an increasing number of scientists are beginning to explore the alternative of geo-engineering — a term which generally refers to the intentional large-scale manipulation of the environment. According to its proponents, geo-engineering is the equivalent of a backup generator: if Plan A — reducing our dependency on fossil fuels — fails, we require a Plan B, employing grand schemes to slow down or reverse the process of global warming.</p>
+
+                <p><strong>B</strong> Geo-engineering has been shown to work, at least on a small localised scale. For decades, May Day parades in Moscow have taken place under clear blue skies, aircraft having deposited dry ice, silver iodide and cement powder to disperse clouds. Many of the schemes now suggested look to do the opposite, and reduce the amount of sunlight reaching the planet. The most eye-catching idea of all is suggested by Professor Roger Angel of the University of Arizona. His scheme would employ up to 16 trillion minute spacecraft, each weighing about one gram, to form a transparent, sunlight-refracting sunshade in an orbit 1.5 million km above the Earth. This could, argues Angel, reduce the amount of light reaching the Earth by two per cent.</p>
+
+                <p><strong>C</strong> The majority of geo-engineering projects so far carried out — which include planting forests in deserts and depositing iron in the ocean to stimulate the growth of algae — have focused on achieving a general cooling of the Earth. But some look specifically at reversing the melting at the poles, particularly the Arctic. The reasoning is that if you replenish the ice sheets and frozen waters of the high latitudes, more light will be reflected back into space, so reducing the warming of the oceans and atmosphere.</p>
+
+                <p><strong>D</strong> The concept of releasing aerosol sprays into the stratosphere above the Arctic has been proposed by several scientists. This would involve using sulphur or hydrogen sulphide aerosols so that sulphur dioxide would form clouds, which would, in turn, lead to a global dimming. The idea is modelled on historic volcanic explosions, such as that of Mount Pinatubo in the Philippines in 1991, which led to a short-term cooling of global temperatures by 0.5°C. Scientists have also scrutinised whether it's possible to preserve the ice sheets of Greenland with reinforced high-tension cables, preventing icebergs from moving into the sea. Meanwhile in the Russian Arctic, geo-engineering plans include the planting of millions of birch trees. Whereas the region's native evergreen pines shade the snow and absorb radiation, birches would shed their leaves in winter, thus enabling radiation to be reflected by the snow. Re-routing Russian rivers to increase cold water flow to ice-forming areas could also be used to slow down warming, say some climate scientists.</p>
+
+                <p><strong>E</strong> But will such schemes ever be implemented? Generally speaking, those who are most cautious about geo-engineering are the scientists involved in the research. Angel says that his plan is 'no substitute for developing renewable energy: the only permanent solution'. And Dr Phil Rasch of the US-based Pacific Northwest National Laboratory is equally guarded about the role of geo-engineering: 'I think all of us agree that if we were to end geo-engineering on a given day, then the planet would return to its pre-engineered condition very rapidly, and probably within ten to twenty years. That's certainly something to worry about.'</p>
+
+                <p><strong>F</strong> The US National Center for Atmospheric Research has already suggested that the proposal to inject sulphur into the atmosphere might affect rainfall patterns across the tropics and the Southern Ocean. 'Geo-engineering plans to inject stratospheric aerosols or to seed clouds would act to cool the planet, and act to increase the extent of sea ice,' says Rasch. 'But all the models suggest some impact on the distribution of precipitation.'</p>
+
+                <p><strong>G</strong> 'A further risk with geo-engineering projects is that you can "overshoot",' says Dr Dan Lunt, from the University of Bristol's School of Geophysical Sciences, who has studied the likely impacts of the sunshade and aerosol schemes on the climate. 'You may bring global temperatures back to pre-industrial levels, but the risk is that the poles will still be warmer than they should be and the tropics will be cooler than before industrialisation.' To avoid such a scenario, Lunt says Angel's project would have to operate at half strength; all of which reinforces his view that the best option is to avoid the need for geo-engineering altogether.</p>
+
+                <p><strong>H</strong> The main reason why geo-engineering is supported by many in the scientific community is that most researchers have little faith in the ability of politicians to agree — and then bring in — the necessary carbon cuts. Even leading conservation organisations see the value of investigating the potential of geo-engineering. According to Dr Martin Sommerkorn, climate change advisor for the World Wildlife Fund's International Arctic Programme, 'Human-induced climate change has brought humanity to a position where we shouldn't exclude thinking thoroughly about this topic and its possibilities.'</p>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: QUESTIONS -->
+        <div class="questions-column">
+            <h3>Questions 27–40</h3>
+
+            <!-- Q27-29 -->
+            <div class="question-group">
+                <h4 style="margin-bottom:10px; font-size:15px; color:#991b1b;">Questions 27–29</h4>
+                <p class="instruction">Reading Passage 3 has eight paragraphs <strong>A–H</strong>.<br>Which paragraph contains the following information?<br>Write the correct letter, <strong>A–H</strong>, in boxes 27–29 on your answer sheet.</p>
+
+                <div class="question-row">
+                    <span class="q-number">27</span>
+                    <span class="q-text">mention of a geo-engineering project based on an earlier natural phenomenon</span>
+                    <button class="flag-btn" data-q="27">🚩</button>
+                </div>
+                <div class="question-row">
+                    <span class="q-number">28</span>
+                    <span class="q-text">an example of a successful use of geo-engineering</span>
+                    <button class="flag-btn" data-q="28">🚩</button>
+                </div>
+                <div class="question-row">
+                    <span class="q-number">29</span>
+                    <span class="q-text">a common definition of geo-engineering</span>
+                    <button class="flag-btn" data-q="29">🚩</button>
+                </div>
+            </div>
+
+            <!-- Q30-36 TABLE -->
+            <div class="question-group">
+                <h4 style="margin-bottom:10px; font-size:15px; color:#991b1b;">Questions 30–36</h4>
+                <p class="instruction">Complete the table below.<br>Choose <strong>ONE WORD</strong> from the passage for each answer.</p>
+
+                <table class="match-table">
+                    <thead>
+                        <tr>
+                            <th>Procedure</th>
+                            <th>Aim</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>put a large number of tiny spacecraft into orbit far above Earth</td>
+                            <td>to create a <strong>30 _______________</strong> that would reduce the amount of light reaching Earth</td>
+                        </tr>
+                        <tr>
+                            <td>place <strong>31 _______________</strong> in the sea</td>
+                            <td>to encourage <strong>32 _______________</strong> to form</td>
+                        </tr>
+                        <tr>
+                            <td>release aerosol sprays into the stratosphere</td>
+                            <td>to create <strong>33 _______________</strong> that would reduce the amount of light reaching Earth</td>
+                        </tr>
+                        <tr>
+                            <td>fix strong <strong>34 _______________</strong> to Greenland ice sheets</td>
+                            <td>to prevent icebergs moving into the sea</td>
+                        </tr>
+                        <tr>
+                            <td>plant trees in Russian Arctic that would lose their leaves in winter</td>
+                            <td>to allow the <strong>35 _______________</strong> to reflect radiation</td>
+                        </tr>
+                        <tr>
+                            <td>change the direction of <strong>36 _______________</strong></td>
+                            <td>to bring more cold water into ice-forming areas</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+                    <span style="font-size:13px; color:#7f1d1d;">30.&nbsp;</span><button class="flag-btn" data-q="30">🚩</button>
+                    <span style="font-size:13px; color:#7f1d1d; margin-left:12px;">31.&nbsp;</span><button class="flag-btn" data-q="31">🚩</button>
+                    <span style="font-size:13px; color:#7f1d1d; margin-left:12px;">32.&nbsp;</span><button class="flag-btn" data-q="32">🚩</button>
+                    <span style="font-size:13px; color:#7f1d1d; margin-left:12px;">33.&nbsp;</span><button class="flag-btn" data-q="33">🚩</button>
+                    <span style="font-size:13px; color:#7f1d1d; margin-left:12px;">34.&nbsp;</span><button class="flag-btn" data-q="34">🚩</button>
+                    <span style="font-size:13px; color:#7f1d1d; margin-left:12px;">35.&nbsp;</span><button class="flag-btn" data-q="35">🚩</button>
+                    <span style="font-size:13px; color:#7f1d1d; margin-left:12px;">36.&nbsp;</span><button class="flag-btn" data-q="36">🚩</button>
+                </div>
+            </div>
+
+            <!-- Q37-40 MATCHING -->
+            <div class="question-group">
+                <h4 style="margin-bottom:10px; font-size:15px; color:#991b1b;">Questions 37–40</h4>
+                <p class="instruction">Look at the following statements (Questions 37–40) and the list of scientists below.<br>Match each statement with the correct scientist, <strong>A–D</strong>.</p>
+
+                <div class="list-box">
+                    <h4>List of Scientists</h4>
+                    <p><strong>A</strong> Roger Angel<br>
+                    <strong>B</strong> Phil Rasch<br>
+                    <strong>C</strong> Dan Lunt<br>
+                    <strong>D</strong> Martin Sommerkorn</p>
+                </div>
+
+                <div class="question-row">
+                    <span class="q-number">37</span>
+                    <span class="q-text">The effects of geo-engineering may not be long-lasting.</span>
+                    <button class="flag-btn" data-q="37">🚩</button>
+                </div>
+                <div class="question-row">
+                    <span class="q-number">38</span>
+                    <span class="q-text">Geo-engineering is a topic worth exploring.</span>
+                    <button class="flag-btn" data-q="38">🚩</button>
+                </div>
+                <div class="question-row">
+                    <span class="q-number">39</span>
+                    <span class="q-text">It may be necessary to limit the effectiveness of geo-engineering projects.</span>
+                    <button class="flag-btn" data-q="39">🚩</button>
+                </div>
+                <div class="question-row">
+                    <span class="q-number">40</span>
+                    <span class="q-text">Research into non-fossil-based fuels cannot be replaced by geo-engineering.</span>
+                    <button class="flag-btn" data-q="40">🚩</button>
+                </div>
+            </div>
+
+            <!-- ANSWER KEY -->
+            <div class="answer-key">
+                <h4>📋 Answer Key</h4>
+                <div class="answer-grid">
+                    <div><strong>27.</strong> D</div>
+                    <div><strong>28.</strong> B</div>
+                    <div><strong>29.</strong> A</div>
+                    <div><strong>30.</strong> sunshade</div>
+                    <div><strong>31.</strong> iron</div>
+                    <div><strong>32.</strong> algae</div>
+                    <div><strong>33.</strong> clouds</div>
+                    <div><strong>34.</strong> cables</div>
+                    <div><strong>35.</strong> snow</div>
+                    <div><strong>36.</strong> rivers</div>
+                    <div><strong>37.</strong> B</div>
+                    <div><strong>38.</strong> D</div>
+                    <div><strong>39.</strong> C</div>
+                    <div><strong>40.</strong> A</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <div class="nav-bar">
+        <a href="reading-passage2-C11T1.html" class="nav-btn">&larr; Previous</a>
+        <div class="passage-tabs">
+            <a href="reading-passage1-C11T1.html" class="passage-tab">Passage 1</a>
+            <a href="reading-passage2-C11T1.html" class="passage-tab">Passage 2</a>
+            <a href="reading-passage3-C11T1.html" class="passage-tab active">Passage 3</a>
+        </div>
+        <button class="nav-btn" disabled>Next &rarr;</button>
+    </div>
+
+<script>
+    // HIGHLIGHT FEATURE
+    const passageText = document.getElementById('passageText');
+    let lastSelection = null;
+
+    passageText.addEventListener('mouseup', () => {
+        const selection = window.getSelection();
+        if (selection.toString().trim().length > 0) {
+            const range = selection.getRangeAt(0);
+            if (lastSelection && lastSelection.toString() === selection.toString()) {
+                removeHighlights();
+                lastSelection = null;
+            } else {
+                removeHighlights();
+                const span = document.createElement('span');
+                span.className = 'highlight';
+                try {
+                    range.surroundContents(span);
+                } catch(e) {}
+                lastSelection = window.getSelection().toString();
+                selection.removeAllRanges();
+            }
+        }
+    });
+
+    function removeHighlights() {
+        const highlights = passageText.querySelectorAll('.highlight');
+        highlights.forEach(h => {
+            const parent = h.parentNode;
+            parent.replaceChild(h.firstChild, h);
+            parent.normalize();
+        });
+    }
+
+    // FLAG FEATURE
+    const flagBtns = document.querySelectorAll('.flag-btn');
+    flagBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            btn.classList.toggle('flagged');
+        });
+    });
+</script>
+
+</body>
+</html>
