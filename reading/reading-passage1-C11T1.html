@@ -102,13 +102,6 @@
             font-size: 14px;
             line-height: 1.6;
         }
-        .options label {
-            display: block;
-            margin-left: 15px;
-            margin-bottom: 5px;
-            font-size: 14px;
-            cursor: pointer;
-        }
         .answer-input {
             width: 100%;
             padding: 6px 10px;
@@ -242,7 +235,7 @@
             gap: 8px;
             flex-wrap: wrap;
         }
-        .toggle-answers, .show-student, .clear-answers {
+        .show-student, .clear-answers {
             padding: 6px 12px;
             border: none;
             border-radius: 6px;
@@ -250,11 +243,11 @@
             font-weight: 500;
             font-size: 13px;
         }
-        .toggle-answers, .show-student {
+        .show-student {
             background: #dc2626;
             color: white;
         }
-        .toggle-answers:hover, .show-student:hover { background: #b91c1c; }
+        .show-student:hover { background: #b91c1c; }
         .clear-answers {
             background: #6b7280;
             color: white;
@@ -289,7 +282,7 @@
             border-color: #16a34a;
         }
         .next-btn:hover { background: #15803d; }
-        .answers-box, .student-answers-box {
+        .student-answers-box {
             margin-top: 12px;
             padding: 12px;
             background: #fef2f2;
@@ -444,23 +437,6 @@
                     <input type="text" class="answer-input" name="q13" placeholder="TRUE / FALSE / NOT GIVEN">
                 </div>
 
-                <!-- ✅ CORRECT ANSWER KEY -->
-                <div class="answers-box" id="answersBox">
-                    <h3>✅ Correct Answers — Passage 1</h3>
-                    <p><strong>1.</strong> tomatoes<br>
-                    <strong>2.</strong> urban centres<br>
-                    <strong>3.</strong> energy<br>
-                    <strong>4.</strong> fossil fuel<br>
-                    <strong>5.</strong> artificial<br>
-                    <strong>6.</strong> (stacked) trays<br>
-                    <strong>7.</strong> (urban) rooftops<br>
-                    <strong>8.</strong> NOT GIVEN<br>
-                    <strong>9.</strong> TRUE<br>
-                    <strong>10.</strong> FALSE<br>
-                    <strong>11.</strong> TRUE<br>
-                    <strong>12.</strong> FALSE<br>
-                    <strong>13.</strong> TRUE</p>
-                </div>
                 <!-- ✅ STUDENT ANSWERS & RESULT -->
                 <div class="student-answers-box" id="studentAnswersBox">
                     <h3>📝 Your Answers & Score</h3>
@@ -476,7 +452,6 @@
         </div>
         <div class="bottom-controls">
             <div class="action-buttons">
-                <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show/Hide Answers</button>
                 <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
                 <button class="clear-answers" onclick="clearAllAnswers()">🗑️ Clear All Answers</button>
             </div>
@@ -706,11 +681,6 @@
                 const flagIcon = document.getElementById('flag' + q);
                 if (flagIcon) flagIcon.classList.toggle('flagged', isFlagged);
             }
-        }
-        // ✅ Toggle answers
-        function toggleAnswers() {
-            const box = document.getElementById('answersBox');
-            box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
         // ✅ Check answers
         function showStudentAnswers() {
