@@ -358,6 +358,7 @@
                 <button class="tab" data-tab="writing">✍️ Writing</button>
                 <button class="tab" data-tab="speaking">🎤 Speaking</button>
             </div>
+
             <!-- ======================================= -->
             <!-- READING SECTION -->
             <!-- ======================================= -->
@@ -460,8 +461,9 @@
                     </div>
                 </div>
             </div>
+
             <!-- ======================================= -->
-            <!-- LISTENING SECTION — AUTO-DETECTION ENABLED -->
+            <!-- LISTENING SECTION -->
             <!-- ======================================= -->
             <div class="section-content hidden-by-tab" id="listening">
                 <div class="tests-grid">
@@ -530,6 +532,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- ======================================= -->
             <!-- WRITING SECTION -->
             <!-- ======================================= -->
@@ -539,46 +542,59 @@
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 10 — Test 1</h3>
                         <p class="test-desc">Task 1 & Task 2 + Samples</p>
-                        <a href="writing/writing-C10T1.html" class="btn-start gray">Not Ready</a>
+                        <a href="writing/C10T1.html" id="c10t1w-btn" class="btn-start gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 10 — Test 2</h3>
                         <p class="test-desc">Task 1 & Task 2 + Samples</p>
-                        <a href="writing/writing-C10T2.html" class="btn-start gray">Not Ready</a>
+                        <a href="writing/C10T2.html" id="c10t2w-btn" class="btn-start gray">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="10">
+                        <div class="test-icon">✍️</div>
+                        <h3 class="test-title">Cambridge 10 — Test 3</h3>
+                        <p class="test-desc">Task 1 & Task 2 + Samples</p>
+                        <a href="writing/C10T3.html" id="c10t3w-btn" class="btn-start gray">Not Ready</a>
+                    </div>
+                    <div class="test-card" data-book="10">
+                        <div class="test-icon">✍️</div>
+                        <h3 class="test-title">Cambridge 10 — Test 4</h3>
+                        <p class="test-desc">Task 1 & Task 2 + Samples</p>
+                        <a href="writing/C10T4.html" id="c10t4w-btn" class="btn-start gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="11">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 11 — Test 1</h3>
                         <p class="test-desc">Task 1 & Task 2 + Samples</p>
-                        <a href="writing/writing-C11T1.html" class="btn-start gray">Not Ready</a>
+                        <a href="writing/writing-C11T1.html" id="c11t1w-btn" class="btn-start gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="12">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 12 — Test 1</h3>
                         <p class="test-desc">Task 1 & Task 2 + Samples</p>
-                        <a href="writing/writing-C12T1.html" class="btn-start gray">Not Ready</a>
+                        <a href="writing/writing-C12T1.html" id="c12t1w-btn" class="btn-start gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="13">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 13 — Test 1</h3>
                         <p class="test-desc">Task 1 & Task 2 + Samples</p>
-                        <a href="writing/writing-C13T1.html" class="btn-start gray">Not Ready</a>
+                        <a href="writing/writing-C13T1.html" id="c13t1w-btn" class="btn-start gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="14">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 14 — Test 1</h3>
                         <p class="test-desc">Task 1 & Task 2 + Samples</p>
-                        <a href="writing/writing-C14T1.html" class="btn-start gray">Not Ready</a>
+                        <a href="writing/writing-C14T1.html" id="c14t1w-btn" class="btn-start gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="15">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 15 — Test 1</h3>
                         <p class="test-desc">Task 1 & Task 2 + Samples</p>
-                        <a href="writing/writing-C15T1.html" class="btn-start gray">Not Ready</a>
+                        <a href="writing/writing-C15T1.html" id="c15t1w-btn" class="btn-start gray">Not Ready</a>
                     </div>
                 </div>
             </div>
+
             <!-- ======================================= -->
             <!-- SPEAKING SECTION -->
             <!-- ======================================= -->
@@ -630,6 +646,7 @@
             </div>
         </div>
     </div>
+
 <script>
 // === BOOK FILTER BUTTONS ===
 const bookButtons = document.querySelectorAll('.book-btn');
@@ -649,6 +666,7 @@ bookButtons.forEach(btn => {
     });
   });
 });
+
 // === TAB BUTTONS ===
 const tabButtons = document.querySelectorAll('.tab');
 const tabContents = document.querySelectorAll('.section-content');
@@ -666,20 +684,17 @@ tabButtons.forEach(tab => {
     });
   });
 });
+
 // ==================================================
-// ✅ LISTENING AUTO-DETECTION — FIXED: Test 1 uses plain part1/part2/part3/part4
+// ✅ LISTENING AUTO-DETECTION
 // ==================================================
 const LISTENING_PATH = "./listening/";
 
 const LISTENING_TESTS = [
-  { id: "c10t1", edition: 10, test: 1,
-    mp3Prefix: "", htmlPrefix: "listening-" },  // Test 1 = part1.mp3 / listening-part1.html
-  { id: "c10t2", edition: 10, test: 2,
-    mp3Prefix: "c10t2-", htmlPrefix: "listening-c10t2-" },
-  { id: "c10t3", edition: 10, test: 3,
-    mp3Prefix: "c10t3-", htmlPrefix: "listening-c10t3-" },
-  { id: "c10t4", edition: 10, test: 4,
-    mp3Prefix: "c10t4-", htmlPrefix: "listening-c10t4-" },
+  { id: "c10t1", edition: 10, test: 1, mp3Prefix: "", htmlPrefix: "listening-" },
+  { id: "c10t2", edition: 10, test: 2, mp3Prefix: "c10t2-", htmlPrefix: "listening-c10t2-" },
+  { id: "c10t3", edition: 10, test: 3, mp3Prefix: "c10t3-", htmlPrefix: "listening-c10t3-" },
+  { id: "c10t4", edition: 10, test: 4, mp3Prefix: "c10t4-", htmlPrefix: "listening-c10t4-" },
 ];
 
 async function checkListeningTest(testConfig) {
@@ -690,9 +705,7 @@ async function checkListeningTest(testConfig) {
       const mp3Check = await fetch(mp3, { method: "HEAD" });
       const htmlCheck = await fetch(html, { method: "HEAD" });
       if (!mp3Check.ok || !htmlCheck.ok) return false;
-    } catch {
-      return false;
-    }
+    } catch { return false; }
   }
   return true;
 }
@@ -702,21 +715,63 @@ async function updateListeningButtons() {
     const ready = await checkListeningTest(t);
     const btn = document.getElementById(`${t.id}-btn`);
     if (!btn) continue;
-    if (ready) {
-      btn.textContent = "▶ Start Test";
-      btn.classList.remove("gray");
-      btn.style.pointerEvents = "auto";
-      btn.style.opacity = "1";
-    } else {
-      btn.textContent = "Not Ready";
-      btn.classList.add("gray");
-      btn.style.pointerEvents = "none";
-      btn.style.opacity = "0.7";
-    }
+    btnUpdate(btn, ready);
   }
 }
 
-window.addEventListener("load", updateListeningButtons);
+// ==================================================
+// ✅ WRITING AUTO-DETECTION — matches YOUR filenames
+// ==================================================
+const WRITING_PATH = "./writing/";
+
+const WRITING_TESTS = [
+  { id: "c10t1w", file: "C10T1.html" },
+  { id: "c10t2w", file: "C10T2.html" },
+  { id: "c10t3w", file: "C10T3.html" },
+  { id: "c10t4w", file: "C10T4.html" },
+  { id: "c11t1w", file: "writing-C11T1.html" },
+  { id: "c12t1w", file: "writing-C12T1.html" },
+  { id: "c13t1w", file: "writing-C13T1.html" },
+  { id: "c14t1w", file: "writing-C14T1.html" },
+  { id: "c15t1w", file: "writing-C15T1.html" },
+];
+
+async function checkWritingTest(testConfig) {
+  try {
+    const res = await fetch(`${WRITING_PATH}${testConfig.file}`, { method: "HEAD" });
+    return res.ok;
+  } catch { return false; }
+}
+
+async function updateWritingButtons() {
+  for (const t of WRITING_TESTS) {
+    const ready = await checkWritingTest(t);
+    const btn = document.getElementById(`${t.id}-btn`);
+    if (!btn) continue;
+    btnUpdate(btn, ready);
+  }
+}
+
+// === HELPER: Update button style ===
+function btnUpdate(btn, ready) {
+  if (ready) {
+    btn.textContent = "▶ Start Test";
+    btn.classList.remove("gray");
+    btn.style.pointerEvents = "auto";
+    btn.style.opacity = "1";
+  } else {
+    btn.textContent = "Not Ready";
+    btn.classList.add("gray");
+    btn.style.pointerEvents = "none";
+    btn.style.opacity = "0.7";
+  }
+}
+
+// Run all checks on page load
+window.addEventListener("load", () => {
+  updateListeningButtons();
+  updateWritingButtons();
+});
 </script>
 </body>
 </html>
