@@ -50,6 +50,7 @@
             overflow-y: scroll;
             scrollbar-width: thin;
             scrollbar-color: #dc2626 #fef2f2;
+            position: relative;
         }
         /* ✅ SCROLLBAR STYLING */
         .passage-column::-webkit-scrollbar,
@@ -186,6 +187,62 @@
             margin-bottom: 8px;
             font-size: 14px;
         }
+        /* ✅ CONTEXT MENU (Right-click tools) */
+        .context-menu {
+            position: absolute;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 9999;
+            display: none;
+            min-width: 150px;
+        }
+        .context-menu div {
+            padding: 10px 12px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .context-menu div:hover {
+            background: #fef2f2;
+        }
+        /* ✅ STICKY NOTES */
+        .sticky-note {
+            position: absolute;
+            width: 170px;
+            min-height: 65px;
+            background: #fff380;
+            border: 1px solid #e6c200;
+            border-radius: 4px;
+            padding: 6px;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+            z-index: 9998;
+            font-size: 12px;
+        }
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 11px;
+            color: #886a00;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #886a00;
+        }
+        .note-textarea {
+            width: 100%;
+            height: 45px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 12px;
+        }
         /* ✅ BOTTOM BUTTONS AREA */
         .bottom-area {
             padding: 12px 20px;
@@ -210,6 +267,7 @@
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
+            transition: all 0.2s;
         }
         .q-indicator.answered {
             background: #198754;
@@ -220,6 +278,9 @@
             background: #fd7e14;
             color: white;
             border-color: #fd7e14;
+        }
+        .q-indicator.current {
+            border: 2px solid #dc2626;
         }
         .button-bar {
             display: flex;
@@ -303,14 +364,20 @@
     </style>
 </head>
 <body>
+    <!-- ✅ RIGHT-CLICK CONTEXT MENU -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight Selection</div>
+        <div id="menuRemoveHighlight">❌ Remove Highlight</div>
+        <div id="menuAddNote">📝 Add Sticky Note</div>
+    </div>
+
     <div class="page-header">
         <h1>READING PASSAGE 3 — Cambridge 11 Test 1</h1>
         <p>You should spend about 20 minutes on Questions 27–40, which are based on Reading Passage 3 below.</p>
     </div>
-
     <div class="content-wrapper">
         <!-- LEFT: PASSAGE -->
-        <div class="passage-column">
+        <div class="passage-column" id="passageColumn">
             <h2>Reducing the Effects of Climate Change<br>being explored by scientists</h2>
             <div class="passage-text" id="passageText">
                 <p><strong>A</strong> Such is our dependence on fossil fuels, and such is the volume of carbon dioxide already released into the atmosphere, that many experts agree that significant global warming is inevitable. They believe that the best we can do is keep it at a reasonable level, and at present the only serious option for doing this is cutting back on carbon emissions. But while a few countries are making major strides in this regard, the majority are having great difficulty even stemming the rate of increase, let alone reversing it. Consequently, an increasing number of scientists are beginning to explore the alternative of geo-engineering — a term which generally refers to the intentional large-scale manipulation of the environment. According to its proponents, geo-engineering is the equivalent of a backup generator: if Plan A — reducing our dependency on fossil fuels — fails, we require a Plan B, employing grand schemes to slow down or reverse the process of global warming.</p>
@@ -323,35 +390,32 @@
                 <p><strong>H</strong> The main reason why geo-engineering is supported by many in the scientific community is that most researchers have little faith in the ability of politicians to agree — and then bring in — the necessary carbon cuts. Even leading conservation organisations see the value of investigating the potential of geo-engineering. According to Dr Martin Sommerkorn, climate change advisor for the World Wildlife Fund's International Arctic Programme, 'Human-induced climate change has brought humanity to a position where we shouldn't exclude thinking thoroughly about this topic and its possibilities.'</p>
             </div>
         </div>
-
         <!-- RIGHT: QUESTIONS -->
-        <div class="questions-column">
+        <div class="questions-column" id="questionsColumn">
             <h3>Questions 27–40</h3>
-
             <!-- Q27-29 -->
             <div class="question-group">
                 <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 27–29</h4>
                 <p class="instruction">Reading Passage 3 has eight paragraphs <strong>A–H</strong>.<br>Which paragraph contains the following information?<br>Write the correct letter, <strong>A–H</strong>, in boxes 27–29 on your answer sheet.</p>
-                <div class="question-row">
+                <div class="question-row" id="q27">
                     <span class="q-number" id="qnum27">27</span>
                     <span class="q-text">mention of a geo-engineering project based on an earlier natural phenomenon</span>
                     <input type="text" class="answer-input" name="q27" placeholder="A–H" maxlength="1" autocomplete="off">
                     <button class="flag-btn" data-q="27">🚩</button>
                 </div>
-                <div class="question-row">
+                <div class="question-row" id="q28">
                     <span class="q-number" id="qnum28">28</span>
                     <span class="q-text">an example of a successful use of geo-engineering</span>
                     <input type="text" class="answer-input" name="q28" placeholder="A–H" maxlength="1" autocomplete="off">
                     <button class="flag-btn" data-q="28">🚩</button>
                 </div>
-                <div class="question-row">
+                <div class="question-row" id="q29">
                     <span class="q-number" id="qnum29">29</span>
                     <span class="q-text">a common definition of geo-engineering</span>
                     <input type="text" class="answer-input" name="q29" placeholder="A–H" maxlength="1" autocomplete="off">
                     <button class="flag-btn" data-q="29">🚩</button>
                 </div>
             </div>
-
             <!-- Q30-36 TABLE -->
             <div class="question-group">
                 <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 30–36</h4>
@@ -361,34 +425,33 @@
                         <tr><th>Procedure</th><th>Aim</th></tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr id="q30">
                             <td>put a large number of tiny spacecraft into orbit far above Earth</td>
                             <td>to create a <strong id="qnum30">30</strong> <input type="text" class="answer-input table-input" name="q30" autocomplete="off"> that would reduce the amount of light reaching Earth</td>
                         </tr>
-                        <tr>
+                        <tr id="q31">
                             <td>place <strong id="qnum31">31</strong> <input type="text" class="answer-input table-input" name="q31" autocomplete="off"> in the sea</td>
                             <td>to encourage <strong id="qnum32">32</strong> <input type="text" class="answer-input table-input" name="q32" autocomplete="off"> to form</td>
                         </tr>
-                        <tr>
+                        <tr id="q33">
                             <td>release aerosol sprays into the stratosphere</td>
                             <td>to create <strong id="qnum33">33</strong> <input type="text" class="answer-input table-input" name="q33" autocomplete="off"> that would reduce the amount of light reaching Earth</td>
                         </tr>
-                        <tr>
+                        <tr id="q34">
                             <td>fix strong <strong id="qnum34">34</strong> <input type="text" class="answer-input table-input" name="q34" autocomplete="off"> to Greenland ice sheets</td>
                             <td>to prevent icebergs moving into the sea</td>
                         </tr>
-                        <tr>
+                        <tr id="q35">
                             <td>plant trees in Russian Arctic that would lose their leaves in winter</td>
                             <td>to allow the <strong id="qnum35">35</strong> <input type="text" class="answer-input table-input" name="q35" autocomplete="off"> to reflect radiation</td>
                         </tr>
-                        <tr>
+                        <tr id="q36">
                             <td>change the direction of <strong id="qnum36">36</strong> <input type="text" class="answer-input table-input" name="q36" autocomplete="off"></td>
                             <td>to bring more cold water into ice-forming areas</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-
             <!-- Q37-40 MATCHING -->
             <div class="question-group">
                 <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 37–40</h4>
@@ -397,25 +460,25 @@
                     <h4>List of Scientists</h4>
                     <p><strong>A</strong> Roger Angel<br><strong>B</strong> Phil Rasch<br><strong>C</strong> Dan Lunt<br><strong>D</strong> Martin Sommerkorn</p>
                 </div>
-                <div class="question-row">
+                <div class="question-row" id="q37">
                     <span class="q-number" id="qnum37">37</span>
                     <span class="q-text">The effects of geo-engineering may not be long-lasting.</span>
                     <input type="text" class="answer-input" name="q37" placeholder="A–D" maxlength="1" autocomplete="off">
                     <button class="flag-btn" data-q="37">🚩</button>
                 </div>
-                <div class="question-row">
+                <div class="question-row" id="q38">
                     <span class="q-number" id="qnum38">38</span>
                     <span class="q-text">Geo-engineering is a topic worth exploring.</span>
                     <input type="text" class="answer-input" name="q38" placeholder="A–D" maxlength="1" autocomplete="off">
                     <button class="flag-btn" data-q="38">🚩</button>
                 </div>
-                <div class="question-row">
+                <div class="question-row" id="q39">
                     <span class="q-number" id="qnum39">39</span>
                     <span class="q-text">It may be necessary to limit the effectiveness of geo-engineering projects.</span>
                     <input type="text" class="answer-input" name="q39" placeholder="A–D" maxlength="1" autocomplete="off">
                     <button class="flag-btn" data-q="39">🚩</button>
                 </div>
-                <div class="question-row">
+                <div class="question-row" id="q40">
                     <span class="q-number" id="qnum40">40</span>
                     <span class="q-text">Research into non-fossil-based fuels cannot be replaced by geo-engineering.</span>
                     <input type="text" class="answer-input" name="q40" placeholder="A–D" maxlength="1" autocomplete="off">
@@ -424,7 +487,6 @@
             </div>
         </div>
     </div>
-
     <!-- ✅ BOTTOM AREA: INDICATORS + BUTTONS + NAV -->
     <div class="bottom-area">
         <div class="question-nav" id="qNav"></div>
@@ -437,7 +499,6 @@
             <div id="resultsContent"></div>
         </div>
     </div>
-
     <!-- ✅ NAVIGATION BAR -->
     <div class="nav-bar">
         <a href="reading-passage2-C11T1.html" class="nav-btn">&larr; Previous</a>
@@ -448,155 +509,293 @@
         </div>
         <button class="nav-btn" disabled>Next &rarr;</button>
     </div>
-
 <script>
     const passageId = 'C11T1P3';
-    const Q_LIST = [27,28,29,30,31,32,33,34,35,36,37,38,39,40];
+    const ALL_QUESTIONS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
+                           21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40];
+    const Q_EXISTING = [27,28,29,30,31,32,33,34,35,36,37,38,39,40];
     const correctAnswers = {
         q27:'D',q28:'B',q29:'A',q30:'sunshade',q31:'iron',q32:'algae',
         q33:'clouds',q34:'cables',q35:'snow',q36:'rivers',q37:'B',q38:'D',q39:'C',q40:'A'
     };
 
-    // ✅ Question indicators
+    let currentSelection = null;
+    let noteCounter = 0;
+
+    // ✅ 1. SCROLLBARS — Already in CSS: always visible, styled red
+
+    // ✅ 2. NAVIGATION BAR 1–40 WITH SHADING
     function initIndicators() {
         const nav = document.getElementById('qNav');
-        Q_LIST.forEach(q=>{
-            const b=document.createElement('span');
-            b.className='q-indicator'; b.textContent=q; b.id='ind'+q;
-            b.onclick=()=>document.querySelector(`input[name="q${q}"]`)?.focus();
+        ALL_QUESTIONS.forEach(q => {
+            const b = document.createElement('span');
+            b.className = 'q-indicator';
+            b.textContent = q;
+            b.id = 'ind' + q;
+            if (!Q_EXISTING.includes(q)) {
+                b.style.opacity = '0.35';
+                b.style.cursor = 'default';
+                b.title = 'Not in this passage';
+            } else {
+                b.onclick = () => jumpToQuestion(q);
+            }
             nav.appendChild(b);
         });
     }
+
+    function jumpToQuestion(q) {
+        document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
+        document.getElementById('ind' + q)?.classList.add('current');
+        document.getElementById('q' + q)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     function updateIndicators() {
-        Q_LIST.forEach(q=>{
-            const inp=document.querySelector(`input[name="q${q}"]`);
-            const ind=document.getElementById('ind'+q);
-            const qnum=document.getElementById('qnum'+q);
-            const val=inp?(inp.value||'').trim():'';
-            const flagged=localStorage.getItem(`${passageId}_flag_${q}`)==='true';
-            ind.classList.remove('answered','flagged');
-            if(qnum) qnum.classList.remove('answered','flagged');
-            if(flagged){
+        Q_EXISTING.forEach(q => {
+            const inp = document.querySelector(`input[name="q${q}"]`);
+            const ind = document.getElementById('ind' + q);
+            const qnum = document.getElementById('qnum' + q);
+            const val = (inp?.value || '').trim();
+            const flagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
+            
+            ind.classList.remove('answered', 'flagged');
+            qnum?.classList.remove('answered', 'flagged');
+            
+            if (flagged) {
                 ind.classList.add('flagged');
-                if(qnum) qnum.classList.add('flagged');
-            }else if(val){
+                qnum?.classList.add('flagged');
+            } else if (val) {
                 ind.classList.add('answered');
-                if(qnum) qnum.classList.add('answered');
+                qnum?.classList.add('answered');
             }
         });
     }
 
-    // ✅ Highlight
-    const passageText=document.getElementById('passageText');
-    passageText.addEventListener('mouseup',()=>{
-        const s=window.getSelection();
-        if(s.toString().trim().length>0){
-            const r=s.getRangeAt(0);
-            const span=document.createElement('span');
-            span.className='highlight';
-            try{r.surroundContents(span);}catch(e){}
-            s.removeAllRanges();
-            saveHighlights();
+    // ✅ 3. RIGHT-CLICK MENU: Highlight / Remove Highlight / Add Note
+    const contextMenu = document.getElementById('contextMenu');
+    const passageText = document.getElementById('passageText');
+
+    // Show menu on right-click ONLY inside passage text
+    document.addEventListener('contextmenu', e => {
+        if (!passageText.contains(e.target)) {
+            contextMenu.style.display = 'none';
+            return;
         }
+        const sel = window.getSelection();
+        if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+            contextMenu.style.display = 'none';
+            return;
+        }
+        e.preventDefault();
+        currentSelection = sel.getRangeAt(0);
+        const rect = currentSelection.getBoundingClientRect();
+        contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+        contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+        contextMenu.style.display = 'block';
     });
-    function removeHighlights(){
-        passageText.querySelectorAll('.highlight').forEach(h=>{
-            const p=h.parentNode; p.replaceChild(h.firstChild,h); p.normalize();
+
+    // Hide menu on click elsewhere
+    document.addEventListener('click', () => { contextMenu.style.display = 'none'; });
+
+    // Highlight text
+    document.getElementById('menuHighlight').addEventListener('click', () => {
+        if (!currentSelection) return;
+        const span = document.createElement('span');
+        span.className = 'highlight';
+        span.textContent = currentSelection.toString();
+        currentSelection.deleteContents();
+        currentSelection.insertNode(span);
+        window.getSelection().removeAllRanges();
+        currentSelection = null;
+        saveHighlights();
+        contextMenu.style.display = 'none';
+    });
+
+    // Remove Highlight
+    document.getElementById('menuRemoveHighlight').addEventListener('click', () => {
+        passageText.querySelectorAll('.highlight').forEach(h => {
+            const parent = h.parentNode;
+            parent.replaceChild(h, document.createTextNode(h.textContent));
+            parent.normalize();
         });
+        saveHighlights();
+        contextMenu.style.display = 'none';
+    });
+
+    // Add Sticky Note
+    document.getElementById('menuAddNote').addEventListener('click', () => {
+        if (!currentSelection) return;
+        const rect = currentSelection.getBoundingClientRect();
+        noteCounter++;
+        const noteId = 'note_' + noteCounter;
+        const note = document.createElement('div');
+        note.className = 'sticky-note';
+        note.id = noteId;
+        note.innerHTML = `
+            <div class="note-header">Note 
+                <span class="note-close" data-note="${noteId}">×</span>
+            </div>
+            <textarea class="note-textarea" data-note="${noteId}" placeholder="Type note..."></textarea>
+        `;
+        note.style.left = (rect.right + window.scrollX + 10) + 'px';
+        note.style.top = (rect.top + window.scrollY) + 'px';
+        document.body.appendChild(note);
+        
+        // Close note
+        note.querySelector('.note-close').addEventListener('click', () => {
+            note.remove();
+            saveNotes();
+        });
+        // Auto-save note text
+        note.querySelector('textarea').addEventListener('input', e => {
+            localStorage.setItem(`${passageId}_${noteId}`, e.target.value);
+        });
+        
+        window.getSelection().removeAllRanges();
+        currentSelection = null;
+        saveNotes();
+        contextMenu.style.display = 'none';
+    });
+
+    // ✅ Save/Load Highlights
+    function saveHighlights() {
+        localStorage.setItem(`${passageId}_highlights`, passageText.innerHTML);
     }
-    function saveHighlights(){
-        localStorage.setItem(`${passageId}_passage_html`,passageText.innerHTML);
-    }
-    function loadHighlights(){
-        const s=localStorage.getItem(`${passageId}_passage_html`);
-        if(s) passageText.innerHTML=s;
+    function loadHighlights() {
+        const saved = localStorage.getItem(`${passageId}_highlights`);
+        if (saved) passageText.innerHTML = saved;
     }
 
-    // ✅ Flags
-    document.querySelectorAll('.flag-btn').forEach(btn=>{
-        btn.addEventListener('click',()=>{
+    // ✅ Save/Load Notes
+    function saveNotes() {
+        const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
+            id: n.id,
+            left: n.style.left,
+            top: n.style.top,
+            text: n.querySelector('textarea').value
+        }));
+        localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes));
+    }
+    function loadNotes() {
+        const saved = localStorage.getItem(`${passageId}_notes`);
+        if (!saved) return;
+        JSON.parse(saved).forEach(n => {
+            noteCounter = Math.max(noteCounter, parseInt(n.id.split('_')[1]));
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            note.id = n.id;
+            note.innerHTML = `
+                <div class="note-header">Note 
+                    <span class="note-close" data-note="${n.id}">×</span>
+                </div>
+                <textarea class="note-textarea" data-note="${n.id}">${n.text}</textarea>
+            `;
+            note.style.left = n.left;
+            note.style.top = n.top;
+            document.body.appendChild(note);
+            note.querySelector('.note-close').addEventListener('click', () => {
+                note.remove();
+                saveNotes();
+            });
+            note.querySelector('textarea').addEventListener('input', e => {
+                localStorage.setItem(`${passageId}_${n.id}`, e.target.value);
+            });
+        });
+    }
+
+    // ✅ FLAG SYSTEM
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
             btn.classList.toggle('flagged');
-            const q=btn.dataset.q;
-            const f=btn.classList.contains('flagged');
-            localStorage.setItem(`${passageId}_flag_${q}`,f);
+            const q = btn.dataset.q;
+            const flagged = btn.classList.contains('flagged');
+            localStorage.setItem(`${passageId}_flag_${q}`, flagged);
             updateIndicators();
         });
     });
-    function loadFlags(){
-        Q_LIST.forEach(q=>{
-            if(localStorage.getItem(`${passageId}_flag_${q}`)==='true'){
+    function loadFlags() {
+        Q_EXISTING.forEach(q => {
+            if (localStorage.getItem(`${passageId}_flag_${q}`) === 'true') {
                 document.querySelector(`.flag-btn[data-q="${q}"]`)?.classList.add('flagged');
             }
         });
     }
 
-    // ✅ Save/Load Answers
-    function saveAnswers(){
-        const ans={};
-        Q_LIST.forEach(q=>{
-            const inp=document.querySelector(`input[name="q${q}"]`);
-            if(inp) ans[`q${q}`]=inp.value;
+    // ✅ SAVE/LOAD ANSWERS
+    function saveAnswers() {
+        const ans = {};
+        Q_EXISTING.forEach(q => {
+            const inp = document.querySelector(`input[name="q${q}"]`);
+            if (inp) ans[`q${q}`] = inp.value;
         });
-        localStorage.setItem(`${passageId}_answers`,JSON.stringify(ans));
+        localStorage.setItem(`${passageId}_answers`, JSON.stringify(ans));
         updateIndicators();
     }
-    function loadAnswers(){
-        const s=localStorage.getItem(`${passageId}_answers`);
-        if(!s) return;
-        const ans=JSON.parse(s);
-        Q_LIST.forEach(q=>{
-            const inp=document.querySelector(`input[name="q${q}"]`);
-            if(inp&&ans[`q${q}`]) inp.value=ans[`q${q}`];
+    function loadAnswers() {
+        const saved = localStorage.getItem(`${passageId}_answers`);
+        if (!saved) return;
+        const ans = JSON.parse(saved);
+        Q_EXISTING.forEach(q => {
+            const inp = document.querySelector(`input[name="q${q}"]`);
+            if (inp && ans[`q${q}`]) inp.value = ans[`q${q}`];
         });
     }
 
-    // ✅ Check Answers
-    window.checkAnswers=function(){
+    // ✅ CHECK ANSWERS & SCORE
+    window.checkAnswers = function() {
         saveAnswers();
-        const box=document.getElementById('resultsBox');
-        const content=document.getElementById('resultsContent');
-        let html='',score=0;
-        Q_LIST.forEach(q=>{
-            const inp=document.querySelector(`input[name="q${q}"]`);
-            const stu=(inp?(inp.value||'').trim().toUpperCase():'').replace(/\s+/g,'');
-            const ans=(correctAnswers[`q${q}`]||'').toUpperCase().replace(/\s+/g,'');
-            let st='';
-            if(!stu) st='<span class="no-answer">(No Answer)</span>';
-            else if(stu===ans){st='<span class="correct">✅ Correct</span>'; score++;}
-            else st='<span class="wrong">❌ Wrong</span>';
-            html+=`<strong>${q}.</strong> ${stu||'-'} &nbsp; ${st}<br>`;
+        const box = document.getElementById('resultsBox');
+        const content = document.getElementById('resultsContent');
+        let html = '', score = 0;
+        Q_EXISTING.forEach(q => {
+            const inp = document.querySelector(`input[name="q${q}"]`);
+            const stu = ((inp?.value || '').trim().toUpperCase()).replace(/\s+/g, '');
+            const ans = (correctAnswers[`q${q}`] || '').toUpperCase().replace(/\s+/g, '');
+            let st = '';
+            if (!stu) st = '<span class="no-answer">(No Answer)</span>';
+            else if (stu === ans) { st = '<span class="correct">✅ Correct</span>'; score++; }
+            else st = '<span class="wrong">❌ Wrong</span>';
+            html += `<strong>${q}.</strong> ${stu || '-'} &nbsp; ${st}<br>`;
         });
-        html+=`<br><strong>Score: ${score} / ${Q_LIST.length}</strong>`;
-        content.innerHTML=html;
-        box.style.display=box.style.display==='block'?'none':'block';
+        html += `<br><strong>Score: ${score} / ${Q_EXISTING.length}</strong>`;
+        content.innerHTML = html;
+        box.style.display = box.style.display === 'block' ? 'none' : 'block';
     };
 
-    // ✅ Clear All Data
-    window.clearAllData=function(){
-        if(!confirm('⚠️ Clear ALL answers, highlights and flags? This cannot be undone!')) return;
-        Q_LIST.forEach(q=>{
-            document.querySelector(`input[name="q${q}"]`).value='';
+    // ✅ CLEAR ALL DATA
+    window.clearAllData = function() {
+        if (!confirm('⚠️ Clear ALL answers, highlights, notes and flags? This cannot be undone!')) return;
+        Q_EXISTING.forEach(q => {
+            const inp = document.querySelector(`input[name="q${q}"]`);
+            if (inp) inp.value = '';
             localStorage.removeItem(`${passageId}_flag_${q}`);
         });
-        document.querySelectorAll('.flag-btn').forEach(b=>b.classList.remove('flagged'));
-        removeHighlights();
+        document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
+        passageText.querySelectorAll('.highlight').forEach(h => {
+            h.parentNode.replaceChild(h, document.createTextNode(h.textContent));
+            h.parentNode.normalize();
+        });
+        document.querySelectorAll('.sticky-note').forEach(n => n.remove());
         localStorage.removeItem(`${passageId}_answers`);
-        localStorage.removeItem(`${passageId}_passage_html`);
-        document.getElementById('resultsBox').style.display='none';
+        localStorage.removeItem(`${passageId}_highlights`);
+        localStorage.removeItem(`${passageId}_notes`);
+        document.getElementById('resultsBox').style.display = 'none';
         updateIndicators();
         alert('✅ ALL DATA CLEARED!');
     };
 
-    // ✅ Auto-save on type
-    document.addEventListener('input',e=>{
-        if(e.target.name&&e.target.name.startsWith('q')) saveAnswers();
+    // ✅ AUTO-SAVE WHILE TYPING
+    document.addEventListener('input', e => {
+        if (e.target.name?.startsWith('q') || e.target.classList.contains('note-textarea')) {
+            saveAnswers();
+        }
     });
 
-    // ✅ Init
-    window.onload=function(){
+    // ✅ INITIALIZE EVERYTHING
+    window.onload = function() {
         initIndicators();
         loadAnswers();
         loadHighlights();
+        loadNotes();
         loadFlags();
         updateIndicators();
     };
