@@ -15,7 +15,7 @@
         .page-header p { font-size: 14px; color: #7f1d1d; }
 
         /* ==============================================
-           ✅ EXACT COLUMN LAYOUT — SEPARATE SCROLLBARS
+           ✅ INDEPENDENT SCROLLBARS — BOTH COLUMNS
            ============================================== */
         .content-wrapper {
             display: flex; gap: 18px; padding: 18px; flex: 1;
@@ -25,31 +25,46 @@
         .passage-column, .questions-column {
             flex: 1; background: #fff; border-radius: 10px;
             border: 1px solid #fecaca; padding: 18px;
-            overflow-y: scroll; /* ✅ ALWAYS SHOW SCROLLBAR — EXACT LIKE SAMPLE */
+            overflow-y: auto !important;
         }
-        /* Scrollbar styling */
+        /* Scrollbars always visible */
         .passage-column::-webkit-scrollbar,
-        .questions-column::-webkit-scrollbar { width: 12px; }
+        .questions-column::-webkit-scrollbar { width: 14px; display: block; }
         .passage-column::-webkit-scrollbar-track,
-        .questions-column::-webkit-scrollbar-track { background: #fef2f2; border-radius: 6px; }
+        .questions-column::-webkit-scrollbar-track { background: #fef2f2; border-radius: 7px; }
         .passage-column::-webkit-scrollbar-thumb,
-        .questions-column::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 6px; border: 2px solid #fef2f2; }
+        .questions-column::-webkit-scrollbar-thumb { 
+            background: #dc2626; border-radius: 7px; 
+            border: 3px solid #fef2f2;
+            min-height: 40px;
+        }
 
         .passage-column h2 { text-align: center; font-size: 20px; color: #dc2626; margin-bottom: 16px; line-height: 1.3; }
         .passage-text p { margin-bottom: 12px; font-size: 15px; line-height: 1.7; }
         .passage-text strong { color: #991b1b; }
 
-        /* ✅ HIGHLIGHT — EXACT STYLE */
+        /* ✅ HIGHLIGHT */
         .highlight {
-            background-color: #ffd700;
+            background-color: #ffd700 !important;
             padding: 1px 3px; border-radius: 2px; display: inline;
+            cursor: context-menu;
         }
+
+        /* ✅ STICKY NOTE */
+        .sticky-note {
+            position: absolute; width: 170px; min-height: 65px;
+            background: #fff380; border: 1px solid #e6c200; border-radius: 4px;
+            padding: 6px; box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+            z-index: 99998; font-size: 12px;
+        }
+        .note-header { display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00; }
+        .note-close { cursor: pointer; font-weight: bold; color: #886a00; }
+        .note-textarea { width: 100%; height: 45px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px; }
 
         .questions-column h3 { font-size: 16px; color: #991b1b; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #fecaca; }
         .instruction { font-size: 13px; color: #7f1d1d; margin-bottom: 14px; line-height: 1.5; }
         .question-group { margin-bottom: 24px; }
         .question-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; padding: 6px 8px; border-radius: 6px; }
-        .question-row:hover { background: #fef2f2; }
         .q-number { font-weight: 700; color: #dc2626; min-width: 28px; }
         .q-number.answered { background: #198754; color: #fff; padding: 0 4px; border-radius: 4px; }
         .q-number.flagged { background: #fd7e14; color: #fff; padding: 0 4px; border-radius: 4px; }
@@ -65,13 +80,13 @@
         .list-box { border: 1px solid #fecaca; border-radius: 8px; padding: 12px; background: #fef2f2; margin: 10px 0; }
         .list-box h4 { color: #dc2626; margin-bottom: 8px; font-size: 14px; }
 
-        /* ✅ RIGHT-CLICK MENU — EXACT BEHAVIOR */
+        /* ✅ RIGHT-CLICK MENU */
         .context-menu {
             position: fixed; background: #fff; border: 1px solid #999;
             border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            z-index: 99999; display: none; min-width: 180px;
+            z-index: 99999; display: none; min-width: 200px;
         }
-        .context-menu div { padding: 10px 14px; cursor: pointer; font-size: 14px; }
+        .context-menu div { padding: 11px 14px; cursor: pointer; font-size: 14px; }
         .context-menu div:hover { background: #fef2f2; }
 
         .bottom-area { padding: 12px 20px; background: #fff; border-top: 2px solid #fecaca; }
@@ -79,8 +94,6 @@
         .q-indicator { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 4px; border: 1px solid #ddd; background: #eee; font-size: 12px; font-weight: 600; cursor: pointer; }
         .q-indicator.answered { background: #198754; color: #fff; border-color: #198754; }
         .q-indicator.flagged { background: #fd7e14; color: #fff; border-color: #fd7e14; }
-        .q-indicator.current { border: 2px solid #dc2626; }
-        .q-indicator.disabled { opacity: 0.35; cursor: default; }
         .button-bar { display: flex; gap: 10px; margin-bottom: 12px; }
         .check-answers, .clear-all-data { padding: 8px 18px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
         .check-answers { background: #16a34a; color: #fff; }
@@ -91,24 +104,19 @@
         .no-answer { color: #888; }
         .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: #fff; border-top: 1px solid #fecaca; }
         .nav-btn, .passage-tab { padding: 10px 20px; background: #dc2626; color: #fff; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; }
-        .nav-btn:hover, .passage-tab:hover { background: #b91c1c; }
         .passage-tabs { display: flex; gap: 8px; }
         .passage-tab { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
         .passage-tab.active { background: #dc2626; color: #fff; border-color: #dc2626; }
-
-        @media (max-width: 900px) {
-            .content-wrapper { flex-direction: column; height: auto; }
-            .passage-column, .questions-column { max-height: 500px; }
-        }
     </style>
 </head>
 <body>
 
-    <!-- ✅ RIGHT-CLICK MENU -->
+    <!-- RIGHT-CLICK MENU -->
     <div class="context-menu" id="ctxMenu">
         <div id="menuHighlight">✅ Highlight Selection</div>
         <div id="menuRemoveOne">❌ Remove This Highlight</div>
         <div id="menuRemoveAll">🧹 Remove All Highlights</div>
+        <div id="menuNote">📝 Add Sticky Note</div>
     </div>
 
     <div class="page-header">
@@ -199,85 +207,102 @@ const correctAnswers = {
 const ctxMenu = document.getElementById('ctxMenu');
 const passageText = document.getElementById('passageText');
 let savedRange = null;
-let targetHighlight = null;
+let clickedHighlight = null;
+let noteIdCounter = 0;
 
 // ==============================================
-// ✅ RIGHT-CLICK LOGIC — EXACT BEHAVIOR FROM SAMPLE
+// ✅ RIGHT-CLICK MENU — FULLY FIXED
 // ==============================================
 document.addEventListener('contextmenu', e => {
     savedRange = null;
-    targetHighlight = null;
+    clickedHighlight = null;
 
-    // CASE A: Right-click ON existing highlight → show Remove This Highlight
+    // ========== RIGHT-CLICK ON HIGHLIGHT ==========
     if (e.target.classList.contains('highlight')) {
         e.preventDefault();
-        targetHighlight = e.target;
+        e.stopPropagation();
+        clickedHighlight = e.target;
+        // Show ONLY remove options
         document.getElementById('menuHighlight').style.display = 'none';
+        document.getElementById('menuNote').style.display = 'none';
         document.getElementById('menuRemoveOne').style.display = 'block';
         document.getElementById('menuRemoveAll').style.display = 'block';
-        showMenuAt(e.clientX, e.clientY);
+        showMenu(e.clientX, e.clientY);
         return;
     }
 
-    // CASE B: Text selected → show Highlight
+    // ========== RIGHT-CLICK WITH TEXT SELECTED ==========
     const sel = window.getSelection();
-    if (passageText.contains(e.target) && !sel.isCollapsed && sel.toString().trim()) {
+    if (passageText.contains(e.target) && !sel.isCollapsed && sel.toString().trim() !== '') {
         e.preventDefault();
         savedRange = sel.getRangeAt(0).cloneRange();
         document.getElementById('menuHighlight').style.display = 'block';
+        document.getElementById('menuNote').style.display = 'block';
         document.getElementById('menuRemoveOne').style.display = 'none';
         document.getElementById('menuRemoveAll').style.display = 'block';
-        showMenuAt(e.clientX, e.clientY);
+        showMenu(e.clientX, e.clientY);
         return;
     }
 
-    // CASE C: Else hide menu
+    // ========== ELSE HIDE MENU ==========
     ctxMenu.style.display = 'none';
 });
 
-function showMenuAt(x, y) {
-    ctxMenu.style.left = (x + 5) + 'px';
-    ctxMenu.style.top = (y + 5) + 'px';
+function showMenu(x, y) {
+    ctxMenu.style.left = (x + 8) + 'px';
+    ctxMenu.style.top = (y + 8) + 'px';
     ctxMenu.style.display = 'block';
 }
 
 // Hide menu when clicking anywhere
 document.addEventListener('click', () => {
     ctxMenu.style.display = 'none';
-    targetHighlight = null;
+    clickedHighlight = null;
     savedRange = null;
 });
 
+// ==============================================
 // ✅ 1. HIGHLIGHT SELECTED TEXT
+// ==============================================
 document.getElementById('menuHighlight').addEventListener('click', () => {
     if (!savedRange) return;
     const span = document.createElement('span');
     span.className = 'highlight';
+    span.textContent = savedRange.toString();
     try {
         savedRange.surroundContents(span);
-    } catch(err) {
-        // Fallback for cross-element selection
-        span.textContent = savedRange.toString();
+    } catch {
         savedRange.deleteContents();
         savedRange.insertNode(span);
     }
     window.getSelection().removeAllRanges();
     ctxMenu.style.display = 'none';
-    saveAllHighlights();
+    saveHighlights();
 });
 
-// ✅ 2. REMOVE THIS HIGHLIGHT — RIGHT-CLICKED ONE ONLY
+// ==============================================
+// ✅ 2. REMOVE THIS HIGHLIGHT — THE FIXED PART
+// ==============================================
 document.getElementById('menuRemoveOne').addEventListener('click', () => {
-    if (!targetHighlight) return;
-    const parent = targetHighlight.parentNode;
-    parent.replaceChild(targetHighlight, document.createTextNode(targetHighlight.textContent));
+    if (!clickedHighlight) {
+        console.log('No highlight selected!');
+        return;
+    }
+    // Get parent and replace highlight with plain text
+    const parent = clickedHighlight.parentNode;
+    const textNode = document.createTextNode(clickedHighlight.textContent);
+    parent.replaceChild(clickedHighlight, textNode);
+    // Merge adjacent text nodes so it doesn't break
     parent.normalize();
     ctxMenu.style.display = 'none';
-    targetHighlight = null;
-    saveAllHighlights();
+    clickedHighlight = null;
+    saveHighlights();
+    console.log('✅ Highlight removed successfully');
 });
 
+// ==============================================
 // ✅ 3. REMOVE ALL HIGHLIGHTS
+// ==============================================
 document.getElementById('menuRemoveAll').addEventListener('click', () => {
     document.querySelectorAll('.highlight').forEach(h => {
         const p = h.parentNode;
@@ -285,23 +310,46 @@ document.getElementById('menuRemoveAll').addEventListener('click', () => {
         p.normalize();
     });
     ctxMenu.style.display = 'none';
-    saveAllHighlights();
+    saveHighlights();
 });
 
 // ==============================================
-// ✅ SIMPLE SAVE/LOAD — NO BREAKING OF ANSWERS
+// ✅ 4. ADD STICKY NOTE
 // ==============================================
-function saveAllHighlights() {
-    const data = [];
-    document.querySelectorAll('.highlight').forEach(h => {
-        data.push({ text: h.textContent });
-    });
-    localStorage.setItem(`${passageId}_hl`, JSON.stringify(data));
+document.getElementById('menuNote').addEventListener('click', () => {
+    if (!savedRange) return;
+    noteIdCounter++;
+    const rect = savedRange.getBoundingClientRect();
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.style.left = (rect.right + 10) + 'px';
+    note.style.top = (rect.top) + 'px';
+    note.innerHTML = `
+        <div class="note-header">Note <span class="note-close">×</span></div>
+        <textarea class="note-textarea" placeholder="Type note..."></textarea>
+    `;
+    document.body.appendChild(note);
+    note.querySelector('.note-close').onclick = () => note.remove();
+    window.getSelection().removeAllRanges();
+    ctxMenu.style.display = 'none';
+});
+
+// ==============================================
+// ✅ SAVE HIGHLIGHTS
+// ==============================================
+function saveHighlights() {
+    const list = [];
+    document.querySelectorAll('.highlight').forEach(h => list.push(h.textContent));
+    localStorage.setItem(`${passageId}_hl`, JSON.stringify(list));
 }
 
 // ==============================================
-// ✅ ANSWER SAVE/LOAD / FLAGS / CHECK ANSWERS
+// ✅ ANSWERS / FLAGS / CHECK ANSWERS
 // ==============================================
+document.addEventListener('input', e => {
+    if (e.target.name?.startsWith('q')) saveAnswers();
+});
+
 function saveAnswers() {
     const ans = {};
     Q_EXISTING.forEach(q => {
@@ -321,12 +369,6 @@ function loadAnswers() {
     });
 }
 
-// Auto-save answers when typing
-document.addEventListener('input', e => {
-    if (e.target.name && e.target.name.startsWith('q')) saveAnswers();
-});
-
-// Check Answers
 window.checkAnswers = function() {
     saveAnswers();
     const box = document.getElementById('resultsBox');
@@ -346,7 +388,6 @@ window.checkAnswers = function() {
     box.style.display = box.style.display === 'block' ? 'none' : 'block';
 };
 
-// Clear All Data
 window.clearAllData = function() {
     if (!confirm('⚠️ Clear ALL answers and highlights? This cannot be undone!')) return;
     Q_EXISTING.forEach(q => {
@@ -366,14 +407,13 @@ window.clearAllData = function() {
 
 // Flags
 document.querySelectorAll('.flag-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.onclick = () => {
         btn.classList.toggle('flagged');
-        const q = btn.dataset.q;
-        localStorage.setItem(`${passageId}_flag_${q}`, btn.classList.contains('flagged'));
-    });
+        localStorage.setItem(`${passageId}_flag_${btn.dataset.q}`, btn.classList.contains('flagged'));
+    };
 });
 
-// Load flags on start
+// Load flags
 function loadFlags() {
     Q_EXISTING.forEach(q => {
         if (localStorage.getItem(`${passageId}_flag_${q}`) === 'true') {
@@ -382,8 +422,7 @@ function loadFlags() {
     });
 }
 
-// Initialize
-window.onload = function() {
+window.onload = () => {
     loadAnswers();
     loadFlags();
 };
