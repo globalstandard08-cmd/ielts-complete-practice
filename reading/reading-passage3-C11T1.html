@@ -32,13 +32,15 @@
             font-size: 14px;
             color: #7f1d1d;
         }
-        /* ✅ MAIN WRAPPER — SCROLLABLE COLUMNS */
+
+        /* ✅ SEPARATE SCROLLABLE COLUMNS — EXACTLY LIKE YOUR ORIGINAL */
         .content-wrapper {
             display: flex;
             gap: 18px;
             padding: 18px;
             flex: 1;
-            height: calc(100vh - 280px);
+            height: calc(100vh - 260px); /* Fixed height = independent scroll */
+            overflow: hidden; /* Prevent page from scrolling */
         }
         .passage-column, .questions-column {
             flex: 1;
@@ -46,13 +48,12 @@
             border-radius: 10px;
             border: 1px solid #fecaca;
             padding: 18px;
-            /* ✅ ALWAYS VISIBLE SCROLLBARS */
-            overflow-y: scroll;
+            overflow-y: auto; /* ✅ OWN SCROLLBAR PER COLUMN */
             scrollbar-width: thin;
             scrollbar-color: #dc2626 #fef2f2;
             position: relative;
         }
-        /* ✅ SCROLLBAR STYLING */
+        /* ✅ SCROLLBAR STYLING — ALWAYS VISIBLE */
         .passage-column::-webkit-scrollbar,
         .questions-column::-webkit-scrollbar {
             width: 12px;
@@ -69,6 +70,7 @@
             border-radius: 6px;
             border: 2px solid #fef2f2;
         }
+
         .passage-column h2 {
             text-align: center;
             font-size: 20px;
@@ -84,9 +86,11 @@
         .passage-text strong { color: #991b1b; }
         .highlight {
             background-color: #ffd700;
-            padding: 2px 4px;
+            padding: 1px 3px;
             border-radius: 2px;
+            display: inline;
         }
+
         .questions-column h3 {
             font-size: 16px;
             color: #991b1b;
@@ -115,7 +119,6 @@
             font-weight: 700;
             color: #dc2626;
             min-width: 28px;
-            transition: background 0.3s;
         }
         .q-number.answered {
             background: #198754;
@@ -142,7 +145,6 @@
             color: #ccc;
         }
         .flag-btn.flagged { color: #fd7e14; }
-        /* ✅ ANSWER INPUT — FULLY TYPEABLE */
         .answer-input {
             padding: 6px 10px;
             border: 1px solid #fecaca;
@@ -152,8 +154,6 @@
             outline: none;
             width: 110px;
             text-transform: uppercase;
-            z-index: 1;
-            position: relative;
         }
         .answer-input:focus {
             border-color: #dc2626;
@@ -187,25 +187,25 @@
             margin-bottom: 8px;
             font-size: 14px;
         }
-        /* ✅ CONTEXT MENU (Right-click tools) */
+
+        /* ✅ RIGHT-CLICK MENU */
         .context-menu {
             position: absolute;
             background: #ffffff;
             border: 1px solid #ccc;
             border-radius: 6px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            z-index: 9999;
+            z-index: 99999;
             display: none;
-            min-width: 150px;
+            min-width: 160px;
         }
         .context-menu div {
             padding: 10px 12px;
             cursor: pointer;
             font-size: 14px;
         }
-        .context-menu div:hover {
-            background: #fef2f2;
-        }
+        .context-menu div:hover { background: #fef2f2; }
+
         /* ✅ STICKY NOTES */
         .sticky-note {
             position: absolute;
@@ -216,7 +216,7 @@
             border-radius: 4px;
             padding: 6px;
             box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
-            z-index: 9998;
+            z-index: 99998;
             font-size: 12px;
         }
         .note-header {
@@ -243,7 +243,7 @@
             font-family: inherit;
             font-size: 12px;
         }
-        /* ✅ BOTTOM BUTTONS AREA */
+
         .bottom-area {
             padding: 12px 20px;
             background: #fff;
@@ -267,7 +267,6 @@
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
         }
         .q-indicator.answered {
             background: #198754;
@@ -279,9 +278,9 @@
             color: white;
             border-color: #fd7e14;
         }
-        .q-indicator.current {
-            border: 2px solid #dc2626;
-        }
+        .q-indicator.current { border: 2px solid #dc2626; }
+        .q-indicator.disabled { opacity: 0.35; cursor: default; }
+
         .button-bar {
             display: flex;
             gap: 10px;
@@ -295,18 +294,12 @@
             font-weight: 600;
             cursor: pointer;
         }
-        .check-answers {
-            background: #16a34a;
-            color: white;
-        }
+        .check-answers { background: #16a34a; color: white; }
         .check-answers:hover { background: #15803d; }
-        .clear-all-data {
-            background: #dc2626;
-            color: white;
-        }
+        .clear-all-data { background: #dc2626; color: white; }
         .clear-all-data:hover { background: #b91c1c; }
         .results-box {
-            margin-bottom: 12px;
+            margin-top: 12px;
             padding: 12px;
             background: #fef2f2;
             border: 1px solid #fecaca;
@@ -317,7 +310,7 @@
         .correct { color: green; font-weight: 600; }
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
-        /* ✅ NAVIGATION BAR */
+
         .nav-bar {
             display: flex;
             align-items: center;
@@ -338,10 +331,7 @@
             text-decoration: none;
         }
         .nav-btn:hover { background: #b91c1c; }
-        .passage-tabs {
-            display: flex;
-            gap: 8px;
-        }
+        .passage-tabs { display: flex; gap: 8px; }
         .passage-tab {
             padding: 8px 16px;
             background: #fef2f2;
@@ -357,6 +347,7 @@
             color: white;
             border-color: #dc2626;
         }
+
         @media (max-width: 900px) {
             .content-wrapper { flex-direction: column; height: auto; }
             .passage-column, .questions-column { max-height: 500px; }
@@ -364,10 +355,11 @@
     </style>
 </head>
 <body>
-    <!-- ✅ RIGHT-CLICK CONTEXT MENU -->
+    <!-- RIGHT-CLICK MENU -->
     <div class="context-menu" id="contextMenu">
         <div id="menuHighlight">✅ Highlight Selection</div>
-        <div id="menuRemoveHighlight">❌ Remove Highlight</div>
+        <div id="menuRemoveHighlight">❌ Remove This Highlight</div>
+        <div id="menuRemoveAllHighlights">🧹 Remove All Highlights</div>
         <div id="menuAddNote">📝 Add Sticky Note</div>
     </div>
 
@@ -376,7 +368,7 @@
         <p>You should spend about 20 minutes on Questions 27–40, which are based on Reading Passage 3 below.</p>
     </div>
     <div class="content-wrapper">
-        <!-- LEFT: PASSAGE -->
+        <!-- LEFT: PASSAGE WITH OWN SCROLLBAR -->
         <div class="passage-column" id="passageColumn">
             <h2>Reducing the Effects of Climate Change<br>being explored by scientists</h2>
             <div class="passage-text" id="passageText">
@@ -390,10 +382,9 @@
                 <p><strong>H</strong> The main reason why geo-engineering is supported by many in the scientific community is that most researchers have little faith in the ability of politicians to agree — and then bring in — the necessary carbon cuts. Even leading conservation organisations see the value of investigating the potential of geo-engineering. According to Dr Martin Sommerkorn, climate change advisor for the World Wildlife Fund's International Arctic Programme, 'Human-induced climate change has brought humanity to a position where we shouldn't exclude thinking thoroughly about this topic and its possibilities.'</p>
             </div>
         </div>
-        <!-- RIGHT: QUESTIONS -->
-        <div class="questions-column" id="questionsColumn">
+        <!-- RIGHT: QUESTIONS WITH OWN SCROLLBAR -->
+        <div class="questions-column">
             <h3>Questions 27–40</h3>
-            <!-- Q27-29 -->
             <div class="question-group">
                 <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 27–29</h4>
                 <p class="instruction">Reading Passage 3 has eight paragraphs <strong>A–H</strong>.<br>Which paragraph contains the following information?<br>Write the correct letter, <strong>A–H</strong>, in boxes 27–29 on your answer sheet.</p>
@@ -416,7 +407,6 @@
                     <button class="flag-btn" data-q="29">🚩</button>
                 </div>
             </div>
-            <!-- Q30-36 TABLE -->
             <div class="question-group">
                 <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 30–36</h4>
                 <p class="instruction">Complete the table below.<br>Choose <strong>ONE WORD</strong> from the passage for each answer.</p>
@@ -427,32 +417,31 @@
                     <tbody>
                         <tr id="q30">
                             <td>put a large number of tiny spacecraft into orbit far above Earth</td>
-                            <td>to create a <strong id="qnum30">30</strong> <input type="text" class="answer-input table-input" name="q30" autocomplete="off"> that would reduce the amount of light reaching Earth</td>
+                            <td>to create a <strong>30</strong> <input type="text" class="answer-input table-input" name="q30" autocomplete="off"> that would reduce the amount of light reaching Earth</td>
                         </tr>
                         <tr id="q31">
-                            <td>place <strong id="qnum31">31</strong> <input type="text" class="answer-input table-input" name="q31" autocomplete="off"> in the sea</td>
-                            <td>to encourage <strong id="qnum32">32</strong> <input type="text" class="answer-input table-input" name="q32" autocomplete="off"> to form</td>
+                            <td>place <strong>31</strong> <input type="text" class="answer-input table-input" name="q31" autocomplete="off"> in the sea</td>
+                            <td>to encourage <strong>32</strong> <input type="text" class="answer-input table-input" name="q32" autocomplete="off"> to form</td>
                         </tr>
                         <tr id="q33">
                             <td>release aerosol sprays into the stratosphere</td>
-                            <td>to create <strong id="qnum33">33</strong> <input type="text" class="answer-input table-input" name="q33" autocomplete="off"> that would reduce the amount of light reaching Earth</td>
+                            <td>to create <strong>33</strong> <input type="text" class="answer-input table-input" name="q33" autocomplete="off"> that would reduce the amount of light reaching Earth</td>
                         </tr>
                         <tr id="q34">
-                            <td>fix strong <strong id="qnum34">34</strong> <input type="text" class="answer-input table-input" name="q34" autocomplete="off"> to Greenland ice sheets</td>
+                            <td>fix strong <strong>34</strong> <input type="text" class="answer-input table-input" name="q34" autocomplete="off"> to Greenland ice sheets</td>
                             <td>to prevent icebergs moving into the sea</td>
                         </tr>
                         <tr id="q35">
                             <td>plant trees in Russian Arctic that would lose their leaves in winter</td>
-                            <td>to allow the <strong id="qnum35">35</strong> <input type="text" class="answer-input table-input" name="q35" autocomplete="off"> to reflect radiation</td>
+                            <td>to allow the <strong>35</strong> <input type="text" class="answer-input table-input" name="q35" autocomplete="off"> to reflect radiation</td>
                         </tr>
                         <tr id="q36">
-                            <td>change the direction of <strong id="qnum36">36</strong> <input type="text" class="answer-input table-input" name="q36" autocomplete="off"></td>
+                            <td>change the direction of <strong>36</strong> <input type="text" class="answer-input table-input" name="q36" autocomplete="off"></td>
                             <td>to bring more cold water into ice-forming areas</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <!-- Q37-40 MATCHING -->
             <div class="question-group">
                 <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 37–40</h4>
                 <p class="instruction">Look at the following statements (Questions 37–40) and the list of scientists below.<br>Match each statement with the correct scientist, <strong>A–D</strong>.</p>
@@ -487,7 +476,7 @@
             </div>
         </div>
     </div>
-    <!-- ✅ BOTTOM AREA: INDICATORS + BUTTONS + NAV -->
+
     <div class="bottom-area">
         <div class="question-nav" id="qNav"></div>
         <div class="button-bar">
@@ -499,7 +488,7 @@
             <div id="resultsContent"></div>
         </div>
     </div>
-    <!-- ✅ NAVIGATION BAR -->
+
     <div class="nav-bar">
         <a href="reading-passage2-C11T1.html" class="nav-btn">&larr; Previous</a>
         <div class="passage-tabs">
@@ -509,6 +498,7 @@
         </div>
         <button class="nav-btn" disabled>Next &rarr;</button>
     </div>
+
 <script>
     const passageId = 'C11T1P3';
     const ALL_QUESTIONS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
@@ -520,11 +510,10 @@
     };
 
     let currentSelection = null;
+    let clickedHighlightElement = null;
     let noteCounter = 0;
 
-    // ✅ 1. SCROLLBARS — Already in CSS: always visible, styled red
-
-    // ✅ 2. NAVIGATION BAR 1–40 WITH SHADING
+    // ========== NAVIGATION 1-40 ==========
     function initIndicators() {
         const nav = document.getElementById('qNav');
         ALL_QUESTIONS.forEach(q => {
@@ -533,8 +522,7 @@
             b.textContent = q;
             b.id = 'ind' + q;
             if (!Q_EXISTING.includes(q)) {
-                b.style.opacity = '0.35';
-                b.style.cursor = 'default';
+                b.classList.add('disabled');
                 b.title = 'Not in this passage';
             } else {
                 b.onclick = () => jumpToQuestion(q);
@@ -542,61 +530,71 @@
             nav.appendChild(b);
         });
     }
-
     function jumpToQuestion(q) {
         document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
-        document.getElementById('ind' + q)?.classList.add('current');
-        document.getElementById('q' + q)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('ind'+q)?.classList.add('current');
+        document.getElementById('q'+q)?.scrollIntoView({behavior:'smooth', block:'start'});
     }
-
     function updateIndicators() {
         Q_EXISTING.forEach(q => {
             const inp = document.querySelector(`input[name="q${q}"]`);
-            const ind = document.getElementById('ind' + q);
-            const qnum = document.getElementById('qnum' + q);
-            const val = (inp?.value || '').trim();
-            const flagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
-            
-            ind.classList.remove('answered', 'flagged');
-            qnum?.classList.remove('answered', 'flagged');
-            
-            if (flagged) {
-                ind.classList.add('flagged');
-                qnum?.classList.add('flagged');
-            } else if (val) {
-                ind.classList.add('answered');
-                qnum?.classList.add('answered');
-            }
+            const ind = document.getElementById('ind'+q);
+            const qnum = document.getElementById('qnum'+q);
+            const val = (inp?.value||'').trim();
+            const flagged = localStorage.getItem(`${passageId}_flag_${q}`)==='true';
+            ind.classList.remove('answered','flagged');
+            qnum?.classList.remove('answered','flagged');
+            if (flagged) { ind.classList.add('flagged'); qnum?.classList.add('flagged'); }
+            else if (val) { ind.classList.add('answered'); qnum?.classList.add('answered'); }
         });
     }
 
-    // ✅ 3. RIGHT-CLICK MENU: Highlight / Remove Highlight / Add Note
+    // ========== RIGHT-CLICK MENU ==========
     const contextMenu = document.getElementById('contextMenu');
     const passageText = document.getElementById('passageText');
 
-    // Show menu on right-click ONLY inside passage text
+    // Track which highlight was right-clicked
     document.addEventListener('contextmenu', e => {
-        if (!passageText.contains(e.target)) {
-            contextMenu.style.display = 'none';
+        clickedHighlightElement = null;
+        // Right-click ON a highlight → show only "Remove This Highlight"
+        if (e.target.classList && e.target.classList.contains('highlight')) {
+            clickedHighlightElement = e.target;
+            e.preventDefault();
+            currentSelection = null;
+            showMenuAt(e.clientX, e.clientY, true);
             return;
         }
+        // Right-click with text selected → show highlight options
         const sel = window.getSelection();
-        if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+        if (!passageText.contains(e.target) || sel.isCollapsed || !sel.toString().trim()) {
             contextMenu.style.display = 'none';
             return;
         }
         e.preventDefault();
         currentSelection = sel.getRangeAt(0);
-        const rect = currentSelection.getBoundingClientRect();
-        contextMenu.style.left = (rect.left + window.scrollX) + 'px';
-        contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
-        contextMenu.style.display = 'block';
+        showMenuAt(e.clientX, e.clientY, false);
     });
 
-    // Hide menu on click elsewhere
-    document.addEventListener('click', () => { contextMenu.style.display = 'none'; });
+    function showMenuAt(x, y, onHighlight) {
+        // Show/hide menu items based on what was clicked
+        document.getElementById('menuHighlight').style.display = onHighlight ? 'none' : 'block';
+        document.getElementById('menuRemoveHighlight').style.display = onHighlight ? 'block' : 'none';
+        document.getElementById('menuRemoveAllHighlights').style.display = 'block';
+        document.getElementById('menuAddNote').style.display = onHighlight ? 'none' : 'block';
 
-    // Highlight text
+        contextMenu.style.left = (x + 5) + 'px';
+        contextMenu.style.top = (y + 5) + 'px';
+        contextMenu.style.display = 'block';
+    }
+
+    // Hide menu when clicking elsewhere
+    document.addEventListener('click', () => {
+        contextMenu.style.display = 'none';
+        currentSelection = null;
+        clickedHighlightElement = null;
+    });
+
+    // ✅ Highlight Selection
     document.getElementById('menuHighlight').addEventListener('click', () => {
         if (!currentSelection) return;
         const span = document.createElement('span');
@@ -605,23 +603,36 @@
         currentSelection.deleteContents();
         currentSelection.insertNode(span);
         window.getSelection().removeAllRanges();
-        currentSelection = null;
         saveHighlights();
         contextMenu.style.display = 'none';
     });
 
-    // Remove Highlight
+    // ✅ Remove THIS Highlight (the one you right-clicked)
     document.getElementById('menuRemoveHighlight').addEventListener('click', () => {
+        if (!clickedHighlightElement) return;
+        const parent = clickedHighlightElement.parentNode;
+        parent.replaceChild(clickedHighlightElement, document.createTextNode(clickedHighlightElement.textContent));
+        parent.normalize();
+        saveHighlights();
+        contextMenu.style.display = 'none';
+        clickedHighlightElement = null;
+    });
+
+    // ✅ Remove ALL Highlights
+    document.getElementById('menuRemoveAllHighlights').addEventListener('click', () => {
+        removeAllHighlights();
+        contextMenu.style.display = 'none';
+    });
+    function removeAllHighlights() {
         passageText.querySelectorAll('.highlight').forEach(h => {
-            const parent = h.parentNode;
-            parent.replaceChild(h, document.createTextNode(h.textContent));
-            parent.normalize();
+            const p = h.parentNode;
+            p.replaceChild(h, document.createTextNode(h.textContent));
+            p.normalize();
         });
         saveHighlights();
-        contextMenu.style.display = 'none';
-    });
+    }
 
-    // Add Sticky Note
+    // ✅ Add Sticky Note
     document.getElementById('menuAddNote').addEventListener('click', () => {
         if (!currentSelection) return;
         const rect = currentSelection.getBoundingClientRect();
@@ -636,36 +647,78 @@
             </div>
             <textarea class="note-textarea" data-note="${noteId}" placeholder="Type note..."></textarea>
         `;
-        note.style.left = (rect.right + window.scrollX + 10) + 'px';
-        note.style.top = (rect.top + window.scrollY) + 'px';
+        note.style.left = (rect.right + 10) + 'px';
+        note.style.top = (rect.top) + 'px';
         document.body.appendChild(note);
-        
-        // Close note
         note.querySelector('.note-close').addEventListener('click', () => {
             note.remove();
             saveNotes();
         });
-        // Auto-save note text
         note.querySelector('textarea').addEventListener('input', e => {
             localStorage.setItem(`${passageId}_${noteId}`, e.target.value);
         });
-        
         window.getSelection().removeAllRanges();
-        currentSelection = null;
         saveNotes();
         contextMenu.style.display = 'none';
     });
 
-    // ✅ Save/Load Highlights
+    // ========== SAVE / LOAD HIGHLIGHTS (SAFE METHOD) ==========
     function saveHighlights() {
-        localStorage.setItem(`${passageId}_highlights`, passageText.innerHTML);
+        // Save ONLY the highlight positions — NOT raw HTML — to protect inputs
+        const highlights = [];
+        passageText.querySelectorAll('.highlight').forEach(h => {
+            highlights.push({
+                text: h.textContent,
+                index: getTextIndex(h)
+            });
+        });
+        localStorage.setItem(`${passageId}_highlights`, JSON.stringify(highlights));
+    }
+    function getTextIndex(element) {
+        const allText = getAllTextNodes(passageText);
+        let count = 0;
+        const targetText = element.textContent;
+        for (let i = 0; i < allText.length; i++) {
+            count += allText[i].length;
+            if (allText[i].textContent === element.firstChild?.textContent) {
+                return count - allText[i].length;
+            }
+        }
+        return -1;
+    }
+    function getAllTextNodes(el) {
+        const nodes = [];
+        (function getNodes(node) {
+            if (node.nodeType === Node.TEXT_NODE) nodes.push(node);
+            else for (let i = 0; i < node.childNodes.length; i++) getNodes(node.childNodes[i]);
+        })(el);
+        return nodes;
     }
     function loadHighlights() {
+        // Reload highlights WITHOUT breaking question inputs
         const saved = localStorage.getItem(`${passageId}_highlights`);
-        if (saved) passageText.innerHTML = saved;
+        if (!saved) return;
+        const highlights = JSON.parse(saved);
+        // Simple text-based restore
+        highlights.forEach(h => {
+            findAndHighlightText(h.text);
+        });
+    }
+    function findAndHighlightText(searchText) {
+        const paragraphs = passageText.querySelectorAll('p');
+        paragraphs.forEach(p => {
+            if (p.innerHTML.includes('class="highlight"')) return; // skip already highlighted
+            const regex = new RegExp(`(${escapeRegex(searchText)})`, 'gi');
+            if (p.innerHTML.match(regex)) {
+                p.innerHTML = p.innerHTML.replace(regex, '<span class="highlight">$1</span>');
+            }
+        });
+    }
+    function escapeRegex(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
-    // ✅ Save/Load Notes
+    // ========== SAVE / LOAD NOTES ==========
     function saveNotes() {
         const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
             id: n.id,
@@ -702,7 +755,7 @@
         });
     }
 
-    // ✅ FLAG SYSTEM
+    // ========== FLAGS ==========
     document.querySelectorAll('.flag-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             btn.classList.toggle('flagged');
@@ -714,13 +767,13 @@
     });
     function loadFlags() {
         Q_EXISTING.forEach(q => {
-            if (localStorage.getItem(`${passageId}_flag_${q}`) === 'true') {
+            if (localStorage.getItem(`${passageId}_flag_${q}`)==='true') {
                 document.querySelector(`.flag-btn[data-q="${q}"]`)?.classList.add('flagged');
             }
         });
     }
 
-    // ✅ SAVE/LOAD ANSWERS
+    // ========== SAVE / LOAD ANSWERS ==========
     function saveAnswers() {
         const ans = {};
         Q_EXISTING.forEach(q => {
@@ -740,7 +793,7 @@
         });
     }
 
-    // ✅ CHECK ANSWERS & SCORE
+    // ========== CHECK ANSWERS ==========
     window.checkAnswers = function() {
         saveAnswers();
         const box = document.getElementById('resultsBox');
@@ -748,20 +801,20 @@
         let html = '', score = 0;
         Q_EXISTING.forEach(q => {
             const inp = document.querySelector(`input[name="q${q}"]`);
-            const stu = ((inp?.value || '').trim().toUpperCase()).replace(/\s+/g, '');
-            const ans = (correctAnswers[`q${q}`] || '').toUpperCase().replace(/\s+/g, '');
+            const stu = ((inp?.value||'').trim().toUpperCase()).replace(/\s+/g,'');
+            const ans = (correctAnswers[`q${q}`]||'').toUpperCase().replace(/\s+/g,'');
             let st = '';
             if (!stu) st = '<span class="no-answer">(No Answer)</span>';
             else if (stu === ans) { st = '<span class="correct">✅ Correct</span>'; score++; }
             else st = '<span class="wrong">❌ Wrong</span>';
-            html += `<strong>${q}.</strong> ${stu || '-'} &nbsp; ${st}<br>`;
+            html += `<strong>${q}.</strong> ${stu||'-'} &nbsp; ${st}<br>`;
         });
         html += `<br><strong>Score: ${score} / ${Q_EXISTING.length}</strong>`;
         content.innerHTML = html;
         box.style.display = box.style.display === 'block' ? 'none' : 'block';
     };
 
-    // ✅ CLEAR ALL DATA
+    // ========== CLEAR ALL DATA ==========
     window.clearAllData = function() {
         if (!confirm('⚠️ Clear ALL answers, highlights, notes and flags? This cannot be undone!')) return;
         Q_EXISTING.forEach(q => {
@@ -770,10 +823,7 @@
             localStorage.removeItem(`${passageId}_flag_${q}`);
         });
         document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
-        passageText.querySelectorAll('.highlight').forEach(h => {
-            h.parentNode.replaceChild(h, document.createTextNode(h.textContent));
-            h.parentNode.normalize();
-        });
+        removeAllHighlights();
         document.querySelectorAll('.sticky-note').forEach(n => n.remove());
         localStorage.removeItem(`${passageId}_answers`);
         localStorage.removeItem(`${passageId}_highlights`);
@@ -783,14 +833,12 @@
         alert('✅ ALL DATA CLEARED!');
     };
 
-    // ✅ AUTO-SAVE WHILE TYPING
+    // Auto-save on typing
     document.addEventListener('input', e => {
-        if (e.target.name?.startsWith('q') || e.target.classList.contains('note-textarea')) {
-            saveAnswers();
-        }
+        if (e.target.name?.startsWith('q')) saveAnswers();
     });
 
-    // ✅ INITIALIZE EVERYTHING
+    // ========== INITIALIZE ==========
     window.onload = function() {
         initIndicators();
         loadAnswers();
