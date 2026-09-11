@@ -5,348 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reading Passage 3 — Cambridge 11 Test 1</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-        }
-        body {
-            background-color: #fef2f2;
-            color: #1a1a1a;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        .page-header {
-            background: #ffffff;
-            padding: 15px 30px;
-            border-bottom: 2px solid #dc2626;
-        }
-        .page-header h1 {
-            font-size: 20px;
-            color: #dc2626;
-            margin-bottom: 4px;
-        }
-        .page-header p {
-            font-size: 14px;
-            color: #7f1d1d;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #fef2f2; min-height: 100vh; display: flex; flex-direction: column; }
 
-        /* ✅ SEPARATE SCROLLABLE COLUMNS — EXACTLY LIKE YOUR ORIGINAL */
+        .page-header {
+            background: #fff; padding: 15px 30px; border-bottom: 2px solid #dc2626;
+        }
+        .page-header h1 { font-size: 20px; color: #dc2626; margin-bottom: 4px; }
+        .page-header p { font-size: 14px; color: #7f1d1d; }
+
+        /* ==============================================
+           ✅ EXACT COLUMN LAYOUT — SEPARATE SCROLLBARS
+           ============================================== */
         .content-wrapper {
-            display: flex;
-            gap: 18px;
-            padding: 18px;
-            flex: 1;
-            height: calc(100vh - 260px); /* Fixed height = independent scroll */
-            overflow: hidden; /* Prevent page from scrolling */
+            display: flex; gap: 18px; padding: 18px; flex: 1;
+            height: calc(100vh - 220px);
+            overflow: hidden;
         }
         .passage-column, .questions-column {
-            flex: 1;
-            background: #ffffff;
-            border-radius: 10px;
-            border: 1px solid #fecaca;
-            padding: 18px;
-            overflow-y: auto; /* ✅ OWN SCROLLBAR PER COLUMN */
-            scrollbar-width: thin;
-            scrollbar-color: #dc2626 #fef2f2;
-            position: relative;
+            flex: 1; background: #fff; border-radius: 10px;
+            border: 1px solid #fecaca; padding: 18px;
+            overflow-y: scroll; /* ✅ ALWAYS SHOW SCROLLBAR — EXACT LIKE SAMPLE */
         }
-        /* ✅ SCROLLBAR STYLING — ALWAYS VISIBLE */
+        /* Scrollbar styling */
         .passage-column::-webkit-scrollbar,
-        .questions-column::-webkit-scrollbar {
-            width: 12px;
-            display: block;
-        }
+        .questions-column::-webkit-scrollbar { width: 12px; }
         .passage-column::-webkit-scrollbar-track,
-        .questions-column::-webkit-scrollbar-track {
-            background: #fef2f2;
-            border-radius: 6px;
-        }
+        .questions-column::-webkit-scrollbar-track { background: #fef2f2; border-radius: 6px; }
         .passage-column::-webkit-scrollbar-thumb,
-        .questions-column::-webkit-scrollbar-thumb {
-            background: #dc2626;
-            border-radius: 6px;
-            border: 2px solid #fef2f2;
-        }
+        .questions-column::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 6px; border: 2px solid #fef2f2; }
 
-        .passage-column h2 {
-            text-align: center;
-            font-size: 20px;
-            color: #dc2626;
-            margin-bottom: 16px;
-            line-height: 1.3;
-        }
-        .passage-text p {
-            margin-bottom: 12px;
-            font-size: 15px;
-            line-height: 1.7;
-        }
+        .passage-column h2 { text-align: center; font-size: 20px; color: #dc2626; margin-bottom: 16px; line-height: 1.3; }
+        .passage-text p { margin-bottom: 12px; font-size: 15px; line-height: 1.7; }
         .passage-text strong { color: #991b1b; }
+
+        /* ✅ HIGHLIGHT — EXACT STYLE */
         .highlight {
             background-color: #ffd700;
-            padding: 1px 3px;
-            border-radius: 2px;
-            display: inline;
+            padding: 1px 3px; border-radius: 2px; display: inline;
         }
 
-        .questions-column h3 {
-            font-size: 16px;
-            color: #991b1b;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #fecaca;
-        }
-        .instruction {
-            font-size: 13px;
-            color: #7f1d1d;
-            margin-bottom: 14px;
-            line-height: 1.5;
-        }
+        .questions-column h3 { font-size: 16px; color: #991b1b; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #fecaca; }
+        .instruction { font-size: 13px; color: #7f1d1d; margin-bottom: 14px; line-height: 1.5; }
         .question-group { margin-bottom: 24px; }
-        .question-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            padding: 6px 8px;
-            border-radius: 6px;
-            transition: background 0.2s;
-        }
+        .question-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; padding: 6px 8px; border-radius: 6px; }
         .question-row:hover { background: #fef2f2; }
-        .q-number {
-            font-weight: 700;
-            color: #dc2626;
-            min-width: 28px;
-        }
-        .q-number.answered {
-            background: #198754;
-            color: white;
-            padding: 0 4px;
-            border-radius: 4px;
-        }
-        .q-number.flagged {
-            background: #fd7e14;
-            color: white;
-            padding: 0 4px;
-            border-radius: 4px;
-        }
-        .q-text {
-            flex: 1;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        .flag-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            color: #ccc;
-        }
+        .q-number { font-weight: 700; color: #dc2626; min-width: 28px; }
+        .q-number.answered { background: #198754; color: #fff; padding: 0 4px; border-radius: 4px; }
+        .q-number.flagged { background: #fd7e14; color: #fff; padding: 0 4px; border-radius: 4px; }
+        .q-text { flex: 1; font-size: 14px; line-height: 1.5; }
+        .flag-btn { background: none; border: none; cursor: pointer; font-size: 16px; color: #ccc; }
         .flag-btn.flagged { color: #fd7e14; }
-        .answer-input {
-            padding: 6px 10px;
-            border: 1px solid #fecaca;
-            border-radius: 5px;
-            font-size: 14px;
-            background: #fef2f2;
-            outline: none;
-            width: 110px;
-            text-transform: uppercase;
-        }
-        .answer-input:focus {
-            border-color: #dc2626;
-            background: #fff;
-        }
-        .match-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 12px 0;
-            font-size: 14px;
-        }
-        .match-table th, .match-table td {
-            border: 1px solid #fecaca;
-            padding: 10px;
-            text-align: left;
-        }
-        .match-table th {
-            background: #fef2f2;
-            color: #991b1b;
-        }
+        .answer-input { padding: 6px 10px; border: 1px solid #fecaca; border-radius: 5px; font-size: 14px; background: #fef2f2; outline: none; width: 110px; text-transform: uppercase; }
+        .answer-input:focus { border-color: #dc2626; background: #fff; }
+        .match-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+        .match-table th, .match-table td { border: 1px solid #fecaca; padding: 10px; text-align: left; }
+        .match-table th { background: #fef2f2; color: #991b1b; }
         .table-input { width: 90px; }
-        .list-box {
-            border: 1px solid #fecaca;
-            border-radius: 8px;
-            padding: 12px;
-            background: #fef2f2;
-            margin: 10px 0;
-        }
-        .list-box h4 {
-            color: #dc2626;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
+        .list-box { border: 1px solid #fecaca; border-radius: 8px; padding: 12px; background: #fef2f2; margin: 10px 0; }
+        .list-box h4 { color: #dc2626; margin-bottom: 8px; font-size: 14px; }
 
-        /* ✅ RIGHT-CLICK MENU */
+        /* ✅ RIGHT-CLICK MENU — EXACT BEHAVIOR */
         .context-menu {
-            position: absolute;
-            background: #ffffff;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            z-index: 99999;
-            display: none;
-            min-width: 160px;
+            position: fixed; background: #fff; border: 1px solid #999;
+            border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 99999; display: none; min-width: 180px;
         }
-        .context-menu div {
-            padding: 10px 12px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+        .context-menu div { padding: 10px 14px; cursor: pointer; font-size: 14px; }
         .context-menu div:hover { background: #fef2f2; }
 
-        /* ✅ STICKY NOTES */
-        .sticky-note {
-            position: absolute;
-            width: 170px;
-            min-height: 65px;
-            background: #fff380;
-            border: 1px solid #e6c200;
-            border-radius: 4px;
-            padding: 6px;
-            box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
-            z-index: 99998;
-            font-size: 12px;
-        }
-        .note-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            margin-bottom: 4px;
-            font-size: 11px;
-            color: #886a00;
-        }
-        .note-close {
-            cursor: pointer;
-            font-weight: bold;
-            color: #886a00;
-        }
-        .note-textarea {
-            width: 100%;
-            height: 45px;
-            border: none;
-            background: transparent;
-            resize: none;
-            outline: none;
-            font-family: inherit;
-            font-size: 12px;
-        }
-
-        .bottom-area {
-            padding: 12px 20px;
-            background: #fff;
-            border-top: 2px solid #fecaca;
-        }
-        .question-nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-        .q-indicator {
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            background: #eee;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .q-indicator.answered {
-            background: #198754;
-            color: white;
-            border-color: #198754;
-        }
-        .q-indicator.flagged {
-            background: #fd7e14;
-            color: white;
-            border-color: #fd7e14;
-        }
+        .bottom-area { padding: 12px 20px; background: #fff; border-top: 2px solid #fecaca; }
+        .question-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+        .q-indicator { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 4px; border: 1px solid #ddd; background: #eee; font-size: 12px; font-weight: 600; cursor: pointer; }
+        .q-indicator.answered { background: #198754; color: #fff; border-color: #198754; }
+        .q-indicator.flagged { background: #fd7e14; color: #fff; border-color: #fd7e14; }
         .q-indicator.current { border: 2px solid #dc2626; }
         .q-indicator.disabled { opacity: 0.35; cursor: default; }
-
-        .button-bar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-        .check-answers, .clear-all-data {
-            padding: 8px 18px;
-            border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .check-answers { background: #16a34a; color: white; }
-        .check-answers:hover { background: #15803d; }
-        .clear-all-data { background: #dc2626; color: white; }
-        .clear-all-data:hover { background: #b91c1c; }
-        .results-box {
-            margin-top: 12px;
-            padding: 12px;
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            border-radius: 6px;
-            display: none;
-            font-size: 14px;
-        }
+        .button-bar { display: flex; gap: 10px; margin-bottom: 12px; }
+        .check-answers, .clear-all-data { padding: 8px 18px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
+        .check-answers { background: #16a34a; color: #fff; }
+        .clear-all-data { background: #dc2626; color: #fff; }
+        .results-box { margin-top: 12px; padding: 12px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; display: none; font-size: 14px; }
         .correct { color: green; font-weight: 600; }
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
-
-        .nav-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 20px;
-            background: #fff;
-            border-top: 1px solid #fecaca;
-        }
-        .nav-btn {
-            padding: 10px 20px;
-            background: #dc2626;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .nav-btn:hover { background: #b91c1c; }
+        .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: #fff; border-top: 1px solid #fecaca; }
+        .nav-btn, .passage-tab { padding: 10px 20px; background: #dc2626; color: #fff; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; }
+        .nav-btn:hover, .passage-tab:hover { background: #b91c1c; }
         .passage-tabs { display: flex; gap: 8px; }
-        .passage-tab {
-            padding: 8px 16px;
-            background: #fef2f2;
-            color: #991b1b;
-            border: 1px solid #fecaca;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        .passage-tab.active {
-            background: #dc2626;
-            color: white;
-            border-color: #dc2626;
-        }
+        .passage-tab { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+        .passage-tab.active { background: #dc2626; color: #fff; border-color: #dc2626; }
 
         @media (max-width: 900px) {
             .content-wrapper { flex-direction: column; height: auto; }
@@ -355,21 +103,22 @@
     </style>
 </head>
 <body>
-    <!-- RIGHT-CLICK MENU -->
-    <div class="context-menu" id="contextMenu">
+
+    <!-- ✅ RIGHT-CLICK MENU -->
+    <div class="context-menu" id="ctxMenu">
         <div id="menuHighlight">✅ Highlight Selection</div>
-        <div id="menuRemoveHighlight">❌ Remove This Highlight</div>
-        <div id="menuRemoveAllHighlights">🧹 Remove All Highlights</div>
-        <div id="menuAddNote">📝 Add Sticky Note</div>
+        <div id="menuRemoveOne">❌ Remove This Highlight</div>
+        <div id="menuRemoveAll">🧹 Remove All Highlights</div>
     </div>
 
     <div class="page-header">
         <h1>READING PASSAGE 3 — Cambridge 11 Test 1</h1>
         <p>You should spend about 20 minutes on Questions 27–40, which are based on Reading Passage 3 below.</p>
     </div>
+
     <div class="content-wrapper">
-        <!-- LEFT: PASSAGE WITH OWN SCROLLBAR -->
-        <div class="passage-column" id="passageColumn">
+        <!-- LEFT: PASSAGE — OWN SCROLLBAR -->
+        <div class="passage-column" id="passageCol">
             <h2>Reducing the Effects of Climate Change<br>being explored by scientists</h2>
             <div class="passage-text" id="passageText">
                 <p><strong>A</strong> Such is our dependence on fossil fuels, and such is the volume of carbon dioxide already released into the atmosphere, that many experts agree that significant global warming is inevitable. They believe that the best we can do is keep it at a reasonable level, and at present the only serious option for doing this is cutting back on carbon emissions. But while a few countries are making major strides in this regard, the majority are having great difficulty even stemming the rate of increase, let alone reversing it. Consequently, an increasing number of scientists are beginning to explore the alternative of geo-engineering — a term which generally refers to the intentional large-scale manipulation of the environment. According to its proponents, geo-engineering is the equivalent of a backup generator: if Plan A — reducing our dependency on fossil fuels — fails, we require a Plan B, employing grand schemes to slow down or reverse the process of global warming.</p>
@@ -382,97 +131,40 @@
                 <p><strong>H</strong> The main reason why geo-engineering is supported by many in the scientific community is that most researchers have little faith in the ability of politicians to agree — and then bring in — the necessary carbon cuts. Even leading conservation organisations see the value of investigating the potential of geo-engineering. According to Dr Martin Sommerkorn, climate change advisor for the World Wildlife Fund's International Arctic Programme, 'Human-induced climate change has brought humanity to a position where we shouldn't exclude thinking thoroughly about this topic and its possibilities.'</p>
             </div>
         </div>
-        <!-- RIGHT: QUESTIONS WITH OWN SCROLLBAR -->
+
+        <!-- RIGHT: QUESTIONS — OWN SCROLLBAR -->
         <div class="questions-column">
             <h3>Questions 27–40</h3>
             <div class="question-group">
                 <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 27–29</h4>
                 <p class="instruction">Reading Passage 3 has eight paragraphs <strong>A–H</strong>.<br>Which paragraph contains the following information?<br>Write the correct letter, <strong>A–H</strong>, in boxes 27–29 on your answer sheet.</p>
-                <div class="question-row" id="q27">
-                    <span class="q-number" id="qnum27">27</span>
-                    <span class="q-text">mention of a geo-engineering project based on an earlier natural phenomenon</span>
-                    <input type="text" class="answer-input" name="q27" placeholder="A–H" maxlength="1" autocomplete="off">
-                    <button class="flag-btn" data-q="27">🚩</button>
-                </div>
-                <div class="question-row" id="q28">
-                    <span class="q-number" id="qnum28">28</span>
-                    <span class="q-text">an example of a successful use of geo-engineering</span>
-                    <input type="text" class="answer-input" name="q28" placeholder="A–H" maxlength="1" autocomplete="off">
-                    <button class="flag-btn" data-q="28">🚩</button>
-                </div>
-                <div class="question-row" id="q29">
-                    <span class="q-number" id="qnum29">29</span>
-                    <span class="q-text">a common definition of geo-engineering</span>
-                    <input type="text" class="answer-input" name="q29" placeholder="A–H" maxlength="1" autocomplete="off">
-                    <button class="flag-btn" data-q="29">🚩</button>
-                </div>
+                <div class="question-row"><span class="q-number">27</span><span class="q-text">mention of a geo-engineering project based on an earlier natural phenomenon</span><input type="text" class="answer-input" name="q27" placeholder="A–H" maxlength="1"><button class="flag-btn" data-q="27">🚩</button></div>
+                <div class="question-row"><span class="q-number">28</span><span class="q-text">an example of a successful use of geo-engineering</span><input type="text" class="answer-input" name="q28" placeholder="A–H" maxlength="1"><button class="flag-btn" data-q="28">🚩</button></div>
+                <div class="question-row"><span class="q-number">29</span><span class="q-text">a common definition of geo-engineering</span><input type="text" class="answer-input" name="q29" placeholder="A–H" maxlength="1"><button class="flag-btn" data-q="29">🚩</button></div>
             </div>
             <div class="question-group">
                 <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 30–36</h4>
                 <p class="instruction">Complete the table below.<br>Choose <strong>ONE WORD</strong> from the passage for each answer.</p>
                 <table class="match-table">
-                    <thead>
-                        <tr><th>Procedure</th><th>Aim</th></tr>
-                    </thead>
+                    <thead><tr><th>Procedure</th><th>Aim</th></tr></thead>
                     <tbody>
-                        <tr id="q30">
-                            <td>put a large number of tiny spacecraft into orbit far above Earth</td>
-                            <td>to create a <strong>30</strong> <input type="text" class="answer-input table-input" name="q30" autocomplete="off"> that would reduce the amount of light reaching Earth</td>
-                        </tr>
-                        <tr id="q31">
-                            <td>place <strong>31</strong> <input type="text" class="answer-input table-input" name="q31" autocomplete="off"> in the sea</td>
-                            <td>to encourage <strong>32</strong> <input type="text" class="answer-input table-input" name="q32" autocomplete="off"> to form</td>
-                        </tr>
-                        <tr id="q33">
-                            <td>release aerosol sprays into the stratosphere</td>
-                            <td>to create <strong>33</strong> <input type="text" class="answer-input table-input" name="q33" autocomplete="off"> that would reduce the amount of light reaching Earth</td>
-                        </tr>
-                        <tr id="q34">
-                            <td>fix strong <strong>34</strong> <input type="text" class="answer-input table-input" name="q34" autocomplete="off"> to Greenland ice sheets</td>
-                            <td>to prevent icebergs moving into the sea</td>
-                        </tr>
-                        <tr id="q35">
-                            <td>plant trees in Russian Arctic that would lose their leaves in winter</td>
-                            <td>to allow the <strong>35</strong> <input type="text" class="answer-input table-input" name="q35" autocomplete="off"> to reflect radiation</td>
-                        </tr>
-                        <tr id="q36">
-                            <td>change the direction of <strong>36</strong> <input type="text" class="answer-input table-input" name="q36" autocomplete="off"></td>
-                            <td>to bring more cold water into ice-forming areas</td>
-                        </tr>
+                        <tr><td>put a large number of tiny spacecraft into orbit far above Earth</td><td>to create a <strong>30</strong> <input type="text" class="answer-input table-input" name="q30"> that would reduce the amount of light reaching Earth</td></tr>
+                        <tr><td>place <strong>31</strong> <input type="text" class="answer-input table-input" name="q31"> in the sea</td><td>to encourage <strong>32</strong> <input type="text" class="answer-input table-input" name="q32"> to form</td></tr>
+                        <tr><td>release aerosol sprays into the stratosphere</td><td>to create <strong>33</strong> <input type="text" class="answer-input table-input" name="q33"> that would reduce the amount of light reaching Earth</td></tr>
+                        <tr><td>fix strong <strong>34</strong> <input type="text" class="answer-input table-input" name="q34"> to Greenland ice sheets</td><td>to prevent icebergs moving into the sea</td></tr>
+                        <tr><td>plant trees in Russian Arctic that would lose their leaves in winter</td><td>to allow the <strong>35</strong> <input type="text" class="answer-input table-input" name="q35"> to reflect radiation</td></tr>
+                        <tr><td>change the direction of <strong>36</strong> <input type="text" class="answer-input table-input" name="q36"></td><td>to bring more cold water into ice-forming areas</td></tr>
                     </tbody>
                 </table>
             </div>
             <div class="question-group">
                 <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 37–40</h4>
                 <p class="instruction">Look at the following statements (Questions 37–40) and the list of scientists below.<br>Match each statement with the correct scientist, <strong>A–D</strong>.</p>
-                <div class="list-box">
-                    <h4>List of Scientists</h4>
-                    <p><strong>A</strong> Roger Angel<br><strong>B</strong> Phil Rasch<br><strong>C</strong> Dan Lunt<br><strong>D</strong> Martin Sommerkorn</p>
-                </div>
-                <div class="question-row" id="q37">
-                    <span class="q-number" id="qnum37">37</span>
-                    <span class="q-text">The effects of geo-engineering may not be long-lasting.</span>
-                    <input type="text" class="answer-input" name="q37" placeholder="A–D" maxlength="1" autocomplete="off">
-                    <button class="flag-btn" data-q="37">🚩</button>
-                </div>
-                <div class="question-row" id="q38">
-                    <span class="q-number" id="qnum38">38</span>
-                    <span class="q-text">Geo-engineering is a topic worth exploring.</span>
-                    <input type="text" class="answer-input" name="q38" placeholder="A–D" maxlength="1" autocomplete="off">
-                    <button class="flag-btn" data-q="38">🚩</button>
-                </div>
-                <div class="question-row" id="q39">
-                    <span class="q-number" id="qnum39">39</span>
-                    <span class="q-text">It may be necessary to limit the effectiveness of geo-engineering projects.</span>
-                    <input type="text" class="answer-input" name="q39" placeholder="A–D" maxlength="1" autocomplete="off">
-                    <button class="flag-btn" data-q="39">🚩</button>
-                </div>
-                <div class="question-row" id="q40">
-                    <span class="q-number" id="qnum40">40</span>
-                    <span class="q-text">Research into non-fossil-based fuels cannot be replaced by geo-engineering.</span>
-                    <input type="text" class="answer-input" name="q40" placeholder="A–D" maxlength="1" autocomplete="off">
-                    <button class="flag-btn" data-q="40">🚩</button>
-                </div>
+                <div class="list-box"><h4>List of Scientists</h4><p><strong>A</strong> Roger Angel<br><strong>B</strong> Phil Rasch<br><strong>C</strong> Dan Lunt<br><strong>D</strong> Martin Sommerkorn</p></div>
+                <div class="question-row"><span class="q-number">37</span><span class="q-text">The effects of geo-engineering may not be long-lasting.</span><input type="text" class="answer-input" name="q37" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="37">🚩</button></div>
+                <div class="question-row"><span class="q-number">38</span><span class="q-text">Geo-engineering is a topic worth exploring.</span><input type="text" class="answer-input" name="q38" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="38">🚩</button></div>
+                <div class="question-row"><span class="q-number">39</span><span class="q-text">It may be necessary to limit the effectiveness of geo-engineering projects.</span><input type="text" class="answer-input" name="q39" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="39">🚩</button></div>
+                <div class="question-row"><span class="q-number">40</span><span class="q-text">Research into non-fossil-based fuels cannot be replaced by geo-engineering.</span><input type="text" class="answer-input" name="q40" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="40">🚩</button></div>
             </div>
         </div>
     </div>
@@ -483,10 +175,7 @@
             <button class="check-answers" onclick="checkAnswers()">✅ Check Answers</button>
             <button class="clear-all-data" onclick="clearAllData()">🗑️ Clear All Data</button>
         </div>
-        <div class="results-box" id="resultsBox">
-            <h4 style="color:#dc2626; margin-bottom:8px;">📝 Your Results</h4>
-            <div id="resultsContent"></div>
-        </div>
+        <div class="results-box" id="resultsBox"></div>
     </div>
 
     <div class="nav-bar">
@@ -500,353 +189,204 @@
     </div>
 
 <script>
-    const passageId = 'C11T1P3';
-    const ALL_QUESTIONS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
-                           21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40];
-    const Q_EXISTING = [27,28,29,30,31,32,33,34,35,36,37,38,39,40];
-    const correctAnswers = {
-        q27:'D',q28:'B',q29:'A',q30:'sunshade',q31:'iron',q32:'algae',
-        q33:'clouds',q34:'cables',q35:'snow',q36:'rivers',q37:'B',q38:'D',q39:'C',q40:'A'
-    };
+const passageId = 'C11T1P3';
+const Q_EXISTING = [27,28,29,30,31,32,33,34,35,36,37,38,39,40];
+const correctAnswers = {
+    q27:'D',q28:'B',q29:'A',q30:'sunshade',q31:'iron',q32:'algae',
+    q33:'clouds',q34:'cables',q35:'snow',q36:'rivers',q37:'B',q38:'D',q39:'C',q40:'A'
+};
 
-    let currentSelection = null;
-    let clickedHighlightElement = null;
-    let noteCounter = 0;
+const ctxMenu = document.getElementById('ctxMenu');
+const passageText = document.getElementById('passageText');
+let savedRange = null;
+let targetHighlight = null;
 
-    // ========== NAVIGATION 1-40 ==========
-    function initIndicators() {
-        const nav = document.getElementById('qNav');
-        ALL_QUESTIONS.forEach(q => {
-            const b = document.createElement('span');
-            b.className = 'q-indicator';
-            b.textContent = q;
-            b.id = 'ind' + q;
-            if (!Q_EXISTING.includes(q)) {
-                b.classList.add('disabled');
-                b.title = 'Not in this passage';
-            } else {
-                b.onclick = () => jumpToQuestion(q);
-            }
-            nav.appendChild(b);
-        });
-    }
-    function jumpToQuestion(q) {
-        document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
-        document.getElementById('ind'+q)?.classList.add('current');
-        document.getElementById('q'+q)?.scrollIntoView({behavior:'smooth', block:'start'});
-    }
-    function updateIndicators() {
-        Q_EXISTING.forEach(q => {
-            const inp = document.querySelector(`input[name="q${q}"]`);
-            const ind = document.getElementById('ind'+q);
-            const qnum = document.getElementById('qnum'+q);
-            const val = (inp?.value||'').trim();
-            const flagged = localStorage.getItem(`${passageId}_flag_${q}`)==='true';
-            ind.classList.remove('answered','flagged');
-            qnum?.classList.remove('answered','flagged');
-            if (flagged) { ind.classList.add('flagged'); qnum?.classList.add('flagged'); }
-            else if (val) { ind.classList.add('answered'); qnum?.classList.add('answered'); }
-        });
-    }
+// ==============================================
+// ✅ RIGHT-CLICK LOGIC — EXACT BEHAVIOR FROM SAMPLE
+// ==============================================
+document.addEventListener('contextmenu', e => {
+    savedRange = null;
+    targetHighlight = null;
 
-    // ========== RIGHT-CLICK MENU ==========
-    const contextMenu = document.getElementById('contextMenu');
-    const passageText = document.getElementById('passageText');
-
-    // Track which highlight was right-clicked
-    document.addEventListener('contextmenu', e => {
-        clickedHighlightElement = null;
-        // Right-click ON a highlight → show only "Remove This Highlight"
-        if (e.target.classList && e.target.classList.contains('highlight')) {
-            clickedHighlightElement = e.target;
-            e.preventDefault();
-            currentSelection = null;
-            showMenuAt(e.clientX, e.clientY, true);
-            return;
-        }
-        // Right-click with text selected → show highlight options
-        const sel = window.getSelection();
-        if (!passageText.contains(e.target) || sel.isCollapsed || !sel.toString().trim()) {
-            contextMenu.style.display = 'none';
-            return;
-        }
+    // CASE A: Right-click ON existing highlight → show Remove This Highlight
+    if (e.target.classList.contains('highlight')) {
         e.preventDefault();
-        currentSelection = sel.getRangeAt(0);
-        showMenuAt(e.clientX, e.clientY, false);
-    });
-
-    function showMenuAt(x, y, onHighlight) {
-        // Show/hide menu items based on what was clicked
-        document.getElementById('menuHighlight').style.display = onHighlight ? 'none' : 'block';
-        document.getElementById('menuRemoveHighlight').style.display = onHighlight ? 'block' : 'none';
-        document.getElementById('menuRemoveAllHighlights').style.display = 'block';
-        document.getElementById('menuAddNote').style.display = onHighlight ? 'none' : 'block';
-
-        contextMenu.style.left = (x + 5) + 'px';
-        contextMenu.style.top = (y + 5) + 'px';
-        contextMenu.style.display = 'block';
+        targetHighlight = e.target;
+        document.getElementById('menuHighlight').style.display = 'none';
+        document.getElementById('menuRemoveOne').style.display = 'block';
+        document.getElementById('menuRemoveAll').style.display = 'block';
+        showMenuAt(e.clientX, e.clientY);
+        return;
     }
 
-    // Hide menu when clicking elsewhere
-    document.addEventListener('click', () => {
-        contextMenu.style.display = 'none';
-        currentSelection = null;
-        clickedHighlightElement = null;
-    });
-
-    // ✅ Highlight Selection
-    document.getElementById('menuHighlight').addEventListener('click', () => {
-        if (!currentSelection) return;
-        const span = document.createElement('span');
-        span.className = 'highlight';
-        span.textContent = currentSelection.toString();
-        currentSelection.deleteContents();
-        currentSelection.insertNode(span);
-        window.getSelection().removeAllRanges();
-        saveHighlights();
-        contextMenu.style.display = 'none';
-    });
-
-    // ✅ Remove THIS Highlight (the one you right-clicked)
-    document.getElementById('menuRemoveHighlight').addEventListener('click', () => {
-        if (!clickedHighlightElement) return;
-        const parent = clickedHighlightElement.parentNode;
-        parent.replaceChild(clickedHighlightElement, document.createTextNode(clickedHighlightElement.textContent));
-        parent.normalize();
-        saveHighlights();
-        contextMenu.style.display = 'none';
-        clickedHighlightElement = null;
-    });
-
-    // ✅ Remove ALL Highlights
-    document.getElementById('menuRemoveAllHighlights').addEventListener('click', () => {
-        removeAllHighlights();
-        contextMenu.style.display = 'none';
-    });
-    function removeAllHighlights() {
-        passageText.querySelectorAll('.highlight').forEach(h => {
-            const p = h.parentNode;
-            p.replaceChild(h, document.createTextNode(h.textContent));
-            p.normalize();
-        });
-        saveHighlights();
+    // CASE B: Text selected → show Highlight
+    const sel = window.getSelection();
+    if (passageText.contains(e.target) && !sel.isCollapsed && sel.toString().trim()) {
+        e.preventDefault();
+        savedRange = sel.getRangeAt(0).cloneRange();
+        document.getElementById('menuHighlight').style.display = 'block';
+        document.getElementById('menuRemoveOne').style.display = 'none';
+        document.getElementById('menuRemoveAll').style.display = 'block';
+        showMenuAt(e.clientX, e.clientY);
+        return;
     }
 
-    // ✅ Add Sticky Note
-    document.getElementById('menuAddNote').addEventListener('click', () => {
-        if (!currentSelection) return;
-        const rect = currentSelection.getBoundingClientRect();
-        noteCounter++;
-        const noteId = 'note_' + noteCounter;
-        const note = document.createElement('div');
-        note.className = 'sticky-note';
-        note.id = noteId;
-        note.innerHTML = `
-            <div class="note-header">Note 
-                <span class="note-close" data-note="${noteId}">×</span>
-            </div>
-            <textarea class="note-textarea" data-note="${noteId}" placeholder="Type note..."></textarea>
-        `;
-        note.style.left = (rect.right + 10) + 'px';
-        note.style.top = (rect.top) + 'px';
-        document.body.appendChild(note);
-        note.querySelector('.note-close').addEventListener('click', () => {
-            note.remove();
-            saveNotes();
-        });
-        note.querySelector('textarea').addEventListener('input', e => {
-            localStorage.setItem(`${passageId}_${noteId}`, e.target.value);
-        });
-        window.getSelection().removeAllRanges();
-        saveNotes();
-        contextMenu.style.display = 'none';
-    });
+    // CASE C: Else hide menu
+    ctxMenu.style.display = 'none';
+});
 
-    // ========== SAVE / LOAD HIGHLIGHTS (SAFE METHOD) ==========
-    function saveHighlights() {
-        // Save ONLY the highlight positions — NOT raw HTML — to protect inputs
-        const highlights = [];
-        passageText.querySelectorAll('.highlight').forEach(h => {
-            highlights.push({
-                text: h.textContent,
-                index: getTextIndex(h)
-            });
-        });
-        localStorage.setItem(`${passageId}_highlights`, JSON.stringify(highlights));
+function showMenuAt(x, y) {
+    ctxMenu.style.left = (x + 5) + 'px';
+    ctxMenu.style.top = (y + 5) + 'px';
+    ctxMenu.style.display = 'block';
+}
+
+// Hide menu when clicking anywhere
+document.addEventListener('click', () => {
+    ctxMenu.style.display = 'none';
+    targetHighlight = null;
+    savedRange = null;
+});
+
+// ✅ 1. HIGHLIGHT SELECTED TEXT
+document.getElementById('menuHighlight').addEventListener('click', () => {
+    if (!savedRange) return;
+    const span = document.createElement('span');
+    span.className = 'highlight';
+    try {
+        savedRange.surroundContents(span);
+    } catch(err) {
+        // Fallback for cross-element selection
+        span.textContent = savedRange.toString();
+        savedRange.deleteContents();
+        savedRange.insertNode(span);
     }
-    function getTextIndex(element) {
-        const allText = getAllTextNodes(passageText);
-        let count = 0;
-        const targetText = element.textContent;
-        for (let i = 0; i < allText.length; i++) {
-            count += allText[i].length;
-            if (allText[i].textContent === element.firstChild?.textContent) {
-                return count - allText[i].length;
-            }
+    window.getSelection().removeAllRanges();
+    ctxMenu.style.display = 'none';
+    saveAllHighlights();
+});
+
+// ✅ 2. REMOVE THIS HIGHLIGHT — RIGHT-CLICKED ONE ONLY
+document.getElementById('menuRemoveOne').addEventListener('click', () => {
+    if (!targetHighlight) return;
+    const parent = targetHighlight.parentNode;
+    parent.replaceChild(targetHighlight, document.createTextNode(targetHighlight.textContent));
+    parent.normalize();
+    ctxMenu.style.display = 'none';
+    targetHighlight = null;
+    saveAllHighlights();
+});
+
+// ✅ 3. REMOVE ALL HIGHLIGHTS
+document.getElementById('menuRemoveAll').addEventListener('click', () => {
+    document.querySelectorAll('.highlight').forEach(h => {
+        const p = h.parentNode;
+        p.replaceChild(h, document.createTextNode(h.textContent));
+        p.normalize();
+    });
+    ctxMenu.style.display = 'none';
+    saveAllHighlights();
+});
+
+// ==============================================
+// ✅ SIMPLE SAVE/LOAD — NO BREAKING OF ANSWERS
+// ==============================================
+function saveAllHighlights() {
+    const data = [];
+    document.querySelectorAll('.highlight').forEach(h => {
+        data.push({ text: h.textContent });
+    });
+    localStorage.setItem(`${passageId}_hl`, JSON.stringify(data));
+}
+
+// ==============================================
+// ✅ ANSWER SAVE/LOAD / FLAGS / CHECK ANSWERS
+// ==============================================
+function saveAnswers() {
+    const ans = {};
+    Q_EXISTING.forEach(q => {
+        const inp = document.querySelector(`input[name="q${q}"]`);
+        if (inp) ans[`q${q}`] = inp.value;
+    });
+    localStorage.setItem(`${passageId}_ans`, JSON.stringify(ans));
+}
+
+function loadAnswers() {
+    const saved = localStorage.getItem(`${passageId}_ans`);
+    if (!saved) return;
+    const ans = JSON.parse(saved);
+    Q_EXISTING.forEach(q => {
+        const inp = document.querySelector(`input[name="q${q}"]`);
+        if (inp && ans[`q${q}`]) inp.value = ans[`q${q}`];
+    });
+}
+
+// Auto-save answers when typing
+document.addEventListener('input', e => {
+    if (e.target.name && e.target.name.startsWith('q')) saveAnswers();
+});
+
+// Check Answers
+window.checkAnswers = function() {
+    saveAnswers();
+    const box = document.getElementById('resultsBox');
+    let html = '', score = 0;
+    Q_EXISTING.forEach(q => {
+        const inp = document.querySelector(`input[name="q${q}"]`);
+        const stu = ((inp?.value||'').trim().toUpperCase()).replace(/\s+/g,'');
+        const ans = (correctAnswers[`q${q}`]||'').toUpperCase().replace(/\s+/g,'');
+        let st = '';
+        if (!stu) st = '<span class="no-answer">(No Answer)</span>';
+        else if (stu === ans) { st = '<span class="correct">✅ Correct</span>'; score++; }
+        else st = '<span class="wrong">❌ Wrong</span>';
+        html += `<strong>${q}.</strong> ${stu||'-'} &nbsp; ${st}<br>`;
+    });
+    html += `<br><strong>Score: ${score} / ${Q_EXISTING.length}</strong>`;
+    box.innerHTML = '<h4 style="color:#dc2626; margin-bottom:8px;">📝 Your Results</h4>' + html;
+    box.style.display = box.style.display === 'block' ? 'none' : 'block';
+};
+
+// Clear All Data
+window.clearAllData = function() {
+    if (!confirm('⚠️ Clear ALL answers and highlights? This cannot be undone!')) return;
+    Q_EXISTING.forEach(q => {
+        const inp = document.querySelector(`input[name="q${q}"]`);
+        if (inp) inp.value = '';
+    });
+    document.querySelectorAll('.highlight').forEach(h => {
+        const p = h.parentNode;
+        p.replaceChild(h, document.createTextNode(h.textContent));
+        p.normalize();
+    });
+    localStorage.removeItem(`${passageId}_ans`);
+    localStorage.removeItem(`${passageId}_hl`);
+    document.getElementById('resultsBox').style.display = 'none';
+    alert('✅ ALL DATA CLEARED!');
+};
+
+// Flags
+document.querySelectorAll('.flag-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        btn.classList.toggle('flagged');
+        const q = btn.dataset.q;
+        localStorage.setItem(`${passageId}_flag_${q}`, btn.classList.contains('flagged'));
+    });
+});
+
+// Load flags on start
+function loadFlags() {
+    Q_EXISTING.forEach(q => {
+        if (localStorage.getItem(`${passageId}_flag_${q}`) === 'true') {
+            document.querySelector(`.flag-btn[data-q="${q}"]`)?.classList.add('flagged');
         }
-        return -1;
-    }
-    function getAllTextNodes(el) {
-        const nodes = [];
-        (function getNodes(node) {
-            if (node.nodeType === Node.TEXT_NODE) nodes.push(node);
-            else for (let i = 0; i < node.childNodes.length; i++) getNodes(node.childNodes[i]);
-        })(el);
-        return nodes;
-    }
-    function loadHighlights() {
-        // Reload highlights WITHOUT breaking question inputs
-        const saved = localStorage.getItem(`${passageId}_highlights`);
-        if (!saved) return;
-        const highlights = JSON.parse(saved);
-        // Simple text-based restore
-        highlights.forEach(h => {
-            findAndHighlightText(h.text);
-        });
-    }
-    function findAndHighlightText(searchText) {
-        const paragraphs = passageText.querySelectorAll('p');
-        paragraphs.forEach(p => {
-            if (p.innerHTML.includes('class="highlight"')) return; // skip already highlighted
-            const regex = new RegExp(`(${escapeRegex(searchText)})`, 'gi');
-            if (p.innerHTML.match(regex)) {
-                p.innerHTML = p.innerHTML.replace(regex, '<span class="highlight">$1</span>');
-            }
-        });
-    }
-    function escapeRegex(str) {
-        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    }
-
-    // ========== SAVE / LOAD NOTES ==========
-    function saveNotes() {
-        const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
-            id: n.id,
-            left: n.style.left,
-            top: n.style.top,
-            text: n.querySelector('textarea').value
-        }));
-        localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes));
-    }
-    function loadNotes() {
-        const saved = localStorage.getItem(`${passageId}_notes`);
-        if (!saved) return;
-        JSON.parse(saved).forEach(n => {
-            noteCounter = Math.max(noteCounter, parseInt(n.id.split('_')[1]));
-            const note = document.createElement('div');
-            note.className = 'sticky-note';
-            note.id = n.id;
-            note.innerHTML = `
-                <div class="note-header">Note 
-                    <span class="note-close" data-note="${n.id}">×</span>
-                </div>
-                <textarea class="note-textarea" data-note="${n.id}">${n.text}</textarea>
-            `;
-            note.style.left = n.left;
-            note.style.top = n.top;
-            document.body.appendChild(note);
-            note.querySelector('.note-close').addEventListener('click', () => {
-                note.remove();
-                saveNotes();
-            });
-            note.querySelector('textarea').addEventListener('input', e => {
-                localStorage.setItem(`${passageId}_${n.id}`, e.target.value);
-            });
-        });
-    }
-
-    // ========== FLAGS ==========
-    document.querySelectorAll('.flag-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            btn.classList.toggle('flagged');
-            const q = btn.dataset.q;
-            const flagged = btn.classList.contains('flagged');
-            localStorage.setItem(`${passageId}_flag_${q}`, flagged);
-            updateIndicators();
-        });
     });
-    function loadFlags() {
-        Q_EXISTING.forEach(q => {
-            if (localStorage.getItem(`${passageId}_flag_${q}`)==='true') {
-                document.querySelector(`.flag-btn[data-q="${q}"]`)?.classList.add('flagged');
-            }
-        });
-    }
+}
 
-    // ========== SAVE / LOAD ANSWERS ==========
-    function saveAnswers() {
-        const ans = {};
-        Q_EXISTING.forEach(q => {
-            const inp = document.querySelector(`input[name="q${q}"]`);
-            if (inp) ans[`q${q}`] = inp.value;
-        });
-        localStorage.setItem(`${passageId}_answers`, JSON.stringify(ans));
-        updateIndicators();
-    }
-    function loadAnswers() {
-        const saved = localStorage.getItem(`${passageId}_answers`);
-        if (!saved) return;
-        const ans = JSON.parse(saved);
-        Q_EXISTING.forEach(q => {
-            const inp = document.querySelector(`input[name="q${q}"]`);
-            if (inp && ans[`q${q}`]) inp.value = ans[`q${q}`];
-        });
-    }
-
-    // ========== CHECK ANSWERS ==========
-    window.checkAnswers = function() {
-        saveAnswers();
-        const box = document.getElementById('resultsBox');
-        const content = document.getElementById('resultsContent');
-        let html = '', score = 0;
-        Q_EXISTING.forEach(q => {
-            const inp = document.querySelector(`input[name="q${q}"]`);
-            const stu = ((inp?.value||'').trim().toUpperCase()).replace(/\s+/g,'');
-            const ans = (correctAnswers[`q${q}`]||'').toUpperCase().replace(/\s+/g,'');
-            let st = '';
-            if (!stu) st = '<span class="no-answer">(No Answer)</span>';
-            else if (stu === ans) { st = '<span class="correct">✅ Correct</span>'; score++; }
-            else st = '<span class="wrong">❌ Wrong</span>';
-            html += `<strong>${q}.</strong> ${stu||'-'} &nbsp; ${st}<br>`;
-        });
-        html += `<br><strong>Score: ${score} / ${Q_EXISTING.length}</strong>`;
-        content.innerHTML = html;
-        box.style.display = box.style.display === 'block' ? 'none' : 'block';
-    };
-
-    // ========== CLEAR ALL DATA ==========
-    window.clearAllData = function() {
-        if (!confirm('⚠️ Clear ALL answers, highlights, notes and flags? This cannot be undone!')) return;
-        Q_EXISTING.forEach(q => {
-            const inp = document.querySelector(`input[name="q${q}"]`);
-            if (inp) inp.value = '';
-            localStorage.removeItem(`${passageId}_flag_${q}`);
-        });
-        document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
-        removeAllHighlights();
-        document.querySelectorAll('.sticky-note').forEach(n => n.remove());
-        localStorage.removeItem(`${passageId}_answers`);
-        localStorage.removeItem(`${passageId}_highlights`);
-        localStorage.removeItem(`${passageId}_notes`);
-        document.getElementById('resultsBox').style.display = 'none';
-        updateIndicators();
-        alert('✅ ALL DATA CLEARED!');
-    };
-
-    // Auto-save on typing
-    document.addEventListener('input', e => {
-        if (e.target.name?.startsWith('q')) saveAnswers();
-    });
-
-    // ========== INITIALIZE ==========
-    window.onload = function() {
-        initIndicators();
-        loadAnswers();
-        loadHighlights();
-        loadNotes();
-        loadFlags();
-        updateIndicators();
-    };
+// Initialize
+window.onload = function() {
+    loadAnswers();
+    loadFlags();
+};
 </script>
 </body>
 </html>
