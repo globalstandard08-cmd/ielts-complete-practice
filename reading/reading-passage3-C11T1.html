@@ -9,13 +9,13 @@
         body {background-color: #fef2f2; color: #1a1a1a; line-height: 1.6;}
         .logo-container {width: 100%; background: #ffffff; border-bottom: 2px solid #dc2626; padding: 10px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;}
         .logo {width: 35%; max-width: 320px; height: auto; display: block;}
-        .main-wrapper {display: flex; gap: 18px; padding: 0 18px 12px; height: calc(100vh - 150px);}
+        .main-wrapper {display: flex; gap: 18px; padding: 0 18px 12px; height: calc(100vh - 160px);}
         .passage-column, .questions-column {flex: 1; background: #ffffff; border-radius: 10px; border: 1px solid #fecaca; padding: 18px; overflow-y: auto;}
         h1 {color: #dc2626; font-size: 18px; margin-bottom: 2px; text-align: center;}
         h2.subtitle {color: #7f1d1d; font-size: 14px; text-align: center; margin-bottom: 16px; font-weight: 500;}
         .passage-text p {margin-bottom: 14px; font-size: 15px; line-height: 1.8;}
         .passage-text strong {color: #b91c1c;}
-        .highlight {background-color: #ffd700; padding: 2px 4px; border-radius: 2px; display: inline; color: #000;}
+        .highlight {background-color: #ffd700; padding: 1px 3px; border-radius: 2px; display: inline; color: #000;}
         .questions-section h2 {color: #991b1b; font-size: 17px; margin: 18px 0 10px; border-bottom: 1px solid #fecaca; padding-bottom: 4px;}
         .question-block {margin-bottom: 16px; scroll-margin-top: 15px;}
         .question-block p {font-weight: 500; margin-bottom: 8px; font-size: 14px; line-height: 1.6;}
@@ -24,21 +24,22 @@
         table, th, td {border: 1px solid #ddd;}
         th, td {padding: 10px; font-size: 14px; vertical-align: middle;}
         table .answer-input {max-width: 120px;}
-        .context-menu {position: absolute; background: #fff; border: 1px solid #ccc; border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.2); z-index: 9999; display: none; min-width: 140px;}
-        .context-menu div {padding: 8px 12px; cursor: pointer; font-size: 13px;}
+        .context-menu {position: absolute; background: #ffffff; border: 1px solid #bbb; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 160px;}
+        .context-menu div {padding: 10px 14px; cursor: pointer; font-size: 14px;}
         .context-menu div:hover {background: #fef2f2;}
         .sticky-note {position: absolute; width: 170px; min-height: 65px; background: #fff380; border: 1px solid #e6c200; border-radius: 4px; padding: 6px; box-shadow: 3px 3px 8px rgba(0,0,0,0.15); z-index: 9998; font-size: 12px; user-select: none;}
         .note-header {display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00; cursor: move;}
         .note-close {cursor: pointer; font-weight: bold; color: #886a00; user-select: none; font-size: 14px; line-height: 1;}
         .note-textarea {width: 100%; height: 48px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px;}
-        .bottom-container {margin: 10px 18px 20px; padding: 12px; background: #fff; border-radius: 8px; border: 1px solid #fecaca;}
-        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-bottom: 10px;}
+        .bottom-container {margin: 10px 18px 20px; padding: 12px; background: #ffffff; border-radius: 8px; border: 1px solid #fecaca;}
+        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-bottom: 12px;}
         .nav-label {font-weight: 600; color: #991b1b; font-size: 13px; margin-right: 6px;}
         .q-indicator {width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 12px; cursor: pointer; transition: all 0.2s;}
         .q-indicator:hover {opacity: 0.85;}
-        .q-indicator.answered {background: #198754; color: #fff; border-color: #198754;}
+        .q-indicator.answered {background: #198754; color: #ffffff; border-color: #198754;}
         .q-indicator.current {border: 2px solid #dc2626;}
-        .back-btn {padding: 7px 14px; background: #fef2f2; color: #dc2626; text-decoration: none; border-radius: 6px; border: 1px solid #fecaca; font-weight: 500; font-size: 13px; display: inline-block; margin-top: 8px;}
+        .back-btn {padding: 8px 16px; background: #fef2f2; color: #dc2626; text-decoration: none; border-radius: 6px; border: 1px solid #fecaca; font-weight: 500; font-size: 14px; display: inline-block;}
+        .back-btn:hover {background: #ffffff;}
         em {color: #555;}
     </style>
 </head>
@@ -48,8 +49,8 @@
     </div>
 
     <div class="context-menu" id="contextMenu">
-        <div id="menuHighlight">✅ Highlight</div>
-        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuHighlight">✅ Highlight Selection</div>
+        <div id="menuRemove">❌ Remove ALL Highlights</div>
         <div id="menuNote">📝 Add Note</div>
     </div>
 
@@ -184,7 +185,7 @@
 
 <script>
 const TOTAL_QUESTIONS = 40;
-let lastNoteId = 0, dragNote = null;
+let lastNoteId = 0;
 
 // Build navigation bar 1–40
 function initQuestionNav() {
@@ -205,50 +206,48 @@ function jumpToQuestion(qNum) {
     document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// Shade nav GREEN when answer is typed
+// Turn nav GREEN when answer typed
 function updateNavStatus() {
     for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
         const input = document.querySelector(`input[name="q${q}"]`);
         const navBtn = document.getElementById('nav' + q);
         if (input && navBtn) {
-            const hasValue = input.value.trim() !== '';
-            navBtn.classList.toggle('answered', hasValue);
+            navBtn.classList.toggle('answered', input.value.trim() !== '');
         }
     }
 }
 
-// Highlight + Remove Highlight + Add Note
+// Right-click menu tools
 const contextMenu = document.getElementById('contextMenu');
 let currentRange = null;
 
-function isSelectionValid(selection) {
-    if (!selection || selection.isCollapsed || selection.toString().trim() === '') return false;
+function isSelectionValid(sel) {
+    if (!sel || sel.isCollapsed || sel.toString().trim() === '') return false;
     try {
-        const range = selection.getRangeAt(0);
-        const container = range.commonAncestorContainer;
-        const parent = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
-        const inPassage = document.getElementById('passageArea').contains(parent);
-        const inQuestions = document.getElementById('questionsArea').contains(parent);
-        const inInput = parent.closest('input, textarea, button, label, select') !== null;
-        return (inPassage || inQuestions) && !inInput;
+        const r = sel.getRangeAt(0);
+        let p = r.commonAncestorContainer;
+        p = p.nodeType === Node.TEXT_NODE ? p.parentElement : p;
+        const inArea = document.getElementById('passageArea').contains(p) || document.getElementById('questionsArea').contains(p);
+        const inInput = p.closest('input, textarea, button, select') !== null;
+        return inArea && !inInput;
     } catch { return false; }
 }
 
 document.addEventListener('contextmenu', e => {
-    const selection = window.getSelection();
-    if (!isSelectionValid(selection)) { contextMenu.style.display = 'none'; return; }
+    const sel = window.getSelection();
+    if (!isSelectionValid(sel)) { contextMenu.style.display = 'none'; return; }
     e.preventDefault();
-    currentRange = selection.getRangeAt(0).cloneRange();
-    const rect = currentRange.getBoundingClientRect();
-    contextMenu.style.left = (rect.left + window.scrollX) + 'px';
-    contextMenu.style.top = (rect.bottom + window.scrollY + 8) + 'px';
+    currentRange = sel.getRangeAt(0).cloneRange();
+    const rc = currentRange.getBoundingClientRect();
+    contextMenu.style.left = (rc.left + window.scrollX) + 'px';
+    contextMenu.style.top = (rc.bottom + window.scrollY + 8) + 'px';
     contextMenu.style.display = 'block';
 });
 
-document.addEventListener('click', () => contextMenu.style.display = 'none');
+document.addEventListener('click', () => { contextMenu.style.display = 'none'; currentRange = null; });
 
 // ✅ Highlight
-document.getElementById('menuHighlight').addEventListener('click', () => {
+document.getElementById('menuHighlight').onclick = () => {
     if (!currentRange) return;
     try {
         const span = document.createElement('span');
@@ -257,38 +256,36 @@ document.getElementById('menuHighlight').addEventListener('click', () => {
         currentRange.deleteContents();
         currentRange.insertNode(span);
         window.getSelection().removeAllRanges();
-        currentRange = null;
-    } catch { alert('Please select a smaller section of text.'); }
-});
+    } catch { alert('Please select less text to highlight.'); }
+};
 
-// ✅ Remove Highlight — FIXED: removes ALL highlights properly
-document.getElementById('menuRemove').addEventListener('click', () => {
-    document.querySelectorAll('.highlight').forEach(span => {
-        const parent = span.parentNode;
-        parent.replaceChild(document.createTextNode(span.textContent), parent);
-        parent.normalize();
+// ✅ REMOVE HIGHLIGHT — COMPLETELY REWRITTEN
+document.getElementById('menuRemove').onclick = () => {
+    const highlights = document.querySelectorAll('.highlight');
+    if (highlights.length === 0) { alert('No highlights to remove.'); return; }
+    highlights.forEach(span => {
+        const text = document.createTextNode(span.textContent);
+        span.parentNode.replaceChild(text, span);
+        text.parentNode.normalize();
     });
     window.getSelection().removeAllRanges();
-    currentRange = null;
-});
+    alert('✅ All highlights removed!');
+};
 
 // ✅ Add Note
-document.getElementById('menuNote').addEventListener('click', () => {
+document.getElementById('menuNote').onclick = () => {
     if (!currentRange) return;
-    const rect = currentRange.getBoundingClientRect();
+    const rc = currentRange.getBoundingClientRect();
     const noteId = 'note_' + (++lastNoteId);
     const note = document.createElement('div');
     note.className = 'sticky-note';
     note.id = noteId;
-    note.style.left = (rect.right + window.scrollX + 10) + 'px';
-    note.style.top = (rect.top + window.scrollY) + 'px';
-    note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div><textarea class="note-textarea" placeholder="Type your note..."></textarea>`;
+    note.style.left = (rc.right + window.scrollX + 10) + 'px';
+    note.style.top = (rc.top + window.scrollY) + 'px';
+    note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="document.getElementById('${noteId}').remove()">×</span></div><textarea class="note-textarea" placeholder="Type your note..."></textarea>`;
     document.body.appendChild(note);
     window.getSelection().removeAllRanges();
-    currentRange = null;
-});
-
-window.closeNote = function(id) { document.getElementById(id)?.remove(); };
+};
 
 window.onload = initQuestionNav;
 </script>
