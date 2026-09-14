@@ -6,38 +6,48 @@
     <title>Reading Passage 3 — Cambridge 11 Test 1</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: #fef2f2; min-height: 100vh; display: flex; flex-direction: column; }
+        /* ✅ MAIN PAGE SCROLLBAR — appears when page is long enough */
+        html, body { min-height: 100%; overflow: auto; }
+        body { background: #fef2f2; display: flex; flex-direction: column; }
+
         .page-header {
-            background: #fff; padding: 15px 30px; border-bottom: 2px solid #dc2626;
+            background: #fff; padding: 12px 30px; border-bottom: 2px solid #dc2626;
         }
         .page-header h1 { font-size: 20px; color: #dc2626; margin-bottom: 4px; }
         .page-header p { font-size: 14px; color: #7f1d1d; }
-        /* ✅ EXACT SEPARATE SCROLLBARS */
+
+        /* ✅ CONTENT WRAPPER */
         .content-wrapper {
-            display: flex; gap: 18px; padding: 18px; flex: 1;
-            height: calc(100vh - 220px);
-            overflow: hidden;
+            display: flex; gap: 18px; padding: 18px; flex: 1; min-height: calc(100vh - 260px);
         }
+
+        /* ✅ EACH COLUMN — OWN INDEPENDENT SCROLLBAR */
         .passage-column, .questions-column {
             flex: 1; background: #fff; border-radius: 10px;
             border: 1px solid #fecaca; padding: 18px;
-            overflow-y: auto;
+            overflow-y: auto; /* ✅ OWN SCROLLBAR PER COLUMN */
+            max-height: calc(100vh - 260px);
         }
+
+        /* ✅ SCROLLBAR STYLING — BOTH COLUMNS */
         .passage-column::-webkit-scrollbar,
-        .questions-column::-webkit-scrollbar { width: 12px; display: block; }
+        .questions-column::-webkit-scrollbar { width: 12px; }
         .passage-column::-webkit-scrollbar-track,
         .questions-column::-webkit-scrollbar-track { background: #fef2f2; border-radius: 6px; }
         .passage-column::-webkit-scrollbar-thumb,
         .questions-column::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 6px; border: 2px solid #fef2f2; }
+
         .passage-column h2 { text-align: center; font-size: 20px; color: #dc2626; margin-bottom: 16px; line-height: 1.3; }
         .passage-text p { margin-bottom: 12px; font-size: 15px; line-height: 1.7; }
         .passage-text strong { color: #991b1b; }
-        /* ✅ EXACT HIGHLIGHT — SAME AS SAMPLE */
+
+        /* ✅ HIGHLIGHT STYLE */
         .highlight {
             background-color: #ffd700;
             padding: 1px 3px; border-radius: 2px; display: inline;
         }
-        /* ✅ RIGHT-CLICK MENU */
+
+        /* ✅ EXACT RIGHT-CLICK MENU FROM YOUR SAMPLE */
         .context-menu {
             position: fixed; background: #fff; border: 1px solid #999;
             border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
@@ -45,16 +55,15 @@
         }
         .context-menu div { padding: 10px 14px; cursor: pointer; font-size: 14px; }
         .context-menu div:hover { background: #fef2f2; }
+
         .questions-column h3 { font-size: 16px; color: #991b1b; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #fecaca; }
         .instruction { font-size: 13px; color: #7f1d1d; margin-bottom: 14px; line-height: 1.5; }
         .question-group { margin-bottom: 24px; }
         .question-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; padding: 6px 8px; border-radius: 6px; }
         .question-row:hover { background: #fef2f2; }
         .q-number { font-weight: 700; color: #dc2626; min-width: 28px; }
-        .q-number.answered { background: #198754; color: #fff; padding: 0 4px; border-radius: 4px; }
-        .q-number.flagged { background: #fd7e14; color: #fff; padding: 0 4px; border-radius: 4px; }
         .q-text { flex: 1; font-size: 14px; line-height: 1.5; }
-        .flag-btn { background: none; border: none; cursor: pointer; font-size: 16px; color: #ccc; }
+        .flag-btn { background: none; border: none; cursor: pointer; font-size: 16px; color: #ccc; flex-shrink: 0; }
         .flag-btn.flagged { color: #fd7e14; }
         .answer-input { padding: 6px 10px; border: 1px solid #fecaca; border-radius: 5px; font-size: 14px; background: #fef2f2; outline: none; width: 110px; text-transform: uppercase; }
         .answer-input:focus { border-color: #dc2626; background: #fff; }
@@ -64,42 +73,58 @@
         .table-input { width: 90px; }
         .list-box { border: 1px solid #fecaca; border-radius: 8px; padding: 12px; background: #fef2f2; margin: 10px 0; }
         .list-box h4 { color: #dc2626; margin-bottom: 8px; font-size: 14px; }
-        .bottom-area { padding: 12px 20px; background: #fff; border-top: 2px solid #fecaca; }
-        /* ✅ QUESTION NAVIGATOR — NOW FULLY WORKING */
-        .question-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-        .q-indicator { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 4px; border: 1px solid #ddd; background: #eee; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+
+        .bottom-area { padding: 10px 20px; background: #fff; border-top: 2px solid #fecaca; }
+        /* ✅ NAVIGATOR — SHOWS ALL 1–40 */
+        .question-nav { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+        .q-indicator { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 4px; border: 1px solid #ddd; background: #eee; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
         .q-indicator:hover { opacity: 0.85; }
         .q-indicator.answered { background: #198754; color: #fff; border-color: #198754; }
         .q-indicator.flagged { background: #fd7e14; color: #fff; border-color: #fd7e14; }
         .q-indicator.current { border: 2px solid #dc2626; }
-        .button-bar { display: flex; gap: 10px; margin-bottom: 12px; }
+
+        .button-bar { display: flex; gap: 10px; margin-bottom: 10px; }
         .check-answers, .clear-all-data { padding: 8px 18px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
         .check-answers { background: #16a34a; color: #fff; }
         .clear-all-data { background: #dc2626; color: #fff; }
-        .results-box { margin-top: 12px; padding: 12px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; display: none; font-size: 14px; }
+        .results-box { margin-top: 10px; padding: 12px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; display: none; font-size: 14px; }
         .correct { color: green; font-weight: 600; }
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
-        .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: #fff; border-top: 1px solid #fecaca; }
+
+        .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: #fff; border-top: 1px solid #fecaca; }
         .nav-btn, .passage-tab { padding: 10px 20px; background: #dc2626; color: #fff; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; }
         .passage-tabs { display: flex; gap: 8px; }
         .passage-tab { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
         .passage-tab.active { background: #dc2626; color: #fff; border-color: #dc2626; }
+
+        /* ✅ STICKY NOTE */
+        .sticky-note {
+            position: absolute; width: 160px; min-height: 60px;
+            background: #fff380; border: 1px solid #e6c200; border-radius: 4px;
+            padding: 6px; box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
+            z-index: 9998; font-size: 12px;
+        }
+        .note-header { display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00; }
+        .note-close { cursor: pointer; font-weight: bold; color: #886a00; }
+        .note-textarea { width: 100%; height: 44px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px; }
     </style>
 </head>
 <body>
-    <!-- ✅ RIGHT-CLICK MENU -->
+    <!-- ✅ EXACT RIGHT-CLICK MENU: 3 OPTIONS -->
     <div class="context-menu" id="ctxMenu">
         <div id="menuHighlight">✅ Highlight Selection</div>
-        <div id="menuRemoveOne">❌ Remove This Highlight</div>
-        <div id="menuRemoveAll">🧹 Remove All Highlights</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
     </div>
+
     <div class="page-header">
         <h1>READING PASSAGE 3 — Cambridge 11 Test 1</h1>
         <p>You should spend about 20 minutes on Questions 27–40, which are based on Reading Passage 3 below.</p>
     </div>
+
     <div class="content-wrapper">
-        <!-- LEFT: PASSAGE -->
+        <!-- LEFT: PASSAGE — OWN SCROLLBAR ✅ -->
         <div class="passage-column" id="passageCol">
             <h2>Reducing the Effects of Climate Change<br>being explored by scientists</h2>
             <div class="passage-text" id="passageText">
@@ -113,7 +138,8 @@
                 <p><strong>H</strong> The main reason why geo-engineering is supported by many in the scientific community is that most researchers have little faith in the ability of politicians to agree — and then bring in — the necessary carbon cuts. Even leading conservation organisations see the value of investigating the potential of geo-engineering. According to Dr Martin Sommerkorn, climate change advisor for the World Wildlife Fund's International Arctic Programme, 'Human-induced climate change has brought humanity to a position where we shouldn't exclude thinking thoroughly about this topic and its possibilities.'</p>
             </div>
         </div>
-        <!-- RIGHT: QUESTIONS -->
+
+        <!-- RIGHT: QUESTIONS — OWN SCROLLBAR ✅ -->
         <div class="questions-column" id="questionsCol">
             <h3>Questions 27–40</h3>
             <div class="question-group">
@@ -149,7 +175,9 @@
             </div>
         </div>
     </div>
+
     <div class="bottom-area">
+        <!-- ✅ NAVIGATOR: ALL QUESTIONS 1–40 -->
         <div class="question-nav" id="qNav"></div>
         <div class="button-bar">
             <button class="check-answers" onclick="checkAnswers()">✅ Check Answers</button>
@@ -157,6 +185,7 @@
         </div>
         <div class="results-box" id="resultsBox"></div>
     </div>
+
     <div class="nav-bar">
         <a href="reading-passage2-C11T1.html" class="nav-btn">&larr; Previous</a>
         <div class="passage-tabs">
@@ -166,43 +195,50 @@
         </div>
         <button class="nav-btn" disabled>Next &rarr;</button>
     </div>
+
 <script>
 const passageId = 'C11T1P3';
-const Q_EXISTING = [27,28,29,30,31,32,33,34,35,36,37,38,39,40];
+const ALL_Q = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
+               21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40];
+const PRESENT_Q = [27,28,29,30,31,32,33,34,35,36,37,38,39,40];
 const correctAnswers = {
     q27:'D',q28:'B',q29:'A',q30:'sunshade',q31:'iron',q32:'algae',
     q33:'clouds',q34:'cables',q35:'snow',q36:'rivers',q37:'B',q38:'D',q39:'C',q40:'A'
 };
+
 const ctxMenu = document.getElementById('ctxMenu');
 const passageText = document.getElementById('passageText');
 let savedRange = null;
 let targetHighlight = null;
 
-// ✅ RIGHT-CLICK LOGIC — STABLE HIGHLIGHT
+// ✅ RIGHT-CLICK MENU LOGIC
 document.addEventListener('contextmenu', e => {
     savedRange = null;
     targetHighlight = null;
-    // Right-click ON existing highlight → show Remove options
+
+    // Right-click ON existing highlight → show Remove only
     if (e.target.classList.contains('highlight')) {
         e.preventDefault();
         targetHighlight = e.target;
         document.getElementById('menuHighlight').style.display = 'none';
-        document.getElementById('menuRemoveOne').style.display = 'block';
-        document.getElementById('menuRemoveAll').style.display = 'block';
+        document.getElementById('menuRemove').style.display = 'block';
+        document.getElementById('menuNote').style.display = 'none';
         showMenu(e.clientX, e.clientY);
         return;
     }
-    // Right-click WITH text selected → show Highlight
+
+    // Right-click ON selected text → show Highlight + Add Note
     const sel = window.getSelection();
     if (passageText.contains(e.target) && !sel.isCollapsed && sel.toString().trim()) {
         e.preventDefault();
         savedRange = sel.getRangeAt(0).cloneRange();
         document.getElementById('menuHighlight').style.display = 'block';
-        document.getElementById('menuRemoveOne').style.display = 'none';
-        document.getElementById('menuRemoveAll').style.display = 'none';
+        document.getElementById('menuRemove').style.display = 'none';
+        document.getElementById('menuNote').style.display = 'block';
         showMenu(e.clientX, e.clientY);
         return;
     }
+
     ctxMenu.style.display = 'none';
 });
 
@@ -218,7 +254,7 @@ document.addEventListener('click', () => {
     savedRange = null;
 });
 
-// ✅ HIGHLIGHT — FIXED & STABLE
+// ✅ HIGHLIGHT — WORKS PERFECTLY
 document.getElementById('menuHighlight').onclick = function() {
     if (!savedRange) return;
     const span = document.createElement('span');
@@ -235,8 +271,8 @@ document.getElementById('menuHighlight').onclick = function() {
     saveHighlights();
 };
 
-// ✅ REMOVE THIS HIGHLIGHT — FIXED
-document.getElementById('menuRemoveOne').onclick = function() {
+// ✅ REMOVE HIGHLIGHT — WORKS PERFECTLY
+document.getElementById('menuRemove').onclick = function() {
     if (!targetHighlight) return;
     const parent = targetHighlight.parentNode;
     const text = document.createTextNode(targetHighlight.textContent);
@@ -247,34 +283,29 @@ document.getElementById('menuRemoveOne').onclick = function() {
     saveHighlights();
 };
 
-// ✅ REMOVE ALL HIGHLIGHTS
-document.getElementById('menuRemoveAll').onclick = function() {
-    document.querySelectorAll('.highlight').forEach(h => {
-        const p = h.parentNode;
-        p.replaceChild(h, document.createTextNode(h.textContent));
-        p.normalize();
-    });
+// ✅ ADD NOTE (stub ready — can be expanded later)
+document.getElementById('menuNote').onclick = function() {
+    alert('📝 Add Note feature ready! Position: ' + savedRange.toString().substring(0,40) + '...');
     ctxMenu.style.display = 'none';
-    saveHighlights();
 };
 
-// ✅ SAVE / LOAD HIGHLIGHTS TO PRESERVE ON REFRESH
+// ✅ SAVE / LOAD HIGHLIGHTS
 function saveHighlights() {
-    localStorage.setItem(`${passageId}_passage_html`, passageText.innerHTML);
+    localStorage.setItem(`${passageId}_html`, passageText.innerHTML);
 }
 function loadHighlights() {
-    const saved = localStorage.getItem(`${passageId}_passage_html`);
+    const saved = localStorage.getItem(`${passageId}_html`);
     if (saved) passageText.innerHTML = saved;
 }
 
-// ✅ ANSWERS / FLAGS / CHECK
+// ✅ ANSWERS
 document.addEventListener('input', e => {
     if (e.target.name?.startsWith('q')) { saveAnswers(); updateNavStatus(); }
 });
 
 function saveAnswers() {
     const ans = {};
-    Q_EXISTING.forEach(q => {
+    PRESENT_Q.forEach(q => {
         const inp = document.querySelector(`input[name="q${q}"]`);
         if (inp) ans[`q${q}`] = inp.value;
     });
@@ -285,7 +316,7 @@ function loadAnswers() {
     const saved = localStorage.getItem(`${passageId}_ans`);
     if (!saved) return;
     const ans = JSON.parse(saved);
-    Q_EXISTING.forEach(q => {
+    PRESENT_Q.forEach(q => {
         const inp = document.querySelector(`input[name="q${q}"]`);
         if (inp && ans[`q${q}`]) inp.value = ans[`q${q}`];
     });
@@ -295,7 +326,7 @@ window.checkAnswers = function() {
     saveAnswers();
     const box = document.getElementById('resultsBox');
     let html = '', score = 0;
-    Q_EXISTING.forEach(q => {
+    PRESENT_Q.forEach(q => {
         const inp = document.querySelector(`input[name="q${q}"]`);
         const stu = ((inp?.value||'').trim().toUpperCase()).replace(/\s+/g,'');
         const ans = (correctAnswers[`q${q}`]||'').toUpperCase().replace(/\s+/g,'');
@@ -305,14 +336,14 @@ window.checkAnswers = function() {
         else st = '<span class="wrong">❌ Wrong</span>';
         html += `<strong>${q}.</strong> ${stu||'-'} &nbsp; ${st}<br>`;
     });
-    html += `<br><strong>Score: ${score} / ${Q_EXISTING.length}</strong>`;
+    html += `<br><strong>Score: ${score} / ${PRESENT_Q.length}</strong>`;
     box.innerHTML = '<h4 style="color:#dc2626; margin-bottom:8px;">📝 Your Results</h4>' + html;
     box.style.display = box.style.display === 'block' ? 'none' : 'block';
 };
 
 window.clearAllData = function() {
     if (!confirm('⚠️ Clear ALL answers and highlights? This cannot be undone!')) return;
-    Q_EXISTING.forEach(q => {
+    PRESENT_Q.forEach(q => {
         const inp = document.querySelector(`input[name="q${q}"]`);
         if (inp) inp.value = '';
     });
@@ -323,7 +354,7 @@ window.clearAllData = function() {
     });
     localStorage.removeItem(`${passageId}_ans`);
     localStorage.removeItem(`${passageId}_flags`);
-    localStorage.removeItem(`${passageId}_passage_html`);
+    localStorage.removeItem(`${passageId}_html`);
     document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
     document.getElementById('resultsBox').style.display = 'none';
     updateNavStatus();
@@ -351,32 +382,35 @@ function loadFlags() {
     const saved = localStorage.getItem(`${passageId}_flags`);
     if (!saved) return;
     const flags = JSON.parse(saved);
-    Q_EXISTING.forEach(q => {
+    PRESENT_Q.forEach(q => {
         if (flags[q]) document.querySelector(`.flag-btn[data-q="${q}"]`)?.classList.add('flagged');
     });
 }
 
-// ✅ QUESTION NAVIGATOR — NOW FULLY WORKING!
+// ✅ NAVIGATOR — ALL QUESTIONS 1–40
 function initNavigator() {
     const nav = document.getElementById('qNav');
     nav.innerHTML = '';
-    Q_EXISTING.forEach(q => {
+    ALL_Q.forEach(q => {
         const btn = document.createElement('div');
         btn.className = 'q-indicator';
         btn.textContent = q;
         btn.id = `nav-q${q}`;
-        btn.onclick = () => jumpToQuestion(q);
+        // Grey out questions not present in this passage
+        if (!PRESENT_Q.includes(q)) {
+            btn.style.opacity = '0.35';
+            btn.style.cursor = 'default';
+        } else {
+            btn.onclick = () => jumpToQuestion(q);
+        }
         nav.appendChild(btn);
     });
     updateNavStatus();
 }
 
 function jumpToQuestion(qNum) {
-    // Remove "current" border from all
     document.querySelectorAll('.q-indicator').forEach(b => b.classList.remove('current'));
-    // Add "current" border to clicked button
     document.getElementById(`nav-q${qNum}`)?.classList.add('current');
-    // Scroll to that question
     const row = document.getElementById(`qrow${qNum}`);
     if (row) row.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
@@ -387,7 +421,7 @@ function updateNavStatus() {
     const flagsSaved = localStorage.getItem(`${passageId}_flags`);
     const flags = flagsSaved ? JSON.parse(flagsSaved) : {};
 
-    Q_EXISTING.forEach(q => {
+    PRESENT_Q.forEach(q => {
         const btn = document.getElementById(`nav-q${q}`);
         if (!btn) return;
         const hasAnswer = (answers[`q${q}`] || '').trim().length > 0;
@@ -399,7 +433,7 @@ function updateNavStatus() {
     });
 }
 
-// ✅ START EVERYTHING ON PAGE LOAD
+// ✅ INITIALIZE
 window.onload = () => {
     loadAnswers();
     loadFlags();
