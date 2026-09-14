@@ -45,17 +45,10 @@
         .q-indicator.current {border: 2px solid #dc2626;}
         .bottom-controls {display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;}
         .action-buttons, .nav-buttons {display: flex; gap: 8px; flex-wrap: wrap;}
-        .show-student, .clear-answers {padding: 7px 14px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 13px;}
-        .show-student {background: #dc2626; color: #ffffff;}
-        .show-student:hover {background: #b91c1c;}
-        .clear-answers {background: #6b7280; color: #ffffff;}
+        .clear-answers {padding: 7px 14px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 13px; background: #6b7280; color: #ffffff;}
         .clear-answers:hover {background: #4b5563;}
         .back-btn, .next-btn {padding: 7px 14px; background: #fef2f2; color: #dc2626; text-decoration: none; border-radius: 6px; border: 1px solid #fecaca; font-weight: 500; cursor: pointer; font-size: 13px;}
         .back-btn:hover, .next-btn:hover {background: #ffffff;}
-        .student-answers-box {margin-top: 14px; padding: 14px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; display: none; font-size: 14px; line-height: 1.7;}
-        .correct {color: #15803d; font-weight: 600;}
-        .wrong {color: #b91c1c; font-weight: 600;}
-        .no-answer {color: #78716c;}
         em {color: #555;}
     </style>
 </head>
@@ -209,11 +202,6 @@
                     </div>
                     <input type="text" class="answer-input" name="q40" placeholder="Write A–D">
                 </div>
-
-                <div class="student-answers-box" id="studentAnswersBox">
-                    <h3>📝 Your Answers & Score</h3>
-                    <div id="studentResult"></div>
-                </div>
             </div>
         </div>
     </div>
@@ -224,7 +212,6 @@
         </div>
         <div class="bottom-controls">
             <div class="action-buttons">
-                <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
                 <button class="clear-answers" onclick="clearAllAnswers()">🗑️ Clear All Answers</button>
             </div>
             <div class="nav-buttons">
@@ -239,13 +226,7 @@ const passageId = 'C11T1P3';
 const TOTAL_QUESTIONS = 40;
 let currentRange = null, lastNoteId = 0, dragNote = null, dragOffsetX = 0, dragOffsetY = 0;
 
-const correctAnswers = {
-    q27: 'D', q28: 'B', q29: 'A',
-    q30: 'sunshade', q31: 'iron', q32: 'algae', q33: 'clouds', q34: 'cables', q35: 'snow', q36: 'rivers',
-    q37: 'B', q38: 'D', q39: 'C', q40: 'A'
-};
-
-// ✅ Navigation bar: ALL numbers 1–40
+// Navigation: ALL numbers 1–40
 function initQuestionNav() {
     const navContainer = document.getElementById('questionNav');
     for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
@@ -321,7 +302,7 @@ document.getElementById('menuRemove').addEventListener('click', function() {
         const target = startEl.closest('.highlight');
         if (target) {
             const parent = target.parentNode;
-            parent.replaceChild(document.createTextNode(target.textContent), target);
+            parent.replaceChild(document.createTextNode(target.textContent), parent);
             parent.normalize();
         }
     } catch (e) { console.log(e); }
@@ -427,31 +408,6 @@ function updateStatus() {
     }
 }
 
-function showStudentAnswers() {
-    saveAnswers();
-    const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`) || '{}');
-    let html = '';
-    let score = 0;
-    for (let q = 27; q <= TOTAL_QUESTIONS; q++) {
-        const key = `q${q}`;
-        const studentAns = (answers[key] || '').trim().toLowerCase();
-        const correctAns = (correctAnswers[key] || '').toLowerCase();
-        let status = '';
-        if (!studentAns) {
-            status = '<span class="no-answer">(No Answer)</span>';
-        } else if (studentAns === correctAns) {
-            status = '<span class="correct">✅ Correct</span>';
-            score++;
-        } else {
-            status = `<span class="wrong">❌ Wrong (Correct: ${correctAnswers[key]})</span>`;
-        }
-        html += `<strong>${q}.</strong> Your answer: ${answers[key] || '-'} &nbsp; ${status}<br>`;
-    }
-    html += `<br><strong>Total Score: ${score} / 14</strong>`;
-    document.getElementById('studentResult').innerHTML = html;
-    document.getElementById('studentAnswersBox').style.display = 'block';
-}
-
 function clearAllAnswers() {
     if (!confirm('⚠️ This will clear ALL answers, flags, highlights and notes. Continue?')) return;
     document.querySelectorAll('input.answer-input').forEach(i => i.value = '');
@@ -466,7 +422,6 @@ function clearAllAnswers() {
     localStorage.removeItem(`${passageId}_passage_html`);
     localStorage.removeItem(`${passageId}_questions_html`);
     localStorage.removeItem(`${passageId}_notes`);
-    document.getElementById('studentAnswersBox').style.display = 'none';
     updateStatus();
 }
 
