@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reading Passage 3 — Cambridge 11 Test 1</title>
+    <title>Reducing the Effects of Climate Change — Cambridge 11 Test 1</title>
     <style>
         * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif;}
         body {background-color: #fef2f2; color: #1a1a1a; line-height: 1.6;}
@@ -11,7 +11,8 @@
         .logo {width: 35%; max-width: 320px; height: auto; display: block;}
         .main-wrapper {display: flex; gap: 18px; padding: 0 18px 12px; height: calc(100vh - 120px);}
         .passage-column, .questions-column {flex: 1; background: #ffffff; border-radius: 10px; border: 1px solid #fecaca; padding: 18px; overflow-y: auto; box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07); position: relative;}
-        h1 {color: #dc2626; font-size: 19px; margin-bottom: 14px; text-align: center;}
+        h1 {color: #dc2626; font-size: 18px; margin-bottom: 4px; text-align: center; line-height: 1.4;}
+        h2.subtitle {color: #7f1d1d; font-size: 14px; text-align: center; margin-bottom: 16px; font-weight: 500;}
         .passage-text p {margin-bottom: 14px; font-size: 15px; line-height: 1.8;}
         .passage-text strong {color: #b91c1c;}
         .highlight {background-color: #ffd700; padding: 2px 4px; border-radius: 2px; cursor: pointer; display: inline; color: #000;}
@@ -34,7 +35,7 @@
         .note-close {cursor: pointer; font-weight: bold; color: #886a00; user-select: none; font-size: 14px; line-height: 1;}
         .note-textarea {width: 100%; height: 48px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px; user-select: text;}
         .bottom-container {margin: 10px 18px 20px; padding: 12px; background: #ffffff; border-radius: 8px; border: 1px solid #fecaca; box-shadow: 0 -2px 5px rgba(220, 38, 38, 0.07); display: flex; flex-direction: column; gap: 10px;}
-        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 5px;}
+        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 4px;}
         .nav-label {font-weight: 600; color: #991b1b; font-size: 13px; margin-right: 6px;}
         .q-indicator {width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 12px; cursor: pointer; transition: all 0.2s;}
         .q-indicator:hover {opacity: 0.85;}
@@ -44,14 +45,14 @@
         .q-indicator.current {border: 2px solid #dc2626;}
         .bottom-controls {display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;}
         .action-buttons, .nav-buttons {display: flex; gap: 8px; flex-wrap: wrap;}
-        .toggle-answers, .show-student, .clear-answers {padding: 7px 14px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 13px;}
-        .toggle-answers, .show-student {background: #dc2626; color: #ffffff;}
-        .toggle-answers:hover, .show-student:hover {background: #b91c1c;}
+        .show-student, .clear-answers {padding: 7px 14px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 13px;}
+        .show-student {background: #dc2626; color: #ffffff;}
+        .show-student:hover {background: #b91c1c;}
         .clear-answers {background: #6b7280; color: #ffffff;}
         .clear-answers:hover {background: #4b5563;}
         .back-btn, .next-btn {padding: 7px 14px; background: #fef2f2; color: #dc2626; text-decoration: none; border-radius: 6px; border: 1px solid #fecaca; font-weight: 500; cursor: pointer; font-size: 13px;}
         .back-btn:hover, .next-btn:hover {background: #ffffff;}
-        .answers-box, .student-answers-box {margin-top: 14px; padding: 14px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; display: none; font-size: 14px; line-height: 1.7;}
+        .student-answers-box {margin-top: 14px; padding: 14px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; display: none; font-size: 14px; line-height: 1.7;}
         .correct {color: #15803d; font-weight: 600;}
         .wrong {color: #b91c1c; font-weight: 600;}
         .no-answer {color: #78716c;}
@@ -71,9 +72,9 @@
 
     <div class="main-wrapper">
         <div class="passage-column" id="passageArea">
-            <h1>Reading Passage 3 — Cambridge 11 Test 1</h1>
+            <h1>Reading Passage 3 — Reducing the Effects of Climate Change</h1>
+            <h2 class="subtitle">Cambridge 11 Test 1</h2>
             <div class="passage-text">
-                <p><strong>Reducing the Effects of Climate Change</strong></p>
                 <p>Mark Rowe reports on the increasingly ambitious geo-engineering projects being explored by scientists.</p>
 
                 <p><strong>A</strong><br>
@@ -209,23 +210,6 @@
                     <input type="text" class="answer-input" name="q40" placeholder="Write A–D">
                 </div>
 
-                <div class="answers-box" id="answersBox">
-                    <h3>✅ Correct Answers — Cambridge 11 Test 1 Passage 3</h3>
-                    <p><strong>27.</strong> D<br>
-                    <strong>28.</strong> B<br>
-                    <strong>29.</strong> A<br>
-                    <strong>30.</strong> sunshade<br>
-                    <strong>31.</strong> iron<br>
-                    <strong>32.</strong> algae<br>
-                    <strong>33.</strong> clouds<br>
-                    <strong>34.</strong> cables<br>
-                    <strong>35.</strong> snow<br>
-                    <strong>36.</strong> rivers<br>
-                    <strong>37.</strong> B<br>
-                    <strong>38.</strong> D<br>
-                    <strong>39.</strong> C<br>
-                    <strong>40.</strong> A</p>
-                </div>
                 <div class="student-answers-box" id="studentAnswersBox">
                     <h3>📝 Your Answers & Score</h3>
                     <div id="studentResult"></div>
@@ -240,7 +224,6 @@
         </div>
         <div class="bottom-controls">
             <div class="action-buttons">
-                <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show/Hide Answers</button>
                 <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
                 <button class="clear-answers" onclick="clearAllAnswers()">🗑️ Clear All Answers</button>
             </div>
@@ -252,26 +235,20 @@
     </div>
 
 <script>
-// Configuration
 const passageId = 'C11T1P3';
 const TOTAL_QUESTIONS = 40;
-let currentRange = null;
-let lastNoteId = 0;
-let dragNote = null;
-let dragOffsetX = 0;
-let dragOffsetY = 0;
+let currentRange = null, lastNoteId = 0, dragNote = null, dragOffsetX = 0, dragOffsetY = 0;
 
-// OFFICIAL Cambridge 11 Test 1 Answer Key
 const correctAnswers = {
     q27: 'D', q28: 'B', q29: 'A',
     q30: 'sunshade', q31: 'iron', q32: 'algae', q33: 'clouds', q34: 'cables', q35: 'snow', q36: 'rivers',
     q37: 'B', q38: 'D', q39: 'C', q40: 'A'
 };
 
-// Initialize question navigation buttons
+// ✅ Navigation bar: ALL numbers 1–40
 function initQuestionNav() {
     const navContainer = document.getElementById('questionNav');
-    for (let i = 27; i <= TOTAL_QUESTIONS; i++) {
+    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
         const btn = document.createElement('div');
         btn.className = 'q-indicator';
         btn.textContent = i;
@@ -288,7 +265,6 @@ function jumpToQuestion(qNum) {
     document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// Toggle flag
 function toggleFlag(qNum) {
     const flag = document.getElementById('flag' + qNum);
     const stat = document.getElementById('stat' + qNum);
@@ -297,7 +273,6 @@ function toggleFlag(qNum) {
     localStorage.setItem(`${passageId}_flag_${qNum}`, isFlagged);
 }
 
-// Validate selection for highlight
 function isSelectionValid(selection) {
     if (!selection || selection.isCollapsed || selection.toString().trim() === '') return false;
     try {
@@ -308,19 +283,13 @@ function isSelectionValid(selection) {
         const inQuestions = document.getElementById('questionsArea').contains(parent);
         const inInput = parent.closest('input, textarea, button, label, select') !== null;
         return (inPassage || inQuestions) && !inInput;
-    } catch {
-        return false;
-    }
+    } catch { return false; }
 }
 
-// Context menu
 const contextMenu = document.getElementById('contextMenu');
 document.addEventListener('contextmenu', function(e) {
     const selection = window.getSelection();
-    if (!isSelectionValid(selection)) {
-        contextMenu.style.display = 'none';
-        return;
-    }
+    if (!isSelectionValid(selection)) { contextMenu.style.display = 'none'; return; }
     e.preventDefault();
     currentRange = selection.getRangeAt(0).cloneRange();
     const rect = currentRange.getBoundingClientRect();
@@ -330,7 +299,6 @@ document.addEventListener('contextmenu', function(e) {
 });
 document.addEventListener('click', () => contextMenu.style.display = 'none');
 
-// Highlight text
 document.getElementById('menuHighlight').addEventListener('click', function() {
     if (!currentRange) return;
     try {
@@ -342,12 +310,9 @@ document.getElementById('menuHighlight').addEventListener('click', function() {
         window.getSelection().removeAllRanges();
         currentRange = null;
         saveHighlights();
-    } catch {
-        alert('Please select a smaller section of text.');
-    }
+    } catch { alert('Please select a smaller section of text.'); }
 });
 
-// Remove highlight
 document.getElementById('menuRemove').addEventListener('click', function() {
     if (!currentRange) return;
     try {
@@ -365,7 +330,6 @@ document.getElementById('menuRemove').addEventListener('click', function() {
     saveHighlights();
 });
 
-// Add sticky note
 document.getElementById('menuNote').addEventListener('click', function() {
     if (!currentRange) return;
     const rect = currentRange.getBoundingClientRect();
@@ -375,19 +339,13 @@ document.getElementById('menuNote').addEventListener('click', function() {
     note.id = noteId;
     note.style.left = (rect.right + window.scrollX + 10) + 'px';
     note.style.top = (rect.top + window.scrollY) + 'px';
-    note.innerHTML = `
-        <div class="note-header" onmousedown="startDragNote(event, '${noteId}')">
-            Note <span class="note-close" onclick="closeNote('${noteId}')">×</span>
-        </div>
-        <textarea class="note-textarea" placeholder="Type your note..."></textarea>
-    `;
+    note.innerHTML = `<div class="note-header" onmousedown="startDragNote(event, '${noteId}')">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div><textarea class="note-textarea" placeholder="Type your note..."></textarea>`;
     document.body.appendChild(note);
     window.getSelection().removeAllRanges();
     currentRange = null;
     saveNotes();
 });
 
-// Drag note functions
 window.startDragNote = function(e, noteId) {
     dragNote = document.getElementById(noteId);
     const rect = dragNote.getBoundingClientRect();
@@ -400,15 +358,9 @@ document.addEventListener('mousemove', function(e) {
     dragNote.style.left = (e.pageX - dragOffsetX) + 'px';
     dragNote.style.top = (e.pageY - dragOffsetY) + 'px';
 });
-document.addEventListener('mouseup', function() {
-    if (dragNote) { dragNote = null; saveNotes(); }
-});
-window.closeNote = function(id) {
-    document.getElementById(id)?.remove();
-    saveNotes();
-};
+document.addEventListener('mouseup', function() { if (dragNote) { dragNote = null; saveNotes(); } });
+window.closeNote = function(id) { document.getElementById(id)?.remove(); saveNotes(); };
 
-// Save/Load highlights
 function saveHighlights() {
     localStorage.setItem(`${passageId}_passage_html`, document.getElementById('passageArea').innerHTML);
     localStorage.setItem(`${passageId}_questions_html`, document.getElementById('questionsArea').innerHTML);
@@ -420,7 +372,6 @@ function loadHighlights() {
     if (q) document.getElementById('questionsArea').innerHTML = q;
 }
 
-// Save/Load notes
 function saveNotes() {
     const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
         id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
@@ -432,29 +383,19 @@ function loadNotes() {
     if (!saved) return;
     JSON.parse(saved).forEach(n => {
         const note = document.createElement('div');
-        note.className = 'sticky-note';
-        note.id = n.id;
-        note.style.left = n.left;
-        note.style.top = n.top;
-        note.innerHTML = `
-            <div class="note-header" onmousedown="startDragNote(event, '${n.id}')">
-                Note <span class="note-close" onclick="closeNote('${n.id}')">×</span>
-            </div>
-            <textarea class="note-textarea">${n.text}</textarea>
-        `;
+        note.className = 'sticky-note'; note.id = n.id;
+        note.style.left = n.left; note.style.top = n.top;
+        note.innerHTML = `<div class="note-header" onmousedown="startDragNote(event, '${n.id}')">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea">${n.text}</textarea>`;
         document.body.appendChild(note);
         const num = parseInt(n.id.split('_')[1]);
         if (num > lastNoteId) lastNoteId = num;
     });
 }
 
-// Save/Load answers
 function saveAnswers() {
     const answers = {};
     document.querySelectorAll('input.answer-input').forEach(inp => {
-        if (inp.name && inp.name.startsWith('q')) {
-            answers[inp.name] = inp.value.trim();
-        }
+        if (inp.name && inp.name.startsWith('q')) answers[inp.name] = inp.value.trim();
     });
     localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
     updateStatus();
@@ -470,11 +411,10 @@ function loadAnswers() {
     updateStatus();
 }
 
-// Update status indicators
 function updateStatus() {
     const saved = localStorage.getItem(`${passageId}_answers`);
     const answers = saved ? JSON.parse(saved) : {};
-    for (let q = 27; q <= TOTAL_QUESTIONS; q++) {
+    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
         const statBtn = document.getElementById('stat' + q);
         if (!statBtn) continue;
         const hasAnswer = !!answers[`q${q}`];
@@ -487,13 +427,6 @@ function updateStatus() {
     }
 }
 
-// Toggle answers visibility
-function toggleAnswers() {
-    const box = document.getElementById('answersBox');
-    box.style.display = box.style.display === 'block' ? 'none' : 'block';
-}
-
-// Check student answers
 function showStudentAnswers() {
     saveAnswers();
     const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`) || '{}');
@@ -519,7 +452,6 @@ function showStudentAnswers() {
     document.getElementById('studentAnswersBox').style.display = 'block';
 }
 
-// Clear everything
 function clearAllAnswers() {
     if (!confirm('⚠️ This will clear ALL answers, flags, highlights and notes. Continue?')) return;
     document.querySelectorAll('input.answer-input').forEach(i => i.value = '');
@@ -538,7 +470,6 @@ function clearAllAnswers() {
     updateStatus();
 }
 
-// Auto-save on input
 document.addEventListener('input', e => {
     if (e.target.name?.startsWith('q') || e.target.classList.contains('note-textarea')) {
         saveAnswers();
@@ -546,7 +477,6 @@ document.addEventListener('input', e => {
     }
 });
 
-// Initialize on load
 window.onload = function() {
     initQuestionNav();
     loadAnswers();
