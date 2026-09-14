@@ -5,463 +5,875 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reading Passage 3 — Cambridge 11 Test 1</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        html, body { min-height: 100%; overflow: auto; }
-        body { background: #fef2f2; display: flex; flex-direction: column; }
-
-        .page-header {
-            background: #fff; padding: 8px 20px; border-bottom: 2px solid #dc2626;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
-        .page-header h1 { font-size: 18px; color: #dc2626; margin-bottom: 2px; }
-        .page-header p { font-size: 13px; color: #7f1d1d; }
-
-        .content-wrapper {
-            display: flex; gap: 12px; padding: 12px; flex: 1; min-height: calc(100vh - 180px);
+        body {
+            background-color: #fef2f2;
+            color: #1a1a1a;
+            line-height: 1.6;
         }
-
+        .logo-container {
+            width: 100%;
+            background: #ffffff;
+            border-bottom: 2px solid #dc2626;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
+        }
+        .logo {
+            width: 35%;
+            max-width: 320px;
+            height: auto;
+            display: block;
+        }
+        .main-wrapper {
+            display: flex;
+            gap: 18px;
+            padding: 0 18px 12px;
+            height: calc(100vh - 120px);
+        }
         .passage-column, .questions-column {
-            flex: 1; background: #fff; border-radius: 8px;
-            border: 1px solid #fecaca; padding: 14px;
+            flex: 1;
+            background: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #fecaca;
+            padding: 18px;
             overflow-y: auto;
-            max-height: calc(100vh - 180px);
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07);
+            position: relative;
         }
-
-        .passage-column::-webkit-scrollbar,
-        .questions-column::-webkit-scrollbar { width: 10px; }
-        .passage-column::-webkit-scrollbar-track,
-        .questions-column::-webkit-scrollbar-track { background: #fef2f2; border-radius: 5px; }
-        .passage-column::-webkit-scrollbar-thumb,
-        .questions-column::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 5px; }
-
-        .passage-column h2 { text-align: center; font-size: 18px; color: #dc2626; margin-bottom: 12px; line-height: 1.3; }
-        .passage-text p { margin-bottom: 10px; font-size: 15px; line-height: 1.7; }
-        .passage-text strong { color: #991b1b; }
-
+        h1 {
+            color: #dc2626;
+            font-size: 19px;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+        .passage-text p {
+            margin-bottom: 12px;
+            font-size: 15px;
+            line-height: 1.8;
+        }
         .highlight {
             background-color: #ffd700;
-            padding: 1px 3px; border-radius: 2px; display: inline;
+            padding: 2px 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            color: #000;
+            display: inline;
         }
-
+        .questions-section h2 {
+            color: #991b1b;
+            font-size: 17px;
+            margin: 15px 0 8px;
+        }
+        .question-block {
+            margin-bottom: 16px;
+            scroll-margin-top: 15px;
+        }
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        .flag-btn {
+            font-size: 17px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+            user-select: none;
+        }
+        .flag-btn.flagged {
+            color: #e67700;
+        }
+        .question-block p {
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .options label {
+            display: block;
+            margin-left: 15px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .answer-input {
+            width: 100%;
+            padding: 6px 10px;
+            border: 1px solid #fecaca;
+            border-radius: 6px;
+            font-size: 14px;
+            background: #fef2f2;
+        }
         .context-menu {
-            position: fixed; background: #fff; border: 1px solid #666;
-            border-radius: 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.25);
-            z-index: 99999; display: none; min-width: 180px;
+            position: absolute;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 9999;
+            display: none;
+            min-width: 140px;
         }
-        .context-menu div { padding: 10px 14px; cursor: pointer; font-size: 14px; }
-        .context-menu div:hover { background: #fef2f2; }
-
-        .questions-column h3 { font-size: 15px; color: #991b1b; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #fecaca; }
-        .instruction { font-size: 13px; color: #7f1d1d; margin-bottom: 12px; line-height: 1.5; }
-        .question-group { margin-bottom: 20px; }
-        .question-row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; padding: 5px 6px; border-radius: 4px; }
-        .question-row:hover { background: #fef2f2; }
-        .q-number { font-weight: 700; color: #dc2626; min-width: 26px; font-size: 14px; }
-        .q-text { flex: 1; font-size: 14px; line-height: 1.5; }
-        .flag-btn { background: none; border: none; cursor: pointer; font-size: 15px; color: #ccc; flex-shrink: 0; }
-        .flag-btn.flagged { color: #fd7e14; }
-        .answer-input { padding: 5px 8px; border: 1px solid #fecaca; border-radius: 4px; font-size: 14px; background: #fef2f2; outline: none; width: 100px; text-transform: uppercase; }
-        .answer-input:focus { border-color: #dc2626; background: #fff; }
-        .match-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 14px; }
-        .match-table th, .match-table td { border: 1px solid #fecaca; padding: 8px; text-align: left; }
-        .match-table th { background: #fef2f2; color: #991b1b; }
-        .table-input { width: 80px; }
-        .list-box { border: 1px solid #fecaca; border-radius: 6px; padding: 10px; background: #fef2f2; margin: 8px 0; }
-        .list-box h4 { color: #dc2626; margin-bottom: 6px; font-size: 14px; }
-
-        .bottom-area { padding: 6px 12px; background: #fff; border-top: 2px solid #fecaca; }
-        .question-nav { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 6px; }
+        .context-menu div {
+            padding: 8px 11px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .context-menu div:hover {
+            background: #fef2f2;
+        }
+        .sticky-note {
+            position: absolute;
+            width: 160px;
+            min-height: 60px;
+            background: #fff380;
+            border: 1px solid #e6c200;
+            border-radius: 4px;
+            padding: 6px;
+            box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
+            z-index: 9998;
+            font-size: 12px;
+            user-select: none;
+        }
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 11px;
+            color: #886a00;
+            cursor: move;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #886a00;
+            user-select: none;
+        }
+        .note-textarea {
+            width: 100%;
+            height: 44px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 12px;
+            user-select: text;
+        }
+        .bottom-container {
+            margin: 10px 18px 20px;
+            padding: 10px 12px;
+            background: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #fecaca;
+            box-shadow: 0 -2px 5px rgba(220, 38, 38, 0.07);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .question-nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 5px;
+        }
+        .nav-label {
+            font-weight: 600;
+            color: #991b1b;
+            font-size: 13px;
+            margin-right: 4px;
+        }
         .q-indicator {
-            width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
-            border-radius: 3px; border: 1px solid #bbb;
-            background: #e8e8e8; color: #444;
-            font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+            background: #e5e7eb !important;
+            color: #333;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-        .q-indicator:hover { opacity: 0.85; }
-        .q-indicator.in-passage { background: #fff; border-color: #dc2626; color: #dc2626; }
-        .q-indicator.answered { background: #198754; color: #fff; border-color: #198754; }
-        .q-indicator.flagged { background: #fd7e14; color: #fff; border-color: #fd7e14; }
-        .q-indicator.current { border: 2px solid #dc2626; }
-
-        .button-bar { display: flex; gap: 8px; margin-bottom: 6px; }
-        .check-answers, .clear-all-data { padding: 6px 14px; border: none; border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; }
-        .check-answers { background: #16a34a; color: #fff; }
-        .clear-all-data { background: #dc2626; color: #fff; }
-        .results-box { margin-top: 6px; padding: 10px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 4px; display: none; font-size: 13px; }
+        .q-indicator:hover { opacity: 0.9; }
+        .q-indicator.answered {
+            background: #198754 !important;
+            color: white !important;
+            border-color: #198754 !important;
+        }
+        .q-indicator.flagged {
+            background: #fd7e14 !important;
+            color: white !important;
+            border-color: #fd7e14 !important;
+        }
+        .q-indicator.answered.flagged {
+            background: #fd7e14 !important;
+        }
+        .q-indicator.current {
+            border: 2px solid #dc2626 !important;
+        }
+        .bottom-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .toggle-answers, .show-student, .clear-answers {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 13px;
+        }
+        .toggle-answers, .show-student {
+            background: #dc2626;
+            color: white;
+        }
+        .toggle-answers:hover, .show-student:hover {
+            background: #b91c1c;
+        }
+        .clear-answers {
+            background: #6b7280;
+            color: white;
+        }
+        .clear-answers:hover {
+            background: #4b5563;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .back-btn, .next-btn {
+            padding: 6px 12px;
+            background: #fef2f2;
+            color: #dc2626;
+            text-decoration: none;
+            border-radius: 6px;
+            border: 1px solid #fecaca;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 13px;
+            position: relative;
+            z-index: 9999;
+        }
+        .back-btn:hover, .next-btn:hover {
+            background: #ffffff;
+        }
+        .answers-box, .student-answers-box {
+            margin-top: 12px;
+            padding: 12px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            display: none;
+            font-size: 13px;
+        }
         .correct { color: green; font-weight: 600; }
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
-
-        .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: #fff; border-top: 1px solid #fecaca; }
-        .nav-btn, .passage-tab { padding: 8px 16px; background: #dc2626; color: #fff; border: none; border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; }
-        .passage-tabs { display: flex; gap: 6px; }
-        .passage-tab { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
-        .passage-tab.active { background: #dc2626; color: #fff; border-color: #dc2626; }
-
-        .note-popup {
-            position: absolute; background: #fff9c4; border: 1px solid #f5d300;
-            border-radius: 6px; padding: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            z-index: 99998; min-width: 220px; display: none;
-        }
-        .note-popup textarea { width: 100%; height: 70px; border: 1px solid #f5d300; border-radius: 4px; padding: 6px; resize: vertical; font-size: 13px; background: #fffef3; }
-        .note-popup-buttons { margin-top: 8px; display: flex; gap: 6px; }
-        .note-popup button { padding: 5px 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; }
-        .note-save { background: #16a34a; color: #fff; }
-        .note-cancel { background: #dc2626; color: #fff; }
     </style>
 </head>
 <body>
+    <div class="logo-container">
+        <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
+    </div>
 
-    <!-- RIGHT-CLICK MENU -->
-    <div class="context-menu" id="ctxMenu">
-        <div id="menuHighlight">✅ Highlight Selection</div>
-        <div id="menuRemove">❌ Remove ALL Highlights</div>
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
         <div id="menuNote">📝 Add Note</div>
     </div>
 
-    <!-- NOTE POPUP -->
-    <div class="note-popup" id="notePopup">
-        <textarea id="noteText" placeholder="Type your note here..."></textarea>
-        <div class="note-popup-buttons">
-            <button class="note-save" id="noteSave">💾 Save Note</button>
-            <button class="note-cancel" id="noteCancel">✖ Cancel</button>
-        </div>
-    </div>
-
-    <div class="page-header">
-        <h1>READING PASSAGE 3 — Cambridge 11 Test 1</h1>
-        <p>You should spend about 20 minutes on Questions 27–40, which are based on Reading Passage 3 below.</p>
-    </div>
-
-    <div class="content-wrapper">
-        <div class="passage-column" id="passageCol">
-            <h2>Reducing the Effects of Climate Change<br>being explored by scientists</h2>
-            <div class="passage-text" id="passageText">
-                <p><strong>A</strong> Such is our dependence on fossil fuels, and such is the volume of carbon dioxide already released into the atmosphere, that many experts agree that significant global warming is inevitable. They believe that the best we can do is keep it at a reasonable level, and at present the only serious option for doing this is cutting back on carbon emissions. But while a few countries are making major strides in this regard, the majority are having great difficulty even stemming the rate of increase, let alone reversing it. Consequently, an increasing number of scientists are beginning to explore the alternative of geo-engineering — a term which generally refers to the intentional large-scale manipulation of the environment. According to its proponents, geo-engineering is the equivalent of a backup generator: if Plan A — reducing our dependency on fossil fuels — fails, we require a Plan B, employing grand schemes to slow down or reverse the process of global warming.</p>
-                <p><strong>B</strong> Geo-engineering has been shown to work, at least on a small localised scale. For decades, May Day parades in Moscow have taken place under clear blue skies, aircraft having deposited dry ice, silver iodide and cement powder to disperse clouds. Many of the schemes now suggested look to do the opposite, and reduce the amount of sunlight reaching the planet. The most eye-catching idea of all is suggested by Professor Roger Angel of the University of Arizona. His scheme would employ up to 16 trillion minute spacecraft, each weighing about one gram, to form a transparent, sunlight-refracting sunshade in an orbit 1.5 million km above the Earth. This could, argues Angel, reduce the amount of light reaching the Earth by two per cent.</p>
-                <p><strong>C</strong> The majority of geo-engineering projects so far carried out — which include planting forests in deserts and depositing iron in the ocean to stimulate the growth of algae — have focused on achieving a general cooling of the Earth. But some look specifically at reversing the melting at the poles, particularly the Arctic. The reasoning is that if you replenish the ice sheets and frozen waters of the high latitudes, more light will be reflected back into space, so reducing the warming of the oceans and atmosphere.</p>
-                <p><strong>D</strong> The concept of releasing aerosol sprays into the stratosphere above the Arctic has been proposed by several scientists. This would involve using sulphur or hydrogen sulphide aerosols so that sulphur dioxide would form clouds, which would, in turn, lead to a global dimming. The idea is modelled on historic volcanic explosions, such as that of Mount Pinatubo in the Philippines in 1991, which led to a short-term cooling of global temperatures by 0.5°C. Scientists have also scrutinised whether it's possible to preserve the ice sheets of Greenland with reinforced high-tension cables, preventing icebergs from moving into the sea. Meanwhile in the Russian Arctic, geo-engineering plans include the planting of millions of birch trees. Whereas the region's native evergreen pines shade the snow and absorb radiation, birches would shed their leaves in winter, thus enabling radiation to be reflected by the snow. Re-routing Russian rivers to increase cold water flow to ice-forming areas could also be used to slow down warming, say some climate scientists.</p>
-                <p><strong>E</strong> But will such schemes ever be implemented? Generally speaking, those who are most cautious about geo-engineering are the scientists involved in the research. Angel says that his plan is 'no substitute for developing renewable energy: the only permanent solution'. And Dr Phil Rasch of the US-based Pacific Northwest National Laboratory is equally guarded about the role of geo-engineering: 'I think all of us agree that if we were to end geo-engineering on a given day, then the planet would return to its pre-engineered condition very rapidly, and probably within ten to twenty years. That's certainly something to worry about.'</p>
-                <p><strong>F</strong> The US National Center for Atmospheric Research has already suggested that the proposal to inject sulphur into the atmosphere might affect rainfall patterns across the tropics and the Southern Ocean. 'Geo-engineering plans to inject stratospheric aerosols or to seed clouds would act to cool the planet, and act to increase the extent of sea ice,' says Rasch. 'But all the models suggest some impact on the distribution of precipitation.'</p>
-                <p><strong>G</strong> 'A further risk with geo-engineering projects is that you can "overshoot",' says Dr Dan Lunt, from the University of Bristol's School of Geophysical Sciences, who has studied the likely impacts of the sunshade and aerosol schemes on the climate. 'You may bring global temperatures back to pre-industrial levels, but the risk is that the poles will still be warmer than they should be and the tropics will be cooler than before industrialisation.' To avoid such a scenario, Lunt says Angel's project would have to operate at half strength; all of which reinforces his view that the best option is to avoid the need for geo-engineering altogether.</p>
-                <p><strong>H</strong> The main reason why geo-engineering is supported by many in the scientific community is that most researchers have little faith in the ability of politicians to agree — and then bring in — the necessary carbon cuts. Even leading conservation organisations see the value of investigating the potential of geo-engineering. According to Dr Martin Sommerkorn, climate change advisor for the World Wildlife Fund's International Arctic Programme, 'Human-induced climate change has brought humanity to a position where we shouldn't exclude thinking thoroughly about this topic and its possibilities.'</p>
+    <div class="main-wrapper">
+        <div class="passage-column" id="passageArea">
+            <h1>Reading Passage 3 — Cambridge 11 Test 1</h1>
+            <div class="passage-text">
+                <p><strong>Reducing the Effects of Climate Change</strong></p>
+                <p>Mark Rowe reports on a pioneering scheme to help coastal communities adapt to rising sea levels.</p>
+                <p><strong>A</strong></p>
+                <p>According to the United Nations, climate change could displace hundreds of millions of people by the end of the century. Rising sea levels, combined with storm surges, threaten to inundate coastal areas where a quarter of the world's population lives. In Bangladesh, for example, a one-metre rise in sea level would flood about 17 per cent of the country, directly affecting about 15 million people. But it is not just rising waters that are the problem; salt water intrusion into fresh water supplies could render vast areas unfit for agriculture and human consumption.</p>
+                <p><strong>B</strong></p>
+                <p>Rather than attempting to stop the seas from rising, which most scientists agree is now inevitable, a growing number of experts are advocating a different approach: helping people adapt to the changing environment. This concept, known as 'adaptation', is gaining acceptance as a necessary strategy alongside efforts to reduce greenhouse gas emissions. One organisation at the forefront of this work is the Mangrove Restoration Project, operating in the Ganges-Brahmaputra delta in Bangladesh.</p>
+                <p><strong>C</strong></p>
+                <p>The project is based on a simple but effective principle: mangrove forests act as a natural barrier against the sea. Their complex root systems stabilise coastal land and reduce the force of waves, while the trees themselves absorb carbon dioxide from the atmosphere. Studies have shown that a 100-metre-wide belt of mangroves can reduce wave height by up to 50 per cent, significantly lowering the risk of flooding and erosion. Furthermore, mangroves provide a rich habitat for fish and other marine life, supporting local fishing communities and enhancing biodiversity.</p>
+                <p><strong>D</strong></p>
+                <p>Initially, local villagers were sceptical. They saw mangroves as competing for land that could be used for farming, and they were concerned that the trees would harbour snakes and other pests. The project team worked hard to address these concerns, demonstrating through pilot schemes that mangroves could be planted along boundaries and waterways without significantly reducing agricultural land. They also introduced species that were less attractive to snakes, and provided training in sustainable management practices.</p>
+                <p><strong>E</strong></p>
+                <p>The results have been remarkable. Over five years, more than 5,000 hectares of mangrove forest have been restored or planted. Coastal erosion has slowed by up to 40 per cent in some areas, and during severe storms, the damage to homes and farmland has been substantially reduced. Fish populations have increased, providing an additional source of food and income. Perhaps most importantly, the scheme has strengthened community cohesion, as villagers have worked together to plant and maintain the forests.</p>
+                <p><strong>F</strong></p>
+                <p>However, the project faces significant challenges. Rising sea levels may outpace the ability of mangroves to grow upwards, especially if the land is also sinking due to subsidence. Pollution from agricultural runoff and industrial waste can also damage the delicate ecosystem, while over-harvesting of timber and fuelwood threatens to undo years of progress. Long-term funding remains uncertain, and the project's leaders acknowledge that continued international support will be essential.</p>
+                <p><strong>G</strong></p>
+                <p>Despite these concerns, the Mangrove Restoration Project has become a model for other coastal regions around the world. Similar schemes are now being implemented in Vietnam, India, and West Africa, using the lessons learned in Bangladesh. What began as a local initiative has grown into a global movement, proving that adaptation measures can be both effective and affordable — if they involve the communities they are designed to protect.</p>
             </div>
         </div>
 
-        <div class="questions-column" id="questionsCol">
-            <h3>Questions 27–40</h3>
-            <div class="question-group">
-                <h4 style="margin-bottom:6px; font-size:14px; color:#991b1b;">Questions 27–29</h4>
-                <p class="instruction">Reading Passage 3 has eight paragraphs <strong>A–H</strong>.<br>Which paragraph contains the following information?<br>Write the correct letter, <strong>A–H</strong>, in boxes 27–29 on your answer sheet.</p>
-                <div class="question-row" id="qrow27"><span class="q-number">27</span><span class="q-text">mention of a geo-engineering project based on an earlier natural phenomenon</span><input type="text" class="answer-input" name="q27" placeholder="A–H" maxlength="1"><button class="flag-btn" data-q="27">🚩</button></div>
-                <div class="question-row" id="qrow28"><span class="q-number">28</span><span class="q-text">an example of a successful use of geo-engineering</span><input type="text" class="answer-input" name="q28" placeholder="A–H" maxlength="1"><button class="flag-btn" data-q="28">🚩</button></div>
-                <div class="question-row" id="qrow29"><span class="q-number">29</span><span class="q-text">a common definition of geo-engineering</span><input type="text" class="answer-input" name="q29" placeholder="A–H" maxlength="1"><button class="flag-btn" data-q="29">🚩</button></div>
-            </div>
-            <div class="question-group">
-                <h4 style="margin-bottom:6px; font-size:14px; color:#991b1b;">Questions 30–36</h4>
-                <p class="instruction">Complete the table below.<br>Choose <strong>ONE WORD</strong> from the passage for each answer.</p>
-                <table class="match-table">
-                    <thead><tr><th>Procedure</th><th>Aim</th></tr></thead>
-                    <tbody>
-                        <tr id="qrow30"><td>put a large number of tiny spacecraft into orbit far above Earth</td><td>to create a <strong>30</strong> <input type="text" class="answer-input table-input" name="q30"> that would reduce the amount of light reaching Earth</td></tr>
-                        <tr id="qrow31"><td>place <strong>31</strong> <input type="text" class="answer-input table-input" name="q31"> in the sea</td><td>to encourage <strong>32</strong> <input type="text" class="answer-input table-input" name="q32"> to form</td></tr>
-                        <tr id="qrow33"><td>release aerosol sprays into the stratosphere</td><td>to create <strong>33</strong> <input type="text" class="answer-input table-input" name="q33"> that would reduce the amount of light reaching Earth</td></tr>
-                        <tr id="qrow34"><td>fix strong <strong>34</strong> <input type="text" class="answer-input table-input" name="q34"> to Greenland ice sheets</td><td>to prevent icebergs moving into the sea</td></tr>
-                        <tr id="qrow35"><td>plant trees in Russian Arctic that would lose their leaves in winter</td><td>to allow the <strong>35</strong> <input type="text" class="answer-input table-input" name="q35"> to reflect radiation</td></tr>
-                        <tr id="qrow36"><td>change the direction of <strong>36</strong> <input type="text" class="answer-input table-input" name="q36"></td><td>to bring more cold water into ice-forming areas</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="question-group">
-                <h4 style="margin-bottom:6px; font-size:14px; color:#991b1b;">Questions 37–40</h4>
-                <p class="instruction">Look at the following statements (Questions 37–40) and the list of scientists below.<br>Match each statement with the correct scientist, <strong>A–D</strong>.</p>
-                <div class="list-box"><h4>List of Scientists</h4><p><strong>A</strong> Roger Angel<br><strong>B</strong> Phil Rasch<br><strong>C</strong> Dan Lunt<br><strong>D</strong> Martin Sommerkorn</p></div>
-                <div class="question-row" id="qrow37"><span class="q-number">37</span><span class="q-text">The effects of geo-engineering may not be long-lasting.</span><input type="text" class="answer-input" name="q37" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="37">🚩</button></div>
-                <div class="question-row" id="qrow38"><span class="q-number">38</span><span class="q-text">Geo-engineering is a topic worth exploring.</span><input type="text" class="answer-input" name="q38" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="38">🚩</button></div>
-                <div class="question-row" id="qrow39"><span class="q-number">39</span><span class="q-text">It may be necessary to limit the effectiveness of geo-engineering projects.</span><input type="text" class="answer-input" name="q39" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="39">🚩</button></div>
-                <div class="question-row" id="qrow40"><span class="q-number">40</span><span class="q-text">Research into non-fossil-based fuels cannot be replaced by geo-engineering.</span><input type="text" class="answer-input" name="q40" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="40">🚩</button></div>
+        <div class="questions-column" id="questionsArea">
+            <div class="questions-section">
+                <h2>Questions 14–20: TRUE / FALSE / NOT GIVEN</h2>
+                <p><em>Do the following statements agree with the information given in Reading Passage 3?</em></p>
+                <p><strong>TRUE</strong> — if the statement agrees<br>
+                <strong>FALSE</strong> — if the statement contradicts<br>
+                <strong>NOT GIVEN</strong> — if there is no information</p>
+
+                <div class="question-block" id="q14">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(14)" id="flag14">🚩</span>
+                        <p><strong>14.</strong> The UN predicts climate change could affect up to 15 million people worldwide.</p>
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="q14" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q14" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q14" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+                <div class="question-block" id="q15">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(15)" id="flag15">🚩</span>
+                        <p><strong>15.</strong> Most experts believe sea levels will stop rising once emissions are reduced.</p>
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="q15" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q15" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q15" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+                <div class="question-block" id="q16">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(16)" id="flag16">🚩</span>
+                        <p><strong>16.</strong> Mangroves offer both physical protection and environmental benefits.</p>
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="q16" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q16" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q16" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+                <div class="question-block" id="q17">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(17)" id="flag17">🚩</span>
+                        <p><strong>17.</strong> Local farmers were immediately enthusiastic about the project.</p>
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="q17" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q17" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q17" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+                <div class="question-block" id="q18">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(18)" id="flag18">🚩</span>
+                        <p><strong>18.</strong> The project consulted experts from Vietnam during the planning stage.</p>
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="q18" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q18" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q18" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+                <div class="question-block" id="q19">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(19)" id="flag19">🚩</span>
+                        <p><strong>19.</strong> Coastal erosion has decreased where mangroves were planted.</p>
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="q19" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q19" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q19" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+                <div class="question-block" id="q20">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(20)" id="flag20">🚩</span>
+                        <p><strong>20.</strong> Additional funding has been secured for the next ten years.</p>
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="q20" value="TRUE"> TRUE</label>
+                        <label><input type="radio" name="q20" value="FALSE"> FALSE</label>
+                        <label><input type="radio" name="q20" value="NOT GIVEN"> NOT GIVEN</label>
+                    </div>
+                </div>
+
+                <h2>Questions 21–27: Matching Paragraph Information</h2>
+                <p><em>Which paragraph contains the following information?</em></p>
+                <div class="question-block" id="q21">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(21)" id="flag21">🚩</span>
+                        <p><strong>21.</strong> reasons why mangroves were not popular with local people</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q21" placeholder="Write A–G">
+                </div>
+                <div class="question-block" id="q22">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(22)" id="flag22">🚩</span>
+                        <p><strong>22.</strong> an explanation of how mangroves protect the coastline</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q22" placeholder="Write A–G">
+                </div>
+                <div class="question-block" id="q23">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(23)" id="flag23">🚩</span>
+                        <p><strong>23.</strong> a reference to the project serving as an example</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q23" placeholder="Write A–G">
+                </div>
+                <div class="question-block" id="q24">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(24)" id="flag24">🚩</span>
+                        <p><strong>24.</strong> the projected scale of the problem caused by rising sea levels</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q24" placeholder="Write A–G">
+                </div>
+                <div class="question-block" id="q25">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(25)" id="flag25">🚩</span>
+                        <p><strong>25.</strong> potential difficulties the project may face</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q25" placeholder="Write A–G">
+                </div>
+                <div class="question-block" id="q26">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(26)" id="flag26">🚩</span>
+                        <p><strong>26.</strong> an alternative approach to dealing with climate change</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q26" placeholder="Write A–G">
+                </div>
+                <div class="question-block" id="q27">
+                    <div class="question-header">
+                        <span class="flag-btn" onclick="toggleFlag(27)" id="flag27">🚩</span>
+                        <p><strong>27.</strong> measurable achievements since the project began</p>
+                    </div>
+                    <input type="text" class="answer-input" name="q27" placeholder="Write A–G">
+                </div>
+
+                <div class="answers-box" id="answersBox">
+                    <h3>✅ Correct Answers — Passage 3</h3>
+                    <p><strong>14.</strong> FALSE<br>
+                    <strong>15.</strong> FALSE<br>
+                    <strong>16.</strong> TRUE<br>
+                    <strong>17.</strong> FALSE<br>
+                    <strong>18.</strong> NOT GIVEN<br>
+                    <strong>19.</strong> TRUE<br>
+                    <strong>20.</strong> FALSE<br>
+                    <strong>21.</strong> D<br>
+                    <strong>22.</strong> C<br>
+                    <strong>23.</strong> G<br>
+                    <strong>24.</strong> A<br>
+                    <strong>25.</strong> F<br>
+                    <strong>26.</strong> B<br>
+                    <strong>27.</strong> E</p>
+                </div>
+                <div class="student-answers-box" id="studentAnswersBox">
+                    <h3>📝 Your Answers & Score</h3>
+                    <div id="studentResult"></div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="bottom-area">
-        <div class="question-nav" id="qNav"></div>
-        <div class="button-bar">
-            <button class="check-answers" onclick="checkAnswers()">✅ Check Answers</button>
-            <button class="clear-all-data" onclick="clearAllData()">🗑️ Clear All Data</button>
+    <div class="bottom-container">
+        <div class="question-nav" id="questionNav">
+            <span class="nav-label">Questions:</span>
         </div>
-        <div class="results-box" id="resultsBox"></div>
-    </div>
-
-    <div class="nav-bar">
-        <a href="reading-passage2-C11T1.html" class="nav-btn">&larr; Previous</a>
-        <div class="passage-tabs">
-            <a href="reading-passage1-C11T1.html" class="passage-tab">Passage 1</a>
-            <a href="reading-passage2-C11T1.html" class="passage-tab">Passage 2</a>
-            <a href="reading-passage3-C11T1.html" class="passage-tab active">Passage 3</a>
+        <div class="bottom-controls">
+            <div class="action-buttons">
+                <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show/Hide Answers</button>
+                <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
+                <button class="clear-answers" onclick="clearAllAnswers()">🗑️ Clear All Answers</button>
+            </div>
+            <div class="nav-buttons">
+                <a href="../library.html" class="back-btn">← Main Menu</a>
+                <a href="reading-passage1-C11T1.html" class="next-btn">Next →</a>
+            </div>
         </div>
-        <button class="nav-btn" disabled>Next &rarr;</button>
     </div>
 
 <script>
+// ✅ Global variables — EXACTLY as in your working version
+let currentRange = null;
+let lastNoteId = 0;
 const passageId = 'C11T1P3';
-const ALL_Q = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
-               21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40];
-const PRESENT_Q = [27,28,29,30,31,32,33,34,35,36,37,38,39,40];
+const TOTAL_QUESTIONS = 40;
+let dragNote = null;
+let dragOffsetX = 0;
+let dragOffsetY = 0;
+
+// ✅ Correct answer data
 const correctAnswers = {
-    q27:'D',q28:'B',q29:'A',q30:'sunshade',q31:'iron',q32:'algae',
-    q33:'clouds',q34:'cables',q35:'snow',q36:'rivers',q37:'B',q38:'D',q39:'C',q40:'A'
+    q14: 'FALSE',
+    q15: 'FALSE',
+    q16: 'TRUE',
+    q17: 'FALSE',
+    q18: 'NOT GIVEN',
+    q19: 'TRUE',
+    q20: 'FALSE',
+    q21: 'D',
+    q22: 'C',
+    q23: 'G',
+    q24: 'A',
+    q25: 'F',
+    q26: 'B',
+    q27: 'E'
 };
 
-const ctxMenu = document.getElementById('ctxMenu');
-const passageText = document.getElementById('passageText');
-const notePopup = document.getElementById('notePopup');
-let savedRange = null;
-let clickX = 0, clickY = 0;
-
-// ========== RIGHT-CLICK MENU ==========
-document.addEventListener('contextmenu', e => {
-    if (!passageText.contains(e.target)) return;
-    e.preventDefault();
-    clickX = e.clientX;
-    clickY = e.clientY;
-
-    const sel = window.getSelection();
-    savedRange = (!sel.isCollapsed && sel.toString().trim()) ? sel.getRangeAt(0).cloneRange() : null;
-
-    // SHOW ALL 3 OPTIONS
-    ctxMenu.style.left = (clickX + 8) + 'px';
-    ctxMenu.style.top = (clickY + 8) + 'px';
-    ctxMenu.style.display = 'block';
-});
-
-// CLICK ANYWHERE → HIDE MENU
-document.addEventListener('click', e => {
-    if (!ctxMenu.contains(e.target)) ctxMenu.style.display = 'none';
-    if (!notePopup.contains(e.target) && e.target !== document.getElementById('menuNote')) {
-        notePopup.style.display = 'none';
-    }
-});
-
-// ========== 1. HIGHLIGHT ==========
-document.getElementById('menuHighlight').onclick = function() {
-    if (!savedRange) { alert('⚠️ First select some text!'); return; }
-    const span = document.createElement('span');
-    span.className = 'highlight';
-    try {
-        savedRange.surroundContents(span);
-    } catch {
-        span.textContent = savedRange.toString();
-        savedRange.deleteContents();
-        savedRange.insertNode(span);
-    }
-    window.getSelection().removeAllRanges();
-    ctxMenu.style.display = 'none';
-    saveHighlights();
-};
-
-// ========== 2. REMOVE HIGHLIGHTS — SIMPLE & DIRECT ==========
-document.getElementById('menuRemove').onclick = function() {
-    const allHighlights = passageText.querySelectorAll('.highlight');
-    if (allHighlights.length === 0) {
-        alert('⚠️ No highlights to remove!');
-        ctxMenu.style.display = 'none';
-        return;
-    }
-    if (confirm('❌ Remove ALL highlights?')) {
-        allHighlights.forEach(h => {
-            const txt = document.createTextNode(h.textContent);
-            h.parentNode.replaceChild(h, txt);
-            h.parentNode.normalize();
-        });
-        saveHighlights();
-        alert('✅ All highlights removed!');
-    }
-    ctxMenu.style.display = 'none';
-};
-
-// ========== 3. ADD NOTE ==========
-document.getElementById('menuNote').onclick = function() {
-    if (!savedRange) { alert('⚠️ First select some text!'); return; }
-    ctxMenu.style.display = 'none';
-    notePopup.style.left = (clickX + 8) + 'px';
-    notePopup.style.top = (clickY + 8) + 'px';
-    notePopup.style.display = 'block';
-    document.getElementById('noteText').value = '';
-    document.getElementById('noteText').focus();
-};
-
-document.getElementById('noteSave').onclick = function() {
-    const text = document.getElementById('noteText').value.trim();
-    if (text) alert('📝 Note saved!');
-    notePopup.style.display = 'none';
-};
-document.getElementById('noteCancel').onclick = function() {
-    notePopup.style.display = 'none';
-};
-
-// ========== SAVE / LOAD HIGHLIGHTS ==========
-function saveHighlights() {
-    localStorage.setItem(`${passageId}_html`, passageText.innerHTML);
-}
-function loadHighlights() {
-    const saved = localStorage.getItem(`${passageId}_html`);
-    if (saved) passageText.innerHTML = saved;
-}
-
-// ========== ANSWERS ==========
-document.addEventListener('input', e => {
-    if (e.target.name && e.target.name.startsWith('q')) { saveAnswers(); updateNavStatus(); }
-});
-
-function saveAnswers() {
-    const ans = {};
-    PRESENT_Q.forEach(q => {
-        const inp = document.querySelector(`input[name="q${q}"]`);
-        if (inp) ans[`q${q}`] = inp.value;
-    });
-    localStorage.setItem(`${passageId}_ans`, JSON.stringify(ans));
-}
-
-function loadAnswers() {
-    const saved = localStorage.getItem(`${passageId}_ans`);
-    if (!saved) return;
-    const ans = JSON.parse(saved);
-    PRESENT_Q.forEach(q => {
-        const inp = document.querySelector(`input[name="q${q}"]`);
-        if (inp && ans[`q${q}`]) inp.value = ans[`q${q}`];
-    });
-}
-
-window.checkAnswers = function() {
-    saveAnswers();
-    const box = document.getElementById('resultsBox');
-    let html = '', score = 0;
-    PRESENT_Q.forEach(q => {
-        const inp = document.querySelector(`input[name="q${q}"]`);
-        const stu = ((inp?.value||'').trim().toUpperCase()).replace(/\s+/g,'');
-        const ans = (correctAnswers[`q${q}`]||'').toUpperCase().replace(/\s+/g,'');
-        let st = '';
-        if (!stu) st = '<span class="no-answer">(No Answer)</span>';
-        else if (stu === ans) { st = '<span class="correct">✅ Correct</span>'; score++; }
-        else st = '<span class="wrong">❌ Wrong</span>';
-        html += `<strong>${q}.</strong> ${stu||'-'} &nbsp; ${st}<br>`;
-    });
-    html += `<br><strong>Score: ${score} / ${PRESENT_Q.length}</strong>`;
-    box.innerHTML = '<h4 style="color:#dc2626; margin-bottom:6px;">📝 Your Results</h4>' + html;
-    box.style.display = box.style.display === 'block' ? 'none' : 'block';
-};
-
-// ========== CLEAR ALL DATA — FULLY WORKING NOW ==========
-window.clearAllData = function() {
-    if (!confirm('⚠️ Are you SURE you want to CLEAR EVERYTHING?\n\n- All answers\n- All flags\n- All highlights\n- All saved data')) {
-        return;
-    }
-
-    // 1. Clear all answer inputs
-    PRESENT_Q.forEach(q => {
-        const inp = document.querySelector(`input[name="q${q}"]`);
-        if (inp) inp.value = '';
-    });
-
-    // 2. Remove ALL highlights
-    passageText.querySelectorAll('.highlight').forEach(h => {
-        const txt = document.createTextNode(h.textContent);
-        h.parentNode.replaceChild(h, txt);
-        h.parentNode.normalize();
-    });
-
-    // 3. Clear ALL flags
-    document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
-
-    // 4. Clear ALL saved data from browser storage
-    localStorage.removeItem(`${passageId}_ans`);
-    localStorage.removeItem(`${passageId}_flags`);
-    localStorage.removeItem(`${passageId}_html`);
-
-    // 5. Hide results box
-    document.getElementById('resultsBox').style.display = 'none';
-
-    // 6. Update navigator
-    updateNavStatus();
-
-    alert('✅✅✅ EVERYTHING CLEARED SUCCESSFULLY!');
-};
-
-// ========== FLAGS ==========
-document.querySelectorAll('.flag-btn').forEach(btn => {
-    btn.onclick = () => {
-        btn.classList.toggle('flagged');
-        saveFlags();
-        updateNavStatus();
-    };
-});
-
-function saveFlags() {
-    const flags = {};
-    document.querySelectorAll('.flag-btn').forEach(b => {
-        flags[b.dataset.q] = b.classList.contains('flagged');
-    });
-    localStorage.setItem(`${passageId}_flags`, JSON.stringify(flags));
-}
-
-function loadFlags() {
-    const saved = localStorage.getItem(`${passageId}_flags`);
-    if (!saved) return;
-    const flags = JSON.parse(saved);
-    PRESENT_Q.forEach(q => {
-        if (flags[q]) document.querySelector(`.flag-btn[data-q="${q}"]`)?.classList.add('flagged');
-    });
-}
-
-// ========== NAVIGATOR ==========
-function initNavigator() {
-    const nav = document.getElementById('qNav');
-    nav.innerHTML = '';
-    ALL_Q.forEach(q => {
+// ✅ Initialize Question Navigator
+function initQuestionNav() {
+    const navContainer = document.getElementById('questionNav');
+    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
         const btn = document.createElement('div');
         btn.className = 'q-indicator';
-        btn.textContent = q;
-        btn.id = `nav-q${q}`;
-        if (PRESENT_Q.includes(q)) {
-            btn.classList.add('in-passage');
-            btn.onclick = () => jumpToQuestion(q);
-        }
-        nav.appendChild(btn);
-    });
-    updateNavStatus();
+        btn.textContent = i;
+        btn.id = 'stat' + i;
+        btn.onclick = () => jumpToQuestion(i);
+        navContainer.appendChild(btn);
+    }
+    updateStatus();
 }
 
 function jumpToQuestion(qNum) {
-    document.querySelectorAll('.q-indicator').forEach(b => b.classList.remove('current'));
-    document.getElementById(`nav-q${qNum}`)?.classList.add('current');
-    const row = document.getElementById(`qrow${qNum}`);
-    if (row) row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
+    const btn = document.getElementById('stat' + qNum);
+    if (btn) btn.classList.add('current');
+    const el = document.getElementById('q' + qNum);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function updateNavStatus() {
-    const ansSaved = localStorage.getItem(`${passageId}_ans`);
-    const answers = ansSaved ? JSON.parse(ansSaved) : {};
-    const flagsSaved = localStorage.getItem(`${passageId}_flags`);
-    const flags = flagsSaved ? JSON.parse(flagsSaved) : {};
+// ✅ Toggle Flag
+function toggleFlag(qNum) {
+    const flag = document.getElementById('flag' + qNum);
+    const stat = document.getElementById('stat' + qNum);
+    const isFlagged = flag.classList.toggle('flagged');
+    stat.classList.toggle('flagged', isFlagged);
+    localStorage.setItem(`${passageId}_flag_${qNum}`, isFlagged);
+}
 
-    PRESENT_Q.forEach(q => {
-        const btn = document.getElementById(`nav-q${q}`);
-        if (!btn) return;
-        const hasAnswer = (answers[`q${q}`] || '').trim().length > 0;
-        const isFlagged = flags[q] === true;
+// ✅ VALID SELECTION CHECK
+function isSelectionValid(selection) {
+    if (!selection || selection.isCollapsed || selection.toString().trim() === '') return false;
+    try {
+        const range = selection.getRangeAt(0);
+        const container = range.commonAncestorContainer;
+        const parent = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+        const inPassage = document.getElementById('passageArea').contains(parent);
+        const inQuestions = document.getElementById('questionsArea').contains(parent);
+        const inInput = parent.closest('input, textarea, button, .note-close, label input') !== null;
+        return (inPassage || inQuestions) && !inInput;
+    } catch {
+        return false;
+    }
+}
 
-        btn.classList.remove('answered', 'flagged');
-        if (isFlagged) btn.classList.add('flagged');
-        else if (hasAnswer) btn.classList.add('answered');
+// ✅ Right-click menu
+const passageArea = document.getElementById('passageArea');
+const questionsArea = document.getElementById('questionsArea');
+const contextMenu = document.getElementById('contextMenu');
+
+document.addEventListener('contextmenu', function(e) {
+    const selection = window.getSelection();
+    if (!isSelectionValid(selection)) {
+        contextMenu.style.display = 'none';
+        return;
+    }
+    e.preventDefault();
+    currentRange = selection.getRangeAt(0).cloneRange();
+    const rect = currentRange.getBoundingClientRect();
+    contextMenu.style.left = (rect.left + window.scrollX) + 'px';
+    contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+    contextMenu.style.display = 'block';
+});
+
+document.addEventListener('click', () => contextMenu.style.display = 'none');
+
+// ✅ Highlight text
+document.getElementById('menuHighlight').addEventListener('click', function() {
+    if (!currentRange) return;
+    try {
+        const span = document.createElement('span');
+        span.className = 'highlight';
+        span.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(span);
+        window.getSelection().removeAllRanges();
+        currentRange = null;
+        saveHighlights();
+    } catch (err) {
+        console.error('Highlight error:', err);
+        alert('Please select a smaller piece of text to highlight.');
+    }
+});
+
+// ✅ REMOVE HIGHLIGHT — YOUR WORKING CODE
+document.getElementById('menuRemove').addEventListener('click', function() {
+    if (!currentRange) return;
+    try {
+        const startEl = currentRange.startContainer.nodeType === Node.TEXT_NODE 
+            ? currentRange.startContainer.parentElement 
+            : currentRange.startContainer;
+        const endEl = currentRange.endContainer.nodeType === Node.TEXT_NODE 
+            ? currentRange.endContainer.parentElement 
+            : currentRange.endContainer;
+        
+        let target = startEl.closest('.highlight') || endEl.closest('.highlight');
+        
+        if (target) {
+            const parent = target.parentNode;
+            parent.replaceChild(document.createTextNode(target.textContent), target);
+            parent.normalize();
+        }
+    } catch (e) {
+        console.log('Remove highlight error:', e);
+    }
+    window.getSelection().removeAllRanges();
+    currentRange = null;
+    saveHighlights();
+});
+
+// ✅ Add Sticky Note
+document.getElementById('menuNote').addEventListener('click', function() {
+    if (!currentRange) return;
+    const rect = currentRange.getBoundingClientRect();
+    const noteId = 'note_' + (++lastNoteId);
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.id = noteId;
+    note.innerHTML = `
+        <div class="note-header" onmousedown="startDrag(event, '${noteId}')">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
+        <textarea class="note-textarea" placeholder="Type your note..." oninput="saveNotes()"></textarea>
+    `;
+    note.style.left = (rect.right + window.scrollX + 8) + 'px';
+    note.style.top = (rect.top + window.scrollY) + 'px';
+    document.body.appendChild(note);
+    window.getSelection().removeAllRanges();
+    currentRange = null;
+    saveNotes();
+});
+
+// ✅ Draggable Note Functions
+function startDrag(e, noteId) {
+    dragNote = document.getElementById(noteId);
+    const rect = dragNote.getBoundingClientRect();
+    dragOffsetX = e.clientX - rect.left;
+    dragOffsetY = e.clientY - rect.top;
+    dragNote.style.zIndex = '10000';
+    e.preventDefault();
+}
+
+document.addEventListener('mousemove', function(e) {
+    if (!dragNote) return;
+    dragNote.style.left = (e.pageX - dragOffsetX) + 'px';
+    dragNote.style.top = (e.pageY - dragOffsetY) + 'px';
+});
+
+document.addEventListener('mouseup', function() {
+    if (dragNote) {
+        dragNote.style.zIndex = '9998';
+        dragNote = null;
+        saveNotes();
+    }
+});
+
+function closeNote(id) {
+    document.getElementById(id)?.remove();
+    saveNotes();
+}
+
+// ✅ Save/Load Highlights
+function saveHighlights() {
+    localStorage.setItem(`${passageId}_passage_highlights`, passageArea.innerHTML);
+    localStorage.setItem(`${passageId}_questions_highlights`, questionsArea.innerHTML);
+}
+
+function loadHighlights() {
+    const passHtml = localStorage.getItem(`${passageId}_passage_highlights`);
+    const quesHtml = localStorage.getItem(`${passageId}_questions_highlights`);
+    if (passHtml) passageArea.innerHTML = passHtml;
+    if (quesHtml) questionsArea.innerHTML = quesHtml;
+}
+
+// ✅ Save/Load Notes
+function saveNotes() {
+    const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
+        id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
+    }));
+    localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes));
+}
+
+function loadNotes() {
+    const saved = localStorage.getItem(`${passageId}_notes`);
+    if (!saved) return;
+    JSON.parse(saved).forEach(n => {
+        const note = document.createElement('div');
+        note.className = 'sticky-note';
+        note.id = n.id;
+        note.innerHTML = `
+            <div class="note-header" onmousedown="startDrag(event, '${n.id}')">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
+            <textarea class="note-textarea">${n.text}</textarea>
+        `;
+        note.style.left = n.left;
+        note.style.top = n.top;
+        document.body.appendChild(note);
+        const num = parseInt(n.id.split('_')[1]);
+        if (num > lastNoteId) lastNoteId = num;
     });
 }
 
-// ========== START ==========
-window.onload = () => {
+// ✅ Save answers
+function saveAnswers() {
+    let answers = {};
+    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+        const textInput = document.querySelector(`input[name="q${q}"]`);
+        if (textInput && textInput.type === 'text') {
+            answers[`q${q}`] = textInput.value;
+        }
+        const radios = document.getElementsByName(`q${q}`);
+        if (radios.length > 0) {
+            for (let r of radios) {
+                if (r.checked) answers[`q${q}`] = r.value;
+            }
+        }
+    }
+    localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
+    updateStatus();
+}
+
+// ✅ Load saved answers
+function loadAnswers() {
+    const saved = localStorage.getItem(`${passageId}_answers`);
+    if (!saved) return;
+    const answers = JSON.parse(saved);
+    for (let key in answers) {
+        const radios = document.getElementsByName(key);
+        if (radios.length > 0) {
+            for (let r of radios) {
+                if (r.value === answers[key]) r.checked = true;
+            }
+        } else {
+            const input = document.querySelector(`input[name="${key}"]`);
+            if (input) input.value = answers[key];
+        }
+    }
+    updateStatus();
+}
+
+// ✅ Update status colors
+function updateStatus() {
+    const savedAnswers = localStorage.getItem(`${passageId}_answers`);
+    const answers = savedAnswers ? JSON.parse(savedAnswers) : {};
+    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+        const statBtn = document.getElementById('stat' + q);
+        if (!statBtn) continue;
+        const answerKey = `q${q}`;
+        const val = answers[answerKey] || '';
+        const hasAnswer = val.trim().length > 0;
+        const isFlagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
+        statBtn.classList.remove('answered', 'flagged');
+        if (isFlagged) {
+            statBtn.classList.add('flagged');
+        } else if (hasAnswer) {
+            statBtn.classList.add('answered');
+        }
+        const flagIcon = document.getElementById('flag' + q);
+        if (flagIcon) flagIcon.classList.toggle('flagged', isFlagged);
+    }
+}
+
+// ✅ Toggle answers
+function toggleAnswers() {
+    const box = document.getElementById('answersBox');
+    box.style.display = box.style.display === 'block' ? 'none' : 'block';
+}
+
+// ✅ Check answers
+function showStudentAnswers() {
+    saveAnswers();
+    const box = document.getElementById('studentAnswersBox');
+    const resultDiv = document.getElementById('studentResult');
+    let html = '';
+    let score = 0;
+    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+        let studentAns = '';
+        const radios = document.getElementsByName(`q${q}`);
+        if (radios.length > 0) {
+            for (let r of radios) {
+                if (r.checked) studentAns = r.value;
+            }
+        } else {
+            const input = document.querySelector(`input[name="q${q}"]`);
+            if (input) studentAns = input.value.trim().toUpperCase();
+        }
+        const correct = correctAnswers[`q${q}`] || '-';
+        let status = '';
+        if (!studentAns) {
+            status = '<span class="no-answer">(No Answer)</span>';
+        } else if (studentAns === correct) {
+            status = '<span class="correct">✅ Correct</span>';
+            score++;
+        } else {
+            status = `<span class="wrong">❌ Wrong (Correct: ${correct})</span>`;
+        }
+        html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
+    }
+    html += `<br><strong>Total Score: ${score} / ${TOTAL_QUESTIONS}</strong>`;
+    resultDiv.innerHTML = html;
+    box.style.display = box.style.display === 'block' ? 'none' : 'block';
+}
+
+// ✅ CLEAR ALL — YOUR WORKING CODE
+function clearAllAnswers() {
+    if (!confirm('⚠️ This will clear ALL answers, flags, highlights and notes. Continue?')) return;
+    document.querySelectorAll('.answer-input').forEach(input => input.value = '');
+    document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+    document.querySelectorAll('.flag-btn').forEach(f => f.classList.remove('flagged'));
+    document.querySelectorAll('.highlight').forEach(s => {
+        const p = s.parentNode;
+        p.replaceChild(document.createTextNode(s.textContent), s);
+        p.normalize();
+    });
+    document.querySelectorAll('.sticky-note').forEach(n => n.remove());
+    localStorage.removeItem(`${passageId}_answers`);
+    localStorage.removeItem(`${passageId}_passage_highlights`);
+    localStorage.removeItem(`${passageId}_questions_highlights`);
+    localStorage.removeItem(`${passageId}_notes`);
+    
+    document.getElementById('studentAnswersBox').style.display = 'none';
+    updateStatus();
+}
+
+// ✅ Auto-save
+document.addEventListener('input', function(e) {
+    if (e.target.name?.startsWith('q') || e.target.classList.contains('note-textarea')) {
+        saveAnswers();
+        if (e.target.classList.contains('note-textarea')) saveNotes();
+    }
+});
+
+// ✅ Initialize
+window.onload = function() {
+    initQuestionNav();
     loadAnswers();
-    loadFlags();
     loadHighlights();
-    initNavigator();
+    loadNotes();
 };
 </script>
 </body>
