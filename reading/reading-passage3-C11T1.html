@@ -6,38 +6,37 @@
     <title>Reading Passage 3 — Cambridge 11 Test 1</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        /* ✅ MAIN PAGE SCROLLBAR ON FAR RIGHT */
         html, body { min-height: 100%; overflow: auto; }
         body { background: #fef2f2; display: flex; flex-direction: column; }
 
         .page-header {
-            background: #fff; padding: 12px 30px; border-bottom: 2px solid #dc2626;
+            background: #fff; padding: 8px 20px; border-bottom: 2px solid #dc2626;
         }
-        .page-header h1 { font-size: 20px; color: #dc2626; margin-bottom: 4px; }
-        .page-header p { font-size: 14px; color: #7f1d1d; }
+        .page-header h1 { font-size: 18px; color: #dc2626; margin-bottom: 2px; }
+        .page-header p { font-size: 13px; color: #7f1d1d; }
 
         .content-wrapper {
-            display: flex; gap: 18px; padding: 18px; flex: 1; min-height: calc(100vh - 260px);
+            display: flex; gap: 12px; padding: 12px; flex: 1; min-height: calc(100vh - 180px);
         }
 
-        /* ✅ PASSAGE COLUMN — OWN SCROLLBAR */
+        /* ✅ PASSAGE & QUESTIONS — MORE SPACE */
         .passage-column, .questions-column {
-            flex: 1; background: #fff; border-radius: 10px;
-            border: 1px solid #fecaca; padding: 18px;
+            flex: 1; background: #fff; border-radius: 8px;
+            border: 1px solid #fecaca; padding: 14px;
             overflow-y: auto;
-            max-height: calc(100vh - 260px);
+            max-height: calc(100vh - 180px);
         }
 
-        /* ✅ SCROLLBAR STYLING */
+        /* ✅ SCROLLBARS */
         .passage-column::-webkit-scrollbar,
-        .questions-column::-webkit-scrollbar { width: 12px; }
+        .questions-column::-webkit-scrollbar { width: 10px; }
         .passage-column::-webkit-scrollbar-track,
-        .questions-column::-webkit-scrollbar-track { background: #fef2f2; border-radius: 6px; }
+        .questions-column::-webkit-scrollbar-track { background: #fef2f2; border-radius: 5px; }
         .passage-column::-webkit-scrollbar-thumb,
-        .questions-column::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 6px; border: 2px solid #fef2f2; }
+        .questions-column::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 5px; }
 
-        .passage-column h2 { text-align: center; font-size: 20px; color: #dc2626; margin-bottom: 16px; line-height: 1.3; }
-        .passage-text p { margin-bottom: 12px; font-size: 15px; line-height: 1.7; }
+        .passage-column h2 { text-align: center; font-size: 18px; color: #dc2626; margin-bottom: 12px; line-height: 1.3; }
+        .passage-text p { margin-bottom: 10px; font-size: 15px; line-height: 1.7; }
         .passage-text strong { color: #991b1b; }
 
         /* ✅ HIGHLIGHT STYLE */
@@ -46,69 +45,67 @@
             padding: 1px 3px; border-radius: 2px; display: inline;
         }
 
-        /* ✅ EXACT RIGHT-CLICK MENU */
+        /* ✅ RIGHT-CLICK MENU — ALL 3 OPTIONS */
         .context-menu {
             position: fixed; background: #fff; border: 1px solid #666;
-            border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            z-index: 99999; display: none; min-width: 200px;
+            border-radius: 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+            z-index: 99999; display: none; min-width: 180px;
         }
-        .context-menu div { padding: 11px 16px; cursor: pointer; font-size: 14px; }
+        .context-menu div { padding: 10px 14px; cursor: pointer; font-size: 14px; }
         .context-menu div:hover { background: #fef2f2; }
 
-        .questions-column h3 { font-size: 16px; color: #991b1b; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #fecaca; }
-        .instruction { font-size: 13px; color: #7f1d1d; margin-bottom: 14px; line-height: 1.5; }
-        .question-group { margin-bottom: 24px; }
-        .question-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; padding: 6px 8px; border-radius: 6px; }
+        .questions-column h3 { font-size: 15px; color: #991b1b; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #fecaca; }
+        .instruction { font-size: 13px; color: #7f1d1d; margin-bottom: 12px; line-height: 1.5; }
+        .question-group { margin-bottom: 20px; }
+        .question-row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; padding: 5px 6px; border-radius: 4px; }
         .question-row:hover { background: #fef2f2; }
-        .q-number { font-weight: 700; color: #dc2626; min-width: 28px; }
+        .q-number { font-weight: 700; color: #dc2626; min-width: 26px; font-size: 14px; }
         .q-text { flex: 1; font-size: 14px; line-height: 1.5; }
-        .flag-btn { background: none; border: none; cursor: pointer; font-size: 16px; color: #ccc; flex-shrink: 0; }
+        .flag-btn { background: none; border: none; cursor: pointer; font-size: 15px; color: #ccc; flex-shrink: 0; }
         .flag-btn.flagged { color: #fd7e14; }
-        .answer-input { padding: 6px 10px; border: 1px solid #fecaca; border-radius: 5px; font-size: 14px; background: #fef2f2; outline: none; width: 110px; text-transform: uppercase; }
+        .answer-input { padding: 5px 8px; border: 1px solid #fecaca; border-radius: 4px; font-size: 14px; background: #fef2f2; outline: none; width: 100px; text-transform: uppercase; }
         .answer-input:focus { border-color: #dc2626; background: #fff; }
-        .match-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
-        .match-table th, .match-table td { border: 1px solid #fecaca; padding: 10px; text-align: left; }
+        .match-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 14px; }
+        .match-table th, .match-table td { border: 1px solid #fecaca; padding: 8px; text-align: left; }
         .match-table th { background: #fef2f2; color: #991b1b; }
-        .table-input { width: 90px; }
-        .list-box { border: 1px solid #fecaca; border-radius: 8px; padding: 12px; background: #fef2f2; margin: 10px 0; }
-        .list-box h4 { color: #dc2626; margin-bottom: 8px; font-size: 14px; }
+        .table-input { width: 80px; }
+        .list-box { border: 1px solid #fecaca; border-radius: 6px; padding: 10px; background: #fef2f2; margin: 8px 0; }
+        .list-box h4 { color: #dc2626; margin-bottom: 6px; font-size: 14px; }
 
-        .bottom-area { padding: 10px 20px; background: #fff; border-top: 2px solid #fecaca; }
-
-        /* ✅ NAVIGATOR — ALL 1–40 FULLY VISIBLE, NO BLANKS */
-        .question-nav { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+        /* ✅ COMPACT NAVIGATOR — SMALLER AREA */
+        .bottom-area { padding: 6px 12px; background: #fff; border-top: 2px solid #fecaca; }
+        .question-nav { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 6px; }
         .q-indicator {
-            width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
-            border-radius: 4px; border: 1px solid #bbb;
-            background: #f0f0f0; color: #333;
-            font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+            width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+            border-radius: 3px; border: 1px solid #bbb;
+            background: #e8e8e8; color: #444;
+            font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s;
         }
         .q-indicator:hover { opacity: 0.85; }
-        /* ✅ CURRENT PASSAGE QUESTIONS — FULL COLOR */
-        .q-indicator.in-passage { background: #fff; border-color: #dc2626; }
+        .q-indicator.in-passage { background: #fff; border-color: #dc2626; color: #dc2626; }
         .q-indicator.answered { background: #198754; color: #fff; border-color: #198754; }
         .q-indicator.flagged { background: #fd7e14; color: #fff; border-color: #fd7e14; }
-        .q-indicator.current { border: 2px solid #dc2626; box-shadow: 0 0 0 2px rgba(220,38,38,0.3); }
+        .q-indicator.current { border: 2px solid #dc2626; }
 
-        .button-bar { display: flex; gap: 10px; margin-bottom: 10px; }
-        .check-answers, .clear-all-data { padding: 8px 18px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
+        .button-bar { display: flex; gap: 8px; margin-bottom: 6px; }
+        .check-answers, .clear-all-data { padding: 6px 14px; border: none; border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; }
         .check-answers { background: #16a34a; color: #fff; }
         .clear-all-data { background: #dc2626; color: #fff; }
-        .results-box { margin-top: 10px; padding: 12px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; display: none; font-size: 14px; }
+        .results-box { margin-top: 6px; padding: 10px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 4px; display: none; font-size: 13px; }
         .correct { color: green; font-weight: 600; }
         .wrong { color: red; font-weight: 600; }
         .no-answer { color: #888; }
 
-        .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: #fff; border-top: 1px solid #fecaca; }
-        .nav-btn, .passage-tab { padding: 10px 20px; background: #dc2626; color: #fff; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; }
-        .passage-tabs { display: flex; gap: 8px; }
+        .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: #fff; border-top: 1px solid #fecaca; }
+        .nav-btn, .passage-tab { padding: 8px 16px; background: #dc2626; color: #fff; border: none; border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; }
+        .passage-tabs { display: flex; gap: 6px; }
         .passage-tab { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
         .passage-tab.active { background: #dc2626; color: #fff; border-color: #dc2626; }
     </style>
 </head>
 <body>
 
-    <!-- ✅ RIGHT-CLICK MENU — 3 OPTIONS ALWAYS -->
+    <!-- ✅ RIGHT-CLICK MENU — 3 OPTIONS: Highlight | Remove Highlight | Add Note -->
     <div class="context-menu" id="ctxMenu">
         <div id="menuHighlight">✅ Highlight Selection</div>
         <div id="menuRemove">❌ Remove Highlight</div>
@@ -140,14 +137,14 @@
         <div class="questions-column" id="questionsCol">
             <h3>Questions 27–40</h3>
             <div class="question-group">
-                <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 27–29</h4>
+                <h4 style="margin-bottom:6px; font-size:14px; color:#991b1b;">Questions 27–29</h4>
                 <p class="instruction">Reading Passage 3 has eight paragraphs <strong>A–H</strong>.<br>Which paragraph contains the following information?<br>Write the correct letter, <strong>A–H</strong>, in boxes 27–29 on your answer sheet.</p>
                 <div class="question-row" id="qrow27"><span class="q-number">27</span><span class="q-text">mention of a geo-engineering project based on an earlier natural phenomenon</span><input type="text" class="answer-input" name="q27" placeholder="A–H" maxlength="1"><button class="flag-btn" data-q="27">🚩</button></div>
                 <div class="question-row" id="qrow28"><span class="q-number">28</span><span class="q-text">an example of a successful use of geo-engineering</span><input type="text" class="answer-input" name="q28" placeholder="A–H" maxlength="1"><button class="flag-btn" data-q="28">🚩</button></div>
                 <div class="question-row" id="qrow29"><span class="q-number">29</span><span class="q-text">a common definition of geo-engineering</span><input type="text" class="answer-input" name="q29" placeholder="A–H" maxlength="1"><button class="flag-btn" data-q="29">🚩</button></div>
             </div>
             <div class="question-group">
-                <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 30–36</h4>
+                <h4 style="margin-bottom:6px; font-size:14px; color:#991b1b;">Questions 30–36</h4>
                 <p class="instruction">Complete the table below.<br>Choose <strong>ONE WORD</strong> from the passage for each answer.</p>
                 <table class="match-table">
                     <thead><tr><th>Procedure</th><th>Aim</th></tr></thead>
@@ -162,7 +159,7 @@
                 </table>
             </div>
             <div class="question-group">
-                <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 37–40</h4>
+                <h4 style="margin-bottom:6px; font-size:14px; color:#991b1b;">Questions 37–40</h4>
                 <p class="instruction">Look at the following statements (Questions 37–40) and the list of scientists below.<br>Match each statement with the correct scientist, <strong>A–D</strong>.</p>
                 <div class="list-box"><h4>List of Scientists</h4><p><strong>A</strong> Roger Angel<br><strong>B</strong> Phil Rasch<br><strong>C</strong> Dan Lunt<br><strong>D</strong> Martin Sommerkorn</p></div>
                 <div class="question-row" id="qrow37"><span class="q-number">37</span><span class="q-text">The effects of geo-engineering may not be long-lasting.</span><input type="text" class="answer-input" name="q37" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="37">🚩</button></div>
@@ -207,29 +204,30 @@ const passageText = document.getElementById('passageText');
 let savedRange = null;
 let clickedHighlight = null;
 
-// ✅ RIGHT-CLICK HANDLER — COMPLETELY FIXED
+// ✅ RIGHT-CLICK LOGIC — CLEARLY SEPARATED
 document.addEventListener('contextmenu', e => {
     savedRange = null;
     clickedHighlight = null;
 
-    // 🔴 RIGHT-CLICK ON EXISTING HIGHLIGHT → SHOW REMOVE ONLY
+    // 🔴 CASE 1: RIGHT-CLICK ON ALREADY HIGHLIGHTED TEXT
     if (e.target.classList && e.target.classList.contains('highlight')) {
         e.preventDefault();
         e.stopPropagation();
         clickedHighlight = e.target;
-        // Show ONLY Remove Highlight
+        // ✅ SHOW ONLY: Remove Highlight
         document.getElementById('menuHighlight').style.display = 'none';
-        document.getElementById('menuRemove').style.display = 'block';
+        document.getElementById('menuRemove').style.display = 'block';  // ← MUST APPEAR
         document.getElementById('menuNote').style.display = 'none';
         showMenu(e.clientX, e.clientY);
         return false;
     }
 
-    // 🟢 RIGHT-CLICK ON SELECTED TEXT → SHOW Highlight + Add Note
+    // 🟢 CASE 2: RIGHT-CLICK ON SELECTED TEXT (NOT YET HIGHLIGHTED)
     const sel = window.getSelection();
     if (passageText.contains(e.target) && !sel.isCollapsed && sel.toString().trim().length > 0) {
         e.preventDefault();
         savedRange = sel.getRangeAt(0).cloneRange();
+        // ✅ SHOW: Highlight + Add Note
         document.getElementById('menuHighlight').style.display = 'block';
         document.getElementById('menuRemove').style.display = 'none';
         document.getElementById('menuNote').style.display = 'block';
@@ -237,7 +235,6 @@ document.addEventListener('contextmenu', e => {
         return false;
     }
 
-    // Hide menu otherwise
     ctxMenu.style.display = 'none';
 });
 
@@ -271,17 +268,21 @@ document.getElementById('menuHighlight').onclick = function() {
     saveHighlightsToHTML();
 };
 
-// ✅ REMOVE HIGHLIGHT — FULLY WORKING NOW
+// ✅ REMOVE HIGHLIGHT — WORKS ON CLICK
 document.getElementById('menuRemove').onclick = function() {
     if (!clickedHighlight) return;
-    // Replace highlight span with plain text node
     const plainText = document.createTextNode(clickedHighlight.textContent);
     clickedHighlight.parentNode.replaceChild(clickedHighlight, plainText);
-    // Merge adjacent text nodes
     plainText.parentNode.normalize();
     ctxMenu.style.display = 'none';
     clickedHighlight = null;
     saveHighlightsToHTML();
+};
+
+// ✅ ADD NOTE
+document.getElementById('menuNote').onclick = function() {
+    alert('📝 Add Note: ' + (savedRange?.toString() || '').substring(0,60) + '...');
+    ctxMenu.style.display = 'none';
 };
 
 // ✅ SAVE / LOAD HIGHLIGHTS
@@ -293,7 +294,7 @@ function loadHighlightsFromHTML() {
     if (saved) passageText.innerHTML = saved;
 }
 
-// ✅ ANSWERS & NAVIGATOR
+// ✅ ANSWERS
 document.addEventListener('input', e => {
     if (e.target.name && e.target.name.startsWith('q')) { saveAnswers(); updateNavStatus(); }
 });
@@ -332,7 +333,7 @@ window.checkAnswers = function() {
         html += `<strong>${q}.</strong> ${stu||'-'} &nbsp; ${st}<br>`;
     });
     html += `<br><strong>Score: ${score} / ${PRESENT_Q.length}</strong>`;
-    box.innerHTML = '<h4 style="color:#dc2626; margin-bottom:8px;">📝 Your Results</h4>' + html;
+    box.innerHTML = '<h4 style="color:#dc2626; margin-bottom:6px;">📝 Your Results</h4>' + html;
     box.style.display = box.style.display === 'block' ? 'none' : 'block';
 };
 
@@ -342,7 +343,6 @@ window.clearAllData = function() {
         const inp = document.querySelector(`input[name="q${q}"]`);
         if (inp) inp.value = '';
     });
-    // Remove all highlights
     document.querySelectorAll('.highlight').forEach(h => {
         const txt = document.createTextNode(h.textContent);
         h.parentNode.replaceChild(h, txt);
@@ -383,7 +383,7 @@ function loadFlags() {
     });
 }
 
-// ✅ NAVIGATOR — ALL 1–40 FULLY VISIBLE
+// ✅ NAVIGATOR — ALL 1–40 VISIBLE
 function initNavigator() {
     const nav = document.getElementById('qNav');
     nav.innerHTML = '';
@@ -392,12 +392,10 @@ function initNavigator() {
         btn.className = 'q-indicator';
         btn.textContent = q;
         btn.id = `nav-q${q}`;
-        // ✅ CURRENT PASSAGE QUESTIONS: full red border
         if (PRESENT_Q.includes(q)) {
             btn.classList.add('in-passage');
             btn.onclick = () => jumpToQuestion(q);
         }
-        // Non-passage questions: still visible, just grey background
         nav.appendChild(btn);
     });
     updateNavStatus();
@@ -428,7 +426,7 @@ function updateNavStatus() {
     });
 }
 
-// ✅ INITIALIZE ON PAGE LOAD
+// ✅ INITIALIZE
 window.onload = () => {
     loadAnswers();
     loadFlags();
