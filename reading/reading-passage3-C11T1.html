@@ -5,306 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reading Passage 3 — Cambridge 11 Test 1</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-        }
-        body {
-            background-color: #fef2f2;
-            color: #1a1a1a;
-            line-height: 1.6;
-        }
-        .logo-container {
-            width: 100%;
-            background: #ffffff;
-            border-bottom: 2px solid #dc2626;
-            padding: 10px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 12px;
-            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
-        }
-        .logo {
-            width: 35%;
-            max-width: 320px;
-            height: auto;
-            display: block;
-        }
-        .main-wrapper {
-            display: flex;
-            gap: 18px;
-            padding: 0 18px 12px;
-            height: calc(100vh - 120px);
-        }
-        .passage-column, .questions-column {
-            flex: 1;
-            background: #ffffff;
-            border-radius: 10px;
-            border: 1px solid #fecaca;
-            padding: 18px;
-            overflow-y: auto;
-            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07);
-            position: relative;
-        }
-        h1 {
-            color: #dc2626;
-            font-size: 19px;
-            margin-bottom: 14px;
-            text-align: center;
-        }
-        .passage-text p {
-            margin-bottom: 12px;
-            font-size: 15px;
-            line-height: 1.8;
-        }
-        .highlight {
-            background-color: #ffd700;
-            padding: 2px 4px;
-            border-radius: 2px;
-            cursor: pointer;
-            color: #000;
-            display: inline;
-        }
-        .questions-section h2 {
-            color: #991b1b;
-            font-size: 17px;
-            margin: 15px 0 8px;
-        }
-        .question-block {
-            margin-bottom: 16px;
-            scroll-margin-top: 15px;
-        }
-        .question-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 6px;
-        }
-        .flag-btn {
-            font-size: 17px;
-            cursor: pointer;
-            color: #999;
-            transition: color 0.2s;
-            user-select: none;
-        }
-        .flag-btn.flagged {
-            color: #e67700;
-        }
-        .question-block p {
-            font-weight: 500;
-            margin-bottom: 8px;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        .options label {
-            display: block;
-            margin-left: 15px;
-            margin-bottom: 5px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        .answer-input {
-            width: 100%;
-            padding: 6px 10px;
-            border: 1px solid #fecaca;
-            border-radius: 6px;
-            font-size: 14px;
-            background: #fef2f2;
-        }
-        .context-menu {
-            position: absolute;
-            background: #ffffff;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            z-index: 9999;
-            display: none;
-            min-width: 140px;
-        }
-        .context-menu div {
-            padding: 8px 11px;
-            cursor: pointer;
-            font-size: 13px;
-        }
-        .context-menu div:hover {
-            background: #fef2f2;
-        }
-        .sticky-note {
-            position: absolute;
-            width: 160px;
-            min-height: 60px;
-            background: #fff380;
-            border: 1px solid #e6c200;
-            border-radius: 4px;
-            padding: 6px;
-            box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
-            z-index: 9998;
-            font-size: 12px;
-            user-select: none;
-        }
-        .note-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            margin-bottom: 4px;
-            font-size: 11px;
-            color: #886a00;
-            cursor: move;
-        }
-        .note-close {
-            cursor: pointer;
-            font-weight: bold;
-            color: #886a00;
-            user-select: none;
-        }
-        .note-textarea {
-            width: 100%;
-            height: 44px;
-            border: none;
-            background: transparent;
-            resize: none;
-            outline: none;
-            font-family: inherit;
-            font-size: 12px;
-            user-select: text;
-        }
-        .bottom-container {
-            margin: 10px 18px 20px;
-            padding: 10px 12px;
-            background: #ffffff;
-            border-radius: 8px;
-            border: 1px solid #fecaca;
-            box-shadow: 0 -2px 5px rgba(220, 38, 38, 0.07);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .question-nav {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 5px;
-        }
-        .nav-label {
-            font-weight: 600;
-            color: #991b1b;
-            font-size: 13px;
-            margin-right: 4px;
-        }
-        .q-indicator {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 3px;
-            border: 1px solid #ddd;
-            background: #e5e7eb !important;
-            color: #333;
-            font-size: 11px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .q-indicator:hover { opacity: 0.9; }
-        .q-indicator.answered {
-            background: #198754 !important;
-            color: white !important;
-            border-color: #198754 !important;
-        }
-        .q-indicator.flagged {
-            background: #fd7e14 !important;
-            color: white !important;
-            border-color: #fd7e14 !important;
-        }
-        .q-indicator.answered.flagged {
-            background: #fd7e14 !important;
-        }
-        .q-indicator.current {
-            border: 2px solid #dc2626 !important;
-        }
-        .bottom-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .action-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .toggle-answers, .show-student, .clear-answers {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 13px;
-        }
-        .toggle-answers, .show-student {
-            background: #dc2626;
-            color: white;
-        }
-        .toggle-answers:hover, .show-student:hover {
-            background: #b91c1c;
-        }
-        .clear-answers {
-            background: #6b7280;
-            color: white;
-        }
-        .clear-answers:hover {
-            background: #4b5563;
-        }
-        .nav-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .back-btn, .next-btn {
-            padding: 6px 12px;
-            background: #fef2f2;
-            color: #dc2626;
-            text-decoration: none;
-            border-radius: 6px;
-            border: 1px solid #fecaca;
-            font-weight: 500;
-            cursor: pointer;
-            font-size: 13px;
-            position: relative;
-            z-index: 9999;
-        }
-        .back-btn:hover, .next-btn:hover {
-            background: #ffffff;
-        }
-        .answers-box, .student-answers-box {
-            margin-top: 12px;
-            padding: 12px;
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            border-radius: 8px;
-            display: none;
-            font-size: 13px;
-        }
-        .correct { color: green; font-weight: 600; }
-        .wrong { color: red; font-weight: 600; }
-        .no-answer { color: #888; }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 10px 0;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 8px;
-            font-size: 13px;
-        }
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif;}
+        body {background-color: #fef2f2; color: #1a1a1a; line-height: 1.6;}
+        .logo-container {width: 100%; background: #ffffff; border-bottom: 2px solid #dc2626; padding: 10px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);}
+        .logo {width: 35%; max-width: 320px; height: auto; display: block;}
+        .main-wrapper {display: flex; gap: 18px; padding: 0 18px 12px; height: calc(100vh - 120px);}
+        .passage-column, .questions-column {flex: 1; background: #ffffff; border-radius: 10px; border: 1px solid #fecaca; padding: 18px; overflow-y: auto; box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07); position: relative;}
+        h1 {color: #dc2626; font-size: 19px; margin-bottom: 14px; text-align: center;}
+        .passage-text p {margin-bottom: 14px; font-size: 15px; line-height: 1.8;}
+        .passage-text strong {color: #b91c1c;}
+        .highlight {background-color: #ffd700; padding: 2px 4px; border-radius: 2px; cursor: pointer; display: inline; color: #000;}
+        .questions-section h2 {color: #991b1b; font-size: 17px; margin: 18px 0 10px; border-bottom: 1px solid #fecaca; padding-bottom: 4px;}
+        .question-block {margin-bottom: 16px; scroll-margin-top: 15px;}
+        .question-header {display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px;}
+        .flag-btn {font-size: 17px; cursor: pointer; color: #ccc; transition: color 0.2s; user-select: none; flex-shrink: 0;}
+        .flag-btn.flagged {color: #e67700;}
+        .question-block p {font-weight: 500; margin-bottom: 8px; font-size: 14px; line-height: 1.6;}
+        .answer-input {width: 100%; max-width: 200px; padding: 6px 10px; border: 1px solid #fecaca; border-radius: 6px; font-size: 14px; background: #fef2f2;}
+        table {width: 100%; border-collapse: collapse; margin: 10px 0;}
+        table, th, td {border: 1px solid #ddd;}
+        th, td {padding: 10px; font-size: 14px; vertical-align: middle;}
+        table .answer-input {max-width: 120px;}
+        .context-menu {position: absolute; background: #ffffff; border: 1px solid #ccc; border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.2); z-index: 9999; display: none; min-width: 140px;}
+        .context-menu div {padding: 8px 12px; cursor: pointer; font-size: 13px;}
+        .context-menu div:hover {background: #fef2f2;}
+        .sticky-note {position: absolute; width: 170px; min-height: 65px; background: #fff380; border: 1px solid #e6c200; border-radius: 4px; padding: 6px; box-shadow: 3px 3px 8px rgba(0,0,0,0.15); z-index: 9998; font-size: 12px; user-select: none;}
+        .note-header {display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00; cursor: move;}
+        .note-close {cursor: pointer; font-weight: bold; color: #886a00; user-select: none; font-size: 14px; line-height: 1;}
+        .note-textarea {width: 100%; height: 48px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px; user-select: text;}
+        .bottom-container {margin: 10px 18px 20px; padding: 12px; background: #ffffff; border-radius: 8px; border: 1px solid #fecaca; box-shadow: 0 -2px 5px rgba(220, 38, 38, 0.07); display: flex; flex-direction: column; gap: 10px;}
+        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 5px;}
+        .nav-label {font-weight: 600; color: #991b1b; font-size: 13px; margin-right: 6px;}
+        .q-indicator {width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 12px; cursor: pointer; transition: all 0.2s;}
+        .q-indicator:hover {opacity: 0.85;}
+        .q-indicator.answered {background: #198754; color: #ffffff; border-color: #198754;}
+        .q-indicator.flagged {background: #fd7e14; color: #ffffff; border-color: #fd7e14;}
+        .q-indicator.answered.flagged {background: #fd7e14;}
+        .q-indicator.current {border: 2px solid #dc2626;}
+        .bottom-controls {display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;}
+        .action-buttons, .nav-buttons {display: flex; gap: 8px; flex-wrap: wrap;}
+        .toggle-answers, .show-student, .clear-answers {padding: 7px 14px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 13px;}
+        .toggle-answers, .show-student {background: #dc2626; color: #ffffff;}
+        .toggle-answers:hover, .show-student:hover {background: #b91c1c;}
+        .clear-answers {background: #6b7280; color: #ffffff;}
+        .clear-answers:hover {background: #4b5563;}
+        .back-btn, .next-btn {padding: 7px 14px; background: #fef2f2; color: #dc2626; text-decoration: none; border-radius: 6px; border: 1px solid #fecaca; font-weight: 500; cursor: pointer; font-size: 13px;}
+        .back-btn:hover, .next-btn:hover {background: #ffffff;}
+        .answers-box, .student-answers-box {margin-top: 14px; padding: 14px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; display: none; font-size: 14px; line-height: 1.7;}
+        .correct {color: #15803d; font-weight: 600;}
+        .wrong {color: #b91c1c; font-weight: 600;}
+        .no-answer {color: #78716c;}
+        em {color: #555;}
     </style>
 </head>
 <body>
@@ -325,29 +76,29 @@
                 <p><strong>Reducing the Effects of Climate Change</strong></p>
                 <p>Mark Rowe reports on the increasingly ambitious geo-engineering projects being explored by scientists.</p>
 
-                <p><strong>A</strong></p>
-                <p>Such is our dependence on fossil fuels, and such is the volume of carbon dioxide already released into the atmosphere, that many experts agree that significant global warming is now inevitable. They believe that the best we can do is keep it at a reasonable level, and at present, the only serious option for doing this is cutting back on our carbon emissions. But while a few countries are making major strides in this regard, the majority are having great difficulty even stemming the rate of increase, let alone reversing it. Consequently, an increasing number of scientists are beginning to explore the alternative of geo-engineering — a term which generally refers to the intentional large-scale manipulation of the environment. According to its proponents, geo-engineering is the equivalent of a backup generator: if Plan A — reducing our dependency on fossil fuels — fails, we require a Plan B, employing grand schemes to slow down or reverse the process of global warming.</p>
+                <p><strong>A</strong><br>
+                Such is our dependence on fossil fuels, and such is the volume of carbon dioxide already released into the atmosphere, that many experts agree that significant global warming is now inevitable. They believe that the best we can do is keep it at a reasonable level, and at present, the only serious option for doing this is cutting back on our carbon emissions. But while a few countries are making major strides in this regard, the majority are having great difficulty even stemming the rate of increase, let alone reversing it. Consequently, an increasing number of scientists are beginning to explore the alternative of geo-engineering — a term which generally refers to the intentional large-scale manipulation of the environment. According to its proponents, geo-engineering is the equivalent of a backup generator: if Plan A — reducing our dependency on fossil fuels — fails, we require a Plan B, employing grand schemes to slow down or reverse the process of global warming.</p>
 
-                <p><strong>B</strong></p>
-                <p>Geo-engineering has been shown to work, at least on a small localised scale. For decades, May Day parades in Moscow have taken place under clear blue skies, aircraft having deposited dry ice, silver iodide and cement powder to disperse clouds. Many of the schemes now suggested look to do the opposite, and reduce the amount of sunlight reaching the planet. The most eye-catching idea of all is suggested by Professor Roger Angel of the University of Arizona. His scheme would employ up to 16 trillion minute spacecraft, each weighing about one gram, to form a transparent, sunlight-refracting sunshade in an orbit 1.5 million km above the Earth. This could, argues Angel, reduce the amount of light reaching the Earth by two per cent.</p>
+                <p><strong>B</strong><br>
+                Geo-engineering has been shown to work, at least on a small localised scale. For decades, May Day parades in Moscow have taken place under clear blue skies, aircraft having deposited dry ice, silver iodide and cement powder to disperse clouds. Many of the schemes now suggested look to do the opposite, and reduce the amount of sunlight reaching the planet. The most eye-catching idea of all is suggested by Professor Roger Angel of the University of Arizona. His scheme would employ up to 16 trillion minute spacecraft, each weighing about one gram, to form a transparent, sunlight-refracting sunshade in an orbit 1.5 million km above the Earth. This could, argues Angel, reduce the amount of light reaching the Earth by two per cent.</p>
 
-                <p><strong>C</strong></p>
-                <p>The majority of geo-engineering projects so far carried out — which include planting forests in deserts and depositing iron in the ocean to stimulate the growth of algae — have focused on achieving a general cooling of the Earth. But some look specifically at reversing the melting at the poles, particularly the Arctic. The reasoning is that if you replenish the ice sheets and frozen waters of the high latitudes, more light will be reflected back into space, so reducing the warming of the oceans and atmosphere.</p>
+                <p><strong>C</strong><br>
+                The majority of geo-engineering projects so far carried out — which include planting forests in deserts and depositing iron in the ocean to stimulate the growth of algae — have focused on achieving a general cooling of the Earth. But some look specifically at reversing the melting at the poles, particularly the Arctic. The reasoning is that if you replenish the ice sheets and frozen waters of the high latitudes, more light will be reflected back into space, so reducing the warming of the oceans and atmosphere.</p>
 
-                <p><strong>D</strong></p>
-                <p>The concept of releasing aerosol sprays into the stratosphere above the Arctic has been proposed by several scientists. This would involve using sulphur or hydrogen sulphide aerosols so that sulphur dioxide would form clouds, which would, in turn, lead to a global dimming. The idea is modelled on historic volcanic explosions, such as that of Mount Pinatubo in the Philippines in 1991, which led to a short-term cooling of global temperatures by 0.5°C. Scientists have also scrutinised whether it's possible to preserve the ice sheets of Greenland with reinforced high-tension cables, preventing icebergs from moving into the sea. Meanwhile in the Russian Arctic, geo-engineering plans include the planting of millions of birch trees. Whereas the region's native evergreen pines shade the snow and absorb radiation, birches would shed their leaves in winter, thus enabling radiation to be reflected by the snow. Re-routing Russian rivers to increase cold water flow to ice-forming areas could also be used to slow down melting.</p>
+                <p><strong>D</strong><br>
+                The concept of releasing aerosol sprays into the stratosphere above the Arctic has been proposed by several scientists. This would involve using sulphur or hydrogen sulphide aerosols so that sulphur dioxide would form clouds, which would, in turn, lead to a global dimming. The idea is modelled on historic volcanic explosions, such as that of Mount Pinatubo in the Philippines in 1991, which led to a short-term cooling of global temperatures by 0.5°C. Scientists have also scrutinised whether it's possible to preserve the ice sheets of Greenland with reinforced high-tension cables, preventing icebergs from moving into the sea. Meanwhile in the Russian Arctic, geo-engineering plans include the planting of millions of birch trees. Whereas the region's native evergreen pines shade the snow and absorb radiation, birches would shed their leaves in winter, thus enabling radiation to be reflected by the snow. Re-routing Russian rivers to increase cold water flow to ice-forming areas could also be used to slow down warming, say some climate scientists.</p>
 
-                <p><strong>E</strong></p>
-                <p>But will such plans work? The effects of geo-engineering may not be long-lasting. Phil Rasch from the Pacific Northwest National Laboratory in the US says that aerosol sprays would stay aloft for only a few years, and would have to be topped up constantly. He warns that if geo-engineering were suddenly stopped, the planet could warm very rapidly, with potentially catastrophic consequences.</p>
+                <p><strong>E</strong><br>
+                But will such schemes ever be implemented? Generally speaking, those who are most cautious about geo-engineering are the scientists involved in the research. Angel says that his plan is 'no substitute for developing renewable energy: the only permanent solution'. And Dr Phil Rasch of the US-based Pacific Northwest National Laboratory is equally guarded about the role of geo-engineering: 'I think all of us agree that if we were to end geo-engineering on a given day, then the planet would return to its pre-engineered condition very rapidly, and probably within ten to twenty years. That's certainly something to worry about.'</p>
 
-                <p><strong>F</strong></p>
-                <p>‘I think all of us agree that geo-engineering is a topic worth exploring,’ says Martin Sommerkorn, climate change advisor for the World Wildlife Fund's International Arctic Programme. ‘But it is not a substitute for reducing carbon emissions. Geo-engineering gives us no excuse to continue burning fossil fuels.’</p>
+                <p><strong>F</strong><br>
+                The US National Center for Atmospheric Research has already suggested that the proposal to inject sulphur into the atmosphere might affect rainfall patterns across the tropics and the Southern Ocean. 'Geo-engineering plans to inject stratospheric aerosols or to seed clouds would affect the global climate, and act to increase the extent of sea ice,' says Rasch. 'But all the models suggest some impact on the distribution of precipitation.'</p>
 
-                <p><strong>G</strong></p>
-                <p>‘A further risk with geo-engineering projects is that you can "overshoot",’ says Dr Dan Lunt, from the University of Bristol's School of Geophysical Sciences, who has studied the likely impacts of the sunshade and aerosol schemes on the climate. ‘You may bring global temperatures back to pre-industrial levels, but the risk is that the poles will still be warmer than they should be and the tropics will be cooler than before industrialisation.’ To avoid such a scenario, Lunt says Angel's project would have to operate at half strength; all of which reinforces his view that the best option is to avoid the need for geo-engineering altogether.</p>
+                <p><strong>G</strong><br>
+                'A further risk with geo-engineering projects is that you can "overshoot",' says Dr Dan Lunt, from the University of Bristol's School of Geophysical Sciences, who has studied the likely impacts of the sunshade and aerosol schemes on the climate. 'You may bring global temperatures back to pre-industrial levels, but the risk is that the poles will still be warmer than they should be and the tropics will be cooler than before industrialisation.' To avoid such a scenario, Lunt says Angel's project would have to operate at half strength; all of which reinforces his view that the best option is to avoid the need for geo-engineering altogether.</p>
 
-                <p><strong>H</strong></p>
-                <p>The main reason why geo-engineering is supported by many in the scientific community is that most researchers have little faith in the ability of politicians to agree — and then bring in — the necessary carbon cuts. Even leading conservation organisations see the value of investigating the subject. According to Dr Angel, research into non-fossil-based fuels cannot be replaced by geo-engineering. ‘Geo-engineering is a temporary bandage, not a cure,’ he says.</p>
+                <p><strong>H</strong><br>
+                The main reason why geo-engineering is supported by many in the scientific community is that most researchers have little faith in the ability of politicians to agree — and then bring in — the necessary carbon cuts. Even leading conservation organisations see the value of investigating the subject. According to Dr Martin Sommerkorn, climate change advisor for the World Wildlife Fund's International Arctic Programme, 'Human-induced climate change has brought humanity to a position where we shouldn't exclude thinking thoroughly about this topic and its possibilities.'</p>
             </div>
         </div>
 
@@ -365,6 +116,7 @@
                     </div>
                     <input type="text" class="answer-input" name="q27" placeholder="Write A–H">
                 </div>
+
                 <div class="question-block" id="q28">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(28)" id="flag28">🚩</span>
@@ -372,6 +124,7 @@
                     </div>
                     <input type="text" class="answer-input" name="q28" placeholder="Write A–H">
                 </div>
+
                 <div class="question-block" id="q29">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(29)" id="flag29">🚩</span>
@@ -431,6 +184,7 @@
                     </div>
                     <input type="text" class="answer-input" name="q37" placeholder="Write A–D">
                 </div>
+
                 <div class="question-block" id="q38">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(38)" id="flag38">🚩</span>
@@ -438,6 +192,7 @@
                     </div>
                     <input type="text" class="answer-input" name="q38" placeholder="Write A–D">
                 </div>
+
                 <div class="question-block" id="q39">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(39)" id="flag39">🚩</span>
@@ -445,6 +200,7 @@
                     </div>
                     <input type="text" class="answer-input" name="q39" placeholder="Write A–D">
                 </div>
+
                 <div class="question-block" id="q40">
                     <div class="question-header">
                         <span class="flag-btn" onclick="toggleFlag(40)" id="flag40">🚩</span>
@@ -454,7 +210,7 @@
                 </div>
 
                 <div class="answers-box" id="answersBox">
-                    <h3>✅ Correct Answers — Passage 3 (C11 T1)</h3>
+                    <h3>✅ Correct Answers — Cambridge 11 Test 1 Passage 3</h3>
                     <p><strong>27.</strong> D<br>
                     <strong>28.</strong> B<br>
                     <strong>29.</strong> A<br>
@@ -490,43 +246,32 @@
             </div>
             <div class="nav-buttons">
                 <a href="../library.html" class="back-btn">← Main Menu</a>
-                <a href="reading-passage1-C11T1.html" class="next-btn">Next →</a>
+                <a href="#" class="next-btn">Next →</a>
             </div>
         </div>
     </div>
 
 <script>
-// ✅ Global variables
-let currentRange = null;
-let lastNoteId = 0;
+// Configuration
 const passageId = 'C11T1P3';
 const TOTAL_QUESTIONS = 40;
+let currentRange = null;
+let lastNoteId = 0;
 let dragNote = null;
 let dragOffsetX = 0;
 let dragOffsetY = 0;
 
-// ✅ OFFICIAL Cambridge 11 Test 1 Answer Key
+// OFFICIAL Cambridge 11 Test 1 Answer Key
 const correctAnswers = {
-    q27: 'D',
-    q28: 'B',
-    q29: 'A',
-    q30: 'sunshade',
-    q31: 'iron',
-    q32: 'algae',
-    q33: 'clouds',
-    q34: 'cables',
-    q35: 'snow',
-    q36: 'rivers',
-    q37: 'B',
-    q38: 'D',
-    q39: 'C',
-    q40: 'A'
+    q27: 'D', q28: 'B', q29: 'A',
+    q30: 'sunshade', q31: 'iron', q32: 'algae', q33: 'clouds', q34: 'cables', q35: 'snow', q36: 'rivers',
+    q37: 'B', q38: 'D', q39: 'C', q40: 'A'
 };
 
-// ✅ Initialize Question Navigator
+// Initialize question navigation buttons
 function initQuestionNav() {
     const navContainer = document.getElementById('questionNav');
-    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+    for (let i = 27; i <= TOTAL_QUESTIONS; i++) {
         const btn = document.createElement('div');
         btn.className = 'q-indicator';
         btn.textContent = i;
@@ -539,13 +284,11 @@ function initQuestionNav() {
 
 function jumpToQuestion(qNum) {
     document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
-    const btn = document.getElementById('stat' + qNum);
-    if (btn) btn.classList.add('current');
-    const el = document.getElementById('q' + qNum);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('stat' + qNum)?.classList.add('current');
+    document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// ✅ Toggle Flag
+// Toggle flag
 function toggleFlag(qNum) {
     const flag = document.getElementById('flag' + qNum);
     const stat = document.getElementById('stat' + qNum);
@@ -554,7 +297,7 @@ function toggleFlag(qNum) {
     localStorage.setItem(`${passageId}_flag_${qNum}`, isFlagged);
 }
 
-// ✅ VALID SELECTION CHECK
+// Validate selection for highlight
 function isSelectionValid(selection) {
     if (!selection || selection.isCollapsed || selection.toString().trim() === '') return false;
     try {
@@ -563,18 +306,15 @@ function isSelectionValid(selection) {
         const parent = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
         const inPassage = document.getElementById('passageArea').contains(parent);
         const inQuestions = document.getElementById('questionsArea').contains(parent);
-        const inInput = parent.closest('input, textarea, button, .note-close, label input') !== null;
+        const inInput = parent.closest('input, textarea, button, label, select') !== null;
         return (inPassage || inQuestions) && !inInput;
     } catch {
         return false;
     }
 }
 
-// ✅ Right-click menu
-const passageArea = document.getElementById('passageArea');
-const questionsArea = document.getElementById('questionsArea');
+// Context menu
 const contextMenu = document.getElementById('contextMenu');
-
 document.addEventListener('contextmenu', function(e) {
     const selection = window.getSelection();
     if (!isSelectionValid(selection)) {
@@ -585,13 +325,12 @@ document.addEventListener('contextmenu', function(e) {
     currentRange = selection.getRangeAt(0).cloneRange();
     const rect = currentRange.getBoundingClientRect();
     contextMenu.style.left = (rect.left + window.scrollX) + 'px';
-    contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+    contextMenu.style.top = (rect.bottom + window.scrollY + 8) + 'px';
     contextMenu.style.display = 'block';
 });
-
 document.addEventListener('click', () => contextMenu.style.display = 'none');
 
-// ✅ Highlight text
+// Highlight text
 document.getElementById('menuHighlight').addEventListener('click', function() {
     if (!currentRange) return;
     try {
@@ -603,39 +342,30 @@ document.getElementById('menuHighlight').addEventListener('click', function() {
         window.getSelection().removeAllRanges();
         currentRange = null;
         saveHighlights();
-    } catch (err) {
-        console.error('Highlight error:', err);
-        alert('Please select a smaller piece of text to highlight.');
+    } catch {
+        alert('Please select a smaller section of text.');
     }
 });
 
-// ✅ REMOVE HIGHLIGHT — YOUR WORKING CODE
+// Remove highlight
 document.getElementById('menuRemove').addEventListener('click', function() {
     if (!currentRange) return;
     try {
-        const startEl = currentRange.startContainer.nodeType === Node.TEXT_NODE 
-            ? currentRange.startContainer.parentElement 
-            : currentRange.startContainer;
-        const endEl = currentRange.endContainer.nodeType === Node.TEXT_NODE 
-            ? currentRange.endContainer.parentElement 
-            : currentRange.endContainer;
-        
-        let target = startEl.closest('.highlight') || endEl.closest('.highlight');
-        
+        let startEl = currentRange.startContainer;
+        if (startEl.nodeType === Node.TEXT_NODE) startEl = startEl.parentElement;
+        const target = startEl.closest('.highlight');
         if (target) {
             const parent = target.parentNode;
             parent.replaceChild(document.createTextNode(target.textContent), target);
             parent.normalize();
         }
-    } catch (e) {
-        console.log('Remove highlight error:', e);
-    }
+    } catch (e) { console.log(e); }
     window.getSelection().removeAllRanges();
     currentRange = null;
     saveHighlights();
 });
 
-// ✅ Add Sticky Note
+// Add sticky note
 document.getElementById('menuNote').addEventListener('click', function() {
     if (!currentRange) return;
     const rect = currentRange.getBoundingClientRect();
@@ -643,68 +373,60 @@ document.getElementById('menuNote').addEventListener('click', function() {
     const note = document.createElement('div');
     note.className = 'sticky-note';
     note.id = noteId;
-    note.innerHTML = `
-        <div class="note-header" onmousedown="startDrag(event, '${noteId}')">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div>
-        <textarea class="note-textarea" placeholder="Type your note..." oninput="saveNotes()"></textarea>
-    `;
-    note.style.left = (rect.right + window.scrollX + 8) + 'px';
+    note.style.left = (rect.right + window.scrollX + 10) + 'px';
     note.style.top = (rect.top + window.scrollY) + 'px';
+    note.innerHTML = `
+        <div class="note-header" onmousedown="startDragNote(event, '${noteId}')">
+            Note <span class="note-close" onclick="closeNote('${noteId}')">×</span>
+        </div>
+        <textarea class="note-textarea" placeholder="Type your note..."></textarea>
+    `;
     document.body.appendChild(note);
     window.getSelection().removeAllRanges();
     currentRange = null;
     saveNotes();
 });
 
-// ✅ Draggable Note Functions
-function startDrag(e, noteId) {
+// Drag note functions
+window.startDragNote = function(e, noteId) {
     dragNote = document.getElementById(noteId);
     const rect = dragNote.getBoundingClientRect();
     dragOffsetX = e.clientX - rect.left;
     dragOffsetY = e.clientY - rect.top;
-    dragNote.style.zIndex = '10000';
     e.preventDefault();
-}
-
+};
 document.addEventListener('mousemove', function(e) {
     if (!dragNote) return;
     dragNote.style.left = (e.pageX - dragOffsetX) + 'px';
     dragNote.style.top = (e.pageY - dragOffsetY) + 'px';
 });
-
 document.addEventListener('mouseup', function() {
-    if (dragNote) {
-        dragNote.style.zIndex = '9998';
-        dragNote = null;
-        saveNotes();
-    }
+    if (dragNote) { dragNote = null; saveNotes(); }
 });
-
-function closeNote(id) {
+window.closeNote = function(id) {
     document.getElementById(id)?.remove();
     saveNotes();
-}
+};
 
-// ✅ Save/Load Highlights
+// Save/Load highlights
 function saveHighlights() {
-    localStorage.setItem(`${passageId}_passage_highlights`, passageArea.innerHTML);
-    localStorage.setItem(`${passageId}_questions_highlights`, questionsArea.innerHTML);
+    localStorage.setItem(`${passageId}_passage_html`, document.getElementById('passageArea').innerHTML);
+    localStorage.setItem(`${passageId}_questions_html`, document.getElementById('questionsArea').innerHTML);
 }
-
 function loadHighlights() {
-    const passHtml = localStorage.getItem(`${passageId}_passage_highlights`);
-    const quesHtml = localStorage.getItem(`${passageId}_questions_highlights`);
-    if (passHtml) passageArea.innerHTML = passHtml;
-    if (quesHtml) questionsArea.innerHTML = quesHtml;
+    const p = localStorage.getItem(`${passageId}_passage_html`);
+    const q = localStorage.getItem(`${passageId}_questions_html`);
+    if (p) document.getElementById('passageArea').innerHTML = p;
+    if (q) document.getElementById('questionsArea').innerHTML = q;
 }
 
-// ✅ Save/Load Notes
+// Save/Load notes
 function saveNotes() {
     const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
         id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
     }));
     localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes));
 }
-
 function loadNotes() {
     const saved = localStorage.getItem(`${passageId}_notes`);
     if (!saved) return;
@@ -712,127 +434,119 @@ function loadNotes() {
         const note = document.createElement('div');
         note.className = 'sticky-note';
         note.id = n.id;
-        note.innerHTML = `
-            <div class="note-header" onmousedown="startDrag(event, '${n.id}')">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div>
-            <textarea class="note-textarea">${n.text}</textarea>
-        `;
         note.style.left = n.left;
         note.style.top = n.top;
+        note.innerHTML = `
+            <div class="note-header" onmousedown="startDragNote(event, '${n.id}')">
+                Note <span class="note-close" onclick="closeNote('${n.id}')">×</span>
+            </div>
+            <textarea class="note-textarea">${n.text}</textarea>
+        `;
         document.body.appendChild(note);
         const num = parseInt(n.id.split('_')[1]);
         if (num > lastNoteId) lastNoteId = num;
     });
 }
 
-// ✅ Save answers
+// Save/Load answers
 function saveAnswers() {
-    let answers = {};
-    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
-        const textInput = document.querySelector(`input[name="q${q}"]`);
-        if (textInput && textInput.type === 'text') {
-            answers[`q${q}`] = textInput.value;
+    const answers = {};
+    document.querySelectorAll('input.answer-input').forEach(inp => {
+        if (inp.name && inp.name.startsWith('q')) {
+            answers[inp.name] = inp.value.trim();
         }
-    }
+    });
     localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
     updateStatus();
 }
-
-// ✅ Load saved answers
 function loadAnswers() {
     const saved = localStorage.getItem(`${passageId}_answers`);
     if (!saved) return;
     const answers = JSON.parse(saved);
-    for (let key in answers) {
-        const input = document.querySelector(`input[name="${key}"]`);
-        if (input) input.value = answers[key];
-    }
+    Object.entries(answers).forEach(([name, val]) => {
+        const inp = document.querySelector(`input[name="${name}"]`);
+        if (inp) inp.value = val;
+    });
     updateStatus();
 }
 
-// ✅ Update status colors
+// Update status indicators
 function updateStatus() {
-    const savedAnswers = localStorage.getItem(`${passageId}_answers`);
-    const answers = savedAnswers ? JSON.parse(savedAnswers) : {};
-    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+    const saved = localStorage.getItem(`${passageId}_answers`);
+    const answers = saved ? JSON.parse(saved) : {};
+    for (let q = 27; q <= TOTAL_QUESTIONS; q++) {
         const statBtn = document.getElementById('stat' + q);
         if (!statBtn) continue;
-        const answerKey = `q${q}`;
-        const val = answers[answerKey] || '';
-        const hasAnswer = val.trim().length > 0;
+        const hasAnswer = !!answers[`q${q}`];
         const isFlagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
         statBtn.classList.remove('answered', 'flagged');
-        if (isFlagged) {
-            statBtn.classList.add('flagged');
-        } else if (hasAnswer) {
-            statBtn.classList.add('answered');
-        }
-        const flagIcon = document.getElementById('flag' + q);
-        if (flagIcon) flagIcon.classList.toggle('flagged', isFlagged);
+        if (isFlagged) statBtn.classList.add('flagged');
+        else if (hasAnswer) statBtn.classList.add('answered');
+        const flag = document.getElementById('flag' + q);
+        if (flag) flag.classList.toggle('flagged', isFlagged);
     }
 }
 
-// ✅ Toggle answers
+// Toggle answers visibility
 function toggleAnswers() {
     const box = document.getElementById('answersBox');
     box.style.display = box.style.display === 'block' ? 'none' : 'block';
 }
 
-// ✅ Check answers
+// Check student answers
 function showStudentAnswers() {
     saveAnswers();
-    const box = document.getElementById('studentAnswersBox');
-    const resultDiv = document.getElementById('studentResult');
+    const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`) || '{}');
     let html = '';
     let score = 0;
-    for (let q = 27; q <= 40; q++) {
-        const input = document.querySelector(`input[name="q${q}"]`);
-        let studentAns = input ? input.value.trim() : '';
-        const correct = correctAnswers[`q${q}`] || '-';
+    for (let q = 27; q <= TOTAL_QUESTIONS; q++) {
+        const key = `q${q}`;
+        const studentAns = (answers[key] || '').trim().toLowerCase();
+        const correctAns = (correctAnswers[key] || '').toLowerCase();
         let status = '';
         if (!studentAns) {
             status = '<span class="no-answer">(No Answer)</span>';
-        } else if (studentAns.toLowerCase() === correct.toLowerCase()) {
+        } else if (studentAns === correctAns) {
             status = '<span class="correct">✅ Correct</span>';
             score++;
         } else {
-            status = `<span class="wrong">❌ Wrong (Correct: ${correct})</span>`;
+            status = `<span class="wrong">❌ Wrong (Correct: ${correctAnswers[key]})</span>`;
         }
-        html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
+        html += `<strong>${q}.</strong> Your answer: ${answers[key] || '-'} &nbsp; ${status}<br>`;
     }
     html += `<br><strong>Total Score: ${score} / 14</strong>`;
-    resultDiv.innerHTML = html;
-    box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    document.getElementById('studentResult').innerHTML = html;
+    document.getElementById('studentAnswersBox').style.display = 'block';
 }
 
-// ✅ CLEAR ALL — YOUR WORKING CODE
+// Clear everything
 function clearAllAnswers() {
     if (!confirm('⚠️ This will clear ALL answers, flags, highlights and notes. Continue?')) return;
-    document.querySelectorAll('.answer-input').forEach(input => input.value = '');
+    document.querySelectorAll('input.answer-input').forEach(i => i.value = '');
     document.querySelectorAll('.flag-btn').forEach(f => f.classList.remove('flagged'));
+    document.querySelectorAll('.sticky-note').forEach(n => n.remove());
     document.querySelectorAll('.highlight').forEach(s => {
         const p = s.parentNode;
         p.replaceChild(document.createTextNode(s.textContent), p);
         p.normalize();
     });
-    document.querySelectorAll('.sticky-note').forEach(n => n.remove());
     localStorage.removeItem(`${passageId}_answers`);
-    localStorage.removeItem(`${passageId}_passage_highlights`);
-    localStorage.removeItem(`${passageId}_questions_highlights`);
+    localStorage.removeItem(`${passageId}_passage_html`);
+    localStorage.removeItem(`${passageId}_questions_html`);
     localStorage.removeItem(`${passageId}_notes`);
-    
     document.getElementById('studentAnswersBox').style.display = 'none';
     updateStatus();
 }
 
-// ✅ Auto-save
-document.addEventListener('input', function(e) {
+// Auto-save on input
+document.addEventListener('input', e => {
     if (e.target.name?.startsWith('q') || e.target.classList.contains('note-textarea')) {
         saveAnswers();
         if (e.target.classList.contains('note-textarea')) saveNotes();
     }
 });
 
-// ✅ Initialize
+// Initialize on load
 window.onload = function() {
     initQuestionNav();
     loadAnswers();
