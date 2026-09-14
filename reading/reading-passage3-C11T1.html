@@ -27,11 +27,16 @@
         .context-menu {position: absolute; background: #fff; border: 1px solid #ccc; border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.2); z-index: 9999; display: none; min-width: 140px;}
         .context-menu div {padding: 8px 12px; cursor: pointer; font-size: 13px;}
         .context-menu div:hover {background: #fef2f2;}
+        .sticky-note {position: absolute; width: 170px; min-height: 65px; background: #fff380; border: 1px solid #e6c200; border-radius: 4px; padding: 6px; box-shadow: 3px 3px 8px rgba(0,0,0,0.15); z-index: 9998; font-size: 12px; user-select: none;}
+        .note-header {display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00; cursor: move;}
+        .note-close {cursor: pointer; font-weight: bold; color: #886a00; user-select: none; font-size: 14px; line-height: 1;}
+        .note-textarea {width: 100%; height: 48px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px;}
         .bottom-container {margin: 10px 18px 20px; padding: 12px; background: #fff; border-radius: 8px; border: 1px solid #fecaca;}
-        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 4px;}
+        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-bottom: 10px;}
         .nav-label {font-weight: 600; color: #991b1b; font-size: 13px; margin-right: 6px;}
-        .q-indicator {width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 12px; cursor: pointer;}
+        .q-indicator {width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 12px; cursor: pointer; transition: all 0.2s;}
         .q-indicator:hover {opacity: 0.85;}
+        .q-indicator.answered {background: #198754; color: #fff; border-color: #198754;}
         .q-indicator.current {border: 2px solid #dc2626;}
         .back-btn {padding: 7px 14px; background: #fef2f2; color: #dc2626; text-decoration: none; border-radius: 6px; border: 1px solid #fecaca; font-weight: 500; font-size: 13px; display: inline-block; margin-top: 8px;}
         em {color: #555;}
@@ -45,6 +50,7 @@
     <div class="context-menu" id="contextMenu">
         <div id="menuHighlight">✅ Highlight</div>
         <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
     </div>
 
     <div class="main-wrapper">
@@ -89,17 +95,17 @@
 
                 <div class="question-block" id="q27">
                     <p><strong>27.</strong> mention of a geo-engineering project based on an earlier natural phenomenon</p>
-                    <input type="text" class="answer-input" placeholder="Write A–H">
+                    <input type="text" class="answer-input" name="q27" placeholder="Write A–H" oninput="updateNavStatus()">
                 </div>
 
                 <div class="question-block" id="q28">
                     <p><strong>28.</strong> an example of a successful use of geo-engineering</p>
-                    <input type="text" class="answer-input" placeholder="Write A–H">
+                    <input type="text" class="answer-input" name="q28" placeholder="Write A–H" oninput="updateNavStatus()">
                 </div>
 
                 <div class="question-block" id="q29">
                     <p><strong>29.</strong> a common definition of geo-engineering</p>
-                    <input type="text" class="answer-input" placeholder="Write A–H">
+                    <input type="text" class="answer-input" name="q29" placeholder="Write A–H" oninput="updateNavStatus()">
                 </div>
 
                 <h2>Questions 30–36</h2>
@@ -111,26 +117,26 @@
                     <tr><th>Procedure</th><th>Aim</th></tr>
                     <tr>
                         <td>put a large number of tiny spacecraft into orbit far above Earth</td>
-                        <td>to create a <input type="text" class="answer-input" placeholder="Q30"> that would reduce the amount of light reaching Earth</td>
+                        <td>to create a <input type="text" class="answer-input" name="q30" placeholder="Q30" oninput="updateNavStatus()"> that would reduce the amount of light reaching Earth</td>
                     </tr>
                     <tr>
-                        <td>place <input type="text" class="answer-input" placeholder="Q31"> in the sea</td>
-                        <td>to encourage <input type="text" class="answer-input" placeholder="Q32"> to form</td>
+                        <td>place <input type="text" class="answer-input" name="q31" placeholder="Q31" oninput="updateNavStatus()"> in the sea</td>
+                        <td>to encourage <input type="text" class="answer-input" name="q32" placeholder="Q32" oninput="updateNavStatus()"> to form</td>
                     </tr>
                     <tr>
                         <td>release aerosol sprays into the stratosphere</td>
-                        <td>to create <input type="text" class="answer-input" placeholder="Q33"> that would reduce the amount of light reaching Earth</td>
+                        <td>to create <input type="text" class="answer-input" name="q33" placeholder="Q33" oninput="updateNavStatus()"> that would reduce the amount of light reaching Earth</td>
                     </tr>
                     <tr>
-                        <td>fix strong <input type="text" class="answer-input" placeholder="Q34"> to Greenland ice sheets</td>
+                        <td>fix strong <input type="text" class="answer-input" name="q34" placeholder="Q34" oninput="updateNavStatus()"> to Greenland ice sheets</td>
                         <td>to prevent icebergs moving into the sea</td>
                     </tr>
                     <tr>
                         <td>plant trees in Russian Arctic that would lose their leaves in winter</td>
-                        <td>to allow the <input type="text" class="answer-input" placeholder="Q35"> to reflect radiation</td>
+                        <td>to allow the <input type="text" class="answer-input" name="q35" placeholder="Q35" oninput="updateNavStatus()"> to reflect radiation</td>
                     </tr>
                     <tr>
-                        <td>change the direction of <input type="text" class="answer-input" placeholder="Q36"></td>
+                        <td>change the direction of <input type="text" class="answer-input" name="q36" placeholder="Q36" oninput="updateNavStatus()"></td>
                         <td>to bring more cold water into ice-forming areas</td>
                     </tr>
                 </table>
@@ -148,22 +154,22 @@
 
                 <div class="question-block" id="q37">
                     <p><strong>37.</strong> The effects of geo-engineering may not be long-lasting.</p>
-                    <input type="text" class="answer-input" placeholder="Write A–D">
+                    <input type="text" class="answer-input" name="q37" placeholder="Write A–D" oninput="updateNavStatus()">
                 </div>
 
                 <div class="question-block" id="q38">
                     <p><strong>38.</strong> Geo-engineering is a topic worth exploring.</p>
-                    <input type="text" class="answer-input" placeholder="Write A–D">
+                    <input type="text" class="answer-input" name="q38" placeholder="Write A–D" oninput="updateNavStatus()">
                 </div>
 
                 <div class="question-block" id="q39">
                     <p><strong>39.</strong> It may be necessary to limit the effectiveness of geo-engineering projects.</p>
-                    <input type="text" class="answer-input" placeholder="Write A–D">
+                    <input type="text" class="answer-input" name="q39" placeholder="Write A–D" oninput="updateNavStatus()">
                 </div>
 
                 <div class="question-block" id="q40">
                     <p><strong>40.</strong> Research into non-fossil-based fuels cannot be replaced by geo-engineering.</p>
-                    <input type="text" class="answer-input" placeholder="Write A–D">
+                    <input type="text" class="answer-input" name="q40" placeholder="Write A–D" oninput="updateNavStatus()">
                 </div>
             </div>
         </div>
@@ -178,6 +184,7 @@
 
 <script>
 const TOTAL_QUESTIONS = 40;
+let lastNoteId = 0, dragNote = null;
 
 // Build navigation bar 1–40
 function initQuestionNav() {
@@ -186,6 +193,7 @@ function initQuestionNav() {
         const btn = document.createElement('div');
         btn.className = 'q-indicator';
         btn.textContent = i;
+        btn.id = 'nav' + i;
         btn.onclick = () => jumpToQuestion(i);
         navContainer.appendChild(btn);
     }
@@ -193,11 +201,23 @@ function initQuestionNav() {
 
 function jumpToQuestion(qNum) {
     document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
-    document.querySelectorAll('.q-indicator')[qNum - 1]?.classList.add('current');
+    document.getElementById('nav' + qNum)?.classList.add('current');
     document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// Highlight tool — right-click text → Highlight / Remove Highlight
+// Shade nav GREEN when answer is typed
+function updateNavStatus() {
+    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
+        const input = document.querySelector(`input[name="q${q}"]`);
+        const navBtn = document.getElementById('nav' + q);
+        if (input && navBtn) {
+            const hasValue = input.value.trim() !== '';
+            navBtn.classList.toggle('answered', hasValue);
+        }
+    }
+}
+
+// Highlight + Remove Highlight + Add Note
 const contextMenu = document.getElementById('contextMenu');
 let currentRange = null;
 
@@ -227,6 +247,7 @@ document.addEventListener('contextmenu', e => {
 
 document.addEventListener('click', () => contextMenu.style.display = 'none');
 
+// ✅ Highlight
 document.getElementById('menuHighlight').addEventListener('click', () => {
     if (!currentRange) return;
     try {
@@ -240,15 +261,34 @@ document.getElementById('menuHighlight').addEventListener('click', () => {
     } catch { alert('Please select a smaller section of text.'); }
 });
 
+// ✅ Remove Highlight — FIXED: removes ALL highlights properly
 document.getElementById('menuRemove').addEventListener('click', () => {
-    document.querySelectorAll('.highlight').forEach(s => {
-        const p = s.parentNode;
-        p.replaceChild(document.createTextNode(s.textContent), p);
-        p.normalize();
+    document.querySelectorAll('.highlight').forEach(span => {
+        const parent = span.parentNode;
+        parent.replaceChild(document.createTextNode(span.textContent), parent);
+        parent.normalize();
     });
     window.getSelection().removeAllRanges();
     currentRange = null;
 });
+
+// ✅ Add Note
+document.getElementById('menuNote').addEventListener('click', () => {
+    if (!currentRange) return;
+    const rect = currentRange.getBoundingClientRect();
+    const noteId = 'note_' + (++lastNoteId);
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.id = noteId;
+    note.style.left = (rect.right + window.scrollX + 10) + 'px';
+    note.style.top = (rect.top + window.scrollY) + 'px';
+    note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div><textarea class="note-textarea" placeholder="Type your note..."></textarea>`;
+    document.body.appendChild(note);
+    window.getSelection().removeAllRanges();
+    currentRange = null;
+});
+
+window.closeNote = function(id) { document.getElementById(id)?.remove(); };
 
 window.onload = initQuestionNav;
 </script>
