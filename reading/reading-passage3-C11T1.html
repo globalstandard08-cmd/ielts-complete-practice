@@ -50,7 +50,7 @@
 
     <div class="context-menu" id="contextMenu">
         <div id="menuHighlight">✅ Highlight Selection</div>
-        <div id="menuRemove">❌ Remove ALL Highlights</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
         <div id="menuNote">📝 Add Note</div>
     </div>
 
@@ -259,17 +259,47 @@ document.getElementById('menuHighlight').onclick = () => {
     } catch { alert('Please select less text to highlight.'); }
 };
 
-// ✅ REMOVE HIGHLIGHT — COMPLETELY REWRITTEN
+// ✅ REMOVE ONLY THE SELECTED HIGHLIGHT — not all!
 document.getElementById('menuRemove').onclick = () => {
-    const highlights = document.querySelectorAll('.highlight');
-    if (highlights.length === 0) { alert('No highlights to remove.'); return; }
-    highlights.forEach(span => {
-        const text = document.createTextNode(span.textContent);
-        span.parentNode.replaceChild(text, span);
-        text.parentNode.normalize();
-    });
-    window.getSelection().removeAllRanges();
-    alert('✅ All highlights removed!');
+    if (!currentRange) return;
+    try {
+        // Get the selected text content
+        const selectedText = currentRange.toString().trim();
+        if (!selectedText) return;
+
+        // Find the highlight element that contains this text
+        let foundSpan = null;
+        const container = currentRange.commonAncestorContainer;
+        let parentEl = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+        
+        // Check if selection is inside a highlight span
+        if (parentEl.classList && parentEl.classList.contains('highlight')) {
+            foundSpan = parentEl;
+        } else {
+            // Look for nearest highlight wrapper
+            const highlights = parentEl.querySelectorAll ? parentEl.querySelectorAll('.highlight') : [];
+            for (const span of highlights) {
+                if (span.textContent.trim() === selectedText || span.textContent.includes(selectedText)) {
+                    foundSpan = span;
+                    break;
+                }
+            }
+        }
+
+        // If found, remove ONLY that highlight
+        if (foundSpan) {
+            const textNode = document.createTextNode(foundSpan.textContent);
+            foundSpan.parentNode.replaceChild(textNode, foundSpan);
+            textNode.parentNode.normalize();
+        } else {
+            alert('Please select the text inside a highlight first, then right-click to remove it.');
+        }
+
+        window.getSelection().removeAllRanges();
+        currentRange = null;
+    } catch {
+        alert('Could not remove highlight. Please try selecting the exact highlighted text.');
+    }
 };
 
 // ✅ Add Note
