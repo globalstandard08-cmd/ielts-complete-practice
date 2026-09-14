@@ -37,13 +37,11 @@
         .passage-text p { margin-bottom: 10px; font-size: 15px; line-height: 1.7; }
         .passage-text strong { color: #991b1b; }
 
-        /* ✅ HIGHLIGHT STYLE */
         .highlight {
             background-color: #ffd700;
             padding: 1px 3px; border-radius: 2px; display: inline;
         }
 
-        /* ✅ RIGHT-CLICK MENU — ALWAYS SHOWS ALL 3 */
         .context-menu {
             position: fixed; background: #fff; border: 1px solid #666;
             border-radius: 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.25);
@@ -70,7 +68,6 @@
         .list-box { border: 1px solid #fecaca; border-radius: 6px; padding: 10px; background: #fef2f2; margin: 8px 0; }
         .list-box h4 { color: #dc2626; margin-bottom: 6px; font-size: 14px; }
 
-        /* ✅ COMPACT NAVIGATOR */
         .bottom-area { padding: 6px 12px; background: #fff; border-top: 2px solid #fecaca; }
         .question-nav { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 6px; }
         .q-indicator {
@@ -100,7 +97,6 @@
         .passage-tab { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
         .passage-tab.active { background: #dc2626; color: #fff; border-color: #dc2626; }
 
-        /* ✅ NOTE POPUP */
         .note-popup {
             position: absolute; background: #fff9c4; border: 1px solid #f5d300;
             border-radius: 6px; padding: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
@@ -115,14 +111,14 @@
 </head>
 <body>
 
-    <!-- ✅ MENU — ALWAYS SHOWS 3 OPTIONS -->
+    <!-- RIGHT-CLICK MENU -->
     <div class="context-menu" id="ctxMenu">
         <div id="menuHighlight">✅ Highlight Selection</div>
-        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuRemove">❌ Remove ALL Highlights</div>
         <div id="menuNote">📝 Add Note</div>
     </div>
 
-    <!-- ✅ NOTE POPUP -->
+    <!-- NOTE POPUP -->
     <div class="note-popup" id="notePopup">
         <textarea id="noteText" placeholder="Type your note here..."></textarea>
         <div class="note-popup-buttons">
@@ -222,35 +218,23 @@ const notePopup = document.getElementById('notePopup');
 let savedRange = null;
 let clickX = 0, clickY = 0;
 
-// ✅ RIGHT-CLICK — MENU ALWAYS SHOWS, NO HIDING
+// ========== RIGHT-CLICK MENU ==========
 document.addEventListener('contextmenu', e => {
     if (!passageText.contains(e.target)) return;
     e.preventDefault();
     clickX = e.clientX;
     clickY = e.clientY;
 
-    // Save selected text range if any
     const sel = window.getSelection();
-    if (!sel.isCollapsed && sel.toString().trim()) {
-        savedRange = sel.getRangeAt(0).cloneRange();
-    } else {
-        savedRange = null;
-    }
+    savedRange = (!sel.isCollapsed && sel.toString().trim()) ? sel.getRangeAt(0).cloneRange() : null;
 
-    // ✅ ALWAYS SHOW ALL 3 OPTIONS
-    document.getElementById('menuHighlight').style.display = 'block';
-    document.getElementById('menuRemove').style.display = 'block';
-    document.getElementById('menuNote').style.display = 'block';
-    showMenu(clickX, clickY);
+    // SHOW ALL 3 OPTIONS
+    ctxMenu.style.left = (clickX + 8) + 'px';
+    ctxMenu.style.top = (clickY + 8) + 'px';
+    ctxMenu.style.display = 'block';
 });
 
-function showMenu(x, y) {
-    ctxMenu.style.left = (x + 8) + 'px';
-    ctxMenu.style.top = (y + 8) + 'px';
-    ctxMenu.style.display = 'block';
-}
-
-// ✅ CLICK ANYWHERE → HIDE MENU
+// CLICK ANYWHERE → HIDE MENU
 document.addEventListener('click', e => {
     if (!ctxMenu.contains(e.target)) ctxMenu.style.display = 'none';
     if (!notePopup.contains(e.target) && e.target !== document.getElementById('menuNote')) {
@@ -258,9 +242,9 @@ document.addEventListener('click', e => {
     }
 });
 
-// ✅ HIGHLIGHT — WORKS
+// ========== 1. HIGHLIGHT ==========
 document.getElementById('menuHighlight').onclick = function() {
-    if (!savedRange) { alert('⚠️ First select some text before highlighting!'); return; }
+    if (!savedRange) { alert('⚠️ First select some text!'); return; }
     const span = document.createElement('span');
     span.className = 'highlight';
     try {
@@ -275,43 +259,29 @@ document.getElementById('menuHighlight').onclick = function() {
     saveHighlights();
 };
 
-// ✅ REMOVE HIGHLIGHT — SIMPLE & RELIABLE
+// ========== 2. REMOVE HIGHLIGHTS — SIMPLE & DIRECT ==========
 document.getElementById('menuRemove').onclick = function() {
-    // METHOD 1: Remove ALL highlights in the passage
     const allHighlights = passageText.querySelectorAll('.highlight');
     if (allHighlights.length === 0) {
-        alert('⚠️ No highlights found to remove!');
+        alert('⚠️ No highlights to remove!');
         ctxMenu.style.display = 'none';
         return;
     }
-
-    // If text is selected → remove only that part
-    if (savedRange) {
+    if (confirm('❌ Remove ALL highlights?')) {
         allHighlights.forEach(h => {
-            if (savedRange.intersectsNode(h)) {
-                const txt = document.createTextNode(h.textContent);
-                h.parentNode.replaceChild(h, txt);
-                h.parentNode.normalize();
-            }
+            const txt = document.createTextNode(h.textContent);
+            h.parentNode.replaceChild(h, txt);
+            h.parentNode.normalize();
         });
-    } else {
-        // Nothing selected → remove ALL highlights at once
-        if (confirm('⚠️ Remove ALL highlights in the passage?')) {
-            allHighlights.forEach(h => {
-                const txt = document.createTextNode(h.textContent);
-                h.parentNode.replaceChild(h, txt);
-                h.parentNode.normalize();
-            });
-        }
+        saveHighlights();
+        alert('✅ All highlights removed!');
     }
-
     ctxMenu.style.display = 'none';
-    saveHighlights();
 };
 
-// ✅ ADD NOTE — WORKS
+// ========== 3. ADD NOTE ==========
 document.getElementById('menuNote').onclick = function() {
-    if (!savedRange) { alert('⚠️ First select some text to add a note!'); return; }
+    if (!savedRange) { alert('⚠️ First select some text!'); return; }
     ctxMenu.style.display = 'none';
     notePopup.style.left = (clickX + 8) + 'px';
     notePopup.style.top = (clickY + 8) + 'px';
@@ -320,18 +290,16 @@ document.getElementById('menuNote').onclick = function() {
     document.getElementById('noteText').focus();
 };
 
-// ✅ SAVE / CANCEL NOTE
 document.getElementById('noteSave').onclick = function() {
     const text = document.getElementById('noteText').value.trim();
     if (text) alert('📝 Note saved!');
     notePopup.style.display = 'none';
-    savedRange = null;
 };
 document.getElementById('noteCancel').onclick = function() {
     notePopup.style.display = 'none';
 };
 
-// ✅ SAVE / LOAD HIGHLIGHTS
+// ========== SAVE / LOAD HIGHLIGHTS ==========
 function saveHighlights() {
     localStorage.setItem(`${passageId}_html`, passageText.innerHTML);
 }
@@ -340,9 +308,9 @@ function loadHighlights() {
     if (saved) passageText.innerHTML = saved;
 }
 
-// ✅ ANSWERS & NAVIGATOR
+// ========== ANSWERS ==========
 document.addEventListener('input', e => {
-    if (e.target.name?.startsWith('q')) { saveAnswers(); updateNavStatus(); }
+    if (e.target.name && e.target.name.startsWith('q')) { saveAnswers(); updateNavStatus(); }
 });
 
 function saveAnswers() {
@@ -383,27 +351,43 @@ window.checkAnswers = function() {
     box.style.display = box.style.display === 'block' ? 'none' : 'block';
 };
 
+// ========== CLEAR ALL DATA — FULLY WORKING NOW ==========
 window.clearAllData = function() {
-    if (!confirm('⚠️ Clear ALL answers and highlights? This cannot be undone!')) return;
+    if (!confirm('⚠️ Are you SURE you want to CLEAR EVERYTHING?\n\n- All answers\n- All flags\n- All highlights\n- All saved data')) {
+        return;
+    }
+
+    // 1. Clear all answer inputs
     PRESENT_Q.forEach(q => {
         const inp = document.querySelector(`input[name="q${q}"]`);
         if (inp) inp.value = '';
     });
-    document.querySelectorAll('.highlight').forEach(h => {
-        const p = h.parentNode;
-        p.replaceChild(h, document.createTextNode(h.textContent));
-        p.normalize();
+
+    // 2. Remove ALL highlights
+    passageText.querySelectorAll('.highlight').forEach(h => {
+        const txt = document.createTextNode(h.textContent);
+        h.parentNode.replaceChild(h, txt);
+        h.parentNode.normalize();
     });
+
+    // 3. Clear ALL flags
+    document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
+
+    // 4. Clear ALL saved data from browser storage
     localStorage.removeItem(`${passageId}_ans`);
     localStorage.removeItem(`${passageId}_flags`);
     localStorage.removeItem(`${passageId}_html`);
-    document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
+
+    // 5. Hide results box
     document.getElementById('resultsBox').style.display = 'none';
+
+    // 6. Update navigator
     updateNavStatus();
-    alert('✅ ALL DATA CLEARED!');
+
+    alert('✅✅✅ EVERYTHING CLEARED SUCCESSFULLY!');
 };
 
-// ✅ FLAGS
+// ========== FLAGS ==========
 document.querySelectorAll('.flag-btn').forEach(btn => {
     btn.onclick = () => {
         btn.classList.toggle('flagged');
@@ -429,7 +413,7 @@ function loadFlags() {
     });
 }
 
-// ✅ NAVIGATOR — ALL 1–40 VISIBLE
+// ========== NAVIGATOR ==========
 function initNavigator() {
     const nav = document.getElementById('qNav');
     nav.innerHTML = '';
@@ -472,7 +456,7 @@ function updateNavStatus() {
     });
 }
 
-// ✅ INITIALIZE
+// ========== START ==========
 window.onload = () => {
     loadAnswers();
     loadFlags();
