@@ -7,46 +7,31 @@
     <style>
         * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif;}
         body {background-color: #fef2f2; color: #1a1a1a; line-height: 1.6;}
-        .logo-container {width: 100%; background: #ffffff; border-bottom: 2px solid #dc2626; padding: 10px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);}
+        .logo-container {width: 100%; background: #ffffff; border-bottom: 2px solid #dc2626; padding: 10px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;}
         .logo {width: 35%; max-width: 320px; height: auto; display: block;}
         .main-wrapper {display: flex; gap: 18px; padding: 0 18px 12px; height: calc(100vh - 120px);}
-        .passage-column, .questions-column {flex: 1; background: #ffffff; border-radius: 10px; border: 1px solid #fecaca; padding: 18px; overflow-y: auto; box-shadow: 0 2px 8px rgba(220, 38, 38, 0.07); position: relative;}
-        h1 {color: #dc2626; font-size: 18px; margin-bottom: 2px; text-align: center; line-height: 1.4;}
+        .passage-column, .questions-column {flex: 1; background: #ffffff; border-radius: 10px; border: 1px solid #fecaca; padding: 18px; overflow-y: auto;}
+        h1 {color: #dc2626; font-size: 18px; margin-bottom: 2px; text-align: center;}
         h2.subtitle {color: #7f1d1d; font-size: 14px; text-align: center; margin-bottom: 16px; font-weight: 500;}
         .passage-text p {margin-bottom: 14px; font-size: 15px; line-height: 1.8;}
         .passage-text strong {color: #b91c1c;}
-        .highlight {background-color: #ffd700; padding: 2px 4px; border-radius: 2px; cursor: pointer; display: inline; color: #000;}
+        .highlight {background-color: #ffd700; padding: 2px 4px; border-radius: 2px; display: inline;}
         .questions-section h2 {color: #991b1b; font-size: 17px; margin: 18px 0 10px; border-bottom: 1px solid #fecaca; padding-bottom: 4px;}
-        .question-block {margin-bottom: 16px; scroll-margin-top: 15px;}
-        .question-header {display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px;}
-        .flag-btn {font-size: 17px; cursor: pointer; color: #ccc; transition: color 0.2s; user-select: none; flex-shrink: 0;}
-        .flag-btn.flagged {color: #e67700;}
+        .question-block {margin-bottom: 16px;}
         .question-block p {font-weight: 500; margin-bottom: 8px; font-size: 14px; line-height: 1.6;}
         .answer-input {width: 100%; max-width: 200px; padding: 6px 10px; border: 1px solid #fecaca; border-radius: 6px; font-size: 14px; background: #fef2f2;}
         table {width: 100%; border-collapse: collapse; margin: 10px 0;}
         table, th, td {border: 1px solid #ddd;}
         th, td {padding: 10px; font-size: 14px; vertical-align: middle;}
         table .answer-input {max-width: 120px;}
-        .context-menu {position: absolute; background: #ffffff; border: 1px solid #ccc; border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.2); z-index: 9999; display: none; min-width: 140px;}
+        .context-menu {position: absolute; background: #fff; border: 1px solid #ccc; border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.2); z-index: 9999; display: none; min-width: 140px;}
         .context-menu div {padding: 8px 12px; cursor: pointer; font-size: 13px;}
         .context-menu div:hover {background: #fef2f2;}
-        .sticky-note {position: absolute; width: 170px; min-height: 65px; background: #fff380; border: 1px solid #e6c200; border-radius: 4px; padding: 6px; box-shadow: 3px 3px 8px rgba(0,0,0,0.15); z-index: 9998; font-size: 12px; user-select: none;}
-        .note-header {display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00; cursor: move;}
-        .note-close {cursor: pointer; font-weight: bold; color: #886a00; user-select: none; font-size: 14px; line-height: 1;}
-        .note-textarea {width: 100%; height: 48px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px; user-select: text;}
-        .bottom-container {margin: 10px 18px 20px; padding: 12px; background: #ffffff; border-radius: 8px; border: 1px solid #fecaca; box-shadow: 0 -2px 5px rgba(220, 38, 38, 0.07); display: flex; flex-direction: column; gap: 10px;}
-        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 4px;}
+        .bottom-container {margin: 10px 18px 20px; padding: 12px; background: #fff; border-radius: 8px; border: 1px solid #fecaca; display: flex; flex-direction: column; gap: 10px;}
+        .question-nav {display: flex; flex-wrap: wrap; gap: 4px;}
         .nav-label {font-weight: 600; color: #991b1b; font-size: 13px; margin-right: 6px;}
-        .q-indicator {width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 12px; cursor: pointer; transition: all 0.2s;}
-        .q-indicator:hover {opacity: 0.85;}
-        .q-indicator.answered {background: #198754; color: #fff; border-color: #198754;}
-        .q-indicator.flagged {background: #fd7e14; color: #fff; border-color: #fd7e14;}
-        .q-indicator.current {border: 2px solid #dc2626;}
-        .bottom-controls {display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;}
-        .clear-answers {padding: 7px 14px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 13px; background: #6b7280; color: #fff;}
-        .clear-answers:hover {background: #4b5563;}
-        .back-btn, .next-btn {padding: 7px 14px; background: #fef2f2; color: #dc2626; text-decoration: none; border-radius: 6px; border: 1px solid #fecaca; font-weight: 500; cursor: pointer; font-size: 13px;}
-        .back-btn:hover, .next-btn:hover {background: #fff;}
+        .q-indicator {width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 12px;}
+        .back-btn {padding: 7px 14px; background: #fef2f2; color: #dc2626; text-decoration: none; border-radius: 6px; border: 1px solid #fecaca; font-weight: 500; font-size: 13px;}
         em {color: #555;}
     </style>
 </head>
@@ -58,7 +43,6 @@
     <div class="context-menu" id="contextMenu">
         <div id="menuHighlight">✅ Highlight</div>
         <div id="menuRemove">❌ Remove Highlight</div>
-        <div id="menuNote">📝 Add Note</div>
     </div>
 
     <div class="main-wrapper">
@@ -94,35 +78,26 @@
             </div>
         </div>
 
-        <div class="questions-column" id="questionsArea">
+        <div class="questions-column">
             <div class="questions-section">
                 <h2>Questions 27–29</h2>
                 <p><em>Reading Passage 3 has eight paragraphs A–H.</em><br>
                 <em>Which paragraph contains the following information?</em><br>
                 <em>Write the correct letter, A–H, in boxes 27–29 on your answer sheet.</em></p>
 
-                <div class="question-block" id="q27">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(27)" id="flag27">🚩</span>
-                        <p><strong>27.</strong> mention of a geo-engineering project based on an earlier natural phenomenon</p>
-                    </div>
-                    <input type="text" class="answer-input" name="q27" placeholder="Write A–H">
+                <div class="question-block">
+                    <p><strong>27.</strong> mention of a geo-engineering project based on an earlier natural phenomenon</p>
+                    <input type="text" class="answer-input" placeholder="Write A–H">
                 </div>
 
-                <div class="question-block" id="q28">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(28)" id="flag28">🚩</span>
-                        <p><strong>28.</strong> an example of a successful use of geo-engineering</p>
-                    </div>
-                    <input type="text" class="answer-input" name="q28" placeholder="Write A–H">
+                <div class="question-block">
+                    <p><strong>28.</strong> an example of a successful use of geo-engineering</p>
+                    <input type="text" class="answer-input" placeholder="Write A–H">
                 </div>
 
-                <div class="question-block" id="q29">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(29)" id="flag29">🚩</span>
-                        <p><strong>29.</strong> a common definition of geo-engineering</p>
-                    </div>
-                    <input type="text" class="answer-input" name="q29" placeholder="Write A–H">
+                <div class="question-block">
+                    <p><strong>29.</strong> a common definition of geo-engineering</p>
+                    <input type="text" class="answer-input" placeholder="Write A–H">
                 </div>
 
                 <h2>Questions 30–36</h2>
@@ -134,26 +109,26 @@
                     <tr><th>Procedure</th><th>Aim</th></tr>
                     <tr>
                         <td>put a large number of tiny spacecraft into orbit far above Earth</td>
-                        <td>to create a <input type="text" class="answer-input" name="q30" placeholder="Q30"> that would reduce the amount of light reaching Earth</td>
+                        <td>to create a <input type="text" class="answer-input" placeholder="Q30"> that would reduce the amount of light reaching Earth</td>
                     </tr>
                     <tr>
-                        <td>place <input type="text" class="answer-input" name="q31" placeholder="Q31"> in the sea</td>
-                        <td>to encourage <input type="text" class="answer-input" name="q32" placeholder="Q32"> to form</td>
+                        <td>place <input type="text" class="answer-input" placeholder="Q31"> in the sea</td>
+                        <td>to encourage <input type="text" class="answer-input" placeholder="Q32"> to form</td>
                     </tr>
                     <tr>
                         <td>release aerosol sprays into the stratosphere</td>
-                        <td>to create <input type="text" class="answer-input" name="q33" placeholder="Q33"> that would reduce the amount of light reaching Earth</td>
+                        <td>to create <input type="text" class="answer-input" placeholder="Q33"> that would reduce the amount of light reaching Earth</td>
                     </tr>
                     <tr>
-                        <td>fix strong <input type="text" class="answer-input" name="q34" placeholder="Q34"> to Greenland ice sheets</td>
+                        <td>fix strong <input type="text" class="answer-input" placeholder="Q34"> to Greenland ice sheets</td>
                         <td>to prevent icebergs moving into the sea</td>
                     </tr>
                     <tr>
                         <td>plant trees in Russian Arctic that would lose their leaves in winter</td>
-                        <td>to allow the <input type="text" class="answer-input" name="q35" placeholder="Q35"> to reflect radiation</td>
+                        <td>to allow the <input type="text" class="answer-input" placeholder="Q35"> to reflect radiation</td>
                     </tr>
                     <tr>
-                        <td>change the direction of <input type="text" class="answer-input" name="q36" placeholder="Q36"></td>
+                        <td>change the direction of <input type="text" class="answer-input" placeholder="Q36"></td>
                         <td>to bring more cold water into ice-forming areas</td>
                     </tr>
                 </table>
@@ -169,272 +144,87 @@
                 C &nbsp; Dan Lunt<br>
                 D &nbsp; Martin Sommerkorn</p>
 
-                <div class="question-block" id="q37">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(37)" id="flag37">🚩</span>
-                        <p><strong>37.</strong> The effects of geo-engineering may not be long-lasting.</p>
-                    </div>
-                    <input type="text" class="answer-input" name="q37" placeholder="Write A–D">
+                <div class="question-block">
+                    <p><strong>37.</strong> The effects of geo-engineering may not be long-lasting.</p>
+                    <input type="text" class="answer-input" placeholder="Write A–D">
                 </div>
 
-                <div class="question-block" id="q38">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(38)" id="flag38">🚩</span>
-                        <p><strong>38.</strong> Geo-engineering is a topic worth exploring.</p>
-                    </div>
-                    <input type="text" class="answer-input" name="q38" placeholder="Write A–D">
+                <div class="question-block">
+                    <p><strong>38.</strong> Geo-engineering is a topic worth exploring.</p>
+                    <input type="text" class="answer-input" placeholder="Write A–D">
                 </div>
 
-                <div class="question-block" id="q39">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(39)" id="flag39">🚩</span>
-                        <p><strong>39.</strong> It may be necessary to limit the effectiveness of geo-engineering projects.</p>
-                    </div>
-                    <input type="text" class="answer-input" name="q39" placeholder="Write A–D">
+                <div class="question-block">
+                    <p><strong>39.</strong> It may be necessary to limit the effectiveness of geo-engineering projects.</p>
+                    <input type="text" class="answer-input" placeholder="Write A–D">
                 </div>
 
-                <div class="question-block" id="q40">
-                    <div class="question-header">
-                        <span class="flag-btn" onclick="toggleFlag(40)" id="flag40">🚩</span>
-                        <p><strong>40.</strong> Research into non-fossil-based fuels cannot be replaced by geo-engineering.</p>
-                    </div>
-                    <input type="text" class="answer-input" name="q40" placeholder="Write A–D">
+                <div class="question-block">
+                    <p><strong>40.</strong> Research into non-fossil-based fuels cannot be replaced by geo-engineering.</p>
+                    <input type="text" class="answer-input" placeholder="Write A–D">
                 </div>
             </div>
         </div>
     </div>
 
     <div class="bottom-container">
-        <div class="question-nav" id="questionNav">
+        <div class="question-nav">
             <span class="nav-label">Questions:</span>
+            <div class="q-indicator">27</div>
+            <div class="q-indicator">28</div>
+            <div class="q-indicator">29</div>
+            <div class="q-indicator">30</div>
+            <div class="q-indicator">31</div>
+            <div class="q-indicator">32</div>
+            <div class="q-indicator">33</div>
+            <div class="q-indicator">34</div>
+            <div class="q-indicator">35</div>
+            <div class="q-indicator">36</div>
+            <div class="q-indicator">37</div>
+            <div class="q-indicator">38</div>
+            <div class="q-indicator">39</div>
+            <div class="q-indicator">40</div>
         </div>
-        <div class="bottom-controls">
-            <div class="action-buttons">
-                <button class="clear-answers" onclick="clearAllAnswers()">🗑️ Clear All Answers</button>
-            </div>
-            <div class="nav-buttons">
-                <a href="../library.html" class="back-btn">← Main Menu</a>
-                <a href="#" class="next-btn">Next →</a>
-            </div>
+        <div style="margin-top:8px;">
+            <a href="../library.html" class="back-btn">← Main Menu</a>
         </div>
     </div>
 
 <script>
-const passageId = 'C11T1P3';
-const TOTAL_QUESTIONS = 40;
-let currentRange = null, lastNoteId = 0, dragNote = null, dragOffsetX = 0, dragOffsetY = 0;
-
-function initQuestionNav() {
-    const navContainer = document.getElementById('questionNav');
-    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
-        const btn = document.createElement('div');
-        btn.className = 'q-indicator';
-        btn.textContent = i;
-        btn.id = 'stat' + i;
-        btn.onclick = () => jumpToQuestion(i);
-        navContainer.appendChild(btn);
-    }
-    updateStatus();
-}
-
-function jumpToQuestion(qNum) {
-    document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
-    document.getElementById('stat' + qNum)?.classList.add('current');
-    document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function toggleFlag(qNum) {
-    const flag = document.getElementById('flag' + qNum);
-    const stat = document.getElementById('stat' + qNum);
-    const isFlagged = flag.classList.toggle('flagged');
-    stat.classList.toggle('flagged', isFlagged);
-    localStorage.setItem(`${passageId}_flag_${qNum}`, isFlagged);
-}
-
-function isSelectionValid(selection) {
-    if (!selection || selection.isCollapsed || selection.toString().trim() === '') return false;
-    try {
-        const range = selection.getRangeAt(0);
-        const container = range.commonAncestorContainer;
-        const parent = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
-        const inPassage = document.getElementById('passageArea').contains(parent);
-        const inQuestions = document.getElementById('questionsArea').contains(parent);
-        const inInput = parent.closest('input, textarea, button, label, select') !== null;
-        return (inPassage || inQuestions) && !inInput;
-    } catch { return false; }
-}
-
+// ONLY highlight tool — NO answer checking, NO score, NO correct answers anywhere
 const contextMenu = document.getElementById('contextMenu');
-document.addEventListener('contextmenu', function(e) {
-    const selection = window.getSelection();
-    if (!isSelectionValid(selection)) { contextMenu.style.display = 'none'; return; }
+document.addEventListener('contextmenu', e => {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || sel.toString().trim() === '') return;
+    const range = sel.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
     e.preventDefault();
-    currentRange = selection.getRangeAt(0).cloneRange();
-    const rect = currentRange.getBoundingClientRect();
     contextMenu.style.left = (rect.left + window.scrollX) + 'px';
     contextMenu.style.top = (rect.bottom + window.scrollY + 8) + 'px';
     contextMenu.style.display = 'block';
 });
 document.addEventListener('click', () => contextMenu.style.display = 'none');
 
-document.getElementById('menuHighlight').addEventListener('click', function() {
-    if (!currentRange) return;
-    try {
-        const span = document.createElement('span');
-        span.className = 'highlight';
-        span.textContent = currentRange.toString();
-        currentRange.deleteContents();
-        currentRange.insertNode(span);
-        window.getSelection().removeAllRanges();
-        currentRange = null;
-        saveHighlights();
-    } catch { alert('Please select a smaller section of text.'); }
+document.getElementById('menuHighlight').addEventListener('click', () => {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed) return;
+    const range = sel.getRangeAt(0);
+    const span = document.createElement('span');
+    span.className = 'highlight';
+    span.textContent = range.toString();
+    range.deleteContents();
+    range.insertNode(span);
+    sel.removeAllRanges();
 });
 
-document.getElementById('menuRemove').addEventListener('click', function() {
-    if (!currentRange) return;
-    try {
-        let startEl = currentRange.startContainer;
-        if (startEl.nodeType === Node.TEXT_NODE) startEl = startEl.parentElement;
-        const target = startEl.closest('.highlight');
-        if (target) {
-            const parent = target.parentNode;
-            parent.replaceChild(document.createTextNode(target.textContent), parent);
-            parent.normalize();
-        }
-    } catch (e) { console.log(e); }
-    window.getSelection().removeAllRanges();
-    currentRange = null;
-    saveHighlights();
-});
-
-document.getElementById('menuNote').addEventListener('click', function() {
-    if (!currentRange) return;
-    const rect = currentRange.getBoundingClientRect();
-    const noteId = 'note_' + (++lastNoteId);
-    const note = document.createElement('div');
-    note.className = 'sticky-note';
-    note.id = noteId;
-    note.style.left = (rect.right + window.scrollX + 10) + 'px';
-    note.style.top = (rect.top + window.scrollY) + 'px';
-    note.innerHTML = `<div class="note-header" onmousedown="startDragNote(event, '${noteId}')">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div><textarea class="note-textarea" placeholder="Type your note..."></textarea>`;
-    document.body.appendChild(note);
-    window.getSelection().removeAllRanges();
-    currentRange = null;
-    saveNotes();
-});
-
-window.startDragNote = function(e, noteId) {
-    dragNote = document.getElementById(noteId);
-    const rect = dragNote.getBoundingClientRect();
-    dragOffsetX = e.clientX - rect.left;
-    dragOffsetY = e.clientY - rect.top;
-    e.preventDefault();
-};
-document.addEventListener('mousemove', function(e) {
-    if (!dragNote) return;
-    dragNote.style.left = (e.pageX - dragOffsetX) + 'px';
-    dragNote.style.top = (e.pageY - dragOffsetY) + 'px';
-});
-document.addEventListener('mouseup', function() { if (dragNote) { dragNote = null; saveNotes(); } });
-window.closeNote = function(id) { document.getElementById(id)?.remove(); saveNotes(); };
-
-function saveHighlights() {
-    localStorage.setItem(`${passageId}_passage_html`, document.getElementById('passageArea').innerHTML);
-    localStorage.setItem(`${passageId}_questions_html`, document.getElementById('questionsArea').innerHTML);
-}
-function loadHighlights() {
-    const p = localStorage.getItem(`${passageId}_passage_html`);
-    const q = localStorage.getItem(`${passageId}_questions_html`);
-    if (p) document.getElementById('passageArea').innerHTML = p;
-    if (q) document.getElementById('questionsArea').innerHTML = q;
-}
-
-function saveNotes() {
-    const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
-        id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
-    }));
-    localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes));
-}
-function loadNotes() {
-    const saved = localStorage.getItem(`${passageId}_notes`);
-    if (!saved) return;
-    JSON.parse(saved).forEach(n => {
-        const note = document.createElement('div');
-        note.className = 'sticky-note'; note.id = n.id;
-        note.style.left = n.left; note.style.top = n.top;
-        note.innerHTML = `<div class="note-header" onmousedown="startDragNote(event, '${n.id}')">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea">${n.text}</textarea>`;
-        document.body.appendChild(note);
-        const num = parseInt(n.id.split('_')[1]);
-        if (num > lastNoteId) lastNoteId = num;
-    });
-}
-
-function saveAnswers() {
-    const answers = {};
-    document.querySelectorAll('input.answer-input').forEach(inp => {
-        if (inp.name && inp.name.startsWith('q')) answers[inp.name] = inp.value.trim();
-    });
-    localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
-    updateStatus();
-}
-function loadAnswers() {
-    const saved = localStorage.getItem(`${passageId}_answers`);
-    if (!saved) return;
-    const answers = JSON.parse(saved);
-    Object.entries(answers).forEach(([name, val]) => {
-        const inp = document.querySelector(`input[name="${name}"]`);
-        if (inp) inp.value = val;
-    });
-    updateStatus();
-}
-
-function updateStatus() {
-    const saved = localStorage.getItem(`${passageId}_answers`);
-    const answers = saved ? JSON.parse(saved) : {};
-    for (let q = 1; q <= TOTAL_QUESTIONS; q++) {
-        const statBtn = document.getElementById('stat' + q);
-        if (!statBtn) continue;
-        const hasAnswer = !!answers[`q${q}`];
-        const isFlagged = localStorage.getItem(`${passageId}_flag_${q}`) === 'true';
-        statBtn.classList.remove('answered', 'flagged');
-        if (isFlagged) statBtn.classList.add('flagged');
-        else if (hasAnswer) statBtn.classList.add('answered');
-        const flag = document.getElementById('flag' + q);
-        if (flag) flag.classList.toggle('flagged', isFlagged);
-    }
-}
-
-function clearAllAnswers() {
-    if (!confirm('⚠️ This will clear ALL answers, flags, highlights and notes. Continue?')) return;
-    document.querySelectorAll('input.answer-input').forEach(i => i.value = '');
-    document.querySelectorAll('.flag-btn').forEach(f => f.classList.remove('flagged'));
-    document.querySelectorAll('.sticky-note').forEach(n => n.remove());
+document.getElementById('menuRemove').addEventListener('click', () => {
     document.querySelectorAll('.highlight').forEach(s => {
         const p = s.parentNode;
         p.replaceChild(document.createTextNode(s.textContent), p);
         p.normalize();
     });
-    localStorage.removeItem(`${passageId}_answers`);
-    localStorage.removeItem(`${passageId}_passage_html`);
-    localStorage.removeItem(`${passageId}_questions_html`);
-    localStorage.removeItem(`${passageId}_notes`);
-    updateStatus();
-}
-
-document.addEventListener('input', e => {
-    if (e.target.name?.startsWith('q') || e.target.classList.contains('note-textarea')) {
-        saveAnswers();
-        if (e.target.classList.contains('note-textarea')) saveNotes();
-    }
+    window.getSelection().removeAllRanges();
 });
-
-window.onload = function() {
-    initQuestionNav();
-    loadAnswers();
-    loadHighlights();
-    loadNotes();
-};
 </script>
 </body>
 </html>
