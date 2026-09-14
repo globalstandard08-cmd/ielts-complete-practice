@@ -9,15 +9,15 @@
         body {background-color: #fef2f2; color: #1a1a1a; line-height: 1.6;}
         .logo-container {width: 100%; background: #ffffff; border-bottom: 2px solid #dc2626; padding: 10px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;}
         .logo {width: 35%; max-width: 320px; height: auto; display: block;}
-        .main-wrapper {display: flex; gap: 18px; padding: 0 18px 12px; height: calc(100vh - 120px);}
+        .main-wrapper {display: flex; gap: 18px; padding: 0 18px 12px; height: calc(100vh - 150px);}
         .passage-column, .questions-column {flex: 1; background: #ffffff; border-radius: 10px; border: 1px solid #fecaca; padding: 18px; overflow-y: auto;}
         h1 {color: #dc2626; font-size: 18px; margin-bottom: 2px; text-align: center;}
         h2.subtitle {color: #7f1d1d; font-size: 14px; text-align: center; margin-bottom: 16px; font-weight: 500;}
         .passage-text p {margin-bottom: 14px; font-size: 15px; line-height: 1.8;}
         .passage-text strong {color: #b91c1c;}
-        .highlight {background-color: #ffd700; padding: 2px 4px; border-radius: 2px; display: inline;}
+        .highlight {background-color: #ffd700; padding: 2px 4px; border-radius: 2px; display: inline; color: #000;}
         .questions-section h2 {color: #991b1b; font-size: 17px; margin: 18px 0 10px; border-bottom: 1px solid #fecaca; padding-bottom: 4px;}
-        .question-block {margin-bottom: 16px;}
+        .question-block {margin-bottom: 16px; scroll-margin-top: 15px;}
         .question-block p {font-weight: 500; margin-bottom: 8px; font-size: 14px; line-height: 1.6;}
         .answer-input {width: 100%; max-width: 200px; padding: 6px 10px; border: 1px solid #fecaca; border-radius: 6px; font-size: 14px; background: #fef2f2;}
         table {width: 100%; border-collapse: collapse; margin: 10px 0;}
@@ -27,11 +27,13 @@
         .context-menu {position: absolute; background: #fff; border: 1px solid #ccc; border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.2); z-index: 9999; display: none; min-width: 140px;}
         .context-menu div {padding: 8px 12px; cursor: pointer; font-size: 13px;}
         .context-menu div:hover {background: #fef2f2;}
-        .bottom-container {margin: 10px 18px 20px; padding: 12px; background: #fff; border-radius: 8px; border: 1px solid #fecaca; display: flex; flex-direction: column; gap: 10px;}
-        .question-nav {display: flex; flex-wrap: wrap; gap: 4px;}
+        .bottom-container {margin: 10px 18px 20px; padding: 12px; background: #fff; border-radius: 8px; border: 1px solid #fecaca;}
+        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 4px;}
         .nav-label {font-weight: 600; color: #991b1b; font-size: 13px; margin-right: 6px;}
-        .q-indicator {width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 12px;}
-        .back-btn {padding: 7px 14px; background: #fef2f2; color: #dc2626; text-decoration: none; border-radius: 6px; border: 1px solid #fecaca; font-weight: 500; font-size: 13px;}
+        .q-indicator {width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 12px; cursor: pointer;}
+        .q-indicator:hover {opacity: 0.85;}
+        .q-indicator.current {border: 2px solid #dc2626;}
+        .back-btn {padding: 7px 14px; background: #fef2f2; color: #dc2626; text-decoration: none; border-radius: 6px; border: 1px solid #fecaca; font-weight: 500; font-size: 13px; display: inline-block; margin-top: 8px;}
         em {color: #555;}
     </style>
 </head>
@@ -78,24 +80,24 @@
             </div>
         </div>
 
-        <div class="questions-column">
+        <div class="questions-column" id="questionsArea">
             <div class="questions-section">
                 <h2>Questions 27–29</h2>
                 <p><em>Reading Passage 3 has eight paragraphs A–H.</em><br>
                 <em>Which paragraph contains the following information?</em><br>
                 <em>Write the correct letter, A–H, in boxes 27–29 on your answer sheet.</em></p>
 
-                <div class="question-block">
+                <div class="question-block" id="q27">
                     <p><strong>27.</strong> mention of a geo-engineering project based on an earlier natural phenomenon</p>
                     <input type="text" class="answer-input" placeholder="Write A–H">
                 </div>
 
-                <div class="question-block">
+                <div class="question-block" id="q28">
                     <p><strong>28.</strong> an example of a successful use of geo-engineering</p>
                     <input type="text" class="answer-input" placeholder="Write A–H">
                 </div>
 
-                <div class="question-block">
+                <div class="question-block" id="q29">
                     <p><strong>29.</strong> a common definition of geo-engineering</p>
                     <input type="text" class="answer-input" placeholder="Write A–H">
                 </div>
@@ -144,22 +146,22 @@
                 C &nbsp; Dan Lunt<br>
                 D &nbsp; Martin Sommerkorn</p>
 
-                <div class="question-block">
+                <div class="question-block" id="q37">
                     <p><strong>37.</strong> The effects of geo-engineering may not be long-lasting.</p>
                     <input type="text" class="answer-input" placeholder="Write A–D">
                 </div>
 
-                <div class="question-block">
+                <div class="question-block" id="q38">
                     <p><strong>38.</strong> Geo-engineering is a topic worth exploring.</p>
                     <input type="text" class="answer-input" placeholder="Write A–D">
                 </div>
 
-                <div class="question-block">
+                <div class="question-block" id="q39">
                     <p><strong>39.</strong> It may be necessary to limit the effectiveness of geo-engineering projects.</p>
                     <input type="text" class="answer-input" placeholder="Write A–D">
                 </div>
 
-                <div class="question-block">
+                <div class="question-block" id="q40">
                     <p><strong>40.</strong> Research into non-fossil-based fuels cannot be replaced by geo-engineering.</p>
                     <input type="text" class="answer-input" placeholder="Write A–D">
                 </div>
@@ -168,53 +170,74 @@
     </div>
 
     <div class="bottom-container">
-        <div class="question-nav">
+        <div class="question-nav" id="questionNav">
             <span class="nav-label">Questions:</span>
-            <div class="q-indicator">27</div>
-            <div class="q-indicator">28</div>
-            <div class="q-indicator">29</div>
-            <div class="q-indicator">30</div>
-            <div class="q-indicator">31</div>
-            <div class="q-indicator">32</div>
-            <div class="q-indicator">33</div>
-            <div class="q-indicator">34</div>
-            <div class="q-indicator">35</div>
-            <div class="q-indicator">36</div>
-            <div class="q-indicator">37</div>
-            <div class="q-indicator">38</div>
-            <div class="q-indicator">39</div>
-            <div class="q-indicator">40</div>
         </div>
-        <div style="margin-top:8px;">
-            <a href="../library.html" class="back-btn">← Main Menu</a>
-        </div>
+        <a href="../library.html" class="back-btn">← Main Menu</a>
     </div>
 
 <script>
-// ONLY highlight tool — NO answer checking, NO score, NO correct answers anywhere
+const TOTAL_QUESTIONS = 40;
+
+// Build navigation bar 1–40
+function initQuestionNav() {
+    const navContainer = document.getElementById('questionNav');
+    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+        const btn = document.createElement('div');
+        btn.className = 'q-indicator';
+        btn.textContent = i;
+        btn.onclick = () => jumpToQuestion(i);
+        navContainer.appendChild(btn);
+    }
+}
+
+function jumpToQuestion(qNum) {
+    document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
+    document.querySelectorAll('.q-indicator')[qNum - 1]?.classList.add('current');
+    document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Highlight tool — right-click text → Highlight / Remove Highlight
 const contextMenu = document.getElementById('contextMenu');
+let currentRange = null;
+
+function isSelectionValid(selection) {
+    if (!selection || selection.isCollapsed || selection.toString().trim() === '') return false;
+    try {
+        const range = selection.getRangeAt(0);
+        const container = range.commonAncestorContainer;
+        const parent = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
+        const inPassage = document.getElementById('passageArea').contains(parent);
+        const inQuestions = document.getElementById('questionsArea').contains(parent);
+        const inInput = parent.closest('input, textarea, button, label, select') !== null;
+        return (inPassage || inQuestions) && !inInput;
+    } catch { return false; }
+}
+
 document.addEventListener('contextmenu', e => {
-    const sel = window.getSelection();
-    if (!sel || sel.isCollapsed || sel.toString().trim() === '') return;
-    const range = sel.getRangeAt(0);
-    const rect = range.getBoundingClientRect();
+    const selection = window.getSelection();
+    if (!isSelectionValid(selection)) { contextMenu.style.display = 'none'; return; }
     e.preventDefault();
+    currentRange = selection.getRangeAt(0).cloneRange();
+    const rect = currentRange.getBoundingClientRect();
     contextMenu.style.left = (rect.left + window.scrollX) + 'px';
     contextMenu.style.top = (rect.bottom + window.scrollY + 8) + 'px';
     contextMenu.style.display = 'block';
 });
+
 document.addEventListener('click', () => contextMenu.style.display = 'none');
 
 document.getElementById('menuHighlight').addEventListener('click', () => {
-    const sel = window.getSelection();
-    if (!sel || sel.isCollapsed) return;
-    const range = sel.getRangeAt(0);
-    const span = document.createElement('span');
-    span.className = 'highlight';
-    span.textContent = range.toString();
-    range.deleteContents();
-    range.insertNode(span);
-    sel.removeAllRanges();
+    if (!currentRange) return;
+    try {
+        const span = document.createElement('span');
+        span.className = 'highlight';
+        span.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(span);
+        window.getSelection().removeAllRanges();
+        currentRange = null;
+    } catch { alert('Please select a smaller section of text.'); }
 });
 
 document.getElementById('menuRemove').addEventListener('click', () => {
@@ -224,7 +247,10 @@ document.getElementById('menuRemove').addEventListener('click', () => {
         p.normalize();
     });
     window.getSelection().removeAllRanges();
+    currentRange = null;
 });
+
+window.onload = initQuestionNav;
 </script>
 </body>
 </html>
