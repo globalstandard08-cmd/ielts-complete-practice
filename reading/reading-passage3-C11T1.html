@@ -19,7 +19,6 @@
             display: flex; gap: 12px; padding: 12px; flex: 1; min-height: calc(100vh - 180px);
         }
 
-        /* ✅ PASSAGE & QUESTIONS — MORE SPACE */
         .passage-column, .questions-column {
             flex: 1; background: #fff; border-radius: 8px;
             border: 1px solid #fecaca; padding: 14px;
@@ -27,7 +26,6 @@
             max-height: calc(100vh - 180px);
         }
 
-        /* ✅ SCROLLBARS */
         .passage-column::-webkit-scrollbar,
         .questions-column::-webkit-scrollbar { width: 10px; }
         .passage-column::-webkit-scrollbar-track,
@@ -45,7 +43,7 @@
             padding: 1px 3px; border-radius: 2px; display: inline;
         }
 
-        /* ✅ RIGHT-CLICK MENU — ALL 3 OPTIONS */
+        /* ✅ RIGHT-CLICK MENU — ALL 3 OPTIONS ALWAYS SHOWN */
         .context-menu {
             position: fixed; background: #fff; border: 1px solid #666;
             border-radius: 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.25);
@@ -72,7 +70,7 @@
         .list-box { border: 1px solid #fecaca; border-radius: 6px; padding: 10px; background: #fef2f2; margin: 8px 0; }
         .list-box h4 { color: #dc2626; margin-bottom: 6px; font-size: 14px; }
 
-        /* ✅ COMPACT NAVIGATOR — SMALLER AREA */
+        /* ✅ COMPACT NAVIGATOR */
         .bottom-area { padding: 6px 12px; background: #fff; border-top: 2px solid #fecaca; }
         .question-nav { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 6px; }
         .q-indicator {
@@ -101,15 +99,36 @@
         .passage-tabs { display: flex; gap: 6px; }
         .passage-tab { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
         .passage-tab.active { background: #dc2626; color: #fff; border-color: #dc2626; }
+
+        /* ✅ NOTE BOX */
+        .note-popup {
+            position: absolute; background: #fff9c4; border: 1px solid #f5d300;
+            border-radius: 6px; padding: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 99998; min-width: 220px; display: none;
+        }
+        .note-popup textarea { width: 100%; height: 70px; border: 1px solid #f5d300; border-radius: 4px; padding: 6px; resize: vertical; font-size: 13px; background: #fffef3; }
+        .note-popup-buttons { margin-top: 8px; display: flex; gap: 6px; }
+        .note-popup button { padding: 5px 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; }
+        .note-save { background: #16a34a; color: #fff; }
+        .note-cancel { background: #dc2626; color: #fff; }
     </style>
 </head>
 <body>
 
-    <!-- ✅ RIGHT-CLICK MENU — 3 OPTIONS: Highlight | Remove Highlight | Add Note -->
+    <!-- ✅ MENU — ALL 3 OPTIONS ALWAYS HERE -->
     <div class="context-menu" id="ctxMenu">
         <div id="menuHighlight">✅ Highlight Selection</div>
         <div id="menuRemove">❌ Remove Highlight</div>
         <div id="menuNote">📝 Add Note</div>
+    </div>
+
+    <!-- ✅ NOTE POPUP -->
+    <div class="note-popup" id="notePopup">
+        <textarea id="noteText" placeholder="Type your note here..."></textarea>
+        <div class="note-popup-buttons">
+            <button class="note-save" id="noteSave">💾 Save Note</button>
+            <button class="note-cancel" id="noteCancel">✖ Cancel</button>
+        </div>
     </div>
 
     <div class="page-header">
@@ -118,7 +137,6 @@
     </div>
 
     <div class="content-wrapper">
-        <!-- LEFT: PASSAGE COLUMN -->
         <div class="passage-column" id="passageCol">
             <h2>Reducing the Effects of Climate Change<br>being explored by scientists</h2>
             <div class="passage-text" id="passageText">
@@ -133,7 +151,6 @@
             </div>
         </div>
 
-        <!-- RIGHT: QUESTIONS COLUMN -->
         <div class="questions-column" id="questionsCol">
             <h3>Questions 27–40</h3>
             <div class="question-group">
@@ -201,41 +218,37 @@ const correctAnswers = {
 
 const ctxMenu = document.getElementById('ctxMenu');
 const passageText = document.getElementById('passageText');
+const notePopup = document.getElementById('notePopup');
 let savedRange = null;
-let clickedHighlight = null;
+let targetHighlight = null;
+let clickX = 0, clickY = 0;
 
-// ✅ RIGHT-CLICK LOGIC — CLEARLY SEPARATED
+// ✅ RIGHT-CLICK — ALL 3 OPTIONS ALWAYS SHOW
 document.addEventListener('contextmenu', e => {
+    if (!passageText.contains(e.target)) return;
+    e.preventDefault();
+
+    clickX = e.clientX;
+    clickY = e.clientY;
     savedRange = null;
-    clickedHighlight = null;
+    targetHighlight = null;
 
-    // 🔴 CASE 1: RIGHT-CLICK ON ALREADY HIGHLIGHTED TEXT
+    // Check if clicking ON a highlight
     if (e.target.classList && e.target.classList.contains('highlight')) {
-        e.preventDefault();
-        e.stopPropagation();
-        clickedHighlight = e.target;
-        // ✅ SHOW ONLY: Remove Highlight
-        document.getElementById('menuHighlight').style.display = 'none';
-        document.getElementById('menuRemove').style.display = 'block';  // ← MUST APPEAR
-        document.getElementById('menuNote').style.display = 'none';
-        showMenu(e.clientX, e.clientY);
-        return false;
+        targetHighlight = e.target;
+    } else {
+        // Check if text is selected
+        const sel = window.getSelection();
+        if (!sel.isCollapsed && sel.toString().trim()) {
+            savedRange = sel.getRangeAt(0).cloneRange();
+        }
     }
 
-    // 🟢 CASE 2: RIGHT-CLICK ON SELECTED TEXT (NOT YET HIGHLIGHTED)
-    const sel = window.getSelection();
-    if (passageText.contains(e.target) && !sel.isCollapsed && sel.toString().trim().length > 0) {
-        e.preventDefault();
-        savedRange = sel.getRangeAt(0).cloneRange();
-        // ✅ SHOW: Highlight + Add Note
-        document.getElementById('menuHighlight').style.display = 'block';
-        document.getElementById('menuRemove').style.display = 'none';
-        document.getElementById('menuNote').style.display = 'block';
-        showMenu(e.clientX, e.clientY);
-        return false;
-    }
-
-    ctxMenu.style.display = 'none';
+    // ✅ SHOW ALL 3 OPTIONS — NO HIDING
+    document.getElementById('menuHighlight').style.display = 'block';
+    document.getElementById('menuRemove').style.display = 'block';
+    document.getElementById('menuNote').style.display = 'block';
+    showMenu(clickX, clickY);
 });
 
 function showMenu(x, y) {
@@ -244,59 +257,98 @@ function showMenu(x, y) {
     ctxMenu.style.display = 'block';
 }
 
-// ✅ CLICK ANYWHERE → HIDE MENU
-document.addEventListener('click', () => {
-    ctxMenu.style.display = 'none';
-    clickedHighlight = null;
-    savedRange = null;
+// ✅ CLICK ANYWHERE → HIDE MENU & NOTE
+document.addEventListener('click', e => {
+    if (!ctxMenu.contains(e.target)) ctxMenu.style.display = 'none';
+    if (!notePopup.contains(e.target) && e.target !== document.getElementById('menuNote')) {
+        notePopup.style.display = 'none';
+    }
 });
 
-// ✅ HIGHLIGHT SELECTED TEXT
+// ✅ HIGHLIGHT
 document.getElementById('menuHighlight').onclick = function() {
-    if (!savedRange) return;
+    if (!savedRange) { alert('⚠️ First select some text before highlighting!'); return; }
     const span = document.createElement('span');
     span.className = 'highlight';
     try {
         savedRange.surroundContents(span);
-    } catch (err) {
+    } catch {
         span.textContent = savedRange.toString();
         savedRange.deleteContents();
         savedRange.insertNode(span);
     }
     window.getSelection().removeAllRanges();
     ctxMenu.style.display = 'none';
-    saveHighlightsToHTML();
+    saveHighlights();
 };
 
-// ✅ REMOVE HIGHLIGHT — WORKS ON CLICK
+// ✅ REMOVE HIGHLIGHT — NOW WORKS SIMPLY
 document.getElementById('menuRemove').onclick = function() {
-    if (!clickedHighlight) return;
-    const plainText = document.createTextNode(clickedHighlight.textContent);
-    clickedHighlight.parentNode.replaceChild(clickedHighlight, plainText);
-    plainText.parentNode.normalize();
-    ctxMenu.style.display = 'none';
-    clickedHighlight = null;
-    saveHighlightsToHTML();
+    // If right-click ON highlight → remove it
+    if (targetHighlight) {
+        const txt = document.createTextNode(targetHighlight.textContent);
+        targetHighlight.parentNode.replaceChild(targetHighlight, txt);
+        txt.parentNode.normalize();
+        ctxMenu.style.display = 'none';
+        targetHighlight = null;
+        saveHighlights();
+        return;
+    }
+    // If text selected → remove highlight from selection
+    if (savedRange) {
+        const container = savedRange.commonAncestorContainer;
+        const parent = container.nodeType === 3 ? container.parentNode : container;
+        const highlights = parent.querySelectorAll 
+            ? parent.querySelectorAll('.highlight')
+            : [];
+        highlights.forEach(h => {
+            if (savedRange.intersectsNode(h)) {
+                const txt = document.createTextNode(h.textContent);
+                h.parentNode.replaceChild(h, txt);
+                txt.parentNode.normalize();
+            }
+        });
+        ctxMenu.style.display = 'none';
+        saveHighlights();
+    }
 };
 
-// ✅ ADD NOTE
+// ✅ ADD NOTE — OPENS YELLOW NOTE BOX
 document.getElementById('menuNote').onclick = function() {
-    alert('📝 Add Note: ' + (savedRange?.toString() || '').substring(0,60) + '...');
+    if (!savedRange) { alert('⚠️ First select some text to add a note!'); return; }
     ctxMenu.style.display = 'none';
+    notePopup.style.left = (clickX + 8) + 'px';
+    notePopup.style.top = (clickY + 8) + 'px';
+    notePopup.style.display = 'block';
+    document.getElementById('noteText').value = '';
+    document.getElementById('noteText').focus();
+};
+
+// ✅ SAVE / CANCEL NOTE
+document.getElementById('noteSave').onclick = function() {
+    const text = document.getElementById('noteText').value.trim();
+    if (text) {
+        alert('📝 Note saved: "' + text.substring(0,40) + '..."');
+    }
+    notePopup.style.display = 'none';
+    savedRange = null;
+};
+document.getElementById('noteCancel').onclick = function() {
+    notePopup.style.display = 'none';
 };
 
 // ✅ SAVE / LOAD HIGHLIGHTS
-function saveHighlightsToHTML() {
+function saveHighlights() {
     localStorage.setItem(`${passageId}_html`, passageText.innerHTML);
 }
-function loadHighlightsFromHTML() {
+function loadHighlights() {
     const saved = localStorage.getItem(`${passageId}_html`);
     if (saved) passageText.innerHTML = saved;
 }
 
-// ✅ ANSWERS
+// ✅ ANSWERS & NAVIGATOR
 document.addEventListener('input', e => {
-    if (e.target.name && e.target.name.startsWith('q')) { saveAnswers(); updateNavStatus(); }
+    if (e.target.name?.startsWith('q')) { saveAnswers(); updateNavStatus(); }
 });
 
 function saveAnswers() {
@@ -344,9 +396,9 @@ window.clearAllData = function() {
         if (inp) inp.value = '';
     });
     document.querySelectorAll('.highlight').forEach(h => {
-        const txt = document.createTextNode(h.textContent);
-        h.parentNode.replaceChild(h, txt);
-        txt.parentNode.normalize();
+        const p = h.parentNode;
+        p.replaceChild(h, document.createTextNode(h.textContent));
+        p.normalize();
     });
     localStorage.removeItem(`${passageId}_ans`);
     localStorage.removeItem(`${passageId}_flags`);
@@ -430,7 +482,7 @@ function updateNavStatus() {
 window.onload = () => {
     loadAnswers();
     loadFlags();
-    loadHighlightsFromHTML();
+    loadHighlights();
     initNavigator();
 };
 </script>
