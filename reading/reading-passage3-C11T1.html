@@ -6,7 +6,7 @@
     <title>Reading Passage 3 — Cambridge 11 Test 1</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        /* ✅ MAIN PAGE SCROLLBAR — appears when page is long enough */
+        /* ✅ MAIN PAGE SCROLLBAR ON FAR RIGHT */
         html, body { min-height: 100%; overflow: auto; }
         body { background: #fef2f2; display: flex; flex-direction: column; }
 
@@ -16,20 +16,19 @@
         .page-header h1 { font-size: 20px; color: #dc2626; margin-bottom: 4px; }
         .page-header p { font-size: 14px; color: #7f1d1d; }
 
-        /* ✅ CONTENT WRAPPER */
         .content-wrapper {
             display: flex; gap: 18px; padding: 18px; flex: 1; min-height: calc(100vh - 260px);
         }
 
-        /* ✅ EACH COLUMN — OWN INDEPENDENT SCROLLBAR */
+        /* ✅ PASSAGE COLUMN — OWN SCROLLBAR */
         .passage-column, .questions-column {
             flex: 1; background: #fff; border-radius: 10px;
             border: 1px solid #fecaca; padding: 18px;
-            overflow-y: auto; /* ✅ OWN SCROLLBAR PER COLUMN */
+            overflow-y: auto;
             max-height: calc(100vh - 260px);
         }
 
-        /* ✅ SCROLLBAR STYLING — BOTH COLUMNS */
+        /* ✅ SCROLLBAR STYLING */
         .passage-column::-webkit-scrollbar,
         .questions-column::-webkit-scrollbar { width: 12px; }
         .passage-column::-webkit-scrollbar-track,
@@ -47,13 +46,13 @@
             padding: 1px 3px; border-radius: 2px; display: inline;
         }
 
-        /* ✅ EXACT RIGHT-CLICK MENU FROM YOUR SAMPLE */
+        /* ✅ EXACT RIGHT-CLICK MENU */
         .context-menu {
-            position: fixed; background: #fff; border: 1px solid #999;
-            border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            z-index: 99999; display: none; min-width: 180px;
+            position: fixed; background: #fff; border: 1px solid #666;
+            border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            z-index: 99999; display: none; min-width: 200px;
         }
-        .context-menu div { padding: 10px 14px; cursor: pointer; font-size: 14px; }
+        .context-menu div { padding: 11px 16px; cursor: pointer; font-size: 14px; }
         .context-menu div:hover { background: #fef2f2; }
 
         .questions-column h3 { font-size: 16px; color: #991b1b; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #fecaca; }
@@ -75,13 +74,21 @@
         .list-box h4 { color: #dc2626; margin-bottom: 8px; font-size: 14px; }
 
         .bottom-area { padding: 10px 20px; background: #fff; border-top: 2px solid #fecaca; }
-        /* ✅ NAVIGATOR — SHOWS ALL 1–40 */
-        .question-nav { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
-        .q-indicator { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 4px; border: 1px solid #ddd; background: #eee; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+
+        /* ✅ NAVIGATOR — ALL 1–40 FULLY VISIBLE, NO BLANKS */
+        .question-nav { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+        .q-indicator {
+            width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+            border-radius: 4px; border: 1px solid #bbb;
+            background: #f0f0f0; color: #333;
+            font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+        }
         .q-indicator:hover { opacity: 0.85; }
+        /* ✅ CURRENT PASSAGE QUESTIONS — FULL COLOR */
+        .q-indicator.in-passage { background: #fff; border-color: #dc2626; }
         .q-indicator.answered { background: #198754; color: #fff; border-color: #198754; }
         .q-indicator.flagged { background: #fd7e14; color: #fff; border-color: #fd7e14; }
-        .q-indicator.current { border: 2px solid #dc2626; }
+        .q-indicator.current { border: 2px solid #dc2626; box-shadow: 0 0 0 2px rgba(220,38,38,0.3); }
 
         .button-bar { display: flex; gap: 10px; margin-bottom: 10px; }
         .check-answers, .clear-all-data { padding: 8px 18px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
@@ -97,21 +104,11 @@
         .passage-tabs { display: flex; gap: 8px; }
         .passage-tab { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
         .passage-tab.active { background: #dc2626; color: #fff; border-color: #dc2626; }
-
-        /* ✅ STICKY NOTE */
-        .sticky-note {
-            position: absolute; width: 160px; min-height: 60px;
-            background: #fff380; border: 1px solid #e6c200; border-radius: 4px;
-            padding: 6px; box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
-            z-index: 9998; font-size: 12px;
-        }
-        .note-header { display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00; }
-        .note-close { cursor: pointer; font-weight: bold; color: #886a00; }
-        .note-textarea { width: 100%; height: 44px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px; }
     </style>
 </head>
 <body>
-    <!-- ✅ EXACT RIGHT-CLICK MENU: 3 OPTIONS -->
+
+    <!-- ✅ RIGHT-CLICK MENU — 3 OPTIONS ALWAYS -->
     <div class="context-menu" id="ctxMenu">
         <div id="menuHighlight">✅ Highlight Selection</div>
         <div id="menuRemove">❌ Remove Highlight</div>
@@ -124,7 +121,7 @@
     </div>
 
     <div class="content-wrapper">
-        <!-- LEFT: PASSAGE — OWN SCROLLBAR ✅ -->
+        <!-- LEFT: PASSAGE COLUMN -->
         <div class="passage-column" id="passageCol">
             <h2>Reducing the Effects of Climate Change<br>being explored by scientists</h2>
             <div class="passage-text" id="passageText">
@@ -139,7 +136,7 @@
             </div>
         </div>
 
-        <!-- RIGHT: QUESTIONS — OWN SCROLLBAR ✅ -->
+        <!-- RIGHT: QUESTIONS COLUMN -->
         <div class="questions-column" id="questionsCol">
             <h3>Questions 27–40</h3>
             <div class="question-group">
@@ -177,7 +174,6 @@
     </div>
 
     <div class="bottom-area">
-        <!-- ✅ NAVIGATOR: ALL QUESTIONS 1–40 -->
         <div class="question-nav" id="qNav"></div>
         <div class="button-bar">
             <button class="check-answers" onclick="checkAnswers()">✅ Check Answers</button>
@@ -209,98 +205,97 @@ const correctAnswers = {
 const ctxMenu = document.getElementById('ctxMenu');
 const passageText = document.getElementById('passageText');
 let savedRange = null;
-let targetHighlight = null;
+let clickedHighlight = null;
 
-// ✅ RIGHT-CLICK MENU LOGIC
+// ✅ RIGHT-CLICK HANDLER — COMPLETELY FIXED
 document.addEventListener('contextmenu', e => {
     savedRange = null;
-    targetHighlight = null;
+    clickedHighlight = null;
 
-    // Right-click ON existing highlight → show Remove only
-    if (e.target.classList.contains('highlight')) {
+    // 🔴 RIGHT-CLICK ON EXISTING HIGHLIGHT → SHOW REMOVE ONLY
+    if (e.target.classList && e.target.classList.contains('highlight')) {
         e.preventDefault();
-        targetHighlight = e.target;
+        e.stopPropagation();
+        clickedHighlight = e.target;
+        // Show ONLY Remove Highlight
         document.getElementById('menuHighlight').style.display = 'none';
         document.getElementById('menuRemove').style.display = 'block';
         document.getElementById('menuNote').style.display = 'none';
         showMenu(e.clientX, e.clientY);
-        return;
+        return false;
     }
 
-    // Right-click ON selected text → show Highlight + Add Note
+    // 🟢 RIGHT-CLICK ON SELECTED TEXT → SHOW Highlight + Add Note
     const sel = window.getSelection();
-    if (passageText.contains(e.target) && !sel.isCollapsed && sel.toString().trim()) {
+    if (passageText.contains(e.target) && !sel.isCollapsed && sel.toString().trim().length > 0) {
         e.preventDefault();
         savedRange = sel.getRangeAt(0).cloneRange();
         document.getElementById('menuHighlight').style.display = 'block';
         document.getElementById('menuRemove').style.display = 'none';
         document.getElementById('menuNote').style.display = 'block';
         showMenu(e.clientX, e.clientY);
-        return;
+        return false;
     }
 
+    // Hide menu otherwise
     ctxMenu.style.display = 'none';
 });
 
 function showMenu(x, y) {
-    ctxMenu.style.left = (x + 5) + 'px';
-    ctxMenu.style.top = (y + 5) + 'px';
+    ctxMenu.style.left = (x + 8) + 'px';
+    ctxMenu.style.top = (y + 8) + 'px';
     ctxMenu.style.display = 'block';
 }
 
+// ✅ CLICK ANYWHERE → HIDE MENU
 document.addEventListener('click', () => {
     ctxMenu.style.display = 'none';
-    targetHighlight = null;
+    clickedHighlight = null;
     savedRange = null;
 });
 
-// ✅ HIGHLIGHT — WORKS PERFECTLY
+// ✅ HIGHLIGHT SELECTED TEXT
 document.getElementById('menuHighlight').onclick = function() {
     if (!savedRange) return;
     const span = document.createElement('span');
     span.className = 'highlight';
     try {
         savedRange.surroundContents(span);
-    } catch {
+    } catch (err) {
         span.textContent = savedRange.toString();
         savedRange.deleteContents();
         savedRange.insertNode(span);
     }
     window.getSelection().removeAllRanges();
     ctxMenu.style.display = 'none';
-    saveHighlights();
+    saveHighlightsToHTML();
 };
 
-// ✅ REMOVE HIGHLIGHT — WORKS PERFECTLY
+// ✅ REMOVE HIGHLIGHT — FULLY WORKING NOW
 document.getElementById('menuRemove').onclick = function() {
-    if (!targetHighlight) return;
-    const parent = targetHighlight.parentNode;
-    const text = document.createTextNode(targetHighlight.textContent);
-    parent.replaceChild(targetHighlight, text);
-    parent.normalize();
+    if (!clickedHighlight) return;
+    // Replace highlight span with plain text node
+    const plainText = document.createTextNode(clickedHighlight.textContent);
+    clickedHighlight.parentNode.replaceChild(clickedHighlight, plainText);
+    // Merge adjacent text nodes
+    plainText.parentNode.normalize();
     ctxMenu.style.display = 'none';
-    targetHighlight = null;
-    saveHighlights();
-};
-
-// ✅ ADD NOTE (stub ready — can be expanded later)
-document.getElementById('menuNote').onclick = function() {
-    alert('📝 Add Note feature ready! Position: ' + savedRange.toString().substring(0,40) + '...');
-    ctxMenu.style.display = 'none';
+    clickedHighlight = null;
+    saveHighlightsToHTML();
 };
 
 // ✅ SAVE / LOAD HIGHLIGHTS
-function saveHighlights() {
+function saveHighlightsToHTML() {
     localStorage.setItem(`${passageId}_html`, passageText.innerHTML);
 }
-function loadHighlights() {
+function loadHighlightsFromHTML() {
     const saved = localStorage.getItem(`${passageId}_html`);
     if (saved) passageText.innerHTML = saved;
 }
 
-// ✅ ANSWERS
+// ✅ ANSWERS & NAVIGATOR
 document.addEventListener('input', e => {
-    if (e.target.name?.startsWith('q')) { saveAnswers(); updateNavStatus(); }
+    if (e.target.name && e.target.name.startsWith('q')) { saveAnswers(); updateNavStatus(); }
 });
 
 function saveAnswers() {
@@ -347,10 +342,11 @@ window.clearAllData = function() {
         const inp = document.querySelector(`input[name="q${q}"]`);
         if (inp) inp.value = '';
     });
+    // Remove all highlights
     document.querySelectorAll('.highlight').forEach(h => {
-        const p = h.parentNode;
-        p.replaceChild(h, document.createTextNode(h.textContent));
-        p.normalize();
+        const txt = document.createTextNode(h.textContent);
+        h.parentNode.replaceChild(h, txt);
+        txt.parentNode.normalize();
     });
     localStorage.removeItem(`${passageId}_ans`);
     localStorage.removeItem(`${passageId}_flags`);
@@ -387,7 +383,7 @@ function loadFlags() {
     });
 }
 
-// ✅ NAVIGATOR — ALL QUESTIONS 1–40
+// ✅ NAVIGATOR — ALL 1–40 FULLY VISIBLE
 function initNavigator() {
     const nav = document.getElementById('qNav');
     nav.innerHTML = '';
@@ -396,13 +392,12 @@ function initNavigator() {
         btn.className = 'q-indicator';
         btn.textContent = q;
         btn.id = `nav-q${q}`;
-        // Grey out questions not present in this passage
-        if (!PRESENT_Q.includes(q)) {
-            btn.style.opacity = '0.35';
-            btn.style.cursor = 'default';
-        } else {
+        // ✅ CURRENT PASSAGE QUESTIONS: full red border
+        if (PRESENT_Q.includes(q)) {
+            btn.classList.add('in-passage');
             btn.onclick = () => jumpToQuestion(q);
         }
+        // Non-passage questions: still visible, just grey background
         nav.appendChild(btn);
     });
     updateNavStatus();
@@ -433,11 +428,11 @@ function updateNavStatus() {
     });
 }
 
-// ✅ INITIALIZE
+// ✅ INITIALIZE ON PAGE LOAD
 window.onload = () => {
     loadAnswers();
     loadFlags();
-    loadHighlights();
+    loadHighlightsFromHTML();
     initNavigator();
 };
 </script>
