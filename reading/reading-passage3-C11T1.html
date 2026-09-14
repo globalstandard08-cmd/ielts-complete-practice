@@ -39,16 +39,14 @@
         .nav-label {font-weight: 600; color: #991b1b; font-size: 13px; margin-right: 6px;}
         .q-indicator {width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 12px; cursor: pointer; transition: all 0.2s;}
         .q-indicator:hover {opacity: 0.85;}
-        .q-indicator.answered {background: #198754; color: #ffffff; border-color: #198754;}
-        .q-indicator.flagged {background: #fd7e14; color: #ffffff; border-color: #fd7e14;}
-        .q-indicator.answered.flagged {background: #fd7e14;}
+        .q-indicator.answered {background: #198754; color: #fff; border-color: #198754;}
+        .q-indicator.flagged {background: #fd7e14; color: #fff; border-color: #fd7e14;}
         .q-indicator.current {border: 2px solid #dc2626;}
         .bottom-controls {display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;}
-        .action-buttons, .nav-buttons {display: flex; gap: 8px; flex-wrap: wrap;}
-        .clear-answers {padding: 7px 14px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 13px; background: #6b7280; color: #ffffff;}
+        .clear-answers {padding: 7px 14px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 13px; background: #6b7280; color: #fff;}
         .clear-answers:hover {background: #4b5563;}
         .back-btn, .next-btn {padding: 7px 14px; background: #fef2f2; color: #dc2626; text-decoration: none; border-radius: 6px; border: 1px solid #fecaca; font-weight: 500; cursor: pointer; font-size: 13px;}
-        .back-btn:hover, .next-btn:hover {background: #ffffff;}
+        .back-btn:hover, .next-btn:hover {background: #fff;}
         em {color: #555;}
     </style>
 </head>
@@ -226,7 +224,6 @@ const passageId = 'C11T1P3';
 const TOTAL_QUESTIONS = 40;
 let currentRange = null, lastNoteId = 0, dragNote = null, dragOffsetX = 0, dragOffsetY = 0;
 
-// Navigation: ALL numbers 1–40
 function initQuestionNav() {
     const navContainer = document.getElementById('questionNav');
     for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
