@@ -7,14 +7,12 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: #fef2f2; min-height: 100vh; display: flex; flex-direction: column; }
-
         .page-header {
             background: #fff; padding: 15px 30px; border-bottom: 2px solid #dc2626;
         }
         .page-header h1 { font-size: 20px; color: #dc2626; margin-bottom: 4px; }
         .page-header p { font-size: 14px; color: #7f1d1d; }
-
-        /* ✅ EXACT SEPARATE SCROLLBARS — YOUR SAMPLE STYLE */
+        /* ✅ EXACT SEPARATE SCROLLBARS */
         .content-wrapper {
             display: flex; gap: 18px; padding: 18px; flex: 1;
             height: calc(100vh - 220px);
@@ -31,18 +29,15 @@
         .questions-column::-webkit-scrollbar-track { background: #fef2f2; border-radius: 6px; }
         .passage-column::-webkit-scrollbar-thumb,
         .questions-column::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 6px; border: 2px solid #fef2f2; }
-
         .passage-column h2 { text-align: center; font-size: 20px; color: #dc2626; margin-bottom: 16px; line-height: 1.3; }
         .passage-text p { margin-bottom: 12px; font-size: 15px; line-height: 1.7; }
         .passage-text strong { color: #991b1b; }
-
-        /* ✅ EXACT HIGHLIGHT — SAME AS YOUR SAMPLE */
+        /* ✅ EXACT HIGHLIGHT — SAME AS SAMPLE */
         .highlight {
             background-color: #ffd700;
             padding: 1px 3px; border-radius: 2px; display: inline;
         }
-
-        /* ✅ EXACT RIGHT-CLICK MENU — SAME OPTIONS */
+        /* ✅ RIGHT-CLICK MENU */
         .context-menu {
             position: fixed; background: #fff; border: 1px solid #999;
             border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
@@ -50,7 +45,6 @@
         }
         .context-menu div { padding: 10px 14px; cursor: pointer; font-size: 14px; }
         .context-menu div:hover { background: #fef2f2; }
-
         .questions-column h3 { font-size: 16px; color: #991b1b; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #fecaca; }
         .instruction { font-size: 13px; color: #7f1d1d; margin-bottom: 14px; line-height: 1.5; }
         .question-group { margin-bottom: 24px; }
@@ -70,12 +64,14 @@
         .table-input { width: 90px; }
         .list-box { border: 1px solid #fecaca; border-radius: 8px; padding: 12px; background: #fef2f2; margin: 10px 0; }
         .list-box h4 { color: #dc2626; margin-bottom: 8px; font-size: 14px; }
-
         .bottom-area { padding: 12px 20px; background: #fff; border-top: 2px solid #fecaca; }
+        /* ✅ QUESTION NAVIGATOR — NOW FULLY WORKING */
         .question-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-        .q-indicator { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 4px; border: 1px solid #ddd; background: #eee; font-size: 12px; font-weight: 600; cursor: pointer; }
+        .q-indicator { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 4px; border: 1px solid #ddd; background: #eee; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .q-indicator:hover { opacity: 0.85; }
         .q-indicator.answered { background: #198754; color: #fff; border-color: #198754; }
         .q-indicator.flagged { background: #fd7e14; color: #fff; border-color: #fd7e14; }
+        .q-indicator.current { border: 2px solid #dc2626; }
         .button-bar { display: flex; gap: 10px; margin-bottom: 12px; }
         .check-answers, .clear-all-data { padding: 8px 18px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
         .check-answers { background: #16a34a; color: #fff; }
@@ -92,21 +88,18 @@
     </style>
 </head>
 <body>
-
-    <!-- ✅ EXACT MENU FROM YOUR SAMPLE -->
+    <!-- ✅ RIGHT-CLICK MENU -->
     <div class="context-menu" id="ctxMenu">
         <div id="menuHighlight">✅ Highlight Selection</div>
         <div id="menuRemoveOne">❌ Remove This Highlight</div>
         <div id="menuRemoveAll">🧹 Remove All Highlights</div>
     </div>
-
     <div class="page-header">
         <h1>READING PASSAGE 3 — Cambridge 11 Test 1</h1>
         <p>You should spend about 20 minutes on Questions 27–40, which are based on Reading Passage 3 below.</p>
     </div>
-
     <div class="content-wrapper">
-        <!-- LEFT: PASSAGE — OWN SCROLLBAR -->
+        <!-- LEFT: PASSAGE -->
         <div class="passage-column" id="passageCol">
             <h2>Reducing the Effects of Climate Change<br>being explored by scientists</h2>
             <div class="passage-text" id="passageText">
@@ -120,16 +113,15 @@
                 <p><strong>H</strong> The main reason why geo-engineering is supported by many in the scientific community is that most researchers have little faith in the ability of politicians to agree — and then bring in — the necessary carbon cuts. Even leading conservation organisations see the value of investigating the potential of geo-engineering. According to Dr Martin Sommerkorn, climate change advisor for the World Wildlife Fund's International Arctic Programme, 'Human-induced climate change has brought humanity to a position where we shouldn't exclude thinking thoroughly about this topic and its possibilities.'</p>
             </div>
         </div>
-
-        <!-- RIGHT: QUESTIONS — OWN SCROLLBAR -->
-        <div class="questions-column">
+        <!-- RIGHT: QUESTIONS -->
+        <div class="questions-column" id="questionsCol">
             <h3>Questions 27–40</h3>
             <div class="question-group">
                 <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 27–29</h4>
                 <p class="instruction">Reading Passage 3 has eight paragraphs <strong>A–H</strong>.<br>Which paragraph contains the following information?<br>Write the correct letter, <strong>A–H</strong>, in boxes 27–29 on your answer sheet.</p>
-                <div class="question-row"><span class="q-number">27</span><span class="q-text">mention of a geo-engineering project based on an earlier natural phenomenon</span><input type="text" class="answer-input" name="q27" placeholder="A–H" maxlength="1"><button class="flag-btn" data-q="27">🚩</button></div>
-                <div class="question-row"><span class="q-number">28</span><span class="q-text">an example of a successful use of geo-engineering</span><input type="text" class="answer-input" name="q28" placeholder="A–H" maxlength="1"><button class="flag-btn" data-q="28">🚩</button></div>
-                <div class="question-row"><span class="q-number">29</span><span class="q-text">a common definition of geo-engineering</span><input type="text" class="answer-input" name="q29" placeholder="A–H" maxlength="1"><button class="flag-btn" data-q="29">🚩</button></div>
+                <div class="question-row" id="qrow27"><span class="q-number">27</span><span class="q-text">mention of a geo-engineering project based on an earlier natural phenomenon</span><input type="text" class="answer-input" name="q27" placeholder="A–H" maxlength="1"><button class="flag-btn" data-q="27">🚩</button></div>
+                <div class="question-row" id="qrow28"><span class="q-number">28</span><span class="q-text">an example of a successful use of geo-engineering</span><input type="text" class="answer-input" name="q28" placeholder="A–H" maxlength="1"><button class="flag-btn" data-q="28">🚩</button></div>
+                <div class="question-row" id="qrow29"><span class="q-number">29</span><span class="q-text">a common definition of geo-engineering</span><input type="text" class="answer-input" name="q29" placeholder="A–H" maxlength="1"><button class="flag-btn" data-q="29">🚩</button></div>
             </div>
             <div class="question-group">
                 <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 30–36</h4>
@@ -137,12 +129,12 @@
                 <table class="match-table">
                     <thead><tr><th>Procedure</th><th>Aim</th></tr></thead>
                     <tbody>
-                        <tr><td>put a large number of tiny spacecraft into orbit far above Earth</td><td>to create a <strong>30</strong> <input type="text" class="answer-input table-input" name="q30"> that would reduce the amount of light reaching Earth</td></tr>
-                        <tr><td>place <strong>31</strong> <input type="text" class="answer-input table-input" name="q31"> in the sea</td><td>to encourage <strong>32</strong> <input type="text" class="answer-input table-input" name="q32"> to form</td></tr>
-                        <tr><td>release aerosol sprays into the stratosphere</td><td>to create <strong>33</strong> <input type="text" class="answer-input table-input" name="q33"> that would reduce the amount of light reaching Earth</td></tr>
-                        <tr><td>fix strong <strong>34</strong> <input type="text" class="answer-input table-input" name="q34"> to Greenland ice sheets</td><td>to prevent icebergs moving into the sea</td></tr>
-                        <tr><td>plant trees in Russian Arctic that would lose their leaves in winter</td><td>to allow the <strong>35</strong> <input type="text" class="answer-input table-input" name="q35"> to reflect radiation</td></tr>
-                        <tr><td>change the direction of <strong>36</strong> <input type="text" class="answer-input table-input" name="q36"></td><td>to bring more cold water into ice-forming areas</td></tr>
+                        <tr id="qrow30"><td>put a large number of tiny spacecraft into orbit far above Earth</td><td>to create a <strong>30</strong> <input type="text" class="answer-input table-input" name="q30"> that would reduce the amount of light reaching Earth</td></tr>
+                        <tr id="qrow31"><td>place <strong>31</strong> <input type="text" class="answer-input table-input" name="q31"> in the sea</td><td>to encourage <strong>32</strong> <input type="text" class="answer-input table-input" name="q32"> to form</td></tr>
+                        <tr id="qrow33"><td>release aerosol sprays into the stratosphere</td><td>to create <strong>33</strong> <input type="text" class="answer-input table-input" name="q33"> that would reduce the amount of light reaching Earth</td></tr>
+                        <tr id="qrow34"><td>fix strong <strong>34</strong> <input type="text" class="answer-input table-input" name="q34"> to Greenland ice sheets</td><td>to prevent icebergs moving into the sea</td></tr>
+                        <tr id="qrow35"><td>plant trees in Russian Arctic that would lose their leaves in winter</td><td>to allow the <strong>35</strong> <input type="text" class="answer-input table-input" name="q35"> to reflect radiation</td></tr>
+                        <tr id="qrow36"><td>change the direction of <strong>36</strong> <input type="text" class="answer-input table-input" name="q36"></td><td>to bring more cold water into ice-forming areas</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -150,14 +142,13 @@
                 <h4 style="margin-bottom:8px; font-size:14px; color:#991b1b;">Questions 37–40</h4>
                 <p class="instruction">Look at the following statements (Questions 37–40) and the list of scientists below.<br>Match each statement with the correct scientist, <strong>A–D</strong>.</p>
                 <div class="list-box"><h4>List of Scientists</h4><p><strong>A</strong> Roger Angel<br><strong>B</strong> Phil Rasch<br><strong>C</strong> Dan Lunt<br><strong>D</strong> Martin Sommerkorn</p></div>
-                <div class="question-row"><span class="q-number">37</span><span class="q-text">The effects of geo-engineering may not be long-lasting.</span><input type="text" class="answer-input" name="q37" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="37">🚩</button></div>
-                <div class="question-row"><span class="q-number">38</span><span class="q-text">Geo-engineering is a topic worth exploring.</span><input type="text" class="answer-input" name="q38" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="38">🚩</button></div>
-                <div class="question-row"><span class="q-number">39</span><span class="q-text">It may be necessary to limit the effectiveness of geo-engineering projects.</span><input type="text" class="answer-input" name="q39" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="39">🚩</button></div>
-                <div class="question-row"><span class="q-number">40</span><span class="q-text">Research into non-fossil-based fuels cannot be replaced by geo-engineering.</span><input type="text" class="answer-input" name="q40" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="40">🚩</button></div>
+                <div class="question-row" id="qrow37"><span class="q-number">37</span><span class="q-text">The effects of geo-engineering may not be long-lasting.</span><input type="text" class="answer-input" name="q37" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="37">🚩</button></div>
+                <div class="question-row" id="qrow38"><span class="q-number">38</span><span class="q-text">Geo-engineering is a topic worth exploring.</span><input type="text" class="answer-input" name="q38" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="38">🚩</button></div>
+                <div class="question-row" id="qrow39"><span class="q-number">39</span><span class="q-text">It may be necessary to limit the effectiveness of geo-engineering projects.</span><input type="text" class="answer-input" name="q39" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="39">🚩</button></div>
+                <div class="question-row" id="qrow40"><span class="q-number">40</span><span class="q-text">Research into non-fossil-based fuels cannot be replaced by geo-engineering.</span><input type="text" class="answer-input" name="q40" placeholder="A–D" maxlength="1"><button class="flag-btn" data-q="40">🚩</button></div>
             </div>
         </div>
     </div>
-
     <div class="bottom-area">
         <div class="question-nav" id="qNav"></div>
         <div class="button-bar">
@@ -166,7 +157,6 @@
         </div>
         <div class="results-box" id="resultsBox"></div>
     </div>
-
     <div class="nav-bar">
         <a href="reading-passage2-C11T1.html" class="nav-btn">&larr; Previous</a>
         <div class="passage-tabs">
@@ -176,7 +166,6 @@
         </div>
         <button class="nav-btn" disabled>Next &rarr;</button>
     </div>
-
 <script>
 const passageId = 'C11T1P3';
 const Q_EXISTING = [27,28,29,30,31,32,33,34,35,36,37,38,39,40];
@@ -184,18 +173,16 @@ const correctAnswers = {
     q27:'D',q28:'B',q29:'A',q30:'sunshade',q31:'iron',q32:'algae',
     q33:'clouds',q34:'cables',q35:'snow',q36:'rivers',q37:'B',q38:'D',q39:'C',q40:'A'
 };
-
 const ctxMenu = document.getElementById('ctxMenu');
 const passageText = document.getElementById('passageText');
 let savedRange = null;
 let targetHighlight = null;
 
-// ✅ EXACT RIGHT-CLICK LOGIC — NO EXTRA FEATURES
+// ✅ RIGHT-CLICK LOGIC — STABLE HIGHLIGHT
 document.addEventListener('contextmenu', e => {
     savedRange = null;
     targetHighlight = null;
-
-    // RIGHT-CLICK ON HIGHLIGHT → SHOW REMOVE OPTIONS
+    // Right-click ON existing highlight → show Remove options
     if (e.target.classList.contains('highlight')) {
         e.preventDefault();
         targetHighlight = e.target;
@@ -205,19 +192,17 @@ document.addEventListener('contextmenu', e => {
         showMenu(e.clientX, e.clientY);
         return;
     }
-
-    // RIGHT-CLICK WITH TEXT SELECTED → SHOW HIGHLIGHT
+    // Right-click WITH text selected → show Highlight
     const sel = window.getSelection();
     if (passageText.contains(e.target) && !sel.isCollapsed && sel.toString().trim()) {
         e.preventDefault();
         savedRange = sel.getRangeAt(0).cloneRange();
         document.getElementById('menuHighlight').style.display = 'block';
         document.getElementById('menuRemoveOne').style.display = 'none';
-        document.getElementById('menuRemoveAll').style.display = 'block';
+        document.getElementById('menuRemoveAll').style.display = 'none';
         showMenu(e.clientX, e.clientY);
         return;
     }
-
     ctxMenu.style.display = 'none';
 });
 
@@ -233,7 +218,7 @@ document.addEventListener('click', () => {
     savedRange = null;
 });
 
-// ✅ HIGHLIGHT
+// ✅ HIGHLIGHT — FIXED & STABLE
 document.getElementById('menuHighlight').onclick = function() {
     if (!savedRange) return;
     const span = document.createElement('span');
@@ -247,9 +232,10 @@ document.getElementById('menuHighlight').onclick = function() {
     }
     window.getSelection().removeAllRanges();
     ctxMenu.style.display = 'none';
+    saveHighlights();
 };
 
-// ✅ REMOVE THIS HIGHLIGHT — EXACT WORKING CODE
+// ✅ REMOVE THIS HIGHLIGHT — FIXED
 document.getElementById('menuRemoveOne').onclick = function() {
     if (!targetHighlight) return;
     const parent = targetHighlight.parentNode;
@@ -258,9 +244,10 @@ document.getElementById('menuRemoveOne').onclick = function() {
     parent.normalize();
     ctxMenu.style.display = 'none';
     targetHighlight = null;
+    saveHighlights();
 };
 
-// ✅ REMOVE ALL
+// ✅ REMOVE ALL HIGHLIGHTS
 document.getElementById('menuRemoveAll').onclick = function() {
     document.querySelectorAll('.highlight').forEach(h => {
         const p = h.parentNode;
@@ -268,11 +255,21 @@ document.getElementById('menuRemoveAll').onclick = function() {
         p.normalize();
     });
     ctxMenu.style.display = 'none';
+    saveHighlights();
 };
 
-// ✅ ANSWERS / FLAGS / CHECK ANSWERS
+// ✅ SAVE / LOAD HIGHLIGHTS TO PRESERVE ON REFRESH
+function saveHighlights() {
+    localStorage.setItem(`${passageId}_passage_html`, passageText.innerHTML);
+}
+function loadHighlights() {
+    const saved = localStorage.getItem(`${passageId}_passage_html`);
+    if (saved) passageText.innerHTML = saved;
+}
+
+// ✅ ANSWERS / FLAGS / CHECK
 document.addEventListener('input', e => {
-    if (e.target.name?.startsWith('q')) saveAnswers();
+    if (e.target.name?.startsWith('q')) { saveAnswers(); updateNavStatus(); }
 });
 
 function saveAnswers() {
@@ -325,28 +322,89 @@ window.clearAllData = function() {
         p.normalize();
     });
     localStorage.removeItem(`${passageId}_ans`);
+    localStorage.removeItem(`${passageId}_flags`);
+    localStorage.removeItem(`${passageId}_passage_html`);
+    document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
     document.getElementById('resultsBox').style.display = 'none';
+    updateNavStatus();
     alert('✅ ALL DATA CLEARED!');
 };
 
+// ✅ FLAGS
 document.querySelectorAll('.flag-btn').forEach(btn => {
     btn.onclick = () => {
         btn.classList.toggle('flagged');
-        localStorage.setItem(`${passageId}_flag_${btn.dataset.q}`, btn.classList.contains('flagged'));
+        saveFlags();
+        updateNavStatus();
     };
 });
 
+function saveFlags() {
+    const flags = {};
+    document.querySelectorAll('.flag-btn').forEach(b => {
+        flags[b.dataset.q] = b.classList.contains('flagged');
+    });
+    localStorage.setItem(`${passageId}_flags`, JSON.stringify(flags));
+}
+
 function loadFlags() {
+    const saved = localStorage.getItem(`${passageId}_flags`);
+    if (!saved) return;
+    const flags = JSON.parse(saved);
     Q_EXISTING.forEach(q => {
-        if (localStorage.getItem(`${passageId}_flag_${q}`) === 'true') {
-            document.querySelector(`.flag-btn[data-q="${q}"]`)?.classList.add('flagged');
-        }
+        if (flags[q]) document.querySelector(`.flag-btn[data-q="${q}"]`)?.classList.add('flagged');
     });
 }
 
+// ✅ QUESTION NAVIGATOR — NOW FULLY WORKING!
+function initNavigator() {
+    const nav = document.getElementById('qNav');
+    nav.innerHTML = '';
+    Q_EXISTING.forEach(q => {
+        const btn = document.createElement('div');
+        btn.className = 'q-indicator';
+        btn.textContent = q;
+        btn.id = `nav-q${q}`;
+        btn.onclick = () => jumpToQuestion(q);
+        nav.appendChild(btn);
+    });
+    updateNavStatus();
+}
+
+function jumpToQuestion(qNum) {
+    // Remove "current" border from all
+    document.querySelectorAll('.q-indicator').forEach(b => b.classList.remove('current'));
+    // Add "current" border to clicked button
+    document.getElementById(`nav-q${qNum}`)?.classList.add('current');
+    // Scroll to that question
+    const row = document.getElementById(`qrow${qNum}`);
+    if (row) row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function updateNavStatus() {
+    const ansSaved = localStorage.getItem(`${passageId}_ans`);
+    const answers = ansSaved ? JSON.parse(ansSaved) : {};
+    const flagsSaved = localStorage.getItem(`${passageId}_flags`);
+    const flags = flagsSaved ? JSON.parse(flagsSaved) : {};
+
+    Q_EXISTING.forEach(q => {
+        const btn = document.getElementById(`nav-q${q}`);
+        if (!btn) return;
+        const hasAnswer = (answers[`q${q}`] || '').trim().length > 0;
+        const isFlagged = flags[q] === true;
+
+        btn.classList.remove('answered', 'flagged');
+        if (isFlagged) btn.classList.add('flagged');
+        else if (hasAnswer) btn.classList.add('answered');
+    });
+}
+
+// ✅ START EVERYTHING ON PAGE LOAD
 window.onload = () => {
     loadAnswers();
     loadFlags();
+    loadHighlights();
+    initNavigator();
 };
 </script>
 </body>
