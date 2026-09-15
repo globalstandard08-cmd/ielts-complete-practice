@@ -3,690 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cambridge 11 — Test 3 — Passage 2</title>
+    <title>Cambridge 11 Test 3 — Reading Passage 2</title>
     <style>
         * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif;}
-        body {background-color: #fef2f2; height: 100vh; overflow: hidden;}
-
-        /* === TOP NAVIGATION BAR (Question Numbers 14-26) === */
-        .q-nav-bar {
-            background: #ffffff;
-            border-bottom: 2px solid #dc2626;
-            padding: 6px 12px;
-            display: flex;
-            gap: 4px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .q-nav-label {
-            font-size: 13px;
-            color: #991b1b;
-            font-weight: 600;
-            margin-right: 8px;
-        }
-        .q-nav-btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 4px;
-            border: 1px solid #fecaca;
-            background: #fef2f2;
-            color: #991b1b;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .q-nav-btn.answered {
-            background: #dc2626;
-            color: white;
-            border-color: #dc2626;
-        }
-        .q-nav-btn.flagged {
-            border: 2px solid #f59e0b;
-        }
-        .q-nav-btn:hover {
-            background: #fecaca;
-        }
-
-        /* === MAIN TWO-COLUMN LAYOUT === */
-        .main-container {
-            display: flex;
-            height: calc(100vh - 52px);
-        }
-
-        /* LEFT: PASSAGE PANEL */
-        .passage-panel {
-            width: 50%;
-            height: 100%;
-            padding: 20px;
-            overflow-y: auto;
-            background: #ffffff;
-            border-right: 1px solid #fecaca;
-        }
-        .passage-panel h1 {
-            font-size: 22px;
-            color: #dc2626;
-            margin-bottom: 16px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #fecaca;
-        }
-        .passage-text {
-            font-size: 15px;
-            line-height: 1.8;
-            color: #1a1a1a;
-        }
-        .passage-text p {
-            margin-bottom: 14px;
-            text-align: justify;
-        }
-        .highlight {
-            background-color: #fef08a;
-            padding: 1px 3px;
-            border-radius: 2px;
-        }
-        .passage-meta {
-            font-size: 13px;
-            color: #7f1d1d;
-            margin-bottom: 16px;
-        }
-
-        /* RIGHT: QUESTIONS PANEL */
-        .questions-panel {
-            width: 50%;
-            height: 100%;
-            padding: 20px;
-            overflow-y: auto;
-            background: #fef2f2;
-        }
-        .q-group {
-            margin-bottom: 32px;
-            padding: 16px;
-            background: #ffffff;
-            border-radius: 8px;
-            border: 1px solid #fecaca;
-        }
-        .q-group h3 {
-            font-size: 14px;
-            color: #991b1b;
-            margin-bottom: 12px;
-            padding-bottom: 6px;
-            border-bottom: 1px solid #fecaca;
-        }
-        .q-row {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin: 10px 0;
-        }
-        .q-num {
-            min-width: 28px;
-            font-weight: 700;
-            color: #b91c1c;
-            font-size: 14px;
-        }
-        .q-input-area {
-            flex: 1;
-        }
-        .true-false-options {
-            display: flex;
-            gap: 12px;
-            margin-top: 4px;
-        }
-        .tf-option {
-            padding: 4px 12px;
-            border: 1px solid #fecaca;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            background: #fef2f2;
-            color: #991b1b;
-        }
-        .tf-option.selected {
-            background: #dc2626;
-            color: white;
-            border-color: #dc2626;
-        }
-        .letter-options {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 6px;
-        }
-        .letter-option {
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
-            border: 1px solid #fecaca;
-            background: #fef2f2;
-            color: #991b1b;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-        }
-        .letter-option.selected {
-            background: #dc2626;
-            color: white;
-            border-color: #dc2626;
-        }
-        .word-input {
-            margin-top: 4px;
-        }
-        .word-input input {
-            width: 180px;
-            padding: 6px 10px;
-            border: 1px solid #fecaca;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        /* TOOLBAR */
-        .toolbar {
-            position: sticky;
-            top: 0;
-            display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-            padding: 8px;
-            background: #fef2f2;
-            border-radius: 6px;
-            border: 1px solid #fecaca;
-            z-index: 10;
-        }
-        .tool-btn {
-            padding: 6px 12px;
-            border-radius: 4px;
-            border: none;
-            background: #dc2626;
-            color: white;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-        }
-        .tool-btn:hover {
-            background: #b91c1c;
-        }
-        .tool-btn.secondary {
-            background: #fecaca;
-            color: #991b1b;
-        }
-        .tool-btn.secondary:hover {
-            background: #fca5a5;
-        }
-
-        /* FLAG BUTTON */
-        .flag-btn {
-            margin-left: auto;
-            background: #f59e0b;
-        }
-        .flag-btn:hover {
-            background: #d97706;
-        }
-        .flag-btn.flagged {
-            box-shadow: 0 0 0 2px #fef08a;
-        }
-
-        /* DRAGGABLE NOTES */
-        .note-box {
-            position: absolute;
-            width: 200px;
-            min-height: 60px;
-            background: #fffbeb;
-            border: 1px solid #fcd34d;
-            border-radius: 6px;
-            padding: 8px;
-            font-size: 13px;
-            box-shadow: 2px 4px 8px rgba(0,0,0,0.1);
-            cursor: move;
-            z-index: 20;
-        }
-        .note-box textarea {
-            width: 100%;
-            border: none;
-            background: transparent;
-            resize: none;
-            font-size: 13px;
-            outline: none;
-        }
-        .note-close {
-            position: absolute;
-            top: 2px;
-            right: 6px;
-            font-size: 14px;
-            cursor: pointer;
-            color: #b45309;
-        }
-
-        /* BOTTOM NAVIGATION */
-        .bottom-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-            padding-top: 12px;
-            border-top: 1px solid #fecaca;
-        }
-        .nav-btn {
-            padding: 8px 16px;
-            border-radius: 6px;
-            border: none;
-            background: #dc2626;
-            color: white;
-            cursor: pointer;
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .nav-btn:hover {
-            background: #b91c1c;
-        }
-        .nav-btn.gray {
-            background: #9ca3af;
-            cursor: not-allowed;
-        }
-        .clear-btn {
-            padding: 6px 12px;
-            border-radius: 4px;
-            border: 1px solid #fecaca;
-            background: #fef2f2;
-            color: #991b1b;
-            cursor: pointer;
-            font-size: 13px;
-        }
-        .clear-btn:hover {
-            background: #fee2e2;
-        }
-        .check-btn {
-            background: #16a34a;
-        }
-        .check-btn:hover {
-            background: #15803d;
-        }
+        body {background-color: #fef2f2; color: #1a1a1a; line-height: 1.6;}
+        .logo-container {width: 100%; background: #ffffff; border-bottom: 2px solid #dc2626; padding: 4px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 6px;}
+        .logo {width: 22%; max-width: 180px; height: auto; display: block;}
+        .main-wrapper {display: flex; gap: 12px; padding: 0 12px 8px; height: calc(100vh - 140px);}
+        .passage-column, .questions-column {flex: 1; background: #ffffff; border-radius: 10px; border: 1px solid #fecaca; padding: 14px; overflow-y: auto;}
+        h1 {color: #dc2626; font-size: 17px; margin-bottom: 2px; text-align: center;}
+        h2.subtitle {color: #7f1d1d; font-size: 13px; text-align: center; margin-bottom: 12px; font-weight: 500;}
+        .passage-text p {margin-bottom: 12px; font-size: 14.5px; line-height: 1.75; text-align: justify;}
+        .passage-text strong {color: #b91c1c;}
+        .highlight {background-color: #ffd700; padding: 1px 3px; border-radius: 2px; display: inline; color: #000;}
+        .questions-section h2 {color: #991b1b; font-size: 16px; margin: 14px 0 8px; border-bottom: 1px solid #fecaca; padding-bottom: 3px;}
+        .question-block {margin-bottom: 14px; scroll-margin-top: 12px;}
+        .question-block p {font-weight: 500; margin-bottom: 6px; font-size: 14px; line-height: 1.6;}
+        .answer-row {display: flex; align-items: center; gap: 8px; margin-top: 4px;}
+        .answer-input {flex: 1; max-width: 220px; padding: 6px 10px; border: 1px solid #fecaca; border-radius: 6px; font-size: 14px; background: #fef2f2; text-transform: uppercase;}
+        .flag-btn {padding: 4px 8px; border-radius: 4px; border: 1px solid #ccc; background: #f3f4f6; cursor: pointer; font-size: 12px;}
+        .flag-btn.flagged {background: #fef08a; border-color: #eab308; color: #854d0e; font-weight: bold;}
+        .yn-options {margin: 6px 0 10px 20px; font-size: 14px; line-height: 1.8;}
+        .context-menu {position: absolute; background: #ffffff; border: 1px solid #bbb; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 160px;}
+        .context-menu div {padding: 10px 14px; cursor: pointer; font-size: 14px;}
+        .context-menu div:hover {background: #fef2f2;}
+        .sticky-note {position: absolute; width: 170px; min-height: 65px; background: #fff380; border: 1px solid #e6c200; border-radius: 4px; padding: 6px; box-shadow: 3px 3px 8px rgba(0,0,0,0.15); z-index: 9998; font-size: 12px; user-select: none; cursor: move;}
+        .note-header {display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00;}
+        .note-close {cursor: pointer; font-weight: bold; color: #886a00; user-select: none; font-size: 14px; line-height: 1;}
+        .note-textarea {width: 100%; height: 48px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px;}
+        .bottom-container {margin: 8px 12px 16px; padding: 8px 10px; background: #ffffff; border-radius: 8px; border: 1px solid #fecaca;}
+        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 1px; margin-bottom: 8px;}
+        .nav-label {font-weight: 600; color: #991b1b; font-size: 11px; margin-right: 4px;}
+        .q-indicator {width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 10px; cursor: pointer; transition: all 0.2s;}
+        .q-indicator:hover {opacity: 0.85;}
+        .q-indicator.answered {background: #198754; color: #ffffff; border-color: #198754;}
+        .q-indicator.flagged {outline: 2px solid #eab308; outline-offset: 1px;}
+        .q-indicator.current {border: 2px solid #dc2626;}
+        .q-indicator.passage-gap {margin-left: 6px; background: #fef2f2; border: none; color: #991b1b; font-weight: bold; font-size: 9px;}
+        .q-indicator.future {opacity: 0.45; cursor: not-allowed;}
+        .btn-bar {display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 4px;}
+        .nav-btn, .check-btn, .clear-btn {padding: 5px 10px; text-decoration: none; border-radius: 5px; border: 1px solid; font-weight: 500; font-size: 12px; display: inline-block; cursor: pointer;}
+        .prev-btn {background: #fef2f2; color: #dc2626; border-color: #fecaca;}
+        .prev-btn:hover {background: #ffffff;}
+        .next-btn {background: #dc2626; color: #ffffff; border-color: #dc2626;}
+        .next-btn:hover {background: #b91c1c;}
+        .lib-btn {background: #e5e7eb; color: #374151; border-color: #ccc;}
+        .lib-btn:hover {background: #dcdcdc;}
+        .check-btn {background: #e0f2fe; color: #0369a1; border-color: #bae6fd;}
+        .check-btn:hover {background: #bae6fd;}
+        .clear-btn {background: #fff0f0; color: #b91c1c; border-color: #fecaca;}
+        .clear-btn:hover {background: #ffe0e0;}
+        .result-bar {margin-top: 6px; padding: 6px 10px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 5px; color: #166534; font-size: 13px; display: none;}
+        em {color: #555;}
+        ul {margin: 6px 0 6px 24px;}
+        li {margin-bottom: 4px; font-size: 14px;}
+        .letter-options {display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px;}
+        .letter-option {padding: 5px 10px; border: 1px solid #fecaca; border-radius: 4px; cursor: pointer; background: #fef2f2; color: #991b1b; font-weight: 600;}
+        .letter-option.selected {background: #dc2626; color: #fff; border-color: #dc2626;}
     </style>
 </head>
 <body>
-
-<!-- TOP QUESTION NAVIGATION BAR -->
-<div class="q-nav-bar">
-    <span class="q-nav-label">Q:</span>
-    <button class="q-nav-btn" data-q="14">14</button>
-    <button class="q-nav-btn" data-q="15">15</button>
-    <button class="q-nav-btn" data-q="16">16</button>
-    <button class="q-nav-btn" data-q="17">17</button>
-    <button class="q-nav-btn" data-q="18">18</button>
-    <button class="q-nav-btn" data-q="19">19</button>
-    <button class="q-nav-btn" data-q="20">20</button>
-    <button class="q-nav-btn" data-q="21">21</button>
-    <button class="q-nav-btn" data-q="22">22</button>
-    <button class="q-nav-btn" data-q="23">23</button>
-    <button class="q-nav-btn" data-q="24">24</button>
-    <button class="q-nav-btn" data-q="25">25</button>
-    <button class="q-nav-btn" data-q="26">26</button>
+    <div class="logo-container">
+        <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
+    </div>
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight Selection</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+    </div>
+    <div class="main-wrapper">
+        <div class="passage-column" id="passageArea">
+            <h1>Reading Passage 2</h1>
+            <h2 class="subtitle">Great Migrations</h2>
+            <div class="passage-text">
+<p><strong>You should spend about 20 minutes on Questions 14–26, which are based on Reading Passage 2 below.</strong></p>
+<br>
+<p><strong>Animal migration</strong>, however it is defined, is far more than just the movement of animals. It can loosely be described as travel that takes place at regular intervals — in an annual cycle — that may involve many members of a species, and is rewarded only after a long journey. It suggests inherited instinct. The biologist Hugh Dingle has identified five characteristics that apply, in varying degrees and combinations, to all migrations. They are prolonged movements that carry animals outside familiar habitats; they tend to be linear, not zigzaggy; they involve special behaviours concerning preparation (such as overfeeding) and arrival; they demand special allocations of energy. And one more: migrating animals maintain an intense attentiveness to the greater mission, which keeps them undistracted by temptations and undeterred by challenges that would turn other animals aside.</p>
+<p>An arctic tern, on its 20,000 km flight from the extreme south of South America to the Arctic circle, will take no notice of a nice smelly herring offered from a bird-watcher's boat along the way. While local gulls will dive voraciously for such handouts, the tern flies on. Why? The arctic tern resists distraction because it is driven at that moment by an instinctive sense of something we humans find admirable: larger purpose. In other words, it is determined to reach its destination. The bird senses that it can eat, rest and mate later. Right now it is totally focused on the journey; its undivided intent is arrival.</p>
+<p>Reaching some gravelly coastline in the Arctic, upon which other arctic terns have converged, will serve its larger purpose as shaped by evolution: finding a place, a time, and a set of circumstances in which it can successfully hatch and rear offspring.</p>
+<p>But migration is a complex issue, and biologists define it differently, depending in part on what sorts of animals they study. Joe Berger, of the University of Montana, who works on American pronghorns and other large terrestrial mammals, prefers what he calls a simple, practical definition suited to his beasts: 'movements from a seasonal home area to another home area and back again'. Generally the reason for such seasonal back-and-forth movement is to seek resources that aren't available within a single area year-round.</p>
+<p>But daily vertical movements by zooplankton in the ocean — upward by night to seek food, downward by day to escape predators — can also be considered migration. So can the movement of aphids when, having depleted the young leaves on one food plant, their offspring then fly onward to a different host plant, with no one aphid ever returning to where it started.</p>
+<p>Dingle is an evolutionary biologist who studies insects. His definition is more intricate than Berger's, citing those five features that distinguish migration from other forms of movement. They allow for the fact that, for example, aphids will become sensitive to blue light (from the sky) when it's time for takeoff on their big journey, and sensitive to yellow light (reflected from tender young leaves) when it's appropriate to land. Birds will fatten themselves with heavy feeding in advance of a long migrational flight. The value of his definition, Dingle argues, is that it focuses attention on what the phenomenon of wildebeest migration shares with the phenomenon of the aphids, and therefore helps guide researchers towards understanding how evolution has produced them all.</p>
+<p>Human behaviour, however, is having a detrimental impact on animal migration.</p>
+<p>The pronghorn, which resembles an antelope, though they are unrelated, is the fastest land mammal of the New World. One population, which spends the summer in the mountainous Grand Teton National Park of the western USA, follows a narrow route from its summer range in the mountains, across a river, and down onto the plains. Here they wait out the frozen months, feeding mainly on sagebrush blown clear of snow. These pronghorn are notable for the invariance of their migration route and the severity of its constriction at three bottlenecks. If they can't pass through each of the three during their spring migration, they can't reach their bounty of summer grazing; if they can't pass through them again in autumn, escaping south onto those windblown plains, they are likely to die trying to overwinter in the deep snow. Pronghorn, dependent on distance vision and speed to keep safe from predators, traverse high, open shoulders of land, where they can see and run. At one of the bottlenecks, forested hills rise to form a V, leaving a corridor of open ground only about 150 metres wide, filled with private homes. Increasing development is leading toward a crisis for the pronghorn, threatening to choke off their passageway.</p>
+<p>Conservation scientists, along with some biologists and land managers within the USA's National Park Service and other agencies, are now working to preserve migrational behaviours, not just species and habitats. A National Forest has recognised the path of the pronghorn, much of which passes across its land, as a protected migration corridor. But neither the Forest Service nor the Park Service can control what happens on private land at a bottleneck. And with certain other migrating species, the challenge is complicated further — by vastly greater distances traversed, more jurisdictions, more borders, more dangers along the way. We will require wisdom and resoluteness to ensure that migrating species can continue their journeying a while longer.</p>
+            </div>
+        </div>
+        <div class="questions-column" id="questionsArea">
+            <div class="questions-section">
+<h2>Questions 14–18</h2>
+<p><em>Do the following statements agree with the information given in Reading Passage 2?</em><br>
+<em>In boxes 14–18 on your answer sheet, write</em></p>
+<div class="yn-options">
+<strong>TRUE</strong> &nbsp; if the statement agrees with the information<br>
+<strong>FALSE</strong> &nbsp; if the statement contradicts the information<br>
+<strong>NOT GIVEN</strong> &nbsp; if there is no information on this
 </div>
 
-<div class="main-container">
-    <!-- LEFT PANEL: PASSAGE -->
-    <div class="passage-panel" id="passagePanel">
-        <h1>Great Migrations</h1>
-        <div class="passage-meta">Cambridge 11 — Test 3 — Passage 2 &nbsp;|&nbsp; Questions 14–26</div>
-        <div class="toolbar">
-            <button class="tool-btn" onclick="enableHighlight()">🖍️ Highlight</button>
-            <button class="tool-btn secondary" onclick="removeAllHighlights()">✖ Remove</button>
-            <button class="tool-btn secondary" onclick="addNote()">📝 Note</button>
-            <button class="tool-btn flag-btn" id="pageFlagBtn" onclick="togglePageFlag()">🚩 Flag</button>
-        </div>
-        <div class="passage-text" id="passageText">
-            <p><strong>You should spend about 20 minutes on Questions 14–26, which are based on Reading Passage 2 below.</strong></p>
-            <br>
-            <p><strong>Animal migration</strong>, however it is defined, is far more than just the movement of animals. It can loosely be described as travel that takes place at regular intervals — in an annual cycle — that may involve many members of a species, and is rewarded only after a long journey. It suggests inherited instinct. The biologist Hugh Dingle has identified five characteristics that apply, in varying degrees and combinations, to all migrations. They are prolonged movements that carry animals outside familiar habitats; they tend to be linear, not zigzaggy; they involve special behaviours concerning preparation (such as overfeeding) and arrival; they demand special allocations of energy. And one more: migrating animals maintain an intense attentiveness to the greater mission, which keeps them undistracted by temptations and undeterred by challenges that would turn other animals aside.</p>
-            <p>An arctic tern, on its 20,000 km flight from the extreme south of South America to the Arctic circle, will take no notice of a nice smelly herring offered from a bird-watcher's boat along the way. While local gulls will dive voraciously for such handouts, the tern flies on. Why? The arctic tern resists distraction because it is driven at that moment by an instinctive sense of something we humans find admirable: larger purpose. In other words, it is determined to reach its destination. The bird senses that it can eat, rest and mate later. Right now it is totally focused on the journey; its undivided intent is arrival.</p>
-            <p>Reaching some gravelly coastline in the Arctic, upon which other arctic terns have converged, will serve its larger purpose as shaped by evolution: finding a place, a time, and a set of circumstances in which it can successfully hatch and rear offspring.</p>
-            <p>But migration is a complex issue, and biologists define it differently, depending in part on what sorts of animals they study. Joe Berger, of the University of Montana, who works on American pronghorns and other large terrestrial mammals, prefers what he calls a simple, practical definition suited to his beasts: 'movements from a seasonal home area to another home area and back again'. Generally the reason for such seasonal back-and-forth movement is to seek resources that aren't available within a single area year-round.</p>
-            <p>But daily vertical movements by zooplankton in the ocean — upward by night to seek food, downward by day to escape predators — can also be considered migration. So can the movement of aphids when, having depleted the young leaves on one food plant, their offspring then fly onward to a different host plant, with no one aphid ever returning to where it started.</p>
-            <p>Dingle is an evolutionary biologist who studies insects. His definition is more intricate than Berger's, citing those five features that distinguish migration from other forms of movement. They allow for the fact that, for example, aphids will become sensitive to blue light (from the sky) when it's time for takeoff on their big journey, and sensitive to yellow light (reflected from tender young leaves) when it's appropriate to land. Birds will fatten themselves with heavy feeding in advance of a long migrational flight. The value of his definition, Dingle argues, is that it focuses attention on what the phenomenon of wildebeest migration shares with the phenomenon of the aphids, and therefore helps guide researchers towards understanding how evolution has produced them all.</p>
-            <p>Human behaviour, however, is having a detrimental impact on animal migration.</p>
-            <p>The pronghorn, which resembles an antelope, though they are unrelated, is the fastest land mammal of the New World. One population, which spends the summer in the mountainous Grand Teton National Park of the western USA, follows a narrow route from its summer range in the mountains, across a river, and down onto the plains. Here they wait out the frozen months, feeding mainly on sagebrush blown clear of snow. These pronghorn are notable for the invariance of their migration route and the severity of its constriction at three bottlenecks. If they can't pass through each of the three during their spring migration, they can't reach their bounty of summer grazing; if they can't pass through them again in autumn, escaping south onto those windblown plains, they are likely to die trying to overwinter in the deep snow. Pronghorn, dependent on distance vision and speed to keep safe from predators, traverse high, open shoulders of land, where they can see and run. At one of the bottlenecks, forested hills rise to form a V, leaving a corridor of open ground only about 150 metres wide, filled with private homes. Increasing development is leading toward a crisis for the pronghorn, threatening to choke off their passageway.</p>
-            <p>Conservation scientists, along with some biologists and land managers within the USA's National Park Service and other agencies, are now working to preserve migrational behaviours, not just species and habitats. A National Forest has recognised the path of the pronghorn, much of which passes across its land, as a protected migration corridor. But neither the Forest Service nor the Park Service can control what happens on private land at a bottleneck. And with certain other migrating species, the challenge is complicated further — by vastly greater distances traversed, more jurisdictions, more borders, more dangers along the way. We will require wisdom and resoluteness to ensure that migrating species can continue their journeying a while longer.</p>
-        </div>
-    </div>
-
-    <!-- RIGHT PANEL: QUESTIONS -->
-    <div class="questions-panel" id="questionsPanel">
-
-        <!-- Q14-18: TRUE/FALSE/NOT GIVEN -->
-        <div class="q-group">
-            <h3>Questions 14–18 &nbsp;|&nbsp; TRUE / FALSE / NOT GIVEN</h3>
-            <p style="font-size:13px; color:#7f1d1d; margin-bottom:10px;">Write TRUE / FALSE / NOT GIVEN in response to statements 14–18.</p>
-
-            <div class="q-row" data-qid="14">
-                <span class="q-num">14</span>
-                <div class="q-input-area">
-                    Local gulls and migrating arctic terns behave in the same way when offered food.
-                    <div class="true-false-options">
-                        <span class="tf-option" data-val="TRUE">TRUE</span>
-                        <span class="tf-option" data-val="FALSE">FALSE</span>
-                        <span class="tf-option" data-val="NOT GIVEN">NOT GIVEN</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="q-row" data-qid="15">
-                <span class="q-num">15</span>
-                <div class="q-input-area">
-                    Experts' definitions of migration tend to vary according to their area of study.
-                    <div class="true-false-options">
-                        <span class="tf-option" data-val="TRUE">TRUE</span>
-                        <span class="tf-option" data-val="FALSE">FALSE</span>
-                        <span class="tf-option" data-val="NOT GIVEN">NOT GIVEN</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="q-row" data-qid="16">
-                <span class="q-num">16</span>
-                <div class="q-input-area">
-                    Very few experts agree that the movement of aphids can be considered migration.
-                    <div class="true-false-options">
-                        <span class="tf-option" data-val="TRUE">TRUE</span>
-                        <span class="tf-option" data-val="FALSE">FALSE</span>
-                        <span class="tf-option" data-val="NOT GIVEN">NOT GIVEN</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="q-row" data-qid="17">
-                <span class="q-num">17</span>
-                <div class="q-input-area">
-                    Aphids' journeys are affected by changes in the light that they perceive.
-                    <div class="true-false-options">
-                        <span class="tf-option" data-val="TRUE">TRUE</span>
-                        <span class="tf-option" data-val="FALSE">FALSE</span>
-                        <span class="tf-option" data-val="NOT GIVEN">NOT GIVEN</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="q-row" data-qid="18">
-                <span class="q-num">18</span>
-                <div class="q-input-area">
-                    Dingle's aim is to distinguish between the migratory behaviours of different species.
-                    <div class="true-false-options">
-                        <span class="tf-option" data-val="TRUE">TRUE</span>
-                        <span class="tf-option" data-val="FALSE">FALSE</span>
-                        <span class="tf-option" data-val="NOT GIVEN">NOT GIVEN</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Q19-22: SENTENCE ENDINGS -->
-        <div class="q-group">
-            <h3>Questions 19–22 &nbsp;|&nbsp; Choose correct ending A–G</h3>
-            <p style="font-size:13px; color:#7f1d1d; margin-bottom:10px;">Choose the correct letter: A, B, C, D, E, F or G.</p>
-            <div style="background:#fef2f2; padding:10px; border-radius:6px; margin-bottom:12px; font-size:14px;">
-                <strong>A</strong> be discouraged by difficulties.<br>
-                <strong>B</strong> travel on open land where they can look out for predators.<br>
-                <strong>C</strong> eat more than they need for immediate purposes.<br>
-                <strong>D</strong> be repeated daily.<br>
-                <strong>E</strong> ignore distractions.<br>
-                <strong>F</strong> be governed by the availability of water.<br>
-                <strong>G</strong> follow a straight line.
-            </div>
-
-            <div class="q-row" data-qid="19">
-                <span class="q-num">19</span>
-                <div class="q-input-area">According to Dingle, migratory routes are likely to
-                    <div class="letter-options">
-                        <span class="letter-option" data-val="A">A</span>
-                        <span class="letter-option" data-val="B">B</span>
-                        <span class="letter-option" data-val="C">C</span>
-                        <span class="letter-option" data-val="D">D</span>
-                        <span class="letter-option" data-val="E">E</span>
-                        <span class="letter-option" data-val="F">F</span>
-                        <span class="letter-option" data-val="G">G</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="q-row" data-qid="20">
-                <span class="q-num">20</span>
-                <div class="q-input-area">To prepare for migration, animals are likely to
-                    <div class="letter-options">
-                        <span class="letter-option" data-val="A">A</span>
-                        <span class="letter-option" data-val="B">B</span>
-                        <span class="letter-option" data-val="C">C</span>
-                        <span class="letter-option" data-val="D">D</span>
-                        <span class="letter-option" data-val="E">E</span>
-                        <span class="letter-option" data-val="F">F</span>
-                        <span class="letter-option" data-val="G">G</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="q-row" data-qid="21">
-                <span class="q-num">21</span>
-                <div class="q-input-area">During migration, animals are unlikely to
-                    <div class="letter-options">
-                        <span class="letter-option" data-val="A">A</span>
-                        <span class="letter-option" data-val="B">B</span>
-                        <span class="letter-option" data-val="C">C</span>
-                        <span class="letter-option" data-val="D">D</span>
-                        <span class="letter-option" data-val="E">E</span>
-                        <span class="letter-option" data-val="F">F</span>
-                        <span class="letter-option" data-val="G">G</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="q-row" data-qid="22">
-                <span class="q-num">22</span>
-                <div class="q-input-area">Arctic terns illustrate migrating animals' ability to
-                    <div class="letter-options">
-                        <span class="letter-option" data-val="A">A</span>
-                        <span class="letter-option" data-val="B">B</span>
-                        <span class="letter-option" data-val="C">C</span>
-                        <span class="letter-option" data-val="D">D</span>
-                        <span class="letter-option" data-val="E">E</span>
-                        <span class="letter-option" data-val="F">F</span>
-                        <span class="letter-option" data-val="G">G</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Q23-26: SUMMARY COMPLETION -->
-        <div class="q-group">
-            <h3>Questions 23–26 &nbsp;|&nbsp; Summary — ONE WORD ONLY</h3>
-            <p style="font-size:13px; color:#7f1d1d; margin-bottom:10px;">Complete the summary below. Choose ONE WORD ONLY from the passage for each answer.</p>
-
-            <div style="font-size:14px; line-height:1.8;">
-                <strong>The migration of pronghorns</strong><br><br>
-                Pronghorns rely on their eyesight and <span class="word-input"><input type="text" data-qid="23" placeholder="Answer"></span> to avoid predators. One particular population's summer habitat is a national park, and their winter home is on the <span class="word-input"><input type="text" data-qid="24" placeholder="Answer"></span>, where they go to avoid the danger presented by the snow at that time of year. However, their route between these two areas contains three <span class="word-input"><input type="text" data-qid="25" placeholder="Answer"></span>. One problem is the construction of new homes in a narrow <span class="word-input"><input type="text" data-qid="26" placeholder="Answer"></span> of land on the pronghorns' route.
-            </div>
-        </div>
-
-        <!-- BOTTOM NAVIGATION -->
-        <div class="bottom-bar">
-            <a href="reading-passage1-C11T3.html" class="nav-btn">← Previous</a>
-            <button class="clear-btn" onclick="clearAllData()">Clear All Data</button>
-            <button class="nav-btn check-btn" onclick="checkAnswers()">Check Answers</button>
-            <a href="reading-passage3-C11T3.html" class="nav-btn">Next →</a>
-        </div>
-    </div>
+<div class="question-block" id="q14">
+  <p><strong>14.</strong> Local gulls and migrating arctic terns behave in the same way when offered food.</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q14" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q14" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q15">
+  <p><strong>15.</strong> Experts' definitions of migration tend to vary according to their area of study.</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q15" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q15" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q16">
+  <p><strong>16.</strong> Very few experts agree that the movement of aphids can be considered migration.</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q16" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q16" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q17">
+  <p><strong>17.</strong> Aphids' journeys are affected by changes in the light that they perceive.</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q17" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q17" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q18">
+  <p><strong>18.</strong> Dingle's aim is to distinguish between the migratory behaviours of different species.</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q18" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q18" onclick="toggleFlag(this)">⚑</button>
+  </div>
 </div>
 
+<h2>Questions 19–22</h2>
+<p><em>Complete each sentence with the correct ending, A–G, below.</em><br>
+<em>Write the correct letter, A–G, in boxes 19–22 on your answer sheet.</em></p>
+<div style="background:#fef2f2; padding:10px; border-radius:6px; margin:8px 0 12px; font-size:14px; line-height:1.8;">
+<strong>A</strong> be discouraged by difficulties.<br>
+<strong>B</strong> travel on open land where they can look out for predators.<br>
+<strong>C</strong> eat more than they need for immediate purposes.<br>
+<strong>D</strong> be repeated daily.<br>
+<strong>E</strong> ignore distractions.<br>
+<strong>F</strong> be governed by the availability of water.<br>
+<strong>G</strong> follow a straight line.
+</div>
+
+<div class="question-block" id="q19">
+  <p><strong>19.</strong> According to Dingle, migratory routes are likely to</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q19" placeholder="A–G" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q19" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q20">
+  <p><strong>20.</strong> To prepare for migration, animals are likely to</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q20" placeholder="A–G" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q20" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q21">
+  <p><strong>21.</strong> During migration, animals are unlikely to</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q21" placeholder="A–G" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q21" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q22">
+  <p><strong>22.</strong> Arctic terns illustrate migrating animals' ability to</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q22" placeholder="A–G" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q22" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+
+<h2>Questions 23–26</h2>
+<p><em>Complete the summary below.</em><br>
+<em>Choose ONE WORD ONLY from the passage for each answer.</em><br>
+<em>Write your answers in boxes 23–26 on your answer sheet.</em></p>
+<h3 style="margin:10px 0 6px; color:#b91c1c;">The migration of pronghorns</h3>
+
+<div class="question-block" id="q23">
+  <p><strong>23.</strong> Pronghorns rely on their eyesight and .................... to avoid predators.</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q23" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q23" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q24">
+  <p><strong>24.</strong> One particular population's summer habitat is a national park, and their winter home is on the ....................</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q24" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q24" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q25">
+  <p><strong>25.</strong> ...where they go to avoid the danger presented by the snow at that time of year. However, their route between these two areas contains three ....................</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q25" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q25" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q26">
+  <p><strong>26.</strong> One problem is the construction of new homes in a narrow .................... of land on the pronghorns' route.</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q26" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q26" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+    <div class="bottom-container">
+        <div class="question-nav" id="questionNav">
+            <span class="nav-label">Q:</span>
+        </div>
+        <div class="btn-bar">
+            <a href="reading-passage1-C11T3.html" class="nav-btn prev-btn">← Passage 1</a>
+            <a href="../index.html" class="nav-btn lib-btn">🏠 Library</a>
+            <a href="reading-passage3-C11T3.html" class="nav-btn next-btn">Passage 3 →</a>
+            <button class="check-btn" onclick="checkAnswers()">✅ Check Answers</button>
+            <button class="clear-btn" onclick="clearAllData()">🗑️ Clear All</button>
+        </div>
+        <div class="result-bar" id="resultBar"></div>
+    </div>
 <script>
-// === STATE ===
-let answers = {};
-let flaggedQs = new Set();
-let highlightMode = false;
-let notes = [];
+const TOTAL_QUESTIONS = 40;
+const PASSAGE2_RANGE = { start: 14, end: 26 };
+let lastNoteId = 0;
+const flaggedQs = new Set();
 
-// === LOAD SAVED DATA ===
-function loadData() {
-    const saved = localStorage.getItem('c11t3p2_data');
-    if (saved) {
-        const data = JSON.parse(saved);
-        answers = data.answers || {};
-        flaggedQs = new Set(data.flagged || []);
-        Object.keys(answers).forEach(qid => renderAnswer(qid, answers[qid]));
-        flaggedQs.forEach(qid => document.querySelector(`[data-q="${qid}"]`)?.classList.add('flagged'));
-    }
-}
-function saveData() {
-    localStorage.setItem('c11t3p2_data', JSON.stringify({ answers, flagged: [...flaggedQs] }));
-}
-
-// === RENDER ANSWER ON PAGE ===
-function renderAnswer(qid, val) {
-    document.querySelectorAll(`[data-qid="${qid}"] .tf-option, [data-qid="${qid}"] .letter-option`).forEach(el => {
-        el.classList.remove('selected');
-        if (el.dataset.val === val) el.classList.add('selected');
-    });
-    const input = document.querySelector(`input[data-qid="${qid}"]`);
-    if (input) input.value = val;
-    document.querySelector(`.q-nav-btn[data-q="${qid}"]`)?.classList.toggle('answered', !!val);
-}
-
-// === TRUE/FALSE/NOT GIVEN CLICKS ===
-document.querySelectorAll('.tf-option').forEach(opt => {
-    opt.addEventListener('click', () => {
-        const row = opt.closest('.q-row');
-        const qid = row.dataset.qid;
-        row.querySelectorAll('.tf-option').forEach(o => o.classList.remove('selected'));
-        opt.classList.add('selected');
-        answers[qid] = opt.dataset.val;
-        saveData();
-        renderAnswer(qid, opt.dataset.val);
-    });
-});
-
-// === LETTER OPTION CLICKS ===
-document.querySelectorAll('.letter-option').forEach(opt => {
-    opt.addEventListener('click', () => {
-        const row = opt.closest('.q-row');
-        const qid = row.dataset.qid;
-        row.querySelectorAll('.letter-option').forEach(o => o.classList.remove('selected'));
-        opt.classList.add('selected');
-        answers[qid] = opt.dataset.val;
-        saveData();
-        renderAnswer(qid, opt.dataset.val);
-    });
-});
-
-// === TEXT INPUTS ===
-document.querySelectorAll('input[data-qid]').forEach(input => {
-    input.addEventListener('input', () => {
-        answers[input.dataset.qid] = input.value.trim();
-        saveData();
-        document.querySelector(`.q-nav-btn[data-q="${input.dataset.qid}"]`)?.classList.toggle('answered', input.value.trim() !== '');
-    });
-});
-
-// === QUESTION NAV CLICK TO SCROLL ===
-document.querySelectorAll('.q-nav-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const qid = btn.dataset.q;
-        const el = document.querySelector(`[data-qid="${qid}"]`);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    });
-});
-
-// === FLAG BUTTON PER QUESTION ===
-document.querySelectorAll('.q-num').forEach(num => {
-    num.style.cursor = 'pointer';
-    num.title = 'Click to flag';
-    num.addEventListener('click', () => {
-        const qid = num.closest('.q-row').dataset.qid;
-        const navBtn = document.querySelector(`.q-nav-btn[data-q="${qid}"]`);
-        if (flaggedQs.has(qid)) {
-            flaggedQs.delete(qid);
-            navBtn?.classList.remove('flagged');
+function initQuestionNav() {
+    const navContainer = document.getElementById('questionNav');
+    navContainer.innerHTML = '<span class="nav-label">Q:</span>';
+    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+        if (i === 14) addGapLabel(navContainer, 'P2');
+        if (i === 27) addGapLabel(navContainer, 'P3');
+        const btn = document.createElement('div');
+        btn.className = 'q-indicator';
+        btn.textContent = i;
+        btn.id = 'nav' + i;
+        if (i < PASSAGE2_RANGE.start || i > PASSAGE2_RANGE.end) {
+            btn.classList.add('future');
         } else {
-            flaggedQs.add(qid);
-            navBtn?.classList.add('flagged');
+            btn.onclick = () => jumpToQuestion(i);
         }
-        saveData();
-    });
-});
-
-// === PAGE FLAG ===
-function togglePageFlag() {
-    document.getElementById('pageFlagBtn').classList.toggle('flagged');
-}
-
-// === HIGHLIGHT ===
-function enableHighlight() {
-    highlightMode = !highlightMode;
-    document.getElementById('passageText').style.userSelect = highlightMode ? 'text' : 'none';
-    alert(highlightMode ? 'Highlight ON — select text in passage' : 'Highlight OFF');
-}
-document.getElementById('passageText').addEventListener('mouseup', () => {
-    if (!highlightMode) return;
-    const sel = window.getSelection();
-    if (!sel.toString().trim()) return;
-    const range = sel.getRangeAt(0);
-    const span = document.createElement('span');
-    span.className = 'highlight';
-    range.surroundContents(span);
-    sel.removeAllRanges();
-});
-function removeAllHighlights() {
-    document.querySelectorAll('.highlight').forEach(h => {
-        h.outerHTML = h.innerHTML;
-    });
-}
-
-// === DRAGGABLE NOTES ===
-let activeNote = null, offsetX=0, offsetY=0;
-function addNote() {
-    const panel = document.getElementById('passagePanel');
-    const note = document.createElement('div');
-    note.className = 'note-box';
-    note.style.left = '40px';
-    note.style.top = '80px';
-    note.innerHTML = `<span class="note-close" onclick="this.parentElement.remove()">×</span><textarea placeholder="Note..."></textarea>`;
-    note.addEventListener('mousedown', e => {
-        if (e.target.tagName === 'TEXTAREA' || e.target.classList.contains('note-close')) return;
-        activeNote = note;
-        offsetX = e.clientX - note.getBoundingClientRect().left;
-        offsetY = e.clientY - note.getBoundingClientRect().top;
-    });
-    document.addEventListener('mousemove', e => {
-        if (!activeNote) return;
-        const rect = panel.getBoundingClientRect();
-        activeNote.style.left = (e.clientX - rect.left - offsetX) + 'px';
-        activeNote.style.top = (e.clientY - rect.top - offsetY) + 'px';
-    });
-    document.addEventListener('mouseup', () => activeNote = null);
-    panel.appendChild(note);
-}
-
-// === CLEAR ALL DATA ===
-function clearAllData() {
-    if (confirm('Clear ALL answers and notes? This cannot be undone.')) {
-        localStorage.removeItem('c11t3p2_data');
-        answers = {};
-        flaggedQs.clear();
-        document.querySelectorAll('.tf-option, .letter-option').forEach(o => o.classList.remove('selected'));
-        document.querySelectorAll('input').forEach(i => i.value = '');
-        document.querySelectorAll('.q-nav-btn').forEach(b => b.classList.remove('answered', 'flagged'));
-        document.querySelectorAll('.note-box, .highlight').forEach(n => n.remove());
+        navContainer.appendChild(btn);
     }
 }
-
-// === CHECK ANSWERS (NO ANSWERS SHOWN) ===
-function checkAnswers() {
-    const answered = Object.keys(answers).filter(k => answers[k]).length;
-    const total = 13;
-    alert(`You have answered ${answered} out of ${total} questions.\n\nKeep practicing — answers are not shown here to help you improve!`);
+function addGapLabel(container, label) {
+    const gap = document.createElement('div');
+    gap.className = 'q-indicator passage-gap';
+    gap.textContent = label;
+    container.appendChild(gap);
 }
-
-// === INIT ===
-window.addEventListener('load', loadData);
+function jumpToQuestion(qNum) {
+    document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
+    document.getElementById('nav' + qNum)?.classList.add('current');
+    document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function toggleFlag(btn) {
+    const qName = btn.dataset.q;
+    const qNum = parseInt(qName.replace('q',''));
+    if (flaggedQs.has(qNum)) {
+        flaggedQs.delete(qNum);
+        btn.classList.remove('flagged');
+    } else {
+        flaggedQs.add(qNum);
+        btn.classList.add('flagged');
+    }
+    updateNavStatus();
+}
+function updateNavStatus() {
+    for (let q = PASSAGE2_RANGE.start; q <= PASSAGE2_RANGE.end; q++) {
+        const input = document.querySelector(`input[name="q${q}"]`);
+        const navBtn = document.getElementById('nav' + q);
+        const isAnswered = input && input.value.trim() !== '';
+        const isFlagged = flaggedQs.has(q);
+        if (navBtn) {
+            navBtn.classList.toggle('answered', isAnswered);
+            navBtn.classList.toggle('flagged', isFlagged);
+        }
+    }
+}
+function clearAllData() {
+    if (!confirm('Clear ALL answers, highlights, notes and flags? This cannot be undone!')) return;
+    document.querySelectorAll('.answer-input').forEach(input => { input.value = ''; });
+    document.querySelectorAll('.highlight').forEach(span => {
+        const textNode = document.createTextNode(span.textContent);
+        span.parentNode.replaceChild(textNode, span);
+        textNode.parentNode.normalize();
+    });
+    document.querySelectorAll('.sticky-note').forEach(note => note.remove());
+    document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
+    flaggedQs.clear();
+    document.getElementById('resultBar').style.display = 'none';
+    updateNavStatus();
+}
+function checkAnswers() {
+    const ANSWERS = {
+        14: 'FALSE',
+        15: 'TRUE',
+        16: 'NOT GIVEN',
+        17: 'TRUE',
+        18: 'FALSE',
+        19: 'G',
+        20: 'C',
+        21: 'A',
+        22: 'E',
+        23: 'speed',
+        24: 'plains',
+        25: 'bottlenecks',
+        26: 'corridor'
+    };
+    let correct = 0, total = PASSAGE2_RANGE.end - PASSAGE2_RANGE.start + 1;
+    for (let q = PASSAGE2_RANGE.start; q <= PASSAGE2_RANGE.end; q++) {
+        const input = document.querySelector(`input[name="q${q}"]`);
+        if (!input) continue;
+        const val = input.value.trim().toUpperCase().replace(/\s+/g,'');
+        const ans = (ANSWERS[q] || '').toUpperCase().replace(/\s+/g,'');
+        if (val === ans) correct++;
+    }
+    const pct = Math.round((correct / total) * 100);
+    const bar = document.getElementById('resultBar');
+    bar.style.display = 'block';
+    bar.innerHTML = `✅ <strong>${correct} / ${total} correct — ${pct}%</strong> (Answers are not shown)`;
+}
+// --- Highlight & Notes Context Menu ---
+const contextMenu = document.getElementById('contextMenu');
+let currentRange = null;
+let draggedNote = null, offsetX = 0, offsetY = 0;
+function isSelectionValid(sel) {
+    if (!sel || sel.isCollapsed || sel.toString().trim() === '') return false;
+    try {
+        const r = sel.getRangeAt(0);
+        let p = r.commonAncestorContainer;
+        p = p.nodeType === Node.TEXT_NODE ? p.parentElement : p;
+        const inArea = document.getElementById('passageArea').contains(p) || document.getElementById('questionsArea').contains(p);
+        const inInput = p.closest('input, textarea, button, select') !== null;
+        return inArea && !inInput;
+    } catch { return false; }
+}
+document.addEventListener('contextmenu', e => {
+    const sel = window.getSelection();
+    if (!isSelectionValid(sel)) { contextMenu.style.display = 'none'; return; }
+    e.preventDefault();
+    currentRange = sel.getRangeAt(0).cloneRange();
+    const rc = currentRange.getBoundingClientRect();
+    contextMenu.style.left = (rc.left + window.scrollX) + 'px';
+    contextMenu.style.top = (rc.bottom + window.scrollY + 8) + 'px';
+    contextMenu.style.display = 'block';
+});
+document.addEventListener('click', () => { contextMenu.style.display = 'none'; currentRange = null; });
+document.getElementById('menuHighlight').onclick = () => {
+    if (!currentRange) return;
+    try {
+        const span = document.createElement('span');
+        span.className = 'highlight';
+        span.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(span);
+        window.getSelection().removeAllRanges();
+    } catch { alert('Please select less text to highlight.'); }
+};
+document.getElementById('menuRemove').onclick = () => {
+    if (!currentRange) return;
+    try {
+        const selectedText = currentRange.toString().trim();
+        if (!selectedText) return;
+        document.querySelectorAll('.highlight').forEach(span => {
+            if (span.textContent.trim() === selectedText || span.textContent.includes(selectedText)) {
+                const textNode = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(textNode, span);
+                textNode.parentNode.normalize();
+            }
+        });
+        window.getSelection().removeAllRanges();
+        currentRange = null;
+    } catch { alert('Could not remove highlight.'); }
+};
+document.getElementById('menuNote').onclick = () => {
+    if (!currentRange) return;
+    const rc = currentRange.getBoundingClientRect();
+    const noteId = 'note_' + (++lastNoteId);
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.id = noteId;
+    note.style.left = (rc.right + window.scrollX + 10) + 'px';
+    note.style.top = (rc.top + window.scrollY) + 'px';
+    note.innerHTML = `<div class="note-header" onmousedown="startDrag(event, '${noteId}')">Note <span class="note-close" onclick="document.getElementById('${noteId}').remove()">×</span></div><textarea class="note-textarea" placeholder="Type your note..."></textarea>`;
+    document.body.appendChild(note);
+    window.getSelection().removeAllRanges();
+};
+window.startDrag = function(e, noteId) {
+    draggedNote = document.getElementById(noteId);
+    const rect = draggedNote.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+    document.addEventListener('mousemove', onDrag);
+    document.addEventListener('mouseup', endDrag);
+};
+function onDrag(e) {
+    if (!draggedNote) return;
+    draggedNote.style.left = (e.pageX - offsetX) + 'px';
+    draggedNote.style.top = (e.pageY - offsetY) + 'px';
+}
+function endDrag() {
+    draggedNote = null;
+    document.removeEventListener('mousemove', onDrag);
+    document.removeEventListener('mouseup', endDrag);
+}
+window.onload = initQuestionNav;
 </script>
 </body>
 </html>
