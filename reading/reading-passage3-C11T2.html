@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge 11 Test 2 — Reading Passage 3</title>
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif;}
+        body {background-color: #fef2f2; color: #1a1a1a; line-height: 1.6;}
+        .logo-container {width: 100%; background: #ffffff; border-bottom: 2px solid #dc2626; padding: 4px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 6px;}
+        .logo {width: 22%; max-width: 180px; height: auto; display: block;}
+        .main-wrapper {display: flex; gap: 12px; padding: 0 12px 8px; height: calc(100vh - 130px);}
+        .passage-column, .questions-column {flex: 1; background: #ffffff; border-radius: 10px; border: 1px solid #fecaca; padding: 14px; overflow-y: auto;}
+        h1 {color: #dc2626; font-size: 17px; margin-bottom: 2px; text-align: center;}
+        h2.subtitle {color: #7f1d1d; font-size: 13px; text-align: center; margin-bottom: 12px; font-weight: 500;}
+        .passage-text p {margin-bottom: 12px; font-size: 14.5px; line-height: 1.75;}
+        .passage-text strong {color: #b91c1c;}
+        .passage-text .letter {font-weight: bold; color: #dc2626; display: inline-block; min-width: 22px;}
+        .highlight {background-color: #ffd700; padding: 1px 3px; border-radius: 2px; display: inline; color: #000;}
+        .questions-section h2 {color: #991b1b; font-size: 16px; margin: 14px 0 8px; border-bottom: 1px solid #fecaca; padding-bottom: 3px;}
+        .question-block {margin-bottom: 14px; scroll-margin-top: 12px;}
+        .question-block p {font-weight: 500; margin-bottom: 6px; font-size: 14px; line-height: 1.6;}
+        .answer-input {width: 100%; max-width: 280px; padding: 6px 10px; border: 1px solid #fecaca; border-radius: 6px; font-size: 14px; background: #fef2f2;}
+        table {width: 100%; border-collapse: collapse; margin: 8px 0;}
+        table, th, td {border: 1px solid #ddd;}
+        th, td {padding: 7px 9px; font-size: 14px; vertical-align: top;}
+        .list-boxes {background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px 14px; margin: 10px 0;}
+        .list-boxes p {margin: 4px 0; font-size: 13.5px;}
+        .yn-ng-options {margin: 6px 0 10px 20px; font-size: 14px; line-height: 1.8;}
+        .context-menu {position: absolute; background: #ffffff; border: 1px solid #bbb; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 160px;}
+        .context-menu div {padding: 10px 14px; cursor: pointer; font-size: 14px;}
+        .context-menu div:hover {background: #fef2f2;}
+        .sticky-note {position: absolute; width: 170px; min-height: 65px; background: #fff380; border: 1px solid #e6c200; border-radius: 4px; padding: 6px; box-shadow: 3px 3px 8px rgba(0,0,0,0.15); z-index: 9998; font-size: 12px; user-select: none;}
+        .note-header {display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00; cursor: move;}
+        .note-close {cursor: pointer; font-weight: bold; color: #886a00; user-select: none; font-size: 14px; line-height: 1;}
+        .note-textarea {width: 100%; height: 48px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px;}
+        .bottom-container {margin: 8px 12px 16px; padding: 10px; background: #ffffff; border-radius: 8px; border: 1px solid #fecaca;}
+        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 2px; margin-bottom: 10px;}
+        .nav-label {font-weight: 600; color: #991b1b; font-size: 12px; margin-right: 4px;}
+        .q-indicator {width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 11px; cursor: pointer; transition: all 0.2s;}
+        .q-indicator:hover {opacity: 0.85;}
+        .q-indicator.answered {background: #198754; color: #ffffff; border-color: #198754;}
+        .q-indicator.current {border: 2px solid #dc2626;}
+        .q-indicator.passage-gap {margin-left: 8px; background: #fef2f2; border: none; color: #991b1b; font-weight: bold; font-size: 10px;}
+        .q-indicator.future {opacity: 0.45; cursor: not-allowed;}
+        .btn-group {display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap;}
+        .prev-btn, .next-btn, .back-btn, .clear-btn {padding: 7px 14px; text-decoration: none; border-radius: 6px; border: 1px solid; font-weight: 500; font-size: 13px; display: inline-block; cursor: pointer;}
+        .prev-btn {background: #fef2f2; color: #dc2626; border-color: #fecaca;}
+        .prev-btn:hover {background: #ffffff;}
+        .next-btn {background: #dc2626; color: #ffffff; border-color: #dc2626;}
+        .next-btn:hover {background: #b91c1c;}
+        .back-btn {background: #fef2f2; color: #dc2626; border-color: #fecaca;}
+        .back-btn:hover {background: #ffffff;}
+        .clear-btn {background: #fff0f0; color: #b91c1c; border-color: #fecaca;}
+        .clear-btn:hover {background: #ffe0e0;}
+        em {color: #555;}
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
+    </div>
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight Selection</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+    </div>
+    <div class="main-wrapper">
+        <div class="passage-column" id="passageArea">
+            <h1>Reading Passage 3</h1>
+            <h2 class="subtitle">Neuroaesthetics</h2>
+            <div class="passage-text">
+<p>An emerging discipline called neuroaesthetics is seeking to bring scientific objectivity to the study of art, and has already given us a better understanding of many masterpieces. The blurred imagery of Impressionist paintings seems to stimulate the brain's amygdala, for instance. Since the amygdala plays a crucial role in our feelings, that finding might explain why many people find these pieces so moving.</p>
+<p>Could the same approach also shed light on abstract twentieth-century pieces, from Mondrian's geometrical blocks of colour, to Pollock's seemingly haphazard arrangements of splashed paint on canvas? Sceptics believe that people claim to like such works simply because they are famous. We certainly do have an inclination to follow the crowd. When asked to make simple perceptual decisions such as matching a shape to its rotated image, for example, people often choose a definitively wrong answer if they see others doing the same. It is easy to imagine that this mentality would have even more impact on a fuzzy concept like art appreciation, where there is no right or wrong answer.</p>
+<p>Angelina Hawley-Dolan, of Boston College, Massachusetts, responded to this debate by asking volunteers to view pairs of paintings — either the creations of famous abstract artists or the doodles of infants, chimps and elephants. They then had to judge which they preferred. A third of the paintings were given no captions, while many were labelled incorrectly — volunteers might think they were viewing a chimp's messy brushstrokes when they were actually seeing an acclaimed masterpiece. In each set of trials, volunteers generally preferred the work of renowned artists, even when they believed it was by an animal or a child. It seems that the viewer can sense the artist's vision in paintings, even if they can't explain why.</p>
+<p>Robert Pepperell, an artist based at Cardiff University, creates ambiguous works that are neither entirely abstract nor clearly representational. In one study, Pepperell and his collaborators asked volunteers to decide how 'powerful' they considered an artwork to be, and whether they saw anything familiar in the piece. The longer they took to answer these questions, the more highly they rated the piece under scrutiny, and the greater their neural activity. It would seem that the brain sees these images as puzzles, and the harder it is to decipher the meaning, the more rewarding is the moment of recognition.</p>
+<p>And what about artists such as Mondrian, whose paintings consist exclusively of horizontal and vertical lines encasing blocks of colour? Mondrian's works are deceptively simple, but eye-tracking studies confirm that they are meticulously composed, and that simply rotating a piece radically changes the way we view it. With the originals, volunteers' eyes tended to stay longer on certain places in the image, but with the altered versions they would flit across a piece more rapidly. As a result, the volunteers considered the altered versions less pleasurable when they later rated the work.</p>
+<p>In a similar study, Oshin Vartanian of Toronto University asked volunteers to compare original paintings with ones which he had altered by moving objects around within the frame. He found that almost everyone preferred the original, whether it was a Van Gogh still life or an abstract by Miró. Vartanian also found that changing the composition of the paintings reduced activation in those brain areas linked with meaning and interpretation.</p>
+<p>In another experiment, Alex Forsythe of the University of Liverpool analysed the visual intricacy of different pieces of art, and her results suggest that many artists use a key level of detail to please the brain. Too little and the work is boring, but too much results in a kind of 'perceptual overload', according to Forsythe. What's more, appealing pieces both abstract and representational, show signs of 'fractals' — repeated motifs recurring in different scales. Fractals are common throughout nature, for example in the shapes of mountain peaks or the branches of trees. It is possible that our visual system, which evolved in the great outdoors, finds it easier to process such patterns.</p>
+<p>It is also intriguing that the brain appears to process movement when we see a handwritten letter, as if we are replaying the writer's moment of creation. This has led some to wonder whether Pollock's works feel so dynamic because the brain reconstructs the energetic actions the artist used as he painted. This may be down to our brain's 'mirror neurons', which are known to mimic others' actions. The hypothesis will need to be thoroughly tested, however. It might even be the case that we could use neuroaesthetic studies to understand the longevity of some pieces of artwork. While the fashions of the time might shape what is currently popular, works that are best adapted to our visual system may be the most likely to linger once the trends of previous generations have been forgotten.</p>
+<p>It's still early days for the field of neuroaesthetics — and these studies are probably only a taste of what is to come. It would, however, be foolish to reduce art appreciation to a set of scientific laws. We shouldn't underestimate the importance of the style of a particular artist, their place in history and the artistic environment of their time. Abstract art offers both a challenge and the freedom to play with different interpretations. In some ways, it's not so different to science, where we are constantly looking for systems and decoding meaning so that we can view and appreciate the world in a new way.</p>
+            </div>
+        </div>
+        <div class="questions-column" id="questionsArea">
+            <div class="questions-section">
+<h2>Questions 27–30</h2>
+<p><em>Choose the correct letter, A, B, C or D.</em><br>
+<em>Write the correct letter in boxes 27–30 on your answer sheet.</em></p>
+<div class="question-block" id="q27">
+    <p><strong>27.</strong> In the second paragraph, the writer refers to a shape-matching test in order to illustrate</p>
+    <input type="text" class="answer-input" name="q27" placeholder="A, B, C or D" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q28">
+    <p><strong>28.</strong> Angelina Hawley-Dolan's findings indicate that people</p>
+    <input type="text" class="answer-input" name="q28" placeholder="A, B, C or D" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q29">
+    <p><strong>29.</strong> Results of studies involving Robert Pepperell's pieces suggest that people</p>
+    <input type="text" class="answer-input" name="q29" placeholder="A, B, C or D" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q30">
+    <p><strong>30.</strong> What do the experiments described in the fifth paragraph suggest about the paintings of Mondrian?</p>
+    <input type="text" class="answer-input" name="q30" placeholder="A, B, C or D" oninput="updateNavStatus()">
+</div>
+
+<h2>Questions 31–33</h2>
+<p><em>Complete the summary using the list of words, A–H, below.</em><br>
+<em>Write the correct letter, A–H, in boxes 31–33 on your answer sheet.</em></p>
+<p><strong>Art and the Brain</strong></p>
+<p>The discipline of neuroaesthetics aims to bring scientific objectivity to the study of art. Neurological studies of the brain, for example, demonstrate the impact which Impressionist paintings have on our <span style="text-decoration:underline;">&nbsp;&nbsp;31&nbsp;&nbsp;</span>. Alex Forsythe of the University of Liverpool believes many artists give their works the precise degree of <span style="text-decoration:underline;">&nbsp;&nbsp;32&nbsp;&nbsp;</span> which most appeals to the viewer's brain. She also observes that pleasing works of art often contain certain repeated <span style="text-decoration:underline;">&nbsp;&nbsp;33&nbsp;&nbsp;</span> which occur frequently in the natural world.</p>
+<div class="list-boxes">
+<p><strong>List of Words</strong></p>
+<p>A &nbsp;&nbsp; interpretation</p>
+<p>B &nbsp; complexity</p>
+<p>C &nbsp; emotions</p>
+<p>D &nbsp; movements</p>
+<p>E &nbsp; skill</p>
+<p>F &nbsp; layout</p>
+<p>G &nbsp; concern</p>
+<p>H &nbsp; images</p>
+</div>
+<div class="question-block" id="q31">
+    <p><strong>31.</strong></p>
+    <input type="text" class="answer-input" name="q31" placeholder="A–H" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q32">
+    <p><strong>32.</strong></p>
+    <input type="text" class="answer-input" name="q32" placeholder="A–H" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q33">
+    <p><strong>33.</strong></p>
+    <input type="text" class="answer-input" name="q33" placeholder="A–H" oninput="updateNavStatus()">
+</div>
+
+<h2>Questions 34–39</h2>
+<p><em>Do the following statements agree with the views of the writer in Reading Passage 3?</em><br>
+<em>In boxes 34–39 on your answer sheet, write</em></p>
+<div class="yn-ng-options">
+<strong>YES</strong> &nbsp; if the statement agrees with the views of the writer<br>
+<strong>NO</strong> &nbsp; if the statement contradicts the views of the writer<br>
+<strong>NOT GIVEN</strong> &nbsp; if there is no information on this
+</div>
+<div class="question-block" id="q34">
+    <p><strong>34.</strong> Forsythe's findings contradicted previous beliefs on the function of 'fractals' in art.</p>
+    <input type="text" class="answer-input" name="q34" placeholder="YES / NO / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q35">
+    <p><strong>35.</strong> Certain ideas regarding the link between 'mirror neurons' and art appreciation require further verification.</p>
+    <input type="text" class="answer-input" name="q35" placeholder="YES / NO / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q36">
+    <p><strong>36.</strong> People's taste in paintings depends entirely on the current artistic trends of the period.</p>
+    <input type="text" class="answer-input" name="q36" placeholder="YES / NO / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q37">
+    <p><strong>37.</strong> Scientists should seek to define the precise rules which govern people's reactions to works of art.</p>
+    <input type="text" class="answer-input" name="q37" placeholder="YES / NO / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q38">
+    <p><strong>38.</strong> Art appreciation should always involve taking into consideration the cultural context in which an artist worked.</p>
+    <input type="text" class="answer-input" name="q38" placeholder="YES / NO / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q39">
+    <p><strong>39.</strong> It is easier to find meaning in the field of science than in that of art.</p>
+    <input type="text" class="answer-input" name="q39" placeholder="YES / NO / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+
+<h2>Question 40</h2>
+<p><em>Choose the correct letter, A, B, C or D.</em><br>
+<em>Write the correct letter in box 40 on your answer sheet.</em></p>
+<div class="question-block" id="q40">
+    <p><strong>40.</strong> What would be the most appropriate subtitle for the article?</p>
+    <input type="text" class="answer-input" name="q40" placeholder="A, B, C or D" oninput="updateNavStatus()">
+</div>
+<p style="margin:4px 0 0 18px; font-size:14px;">A &nbsp; Some scientific insights into how the brain responds to abstract art</p>
+<p style="margin:2px 0 0 18px; font-size:14px;">B &nbsp; Recent studies focusing on the neural activity of abstract artists</p>
+<p style="margin:2px 0 0 18px; font-size:14px;">C &nbsp; A comparison of the neurological bases of abstract and representational art</p>
+<p style="margin:2px 0 0 18px; font-size:14px;">D &nbsp; How brain research has altered public opinion about abstract art</p>
+
+            </div>
+        </div>
+    </div>
+    <div class="bottom-container">
+        <div class="question-nav" id="questionNav">
+            <span class="nav-label">Q:</span>
+        </div>
+        <div class="btn-group">
+            <a href="reading-passage2-C11T2.html" class="prev-btn">← Passage 2</a>
+            <span class="next-btn" style="opacity:0.4; cursor:not-allowed;">End of Test</span>
+            <button class="clear-btn" onclick="clearAllData()">🗑️ Clear</button>
+        </div>
+    </div>
+<script>
+const TOTAL_QUESTIONS = 40;
+const PASSAGE1_END = 13;
+const PASSAGE2_RANGE = { start: 14, end: 26 };
+const PASSAGE3_RANGE = { start: 27, end: 40 };
+let lastNoteId = 0;
+
+function initQuestionNav() {
+    const navContainer = document.getElementById('questionNav');
+    navContainer.innerHTML = '<span class="nav-label">Q:</span>';
+    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+        if (i === 14) addGapLabel(navContainer, 'P2');
+        if (i === 27) addGapLabel(navContainer, 'P3');
+        const btn = document.createElement('div');
+        btn.className = 'q-indicator';
+        btn.textContent = i;
+        btn.id = 'nav' + i;
+        if (i < PASSAGE3_RANGE.start) {
+            btn.classList.add('future');
+        } else {
+            btn.onclick = () => jumpToQuestion(i);
+        }
+        navContainer.appendChild(btn);
+    }
+}
+
+function addGapLabel(container, label) {
+    const gap = document.createElement('div');
+    gap.className = 'q-indicator passage-gap';
+    gap.textContent = label;
+    container.appendChild(gap);
+}
+
+function jumpToQuestion(qNum) {
+    document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
+    document.getElementById('nav' + qNum)?.classList.add('current');
+    document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function updateNavStatus() {
+    for (let q = PASSAGE3_RANGE.start; q <= PASSAGE3_RANGE.end; q++) {
+        const input = document.querySelector(`input[name="q${q}"]`);
+        const navBtn = document.getElementById('nav' + q);
+        if (input && navBtn) {
+            navBtn.classList.toggle('answered', input.value.trim() !== '');
+        }
+    }
+}
+
+function clearAllData() {
+    if (!confirm('Clear ALL answers and highlights? This cannot be undone!')) return;
+    document.querySelectorAll('.answer-input').forEach(input => { input.value = ''; });
+    document.querySelectorAll('.highlight').forEach(span => {
+        const textNode = document.createTextNode(span.textContent);
+        span.parentNode.replaceChild(textNode, span);
+        textNode.parentNode.normalize();
+    });
+    document.querySelectorAll('.sticky-note').forEach(note => note.remove());
+    updateNavStatus();
+}
+
+// --- Highlight & Notes Context Menu ---
+const contextMenu = document.getElementById('contextMenu');
+let currentRange = null;
+
+function isSelectionValid(sel) {
+    if (!sel || sel.isCollapsed || sel.toString().trim() === '') return false;
+    try {
+        const r = sel.getRangeAt(0);
+        let p = r.commonAncestorContainer;
+        p = p.nodeType === Node.TEXT_NODE ? p.parentElement : p;
+        const inArea = document.getElementById('passageArea').contains(p) || document.getElementById('questionsArea').contains(p);
+        const inInput = p.closest('input, textarea, button, select') !== null;
+        return inArea && !inInput;
+    } catch { return false; }
+}
+
+document.addEventListener('contextmenu', e => {
+    const sel = window.getSelection();
+    if (!isSelectionValid(sel)) { contextMenu.style.display = 'none'; return; }
+    e.preventDefault();
+    currentRange = sel.getRangeAt(0).cloneRange();
+    const rc = currentRange.getBoundingClientRect();
+    contextMenu.style.left = (rc.left + window.scrollX) + 'px';
+    contextMenu.style.top = (rc.bottom + window.scrollY + 8) + 'px';
+    contextMenu.style.display = 'block';
+});
+
+document.addEventListener('click', () => { contextMenu.style.display = 'none'; currentRange = null; });
+
+document.getElementById('menuHighlight').onclick = () => {
+    if (!currentRange) return;
+    try {
+        const span = document.createElement('span');
+        span.className = 'highlight';
+        span.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(span);
+        window.getSelection().removeAllRanges();
+    } catch { alert('Please select less text to highlight.'); }
+};
+
+document.getElementById('menuRemove').onclick = () => {
+    if (!currentRange) return;
+    try {
+        const selectedText = currentRange.toString().trim();
+        if (!selectedText) return;
+        const highlights = document.querySelectorAll('.highlight');
+        for (const span of highlights) {
+            if (span.textContent.trim() === selectedText || span.textContent.includes(selectedText)) {
+                const textNode = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(textNode, span);
+                textNode.parentNode.normalize();
+                break;
+            }
+        }
+        window.getSelection().removeAllRanges();
+        currentRange = null;
+    } catch { alert('Could not remove highlight.'); }
+};
+
+document.getElementById('menuNote').onclick = () => {
+    if (!currentRange) return;
+    const rc = currentRange.getBoundingClientRect();
+    const noteId = 'note_' + (++lastNoteId);
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.id = noteId;
+    note.style.left = (rc.right + window.scrollX + 10) + 'px';
+    note.style.top = (rc.top + window.scrollY) + 'px';
+    note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="document.getElementById('${noteId}').remove()">×</span></div><textarea class="note-textarea" placeholder="Type your note..."></textarea>`;
+    document.body.appendChild(note);
+    window.getSelection().removeAllRanges();
+};
+
+window.onload = initQuestionNav;
+</script>
+</body>
+</html>
