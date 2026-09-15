@@ -18,14 +18,15 @@
         .highlight {background-color: #ffd700; padding: 1px 3px; border-radius: 2px; display: inline; color: #000;}
         .questions-section h2 {color: #991b1b; font-size: 15px; margin: 14px 0 8px; border-bottom: 1px solid #fecaca; padding-bottom: 3px;}
         .question-block {margin-bottom: 14px; scroll-margin-top: 12px;}
-        .question-block p {font-weight: 500; margin-bottom: 6px; font-size: 14px; line-height: 1.6;}
-        .answer-row {display: flex; align-items: center; gap: 8px; margin-top: 4px; flex-wrap: wrap;}
+        .question-block p {font-weight: 500; margin-bottom: 8px; font-size: 14px; line-height: 1.6;}
+        .answer-row {display: flex; align-items: center; gap: 8px; margin-top: 6px; flex-wrap: wrap;}
         .sel-input {padding: 5px 8px; border: 1px solid #fecaca; border-radius: 5px; font-size: 14px; background: #fef2f2; min-width: 100px;}
-        .mc-options {margin: 6px 0 8px 22px;}
-        .mc-row {margin: 3px 0; font-size: 14px; cursor: pointer;}
-        .mc-row input {margin-right: 6px;}
-        .yn-options {margin: 6px 0 8px 22px; font-size: 14px;}
-        .yn-row {margin: 3px 0;}
+        .mc-options {margin: 8px 0 10px 24px;}
+        .mc-row {margin: 6px 0; font-size: 14px; cursor: pointer; display: block;}
+        .mc-row input {margin-right: 8px;}
+        .yn-options {margin: 8px 0 10px 24px; font-size: 14px;}
+        .yn-row {margin: 6px 0; display: block;}
+        .yn-row input {margin-right: 8px;}
         .flag-btn {padding: 3px 7px; border-radius: 4px; border: 1px solid #ccc; background: #f3f4f6; cursor: pointer; font-size: 11px;}
         .flag-btn.flagged {background: #fef08a; border-color: #eab308; color: #854d0e; font-weight: bold;}
         .context-menu {position: absolute; background: #ffffff; border: 1px solid #bbb; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 160px;}
@@ -57,9 +58,7 @@
         .clear-btn:hover {background: #ffe0e0;}
         .result-bar {margin-top: 5px; padding: 5px 8px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 5px; color: #166534; font-size: 12.5px; display: none;}
         em {color: #555;}
-        ul {margin: 6px 0 6px 24px;}
-        li {margin-bottom: 4px; font-size: 14px;}
-        .q-group {margin-bottom: 16px;}
+        .q-group {margin-bottom: 18px;}
     </style>
 </head>
 <body>
@@ -240,10 +239,10 @@
 <div class="question-block" id="q32">
   <p><strong>32.</strong> According to the writer, there are difficulties explaining how the Lapita accomplished their journeys because</p>
   <div class="mc-options">
-    <label class="mc-row"><input type="radio" name="q32" value="A" onchange="updateNavStatus()"> A the canoes that have been discovered offer relatively few clues.</label>
-    <label class="mc-row"><input type="radio" name="q32" value="B" onchange="updateNavStatus()"> B archaeologists have shown limited interest in this area of research.</label>
-    <label class="mc-row"><input type="radio" name="q32" value="C" onchange="updateNavStatus()"> C little information relating to this period can be relied upon for accuracy.</label>
-    <label class="mc-row"><input type="radio" name="q32" value="D" onchange="updateNavStatus()"> D technological advances have altered the way such achievements are viewed.</label>
+    <label class="mc-row"><input type="radio" name="q32" value="A" onchange="updateNavStatus()"> A &nbsp;the canoes that have been discovered offer relatively few clues.</label>
+    <label class="mc-row"><input type="radio" name="q32" value="B" onchange="updateNavStatus()"> B &nbsp;archaeologists have shown limited interest in this area of research.</label>
+    <label class="mc-row"><input type="radio" name="q32" value="C" onchange="updateNavStatus()"> C &nbsp;little information relating to this period can be relied upon for accuracy.</label>
+    <label class="mc-row"><input type="radio" name="q32" value="D" onchange="updateNavStatus()"> D &nbsp;technological advances have altered the way such achievements are viewed.</label>
   </div>
   <div class="answer-row"><button class="flag-btn" data-q="q32" onclick="toggleFlag(this)">⚑</button></div>
 </div>
@@ -251,10 +250,10 @@
 <div class="question-block" id="q33">
   <p><strong>33.</strong> According to the sixth paragraph, what was extraordinary about the Lapita?</p>
   <div class="mc-options">
-    <label class="mc-row"><input type="radio" name="q33" value="A" onchange="updateNavStatus()"> A They sailed beyond the point where land was visible.</label>
-    <label class="mc-row"><input type="radio" name="q33" value="B" onchange="updateNavStatus()"> B Their cultural heritage discouraged the expression of fear.</label>
-    <label class="mc-row"><input type="radio" name="q33" value="C" onchange="updateNavStatus()"> C They were able to build canoes that withstood ocean voyages.</label>
-    <label class="mc-row"><input type="radio" name="q33" value="D" onchange="updateNavStatus()"> D Their navigational skills were passed on from one generation to the next.</label>
+    <label class="mc-row"><input type="radio" name="q33" value="A" onchange="updateNavStatus()"> A &nbsp;They sailed beyond the point where land was visible.</label>
+    <label class="mc-row"><input type="radio" name="q33" value="B" onchange="updateNavStatus()"> B &nbsp;Their cultural heritage discouraged the expression of fear.</label>
+    <label class="mc-row"><input type="radio" name="q33" value="C" onchange="updateNavStatus()"> C &nbsp;They were able to build canoes that withstood ocean voyages.</label>
+    <label class="mc-row"><input type="radio" name="q33" value="D" onchange="updateNavStatus()"> D &nbsp;Their navigational skills were passed on from one generation to the next.</label>
   </div>
   <div class="answer-row"><button class="flag-btn" data-q="q33" onclick="toggleFlag(this)">⚑</button></div>
 </div>
@@ -262,10 +261,10 @@
 <div class="question-block" id="q34">
   <p><strong>34.</strong> What does 'This' refer to in the seventh paragraph?</p>
   <div class="mc-options">
-    <label class="mc-row"><input type="radio" name="q34" value="A" onchange="updateNavStatus()"> A the Lapita's seafaring talent</label>
-    <label class="mc-row"><input type="radio" name="q34" value="B" onchange="updateNavStatus()"> B the Lapita's ability to detect signs of land</label>
-    <label class="mc-row"><input type="radio" name="q34" value="C" onchange="updateNavStatus()"> C the Lapita's extensive knowledge of the region</label>
-    <label class="mc-row"><input type="radio" name="q34" value="D" onchange="updateNavStatus()"> D the Lapita's belief they would be able to return home</label>
+    <label class="mc-row"><input type="radio" name="q34" value="A" onchange="updateNavStatus()"> A &nbsp;the Lapita's seafaring talent</label>
+    <label class="mc-row"><input type="radio" name="q34" value="B" onchange="updateNavStatus()"> B &nbsp;the Lapita's ability to detect signs of land</label>
+    <label class="mc-row"><input type="radio" name="q34" value="C" onchange="updateNavStatus()"> C &nbsp;the Lapita's extensive knowledge of the region</label>
+    <label class="mc-row"><input type="radio" name="q34" value="D" onchange="updateNavStatus()"> D &nbsp;the Lapita's belief they would be able to return home</label>
   </div>
   <div class="answer-row"><button class="flag-btn" data-q="q34" onclick="toggleFlag(this)">⚑</button></div>
 </div>
@@ -273,10 +272,10 @@
 <div class="question-block" id="q35">
   <p><strong>35.</strong> According to the eighth paragraph, how was the geography of the region significant?</p>
   <div class="mc-options">
-    <label class="mc-row"><input type="radio" name="q35" value="A" onchange="updateNavStatus()"> A It played an important role in Lapita culture.</label>
-    <label class="mc-row"><input type="radio" name="q35" value="B" onchange="updateNavStatus()"> B It meant there were relatively few storms at sea.</label>
-    <label class="mc-row"><input type="radio" name="q35" value="C" onchange="updateNavStatus()"> C It provided a navigational aid for the Lapita.</label>
-    <label class="mc-row"><input type="radio" name="q35" value="D" onchange="updateNavStatus()"> D It made a large number of islands habitable.</label>
+    <label class="mc-row"><input type="radio" name="q35" value="A" onchange="updateNavStatus()"> A &nbsp;It played an important role in Lapita culture.</label>
+    <label class="mc-row"><input type="radio" name="q35" value="B" onchange="updateNavStatus()"> B &nbsp;It meant there were relatively few storms at sea.</label>
+    <label class="mc-row"><input type="radio" name="q35" value="C" onchange="updateNavStatus()"> C &nbsp;It provided a navigational aid for the Lapita.</label>
+    <label class="mc-row"><input type="radio" name="q35" value="D" onchange="updateNavStatus()"> D &nbsp;It made a large number of islands habitable.</label>
   </div>
   <div class="answer-row"><button class="flag-btn" data-q="q35" onclick="toggleFlag(this)">⚑</button></div>
 </div>
@@ -294,7 +293,7 @@
 
 <div class="question-block" id="q36">
   <p><strong>36.</strong> It is now clear that the Lapita could sail into a prevailing wind.</p>
-  <div class="yn-options">
+  <div class="mc-options">
     <label class="yn-row"><input type="radio" name="q36" value="YES" onchange="updateNavStatus()"> YES</label>
     <label class="yn-row"><input type="radio" name="q36" value="NO" onchange="updateNavStatus()"> NO</label>
     <label class="yn-row"><input type="radio" name="q36" value="NOT GIVEN" onchange="updateNavStatus()"> NOT GIVEN</label>
@@ -304,7 +303,7 @@
 
 <div class="question-block" id="q37">
   <p><strong>37.</strong> Extreme climate conditions may have played a role in Lapita migration.</p>
-  <div class="yn-options">
+  <div class="mc-options">
     <label class="yn-row"><input type="radio" name="q37" value="YES" onchange="updateNavStatus()"> YES</label>
     <label class="yn-row"><input type="radio" name="q37" value="NO" onchange="updateNavStatus()"> NO</label>
     <label class="yn-row"><input type="radio" name="q37" value="NOT GIVEN" onchange="updateNavStatus()"> NOT GIVEN</label>
@@ -314,7 +313,7 @@
 
 <div class="question-block" id="q38">
   <p><strong>38.</strong> The Lapita learnt to predict the duration of El Niños.</p>
-  <div class="yn-options">
+  <div class="mc-options">
     <label class="yn-row"><input type="radio" name="q38" value="YES" onchange="updateNavStatus()"> YES</label>
     <label class="yn-row"><input type="radio" name="q38" value="NO" onchange="updateNavStatus()"> NO</label>
     <label class="yn-row"><input type="radio" name="q38" value="NOT GIVEN" onchange="updateNavStatus()"> NOT GIVEN</label>
@@ -324,7 +323,7 @@
 
 <div class="question-block" id="q39">
   <p><strong>39.</strong> It remains unclear why the Lapita halted their expansion across the Pacific.</p>
-  <div class="yn-options">
+  <div class="mc-options">
     <label class="yn-row"><input type="radio" name="q39" value="YES" onchange="updateNavStatus()"> YES</label>
     <label class="yn-row"><input type="radio" name="q39" value="NO" onchange="updateNavStatus()"> NO</label>
     <label class="yn-row"><input type="radio" name="q39" value="NOT GIVEN" onchange="updateNavStatus()"> NOT GIVEN</label>
@@ -334,7 +333,7 @@
 
 <div class="question-block" id="q40">
   <p><strong>40.</strong> It is likely that the majority of Lapita settled on Fiji.</p>
-  <div class="yn-options">
+  <div class="mc-options">
     <label class="yn-row"><input type="radio" name="q40" value="YES" onchange="updateNavStatus()"> YES</label>
     <label class="yn-row"><input type="radio" name="q40" value="NO" onchange="updateNavStatus()"> NO</label>
     <label class="yn-row"><input type="radio" name="q40" value="NOT GIVEN" onchange="updateNavStatus()"> NOT GIVEN</label>
