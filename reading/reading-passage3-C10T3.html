@@ -3,788 +3,407 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reading - Beyond the blue horizon</title>
+    <title>Cambridge 11 Test 3 — Reading Passage 3</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-        }
-        body {
-            background-color: #fef2f2;
-            color: #1a1a1a;
-            line-height: 1.7;
-            padding-bottom: 80px;
-        }
-        /* ✅ LOGO STYLES — SHRUNK */
-        .logo-container {
-            width: 100%;
-            background: #ffffff;
-            border-bottom: 2px solid #dc2626;
-            padding: 4px 0; /* ✅ reduced from 12px → 4px */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px; /* ✅ reduced from 15px → 10px */
-            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
-        }
-        .logo {
-            width: 25%; /* ✅ reduced from 40% → 25% */
-            max-width: 200px; /* ✅ reduced from 350px → 200px */
-            height: auto;
-            display: block;
-        }
-        /* ✅ TWO‑COLUMN LAYOUT */
-        .main-wrapper {
-            display: flex;
-            gap: 20px;
-            padding: 0 20px 20px;
-            height: calc(100vh - 100px); /* ✅ adjusted to match smaller header */
-        }
-        .passage-column, .questions-column {
-            flex: 1;
-            background: #ffffff;
-            border-radius: 12px;
-            border: 1px solid #fecaca;
-            padding: 20px;
-            overflow-y: auto;
-            box-shadow: 0 3px 12px rgba(220, 38, 38, 0.07);
-            position: relative;
-        }
-        h1 {
-            color: #dc2626;
-            font-size: 20px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        /* ✅ IMPROVED PARAGRAPH SPACING */
-        .passage-text p {
-            margin-bottom: 18px;
-            font-size: 15px;
-            line-height: 1.8;
-            text-align: justify;
-        }
-        /* ✅ Highlight: NO broken text, NO extra spacing */
-        .highlight {
-            background-color: #fff350;
-            padding: 1px 3px;
-            border-radius: 2px;
-            display: inline;
-            white-space: normal;
-        }
-        .context-menu {
-            position: absolute;
-            background: #ffffff;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            z-index: 9999;
-            display: none;
-            min-width: 140px;
-        }
-        .context-menu div {
-            padding: 8px 11px;
-            cursor: pointer;
-            font-size: 13px;
-        }
-        .context-menu div:hover {
-            background: #fef2f2;
-        }
-        /* ✅ Sticky Notes */
-        .sticky-note {
-            position: absolute;
-            width: 160px;
-            min-height: 60px;
-            background: #fff380;
-            border: 1px solid #e6c200;
-            border-radius: 4px;
-            padding: 6px;
-            box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
-            z-index: 9998;
-            font-size: 12px;
-        }
-        .note-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            margin-bottom: 4px;
-            font-size: 11px;
-            color: #886a00;
-        }
-        .note-close {
-            cursor: pointer;
-            font-weight: bold;
-            color: #886a00;
-        }
-        .note-textarea {
-            width: 100%;
-            height: 44px;
-            border: none;
-            background: transparent;
-            resize: none;
-            outline: none;
-            font-family: inherit;
-            font-size: 12px;
-        }
-        /* ✅ Clear button */
-        .clear-highlight {
-            margin-top: 20px;
-            padding: 8px 16px;
-            background: #dc2626;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 14px;
-        }
-        .clear-highlight:hover {
-            background: #b91c1c;
-        }
-        .questions-section h2 {
-            color: #991b1b;
-            font-size: 17px;
-            margin: 20px 0 10px;
-        }
-        .question-block {
-            margin-bottom: 18px;
-        }
-        /* ✅ Flag before question number */
-        .question-line {
-            font-weight: 500;
-            margin-bottom: 8px;
-            font-size: 14px;
-            line-height: 1.8;
-            display: flex;
-            align-items: baseline;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .flag-btn {
-            background: none;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-            color: #aaa;
-            transition: color 0.2s;
-            padding: 0;
-            line-height: 1;
-            flex-shrink: 0;
-            margin-top: -2px;
-        }
-        .flag-btn.flagged {
-            color: #f59e0b;
-        }
-        .options label {
-            display: block;
-            margin-left: 15px;
-            margin-bottom: 6px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        /* ✅ INPUT STYLE FOR INLINE BLANKS */
-        .answer-input {
-            width: auto;
-            min-width: 90px;
-            padding: 2px 6px;
-            margin: 0 6px;
-            border: 1px solid #dc2626;
-            border-radius: 4px;
-            font-size: 14px;
-            background: #fff;
-            text-align: center;
-        }
-        .options-list {
-            margin: 10px 0 15px 20px;
-            font-size: 14px;
-            line-height: 1.7;
-        }
-        .action-buttons {
-            margin: 20px 0;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .toggle-answers, .show-student, .clear-all {
-            padding: 8px 16px;
-            background: #dc2626;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-        }
-        .toggle-answers:hover, .show-student:hover, .clear-all:hover {
-            background: #b91c1c;
-        }
-        /* ✅ Results boxes */
-        .answers-box, .student-answers-box {
-            margin-top: 12px;
-            padding: 12px;
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            border-radius: 8px;
-            display: none;
-            font-size: 13px;
-        }
-        .correct { color: green; font-weight: 600; }
-        .wrong { color: red; font-weight: 600; }
-        .no-answer { color: #888; }
-        /* ✅ Bottom Navigation Bar */
-        .question-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #ffffff;
-            border-top: 2px solid #dc2626;
-            padding: 8px 15px;
-            box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
-            z-index: 100;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-        .nav-container {
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-        }
-        .q-nav-btn {
-            width: 28px;
-            height: 28px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background: #f9f9f9;
-            font-size: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .q-nav-btn:hover {
-            background: #fef2f2;
-            border-color: #dc2626;
-        }
-        .q-nav-btn.answered {
-            background: #dcfce7;
-            border-color: #22c55e;
-        }
-        .q-nav-btn.flagged {
-            background: #fffbeb;
-            border-color: #f59e0b;
-        }
-        .q-nav-btn.current {
-            background: #dc2626;
-            color: white;
-            border-color: #dc2626;
-        }
-        .nav-page-controls {
-            display: flex;
-            gap: 10px;
-        }
-        .back-btn, .next-btn {
-            padding: 6px 12px;
-            background: #fef2f2;
-            color: #dc2626;
-            text-decoration: none;
-            border-radius: 6px;
-            border: 1px solid #fecaca;
-            font-weight: 500;
-            font-size: 13px;
-            white-space: nowrap;
-        }
-        .back-btn:hover, .next-btn:hover {
-            background: #ffffff;
-        }
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif;}
+        body {background-color: #fef2f2; color: #1a1a1a; line-height: 1.6;}
+        .logo-container {width: 100%; background: #ffffff; border-bottom: 2px solid #dc2626; padding: 4px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 6px;}
+        .logo {width: 22%; max-width: 180px; height: auto; display: block;}
+        .main-wrapper {display: flex; gap: 12px; padding: 0 12px 8px; height: calc(100vh - 140px);}
+        .passage-column, .questions-column {flex: 1; background: #ffffff; border-radius: 10px; border: 1px solid #fecaca; padding: 14px; overflow-y: auto;}
+        h1 {color: #dc2626; font-size: 17px; margin-bottom: 2px; text-align: center;}
+        h2.subtitle {color: #7f1d1d; font-size: 13px; text-align: center; margin-bottom: 12px; font-weight: 500;}
+        .passage-text p {margin-bottom: 12px; font-size: 14.5px; line-height: 1.75; text-align: justify;}
+        .passage-text strong {color: #b91c1c;}
+        .section-label {font-weight: bold; color: #dc2626; margin-right: 8px;}
+        .highlight {background-color: #ffd700; padding: 1px 3px; border-radius: 2px; display: inline; color: #000;}
+        .questions-section h2 {color: #991b1b; font-size: 16px; margin: 14px 0 8px; border-bottom: 1px solid #fecaca; padding-bottom: 3px;}
+        .question-block {margin-bottom: 14px; scroll-margin-top: 12px;}
+        .question-block p {font-weight: 500; margin-bottom: 6px; font-size: 14px; line-height: 1.6;}
+        .answer-row {display: flex; align-items: center; gap: 8px; margin-top: 4px;}
+        .answer-input {flex: 1; max-width: 220px; padding: 6px 10px; border: 1px solid #fecaca; border-radius: 6px; font-size: 14px; background: #fef2f2; text-transform: uppercase;}
+        .flag-btn {padding: 4px 8px; border-radius: 4px; border: 1px solid #ccc; background: #f3f4f6; cursor: pointer; font-size: 12px;}
+        .flag-btn.flagged {background: #fef08a; border-color: #eab308; color: #854d0e; font-weight: bold;}
+        .yn-options {margin: 6px 0 10px 20px; font-size: 14px; line-height: 1.8;}
+        .context-menu {position: absolute; background: #ffffff; border: 1px solid #bbb; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 160px;}
+        .context-menu div {padding: 10px 14px; cursor: pointer; font-size: 14px;}
+        .context-menu div:hover {background: #fef2f2;}
+        .sticky-note {position: absolute; width: 170px; min-height: 65px; background: #fff380; border: 1px solid #e6c200; border-radius: 4px; padding: 6px; box-shadow: 3px 3px 8px rgba(0,0,0,0.15); z-index: 9998; font-size: 12px; user-select: none; cursor: move;}
+        .note-header {display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00;}
+        .note-close {cursor: pointer; font-weight: bold; color: #886a00; user-select: none; font-size: 14px; line-height: 1;}
+        .note-textarea {width: 100%; height: 48px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px;}
+        .bottom-container {margin: 8px 12px 16px; padding: 8px 10px; background: #ffffff; border-radius: 8px; border: 1px solid #fecaca;}
+        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 1px; margin-bottom: 8px;}
+        .nav-label {font-weight: 600; color: #991b1b; font-size: 11px; margin-right: 4px;}
+        .q-indicator {width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 10px; cursor: pointer; transition: all 0.2s;}
+        .q-indicator:hover {opacity: 0.85;}
+        .q-indicator.answered {background: #198754; color: #ffffff; border-color: #198754;}
+        .q-indicator.flagged {outline: 2px solid #eab308; outline-offset: 1px;}
+        .q-indicator.current {border: 2px solid #dc2626;}
+        .q-indicator.passage-gap {margin-left: 6px; background: #fef2f2; border: none; color: #991b1b; font-weight: bold; font-size: 9px;}
+        .q-indicator.future {opacity: 0.45; cursor: not-allowed;}
+        .btn-bar {display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 4px;}
+        .nav-btn, .check-btn, .clear-btn {padding: 5px 10px; text-decoration: none; border-radius: 5px; border: 1px solid; font-weight: 500; font-size: 12px; display: inline-block; cursor: pointer;}
+        .prev-btn {background: #fef2f2; color: #dc2626; border-color: #fecaca;}
+        .prev-btn:hover {background: #ffffff;}
+        .lib-btn {background: #e5e7eb; color: #374151; border-color: #ccc;}
+        .lib-btn:hover {background: #dcdcdc;}
+        .check-btn {background: #e0f2fe; color: #0369a1; border-color: #bae6fd;}
+        .check-btn:hover {background: #bae6fd;}
+        .clear-btn {background: #fff0f0; color: #b91c1c; border-color: #fecaca;}
+        .clear-btn:hover {background: #ffe0e0;}
+        .result-bar {margin-top: 6px; padding: 6px 10px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 5px; color: #166534; font-size: 13px; display: none;}
+        em {color: #555;}
+        ul {margin: 6px 0 6px 24px;}
+        li {margin-bottom: 4px; font-size: 14px;}
     </style>
 </head>
 <body>
-    <!-- Logo -->
     <div class="logo-container">
         <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
     </div>
-    <!-- Right-click Context Menu -->
     <div class="context-menu" id="contextMenu">
-        <div id="menuHighlight">✅ Highlight</div>
+        <div id="menuHighlight">✅ Highlight Selection</div>
         <div id="menuRemove">❌ Remove Highlight</div>
         <div id="menuNote">📝 Add Note</div>
     </div>
-    <!-- ✅ TWO COLUMNS: LEFT = PASSAGE | RIGHT = QUESTIONS -->
     <div class="main-wrapper">
-        <!-- LEFT SIDE: PASSAGE TEXT -->
         <div class="passage-column" id="passageArea">
-            <h1>Reading Passage 3 — Beyond the blue horizon</h1>
-            <div class="passage-text" id="passageText">
-                <p><em>Ancient voyagers who settled the far‑flung islands of the Pacific Ocean</em></p>
-                <p>An important archaeological discovery on the island of Éfaté in the Pacific archipelago of Vanuatu has revealed traces of an ancient seafaring people, the distant ancestors of today’s Polynesians. The site came to light only by chance. An agricultural worker, digging in the grounds of a derelict plantation, scraped open a grave – the first of dozens in a burial ground some 3,000 years old. It is the oldest cemetery ever found in the Pacific islands, and it harbors the remains of an ancient people archaeologists call the Lapita.</p>
-                <p>They were daring blue‑water adventurers who used basic canoes to rove across the ocean. But they were not just explorers. They were also pioneers who carried with them everything they would need to build new lives – their livestock, taro seedlings and stone tools. Within the span of several centuries, the Lapita stretched the boundaries of their world from the jungle‑clad volcanoes of Papua New Guinea to the loneliest coral outliers of Tonga.</p>
-                <p>The Lapita left precious few clues about themselves, but Éfaté expands the volume of data available to researchers dramatically. The remains of 62 individuals have been uncovered so far, and archaeologists were also thrilled to find six complete Lapita pots. Other items included a Lapita burial urn with modeled birds arranged on the rim as though peering down at the human remains sealed inside. ‘It’s an important discovery,’ says Matthew Spriggs, professor of archaeology at the Australian National University and head of the international team digging up the site, ‘for it conclusively identifies the remains as Lapita.’</p>
-                <p>DNA teased from these human remains may help answer one of the most puzzling questions in Pacific anthropology: did all Pacific islanders spring from one source or many? Was there only one outward migration from a single point in Asia, or several from different points? ‘This represents the best opportunity we’ve had yet,’ says Spriggs, ‘to find out who the Lapita actually were, where they came from, and who their closest descendants are today.’</p>
-                <p>There is one stubborn question for which archaeology has yet to provide any answers: how did the Lapita accomplish the ancient equivalent of a moon landing, many times over? No‑one has found one of their canoes or any rigging, which could reveal how the canoes were sailed. Nor do the oral histories and traditions of later Polynesians offer any insights, for they turn into myths long before they reach as far back in time as the Lapita.</p>
-                <p>‘All we can say for certain is that the Lapita had canoes that were capable of ocean voyages, and they had the ability to sail them,’ says Geoff Irwin, a professor of archaeology at the University of Auckland. Those sailing skills, he says, were developed and passed down over thousands of years by earlier mariners who worked their way through the archipelagos of the western Pacific, making short crossings to nearby islands. The real adventure didn’t begin, however, until their Lapita descendants sailed out of sight of land, with empty horizons on every side. This must have been as difficult for them as landing on the moon is for us today. Certainly it distinguished them from their ancestors, but what gave them the courage to launch out on such risky voyages?</p>
-                <p>The Lapita’s thrust into the Pacific was eastward, against the prevailing trade winds, Irwin notes. Those nagging headwinds, he argues, may have been the key to their success. ‘They could sail out for days into the unknown and assess the area, secure in the knowledge that if they didn’t find anything, they could turn about and catch a swift ride back on the trade winds. This is what would have made the whole thing work.’ Once out there, skilled seafarers would have detected abundant leads to follow to land: seabirds, coconuts and twigs carried out to sea by the tides, and the afternoon pile‑up of clouds on the horizon which often indicates an island in the distance.</p>
-                <p>For returning explorers, successful or not, the geography of their own archipelagos would have provided a safety net. Without this to go by, overshooting their home ports, getting lost and sailing off into eternity would have been all too easy. Vanuatu, for example, stretches more than 500 miles in a northwest‑southeast trend, its scores of intervisible islands forming a backstop for mariners riding the trade winds home.</p>
-                <p>All this presupposes one essential detail, says Atholl Anderson, professor of prehistory at the Australian National University: the Lapita had mastered the advanced art of sailing against the wind. ‘And there’s no proof they could do any such thing,’ Anderson says. ‘There has been this assumption they did, and people have built canoes to re‑create those early voyages based on that assumption. But nobody has any idea what their canoes looked like or how they were rigged.’</p>
-                <p>Rather than give all the credit to human skill, Anderson invokes the winds of chance. El Niño, the same climate disruption that affects the Pacific today, may have helped scatter the Lapita, Anderson suggests. He points out that climate data obtained from slow‑growing corals around the Pacific indicate a series of unusually frequent El Niños around the time of the Lapita expansion. By reversing the regular east‑to‑west flow of the trade winds for weeks at a time, these ‘super El Niños’ might have taken the Lapita on long unplanned voyages.</p>
-                <p>However they did it, the Lapita spread themselves a third of the way across the Pacific, then called it quits for reasons known only to them. Ahead lay the vast emptiness of the central Pacific and perhaps they were too thinly stretched to venture farther. They probably never numbered more than a few thousand in total, and in their rapid migration eastward they encountered hundreds of islands – more than 300 in Fiji alone.</p>
+            <h1>Reading Passage 3</h1>
+            <h2 class="subtitle">Preface to 'How the other half thinks: Adventures in mathematical reasoning'</h2>
+            <div class="passage-text">
+<p><strong>You should spend about 20 minutes on Questions 27–40, which are based on Reading Passage 3 below.</strong></p>
+<br>
+<p><span class="section-label">A</span>Occasionally, in some difficult musical compositions, there are beautiful, but easy parts — parts so simple a beginner could play them. So it is with mathematics as well. There are some discoveries in advanced mathematics that do not depend on specialized knowledge, not even on algebra, geometry, or trigonometry. Instead they may involve, at most, a little arithmetic, such as 'the sum of two odd numbers is even', and common sense. Each of the eight chapters in this book illustrates this phenomenon. Anyone can understand every step in the reasoning.</p>
+<p><span class="section-label">B</span>The thinking in each chapter uses at most only elementary arithmetic, and sometimes not even that. Thus all readers will have the chance to participate in a mathematical experience, to appreciate the beauty of mathematics, and to become familiar with its logical, yet intuitive, style of thinking.</p>
+<p><span class="section-label">C</span>One of my purposes in writing this book is to give readers who haven't had the opportunity to see and enjoy real mathematics the chance to appreciate the mathematical way of thinking. I want to reveal not only some of the fascinating discoveries, but, more importantly, the reasoning behind them.</p>
+<p><span class="section-label">D</span>In that respect, this book differs from most books on mathematics written for the general public. Some present the lives of colorful mathematicians. Others describe important applications of mathematics. Yet others go into mathematical procedures, but assume that the reader is adept in using algebra.</p>
+<p><span class="section-label">E</span>I hope this book will help bridge that notorious gap that separates the two cultures: the humanities and the sciences, or should I say the right brain (intuitive) and the left brain (analytical, numerical). As the chapters will illustrate, mathematics is not restricted to the analytical and numerical; intuition plays a significant role. The alleged gap can be narrowed or completely overcome by anyone, in part because each of us is far from using the full capacity of either side of the brain. To illustrate our human potential, I cite a structural engineer who is an artist, an electrical engineer who is an opera singer, an opera singer who published mathematical research, and a mathematician who publishes short stories.</p>
+<p><span class="section-label">F</span>Other scientists have written books to explain their fields to non-scientists, but have necessarily had to omit the mathematics, although it provides the foundation of their theories. The reader must remain a tantalized spectator rather than an informed participant, since the appropriate language for describing the details in much of science is mathematics, whether the subject is expanding universe, subatomic particles, or chromosomes. Though the broad outline of a scientific theory can be sketched intuitively, when a part of the physical universe is finally understood, its description often looks like a page in a mathematics text.</p>
+<p><span class="section-label">G</span>Still, the non-mathematical reader can go far in understanding mathematical reasoning. This book presents the details that illustrate the mathematical style of thinking, which involves sustained, step-by-step analysis, experiments, and insights. You will turn these pages much more slowly than when reading a novel or a newspaper. It may help to have a pencil and paper ready to check claims and carry out experiments.</p>
+<p style="font-weight:bold; margin-top:16px;">As I wrote, I kept in mind two types of readers: those who enjoyed mathematics until they were turned off by an unpleasant episode, usually around fifth grade, and mathematics aficionados, who will find much that is new throughout the book.</p>
+<p>This book also serves readers who simply want to sharpen their analytical skills. Many careers, such as law and medicine, require extended, precise analysis. Each chapter offers practice in following a sustained and closely argued line of thought. That mathematics can develop this skill is shown by these two testimonials:</p>
+<p style="font-style:italic;">A physician wrote, 'The discipline of analytical thought processes [in mathematics] prepared me extremely well for medical school. In medicine one is faced with a problem which must be thoroughly analyzed before a solution can be found. The process is similar to doing mathematics.'</p>
+<p style="font-style:italic;">A lawyer made the same point, 'Although I had no background in law — not even one political science course — I did well at one of the best law schools. I attribute much of my success there to having learned, through the study of mathematics, and, in particular, theorems, how to analyze complicated principles. Lawyers who have studied mathematics can master the legal principles in a way that most others cannot.'</p>
+<p>I hope you will share my delight in watching as simple, even naive, questions lead to remarkable solutions and purely theoretical discoveries find unanticipated applications.</p>
             </div>
-            <!-- ✅ CLEAR HIGHLIGHTS BUTTON HERE -->
-            <button class="clear-highlight" onclick="clearHighlights()">🧹 Clear Highlights</button>
         </div>
-        <!-- RIGHT SIDE: QUESTIONS -->
         <div class="questions-column" id="questionsArea">
             <div class="questions-section">
-                <h2>Questions 27–31: Summary Completion</h2>
-                <p><em>Complete the summary using the list of words and phrases, A–J, below. Write the correct letter, A–J.</em></p>
-                <div class="options-list">
-                    <strong>A</strong> proof &nbsp;&nbsp;&nbsp;&nbsp; <strong>B</strong> plantation &nbsp;&nbsp;&nbsp;&nbsp; <strong>C</strong> harbour<br>
-                    <strong>D</strong> bones &nbsp;&nbsp;&nbsp;&nbsp; <strong>E</strong> data &nbsp;&nbsp;&nbsp;&nbsp; <strong>F</strong> archaeological discovery<br>
-                    <strong>G</strong> burial urn &nbsp;&nbsp;&nbsp;&nbsp; <strong>H</strong> source &nbsp;&nbsp;&nbsp;&nbsp; <strong>I</strong> animals &nbsp;&nbsp;&nbsp;&nbsp; <strong>J</strong> maps
-                </div>
-                <div class="question-block" data-q="27">
-                    <div class="question-line">
-                        <button class="flag-btn" onclick="toggleFlag(27)">🚩</button>
-                        <span>27. A 3,000‑year‑old burial ground of a seafaring people called the Lapita has been found on an abandoned <input type="text" class="answer-input" name="q27" placeholder="A–J"> on the Pacific island of Éfaté.</span>
-                    </div>
-                </div>
-                <div class="question-block" data-q="28">
-                    <div class="question-line">
-                        <button class="flag-btn" onclick="toggleFlag(28)">🚩</button>
-                        <span>28. The cemetery, which is a significant <input type="text" class="answer-input" name="q28" placeholder="A–J"> , was uncovered accidentally by an agricultural worker.</span>
-                    </div>
-                </div>
-                <div class="question-block" data-q="29">
-                    <div class="question-line">
-                        <button class="flag-btn" onclick="toggleFlag(29)">🚩</button>
-                        <span>29. The Lapita explored and colonised many Pacific islands over several centuries. They took many things with them on their voyages including <input type="text" class="answer-input" name="q29" placeholder="A–J"> and tools.</span>
-                    </div>
-                </div>
-                <div class="question-block" data-q="30">
-                    <div class="question-line">
-                        <button class="flag-btn" onclick="toggleFlag(30)">🚩</button>
-                        <span>30. The burial ground increases the amount of information about the Lapita available to scientists. A team of researchers, led by Matthew Spriggs from the Australian National University, are helping with the excavation of the site. Spriggs believes the <input type="text" class="answer-input" name="q30" placeholder="A–J"> which was found at the site is very important since it confirms that the</span>
-                    </div>
-                </div>
-                <div class="question-block" data-q="31">
-                    <div class="question-line">
-                        <button class="flag-btn" onclick="toggleFlag(31)">🚩</button>
-                        <span>31. <input type="text" class="answer-input" name="q31" placeholder="A–J"> found inside are Lapita.</span>
-                    </div>
-                </div>
-                <h2>Questions 32–35: Multiple Choice</h2>
-                <p><em>Choose the correct letter, A, B, C or D.</em></p>
-                <div class="question-block" data-q="32">
-                    <div class="question-line">
-                        <button class="flag-btn" onclick="toggleFlag(32)">🚩</button>
-                        <span>32 According to the writer, there are difficulties explaining how the Lapita accomplished their journeys because</span>
-                    </div>
-                    <div class="options">
-                        <label><input type="radio" name="q32" value="A"> A the canoes that have been discovered offer relatively few clues.</label>
-                        <label><input type="radio" name="q32" value="B"> B archaeologists have shown limited interest in this area of research.</label>
-                        <label><input type="radio" name="q32" value="C"> C little information relating to this period can be relied upon for accuracy.</label>
-                        <label><input type="radio" name="q32" value="D"> D technological advances have altered the way such achievements are viewed.</label>
-                    </div>
-                </div>
-                <div class="question-block" data-q="33">
-                    <div class="question-line">
-                        <button class="flag-btn" onclick="toggleFlag(33)">🚩</button>
-                        <span>33 According to the sixth paragraph, what was extraordinary about the Lapita?</span>
-                    </div>
-                    <div class="options">
-                        <label><input type="radio" name="q33" value="A"> A They sailed beyond the point where land was visible.</label>
-                        <label><input type="radio" name="q33" value="B"> B Their cultural heritage discouraged the expression of fear.</label>
-                        <label><input type="radio" name="q33" value="C"> C They were able to build canoes that withstood ocean voyages.</label>
-                        <label><input type="radio" name="q33" value="D"> D Their navigational skills were passed on from one generation to the next.</label>
-                    </div>
-                </div>
-                <div class="question-block" data-q="34">
-                    <div class="question-line">
-                        <button class="flag-btn" onclick="toggleFlag(34)">🚩</button>
-                        <span>34 What does ‘This’ refer to in the seventh paragraph?</span>
-                    </div>
-                    <div class="options">
-                        <label><input type="radio" name="q34" value="A"> A the Lapita’s seafaring talent</label>
-                        <label><input type="radio" name="q34" value="B"> B the Lapita’s ability to detect signs of land</label>
-                        <label><input type="radio" name="q34" value="C"> C the Lapita’s extensive knowledge of the region</label>
-                        <label><input type="radio" name="q34" value="D"> D the Lapita’s belief they would be able to return home</label>
-                    </div>
-                </div>
-                <div class="question-block" data-q="35">
-                    <div class="question-line">
-                        <button class="flag-btn" onclick="toggleFlag(35)">🚩</button>
-                        <span>35 According to the eighth paragraph, how was the geography of the region significant?</span>
-                    </div>
-                    <div class="options">
-                        <label><input type="radio" name="q35" value="A"> A It played an important role in Lapita culture.</label>
-                        <label><input type="radio" name="q35" value="B"> B It meant there were relatively few storms at sea.</label>
-                        <label><input type="radio" name="q35" value="C"> C It provided a navigational aid for the Lapita.</label>
-                        <label><input type="radio" name="q35" value="D"> D It made a large number of islands habitable.</label>
-                    </div>
-                </div>
-                <h2>Questions 36–40: YES / NO / NOT GIVEN</h2>
-                <p><em>Do the following statements agree with the views of the writer?</em></p>
-                <p><strong>YES</strong> — if the statement agrees<br>
-                <strong>NO</strong> — if the statement contradicts<br>
-                <strong>NOT GIVEN</strong> — if there is no information</p>
-                <div class="question-block" data-q="36">
-                    <div class="question-line">
-                        <button class="flag-btn" onclick="toggleFlag(36)">🚩</button>
-                        <span>36 It is now clear that the Lapita could sail into a prevailing wind.</span>
-                    </div>
-                    <div class="options">
-                        <label><input type="radio" name="q36" value="YES"> YES</label>
-                        <label><input type="radio" name="q36" value="NO"> NO</label>
-                        <label><input type="radio" name="q36" value="NOT GIVEN"> NOT GIVEN</label>
-                    </div>
-                </div>
-                <div class="question-block" data-q="37">
-                    <div class="question-line">
-                        <button class="flag-btn" onclick="toggleFlag(37)">🚩</button>
-                        <span>37 Extreme climate conditions may have played a role in Lapita migration.</span>
-                    </div>
-                    <div class="options">
-                        <label><input type="radio" name="q37" value="YES"> YES</label>
-                        <label><input type="radio" name="q37" value="NO"> NO</label>
-                        <label><input type="radio" name="q37" value="NOT GIVEN"> NOT GIVEN</label>
-                    </div>
-                </div>
-                <div class="question-block" data-q="38">
-                    <div class="question-line">
-                        <button class="flag-btn" onclick="toggleFlag(38)">🚩</button>
-                        <span>38 The Lapita learnt to predict the duration of El Niños.</span>
-                    </div>
-                    <div class="options">
-                        <label><input type="radio" name="q38" value="YES"> YES</label>
-                        <label><input type="radio" name="q38" value="NO"> NO</label>
-                        <label><input type="radio" name="q38" value="NOT GIVEN"> NOT GIVEN</label>
-                    </div>
-                </div>
-                <div class="question-block" data-q="39">
-                    <div class="question-line">
-                        <button class="flag-btn" onclick="toggleFlag(39)">🚩</button>
-                        <span>39 It remains unclear why the Lapita halted their expansion across the Pacific.</span>
-                    </div>
-                    <div class="options">
-                        <label><input type="radio" name="q39" value="YES"> YES</label>
-                        <label><input type="radio" name="q39" value="NO"> NO</label>
-                        <label><input type="radio" name="q39" value="NOT GIVEN"> NOT GIVEN</label>
-                    </div>
-                </div>
-                <div class="question-block" data-q="40">
-                    <div class="question-line">
-                        <button class="flag-btn" onclick="toggleFlag(40)">🚩</button>
-                        <span>40 It is likely that the majority of Lapita settled on Fiji.</span>
-                    </div>
-                    <div class="options">
-                        <label><input type="radio" name="q40" value="YES"> YES</label>
-                        <label><input type="radio" name="q40" value="NO"> NO</label>
-                        <label><input type="radio" name="q40" value="NOT GIVEN"> NOT GIVEN</label>
-                    </div>
-                </div>
-                <div class="action-buttons">
-                    <button class="clear-all" onclick="clearAll()">🧹 Clear All</button>
-                    <button class="toggle-answers" onclick="toggleAnswers()">👁️ Show / Hide Correct Answers</button>
-                    <button class="show-student" onclick="showStudentAnswers()">📝 Check My Answers</button>
-                </div>
-                <!-- ✅ CORRECT ANSWER KEY -->
-                <div class="answers-box" id="answersBox">
-                    <h3>✅ Correct Answers — Passage 3</h3>
-                    <p><strong>27.</strong> B<br>
-                    <strong>28.</strong> F<br>
-                    <strong>29.</strong> I<br>
-                    <strong>30.</strong> G<br>
-                    <strong>31.</strong> D<br>
-                    <strong>32.</strong> C<br>
-                    <strong>33.</strong> A<br>
-                    <strong>34.</strong> D<br>
-                    <strong>35.</strong> C<br>
-                    <strong>36.</strong> NO<br>
-                    <strong>37.</strong> YES<br>
-                    <strong>38.</strong> NOT GIVEN<br>
-                    <strong>39.</strong> YES<br>
-                    <strong>40.</strong> NOT GIVEN</p>
-                </div>
-                <!-- ✅ STUDENT ANSWERS & RESULT -->
-                <div class="student-answers-box" id="studentAnswersBox">
-                    <h3>📝 Your Answers & Score</h3>
-                    <div id="studentResult"></div>
-                </div>
+<h2>Questions 27–34</h2>
+<p><em>Reading Passage 3 has seven sections, A–G.</em><br>
+<em>Which section contains the following information?</em><br>
+<em>Write the correct letter, A–G, in boxes 27–34 on your answer sheet.</em><br>
+<em><strong>NB</strong> You may use any letter more than once.</em></p>
+
+<div class="question-block" id="q27">
+  <p><strong>27.</strong> a reference to books that assume a lack of mathematical knowledge</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q27" placeholder="A–G" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q27" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q28">
+  <p><strong>28.</strong> the way in which this is not a typical book about mathematics</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q28" placeholder="A–G" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q28" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q29">
+  <p><strong>29.</strong> personal examples of being helped by mathematics</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q29" placeholder="A–G" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q29" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q30">
+  <p><strong>30.</strong> examples of people who each had abilities that seemed incompatible</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q30" placeholder="A–G" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q30" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q31">
+  <p><strong>31.</strong> mention of different focuses of books about mathematics</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q31" placeholder="A–G" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q31" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q32">
+  <p><strong>32.</strong> a contrast between reading this book and reading other kinds of publication</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q32" placeholder="A–G" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q32" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q33">
+  <p><strong>33.</strong> a claim that the whole of the book is accessible to everybody</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q33" placeholder="A–G" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q33" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q34">
+  <p><strong>34.</strong> a reference to different categories of intended readers of this book</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q34" placeholder="A–G" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q34" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+
+<h2>Questions 35–40</h2>
+<p><em>Complete the sentences below.</em><br>
+<em>Choose ONE WORD ONLY from the passage for each answer.</em><br>
+<em>Write your answers in boxes 35–40 on your answer sheet.</em></p>
+
+<div class="question-block" id="q35">
+  <p><strong>35.</strong> Some areas of both music and mathematics are suitable for someone who is a ....................</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q35" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q35" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q36">
+  <p><strong>36.</strong> It is sometimes possible to understand advanced mathematics using no more than a limited knowledge of ....................</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q36" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q36" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q37">
+  <p><strong>37.</strong> The writer intends to show that mathematics requires .................... thinking, as well as analytical skills.</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q37" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q37" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q38">
+  <p><strong>38.</strong> Some books written by .................... have had to leave out the mathematics that is central to their theories.</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q38" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q38" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q39">
+  <p><strong>39.</strong> The writer advises non-mathematical readers to perform .................... while reading the book.</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q39" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q39" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q40">
+  <p><strong>40.</strong> A lawyer found that studying .................... helped even more than other areas of mathematics in the study of law.</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q40" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q40" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+
             </div>
         </div>
     </div>
-    <!-- ✅ Bottom Navigation Bar -->
-    <div class="question-nav" id="questionNav">
-        <div class="nav-container" id="navContainer"></div>
-        <div class="nav-page-controls">
-            <a href="reading-passage2-C10T3.html" class="back-btn">← Previous</a>
-            <a href="../index.html" class="next-btn">Back to Main Menu</a>
+    <div class="bottom-container">
+        <div class="question-nav" id="questionNav">
+            <span class="nav-label">Q:</span>
         </div>
+        <div class="btn-bar">
+            <a href="reading-passage2-C11T3.html" class="nav-btn prev-btn">← Passage 2</a>
+            <a href="../../library.html" class="nav-btn lib-btn">🏠 Library</a>
+            <button class="check-btn" onclick="checkAnswers()">✅ Check Answers</button>
+            <button class="clear-btn" onclick="clearAllData()">🗑️ Clear All</button>
+        </div>
+        <div class="result-bar" id="resultBar"></div>
     </div>
-    <script>
-        const correctAnswers = {
-            q27: 'B',
-            q28: 'F',
-            q29: 'I',
-            q30: 'G',
-            q31: 'D',
-            q32: 'C',
-            q33: 'A',
-            q34: 'D',
-            q35: 'C',
-            q36: 'NO',
-            q37: 'YES',
-            q38: 'NOT GIVEN',
-            q39: 'YES',
-            q40: 'NOT GIVEN'
-        };
-        let currentRange = null;
-        let lastNoteId = 0;
-        const passageId = 'C10T3P3';
-        function generateNav() {
-            const container = document.getElementById('navContainer');
-            container.innerHTML = '';
-            for (let i = 1; i <= 40; i++) {
-                const btn = document.createElement('button');
-                btn.className = 'q-nav-btn';
-                btn.textContent = i;
-                btn.onclick = () => goToQuestion(i);
-                btn.id = `nav-q${i}`;
-                container.appendChild(btn);
+<script>
+const TOTAL_QUESTIONS = 40;
+const PASSAGE3_RANGE = { start: 27, end: 40 };
+let lastNoteId = 0;
+const flaggedQs = new Set();
+
+function initQuestionNav() {
+    const navContainer = document.getElementById('questionNav');
+    navContainer.innerHTML = '<span class="nav-label">Q:</span>';
+    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+        if (i === 14) addGapLabel(navContainer, 'P2');
+        if (i === 27) addGapLabel(navContainer, 'P3');
+        const btn = document.createElement('div');
+        btn.className = 'q-indicator';
+        btn.textContent = i;
+        btn.id = 'nav' + i;
+        if (i < PASSAGE3_RANGE.start) {
+            btn.classList.add('future');
+        } else {
+            btn.onclick = () => jumpToQuestion(i);
+        }
+        navContainer.appendChild(btn);
+    }
+}
+function addGapLabel(container, label) {
+    const gap = document.createElement('div');
+    gap.className = 'q-indicator passage-gap';
+    gap.textContent = label;
+    container.appendChild(gap);
+}
+function jumpToQuestion(qNum) {
+    document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
+    document.getElementById('nav' + qNum)?.classList.add('current');
+    document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function toggleFlag(btn) {
+    const qName = btn.dataset.q;
+    const qNum = parseInt(qName.replace('q',''));
+    if (flaggedQs.has(qNum)) {
+        flaggedQs.delete(qNum);
+        btn.classList.remove('flagged');
+    } else {
+        flaggedQs.add(qNum);
+        btn.classList.add('flagged');
+    }
+    updateNavStatus();
+}
+function updateNavStatus() {
+    for (let q = PASSAGE3_RANGE.start; q <= PASSAGE3_RANGE.end; q++) {
+        const input = document.querySelector(`input[name="q${q}"]`);
+        const navBtn = document.getElementById('nav' + q);
+        const isAnswered = input && input.value.trim() !== '';
+        const isFlagged = flaggedQs.has(q);
+        if (navBtn) {
+            navBtn.classList.toggle('answered', isAnswered);
+            navBtn.classList.toggle('flagged', isFlagged);
+        }
+    }
+}
+function clearAllData() {
+    if (!confirm('Clear ALL answers, highlights, notes and flags? This cannot be undone!')) return;
+    document.querySelectorAll('.answer-input').forEach(input => { input.value = ''; });
+    document.querySelectorAll('.highlight').forEach(span => {
+        const textNode = document.createTextNode(span.textContent);
+        span.parentNode.replaceChild(textNode, span);
+        textNode.parentNode.normalize();
+    });
+    document.querySelectorAll('.sticky-note').forEach(note => note.remove());
+    document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
+    flaggedQs.clear();
+    document.getElementById('resultBar').style.display = 'none';
+    updateNavStatus();
+}
+function checkAnswers() {
+    const ANSWERS = {
+        27: 'B',
+        28: 'D',
+        29: 'G',
+        30: 'E',
+        31: 'D',
+        32: 'G',
+        33: 'A',
+        34: 'F',
+        35: 'BEGINNER',
+        36: 'ARITHMETIC',
+        37: 'INTUITIVE',
+        38: 'SCIENTISTS',
+        39: 'EXPERIMENTS',
+        40: 'THEOREMS'
+    };
+    let correct = 0, total = PASSAGE3_RANGE.end - PASSAGE3_RANGE.start + 1;
+    for (let q = PASSAGE3_RANGE.start; q <= PASSAGE3_RANGE.end; q++) {
+        const input = document.querySelector(`input[name="q${q}"]`);
+        if (!input) continue;
+        const val = input.value.trim().toUpperCase().replace(/\s+/g,'');
+        const ans = (ANSWERS[q] || '').toUpperCase().replace(/\s+/g,'');
+        if (val === ans) correct++;
+    }
+    const pct = Math.round((correct / total) * 100);
+    const bar = document.getElementById('resultBar');
+    bar.style.display = 'block';
+    bar.innerHTML = `✅ <strong>${correct} / ${total} correct — ${pct}%</strong> (Answers are not shown)`;
+}
+// --- Highlight & Notes Context Menu ---
+const contextMenu = document.getElementById('contextMenu');
+let currentRange = null;
+let draggedNote = null, offsetX = 0, offsetY = 0;
+function isSelectionValid(sel) {
+    if (!sel || sel.isCollapsed || sel.toString().trim() === '') return false;
+    try {
+        const r = sel.getRangeAt(0);
+        let p = r.commonAncestorContainer;
+        p = p.nodeType === Node.TEXT_NODE ? p.parentElement : p;
+        const inArea = document.getElementById('passageArea').contains(p) || document.getElementById('questionsArea').contains(p);
+        const inInput = p.closest('input, textarea, button, select') !== null;
+        return inArea && !inInput;
+    } catch { return false; }
+}
+document.addEventListener('contextmenu', e => {
+    const sel = window.getSelection();
+    if (!isSelectionValid(sel)) { contextMenu.style.display = 'none'; return; }
+    e.preventDefault();
+    currentRange = sel.getRangeAt(0).cloneRange();
+    const rc = currentRange.getBoundingClientRect();
+    contextMenu.style.left = (rc.left + window.scrollX) + 'px';
+    contextMenu.style.top = (rc.bottom + window.scrollY + 8) + 'px';
+    contextMenu.style.display = 'block';
+});
+document.addEventListener('click', () => { contextMenu.style.display = 'none'; currentRange = null; });
+document.getElementById('menuHighlight').onclick = () => {
+    if (!currentRange) return;
+    try {
+        const span = document.createElement('span');
+        span.className = 'highlight';
+        span.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(span);
+        window.getSelection().removeAllRanges();
+    } catch { alert('Please select less text to highlight.'); }
+};
+document.getElementById('menuRemove').onclick = () => {
+    if (!currentRange) return;
+    try {
+        const selectedText = currentRange.toString().trim();
+        if (!selectedText) return;
+        document.querySelectorAll('.highlight').forEach(span => {
+            if (span.textContent.trim() === selectedText || span.textContent.includes(selectedText)) {
+                const textNode = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(textNode, span);
+                textNode.parentNode.normalize();
             }
-            updateNavStatus();
-        }
-        function goToQuestion(qNum) {
-            const qEl = document.querySelector(`.question-block[data-q="${qNum}"]`);
-            if (qEl) {
-                qEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                document.querySelectorAll('.q-nav-btn').forEach(b => b.classList.remove('current'));
-                document.getElementById(`nav-q${qNum}`).classList.add('current');
-            }
-        }
-        function updateNavStatus() {
-            const answers = JSON.parse(localStorage.getItem(`${passageId}_answers`)) || {};
-            const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
-            for (let i = 1; i <= 40; i++) {
-                const btn = document.getElementById(`nav-q${i}`);
-                if (!btn) continue;
-                btn.classList.remove('answered', 'flagged');
-                if (answers[`q${i}`] && answers[`q${i}`].trim() !== '') btn.classList.add('answered');
-                if (flags[i]) btn.classList.add('flagged');
-            }
-        }
-        function toggleFlag(qNum) {
-            const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
-            flags[qNum] = !flags[qNum];
-            localStorage.setItem(`${passageId}_flags`, JSON.stringify(flags));
-            document.querySelector(`.question-block[data-q="${qNum}"] .flag-btn`).classList.toggle('flagged', flags[qNum]);
-            updateNavStatus();
-        }
-        function saveAnswers() {
-            let answers = {};
-            for (let q = 27; q <= 40; q++) {
-                const radios = document.getElementsByName(`q${q}`);
-                if (radios.length > 0) {
-                    for (let r of radios) if (r.checked) answers[`q${q}`] = r.value;
-                } else {
-                    const input = document.querySelector(`input[name="q${q}"]`);
-                    if (input) answers[`q${q}`] = input.value.trim().toUpperCase();
-                }
-            }
-            localStorage.setItem(`${passageId}_answers`, JSON.stringify(answers));
-            updateNavStatus();
-        }
-        function loadAnswers() {
-            const saved = localStorage.getItem(`${passageId}_answers`);
-            if (!saved) return;
-            const answers = JSON.parse(saved);
-            for (let key in answers) {
-                const radios = document.getElementsByName(key);
-                if (radios.length > 0) {
-                    for (let r of radios) if (r.value.toUpperCase() === answers[key].toUpperCase()) r.checked = true;
-                } else {
-                    const input = document.querySelector(`input[name="${key}"]`);
-                    if (input) input.value = answers[key];
-                }
-            }
-            updateNavStatus();
-        }
-        function loadFlags() {
-            const flags = JSON.parse(localStorage.getItem(`${passageId}_flags`)) || {};
-            for (let q in flags) {
-                if (flags[q]) {
-                    const btn = document.querySelector(`.question-block[data-q="${q}"] .flag-btn`);
-                    if (btn) btn.classList.add('flagged');
-                }
-            }
-        }
-        /* ✅ NOW WORKS FOR BOTH PASSAGE AND QUESTIONS */
-        const passageArea = document.getElementById('passageArea');
-        const questionsArea = document.getElementById('questionsArea');
-        const contextMenu = document.getElementById('contextMenu');
-        [passageArea, questionsArea].forEach(area => {
-            area.addEventListener('contextmenu', function(e) {
-                const selection = window.getSelection();
-                if (!selection || selection.isCollapsed || selection.toString().trim() === '') {
-                    contextMenu.style.display = 'none';
-                    return;
-                }
-                e.preventDefault();
-                currentRange = selection.getRangeAt(0);
-                const rect = currentRange.getBoundingClientRect();
-                contextMenu.style.left = (rect.left + window.scrollX) + 'px';
-                contextMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
-                contextMenu.style.display = 'block';
-            });
         });
-        document.addEventListener('click', () => contextMenu.style.display = 'none');
-        /* ✅ Highlight: clean wrapping, no splits */
-        document.getElementById('menuHighlight').addEventListener('click', function() {
-            if (!currentRange) return;
-            const span = document.createElement('span');
-            span.className = 'highlight';
-            span.textContent = currentRange.toString();
-            try {
-                currentRange.deleteContents();
-                currentRange.insertNode(span);
-                span.parentNode.normalize();
-            } catch (e) {}
-            window.getSelection().removeAllRanges();
-            currentRange = null;
-            saveHighlights();
-        });
-        /* ✅ Remove Highlight: fully restores text, no broken sentences */
-        document.getElementById('menuRemove').addEventListener('click', function() {
-            if (!currentRange) return;
-            try {
-                let container = currentRange.commonAncestorContainer;
-                while (container && container !== passageArea && container !== questionsArea) {
-                    if (container.nodeType === 1 && container.classList.contains('highlight')) break;
-                    container = container.parentNode;
-                }
-                if (container && container.classList.contains('highlight')) {
-                    const plainText = document.createTextNode(container.textContent);
-                    container.parentNode.replaceChild(plainText, container);
-                    plainText.parentNode.normalize();
-                }
-            } catch (e) {}
-            window.getSelection().removeAllRanges();
-            currentRange = null;
-            saveHighlights();
-        });
-        document.getElementById('menuNote').addEventListener('click', function() {
-            if (!currentRange) return;
-            const rect = currentRange.getBoundingClientRect();
-            const noteId = 'note_' + (++lastNoteId);
-            const note = document.createElement('div');
-            note.className = 'sticky-note';
-            note.id = noteId;
-            note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${noteId}')">×</span></div><textarea class="note-textarea" placeholder="Type your note..." oninput="saveNote('${noteId}', this.value)"></textarea>`;
-            note.style.left = (rect.right + window.scrollX + 8) + 'px';
-            note.style.top = (rect.top + window.scrollY) + 'px';
-            document.body.appendChild(note);
-            window.getSelection().removeAllRanges();
-            currentRange = null;
-            saveNotes();
-        });
-        function closeNote(id) { document.getElementById(id)?.remove(); saveNotes(); }
-        function saveNote(id, text) { localStorage.setItem(`${passageId}_${id}`, text); }
-        function saveHighlights() { 
-            localStorage.setItem(`${passageId}_passageHighlights`, passageArea.innerHTML);
-            localStorage.setItem(`${passageId}_questionHighlights`, questionsArea.innerHTML);
-        }
-        function loadHighlights() { 
-            const savedPassage = localStorage.getItem(`${passageId}_passageHighlights`);
-            const savedQuestions = localStorage.getItem(`${passageId}_questionHighlights`);
-            if (savedPassage) passageArea.innerHTML = savedPassage;
-            if (savedQuestions) questionsArea.innerHTML = savedQuestions;
-            passageArea.normalize();
-            questionsArea.normalize();
-        }
-        function saveNotes() { 
-            const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
-                id: n.id, left: n.style.left, top: n.style.top, text: n.querySelector('.note-textarea').value
-            })); 
-            localStorage.setItem(`${passageId}_notes`, JSON.stringify(notes)); 
-        }
-        function loadNotes() { 
-            const saved = localStorage.getItem(`${passageId}_notes`); 
-            if (!saved) return; 
-            JSON.parse(saved).forEach(n => { 
-                const note = document.createElement('div'); 
-                note.className = 'sticky-note'; 
-                note.id = n.id; 
-                note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="closeNote('${n.id}')">×</span></div><textarea class="note-textarea" oninput="saveNote('${n.id}', this.value)">${n.text}</textarea>`; 
-                note.style.left = n.left; 
-                note.style.top = n.top; 
-                document.body.appendChild(note); 
-                const num = parseInt(n.id.split('_')[1]); 
-                if (num > lastNoteId) lastNoteId = num; 
-            }); 
-        }
-        function clearHighlights() {
-            document.querySelectorAll('.highlight').forEach(span => {
-                const text = document.createTextNode(span.textContent);
-                span.parentNode.replaceChild(text, span);
-            });
-            passageArea.normalize();
-            questionsArea.normalize();
-            saveHighlights();
-        }
-        // ✅ Clear All: answers, flags, highlights, notes
-        function clearAll() {
-            if (!confirm('Clear ALL answers, flags, highlights and notes? This cannot be undone.')) return;
-            localStorage.removeItem(`${passageId}_answers`);
-            localStorage.removeItem(`${passageId}_flags`);
-            localStorage.removeItem(`${passageId}_passageHighlights`);
-            localStorage.removeItem(`${passageId}_questionHighlights`);
-            localStorage.removeItem(`${passageId}_notes`);
-            document.querySelectorAll('.answer-input').forEach(i => i.value = '');
-            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
-            document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
-            document.querySelectorAll('.sticky-note').forEach(n => n.remove());
-            clearHighlights();
-            updateNavStatus();
-        }
-        function toggleAnswers() { const box = document.getElementById('answersBox'); box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
-        function showStudentAnswers() {
-            saveAnswers();
-            const box = document.getElementById('studentAnswersBox');
-            const resultDiv = document.getElementById('studentResult');
-            let html = '';
-            let score = 0;
-            for (let q = 27; q <= 40; q++) {
-                let studentAns = '';
-                const radios = document.getElementsByName(`q${q}`);
-                if (radios.length > 0) {
-                    for (let r of radios) if (r.checked) studentAns = r.value;
-                } else {
-                    const input = document.querySelector(`input[name="q${q}"]`);
-                    if (input) studentAns = input.value.trim().toUpperCase();
-                }
-                const correct = correctAnswers[`q${q}`].toUpperCase();
-                let status = '';
-                if (!studentAns) {
-                    status = '<span class="no-answer">(No Answer)</span>';
-                } else if (studentAns === correct) {
-                    status = '<span class="correct">✅ Correct</span>';
-                    score++;
-                } else {
-                    status = `<span class="wrong">❌ Wrong (Correct: ${correctAnswers[`q${q}`]})</span>`;
-                }
-                html += `<strong>${q}.</strong> Your answer: ${studentAns || '-'} &nbsp; ${status}<br>`;
-            }
-            html += `<br><strong>Total Score: ${score} / 14</strong>`;
-            resultDiv.innerHTML = html;
-            box.style.display = box.style.display === 'block' ? 'none' : 'block';
-        }
-        document.addEventListener('input', function(e) { if (e.target.matches('.answer-input') || e.target.matches('input[type="radio"]')) saveAnswers(); });
-        window.onload = function() { generateNav(); loadAnswers(); loadFlags(); loadHighlights(); loadNotes(); };
-    </script>
+        window.getSelection().removeAllRanges();
+        currentRange = null;
+    } catch { alert('Could not remove highlight.'); }
+};
+document.getElementById('menuNote').onclick = () => {
+    if (!currentRange) return;
+    const rc = currentRange.getBoundingClientRect();
+    const noteId = 'note_' + (++lastNoteId);
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.id = noteId;
+    note.style.left = (rc.right + window.scrollX + 10) + 'px';
+    note.style.top = (rc.top + window.scrollY) + 'px';
+    note.innerHTML = `<div class="note-header" onmousedown="startDrag(event, '${noteId}')">Note <span class="note-close" onclick="document.getElementById('${noteId}').remove()">×</span></div><textarea class="note-textarea" placeholder="Type your note..."></textarea>`;
+    document.body.appendChild(note);
+    window.getSelection().removeAllRanges();
+};
+window.startDrag = function(e, noteId) {
+    draggedNote = document.getElementById(noteId);
+    const rect = draggedNote.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+    document.addEventListener('mousemove', onDrag);
+    document.addEventListener('mouseup', endDrag);
+};
+function onDrag(e) {
+    if (!draggedNote) return;
+    draggedNote.style.left = (e.pageX - offsetX) + 'px';
+    draggedNote.style.top = (e.pageY - offsetY) + 'px';
+}
+function endDrag() {
+    draggedNote = null;
+    document.removeEventListener('mousemove', onDrag);
+    document.removeEventListener('mouseup', endDrag);
+}
+window.onload = initQuestionNav;
+</script>
 </body>
 </html>
