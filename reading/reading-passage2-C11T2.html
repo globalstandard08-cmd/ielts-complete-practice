@@ -55,7 +55,6 @@
         em {color: #555;}
         .mc-option { display: block; margin: 8px 0; padding: 4px 0; cursor: pointer; }
         .mc-option input { margin-right: 10px; transform: scale(1.1); }
-        .mc-option label { cursor: pointer; }
     </style>
 </head>
 <body>
@@ -154,62 +153,45 @@
 <em>Select TWO answers.</em></p>
 <p><strong>On what points do Hunt and Lipo disagree with Diamond?</strong></p>
 
-<div class="question-block" id="q25">
-  <p><strong>25.</strong></p>
-  <label class="mc-option">
-    <input type="checkbox" class="mc-checkbox" data-q="25" value="A">
-    A. the period when the moai were created
-  </label>
-  <label class="mc-option">
-    <input type="checkbox" class="mc-checkbox" data-q="25" value="B">
-    B. how the moai were transported
-  </label>
-  <label class="mc-option">
-    <input type="checkbox" class="mc-checkbox" data-q="25" value="C">
-    C. the impact of the moai on Rapanui society
-  </label>
-  <label class="mc-option">
-    <input type="checkbox" class="mc-checkbox" data-q="25" value="D">
-    D. how the moai were carved
-  </label>
-  <label class="mc-option">
-    <input type="checkbox" class="mc-checkbox" data-q="25" value="E">
-    E. the origins of the people who made the moai
-  </label>
-</div>
-
-<div class="question-block" id="q26">
-  <p><strong>26.</strong></p>
-  <label class="mc-option">
-    <input type="checkbox" class="mc-checkbox" data-q="26" value="A">
-    A. the period when the moai were created
-  </label>
-  <label class="mc-option">
-    <input type="checkbox" class="mc-checkbox" data-q="26" value="B">
-    B. how the moai were transported
-  </label>
-  <label class="mc-option">
-    <input type="checkbox" class="mc-checkbox" data-q="26" value="C">
-    C. the impact of the moai on Rapanui society
-  </label>
-  <label class="mc-option">
-    <input type="checkbox" class="mc-checkbox" data-q="26" value="D">
-    D. how the moai were carved
-  </label>
-  <label class="mc-option">
-    <input type="checkbox" class="mc-checkbox" data-q="26" value="E">
-    E. the origins of the people who made the moai
-  </label>
+<div class="mc-options-list">
+    <label class="mc-option">
+        <input type="checkbox" class="mc-checkbox" data-q="25,26" value="A">
+        A. the period when the moai were created
+    </label>
+    <label class="mc-option">
+        <input type="checkbox" class="mc-checkbox" data-q="25,26" value="B">
+        B. how the moai were transported
+    </label>
+    <label class="mc-option">
+        <input type="checkbox" class="mc-checkbox" data-q="25,26" value="C">
+        C. the impact of the moai on Rapanui society
+    </label>
+    <label class="mc-option">
+        <input type="checkbox" class="mc-checkbox" data-q="25,26" value="D">
+        D. how the moai were carved
+    </label>
+    <label class="mc-option">
+        <input type="checkbox" class="mc-checkbox" data-q="25,26" value="E">
+        E. the origins of the people who made the moai
+    </label>
 </div>
 
 <script>
 document.querySelectorAll('.mc-checkbox').forEach(box => {
   box.addEventListener('change', function() {
-    const qNum = this.dataset.q;
-    const boxes = document.querySelectorAll(`.mc-checkbox[data-q="${qNum}"]`);
-    const anyChecked = Array.from(boxes).some(b => b.checked);
-    const navBtn = document.getElementById(`nav${qNum}`);
-    if (navBtn) navBtn.classList.toggle('answered', anyChecked);
+    const allBoxes = document.querySelectorAll(`.mc-checkbox[data-q="25,26"]`);
+    const selected = Array.from(allBoxes).filter(b => b.checked);
+    
+    if (selected.length > 2) {
+      this.checked = false;
+      alert('Please select ONLY TWO answers.');
+      return;
+    }
+    
+    const nav25 = document.getElementById('nav25');
+    const nav26 = document.getElementById('nav26');
+    nav25?.classList.toggle('answered', selected.length >= 1);
+    nav26?.classList.toggle('answered', selected.length >= 2);
   });
 });
 </script>
