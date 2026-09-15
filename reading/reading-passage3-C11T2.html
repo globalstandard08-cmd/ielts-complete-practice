@@ -20,7 +20,9 @@
         .questions-section h2 {color: #991b1b; font-size: 16px; margin: 14px 0 8px; border-bottom: 1px solid #fecaca; padding-bottom: 3px;}
         .question-block {margin-bottom: 14px; scroll-margin-top: 12px;}
         .question-block p {font-weight: 500; margin-bottom: 6px; font-size: 14px; line-height: 1.6;}
-        .answer-input {width: 100%; max-width: 280px; padding: 6px 10px; border: 1px solid #fecaca; border-radius: 6px; font-size: 14px; background: #fef2f2;}
+        .answer-input {width: 100%; max-width: 280px; padding: 6px 10px; border: 1px solid #fecaca; border-radius: 6px; font-size: 14px; background: #fef2f2; margin-top: 4px;}
+        .mc-option {display: block; margin: 6px 0; padding: 3px 0; cursor: pointer; font-size: 14px;}
+        .mc-option input {margin-right: 10px; transform: scale(1.1);}
         table {width: 100%; border-collapse: collapse; margin: 8px 0;}
         table, th, td {border: 1px solid #ddd;}
         th, td {padding: 7px 9px; font-size: 14px; vertical-align: top;}
@@ -44,13 +46,13 @@
         .q-indicator.passage-gap {margin-left: 8px; background: #fef2f2; border: none; color: #991b1b; font-weight: bold; font-size: 10px;}
         .q-indicator.future {opacity: 0.45; cursor: not-allowed;}
         .btn-group {display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap;}
-        .prev-btn, .next-btn, .back-btn, .clear-btn {padding: 7px 14px; text-decoration: none; border-radius: 6px; border: 1px solid; font-weight: 500; font-size: 13px; display: inline-block; cursor: pointer;}
+        .prev-btn, .next-btn, .lib-btn, .clear-btn {padding: 7px 14px; text-decoration: none; border-radius: 6px; border: 1px solid; font-weight: 500; font-size: 13px; display: inline-block; cursor: pointer;}
         .prev-btn {background: #fef2f2; color: #dc2626; border-color: #fecaca;}
         .prev-btn:hover {background: #ffffff;}
         .next-btn {background: #dc2626; color: #ffffff; border-color: #dc2626;}
         .next-btn:hover {background: #b91c1c;}
-        .back-btn {background: #fef2f2; color: #dc2626; border-color: #fecaca;}
-        .back-btn:hover {background: #ffffff;}
+        .lib-btn {background: #e5e7eb; color: #374151; border-color: #ccc;}
+        .lib-btn:hover {background: #dcdcdc;}
         .clear-btn {background: #fff0f0; color: #b91c1c; border-color: #fecaca;}
         .clear-btn:hover {background: #ffe0e0;}
         em {color: #555;}
@@ -85,22 +87,70 @@
             <div class="questions-section">
 <h2>Questions 27–30</h2>
 <p><em>Choose the correct letter, A, B, C or D.</em><br>
-<em>Write the correct letter in boxes 27–30 on your answer sheet.</em></p>
+<em>Select one answer.</em></p>
+
 <div class="question-block" id="q27">
     <p><strong>27.</strong> In the second paragraph, the writer refers to a shape-matching test in order to illustrate</p>
-    <input type="text" class="answer-input" name="q27" placeholder="A, B, C or D" oninput="updateNavStatus()">
+    <label class="mc-option">
+        <input type="radio" name="q27" value="A" onchange="updateNavStatus()"> A. the subjective nature of art appreciation
+    </label>
+    <label class="mc-option">
+        <input type="radio" name="q27" value="B" onchange="updateNavStatus()"> B. the reliance of modern art on abstract forms
+    </label>
+    <label class="mc-option">
+        <input type="radio" name="q27" value="C" onchange="updateNavStatus()"> C. our tendency to be influenced by the opinions of others
+    </label>
+    <label class="mc-option">
+        <input type="radio" name="q27" value="D" onchange="updateNavStatus()"> D. a common problem encountered when processing visual data
+    </label>
 </div>
+
 <div class="question-block" id="q28">
     <p><strong>28.</strong> Angelina Hawley-Dolan's findings indicate that people</p>
-    <input type="text" class="answer-input" name="q28" placeholder="A, B, C or D" oninput="updateNavStatus()">
+    <label class="mc-option">
+        <input type="radio" name="q28" value="A" onchange="updateNavStatus()"> A. mostly favour works of art which they know well
+    </label>
+    <label class="mc-option">
+        <input type="radio" name="q28" value="B" onchange="updateNavStatus()"> B. hold fixed ideas about what makes a good work of art
+    </label>
+    <label class="mc-option">
+        <input type="radio" name="q28" value="C" onchange="updateNavStatus()"> C. are often misled by their initial expectations of a work of art
+    </label>
+    <label class="mc-option">
+        <input type="radio" name="q28" value="D" onchange="updateNavStatus()"> D. have the ability to perceive the intention behind works of art
+    </label>
 </div>
+
 <div class="question-block" id="q29">
     <p><strong>29.</strong> Results of studies involving Robert Pepperell's pieces suggest that people</p>
-    <input type="text" class="answer-input" name="q29" placeholder="A, B, C or D" oninput="updateNavStatus()">
+    <label class="mc-option">
+        <input type="radio" name="q29" value="A" onchange="updateNavStatus()"> A. can appreciate a painting without fully understanding it
+    </label>
+    <label class="mc-option">
+        <input type="radio" name="q29" value="B" onchange="updateNavStatus()"> B. find it satisfying to work out what a painting represents
+    </label>
+    <label class="mc-option">
+        <input type="radio" name="q29" value="C" onchange="updateNavStatus()"> C. vary widely in the time they spend looking at paintings
+    </label>
+    <label class="mc-option">
+        <input type="radio" name="q29" value="D" onchange="updateNavStatus()"> D. generally prefer representational art to abstract art
+    </label>
 </div>
+
 <div class="question-block" id="q30">
     <p><strong>30.</strong> What do the experiments described in the fifth paragraph suggest about the paintings of Mondrian?</p>
-    <input type="text" class="answer-input" name="q30" placeholder="A, B, C or D" oninput="updateNavStatus()">
+    <label class="mc-option">
+        <input type="radio" name="q30" value="A" onchange="updateNavStatus()"> A. They are more carefully put together than they appear
+    </label>
+    <label class="mc-option">
+        <input type="radio" name="q30" value="B" onchange="updateNavStatus()"> B. They can be interpreted in a number of different ways
+    </label>
+    <label class="mc-option">
+        <input type="radio" name="q30" value="C" onchange="updateNavStatus()"> C. They challenge our assumptions about shape and colour
+    </label>
+    <label class="mc-option">
+        <input type="radio" name="q30" value="D" onchange="updateNavStatus()"> D. They are easier to appreciate than many other abstract works
+    </label>
 </div>
 
 <h2>Questions 31–33</h2>
@@ -167,15 +217,22 @@
 
 <h2>Question 40</h2>
 <p><em>Choose the correct letter, A, B, C or D.</em><br>
-<em>Write the correct letter in box 40 on your answer sheet.</em></p>
+<em>Select one answer.</em></p>
 <div class="question-block" id="q40">
     <p><strong>40.</strong> What would be the most appropriate subtitle for the article?</p>
-    <input type="text" class="answer-input" name="q40" placeholder="A, B, C or D" oninput="updateNavStatus()">
+    <label class="mc-option">
+        <input type="radio" name="q40" value="A" onchange="updateNavStatus()"> A. Some scientific insights into how the brain responds to abstract art
+    </label>
+    <label class="mc-option">
+        <input type="radio" name="q40" value="B" onchange="updateNavStatus()"> B. Recent studies focusing on the neural activity of abstract artists
+    </label>
+    <label class="mc-option">
+        <input type="radio" name="q40" value="C" onchange="updateNavStatus()"> C. A comparison of the neurological bases of abstract and representational art
+    </label>
+    <label class="mc-option">
+        <input type="radio" name="q40" value="D" onchange="updateNavStatus()"> D. How brain research has altered public opinion about abstract art
+    </label>
 </div>
-<p style="margin:4px 0 0 18px; font-size:14px;">A &nbsp; Some scientific insights into how the brain responds to abstract art</p>
-<p style="margin:2px 0 0 18px; font-size:14px;">B &nbsp; Recent studies focusing on the neural activity of abstract artists</p>
-<p style="margin:2px 0 0 18px; font-size:14px;">C &nbsp; A comparison of the neurological bases of abstract and representational art</p>
-<p style="margin:2px 0 0 18px; font-size:14px;">D &nbsp; How brain research has altered public opinion about abstract art</p>
 
             </div>
         </div>
@@ -186,14 +243,12 @@
         </div>
         <div class="btn-group">
             <a href="reading-passage2-C11T2.html" class="prev-btn">← Passage 2</a>
-            <span class="next-btn" style="opacity:0.4; cursor:not-allowed;">End of Test</span>
+            <a href="../index.html" class="lib-btn">🏠 Back to Library</a>
             <button class="clear-btn" onclick="clearAllData()">🗑️ Clear</button>
         </div>
     </div>
 <script>
 const TOTAL_QUESTIONS = 40;
-const PASSAGE1_END = 13;
-const PASSAGE2_RANGE = { start: 14, end: 26 };
 const PASSAGE3_RANGE = { start: 27, end: 40 };
 let lastNoteId = 0;
 
@@ -230,18 +285,24 @@ function jumpToQuestion(qNum) {
 }
 
 function updateNavStatus() {
-    for (let q = PASSAGE3_RANGE.start; q <= PASSAGE3_RANGE.end; q++) {
+    // Handle radio buttons (Q27-Q30, Q40)
+    for (let q of [27,28,29,30,40]) {
+        const checked = document.querySelector(`input[name="q${q}"]:checked`);
+        const navBtn = document.getElementById('nav' + q);
+        if (navBtn) navBtn.classList.toggle('answered', !!checked);
+    }
+    // Handle text inputs (Q31-Q39)
+    for (let q = 31; q <= 39; q++) {
         const input = document.querySelector(`input[name="q${q}"]`);
         const navBtn = document.getElementById('nav' + q);
-        if (input && navBtn) {
-            navBtn.classList.toggle('answered', input.value.trim() !== '');
-        }
+        if (input && navBtn) navBtn.classList.toggle('answered', input.value.trim() !== '');
     }
 }
 
 function clearAllData() {
     if (!confirm('Clear ALL answers and highlights? This cannot be undone!')) return;
     document.querySelectorAll('.answer-input').forEach(input => { input.value = ''; });
+    document.querySelectorAll('input[type="radio"]').forEach(radio => { radio.checked = false; });
     document.querySelectorAll('.highlight').forEach(span => {
         const textNode = document.createTextNode(span.textContent);
         span.parentNode.replaceChild(textNode, span);
