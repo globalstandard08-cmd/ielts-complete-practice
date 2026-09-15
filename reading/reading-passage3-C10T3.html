@@ -3,28 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cambridge 11 Test 3 — Reading Passage 3</title>
+    <title>Cambridge 10 Test 3 — Reading Passage 3</title>
     <style>
         * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif;}
         body {background-color: #fef2f2; color: #1a1a1a; line-height: 1.6;}
         .logo-container {width: 100%; background: #ffffff; border-bottom: 2px solid #dc2626; padding: 4px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 6px;}
         .logo {width: 22%; max-width: 180px; height: auto; display: block;}
-        .main-wrapper {display: flex; gap: 12px; padding: 0 12px 8px; height: calc(100vh - 140px);}
+        .main-wrapper {display: flex; gap: 12px; padding: 0 12px 8px; height: calc(100vh - 130px);}
         .passage-column, .questions-column {flex: 1; background: #ffffff; border-radius: 10px; border: 1px solid #fecaca; padding: 14px; overflow-y: auto;}
         h1 {color: #dc2626; font-size: 17px; margin-bottom: 2px; text-align: center;}
-        h2.subtitle {color: #7f1d1d; font-size: 13px; text-align: center; margin-bottom: 12px; font-weight: 500;}
-        .passage-text p {margin-bottom: 12px; font-size: 14.5px; line-height: 1.75; text-align: justify;}
-        .passage-text strong {color: #b91c1c;}
+        h2.subtitle {color: #7f1d1d; font-size: 15px; text-align: center; margin-bottom: 12px; font-weight: 600;}
+        .passage-text p {margin-bottom: 11px; font-size: 14.5px; line-height: 1.7; text-align: justify;}
         .section-label {font-weight: bold; color: #dc2626; margin-right: 8px;}
         .highlight {background-color: #ffd700; padding: 1px 3px; border-radius: 2px; display: inline; color: #000;}
-        .questions-section h2 {color: #991b1b; font-size: 16px; margin: 14px 0 8px; border-bottom: 1px solid #fecaca; padding-bottom: 3px;}
+        .questions-section h2 {color: #991b1b; font-size: 15px; margin: 14px 0 8px; border-bottom: 1px solid #fecaca; padding-bottom: 3px;}
         .question-block {margin-bottom: 14px; scroll-margin-top: 12px;}
         .question-block p {font-weight: 500; margin-bottom: 6px; font-size: 14px; line-height: 1.6;}
-        .answer-row {display: flex; align-items: center; gap: 8px; margin-top: 4px;}
-        .answer-input {flex: 1; max-width: 220px; padding: 6px 10px; border: 1px solid #fecaca; border-radius: 6px; font-size: 14px; background: #fef2f2; text-transform: uppercase;}
-        .flag-btn {padding: 4px 8px; border-radius: 4px; border: 1px solid #ccc; background: #f3f4f6; cursor: pointer; font-size: 12px;}
+        .answer-row {display: flex; align-items: center; gap: 8px; margin-top: 4px; flex-wrap: wrap;}
+        .sel-input {padding: 5px 8px; border: 1px solid #fecaca; border-radius: 5px; font-size: 14px; background: #fef2f2; min-width: 100px;}
+        .mc-options {margin: 6px 0 8px 22px;}
+        .mc-row {margin: 3px 0; font-size: 14px; cursor: pointer;}
+        .mc-row input {margin-right: 6px;}
+        .yn-options {margin: 6px 0 8px 22px; font-size: 14px;}
+        .yn-row {margin: 3px 0;}
+        .flag-btn {padding: 3px 7px; border-radius: 4px; border: 1px solid #ccc; background: #f3f4f6; cursor: pointer; font-size: 11px;}
         .flag-btn.flagged {background: #fef08a; border-color: #eab308; color: #854d0e; font-weight: bold;}
-        .yn-options {margin: 6px 0 10px 20px; font-size: 14px; line-height: 1.8;}
         .context-menu {position: absolute; background: #ffffff; border: 1px solid #bbb; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 160px;}
         .context-menu div {padding: 10px 14px; cursor: pointer; font-size: 14px;}
         .context-menu div:hover {background: #fef2f2;}
@@ -32,18 +35,18 @@
         .note-header {display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00;}
         .note-close {cursor: pointer; font-weight: bold; color: #886a00; user-select: none; font-size: 14px; line-height: 1;}
         .note-textarea {width: 100%; height: 48px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px;}
-        .bottom-container {margin: 8px 12px 16px; padding: 8px 10px; background: #ffffff; border-radius: 8px; border: 1px solid #fecaca;}
-        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 1px; margin-bottom: 8px;}
-        .nav-label {font-weight: 600; color: #991b1b; font-size: 11px; margin-right: 4px;}
-        .q-indicator {width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 10px; cursor: pointer; transition: all 0.2s;}
+        .bottom-container {margin: 6px 12px 12px; padding: 6px 10px; background: #ffffff; border-radius: 8px; border: 1px solid #fecaca;}
+        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 1px; margin-bottom: 6px;}
+        .nav-label {font-weight: 600; color: #991b1b; font-size: 10px; margin-right: 4px;}
+        .q-indicator {width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 9px; cursor: pointer; transition: all 0.2s;}
         .q-indicator:hover {opacity: 0.85;}
         .q-indicator.answered {background: #198754; color: #ffffff; border-color: #198754;}
         .q-indicator.flagged {outline: 2px solid #eab308; outline-offset: 1px;}
         .q-indicator.current {border: 2px solid #dc2626;}
         .q-indicator.passage-gap {margin-left: 6px; background: #fef2f2; border: none; color: #991b1b; font-weight: bold; font-size: 9px;}
         .q-indicator.future {opacity: 0.45; cursor: not-allowed;}
-        .btn-bar {display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 4px;}
-        .nav-btn, .check-btn, .clear-btn {padding: 5px 10px; text-decoration: none; border-radius: 5px; border: 1px solid; font-weight: 500; font-size: 12px; display: inline-block; cursor: pointer;}
+        .btn-bar {display: flex; gap: 7px; align-items: center; flex-wrap: wrap; margin-top: 4px;}
+        .nav-btn, .check-btn, .clear-btn {padding: 4px 8px; text-decoration: none; border-radius: 5px; border: 1px solid; font-weight: 500; font-size: 11.5px; display: inline-block; cursor: pointer;}
         .prev-btn {background: #fef2f2; color: #dc2626; border-color: #fecaca;}
         .prev-btn:hover {background: #ffffff;}
         .lib-btn {background: #e5e7eb; color: #374151; border-color: #ccc;}
@@ -52,10 +55,11 @@
         .check-btn:hover {background: #bae6fd;}
         .clear-btn {background: #fff0f0; color: #b91c1c; border-color: #fecaca;}
         .clear-btn:hover {background: #ffe0e0;}
-        .result-bar {margin-top: 6px; padding: 6px 10px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 5px; color: #166534; font-size: 13px; display: none;}
+        .result-bar {margin-top: 5px; padding: 5px 8px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 5px; color: #166534; font-size: 12.5px; display: none;}
         em {color: #555;}
         ul {margin: 6px 0 6px 24px;}
         li {margin-bottom: 4px; font-size: 14px;}
+        .q-group {margin-bottom: 16px;}
     </style>
 </head>
 <body>
@@ -70,135 +74,273 @@
     <div class="main-wrapper">
         <div class="passage-column" id="passageArea">
             <h1>Reading Passage 3</h1>
-            <h2 class="subtitle">Preface to 'How the other half thinks: Adventures in mathematical reasoning'</h2>
+            <h2 class="subtitle">Beyond the blue horizon</h2>
+            <p style="text-align:center; font-style:italic; color:#666; font-size:13px; margin-bottom:12px;">Ancient voyagers who settled the far-flung islands of the Pacific Ocean</p>
             <div class="passage-text">
+
 <p><strong>You should spend about 20 minutes on Questions 27–40, which are based on Reading Passage 3 below.</strong></p>
-<br>
-<p><span class="section-label">A</span>Occasionally, in some difficult musical compositions, there are beautiful, but easy parts — parts so simple a beginner could play them. So it is with mathematics as well. There are some discoveries in advanced mathematics that do not depend on specialized knowledge, not even on algebra, geometry, or trigonometry. Instead they may involve, at most, a little arithmetic, such as 'the sum of two odd numbers is even', and common sense. Each of the eight chapters in this book illustrates this phenomenon. Anyone can understand every step in the reasoning.</p>
-<p><span class="section-label">B</span>The thinking in each chapter uses at most only elementary arithmetic, and sometimes not even that. Thus all readers will have the chance to participate in a mathematical experience, to appreciate the beauty of mathematics, and to become familiar with its logical, yet intuitive, style of thinking.</p>
-<p><span class="section-label">C</span>One of my purposes in writing this book is to give readers who haven't had the opportunity to see and enjoy real mathematics the chance to appreciate the mathematical way of thinking. I want to reveal not only some of the fascinating discoveries, but, more importantly, the reasoning behind them.</p>
-<p><span class="section-label">D</span>In that respect, this book differs from most books on mathematics written for the general public. Some present the lives of colorful mathematicians. Others describe important applications of mathematics. Yet others go into mathematical procedures, but assume that the reader is adept in using algebra.</p>
-<p><span class="section-label">E</span>I hope this book will help bridge that notorious gap that separates the two cultures: the humanities and the sciences, or should I say the right brain (intuitive) and the left brain (analytical, numerical). As the chapters will illustrate, mathematics is not restricted to the analytical and numerical; intuition plays a significant role. The alleged gap can be narrowed or completely overcome by anyone, in part because each of us is far from using the full capacity of either side of the brain. To illustrate our human potential, I cite a structural engineer who is an artist, an electrical engineer who is an opera singer, an opera singer who published mathematical research, and a mathematician who publishes short stories.</p>
-<p><span class="section-label">F</span>Other scientists have written books to explain their fields to non-scientists, but have necessarily had to omit the mathematics, although it provides the foundation of their theories. The reader must remain a tantalized spectator rather than an informed participant, since the appropriate language for describing the details in much of science is mathematics, whether the subject is expanding universe, subatomic particles, or chromosomes. Though the broad outline of a scientific theory can be sketched intuitively, when a part of the physical universe is finally understood, its description often looks like a page in a mathematics text.</p>
-<p><span class="section-label">G</span>Still, the non-mathematical reader can go far in understanding mathematical reasoning. This book presents the details that illustrate the mathematical style of thinking, which involves sustained, step-by-step analysis, experiments, and insights. You will turn these pages much more slowly than when reading a novel or a newspaper. It may help to have a pencil and paper ready to check claims and carry out experiments.</p>
-<p style="font-weight:bold; margin-top:16px;">As I wrote, I kept in mind two types of readers: those who enjoyed mathematics until they were turned off by an unpleasant episode, usually around fifth grade, and mathematics aficionados, who will find much that is new throughout the book.</p>
-<p>This book also serves readers who simply want to sharpen their analytical skills. Many careers, such as law and medicine, require extended, precise analysis. Each chapter offers practice in following a sustained and closely argued line of thought. That mathematics can develop this skill is shown by these two testimonials:</p>
-<p style="font-style:italic;">A physician wrote, 'The discipline of analytical thought processes [in mathematics] prepared me extremely well for medical school. In medicine one is faced with a problem which must be thoroughly analyzed before a solution can be found. The process is similar to doing mathematics.'</p>
-<p style="font-style:italic;">A lawyer made the same point, 'Although I had no background in law — not even one political science course — I did well at one of the best law schools. I attribute much of my success there to having learned, through the study of mathematics, and, in particular, theorems, how to analyze complicated principles. Lawyers who have studied mathematics can master the legal principles in a way that most others cannot.'</p>
-<p>I hope you will share my delight in watching as simple, even naive, questions lead to remarkable solutions and purely theoretical discoveries find unanticipated applications.</p>
+
+<p>An important archaeological discovery on the island of Éfaté in the Pacific archipelago of Vanuatu has revealed traces of an ancient seafaring people, the distant ancestors of today's Polynesians. The site came to light only by chance. An agricultural worker, digging in the grounds of a derelict plantation, scraped open a grave — the first of dozens in a burial ground some 3,000 years old. It is the oldest cemetery ever found in the Pacific islands, and it harbors the remains of an ancient people archaeologists call the Lapita.</p>
+
+<p>They were daring blue-water adventurers who used basic canoes to rove across the ocean. But they were not just explorers. They were also pioneers who carried with them everything they would need to build new lives — their livestock, taro seedlings and stone tools. Within the span of several centuries, the Lapita stretched the boundaries of their world from the jungle-clad volcanoes of Papua New Guinea to the loneliest coral outliers of Tonga.</p>
+
+<p>The Lapita left precious few clues about themselves, but Éfaté expands the volume of data available to researchers dramatically. The remains of 62 individuals have been uncovered so far, and archaeologists were also thrilled to find six complete Lapita pots. Other items included a Lapita burial urn with modeled birds arranged on the rim as though peering down at the human remains sealed inside. 'It's an important discovery,' says Matthew Spriggs, professor of archaeology at the Australian National University and head of the international team digging up the site, 'for it conclusively identifies the remains as Lapita.'</p>
+
+<p>DNA teased from these human remains may help answer one of the most puzzling questions in Pacific anthropology: did all Pacific islanders spring from one source or many? Was there only one outward migration from a single point in Asia, or several from different points? 'This represents the best opportunity we've had yet,' says Spriggs, 'to find out who the Lapita actually were, where they came from, and who their closest descendants are today.'</p>
+
+<p>There is one stubborn question for which archaeology has yet to provide any answers: how did the Lapita accomplish the ancient equivalent of a moon landing, many times over? No-one has found one of their canoes or any rigging, which could reveal how the canoes were sailed. Nor do the oral histories and traditions of later Polynesians offer any insights, for they turn into myths long before they reach as far back in time as the Lapita.</p>
+
+<p>'All we can say for certain is that the Lapita had canoes that were capable of ocean voyages, and they had the ability to sail them,' says Geoff Irwin, a professor of archaeology at the University of Auckland. Those sailing skills, he says, were developed and passed down over thousands of years by earlier mariners who worked their way through the archipelagoes of the western Pacific, making short crossings to nearby islands. The real adventure didn't begin, however, until their Lapita descendants sailed out of sight of land, with empty horizons on every side. This must have been as difficult for them as landing on the moon is for us today. Certainly it distinguished them from their ancestors, but what gave them the courage to launch out on such risky voyages?</p>
+
+<p>The Lapita's thrust into the Pacific was eastward, against the prevailing trade winds, Irwin notes. Those nagging headwinds, he argues, may have been the key to their success. 'They could sail out for days into the unknown and assess the area, secure in the knowledge that if they didn't find anything, they could turn about and catch a swift ride back on the trade winds. This is what would have made the whole thing work.' Once out there, skilled seafarers would have detected abundant leads to follow to land: seabirds, coconuts and twigs carried out to sea by the tides, and the afternoon pile-up of clouds on the horizon which often indicates an island in the distance.</p>
+
+<p>For returning explorers, successful or not, the geography of their own archipelagoes would have provided a safety net. Without this to go by, overshooting their home ports, getting lost and sailing off into eternity would have been all too easy. Vanuatu, for example, stretches more than 500 miles in a northwest-southeast trend, its scores of intervisible islands forming a backstop for mariners riding the trade winds home.</p>
+
+<p>All this presupposes one essential detail, says Atholl Anderson, professor of prehistory at the Australian National University: the Lapita had mastered the advanced art of sailing against the wind. 'And there's no proof they could do any such thing,' Anderson says. 'There has been this assumption they did, and people have built canoes to re-create those early voyages based on that assumption. But nobody has any idea what their canoes looked like or how they were rigged.'</p>
+
+<p>Rather than give all the credit to human skill, Anderson invokes the winds of chance. El Niño, the same climate disruption that affects the Pacific today, may have helped scatter the Lapita, Anderson suggests. He points out that climate data obtained from slow-growing corals around the Pacific indicate a series of unusually frequent El Niños around the time of the Lapita expansion. By reversing the regular east-to-west flow of the trade winds for weeks at a time, these 'super El Niños' might have taken the Lapita on long unplanned voyages.</p>
+
+<p>However they did it, the Lapita spread themselves a third of the way across the Pacific, then called it quits for reasons known only to them. Ahead lay the vast emptiness of the central Pacific and perhaps they were too thinly stretched to venture farther. They probably never numbered more than a few thousand in total, and in their rapid migration eastward they encountered hundreds of islands — more than 300 in Fiji alone.</p>
+
             </div>
         </div>
         <div class="questions-column" id="questionsArea">
             <div class="questions-section">
-<h2>Questions 27–34</h2>
-<p><em>Reading Passage 3 has seven sections, A–G.</em><br>
-<em>Which section contains the following information?</em><br>
-<em>Write the correct letter, A–G, in boxes 27–34 on your answer sheet.</em><br>
-<em><strong>NB</strong> You may use any letter more than once.</em></p>
+
+<div class="q-group">
+<h2>Questions 27–31</h2>
+<p><em>Complete the summary using the list of words and phrases, A–J, below.</em><br>
+<em>Write the correct letter, A–J, in boxes 27–31 on your answer sheet.</em></p>
+
+<p style="text-align:center; font-weight:bold; margin:8px 0;">The Éfaté burial site</p>
+
+<p>A 3,000-year-old burial ground of a seafaring people called the Lapita has been found on an abandoned <strong>27</strong> ................. on the Pacific island of Éfaté. The cemetery, which is a significant <strong>28</strong> ................., was uncovered accidentally by an agricultural worker.</p>
+<p>The Lapita explored and colonised many Pacific islands over several centuries. They took many things with them on their voyages including <strong>29</strong> ................. and tools.</p>
+<p>The burial ground increases the amount of information about the Lapita available to scientists. A team of researchers, led by Matthew Spriggs from the Australian National University, are helping with the excavation of the site. Spriggs believes the <strong>30</strong> ................. which was found at the site is very important since it confirms that the <strong>31</strong> ................. found inside are Lapita.</p>
+
+<div style="border:1px solid #ccc; padding:8px; margin:8px 0; display:inline-block;">
+<strong>A</strong> proof&nbsp;&nbsp;&nbsp;
+<strong>B</strong> plantation&nbsp;&nbsp;&nbsp;
+<strong>C</strong> harbour<br>
+<strong>D</strong> bones&nbsp;&nbsp;&nbsp;
+<strong>E</strong> data&nbsp;&nbsp;&nbsp;
+<strong>F</strong> archaeological discovery<br>
+<strong>G</strong> burial urn&nbsp;&nbsp;&nbsp;
+<strong>H</strong> source&nbsp;&nbsp;&nbsp;
+<strong>I</strong> animals&nbsp;&nbsp;&nbsp;
+<strong>J</strong> maps
+</div>
 
 <div class="question-block" id="q27">
-  <p><strong>27.</strong> a reference to books that assume a lack of mathematical knowledge</p>
+  <p><strong>27.</strong></p>
   <div class="answer-row">
-    <input type="text" class="answer-input" name="q27" placeholder="A–G" oninput="updateNavStatus()">
+    <select class="sel-input" name="q27" onchange="updateNavStatus()">
+      <option value="">Select...</option>
+      <option value="A">A — proof</option>
+      <option value="B">B — plantation</option>
+      <option value="C">C — harbour</option>
+      <option value="D">D — bones</option>
+      <option value="E">E — data</option>
+      <option value="F">F — archaeological discovery</option>
+      <option value="G">G — burial urn</option>
+      <option value="H">H — source</option>
+      <option value="I">I — animals</option>
+      <option value="J">J — maps</option>
+    </select>
     <button class="flag-btn" data-q="q27" onclick="toggleFlag(this)">⚑</button>
   </div>
 </div>
+
 <div class="question-block" id="q28">
-  <p><strong>28.</strong> the way in which this is not a typical book about mathematics</p>
+  <p><strong>28.</strong></p>
   <div class="answer-row">
-    <input type="text" class="answer-input" name="q28" placeholder="A–G" oninput="updateNavStatus()">
+    <select class="sel-input" name="q28" onchange="updateNavStatus()">
+      <option value="">Select...</option>
+      <option value="A">A — proof</option>
+      <option value="B">B — plantation</option>
+      <option value="C">C — harbour</option>
+      <option value="D">D — bones</option>
+      <option value="E">E — data</option>
+      <option value="F">F — archaeological discovery</option>
+      <option value="G">G — burial urn</option>
+      <option value="H">H — source</option>
+      <option value="I">I — animals</option>
+      <option value="J">J — maps</option>
+    </select>
     <button class="flag-btn" data-q="q28" onclick="toggleFlag(this)">⚑</button>
   </div>
 </div>
+
 <div class="question-block" id="q29">
-  <p><strong>29.</strong> personal examples of being helped by mathematics</p>
+  <p><strong>29.</strong></p>
   <div class="answer-row">
-    <input type="text" class="answer-input" name="q29" placeholder="A–G" oninput="updateNavStatus()">
+    <select class="sel-input" name="q29" onchange="updateNavStatus()">
+      <option value="">Select...</option>
+      <option value="A">A — proof</option>
+      <option value="B">B — plantation</option>
+      <option value="C">C — harbour</option>
+      <option value="D">D — bones</option>
+      <option value="E">E — data</option>
+      <option value="F">F — archaeological discovery</option>
+      <option value="G">G — burial urn</option>
+      <option value="H">H — source</option>
+      <option value="I">I — animals</option>
+      <option value="J">J — maps</option>
+    </select>
     <button class="flag-btn" data-q="q29" onclick="toggleFlag(this)">⚑</button>
   </div>
 </div>
+
 <div class="question-block" id="q30">
-  <p><strong>30.</strong> examples of people who each had abilities that seemed incompatible</p>
+  <p><strong>30.</strong></p>
   <div class="answer-row">
-    <input type="text" class="answer-input" name="q30" placeholder="A–G" oninput="updateNavStatus()">
+    <select class="sel-input" name="q30" onchange="updateNavStatus()">
+      <option value="">Select...</option>
+      <option value="A">A — proof</option>
+      <option value="B">B — plantation</option>
+      <option value="C">C — harbour</option>
+      <option value="D">D — bones</option>
+      <option value="E">E — data</option>
+      <option value="F">F — archaeological discovery</option>
+      <option value="G">G — burial urn</option>
+      <option value="H">H — source</option>
+      <option value="I">I — animals</option>
+      <option value="J">J — maps</option>
+    </select>
     <button class="flag-btn" data-q="q30" onclick="toggleFlag(this)">⚑</button>
   </div>
 </div>
+
 <div class="question-block" id="q31">
-  <p><strong>31.</strong> mention of different focuses of books about mathematics</p>
+  <p><strong>31.</strong></p>
   <div class="answer-row">
-    <input type="text" class="answer-input" name="q31" placeholder="A–G" oninput="updateNavStatus()">
+    <select class="sel-input" name="q31" onchange="updateNavStatus()">
+      <option value="">Select...</option>
+      <option value="A">A — proof</option>
+      <option value="B">B — plantation</option>
+      <option value="C">C — harbour</option>
+      <option value="D">D — bones</option>
+      <option value="E">E — data</option>
+      <option value="F">F — archaeological discovery</option>
+      <option value="G">G — burial urn</option>
+      <option value="H">H — source</option>
+      <option value="I">I — animals</option>
+      <option value="J">J — maps</option>
+    </select>
     <button class="flag-btn" data-q="q31" onclick="toggleFlag(this)">⚑</button>
   </div>
 </div>
-<div class="question-block" id="q32">
-  <p><strong>32.</strong> a contrast between reading this book and reading other kinds of publication</p>
-  <div class="answer-row">
-    <input type="text" class="answer-input" name="q32" placeholder="A–G" oninput="updateNavStatus()">
-    <button class="flag-btn" data-q="q32" onclick="toggleFlag(this)">⚑</button>
-  </div>
-</div>
-<div class="question-block" id="q33">
-  <p><strong>33.</strong> a claim that the whole of the book is accessible to everybody</p>
-  <div class="answer-row">
-    <input type="text" class="answer-input" name="q33" placeholder="A–G" oninput="updateNavStatus()">
-    <button class="flag-btn" data-q="q33" onclick="toggleFlag(this)">⚑</button>
-  </div>
-</div>
-<div class="question-block" id="q34">
-  <p><strong>34.</strong> a reference to different categories of intended readers of this book</p>
-  <div class="answer-row">
-    <input type="text" class="answer-input" name="q34" placeholder="A–G" oninput="updateNavStatus()">
-    <button class="flag-btn" data-q="q34" onclick="toggleFlag(this)">⚑</button>
-  </div>
 </div>
 
-<h2>Questions 35–40</h2>
-<p><em>Complete the sentences below.</em><br>
-<em>Choose ONE WORD ONLY from the passage for each answer.</em><br>
-<em>Write your answers in boxes 35–40 on your answer sheet.</em></p>
+<div class="q-group">
+<h2>Questions 32–35</h2>
+<p><em>Choose the correct letter, A, B, C or D.</em><br>
+<em>Write the correct letter in boxes 32–35 on your answer sheet.</em></p>
+
+<div class="question-block" id="q32">
+  <p><strong>32.</strong> According to the writer, there are difficulties explaining how the Lapita accomplished their journeys because</p>
+  <div class="mc-options">
+    <label class="mc-row"><input type="radio" name="q32" value="A" onchange="updateNavStatus()"> A the canoes that have been discovered offer relatively few clues.</label>
+    <label class="mc-row"><input type="radio" name="q32" value="B" onchange="updateNavStatus()"> B archaeologists have shown limited interest in this area of research.</label>
+    <label class="mc-row"><input type="radio" name="q32" value="C" onchange="updateNavStatus()"> C little information relating to this period can be relied upon for accuracy.</label>
+    <label class="mc-row"><input type="radio" name="q32" value="D" onchange="updateNavStatus()"> D technological advances have altered the way such achievements are viewed.</label>
+  </div>
+  <div class="answer-row"><button class="flag-btn" data-q="q32" onclick="toggleFlag(this)">⚑</button></div>
+</div>
+
+<div class="question-block" id="q33">
+  <p><strong>33.</strong> According to the sixth paragraph, what was extraordinary about the Lapita?</p>
+  <div class="mc-options">
+    <label class="mc-row"><input type="radio" name="q33" value="A" onchange="updateNavStatus()"> A They sailed beyond the point where land was visible.</label>
+    <label class="mc-row"><input type="radio" name="q33" value="B" onchange="updateNavStatus()"> B Their cultural heritage discouraged the expression of fear.</label>
+    <label class="mc-row"><input type="radio" name="q33" value="C" onchange="updateNavStatus()"> C They were able to build canoes that withstood ocean voyages.</label>
+    <label class="mc-row"><input type="radio" name="q33" value="D" onchange="updateNavStatus()"> D Their navigational skills were passed on from one generation to the next.</label>
+  </div>
+  <div class="answer-row"><button class="flag-btn" data-q="q33" onclick="toggleFlag(this)">⚑</button></div>
+</div>
+
+<div class="question-block" id="q34">
+  <p><strong>34.</strong> What does 'This' refer to in the seventh paragraph?</p>
+  <div class="mc-options">
+    <label class="mc-row"><input type="radio" name="q34" value="A" onchange="updateNavStatus()"> A the Lapita's seafaring talent</label>
+    <label class="mc-row"><input type="radio" name="q34" value="B" onchange="updateNavStatus()"> B the Lapita's ability to detect signs of land</label>
+    <label class="mc-row"><input type="radio" name="q34" value="C" onchange="updateNavStatus()"> C the Lapita's extensive knowledge of the region</label>
+    <label class="mc-row"><input type="radio" name="q34" value="D" onchange="updateNavStatus()"> D the Lapita's belief they would be able to return home</label>
+  </div>
+  <div class="answer-row"><button class="flag-btn" data-q="q34" onclick="toggleFlag(this)">⚑</button></div>
+</div>
 
 <div class="question-block" id="q35">
-  <p><strong>35.</strong> Some areas of both music and mathematics are suitable for someone who is a ....................</p>
-  <div class="answer-row">
-    <input type="text" class="answer-input" name="q35" placeholder="ONE WORD" oninput="updateNavStatus()">
-    <button class="flag-btn" data-q="q35" onclick="toggleFlag(this)">⚑</button>
+  <p><strong>35.</strong> According to the eighth paragraph, how was the geography of the region significant?</p>
+  <div class="mc-options">
+    <label class="mc-row"><input type="radio" name="q35" value="A" onchange="updateNavStatus()"> A It played an important role in Lapita culture.</label>
+    <label class="mc-row"><input type="radio" name="q35" value="B" onchange="updateNavStatus()"> B It meant there were relatively few storms at sea.</label>
+    <label class="mc-row"><input type="radio" name="q35" value="C" onchange="updateNavStatus()"> C It provided a navigational aid for the Lapita.</label>
+    <label class="mc-row"><input type="radio" name="q35" value="D" onchange="updateNavStatus()"> D It made a large number of islands habitable.</label>
   </div>
+  <div class="answer-row"><button class="flag-btn" data-q="q35" onclick="toggleFlag(this)">⚑</button></div>
 </div>
+</div>
+
+<div class="q-group">
+<h2>Questions 36–40</h2>
+<p><em>Do the following statements agree with the views of the writer in Reading Passage 3?</em><br>
+<em>In boxes 36–40 on your answer sheet, write:</em></p>
+<div class="yn-options">
+<strong>YES</strong> &nbsp; if the statement agrees with the views of the writer<br>
+<strong>NO</strong> &nbsp; if the statement contradicts the views of the writer<br>
+<strong>NOT GIVEN</strong> &nbsp; if it is impossible to say what the writer thinks about this
+</div>
+
 <div class="question-block" id="q36">
-  <p><strong>36.</strong> It is sometimes possible to understand advanced mathematics using no more than a limited knowledge of ....................</p>
-  <div class="answer-row">
-    <input type="text" class="answer-input" name="q36" placeholder="ONE WORD" oninput="updateNavStatus()">
-    <button class="flag-btn" data-q="q36" onclick="toggleFlag(this)">⚑</button>
+  <p><strong>36.</strong> It is now clear that the Lapita could sail into a prevailing wind.</p>
+  <div class="yn-options">
+    <label class="yn-row"><input type="radio" name="q36" value="YES" onchange="updateNavStatus()"> YES</label>
+    <label class="yn-row"><input type="radio" name="q36" value="NO" onchange="updateNavStatus()"> NO</label>
+    <label class="yn-row"><input type="radio" name="q36" value="NOT GIVEN" onchange="updateNavStatus()"> NOT GIVEN</label>
   </div>
+  <div class="answer-row"><button class="flag-btn" data-q="q36" onclick="toggleFlag(this)">⚑</button></div>
 </div>
+
 <div class="question-block" id="q37">
-  <p><strong>37.</strong> The writer intends to show that mathematics requires .................... thinking, as well as analytical skills.</p>
-  <div class="answer-row">
-    <input type="text" class="answer-input" name="q37" placeholder="ONE WORD" oninput="updateNavStatus()">
-    <button class="flag-btn" data-q="q37" onclick="toggleFlag(this)">⚑</button>
+  <p><strong>37.</strong> Extreme climate conditions may have played a role in Lapita migration.</p>
+  <div class="yn-options">
+    <label class="yn-row"><input type="radio" name="q37" value="YES" onchange="updateNavStatus()"> YES</label>
+    <label class="yn-row"><input type="radio" name="q37" value="NO" onchange="updateNavStatus()"> NO</label>
+    <label class="yn-row"><input type="radio" name="q37" value="NOT GIVEN" onchange="updateNavStatus()"> NOT GIVEN</label>
   </div>
+  <div class="answer-row"><button class="flag-btn" data-q="q37" onclick="toggleFlag(this)">⚑</button></div>
 </div>
+
 <div class="question-block" id="q38">
-  <p><strong>38.</strong> Some books written by .................... have had to leave out the mathematics that is central to their theories.</p>
-  <div class="answer-row">
-    <input type="text" class="answer-input" name="q38" placeholder="ONE WORD" oninput="updateNavStatus()">
-    <button class="flag-btn" data-q="q38" onclick="toggleFlag(this)">⚑</button>
+  <p><strong>38.</strong> The Lapita learnt to predict the duration of El Niños.</p>
+  <div class="yn-options">
+    <label class="yn-row"><input type="radio" name="q38" value="YES" onchange="updateNavStatus()"> YES</label>
+    <label class="yn-row"><input type="radio" name="q38" value="NO" onchange="updateNavStatus()"> NO</label>
+    <label class="yn-row"><input type="radio" name="q38" value="NOT GIVEN" onchange="updateNavStatus()"> NOT GIVEN</label>
   </div>
+  <div class="answer-row"><button class="flag-btn" data-q="q38" onclick="toggleFlag(this)">⚑</button></div>
 </div>
+
 <div class="question-block" id="q39">
-  <p><strong>39.</strong> The writer advises non-mathematical readers to perform .................... while reading the book.</p>
-  <div class="answer-row">
-    <input type="text" class="answer-input" name="q39" placeholder="ONE WORD" oninput="updateNavStatus()">
-    <button class="flag-btn" data-q="q39" onclick="toggleFlag(this)">⚑</button>
+  <p><strong>39.</strong> It remains unclear why the Lapita halted their expansion across the Pacific.</p>
+  <div class="yn-options">
+    <label class="yn-row"><input type="radio" name="q39" value="YES" onchange="updateNavStatus()"> YES</label>
+    <label class="yn-row"><input type="radio" name="q39" value="NO" onchange="updateNavStatus()"> NO</label>
+    <label class="yn-row"><input type="radio" name="q39" value="NOT GIVEN" onchange="updateNavStatus()"> NOT GIVEN</label>
   </div>
+  <div class="answer-row"><button class="flag-btn" data-q="q39" onclick="toggleFlag(this)">⚑</button></div>
 </div>
+
 <div class="question-block" id="q40">
-  <p><strong>40.</strong> A lawyer found that studying .................... helped even more than other areas of mathematics in the study of law.</p>
-  <div class="answer-row">
-    <input type="text" class="answer-input" name="q40" placeholder="ONE WORD" oninput="updateNavStatus()">
-    <button class="flag-btn" data-q="q40" onclick="toggleFlag(this)">⚑</button>
+  <p><strong>40.</strong> It is likely that the majority of Lapita settled on Fiji.</p>
+  <div class="yn-options">
+    <label class="yn-row"><input type="radio" name="q40" value="YES" onchange="updateNavStatus()"> YES</label>
+    <label class="yn-row"><input type="radio" name="q40" value="NO" onchange="updateNavStatus()"> NO</label>
+    <label class="yn-row"><input type="radio" name="q40" value="NOT GIVEN" onchange="updateNavStatus()"> NOT GIVEN</label>
   </div>
+  <div class="answer-row"><button class="flag-btn" data-q="q40" onclick="toggleFlag(this)">⚑</button></div>
+</div>
 </div>
 
             </div>
@@ -209,8 +351,8 @@
             <span class="nav-label">Q:</span>
         </div>
         <div class="btn-bar">
-            <a href="reading-passage2-C11T3.html" class="nav-btn prev-btn">← Passage 2</a>
-            <a href="../../library.html" class="nav-btn lib-btn">🏠 Library</a>
+            <a href="reading-passage2-C10T3.html" class="nav-btn prev-btn">← Passage 2</a>
+            <a href="../library.html" class="nav-btn lib-btn">🏠 Library</a>
             <button class="check-btn" onclick="checkAnswers()">✅ Check Answers</button>
             <button class="clear-btn" onclick="clearAllData()">🗑️ Clear All</button>
         </div>
@@ -263,11 +405,20 @@ function toggleFlag(btn) {
     }
     updateNavStatus();
 }
+function getAnswerValue(qNum) {
+    const qEl = document.getElementById('q'+qNum);
+    if (!qEl) return '';
+    const select = qEl.querySelector('select');
+    if (select) return (select.value || '').trim().toUpperCase();
+    const radio = qEl.querySelector('input[type="radio"]:checked');
+    if (radio) return (radio.value || '').trim().toUpperCase();
+    return '';
+}
 function updateNavStatus() {
     for (let q = PASSAGE3_RANGE.start; q <= PASSAGE3_RANGE.end; q++) {
-        const input = document.querySelector(`input[name="q${q}"]`);
+        const val = getAnswerValue(q);
         const navBtn = document.getElementById('nav' + q);
-        const isAnswered = input && input.value.trim() !== '';
+        const isAnswered = val !== '';
         const isFlagged = flaggedQs.has(q);
         if (navBtn) {
             navBtn.classList.toggle('answered', isAnswered);
@@ -277,7 +428,8 @@ function updateNavStatus() {
 }
 function clearAllData() {
     if (!confirm('Clear ALL answers, highlights, notes and flags? This cannot be undone!')) return;
-    document.querySelectorAll('.answer-input').forEach(input => { input.value = ''; });
+    document.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
     document.querySelectorAll('.highlight').forEach(span => {
         const textNode = document.createTextNode(span.textContent);
         span.parentNode.replaceChild(textNode, span);
@@ -291,27 +443,14 @@ function clearAllData() {
 }
 function checkAnswers() {
     const ANSWERS = {
-        27: 'B',
-        28: 'D',
-        29: 'G',
-        30: 'E',
-        31: 'D',
-        32: 'G',
-        33: 'A',
-        34: 'F',
-        35: 'BEGINNER',
-        36: 'ARITHMETIC',
-        37: 'INTUITIVE',
-        38: 'SCIENTISTS',
-        39: 'EXPERIMENTS',
-        40: 'THEOREMS'
+        27: 'B', 28: 'F', 29: 'I', 30: 'G', 31: 'D',
+        32: 'C', 33: 'A', 34: 'D', 35: 'C',
+        36: 'NO', 37: 'YES', 38: 'NOT GIVEN', 39: 'YES', 40: 'NOT GIVEN'
     };
     let correct = 0, total = PASSAGE3_RANGE.end - PASSAGE3_RANGE.start + 1;
     for (let q = PASSAGE3_RANGE.start; q <= PASSAGE3_RANGE.end; q++) {
-        const input = document.querySelector(`input[name="q${q}"]`);
-        if (!input) continue;
-        const val = input.value.trim().toUpperCase().replace(/\s+/g,'');
-        const ans = (ANSWERS[q] || '').toUpperCase().replace(/\s+/g,'');
+        const val = getAnswerValue(q);
+        const ans = (ANSWERS[q] || '').toUpperCase();
         if (val === ans) correct++;
     }
     const pct = Math.round((correct / total) * 100);
@@ -330,7 +469,7 @@ function isSelectionValid(sel) {
         let p = r.commonAncestorContainer;
         p = p.nodeType === Node.TEXT_NODE ? p.parentElement : p;
         const inArea = document.getElementById('passageArea').contains(p) || document.getElementById('questionsArea').contains(p);
-        const inInput = p.closest('input, textarea, button, select') !== null;
+        const inInput = p.closest('input, textarea, button, select, label') !== null;
         return inArea && !inInput;
     } catch { return false; }
 }
