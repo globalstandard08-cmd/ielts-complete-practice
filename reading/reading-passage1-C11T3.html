@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge 11 Test 3 — Reading Passage 1</title>
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif;}
+        body {background-color: #fef2f2; color: #1a1a1a; line-height: 1.6;}
+        .logo-container {width: 100%; background: #ffffff; border-bottom: 2px solid #dc2626; padding: 4px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 6px;}
+        .logo {width: 22%; max-width: 180px; height: auto; display: block;}
+        .main-wrapper {display: flex; gap: 12px; padding: 0 12px 8px; height: calc(100vh - 140px);}
+        .passage-column, .questions-column {flex: 1; background: #ffffff; border-radius: 10px; border: 1px solid #fecaca; padding: 14px; overflow-y: auto;}
+        h1 {color: #dc2626; font-size: 17px; margin-bottom: 2px; text-align: center;}
+        h2.subtitle {color: #7f1d1d; font-size: 13px; text-align: center; margin-bottom: 12px; font-weight: 500;}
+        .passage-text p {margin-bottom: 12px; font-size: 14.5px; line-height: 1.75;}
+        .passage-text strong {color: #b91c1c;}
+        .highlight {background-color: #ffd700; padding: 1px 3px; border-radius: 2px; display: inline; color: #000;}
+        .questions-section h2 {color: #991b1b; font-size: 16px; margin: 14px 0 8px; border-bottom: 1px solid #fecaca; padding-bottom: 3px;}
+        .question-block {margin-bottom: 14px; scroll-margin-top: 12px;}
+        .question-block p {font-weight: 500; margin-bottom: 6px; font-size: 14px; line-height: 1.6;}
+        .answer-row {display: flex; align-items: center; gap: 8px; margin-top: 4px;}
+        .answer-input {flex: 1; max-width: 220px; padding: 6px 10px; border: 1px solid #fecaca; border-radius: 6px; font-size: 14px; background: #fef2f2; text-transform: uppercase;}
+        .flag-btn {padding: 4px 8px; border-radius: 4px; border: 1px solid #ccc; background: #f3f4f6; cursor: pointer; font-size: 12px;}
+        .flag-btn.flagged {background: #fef08a; border-color: #eab308; color: #854d0e; font-weight: bold;}
+        .yn-options {margin: 6px 0 10px 20px; font-size: 14px; line-height: 1.8;}
+        .context-menu {position: absolute; background: #ffffff; border: 1px solid #bbb; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 160px;}
+        .context-menu div {padding: 10px 14px; cursor: pointer; font-size: 14px;}
+        .context-menu div:hover {background: #fef2f2;}
+        .sticky-note {position: absolute; width: 170px; min-height: 65px; background: #fff380; border: 1px solid #e6c200; border-radius: 4px; padding: 6px; box-shadow: 3px 3px 8px rgba(0,0,0,0.15); z-index: 9998; font-size: 12px; user-select: none; cursor: move;}
+        .note-header {display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00;}
+        .note-close {cursor: pointer; font-weight: bold; color: #886a00; user-select: none; font-size: 14px; line-height: 1;}
+        .note-textarea {width: 100%; height: 48px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px;}
+        .bottom-container {margin: 8px 12px 16px; padding: 8px 10px; background: #ffffff; border-radius: 8px; border: 1px solid #fecaca;}
+        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 1px; margin-bottom: 8px;}
+        .nav-label {font-weight: 600; color: #991b1b; font-size: 11px; margin-right: 4px;}
+        .q-indicator {width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 10px; cursor: pointer; transition: all 0.2s;}
+        .q-indicator:hover {opacity: 0.85;}
+        .q-indicator.answered {background: #198754; color: #ffffff; border-color: #198754;}
+        .q-indicator.flagged {outline: 2px solid #eab308; outline-offset: 1px;}
+        .q-indicator.current {border: 2px solid #dc2626;}
+        .q-indicator.passage-gap {margin-left: 6px; background: #fef2f2; border: none; color: #991b1b; font-weight: bold; font-size: 9px;}
+        .q-indicator.future {opacity: 0.45; cursor: not-allowed;}
+        .btn-bar {display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 4px;}
+        .nav-btn, .check-btn, .clear-btn {padding: 5px 10px; text-decoration: none; border-radius: 5px; border: 1px solid; font-weight: 500; font-size: 12px; display: inline-block; cursor: pointer;}
+        .prev-btn {background: #fef2f2; color: #dc2626; border-color: #fecaca;}
+        .prev-btn:hover {background: #ffffff;}
+        .next-btn {background: #dc2626; color: #ffffff; border-color: #dc2626;}
+        .next-btn:hover {background: #b91c1c;}
+        .lib-btn {background: #e5e7eb; color: #374151; border-color: #ccc;}
+        .lib-btn:hover {background: #dcdcdc;}
+        .check-btn {background: #e0f2fe; color: #0369a1; border-color: #bae6fd;}
+        .check-btn:hover {background: #bae6fd;}
+        .clear-btn {background: #fff0f0; color: #b91c1c; border-color: #fecaca;}
+        .clear-btn:hover {background: #ffe0e0;}
+        .result-bar {margin-top: 6px; padding: 6px 10px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 5px; color: #166534; font-size: 13px; display: none;}
+        em {color: #555;}
+        ul {margin: 6px 0 6px 24px;}
+        li {margin-bottom: 4px; font-size: 14px;}
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
+    </div>
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight Selection</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+    </div>
+    <div class="main-wrapper">
+        <div class="passage-column" id="passageArea">
+            <h1>Reading Passage 1</h1>
+            <h2 class="subtitle">The story of silk — The history of the world's most luxurious fabric, from ancient China to the present day</h2>
+            <div class="passage-text">
+<p>Silk is a fine, smooth material produced from the cocoons — soft protective shells — that are made by mulberry silkworms (insect larvae). Legend has it that it was Lei Tzu, wife of the Yellow Emperor, ruler of China in about 3000 BC, who discovered silkworms. One account of the story goes that as she was taking a walk in her husband's gardens, she discovered that silkworms were responsible for the destruction of several mulberry trees. She collected a number of cocoons and sat down to have a rest. It just so happened that while she was sipping some tea, one of the cocoons that she had collected landed in the hot tea and started to unravel into a fine thread. Lei Tzu found that she could wind this thread around her finger. Subsequently, she persuaded her husband to allow her to rear silkworms on a grove of mulberry trees. She also devised a special reel to draw the fibres from the cocoon into a single thread so that they would be strong enough to be woven into fabric. While it is unknown just how much of this is true, it is certainly known that silk cultivation has existed in China for several millennia.</p>
+<p>Originally, silkworm farming was solely restricted to women, and it was they who were responsible for the growing, harvesting and weaving. Silk quickly grew into a symbol of status, and originally, only royalty were entitled to have clothes made of silk. The rules were gradually relaxed over the years until finally during the Qing Dynasty (1644–1911 AD), even peasants, the lowest caste, were also entitled to wear silk. Sometime during the Han Dynasty (206 BC–220 AD), silk was so prized that it was also used as a form of currency. Government officials were paid their salary in silk, and farmers paid their taxes in grain and silk. Silk was also used as diplomatic gifts by the emperor. Fishing lines, bowstrings, musical instruments and paper were all made using silk. The earliest indication of silk paper being used was discovered in the tomb of a noble who is estimated to have died around 168 AD.</p>
+<p>Demand for this exotic fabric eventually created the lucrative trade route now known as the Silk Road, taking silk westward and bringing gold, silver and wool to the East. It was named the Silk Road after its most precious commodity, which was considered to be worth more than gold. The Silk Road stretched over 6,000 kilometres from Eastern China to the Mediterranean Sea, following the Great Wall of China, climbing the Pamir mountain range, crossing modern-day Afghanistan and going on to the Middle East, with a major trading market in Damascus. From there, the merchandise was shipped across the Mediterranean Sea. Few merchants travelled the entire route; goods were handled mostly by a series of middlemen.</p>
+<p>With the mulberry silkworm being native to China, the country was the world's sole producer of silk for many hundreds of years. The secret of silk-making eventually reached the rest of the world via the Byzantine Empire, which ruled over the Mediterranean region of southern Europe, North Africa and the Middle East during the period 330–1453 AD. According to another legend, monks working for the Byzantine emperor Justinian smuggled silkworm eggs to Constantinople (Istanbul in modern-day Turkey) in 550 AD, concealed inside hollow bamboo walking canes. The Byzantines were as secretive as the Chinese, however, and for many centuries the weaving and trading of silk fabric was a strict imperial monopoly. Then in the seventh century, the Arabs conquered Persia, capturing their magnificent silks in the process. Silk production thus spread through Africa, Sicily and Spain as the Arabs swept through these lands. Andalusia in southern Spain was Europe's main silk-producing centre in the tenth century. By the thirteenth century, however, Italy had become Europe's leader in silk production and export. Venetian merchants traded extensively in silk and encouraged silkgrowers to settle in Italy. Even now, silk produced in the province of Como in northern Italy still enjoys an esteemed reputation.</p>
+<p>The nineteenth century and industrialisation saw the downfall of the European silk industry. Cheaper Japanese silk, trade in which was greatly facilitated by the opening of the Suez Canal, was one of the many factors driving the trend. Then in the twentieth century, new manmade fibres, such as nylon, started to be used in what had traditionally been silk products, such as stockings and parachutes. The two world wars, which interrupted the supply of raw material from Japan, also stifled the European silk industry. After the Second World War, Japan's silk production was restored, with improved production and quality of raw silk. Japan was to remain the world's biggest producer of raw silk, and practically the only major exporter of raw silk, until the 1970s. However, in more recent decades, China has gradually recaptured its position as the world's biggest producer and exporter of raw silk and silk yarn. Today, around 125,000 metric tons of silk are produced in the world, and almost two thirds of that production takes place in China.</p>
+            </div>
+        </div>
+        <div class="questions-column" id="questionsArea">
+            <div class="questions-section">
+<h2>Questions 1–9</h2>
+<p><em>Complete the notes below.</em><br>
+<em>Choose ONE WORD ONLY from the passage for each answer.</em><br>
+<em>Write your answers in boxes 1–9 on your answer sheet.</em></p>
+
+<h3 style="margin:10px 0 6px; color:#b91c1c;">THE STORY OF SILK</h3>
+<p style="font-weight:bold; margin:8px 0 4px;">Early silk production in China</p>
+<ul>
+<li>Around 3000 BC, according to legend:
+  <ul style="margin-left:18px;">
+  <li>silkworm cocoon fell into emperor's wife's <strong>1</strong> ....................</li>
+  <li>emperor's wife invented a <strong>2</strong> .................... to pull out silk fibres</li>
+  </ul>
+</li>
+<li>Only <strong>3</strong> .................... were allowed to produce silk</li>
+<li>Only <strong>4</strong> .................... were allowed to wear silk</li>
+<li>Silk used as a form of <strong>5</strong> ....................
+  <ul style="margin-left:18px;">
+  <li>e.g. farmers' taxes consisted partly of silk</li>
+  </ul>
+</li>
+<li>Silk used for many purposes
+  <ul style="margin-left:18px;">
+  <li>e.g. evidence found of <strong>6</strong> .................... made from silk around 168 AD</li>
+  </ul>
+</li>
+</ul>
+
+<p style="font-weight:bold; margin:10px 0 4px;">Silk reaches rest of world</p>
+<ul>
+<li>Merchants use Silk Road to take silk westward and bring back <strong>7</strong> .................... and precious metals</li>
+<li>550 AD: <strong>8</strong> .................... hide silkworm eggs in canes and take them to Constantinople</li>
+<li>Silk production spreads across Middle East and Europe</li>
+<li>20th century: <strong>9</strong> .................... and other manmade fibres cause decline in silk production</li>
+</ul>
+
+<div class="question-block" id="q1">
+  <p><strong>1.</strong></p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q1" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q1" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q2">
+  <p><strong>2.</strong></p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q2" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q2" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q3">
+  <p><strong>3.</strong></p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q3" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q3" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q4">
+  <p><strong>4.</strong></p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q4" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q4" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q5">
+  <p><strong>5.</strong></p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q5" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q5" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q6">
+  <p><strong>6.</strong></p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q6" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q6" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q7">
+  <p><strong>7.</strong></p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q7" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q7" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q8">
+  <p><strong>8.</strong></p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q8" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q8" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q9">
+  <p><strong>9.</strong></p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q9" placeholder="ONE WORD" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q9" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+
+<h2>Questions 10–13</h2>
+<p><em>Do the following statements agree with the information in Reading Passage 1?</em><br>
+<em>In boxes 10–13 on your answer sheet, write</em></p>
+<div class="yn-options">
+<strong>TRUE</strong> &nbsp; if the statement agrees with the information<br>
+<strong>FALSE</strong> &nbsp; if the statement contradicts the information<br>
+<strong>NOT GIVEN</strong> &nbsp; if there is no information on this
+</div>
+
+<div class="question-block" id="q10">
+  <p><strong>10.</strong> Gold was the most valuable material transported along the Silk Road.</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q10" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q10" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q11">
+  <p><strong>11.</strong> Most tradesmen only went along certain sections of the Silk Road.</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q11" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q11" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q12">
+  <p><strong>12.</strong> The Byzantines spread the practice of silk production across the West.</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q12" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q12" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+<div class="question-block" id="q13">
+  <p><strong>13.</strong> Silk yarn makes up the majority of silk currently exported from China.</p>
+  <div class="answer-row">
+    <input type="text" class="answer-input" name="q13" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+    <button class="flag-btn" data-q="q13" onclick="toggleFlag(this)">⚑</button>
+  </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+    <div class="bottom-container">
+        <div class="question-nav" id="questionNav">
+            <span class="nav-label">Q:</span>
+        </div>
+        <div class="btn-bar">
+            <a href="../index.html" class="nav-btn lib-btn">🏠 Back to Library</a>
+            <a href="reading-passage2-C11T3.html" class="nav-btn next-btn">Passage 2 →</a>
+            <button class="check-btn" onclick="checkAnswers()">✅ Check Answers</button>
+            <button class="clear-btn" onclick="clearAllData()">🗑️ Clear All</button>
+        </div>
+        <div class="result-bar" id="resultBar"></div>
+    </div>
+<script>
+const TOTAL_QUESTIONS = 40;
+const PASSAGE1_RANGE = { start: 1, end: 13 };
+let lastNoteId = 0;
+const flaggedQs = new Set();
+
+function initQuestionNav() {
+    const navContainer = document.getElementById('questionNav');
+    navContainer.innerHTML = '<span class="nav-label">Q:</span>';
+    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+        if (i === 14) addGapLabel(navContainer, 'P2');
+        if (i === 27) addGapLabel(navContainer, 'P3');
+        const btn = document.createElement('div');
+        btn.className = 'q-indicator';
+        btn.textContent = i;
+        btn.id = 'nav' + i;
+        if (i > PASSAGE1_RANGE.end) {
+            btn.classList.add('future');
+        } else {
+            btn.onclick = () => jumpToQuestion(i);
+        }
+        navContainer.appendChild(btn);
+    }
+}
+
+function addGapLabel(container, label) {
+    const gap = document.createElement('div');
+    gap.className = 'q-indicator passage-gap';
+    gap.textContent = label;
+    container.appendChild(gap);
+}
+
+function jumpToQuestion(qNum) {
+    document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
+    document.getElementById('nav' + qNum)?.classList.add('current');
+    document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function toggleFlag(btn) {
+    const qName = btn.dataset.q;
+    const qNum = parseInt(qName.replace('q',''));
+    if (flaggedQs.has(qNum)) {
+        flaggedQs.delete(qNum);
+        btn.classList.remove('flagged');
+    } else {
+        flaggedQs.add(qNum);
+        btn.classList.add('flagged');
+    }
+    updateNavStatus();
+}
+
+function updateNavStatus() {
+    for (let q = PASSAGE1_RANGE.start; q <= PASSAGE1_RANGE.end; q++) {
+        const input = document.querySelector(`input[name="q${q}"]`);
+        const navBtn = document.getElementById('nav' + q);
+        const isAnswered = input && input.value.trim() !== '';
+        const isFlagged = flaggedQs.has(q);
+        if (navBtn) {
+            navBtn.classList.toggle('answered', isAnswered);
+            navBtn.classList.toggle('flagged', isFlagged);
+        }
+    }
+}
+
+function clearAllData() {
+    if (!confirm('Clear ALL answers, highlights, notes and flags? This cannot be undone!')) return;
+    document.querySelectorAll('.answer-input').forEach(input => { input.value = ''; });
+    document.querySelectorAll('.highlight').forEach(span => {
+        const textNode = document.createTextNode(span.textContent);
+        span.parentNode.replaceChild(textNode, span);
+        textNode.parentNode.normalize();
+    });
+    document.querySelectorAll('.sticky-note').forEach(note => note.remove());
+    document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('flagged'));
+    flaggedQs.clear();
+    document.getElementById('resultBar').style.display = 'none';
+    updateNavStatus();
+}
+
+function checkAnswers() {
+    const ANSWERS = {
+        1: 'tea',
+        2: 'reel',
+        3: 'women',
+        4: 'royalty',
+        5: 'currency',
+        6: 'paper',
+        7: 'gold',
+        8: 'monks',
+        9: 'nylon',
+        10: 'FALSE',
+        11: 'TRUE',
+        12: 'FALSE',
+        13: 'NOT GIVEN'
+    };
+    let correct = 0, total = PASSAGE1_RANGE.end;
+    for (let q = PASSAGE1_RANGE.start; q <= PASSAGE1_RANGE.end; q++) {
+        const input = document.querySelector(`input[name="q${q}"]`);
+        if (!input) continue;
+        const val = input.value.trim().toUpperCase().replace(/\s+/g,'');
+        const ans = ANSWERS[q].toUpperCase().replace(/\s+/g,'');
+        if (val === ans) correct++;
+    }
+    const pct = Math.round((correct / total) * 100);
+    const bar = document.getElementById('resultBar');
+    bar.style.display = 'block';
+    bar.innerHTML = `✅ <strong>${correct} / ${total} correct — ${pct}%</strong> (Answers are not shown)`;
+}
+
+// --- Highlight & Notes Context Menu ---
+const contextMenu = document.getElementById('contextMenu');
+let currentRange = null;
+let draggedNote = null, offsetX = 0, offsetY = 0;
+
+function isSelectionValid(sel) {
+    if (!sel || sel.isCollapsed || sel.toString().trim() === '') return false;
+    try {
+        const r = sel.getRangeAt(0);
+        let p = r.commonAncestorContainer;
+        p = p.nodeType === Node.TEXT_NODE ? p.parentElement : p;
+        const inArea = document.getElementById('passageArea').contains(p) || document.getElementById('questionsArea').contains(p);
+        const inInput = p.closest('input, textarea, button, select') !== null;
+        return inArea && !inInput;
+    } catch { return false; }
+}
+
+document.addEventListener('contextmenu', e => {
+    const sel = window.getSelection();
+    if (!isSelectionValid(sel)) { contextMenu.style.display = 'none'; return; }
+    e.preventDefault();
+    currentRange = sel.getRangeAt(0).cloneRange();
+    const rc = currentRange.getBoundingClientRect();
+    contextMenu.style.left = (rc.left + window.scrollX) + 'px';
+    contextMenu.style.top = (rc.bottom + window.scrollY + 8) + 'px';
+    contextMenu.style.display = 'block';
+});
+
+document.addEventListener('click', () => { contextMenu.style.display = 'none'; currentRange = null; });
+
+document.getElementById('menuHighlight').onclick = () => {
+    if (!currentRange) return;
+    try {
+        const span = document.createElement('span');
+        span.className = 'highlight';
+        span.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(span);
+        window.getSelection().removeAllRanges();
+    } catch { alert('Please select less text to highlight.'); }
+};
+
+document.getElementById('menuRemove').onclick = () => {
+    if (!currentRange) return;
+    try {
+        const selectedText = currentRange.toString().trim();
+        if (!selectedText) return;
+        document.querySelectorAll('.highlight').forEach(span => {
+            if (span.textContent.trim() === selectedText || span.textContent.includes(selectedText)) {
+                const textNode = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(textNode, span);
+                textNode.parentNode.normalize();
+            }
+        });
+        window.getSelection().removeAllRanges();
+        currentRange = null;
+    } catch { alert('Could not remove highlight.'); }
+};
+
+document.getElementById('menuNote').onclick = () => {
+    if (!currentRange) return;
+    const rc = currentRange.getBoundingClientRect();
+    const noteId = 'note_' + (++lastNoteId);
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.id = noteId;
+    note.style.left = (rc.right + window.scrollX + 10) + 'px';
+    note.style.top = (rc.top + window.scrollY) + 'px';
+    note.innerHTML = `<div class="note-header" onmousedown="startDrag(event, '${noteId}')">Note <span class="note-close" onclick="document.getElementById('${noteId}').remove()">×</span></div><textarea class="note-textarea" placeholder="Type your note..."></textarea>`;
+    document.body.appendChild(note);
+    window.getSelection().removeAllRanges();
+};
+
+window.startDrag = function(e, noteId) {
+    draggedNote = document.getElementById(noteId);
+    const rect = draggedNote.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+    document.addEventListener('mousemove', onDrag);
+    document.addEventListener('mouseup', endDrag);
+};
+function onDrag(e) {
+    if (!draggedNote) return;
+    draggedNote.style.left = (e.pageX - offsetX) + 'px';
+    draggedNote.style.top = (e.pageY - offsetY) + 'px';
+}
+function endDrag() {
+    draggedNote = null;
+    document.removeEventListener('mousemove', onDrag);
+    document.removeEventListener('mouseup', endDrag);
+}
+
+window.onload = initQuestionNav;
+</script>
+</body>
+</html>
