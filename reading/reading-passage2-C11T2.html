@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge 11 Test 2 — Reading Passage 2</title>
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif;}
+        body {background-color: #fef2f2; color: #1a1a1a; line-height: 1.6;}
+
+        .logo-container {width: 100%; background: #ffffff; border-bottom: 2px solid #dc2626; padding: 4px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 6px;}
+        .logo {width: 22%; max-width: 180px; height: auto; display: block;}
+
+        .main-wrapper {display: flex; gap: 12px; padding: 0 12px 8px; height: calc(100vh - 130px);}
+        .passage-column, .questions-column {flex: 1; background: #ffffff; border-radius: 10px; border: 1px solid #fecaca; padding: 14px; overflow-y: auto;}
+        h1 {color: #dc2626; font-size: 17px; margin-bottom: 2px; text-align: center;}
+        h2.subtitle {color: #7f1d1d; font-size: 13px; text-align: center; margin-bottom: 12px; font-weight: 500;}
+        .passage-text p {margin-bottom: 12px; font-size: 14.5px; line-height: 1.75;}
+        .passage-text strong {color: #b91c1c;}
+        .passage-text .letter {font-weight: bold; color: #dc2626; display: inline-block; min-width: 22px;}
+        .highlight {background-color: #ffd700; padding: 1px 3px; border-radius: 2px; display: inline; color: #000;}
+        .questions-section h2 {color: #991b1b; font-size: 16px; margin: 14px 0 8px; border-bottom: 1px solid #fecaca; padding-bottom: 3px;}
+        .question-block {margin-bottom: 14px; scroll-margin-top: 12px;}
+        .question-block p {font-weight: 500; margin-bottom: 6px; font-size: 14px; line-height: 1.6;}
+        .answer-input {width: 100%; max-width: 280px; padding: 6px 10px; border: 1px solid #fecaca; border-radius: 6px; font-size: 14px; background: #fef2f2;}
+        table {width: 100%; border-collapse: collapse; margin: 8px 0;}
+        table, th, td {border: 1px solid #ddd;}
+        th, td {padding: 7px 9px; font-size: 14px; vertical-align: top;}
+        .list-headings {background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px 14px; margin: 10px 0;}
+        .list-headings p {margin: 4px 0; font-size: 13.5px;}
+        .context-menu {position: absolute; background: #ffffff; border: 1px solid #bbb; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 160px;}
+        .context-menu div {padding: 10px 14px; cursor: pointer; font-size: 14px;}
+        .context-menu div:hover {background: #fef2f2;}
+        .sticky-note {position: absolute; width: 170px; min-height: 65px; background: #fff380; border: 1px solid #e6c200; border-radius: 4px; padding: 6px; box-shadow: 3px 3px 8px rgba(0,0,0,0.15); z-index: 9998; font-size: 12px; user-select: none;}
+        .note-header {display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00; cursor: move;}
+        .note-close {cursor: pointer; font-weight: bold; color: #886a00; user-select: none; font-size: 14px; line-height: 1;}
+        .note-textarea {width: 100%; height: 48px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px;}
+        .bottom-container {margin: 8px 12px 16px; padding: 10px; background: #ffffff; border-radius: 8px; border: 1px solid #fecaca;}
+        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 2px; margin-bottom: 10px;}
+        .nav-label {font-weight: 600; color: #991b1b; font-size: 12px; margin-right: 4px;}
+        .q-indicator {width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 11px; cursor: pointer; transition: all 0.2s;}
+        .q-indicator:hover {opacity: 0.85;}
+        .q-indicator.answered {background: #198754; color: #ffffff; border-color: #198754;}
+        .q-indicator.current {border: 2px solid #dc2626;}
+        .q-indicator.passage-gap {margin-left: 8px; background: #fef2f2; border: none; color: #991b1b; font-weight: bold; font-size: 10px;}
+        .q-indicator.future {opacity: 0.45; cursor: not-allowed;}
+        .btn-group {display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap;}
+        .prev-btn, .next-btn, .back-btn, .clear-btn {padding: 7px 14px; text-decoration: none; border-radius: 6px; border: 1px solid; font-weight: 500; font-size: 13px; display: inline-block; cursor: pointer;}
+        .prev-btn {background: #fef2f2; color: #dc2626; border-color: #fecaca;}
+        .prev-btn:hover {background: #ffffff;}
+        .next-btn {background: #dc2626; color: #ffffff; border-color: #dc2626;}
+        .next-btn:hover {background: #b91c1c;}
+        .back-btn {background: #fef2f2; color: #dc2626; border-color: #fecaca;}
+        .back-btn:hover {background: #ffffff;}
+        .clear-btn {background: #fff0f0; color: #b91c1c; border-color: #fecaca;}
+        .clear-btn:hover {background: #ffe0e0;}
+        em {color: #555;}
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
+    </div>
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight Selection</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+    </div>
+    <div class="main-wrapper">
+        <div class="passage-column" id="passageArea">
+            <h1>Reading Passage 2</h1>
+            <h2 class="subtitle">What destroyed the civilisation of Easter Island?</h2>
+            <div class="passage-text">
+
+<p><span class="letter">A</span> Easter Island, or Rapa Nui as it is known locally, is home to several hundred ancient human statues — the moai. After this remote Pacific island was settled by the Polynesians, it remained isolated for centuries. All the energy and resources that went into the moai — some of which are ten metres tall and weigh over 7,000 kilos — came from the island itself. Yet when Dutch explorers landed in 1722, they met a Stone Age culture. The moai were carved with stone tools, then transported for many kilometres, without the use of animals or wheels, to massive stone platforms. The identity of the moai builders was in doubt until well into the twentieth century. Thor Heyerdahl, the Norwegian ethnographer and adventurer, thought the statues had been created by pre-Inca peoples from Peru. Better known as Swiss author Erich von Däniken, they were built by stranded extraterrestrials. Modern science — linguistic, archaeological and genetic evidence — has definitively proved the moai builders were Polynesians, but not how they moved their creations. Local folklore maintains that the statues walked, while researchers have tended to assume the ancestors dragged the statues somehow, using ropes and logs.</p>
+
+<p><span class="letter">B</span> When the Europeans arrived, Rapa Nui was grassland, with only a few scrawny trees. In the 1970s and 1980s, though, researchers found pollen preserved in lake sediments, which proved the island had been covered in lush palm forests for thousands of years. Only after the Polynesians arrived did those forests disappear. US scientist Jared Diamond believes that the Rapanui people — descendants of Polynesian settlers — wrecked their own environment. They had unfortunately settled on an extremely fragile island — dry, cool, and too remote to be properly fertilised by windblown volcanic ash. When the islanders cleared the forests for firewood and farming, the forests didn't grow back. As trees became scarce, they could no longer construct wooden canoes for fishing, they ate birds. Soil erosion decreased their crop yields. Before Europeans arrived, the Rapanui had descended into civil war and cannibalism, he maintains. The collapse of their isolated civilisation, Diamond writes, is a 'worst-case scenario for what may lie ahead of us in our own future'.</p>
+
+<p><span class="letter">C</span> The moai, he thinks, accelerated the self-destruction. Diamond interprets them as power displays by rival chieftains, who, trapped on a remote little island, lacked other ways of asserting their dominance. They competed by building ever bigger figures. Diamond thinks they laid the moai on wooden sledges, hauled over log rails, but that required both a lot of wood and a lot of people. To build the biggest moai, even more land had to be cleared. When the wood was gone and civil war began, the islanders began toppling the moai. By the nineteenth century none were standing.</p>
+
+<p><span class="letter">D</span> Archaeologists Terry Hunt of the University of Hawaii and Carl Lipo of California State University agree that Easter Island lost its lush forests and that it was an 'ecological catastrophe' — but they believe the islanders themselves weren't to blame. And the moai certainly weren't. Archaeological excavations indicate that the Rapanui went to heroic efforts to protect the resources of their wind-lashed, infertile fields. They built thousands of circular stone windbreaks and gardened inside them, and used broken volcanic rocks to keep the soil moist. In short, Hunt and Lipo argue, the prehistoric Rapanui were pioneers of sustainable farming.</p>
+
+<p><span class="letter">E</span> Hunt and Lipo contend that moai-building was an activity that helped keep the peace between islanders. They also believe that moving the moai required few people and no wood, because they were walked upright. On that issue, Hunt and Lipo say, archaeological evidence backs up Rapanui folklore. Recent experiments indicate that as few as 18 people could, with three strong ropes and a bit of practice, easily manoeuvre a 1,000 kg moai replica a few hundred metres. The figures' fat bellies tilted them forward, and a D-shaped base allowed handlers to roll and rock them side to side.</p>
+
+<p><span class="letter">F</span> Moreover, Hunt and Lipo are convinced that the settlers were not wholly responsible for the loss of the island's trees. Archaeological finds of nuts from the extinct Easter Island palm show tiny grooves, made by the teeth of Polynesian rats. The rats arrived along with the settlers, and in just a few years, Hunt and Lipo calculate, they would have overrun the island. They would have prevented the reseeding of the slow-growing palm trees and thereby doomed Rapa Nui's forest, even without the settlers' campaign of deforestation. No doubt the rats ate birds' eggs too. Hunt and Lipo also see no evidence that Rapanui civilisation collapsed when the palm forest did. They think its population grew rapidly and then remained more or less stable until the arrival of the Europeans, who introduced deadly diseases to which islanders had no immunity. Then in the nineteenth century slave traders decimated the population, which shrivelled to 111 people by 1877.</p>
+
+<p><span class="letter">G</span> Hunt and Lipo's vision, therefore, is one of an island populated by peaceful and ingenious moai builders and careful stewards of the land, rather than by reckless destroyers ruining their own environment and society. Rather than a case of abject failure, Rapa Nui is an unlikely story of success, they claim. Whichever is the case, there are surely some valuable lessons which the world at large can learn from the story of Rapa Nui.</p>
+
+            </div>
+        </div>
+        <div class="questions-column" id="questionsArea">
+            <div class="questions-section">
+
+<h2>Questions 14–20</h2>
+<p><em>Reading Passage 2 has seven paragraphs, A–G.</em><br>
+<em>Choose the correct heading for each paragraph from the list of headings below.</em><br>
+<em>Write the correct number, i–ix, in boxes 14–20 on your answer sheet.</em></p>
+
+<div class="list-headings">
+<p><strong>List of Headings</strong></p>
+<p>i &nbsp;&nbsp; Evidence of innovative environment management practices</p>
+<p>ii &nbsp; An undisputed answer to a question about the moai</p>
+<p>iii &nbsp; The future of the moai statues</p>
+<p>iv &nbsp; A theory which supports a local belief</p>
+<p>v &nbsp;&nbsp; The future of Easter Island</p>
+<p>vi &nbsp; Two opposing views about the Rapanui people</p>
+<p>vii &nbsp; Destruction outside the inhabitants' control</p>
+<p>viii &nbsp; How the statues made a situation worse</p>
+<p>ix &nbsp; Diminishing food resources</p>
+</div>
+
+<div class="question-block" id="q14">
+    <p><strong>14.</strong> Paragraph A</p>
+    <input type="text" class="answer-input" name="q14" placeholder="i–ix" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q15">
+    <p><strong>15.</strong> Paragraph B</p>
+    <input type="text" class="answer-input" name="q15" placeholder="i–ix" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q16">
+    <p><strong>16.</strong> Paragraph C</p>
+    <input type="text" class="answer-input" name="q16" placeholder="i–ix" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q17">
+    <p><strong>17.</strong> Paragraph D</p>
+    <input type="text" class="answer-input" name="q17" placeholder="i–ix" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q18">
+    <p><strong>18.</strong> Paragraph E</p>
+    <input type="text" class="answer-input" name="q18" placeholder="i–ix" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q19">
+    <p><strong>19.</strong> Paragraph F</p>
+    <input type="text" class="answer-input" name="q19" placeholder="i–ix" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q20">
+    <p><strong>20.</strong> Paragraph G</p>
+    <input type="text" class="answer-input" name="q20" placeholder="i–ix" oninput="updateNavStatus()">
+</div>
+
+<h2>Questions 21–24</h2>
+<p><em>Complete the summary below.</em><br>
+<em>Choose <strong>ONE WORD ONLY</strong> from the passage for each answer.</em><br>
+<em>Write your answers in boxes 21–24 on your answer sheet.</em></p>
+
+<p><strong>Jared Diamond's View</strong></p>
+<p>Diamond believes that the Polynesian settlers on Rapa Nui destroyed its forests, cutting down its trees for fuel and clearing land for <span style="text-decoration:underline;">&nbsp;&nbsp;21&nbsp;&nbsp;</span>. Twentieth-century discoveries of pollen prove that Rapa Nui had once been covered in palm forests, which had turned into grassland by the time the Europeans arrived on the island. When the islanders were no longer able to build the <span style="text-decoration:underline;">&nbsp;&nbsp;22&nbsp;&nbsp;</span> they needed to go fishing, they began using the island's <span style="text-decoration:underline;">&nbsp;&nbsp;23&nbsp;&nbsp;</span> as a food source, according to Diamond. Diamond also claims that the methods of transporting the statues needed not only a great number of people, but also a great deal of <span style="text-decoration:underline;">&nbsp;&nbsp;24&nbsp;&nbsp;</span>.</p>
+
+<div class="question-block" id="q21">
+    <p><strong>21.</strong></p>
+    <input type="text" class="answer-input" name="q21" placeholder="One word" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q22">
+    <p><strong>22.</strong></p>
+    <input type="text" class="answer-input" name="q22" placeholder="One word" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q23">
+    <p><strong>23.</strong></p>
+    <input type="text" class="answer-input" name="q23" placeholder="One word" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q24">
+    <p><strong>24.</strong></p>
+    <input type="text" class="answer-input" name="q24" placeholder="One word" oninput="updateNavStatus()">
+</div>
+
+<h2>Questions 25 & 26</h2>
+<p><em>Choose <strong>TWO letters</strong>, A–E.</em><br>
+<em>Write the correct letters in boxes 25 and 26 on your answer sheet.</em></p>
+
+<p><strong>On what points do Hunt and Lipo disagree with Diamond?</strong></p>
+<p>A &nbsp; the period when the moai were created<br>
+B &nbsp; how the moai were transported<br>
+C &nbsp; the impact of the moai on Rapanui society<br>
+D &nbsp; how the moai were carved<br>
+E &nbsp; the origins of the people who made the moai</p>
+
+<div class="question-block" id="q25">
+    <p><strong>25.</strong></p>
+    <input type="text" class="answer-input" name="q25" placeholder="Letter(s)" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q26">
+    <p><strong>26.</strong></p>
+    <input type="text" class="answer-input" name="q26" placeholder="Letter(s)" oninput="updateNavStatus()">
+</div>
+
+            </div>
+        </div>
+    </div>
+    <div class="bottom-container">
+        <div class="question-nav" id="questionNav">
+            <span class="nav-label">Q:</span>
+        </div>
+        <div class="btn-group">
+            <a href="reading-passage1-C11T2.html" class="prev-btn">← Passage 1</a>
+            <a href="reading-passage3-C11T2.html" class="next-btn">Passage 3 →</a>
+            <button class="clear-btn" onclick="clearAllData()">🗑️ Clear</button>
+        </div>
+    </div>
+<script>
+const TOTAL_QUESTIONS = 40;
+const PASSAGE2_RANGE = { start: 14, end: 26 };
+let lastNoteId = 0;
+
+function initQuestionNav() {
+    const navContainer = document.getElementById('questionNav');
+    navContainer.innerHTML = '<span class="nav-label">Q:</span>';
+
+    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+        if (i === 14) addGapLabel(navContainer, 'P2');
+        if (i === 27) addGapLabel(navContainer, 'P3');
+
+        const btn = document.createElement('div');
+        btn.className = 'q-indicator';
+        btn.textContent = i;
+        btn.id = 'nav' + i;
+
+        if (i < PASSAGE2_RANGE.start || i > PASSAGE2_RANGE.end) {
+            btn.classList.add('future');
+        } else {
+            btn.onclick = () => jumpToQuestion(i);
+        }
+        navContainer.appendChild(btn);
+    }
+}
+
+function addGapLabel(container, label) {
+    const gap = document.createElement('div');
+    gap.className = 'q-indicator passage-gap';
+    gap.textContent = label;
+    container.appendChild(gap);
+}
+
+function jumpToQuestion(qNum) {
+    document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
+    document.getElementById('nav' + qNum)?.classList.add('current');
+    document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function updateNavStatus() {
+    for (let q = PASSAGE2_RANGE.start; q <= PASSAGE2_RANGE.end; q++) {
+        const input = document.querySelector(`input[name="q${q}"]`);
+        const navBtn = document.getElementById('nav' + q);
+        if (input && navBtn) {
+            navBtn.classList.toggle('answered', input.value.trim() !== '');
+        }
+    }
+}
+
+function clearAllData() {
+    if (!confirm('Clear ALL answers and highlights? This cannot be undone!')) return;
+    document.querySelectorAll('.answer-input').forEach(input => { input.value = ''; });
+    document.querySelectorAll('.highlight').forEach(span => {
+        const textNode = document.createTextNode(span.textContent);
+        span.parentNode.replaceChild(textNode, span);
+        textNode.parentNode.normalize();
+    });
+    document.querySelectorAll('.sticky-note').forEach(note => note.remove());
+    updateNavStatus();
+}
+
+// --- Highlight & Notes Context Menu ---
+const contextMenu = document.getElementById('contextMenu');
+let currentRange = null;
+
+function isSelectionValid(sel) {
+    if (!sel || sel.isCollapsed || sel.toString().trim() === '') return false;
+    try {
+        const r = sel.getRangeAt(0);
+        let p = r.commonAncestorContainer;
+        p = p.nodeType === Node.TEXT_NODE ? p.parentElement : p;
+        const inArea = document.getElementById('passageArea').contains(p) || document.getElementById('questionsArea').contains(p);
+        const inInput = p.closest('input, textarea, button, select') !== null;
+        return inArea && !inInput;
+    } catch { return false; }
+}
+
+document.addEventListener('contextmenu', e => {
+    const sel = window.getSelection();
+    if (!isSelectionValid(sel)) { contextMenu.style.display = 'none'; return; }
+    e.preventDefault();
+    currentRange = sel.getRangeAt(0).cloneRange();
+    const rc = currentRange.getBoundingClientRect();
+    contextMenu.style.left = (rc.left + window.scrollX) + 'px';
+    contextMenu.style.top = (rc.bottom + window.scrollY + 8) + 'px';
+    contextMenu.style.display = 'block';
+});
+
+document.addEventListener('click', () => { contextMenu.style.display = 'none'; currentRange = null; });
+
+document.getElementById('menuHighlight').onclick = () => {
+    if (!currentRange) return;
+    try {
+        const span = document.createElement('span');
+        span.className = 'highlight';
+        span.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(span);
+        window.getSelection().removeAllRanges();
+    } catch { alert('Please select less text to highlight.'); }
+};
+
+document.getElementById('menuRemove').onclick = () => {
+    if (!currentRange) return;
+    try {
+        const selectedText = currentRange.toString().trim();
+        if (!selectedText) return;
+        const highlights = document.querySelectorAll('.highlight');
+        for (const span of highlights) {
+            if (span.textContent.trim() === selectedText || span.textContent.includes(selectedText)) {
+                const textNode = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(textNode, span);
+                textNode.parentNode.normalize();
+                break;
+            }
+        }
+        window.getSelection().removeAllRanges();
+        currentRange = null;
+    } catch { alert('Could not remove highlight.'); }
+};
+
+document.getElementById('menuNote').onclick = () => {
+    if (!currentRange) return;
+    const rc = currentRange.getBoundingClientRect();
+    const noteId = 'note_' + (++lastNoteId);
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.id = noteId;
+    note.style.left = (rc.right + window.scrollX + 10) + 'px';
+    note.style.top = (rc.top + window.scrollY) + 'px';
+    note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="document.getElementById('${noteId}').remove()">×</span></div><textarea class="note-textarea" placeholder="Type your note..."></textarea>`;
+    document.body.appendChild(note);
+    window.getSelection().removeAllRanges();
+};
+
+window.onload = initQuestionNav;
+</script>
+</body>
+</html>
