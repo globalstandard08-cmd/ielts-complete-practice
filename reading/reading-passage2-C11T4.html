@@ -19,7 +19,6 @@
         .questions-section h2 {color: #991b1b; font-size: 16px; margin: 14px 0 8px; border-bottom: 1px solid #fecaca; padding-bottom: 3px;}
         .question-block {margin-bottom: 16px; scroll-margin-top: 12px;}
         .question-block p {font-weight: 500; margin-bottom: 8px; font-size: 14px; line-height: 1.6;}
-        /* ✅ VERTICAL MULTIPLE CHOICE — EXAM STYLE RADIO BUTTONS */
         .mc-options {display: flex; flex-direction: column; gap: 6px; margin-left: 4px;}
         .mc-option {display: flex; align-items: flex-start; gap: 8px; padding: 5px 4px; border-radius: 4px; cursor: pointer; transition: background 0.15s;}
         .mc-option:hover {background: #fef2f2;}
@@ -261,7 +260,6 @@
 const PASSAGE2_RANGE = { start: 14, end: 26 };
 let lastNoteId = 0;
 
-// ✅ Reliable radio → answer field sync
 document.querySelectorAll('.mc-options input[type="radio"]').forEach(radio => {
     radio.addEventListener('change', function() {
         const qNum = this.name.replace('q','');
@@ -299,10 +297,12 @@ function jumpToQuestion(qNum) {
 function updateNavStatus() {
     for (let q = PASSAGE2_RANGE.start; q <= PASSAGE2_RANGE.end; q++) {
         const radio = document.querySelector(`input[name="q${q}"]:checked`);
-        const text = document.querySelector(`input[name="q${q}"]`)?.value.trim() || document.querySelector(`input[name="ans${q}"]`)?.value.trim();
+        const textAns = document.querySelector(`input[name="q${q}"]`)?.value.trim();
+        const mcAns = document.querySelector(`input[name="ans${q}"]`)?.value.trim();
         const navBtn = document.getElementById('nav' + q);
         if (navBtn) {
-            navBtn.classList.toggle('answered', !!radio || text !== '');
+            const hasAnswer = !!radio || (textAns !== '') || (mcAns !== '');
+            navBtn.classList.toggle('answered', hasAnswer);
         }
     }
 }
@@ -318,7 +318,6 @@ function clearAllData() {
     updateNavStatus();
 }
 
-// --- Highlight & Notes Context Menu ---
 const contextMenu = document.getElementById('contextMenu');
 let currentRange = null;
 function isSelectionValid(sel) {
@@ -354,7 +353,8 @@ document.getElementById('menuNote').onclick=()=>{
     if(!currentRange)return;
     const rc=currentRange.getBoundingClientRect();const id='note_'+(++lastNoteId);
     const note=document.createElement('div');note.className='sticky-note';note.id=id;
-    note.style.left=(rc.right+window.scrollX+10)+'px';note.style.top=(rc.top+window.scrollY)+'px';
+    note.style.left=(rc.right+window.scrollX+10)+'px';
+    note.style.top=(rc.top+window.scrollY)+'px';
     note.innerHTML=`<div class="note-header">Note <span class="note-close" onclick="document.getElementById('${id}').remove()">×</span></div><textarea class="note-textarea" placeholder="Type your note..."></textarea>`;
     document.body.appendChild(note);window.getSelection().removeAllRanges();
 };
