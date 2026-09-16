@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge 11 Test 4 — Reading Passage 1</title>
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif;}
+        body {background-color: #fef2f2; color: #1a1a1a; line-height: 1.6;}
+        /* ✅ SMALLER LOGO SECTION */
+        .logo-container {width: 100%; background: #ffffff; border-bottom: 2px solid #dc2626; padding: 4px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 6px;}
+        .logo {width: 22%; max-width: 180px; height: auto; display: block;}
+        .main-wrapper {display: flex; gap: 12px; padding: 0 12px 8px; height: calc(100vh - 130px);}
+        .passage-column, .questions-column {flex: 1; background: #ffffff; border-radius: 10px; border: 1px solid #fecaca; padding: 14px; overflow-y: auto;}
+        h1 {color: #dc2626; font-size: 17px; margin-bottom: 2px; text-align: center;}
+        h2.subtitle {color: #7f1d1d; font-size: 13px; text-align: center; margin-bottom: 12px; font-weight: 500;}
+        .passage-text p {margin-bottom: 12px; font-size: 14.5px; line-height: 1.75;}
+        .passage-text strong {color: #b91c1c;}
+        .highlight {background-color: #ffd700; padding: 1px 3px; border-radius: 2px; display: inline; color: #000;}
+        .questions-section h2 {color: #991b1b; font-size: 16px; margin: 14px 0 8px; border-bottom: 1px solid #fecaca; padding-bottom: 3px;}
+        .question-block {margin-bottom: 14px; scroll-margin-top: 12px;}
+        .question-block p {font-weight: 500; margin-bottom: 6px; font-size: 14px; line-height: 1.6;}
+        .answer-input {width: 100%; max-width: 280px; padding: 6px 10px; border: 1px solid #fecaca; border-radius: 6px; font-size: 14px; background: #fef2f2;}
+        table {width: 100%; border-collapse: collapse; margin: 8px 0;}
+        table, th, td {border: 1px solid #ddd;}
+        th, td {padding: 7px 9px; font-size: 14px; vertical-align: top;}
+        .diagram-img {width: 100%; max-width: 460px; display: block; margin: 10px auto; border: 1px solid #ddd; border-radius: 6px;}
+        .context-menu {position: absolute; background: #ffffff; border: 1px solid #bbb; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 160px;}
+        .context-menu div {padding: 10px 14px; cursor: pointer; font-size: 14px;}
+        .context-menu div:hover {background: #fef2f2;}
+        .sticky-note {position: absolute; width: 170px; min-height: 65px; background: #fff380; border: 1px solid #e6c200; border-radius: 4px; padding: 6px; box-shadow: 3px 3px 8px rgba(0,0,0,0.15); z-index: 9998; font-size: 12px; user-select: none;}
+        .note-header {display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00; cursor: move;}
+        .note-close {cursor: pointer; font-weight: bold; color: #886a00; user-select: none; font-size: 14px; line-height: 1;}
+        .note-textarea {width: 100%; height: 48px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px;}
+        .bottom-container {margin: 8px 12px 16px; padding: 10px; background: #ffffff; border-radius: 8px; border: 1px solid #fecaca;}
+        /* ✅ NAVIGATION BAR — COMPACT FOR 1–40 */
+        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 2px; margin-bottom: 10px;}
+        .nav-label {font-weight: 600; color: #991b1b; font-size: 12px; margin-right: 4px;}
+        .q-indicator {width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 11px; cursor: pointer; transition: all 0.2s;}
+        .q-indicator:hover {opacity: 0.85;}
+        .q-indicator.answered {background: #198754; color: #ffffff; border-color: #198754;}
+        .q-indicator.current {border: 2px solid #dc2626;}
+        .q-indicator.passage-gap {margin-left: 8px; background: #fef2f2; border: none; color: #991b1b; font-weight: bold; font-size: 10px;}
+        .q-indicator.future {opacity: 0.45; cursor: not-allowed;}
+        .btn-group {display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap;}
+        .prev-btn, .next-btn, .back-btn, .clear-btn {padding: 7px 14px; text-decoration: none; border-radius: 6px; border: 1px solid; font-weight: 500; font-size: 13px; display: inline-block; cursor: pointer;}
+        .prev-btn {background: #fef2f2; color: #dc2626; border-color: #fecaca;}
+        .prev-btn:hover {background: #ffffff;}
+        .next-btn {background: #dc2626; color: #ffffff; border-color: #dc2626;}
+        .next-btn:hover {background: #b91c1c;}
+        .back-btn {background: #fef2f2; color: #dc2626; border-color: #fecaca;}
+        .back-btn:hover {background: #ffffff;}
+        .clear-btn {background: #fff0f0; color: #b91c1c; border-color: #fecaca;}
+        .clear-btn:hover {background: #ffe0e0;}
+        em {color: #555;}
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
+    </div>
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight Selection</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+    </div>
+    <div class="main-wrapper">
+        <div class="passage-column" id="passageArea">
+            <h1>Reading Passage 1 — Research using twins</h1>
+            <h2 class="subtitle">To biomedical researchers all over the world, twins offer a precious opportunity…</h2>
+            <div class="passage-text">
+<p>To biomedical researchers all over the world, twins offer a precious opportunity to untangle the influence of genes and the environment — of nature and nurture. Because identical twins come from a single fertilized egg that splits into two, they share virtually the same genetic code. Any differences between them — one twin having younger looking skin, for example — must be due to environmental factors such as less time spent in the sun.</p>
+<p>Alternatively, by comparing the experiences of identical twins with those of fraternal twins, who come from separate eggs and share on average half their DNA, researchers can quantify the extent to which our genes affect our lives. If identical twins are more similar to each other with respect to an ailment than fraternal twins are, then vulnerability to the disease must be rooted at least in part in heredity.</p>
+<p>These two lines of research — studying the differences between identical twins to pinpoint the influence of environment, and comparing identical twins with fraternal ones to measure the role of inheritance — have been crucial to understanding the interplay of nature and nurture in determining our personalities, behavior, and vulnerability to disease.</p>
+<p>The idea of using twins to measure the influence of heredity dates back to 1875, when the English scientist Francis Galton first suggested the approach (and coined the phrase 'nature and nurture'). But twin studies took a surprising twist in the 1980s, with the arrival of studies into identical twins who had been separated at birth and reunited as adults. Over two decades 137 sets of twins eventually visited Thomas Bouchard's lab in what became known as the Minnesota Study of Twins Reared Apart. Numerous tests were carried out on the twins, and they were each asked more than 15,000 questions.</p>
+<p>Bouchard and his colleagues used this mountain of data to identify how far twins were affected by their genetic makeup. The key to their approach was a statistical concept called heritability. In broad terms, the heritability of a trait measures the extent to which differences among members of a population can be explained by differences in their genetics. And wherever Bouchard and other scientists looked, it seemed, they found the invisible hand of genetic influence helping to shape our lives.</p>
+<p>Lately, however, twin studies have helped lead scientists to a radical new conclusion: that nature and nurture are not the only elemental forces at work. According to a recent field called epigenetics, there is a third factor also in play, one that in some cases serves as a bridge between the environment and our genes, and in others operates on its own to shape who we are.</p>
+<p>Epigenetic processes are chemical reactions tied to neither nature nor nurture but representing what researchers have called a 'third component'. These reactions influence how our genetic code is expressed: how each gene is strengthened or weakened, even turned on or off, to build our bones, brains and all the other parts of our bodies.</p>
+<p>If you think of our DNA as an immense piano keyboard and our genes as the keys — each key symbolizing a segment of DNA responsible for a particular note, or trait, and all the keys combining to make us who we are — then epigenetic processes determine when and how each key can be struck, changing the tune being played.</p>
+<p>One way the study of epigenetics is revolutionizing our understanding of biology is by revealing a mechanism by which the environment directly impacts on genes. Studies of animals, for example, have shown that when a rat experiences stress during pregnancy, it can cause epigenetic changes in a fetus, it was found to lead to behavioral problems as the rodent grows up. Other epigenetic processes appear to occur randomly, while others are normal, such as those that guide embryonic cells as they become heart, brain, or liver cells, for example.</p>
+<p>Geneticist Danielle Reed has worked with many twins over the years and thought deeply about what twin studies have taught us. 'It's very clear when you look at twins that much of what they share is hardwired,' she says. 'Many things about them are absolutely the same and unalterable. But it's also clear, when you get to know them, that other things about them are different. Epigenetics is the origin of a lot of those differences, in my view.'</p>
+<p>Reed credits Thomas Bouchard's work for today's surge in twin studies. 'He was the trailblazer,' she says. 'We forget that 50 years ago things like heart disease were thought to be caused entirely by lifestyle. Schizophrenia was thought to be due to poor mothering. Twin studies have allowed us to be more reflective about what people are actually born with and what's caused by experience.'</p>
+<p>Having said that, Reed adds, the latest work in epigenetics promises to take our understanding even further. 'What I like to say is that nature writes some things in pencil and some things in pen,' she says. 'Things written in pen you can't change. That's DNA. But things written in pencil you can actually erase. Now that we're actually able to look at the DNA and see where the pencil writings are, it's sort of a whole new world.'</p>
+            </div>
+        </div>
+        <div class="questions-column" id="questionsArea">
+            <div class="questions-section">
+<h2>Questions 1–4</h2>
+<p><em>Do the following statements agree with the information given in Reading Passage 1?</em></p>
+<p><em>In boxes 1–4 on your answer sheet, write:</em></p>
+<p><strong>TRUE</strong> &nbsp;&nbsp;&nbsp;&nbsp; if the statement agrees with the information<br>
+<strong>FALSE</strong> &nbsp;&nbsp;&nbsp; if the statement contradicts the information<br>
+<strong>NOT GIVEN</strong> &nbsp; if there is no information on this</p>
+<div class="question-block" id="q1">
+    <p><strong>1.</strong> There may be genetic causes for the differences in how young the skin of identical twins looks.</p>
+    <input type="text" class="answer-input" name="q1" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q2">
+    <p><strong>2.</strong> Twins are at greater risk of developing certain illnesses than non-twins.</p>
+    <input type="text" class="answer-input" name="q2" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q3">
+    <p><strong>3.</strong> Bouchard advertised in newspapers for twins who had been separated at birth.</p>
+    <input type="text" class="answer-input" name="q3" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q4">
+    <p><strong>4.</strong> Epigenetic processes are different from both genetic and environmental processes.</p>
+    <input type="text" class="answer-input" name="q4" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+<h2>Questions 5–9</h2>
+<p><em>Look at the following statements (Questions 5–9) and the list of researchers below.</em><br>
+<em>Match each statement with the correct researcher, A, B or C.</em><br>
+<em>Write the correct letter, A, B or C, in boxes 5–9 on your answer sheet.</em><br>
+<em>NB You may use any letter more than once.</em></p>
+<p><strong>List of Researchers</strong><br>
+A &nbsp; Francis Galton<br>
+B &nbsp; Thomas Bouchard<br>
+C &nbsp; Danielle Reed</p>
+<div class="question-block" id="q5">
+    <p><strong>5.</strong> invented a term used to distinguish two factors affecting human characteristics</p>
+    <input type="text" class="answer-input" name="q5" placeholder="A / B / C" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q6">
+    <p><strong>6.</strong> expressed the view that the study of epigenetics will increase our knowledge</p>
+    <input type="text" class="answer-input" name="q6" placeholder="A / B / C" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q7">
+    <p><strong>7.</strong> developed a mathematical method of measuring genetic influences</p>
+    <input type="text" class="answer-input" name="q7" placeholder="A / B / C" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q8">
+    <p><strong>8.</strong> pioneered research into genetics using twins</p>
+    <input type="text" class="answer-input" name="q8" placeholder="A / B / C" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q9">
+    <p><strong>9.</strong> carried out research into twins who had lived apart</p>
+    <input type="text" class="answer-input" name="q9" placeholder="A / B / C" oninput="updateNavStatus()">
+</div>
+<h2>Questions 10–13</h2>
+<p><em>Complete the summary using the list of words, A–F, below.</em><br>
+<em>Write the correct letter, A–F, in boxes 10–13 on your answer sheet.</em></p>
+<p style="font-weight:bold; margin:6px 0;">Epigenetic processes</p>
+<p>In epigenetic processes, 10 __________ influence the activity of our genes, for example in creating our internal 11 __________. The study of epigenetic processes is uncovering a way in which our genes can be affected by our 12 __________. One example is that if a pregnant rat suffers stress, the new-born rat may later show problems in its 13 __________.</p>
+<p style="margin:8px 0;"><strong>A</strong> nurture &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>B</strong> organs &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>C</strong> code<br>
+<strong>D</strong> chemicals &nbsp;&nbsp;&nbsp;&nbsp; <strong>E</strong> environment &nbsp; <strong>F</strong> behaviour/behaviour</p>
+<div class="question-block" id="q10">
+    <p><strong>10.</strong></p>
+    <input type="text" class="answer-input" name="q10" placeholder="A–F" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q11">
+    <p><strong>11.</strong></p>
+    <input type="text" class="answer-input" name="q11" placeholder="A–F" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q12">
+    <p><strong>12.</strong></p>
+    <input type="text" class="answer-input" name="q12" placeholder="A–F" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q13">
+    <p><strong>13.</strong></p>
+    <input type="text" class="answer-input" name="q13" placeholder="A–F" oninput="updateNavStatus()">
+</div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-container">
+        <div class="question-nav" id="questionNav">
+            <span class="nav-label">Q:</span>
+        </div>
+        <div class="btn-group">
+            <a href="../library.html" class="back-btn">← Library</a>
+            <a href="reading-passage2-C11T4.html" class="next-btn">Passage 2 →</a>
+            <button class="clear-btn" onclick="clearAllData()">🗑️ Clear</button>
+        </div>
+    </div>
+<script>
+const TOTAL_QUESTIONS = 40;
+const PASSAGE1_RANGE = { start: 1, end: 13 };
+let lastNoteId = 0;
+// ✅ BUILD NAV BAR: 1–40, with section gaps
+function initQuestionNav() {
+    const navContainer = document.getElementById('questionNav');
+    navContainer.innerHTML = '<span class="nav-label">Q:</span>';
+    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+        // Add section gap labels
+        if (i === 14) addGapLabel(navContainer, 'P2');
+        if (i === 27) addGapLabel(navContainer, 'P3');
+        const btn = document.createElement('div');
+        btn.className = 'q-indicator';
+        btn.textContent = i;
+        btn.id = 'nav' + i;
+        // Gray out questions from other passages
+        if (i < PASSAGE1_RANGE.start || i > PASSAGE1_RANGE.end) {
+            btn.classList.add('future');
+        } else {
+            btn.onclick = () => jumpToQuestion(i);
+        }
+        navContainer.appendChild(btn);
+    }
+}
+function addGapLabel(container, label) {
+    const gap = document.createElement('div');
+    gap.className = 'q-indicator passage-gap';
+    gap.textContent = label;
+    container.appendChild(gap);
+}
+function jumpToQuestion(qNum) {
+    document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
+    document.getElementById('nav' + qNum)?.classList.add('current');
+    document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function updateNavStatus() {
+    for (let q = PASSAGE1_RANGE.start; q <= PASSAGE1_RANGE.end; q++) {
+        const input = document.querySelector(`input[name="q${q}"]`);
+        const navBtn = document.getElementById('nav' + q);
+        if (input && navBtn) {
+            navBtn.classList.toggle('answered', input.value.trim() !== '');
+        }
+    }
+}
+function clearAllData() {
+    if (!confirm('Clear ALL answers and highlights? This cannot be undone!')) return;
+    document.querySelectorAll('.answer-input').forEach(input => { input.value = ''; });
+    document.querySelectorAll('.highlight').forEach(span => {
+        const textNode = document.createTextNode(span.textContent);
+        span.parentNode.replaceChild(textNode, span);
+        textNode.parentNode.normalize();
+    });
+    document.querySelectorAll('.sticky-note').forEach(note => note.remove());
+    updateNavStatus();
+}
+// --- Highlight & Notes Context Menu ---
+const contextMenu = document.getElementById('contextMenu');
+let currentRange = null;
+function isSelectionValid(sel) {
+    if (!sel || sel.isCollapsed || sel.toString().trim() === '') return false;
+    try {
+        const r = sel.getRangeAt(0);
+        let p = r.commonAncestorContainer;
+        p = p.nodeType === Node.TEXT_NODE ? p.parentElement : p;
+        const inArea = document.getElementById('passageArea').contains(p) || document.getElementById('questionsArea').contains(p);
+        const inInput = p.closest('input, textarea, button, select') !== null;
+        return inArea && !inInput;
+    } catch { return false; }
+}
+document.addEventListener('contextmenu', e => {
+    const sel = window.getSelection();
+    if (!isSelectionValid(sel)) { contextMenu.style.display = 'none'; return; }
+    e.preventDefault();
+    currentRange = sel.getRangeAt(0).cloneRange();
+    const rc = currentRange.getBoundingClientRect();
+    contextMenu.style.left = (rc.left + window.scrollX) + 'px';
+    contextMenu.style.top = (rc.bottom + window.scrollY + 8) + 'px';
+    contextMenu.style.display = 'block';
+});
+document.addEventListener('click', () => { contextMenu.style.display = 'none'; currentRange = null; });
+document.getElementById('menuHighlight').onclick = () => {
+    if (!currentRange) return;
+    try {
+        const span = document.createElement('span');
+        span.className = 'highlight';
+        span.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(span);
+        window.getSelection().removeAllRanges();
+    } catch { alert('Please select less text to highlight.'); }
+};
+document.getElementById('menuRemove').onclick = () => {
+    if (!currentRange) return;
+    try {
+        const selectedText = currentRange.toString().trim();
+        if (!selectedText) return;
+        const highlights = document.querySelectorAll('.highlight');
+        for (const span of highlights) {
+            if (span.textContent.trim() === selectedText || span.textContent.includes(selectedText)) {
+                const textNode = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(textNode, span);
+                textNode.parentNode.normalize();
+                break;
+            }
+        }
+        window.getSelection().removeAllRanges();
+        currentRange = null;
+    } catch { alert('Could not remove highlight.'); }
+};
+document.getElementById('menuNote').onclick = () => {
+    if (!currentRange) return;
+    const rc = currentRange.getBoundingClientRect();
+    const noteId = 'note_' + (++lastNoteId);
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.id = noteId;
+    note.style.left = (rc.right + window.scrollX + 10) + 'px';
+    note.style.top = (rc.top + window.scrollY) + 'px';
+    note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="document.getElementById('${noteId}').remove()">×</span></div><textarea class="note-textarea" placeholder="Type your note..."></textarea>`;
+    document.body.appendChild(note);
+    window.getSelection().removeAllRanges();
+};
+window.onload = initQuestionNav;
+</script>
+</body>
+</html>
