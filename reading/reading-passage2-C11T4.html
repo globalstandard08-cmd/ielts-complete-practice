@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge 11 Test 4 — Reading Passage 2</title>
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif;}
+        body {background-color: #fef2f2; color: #1a1a1a; line-height: 1.6;}
+        .logo-container {width: 100%; background: #ffffff; border-bottom: 2px solid #dc2626; padding: 4px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 6px;}
+        .logo {width: 22%; max-width: 180px; height: auto; display: block;}
+        .main-wrapper {display: flex; gap: 12px; padding: 0 12px 8px; height: calc(100vh - 130px);}
+        .passage-column, .questions-column {flex: 1; background: #ffffff; border-radius: 10px; border: 1px solid #fecaca; padding: 14px; overflow-y: auto;}
+        h1 {color: #dc2626; font-size: 17px; margin-bottom: 2px; text-align: center;}
+        h2.subtitle {color: #7f1d1d; font-size: 13px; text-align: center; margin-bottom: 12px; font-weight: 500;}
+        .passage-text p {margin-bottom: 12px; font-size: 14.5px; line-height: 1.75;}
+        .passage-text strong {color: #b91c1c;}
+        .highlight {background-color: #ffd700; padding: 1px 3px; border-radius: 2px; display: inline; color: #000;}
+        .questions-section h2 {color: #991b1b; font-size: 16px; margin: 14px 0 8px; border-bottom: 1px solid #fecaca; padding-bottom: 3px;}
+        .question-block {margin-bottom: 16px; scroll-margin-top: 12px;}
+        .question-block p {font-weight: 500; margin-bottom: 8px; font-size: 14px; line-height: 1.6;}
+        /* ✅ VERTICAL MULTIPLE CHOICE — EXAM STYLE RADIO BUTTONS */
+        .mc-options {display: flex; flex-direction: column; gap: 6px; margin-left: 4px;}
+        .mc-option {display: flex; align-items: flex-start; gap: 8px; padding: 5px 4px; border-radius: 4px; cursor: pointer; transition: background 0.15s;}
+        .mc-option:hover {background: #fef2f2;}
+        .mc-option input {margin-top: 3px; cursor: pointer; accent-color: #dc2626;}
+        .mc-option label {margin: 0; font-size: 14px; line-height: 1.5; cursor: pointer;}
+        .answer-line {margin-top: 6px; font-size: 13px; color: #7f1d1d;}
+        .answer-input {width: 100%; max-width: 280px; padding: 6px 10px; border: 1px solid #fecaca; border-radius: 6px; font-size: 14px; background: #fef2f2; margin-top: 4px;}
+        .option-letter {display: inline-block; width: 18px; font-weight: 600; color: #dc2626; flex-shrink: 0;}
+        .context-menu {position: absolute; background: #ffffff; border: 1px solid #bbb; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 160px;}
+        .context-menu div {padding: 10px 14px; cursor: pointer; font-size: 14px;}
+        .context-menu div:hover {background: #fef2f2;}
+        .sticky-note {position: absolute; width: 170px; min-height: 65px; background: #fff380; border: 1px solid #e6c200; border-radius: 4px; padding: 6px; box-shadow: 3px 3px 8px rgba(0,0,0,0.15); z-index: 9998; font-size: 12px; user-select: none;}
+        .note-header {display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00; cursor: move;}
+        .note-close {cursor: pointer; font-weight: bold; color: #886a00; user-select: none; font-size: 14px; line-height: 1;}
+        .note-textarea {width: 100%; height: 48px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px;}
+        .bottom-container {margin: 8px 12px 16px; padding: 10px; background: #ffffff; border-radius: 8px; border: 1px solid #fecaca;}
+        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 2px; margin-bottom: 10px;}
+        .nav-label {font-weight: 600; color: #991b1b; font-size: 12px; margin-right: 4px;}
+        .q-indicator {width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 11px; cursor: pointer; transition: all 0.2s;}
+        .q-indicator:hover {opacity: 0.85;}
+        .q-indicator.answered {background: #198754; color: #ffffff; border-color: #198754;}
+        .q-indicator.current {border: 2px solid #dc2626;}
+        .q-indicator.passage-gap {margin-left: 8px; background: #fef2f2; border: none; color: #991b1b; font-weight: bold; font-size: 10px;}
+        .q-indicator.future {opacity: 0.45; cursor: not-allowed;}
+        .btn-group {display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap;}
+        .prev-btn, .next-btn, .back-btn, .clear-btn {padding: 7px 14px; text-decoration: none; border-radius: 6px; border: 1px solid; font-weight: 500; font-size: 13px; display: inline-block; cursor: pointer;}
+        .prev-btn {background: #fef2f2; color: #dc2626; border-color: #fecaca;}
+        .prev-btn:hover {background: #ffffff;}
+        .next-btn {background: #dc2626; color: #ffffff; border-color: #dc2626;}
+        .next-btn:hover {background: #b91c1c;}
+        .back-btn {background: #fef2f2; color: #dc2626; border-color: #fecaca;}
+        .back-btn:hover {background: #ffffff;}
+        .clear-btn {background: #fff0f0; color: #b91c1c; border-color: #fecaca;}
+        .clear-btn:hover {background: #ffe0e0;}
+        em {color: #555;}
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="../ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
+    </div>
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight Selection</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+    </div>
+    <div class="main-wrapper">
+        <div class="passage-column" id="passageArea">
+            <h1>Reading Passage 2 — An Introduction to Film Sound</h1>
+            <h2 class="subtitle">You should spend about 20 minutes on Questions 14–26</h2>
+            <div class="passage-text">
+<p>Though we might think of film as an essentially visual experience, we really cannot afford to underestimate the importance of film sound. A meaningful sound track is often as complicated as the image on the screen, and is ultimately just as much the responsibility of the director. The entire sound track consists of three essential ingredients: the human voice, sound effects and music. These three tracks must be mixed and balanced so as to produce the necessary emphases which in turn create desired effects. Topics which essentially refer to the three previously mentioned tracks are discussed below. They include dialogue, synchronous and asynchronous sound effects, and music.</p>
+<p>Let us start with dialogue. As is the case with stage drama, dialogue serves to tell the story and expresses feelings and motivations of characters as well. Often with film characterization the audience perceives little or no difference between the character and the actor. Thus, for example, the actor Humphrey Bogart is the character Sam Spade; film personality and life personality seem to merge. Perhaps this is very true when the texture of a performer's voice supplies an element of character.</p>
+<p>When voice textures fit the performer's physiognomy and gestures, a whole and very realistic persona emerges. The viewer sees not an actor working at his craft, but another human being struggling with life. It is interesting to note that how dialogue is used and the very amount of dialogue used varies widely among films. For example, in the highly successful science-fiction film <em>2001</em>, little dialogue was evident, most of it was banal and of little intrinsic interest. In this way the film-maker was able to portray what Thomas Sobchack and Vivian Sobchack call, in <em>An Introduction to Film</em>, the 'inadequacy of human responses when compared with the magnificent technology created by man and the visual beauties of the universe'.</p>
+<p>The comedy <em>Bringing Up Baby</em>, on the other hand, presents practically non-stop dialogue delivered at breakneck speed. This dialogue underscores not only the dizzy quality of the character played by Katherine Hepburn, but also the absurdity of the film itself and thus its humor. The audience is bounced from gag to gag and conversation to conversation; there is no time for audience reflection. The audience is caught up in a whirlwind of activity in simply managing to follow the plot. This film presents pure escapism — largely due to its frenetic dialogue.</p>
+<p>Synchronous sound effects are those sounds which are synchronized or matched with what is viewed. For example, if the film portrays a character playing the piano, the sounds of the piano are projected. Synchronous sounds also help to create the realism of film and so help to create a particular atmosphere. For example, the 'click' of a door being opened may simply serve to convince the audience that the image portrayed is real, and the audience may only subconsciously note the expected sound. However, if the 'click' of an opening door is part of an ominous action such as a burglary, the sound mixer may call attention to the 'click' with an increase in volume; this helps to engage the audience in a moment of suspense.</p>
+<p>Asynchronous sound effects, on the other hand, are not matched with a visible source of the sound on screen. Such sounds are included so as to provide an appropriate emotional nuance, and they may also add to the realism of the film. For example, a film-maker might opt to include the background sound of an ambulance's siren while the foreground sound and image portrays an arguing couple. The asynchronous ambulance siren underscores the psychic injury incurred in the argument; at the same time the noise of the siren adds to the realism of the film by acknowledging the film's city setting.</p>
+<p>We are probably all familiar with background music in films, which has become so ubiquitous as to be noticeable in its absence. We are aware that it is used to add emotion and rhythm. Usually not meant to be noticeable, it often provides a tone or an emotional attitude toward the story and/or the characters depicted. In addition, background music often foreshadows a change in mood. For example, dissonant music may be used in film to indicate an approaching (but not yet visible) menace or disaster.</p>
+<p>Background music may aid viewer understanding by linking scenes. For example, a particular musical theme associated with an individual character or situation may be repeated at various points in a film in order to remind the audience of salient motifs or ideas.</p>
+<p>Film sound comprises conventions and innovations. We have come to expect an acceleration of music during car chases and creaky doors in horror films. Yet, it is important to note as well that sound is often brilliantly conceived. The effects of sound are often largely subtle and often are noted by only our subconscious minds. We need to foster an awareness of film sound as well as film space so as to truly appreciate an art form that sprang to life during the twentieth century — the modern film.</p>
+            </div>
+        </div>
+        <div class="questions-column" id="questionsArea">
+            <div class="questions-section">
+<h2>Questions 14–18</h2>
+<p><em>Choose the correct letter, A, B, C or D.</em></p>
+<p><em>Write the correct letter in boxes 14–18 on your answer sheet.</em></p>
+
+<div class="question-block" id="q14">
+    <p><strong>14.</strong> In the first paragraph, the writer makes a point that</p>
+    <div class="mc-options">
+        <label class="mc-option">
+            <input type="radio" name="q14" value="A" oninput="updateNavStatus()">
+            <span><span class="option-letter">A</span> the director should plan the sound track at an early stage in filming.</span>
+        </label>
+        <label class="mc-option">
+            <input type="radio" name="q14" value="B" oninput="updateNavStatus()">
+            <span><span class="option-letter">B</span> it would be wrong to overlook the contribution of sound to the artistry of films.</span>
+        </label>
+        <label class="mc-option">
+            <input type="radio" name="q14" value="C" oninput="updateNavStatus()">
+            <span><span class="option-letter">C</span> the music industry can have a beneficial influence on sound in film.</span>
+        </label>
+        <label class="mc-option">
+            <input type="radio" name="q14" value="D" oninput="updateNavStatus()">
+            <span><span class="option-letter">D</span> it is important for those working on the sound in a film to have sole responsibility for it.</span>
+        </label>
+    </div>
+    <div class="answer-line">Answer recorded: <input type="text" class="answer-input" name="ans14" placeholder="A / B / C / D" readonly></div>
+</div>
+
+<div class="question-block" id="q15">
+    <p><strong>15.</strong> One reason that the writer refers to Humphrey Bogart is to exemplify</p>
+    <div class="mc-options">
+        <label class="mc-option">
+            <input type="radio" name="q15" value="A" oninput="updateNavStatus()">
+            <span><span class="option-letter">A</span> the importance of the actor and the character appearing to have similar personalities.</span>
+        </label>
+        <label class="mc-option">
+            <input type="radio" name="q15" value="B" oninput="updateNavStatus()">
+            <span><span class="option-letter">B</span> the audience's wish that actors are visually appropriate for their roles.</span>
+        </label>
+        <label class="mc-option">
+            <input type="radio" name="q15" value="C" oninput="updateNavStatus()">
+            <span><span class="option-letter">C</span> the value of the actor having had similar feelings to the character.</span>
+        </label>
+        <label class="mc-option">
+            <input type="radio" name="q15" value="D" oninput="updateNavStatus()">
+            <span><span class="option-letter">D</span> the audience's preference for dialogue to be as authentic as possible.</span>
+        </label>
+    </div>
+    <div class="answer-line">Answer recorded: <input type="text" class="answer-input" name="ans15" placeholder="A / B / C / D" readonly></div>
+</div>
+
+<div class="question-block" id="q16">
+    <p><strong>16.</strong> In the third paragraph, the writer suggests that</p>
+    <div class="mc-options">
+        <label class="mc-option">
+            <input type="radio" name="q16" value="A" oninput="updateNavStatus()">
+            <span><span class="option-letter">A</span> audiences are likely to be critical of film dialogue that does not reflect their own experience.</span>
+        </label>
+        <label class="mc-option">
+            <input type="radio" name="q16" value="B" oninput="updateNavStatus()">
+            <span><span class="option-letter">B</span> film dialogue that appears to be dull may have a specific purpose.</span>
+        </label>
+        <label class="mc-option">
+            <input type="radio" name="q16" value="C" oninput="updateNavStatus()">
+            <span><span class="option-letter">C</span> filmmakers vary considerably in the skill with which they handle dialogue.</span>
+        </label>
+        <label class="mc-option">
+            <input type="radio" name="q16" value="D" oninput="updateNavStatus()">
+            <span><span class="option-letter">D</span> the most successful films are those with dialogue of a high quality.</span>
+        </label>
+    </div>
+    <div class="answer-line">Answer recorded: <input type="text" class="answer-input" name="ans16" placeholder="A / B / C / D" readonly></div>
+</div>
+
+<div class="question-block" id="q17">
+    <p><strong>17.</strong> What does the writer suggest about <em>Bringing Up Baby</em>?</p>
+    <div class="mc-options">
+        <label class="mc-option">
+            <input type="radio" name="q17" value="A" oninput="updateNavStatus()">
+            <span><span class="option-letter">A</span> The plot suffers from the filmmaker's wish to focus on humorous dialogue.</span>
+        </label>
+        <label class="mc-option">
+            <input type="radio" name="q17" value="B" oninput="updateNavStatus()">
+            <span><span class="option-letter">B</span> The dialogue helps to make it one of the best comedy films ever produced.</span>
+        </label>
+        <label class="mc-option">
+            <input type="radio" name="q17" value="C" oninput="updateNavStatus()">
+            <span><span class="option-letter">C</span> There is a mismatch between the speed of the dialogue and the speed of actions.</span>
+        </label>
+        <label class="mc-option">
+            <input type="radio" name="q17" value="D" oninput="updateNavStatus()">
+            <span><span class="option-letter">D</span> The nature of the dialogue emphasises key elements of the film.</span>
+        </label>
+    </div>
+    <div class="answer-line">Answer recorded: <input type="text" class="answer-input" name="ans17" placeholder="A / B / C / D" readonly></div>
+</div>
+
+<div class="question-block" id="q18">
+    <p><strong>18.</strong> The writer refers to the 'click' of a door to make the point that realistic sounds</p>
+    <div class="mc-options">
+        <label class="mc-option">
+            <input type="radio" name="q18" value="A" oninput="updateNavStatus()">
+            <span><span class="option-letter">A</span> are often used to give the audience a false impression of events in the film.</span>
+        </label>
+        <label class="mc-option">
+            <input type="radio" name="q18" value="B" oninput="updateNavStatus()">
+            <span><span class="option-letter">B</span> may be interpreted in different ways by different members of the audience.</span>
+        </label>
+        <label class="mc-option">
+            <input type="radio" name="q18" value="C" oninput="updateNavStatus()">
+            <span><span class="option-letter">C</span> may be modified in order to manipulate the audience's response to the film.</span>
+        </label>
+        <label class="mc-option">
+            <input type="radio" name="q18" value="D" oninput="updateNavStatus()">
+            <span><span class="option-letter">D</span> tend to be more significant in films presenting realistic situations.</span>
+        </label>
+    </div>
+    <div class="answer-line">Answer recorded: <input type="text" class="answer-input" name="ans18" placeholder="A / B / C / D" readonly></div>
+</div>
+
+<h2>Questions 19–23</h2>
+<p><em>Do the following statements agree with the information given in Reading Passage 2?</em></p>
+<p><em>In boxes 19–23 on your answer sheet, write:</em></p>
+<p><strong>TRUE</strong> &nbsp;&nbsp;&nbsp;&nbsp; if the statement agrees with the information<br>
+<strong>FALSE</strong> &nbsp;&nbsp;&nbsp; if the statement contradicts the information<br>
+<strong>NOT GIVEN</strong> &nbsp; if there is no information on this</p>
+
+<div class="question-block" id="q19">
+    <p><strong>19.</strong> Audiences are likely to be surprised if a film lacks background music.</p>
+    <input type="text" class="answer-input" name="q19" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q20">
+    <p><strong>20.</strong> Background music may anticipate a development in a film.</p>
+    <input type="text" class="answer-input" name="q20" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q21">
+    <p><strong>21.</strong> Background music has more effect on some people than on others.</p>
+    <input type="text" class="answer-input" name="q21" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q22">
+    <p><strong>22.</strong> Background music may help the audience to make certain connections within the film.</p>
+    <input type="text" class="answer-input" name="q22" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q23">
+    <p><strong>23.</strong> Audiences tend to be aware of how the background music is affecting them.</p>
+    <input type="text" class="answer-input" name="q23" placeholder="TRUE / FALSE / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+
+<h2>Questions 24–26</h2>
+<p><em>Complete each sentence with the correct ending, A–E, below.</em></p>
+<p><em>Write the correct letter, A–E, in boxes 24–26 on your answer sheet.</em></p>
+<p style="margin:8px 0;"><strong>A</strong> &nbsp; when the audience listens to the dialogue.<br>
+<strong>B</strong> &nbsp; if the film reflects the audience's own concerns.<br>
+<strong>C</strong> &nbsp; if voice, sound and music are combined appropriately.<br>
+<strong>D</strong> &nbsp; when the director is aware of how the audience will respond.<br>
+<strong>E</strong> &nbsp; when the actor's appearance, voice and moves are consistent with each other.</p>
+
+<div class="question-block" id="q24">
+    <p><strong>24.</strong> The audience's response to different parts of a film can be controlled</p>
+    <input type="text" class="answer-input" name="q24" placeholder="A–E" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q25">
+    <p><strong>25.</strong> The feelings and motivations of characters become clear</p>
+    <input type="text" class="answer-input" name="q25" placeholder="A–E" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q26">
+    <p><strong>26.</strong> A character seems to be a real person rather than an actor</p>
+    <input type="text" class="answer-input" name="q26" placeholder="A–E" oninput="updateNavStatus()">
+</div>
+
+            </div>
+        </div>
+    </div>
+    <div class="bottom-container">
+        <div class="question-nav" id="questionNav">
+            <span class="nav-label">Q:</span>
+        </div>
+        <div class="btn-group">
+            <a href="reading-passage1-C11T4.html" class="prev-btn">← Passage 1</a>
+            <a href="reading-passage3-C11T4.html" class="next-btn">Passage 3 →</a>
+            <a href="../library.html" class="back-btn">← Library</a>
+            <button class="clear-btn" onclick="clearAllData()">🗑️ Clear</button>
+        </div>
+    </div>
+<script>
+const PASSAGE2_RANGE = { start: 14, end: 26 };
+let lastNoteId = 0;
+
+// ✅ Auto-sync radio selection to answer text field
+document.querySelectorAll('.mc-options input[type="radio"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        const qNum = this.name.replace('q','');
+        const ansField = document.querySelector(`input[name="ans${qNum}"]`);
+        if (ansField) ansField.value = this.value;
+        updateNavStatus();
+    });
+});
+
+function initQuestionNav() {
+    const navContainer = document.getElementById('questionNav');
+    navContainer.innerHTML = '<span class="nav-label">Q:</span>';
+    for (let i = 1; i <= 40; i++) {
+        if (i === 14) { const g=document.createElement('div'); g.className='q-indicator passage-gap'; g.textContent='P2'; navContainer.appendChild(g); }
+        if (i === 27) { const g=document.createElement('div'); g.className='q-indicator passage-gap'; g.textContent='P3'; navContainer.appendChild(g); }
+        const btn = document.createElement('div');
+        btn.className = 'q-indicator';
+        btn.textContent = i;
+        btn.id = 'nav' + i;
+        if (i < PASSAGE2_RANGE.start || i > PASSAGE2_RANGE.end) {
+            btn.classList.add('future');
+        } else {
+            btn.onclick = () => jumpToQuestion(i);
+        }
+        navContainer.appendChild(btn);
+    }
+}
+function jumpToQuestion(qNum) {
+    document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
+    document.getElementById('nav' + qNum)?.classList.add('current');
+    document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function updateNavStatus() {
+    for (let q = PASSAGE2_RANGE.start; q <= PASSAGE2_RANGE.end; q++) {
+        const radio = document.querySelector(`input[name="q${q}"]:checked`);
+        const text = document.querySelector(`input[name="q${q}"]`)?.value.trim() || document.querySelector(`input[name="ans${q}"]`)?.value.trim();
+        const navBtn = document.getElementById('nav' + q);
+        if (navBtn) {
+            navBtn.classList.toggle('answered', !!radio || text !== '');
+        }
+    }
+}
+function clearAllData() {
+    if (!confirm('Clear ALL answers and highlights? This cannot be undone!')) return;
+    document.querySelectorAll('.answer-input').forEach(i => i.value='');
+    document.querySelectorAll('.mc-options input[type="radio"]').forEach(r => r.checked=false);
+    document.querySelectorAll('.highlight').forEach(span => {
+        const t=document.createTextNode(span.textContent); span.parentNode.replaceChild(t,span); t.parentNode.normalize();
+    });
+    document.querySelectorAll('.sticky-note').forEach(n => n.remove());
+    updateNavStatus();
+}
+
+// --- Highlight & Notes Context Menu ---
+const contextMenu = document.getElementById('contextMenu');
+let currentRange = null;
+function isSelectionValid(sel) {
+    if (!sel || sel.isCollapsed || sel.toString().trim()==='') return false;
+    try {
+        const r=sel.getRangeAt(0); let p=r.commonAncestorContainer;
+        p=p.nodeType===Node.TEXT_NODE?p.parentElement:p;
+        return (document.getElementById('passageArea').contains(p) || document.getElementById('questionsArea').contains(p)) && !p.closest('input,textarea,button,select');
+    } catch {return false;}
+}
+document.addEventListener('contextmenu',e=>{
+    const sel=window.getSelection();
+    if(!isSelectionValid(sel)){contextMenu.style.display='none';return;}
+    e.preventDefault();
+    currentRange=sel.getRangeAt(0).cloneRange();
+    const rc=currentRange.getBoundingClientRect();
+    contextMenu.style.left=(rc.left+window.scrollX)+'px';
+    contextMenu.style.top=(rc.bottom+window.scrollY+8)+'px';
+    contextMenu.style.display='block';
+});
+document.addEventListener('click',()=>{contextMenu.style.display='none';currentRange=null;});
+document.getElementById('menuHighlight').onclick=()=>{
+    if(!currentRange)return;
+    try{const s=document.createElement('span');s.className='highlight';s.textContent=currentRange.toString();currentRange.deleteContents();currentRange.insertNode(s);window.getSelection().removeAllRanges();}
+    catch{alert('Please select less text to highlight.');}
+};
+document.getElementById('menuRemove').onclick=()=>{
+    if(!currentRange)return;
+    try{const t=currentRange.toString().trim();if(!t)return;document.querySelectorAll('.highlight').forEach(span=>{if(span.textContent.trim()===t||span.textContent.includes(t)){const n=document.createTextNode(span.textContent);span.parentNode.replaceChild(n,span);n.parentNode.normalize();}});window.getSelection().removeAllRanges();currentRange=null;}
+    catch{alert('Could not remove highlight.');}
+};
+document.getElementById('menuNote').onclick=()=>{
+    if(!currentRange)return;
+    const rc=currentRange.getBoundingClientRect();const id='note_'+(++lastNoteId);
+    const note=document.createElement('div');note.className='sticky-note';note.id=id;
+    note.style.left=(rc.right+window.scrollX+10)+'px';note.style.top=(rc.top+window.scrollY)+'px';
+    note.innerHTML=`<div class="note-header">Note <span class="note-close" onclick="document.getElementById('${id}').remove()">×</span></div><textarea class="note-textarea" placeholder="Type your note..."></textarea>`;
+    document.body.appendChild(note);window.getSelection().removeAllRanges();
+};
+
+window.onload = initQuestionNav;
+</script>
+</body>
+</html>
