@@ -294,15 +294,22 @@ function jumpToQuestion(qNum) {
     document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+// ✅ COMPLETELY REWRITTEN — no more false-positive green highlights
 function updateNavStatus() {
     for (let q = PASSAGE2_RANGE.start; q <= PASSAGE2_RANGE.end; q++) {
         const radio = document.querySelector(`input[name="q${q}"]:checked`);
-        const textAns = document.querySelector(`input[name="q${q}"]`)?.value.trim();
-        const mcAns = document.querySelector(`input[name="ans${q}"]`)?.value.trim();
+        const textInput = document.querySelector(`input[name="q${q}"]`);
+        const ansInput = document.querySelector(`input[name="ans${q}"]`);
         const navBtn = document.getElementById('nav' + q);
+        
         if (navBtn) {
-            const hasAnswer = !!radio || (textAns !== '') || (mcAns !== '');
-            navBtn.classList.toggle('answered', hasAnswer);
+            // Only mark green if TRULY answered — not empty string
+            let trulyAnswered = false;
+            if (radio) trulyAnswered = true;
+            else if (textInput && textInput.value.trim() !== '') trulyAnswered = true;
+            else if (ansInput && ansInput.value.trim() !== '') trulyAnswered = true;
+            
+            navBtn.classList.toggle('answered', trulyAnswered);
         }
     }
 }
@@ -359,7 +366,10 @@ document.getElementById('menuNote').onclick=()=>{
     document.body.appendChild(note);window.getSelection().removeAllRanges();
 };
 
-window.onload = initQuestionNav;
+window.onload = function() {
+    initQuestionNav();
+    updateNavStatus(); // ✅ Initialize — ALL should be gray on load
+};
 </script>
 </body>
 </html>
