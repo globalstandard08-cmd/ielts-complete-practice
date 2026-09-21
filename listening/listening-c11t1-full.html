@@ -53,7 +53,7 @@
         .back-main-btn:hover { background: #4b5563; }
         .example-row { color: #666; font-style: italic; margin-bottom: 20px; }
 
-        /* ========== ✅ FIX 1: HIGHLIGHT FEATURE — applied exactly from your working sample ========== */
+        /* HIGHLIGHT FEATURE */
         .user-highlight {
             background-color: #ffd700;
             padding: 2px 4px;
@@ -97,7 +97,7 @@
     </style>
 </head>
 <body>
-    <!-- ✅ HIGHLIGHT TOOLS MARKUP exactly as in your sample -->
+    <!-- HIGHLIGHT TOOLS -->
     <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
     <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
 
@@ -113,8 +113,8 @@
             <h3>Play Recording</h3>
             <audio controls preload="auto">
                 <source src="c11t1.mp3" type="audio/mpeg">
-                <source src="https://ia601509.us.archive.org/34/items/cambridge-ielts-10-audio/Cambridge%20IELTS%2010%20-%20Test%204%20-%20Part%202.mp3" type="audio/mpeg">
-                <source src="https://archive.org/download/cambridge-ielts-10-audio/Cambridge%20IELTS%2010%20-%20Test%204%20-%20Part%202.mp3" type="audio/mpeg">
+                <source src="https://ia601509.us.archive.org/34/items/cambridge-ielts-11-audio/Cambridge%20IELTS%2011%20-%20Test%201.mp3" type="audio/mpeg">
+                <source src="https://archive.org/download/cambridge-ielts-11-audio/Cambridge%20IELTS%2011%20-%20Test%201.mp3" type="audio/mpeg">
                 Your browser does not support audio playback.
             
         </div>
@@ -607,7 +607,7 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // ========== ✅ FIX 2: NAV SHADING — proper targeting for green "answered" dots ==========
+    // === NAVIGATION DOT STATUS ===
     window.markAnswered = function(q) {
         const indicator = document.querySelector(`.q-indicator[data-q="${q}"]`);
         if (indicator) indicator.classList.add('answered');
@@ -617,7 +617,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (indicator) indicator.classList.remove('answered');
     };
 
-    // Click number dot → jump to question
+    // Click dot → jump to question
     document.querySelectorAll('.q-indicator').forEach(indicator => {
         const qNum = indicator.dataset.q;
         indicator.addEventListener('click', () => {
@@ -626,7 +626,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Text inputs — save + filled blue + dot green
+    // TEXT INPUTS — save + fill status
     const textQs = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,31,32,33,34,35,36,37,38,39,40];
     textQs.forEach(q => {
         const field = document.getElementById('q'+q);
@@ -650,7 +650,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Radio buttons — save + dot green
+    // RADIO BUTTONS — save + dot
     const radioQs = [21,22,23,24,25,26,27,28,29,30];
     radioQs.forEach(q => {
         const saved = localStorage.getItem('C11T1_q'+q);
@@ -669,7 +669,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Dropdowns — save + dot green
+    // DROPDOWNS — save + dot
     const selectQs = [15,16,17,18,19,20];
     selectQs.forEach(q => {
         const sel = document.getElementById('q'+q);
@@ -686,18 +686,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ========== ✅ HIGHLIGHT SCRIPT — exactly from your working sample ==========
+    // === HIGHLIGHT FEATURE ===
     const highlightArea = document.getElementById('highlightArea');
     const highlightTool = document.getElementById('highlightTool');
     const removeTool = document.getElementById('removeTool');
     let currentRange = null;
-
-    highlightArea.addEventListener('contextmenu', e => {
-        e.preventDefault();
-        const sel = window.getSelection();
-        if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
-        showPencil(e.clientX, e.clientY);
-    });
 
     document.addEventListener('mouseup', () => {
         const sel = window.getSelection();
@@ -708,15 +701,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const range = sel.getRangeAt(0);
         if (!highlightArea.contains(range.commonAncestorContainer)) return;
         const rect = range.getBoundingClientRect();
-        showPencil(rect.left + rect.width/2, rect.top);
+        highlightTool.style.left = (rect.left + rect.width/2 - 17 + window.scrollX) + 'px';
+        highlightTool.style.top = (rect.top - 40 + window.scrollY) + 'px';
+        highlightTool.style.display = 'flex';
         currentRange = range;
     });
-
-    function showPencil(x, y) {
-        highlightTool.style.left = (x + window.scrollX - 17) + 'px';
-        highlightTool.style.top = (y + window.scrollY - 40) + 'px';
-        highlightTool.style.display = 'flex';
-    }
 
     highlightTool.addEventListener('click', () => {
         if (!currentRange) return;
@@ -733,8 +722,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', e => {
         if (e.target.classList.contains('user-highlight')) {
             const rect = e.target.getBoundingClientRect();
-            removeTool.style.left = (rect.left + window.scrollX + rect.width/2 - 30) + 'px';
-            removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
+            removeTool.style.left = (rect.left + rect.width/2 - 30 + window.scrollX) + 'px';
+            removeTool.style.top = (rect.top - 35 + window.scrollY) + 'px';
             removeTool.style.display = 'block';
             removeTool.dataset.target = e.target;
         } else if (!removeTool.contains(e.target)) {
@@ -756,5 +745,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Remaining functions
-function
+// === CLEAR ALL ===
+function clearAll() {
+    if (!confirm('Clear all answers? This cannot be undone.')) return;
+    localStorage.clear();
+    document.querySelectorAll('.input-field').forEach(f => { f.value = ''; f.classList.remove('filled'); });
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.map-select').forEach(s => s.value = '');
+    document.querySelectorAll('.q-indicator').forEach(d => d.classList.remove('answered'));
+    document.querySelectorAll('.user-highlight').forEach(h => {
+        const text = document.createTextNode(h.textContent);
+        h.parentNode.replaceChild(text
