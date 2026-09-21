@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IELTS Listening - C11 Test 1</title>
     <style>
-        /* ========== YOUR ORIGINAL STYLES — FULLY PRESERVED ========== */
         * {
             margin: 0;
             padding: 0;
@@ -976,10 +975,22 @@
 
 <script>
 // =====================================================
-// ✅ 1. NAVIGATION: CLICK → JUMP + ANSWERED SHADING
+// ✅ GLOBAL HELPERS
+// =====================================================
+function markAnswered(q) {
+    const indicator = document.querySelector(`.q-indicator[data-q="${q}"]`);
+    if (indicator) indicator.classList.add('answered');
+}
+function unmarkAnswered(q) {
+    const indicator = document.querySelector(`.q-indicator[data-q="${q}"]`);
+    if (indicator) indicator.classList.remove('answered');
+}
+
+// =====================================================
+// ✅ NAVIGATION BAR — CLICK JUMP + GREEN SHADING
 // =====================================================
 document.addEventListener('DOMContentLoaded', function() {
-    // Click number → smooth scroll to question
+    // Click number → jump to question
     document.querySelectorAll('.q-indicator').forEach(indicator => {
         const qNum = indicator.dataset.q;
         indicator.addEventListener('click', () => {
@@ -990,17 +1001,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Mark / unmark helper functions
-    window.markAnswered = function(q) {
-        const indicator = document.querySelector(`.q-indicator[data-q="${q}"]`);
-        if (indicator) indicator.classList.add('answered');
-    };
-    window.unmarkAnswered = function(q) {
-        const indicator = document.querySelector(`.q-indicator[data-q="${q}"]`);
-        if (indicator) indicator.classList.remove('answered');
-    };
-
-    // --- SAVE & LOAD + STATUS UPDATE ---
+    // Text fields — save + update shading
     const textQs = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,31,32,33,34,35,36,37,38,39,40];
     textQs.forEach(q => {
         const field = document.getElementById('q'+q);
@@ -1023,6 +1024,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Radio buttons — save + update shading
     const radioQs = [21,22,23,24,25,26,27,28,29,30];
     radioQs.forEach(q => {
         const saved = localStorage.getItem('C11T1_q'+q);
@@ -1041,4 +1043,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    const selectQs = [15,16,17,18,19,
+    // Dropdown selects — save + update shading
+    const selectQs = [15,16,17,18,19,20];
+    selectQs.forEach(q => {
+        const sel = document.getElementById('q'+q);
+        if (!sel) return;
+        const saved = localStorage.getItem
