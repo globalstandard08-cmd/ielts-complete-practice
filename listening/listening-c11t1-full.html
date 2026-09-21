@@ -5,171 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IELTS Listening - C11 Test 1</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-        body {
-            background-color: #f4f6f9;
-            padding: 20px;
-            line-height: 1.7;
-            position: relative;
-            user-select: text;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            overflow: visible;
-            position: relative;
-        }
-        .logo-section {
-            text-align: center;
-            padding: 20px;
-            border-bottom: 1px solid #eee;
-        }
-        .logo-section img {
-            height: 120px;
-            width: auto;
-            object-fit: contain;
-        }
-        .header-bar {
-            background-color: #1f3a5f;
-            color: white;
-            padding: 15px 25px;
-            font-size: 18px;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .audio-player {
-            background: #eef2f7;
-            padding: 18px 25px;
-            margin: 20px;
-            border-radius: 6px;
-            text-align: center;
-        }
-        .audio-player h3 {
-            color: #1f3a5f;
-            margin-bottom: 12px;
-            font-size: 17px;
-        }
-        audio {
-            width: 100%;
-            max-width: 500px;
-        }
-        .content {
-            padding: 0 30px 30px;
-            position: relative;
-        }
-        h2 {
-            color: #1f3a5f;
-            margin: 25px 0 15px;
-            font-size: 22px;
-        }
-        .instruction {
-            background-color: #f8fbfe;
-            border-left: 4px solid #1f3a5f;
-            padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 4px;
-            font-weight: 500;
-        }
-        .notes-block, .section-block {
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            padding: 25px;
-            margin-bottom: 30px;
-            background-color: #fdfdfd;
-        }
-        .section-title {
-            font-weight: bold;
-            font-size: 20px;
-            margin-bottom: 25px;
-            text-align: center;
-            color: #1f3a5f;
-        }
-        .question-line {
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-            font-size: 16px;
-            scroll-margin-top: 80px;
-        }
-        .q-number {
-            font-weight: bold;
-            min-width: 35px;
-            color: #1f3a5f;
-        }
-        .input-field {
-            width: 180px;
-            padding: 6px 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-            background: white;
-            transition: all 0.2s;
-        }
-        .input-field:focus {
-            outline: none;
-            border-color: #1f3a5f;
-            box-shadow: 0 0 3px rgba(31, 58, 95, 0.3);
-        }
-        .input-field.filled {
-            background-color: #e6f0ff;
-            border-color: #1f3a5f;
-        }
-        .option {
-            margin: 8px 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-        input[type="radio"] {
-            transform: scale(1.2);
-            cursor: pointer;
-        }
-        .map-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 25px;
-            align-items: flex-start;
-        }
-        .map-img {
-            flex: 1;
-            min-width: 300px;
-        }
-        .map-img img {
-            width: 100%;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .map-questions {
-            flex: 1;
-            min-width: 250px;
-        }
-        .map-q-line {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-        .map-select {
-            width: 70px;
-            padding: 5px 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-            text-align: center;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background: #f4f6f9; padding: 20px; line-height: 1.7; position: relative; user-select: text; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: relative; }
+        .logo-section { text-align: center; padding: 20px; border-bottom: 1px solid #eee; }
+        .logo-section img { height: 120px; width: auto; }
+        .header-bar { background: #1f3a5f; color: white; padding: 15px 25px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+        .audio-player { background: #eef2f7; padding: 18px 25px; margin: 20px; border-radius: 6px; text-align: center; }
+        .audio-player h3 { color: #1f3a5f; margin-bottom: 12px; font-size: 17px; }
+        audio { width: 100%; max-width: 500px; }
+        .content { padding: 0 30px 30px; position: relative; }
+        h2 { color: #1f3a5f; margin: 25px 0 15px; font-size: 22px; }
+        .instruction { background: #f8fbfe; border-left: 4px solid #1f3a5f; padding: 15px; margin-bottom: 25px; border-radius: 4px; font-weight: 500; }
+        .notes-block, .section-block { border: 1px solid #ccc; border-radius: 6px; padding: 25px; margin-bottom: 30px; background: #fdfdfd; }
+        .section-title { font-weight: bold; font-size: 20px; margin-bottom: 25px; text-align: center; color: #1f3a5f; }
+        .question-line { margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 16px; scroll-margin-top: 80px; }
+        .q-number { font-weight: bold; min-width: 35px; color: #1f3a5f; flex-shrink: 0; }
+        .input-field { width: 180px; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; background: white; transition: all 0.2s; }
+        .input-field:focus { outline: none; border-color: #1f3a5f; box-shadow: 0 0 3px rgba(31,58,95,0.3); }
+        .input-field.filled { background: #e6f0ff; border-color: #1f3a5f; }
+        .option { margin: 8px 0; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        input[type="radio"] { transform: scale(1.2); cursor: pointer; }
+        .map-container { display: flex; flex-wrap: wrap; gap: 25px; align-items: flex-start; }
+        .map-img { flex: 1; min-width: 300px; }
+        .map-img img { width: 100%; border: 1px solid #ccc; border-radius: 4px; }
+        .map-questions { flex: 1; min-width: 250px; }
+        .map-q-line { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .map-select { width: 70px; padding: 5px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; text-align: center; }
+        .question-status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 30px 0; padding: 12px 15px; background: #f0f2f5; border-radius: 4px; border: 1px solid #d0d5dd; font-size: 12px; }
+        .part-label { font-weight: bold; color: #444; margin: 0 8px 0 4px; }
+        .part-separator { width: 12px; height: 24px; flex-shrink: 0; }
+        .q-indicator { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 2px; border: 1px solid #d1d5db; background: #e5e7eb; color: #333; cursor: pointer; transition: all 0.2s; }
+        .q-indicator:hover { background: #d9dce1; }
+        .q-indicator.current { background: #d9dce1; border-color: #b0b4b9; }
+        .q-indicator.answered { background: #10b981; color: white; border-color: #10b981; }
+        .btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 30px 0; }
+        .check-btn, .clear-btn { background: #1f3a5f; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 15px; }
+        .clear-btn { background: #dc2626; }
+        .check-btn:hover { background: #2e568c; }
+        .clear-btn:hover { background: #b91c1c; }
+        .feedback { margin-top: 15px; padding: 15px 20px; border-radius: 4px; display: none; }
+        .feedback.show { display: block; }
+        .feedback.correct { background: #ecfdf5; border: 1px solid #10b981; color: #065f46; }
+        .feedback.incorrect { background: #fef2f2; border: 1px solid #ef4444; color: #991b1b; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; padding-top: 15px; border-top: 1px solid #eee; }
+        .back-main-btn { background: #6b7280; color: white; border: none; padding: 10px 18px; border-radius: 4px; text-decoration: none; font-size: 15px; font-weight: 500; transition: background 0.2s; }
+        .back-main-btn:hover { background: #4b5563; }
+        .example-row { color: #666; font-style: italic; margin-bottom: 20px; }
+
+        /* ========== ✅ HIGHLIGHT FEATURE — WORKING FROM SAMPLE ========== */
         .user-highlight {
             background-color: #ffd700;
             padding: 2px 4px;
@@ -178,194 +62,44 @@
             display: inline;
             color: #000;
         }
-        .context-menu {
+        .highlight-tool {
             position: absolute;
             background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            border: 1px solid #1f3a5f;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
             z-index: 9999;
             display: none;
-            min-width: 160px;
-        }
-        .context-menu.visible { display: block; }
-        .context-menu div {
-            padding: 10px 14px;
             cursor: pointer;
-            font-size: 14px;
-        }
-        .context-menu div:hover {
-            background: #f0f0f0;
-        }
-        .sticky-note {
-            position: absolute;
-            width: 170px;
-            min-height: 70px;
-            background: #fff9c4;
-            border: 1px solid #fbc02d;
-            border-radius: 4px;
-            padding: 8px;
-            box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
-            z-index: 9998;
-            font-size: 13px;
-        }
-        .note-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 12px;
-            color: #f57f17;
-            cursor: grab;
-        }
-        .note-close {
-            cursor: pointer;
-            font-weight: bold;
-            color: #f57f17;
-        }
-        .note-textarea {
-            width: 100%;
-            height: 50px;
-            border: none;
-            background: transparent;
-            resize: none;
-            outline: none;
-            font-family: inherit;
-            font-size: 13px;
-        }
-        .question-status {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 6px;
-            margin: 30px 0;
-            padding: 12px 15px;
-            background: #f0f2f5;
-            border-radius: 4px;
-            border: 1px solid #d0d5dd;
-            font-size: 12px;
-        }
-        .part-label {
-            font-size: 11px;
-            font-weight: bold;
-            color: #444;
-            margin-right: 4px;
-            margin-left: 8px;
-        }
-        .part-separator {
-            width: 12px;
-            height: 24px;
-            flex-shrink: 0;
-        }
-        .q-indicator {
-            width: 24px;
-            height: 24px;
-            display: flex;
+            font-size: 18px;
+            color: #1f3a5f;
             align-items: center;
             justify-content: center;
-            font-weight: normal;
-            border-radius: 2px;
-            border: 1px solid #d1d5db;
-            background: #e5e7eb;
-            color: #333;
-            cursor: pointer;
-            transition: all 0.2s;
         }
-        .q-indicator:hover {
-            background: #d9dce1;
-        }
-        .q-indicator.current {
-            background: #d9dce1;
-            color: #000;
-            border-color: #b0b4b9;
-        }
-        .q-indicator.answered {
-            background: #10b981;
-            color: white;
-            border-color: #10b981;
-        }
-        .btn-row {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin: 30px 0;
-        }
-        .check-btn, .clear-btn {
-            background-color: #1f3a5f;
-            color: white;
-            border: none;
-            padding: 10px 20px;
+        .highlight-tool:hover { background: #eef2f7; }
+        .remove-highlight {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #dc3545;
             border-radius: 4px;
-            cursor: pointer;
-            font-size: 15px;
-        }
-        .clear-btn {
-            background-color: #dc2626;
-        }
-        .check-btn:hover {
-            background-color: #2e568c;
-        }
-        .clear-btn:hover {
-            background-color: #b91c1c;
-        }
-        .feedback {
-            margin-top: 15px;
-            padding: 15px 20px;
-            border-radius: 4px;
+            padding: 5px 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
             display: none;
-        }
-        .feedback.show {
-            display: block;
-        }
-        .feedback.correct {
-            background: #ecfdf5;
-            border: 1px solid #10b981;
-            color: #065f46;
-        }
-        .feedback.incorrect {
-            background: #fef2f2;
-            border: 1px solid #ef4444;
-            color: #991b1b;
-        }
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-        .back-main-btn {
-            background-color: #6b7280;
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 4px;
-            font-size: 15px;
-            font-weight: 500;
             cursor: pointer;
-            text-decoration: none;
-            transition: background 0.2s;
+            font-size: 14px;
+            color: #dc3545;
+            font-weight: bold;
         }
-        .back-main-btn:hover {
-            background-color: #4b5563;
-        }
-        .example-row {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 20px;
-        }
+        .remove-highlight:hover { background: #ffebee; }
     </style>
 </head>
 <body>
-    <!-- Right-click Context Menu -->
-    <div class="context-menu" id="contextMenu">
-        <div id="menuHighlight">✅ Highlight</div>
-        <div id="menuRemove">❌ Remove Highlight</div>
-        <div id="menuNote">📝 Add Note</div>
-    </div>
+    <!-- ✅ HIGHLIGHT TOOLS -->
+    <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
+    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
 
     <div class="container">
         <div class="logo-section">
@@ -383,6 +117,7 @@
                 Your browser does not support audio playback.
             
         </div>
+
         <div class="content" id="highlightArea">
 
             <!-- ========== SECTION 1 – Questions 1–10 ========== -->
@@ -400,22 +135,22 @@
                 <div class="question-line" data-qline="1">
                     <span>the</span>
                     <span class="q-number">1.</span>
-                    <input type="text" class="input-field" id="q1" placeholder="__________">
+                    <input type="text" class="input-field" id="q1" data-q="1" placeholder="__________">
                     <span>Room – seats 100</span>
                 </div>
                 <div class="question-line" data-qline="2">
                     <span>Cost of Main Hall for Saturday evening: £</span>
                     <span class="q-number">2.</span>
-                    <input type="text" class="input-field" id="q2" placeholder="__________">
+                    <input type="text" class="input-field" id="q2" data-q="2" placeholder="__________">
                     <span>+ £250 deposit (</span>
                     <span class="q-number">3.</span>
-                    <input type="text" class="input-field" id="q3" placeholder="__________">
+                    <input type="text" class="input-field" id="q3" data-q="3" placeholder="__________">
                     <span>payment is required)</span>
                 </div>
                 <div class="question-line" data-qline="4">
                     <span>Cost includes use of tables and chairs and also</span>
                     <span class="q-number">4.</span>
-                    <input type="text" class="input-field" id="q4" placeholder="__________">
+                    <input type="text" class="input-field" id="q4" data-q="4" placeholder="__________">
                 </div>
                 <div class="question-line">
                     <span>Additional charge for use of the kitchen: £25</span>
@@ -424,52 +159,44 @@
                 <div class="question-line" data-qline="5">
                     <span>Will need a</span>
                     <span class="q-number">5.</span>
-                    <input type="text" class="input-field" id="q5" placeholder="__________">
+                    <input type="text" class="input-field" id="q5" data-q="5" placeholder="__________">
                     <span>licence</span>
                 </div>
                 <div class="question-line" data-qline="6">
                     <span>Need to contact caretaker (Mr Evans) in advance to arrange</span>
                     <span class="q-number">6.</span>
-                    <input type="text" class="input-field" id="q6" placeholder="__________">
+                    <input type="text" class="input-field" id="q6" data-q="6" placeholder="__________">
                 </div>
                 <p style="font-weight:bold; margin:20px 0 8px;">During the event</p>
-                <div class="question-line">
-                    <span>The building is no smoking</span>
-                </div>
+                <div class="question-line"><span>The building is no smoking</span></div>
                 <div class="question-line" data-qline="7">
                     <span>The band should use the</span>
                     <span class="q-number">7.</span>
-                    <input type="text" class="input-field" id="q7" placeholder="__________">
+                    <input type="text" class="input-field" id="q7" data-q="7" placeholder="__________">
                     <span>door at the back</span>
                 </div>
-                <div class="question-line">
-                    <span>Don't touch the system that controls the volume</span>
-                </div>
-                <div class="question-line">
-                    <span>For microphones, contact the caretaker</span>
-                </div>
+                <div class="question-line"><span>Don't touch the system that controls the volume</span></div>
+                <div class="question-line"><span>For microphones, contact the caretaker</span></div>
                 <p style="font-weight:bold; margin:20px 0 8px;">After the event</p>
                 <div class="question-line" data-qline="8">
                     <span>Need to know the</span>
                     <span class="q-number">8.</span>
-                    <input type="text" class="input-field" id="q8" placeholder="__________">
+                    <input type="text" class="input-field" id="q8" data-q="8" placeholder="__________">
                     <span>for the cleaning cupboard</span>
                 </div>
                 <div class="question-line" data-qline="9">
                     <span>The</span>
                     <span class="q-number">9.</span>
-                    <input type="text" class="input-field" id="q9" placeholder="__________">
+                    <input type="text" class="input-field" id="q9" data-q="9" placeholder="__________">
                     <span>must be washed and rubbish placed in black bags</span>
                 </div>
                 <div class="question-line" data-qline="10">
                     <span>All</span>
                     <span class="q-number">10.</span>
-                    <input type="text" class="input-field" id="q10" placeholder="__________">
+                    <input type="text" class="input-field" id="q10" data-q="10" placeholder="__________">
                     <span>must be taken down</span>
                 </div>
-                <div class="question-line">
-                    <span>Chairs and tables must be piled up</span>
-                </div>
+                <div class="question-line"><span>Chairs and tables must be piled up</span></div>
             </div>
 
             <!-- ========== SECTION 2 – Questions 11–20 ========== -->
@@ -485,22 +212,22 @@
                 <div class="question-line" data-qline="11">
                     <span>• take care not to harm any</span>
                     <span class="q-number">11.</span>
-                    <input type="text" class="input-field" id="q11" placeholder="__________">
+                    <input type="text" class="input-field" id="q11" data-q="11" placeholder="__________">
                 </div>
                 <div class="question-line" data-qline="12">
                     <span>• not touch any</span>
                     <span class="q-number">12.</span>
-                    <input type="text" class="input-field" id="q12" placeholder="__________">
+                    <input type="text" class="input-field" id="q12" data-q="12" placeholder="__________">
                 </div>
                 <div class="question-line" data-qline="13">
                     <span>• wear</span>
                     <span class="q-number">13.</span>
-                    <input type="text" class="input-field" id="q13" placeholder="__________">
+                    <input type="text" class="input-field" id="q13" data-q="13" placeholder="__________">
                 </div>
                 <div class="question-line" data-qline="14">
                     <span>• not bring</span>
                     <span class="q-number">14.</span>
-                    <input type="text" class="input-field" id="q14" placeholder="__________">
+                    <input type="text" class="input-field" id="q14" data-q="14" placeholder="__________">
                     <span>into the farm, with certain exceptions</span>
                 </div>
             </div>
@@ -520,15 +247,9 @@
                             <span>Scarecrow</span>
                             <select class="map-select" id="q15" data-q="15">
                                 <option value="">–</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
-                                <option value="F">F</option>
-                                <option value="G">G</option>
-                                <option value="H">H</option>
-                                <option value="I">I</option>
+                                <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+                                <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+                                <option value="G">G</option><option value="H">H</option><option value="I">I</option>
                             </select>
                         </div>
                         <div class="map-q-line" data-qline="16">
@@ -536,15 +257,9 @@
                             <span>Maze</span>
                             <select class="map-select" id="q16" data-q="16">
                                 <option value="">–</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
-                                <option value="F">F</option>
-                                <option value="G">G</option>
-                                <option value="H">H</option>
-                                <option value="I">I</option>
+                                <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+                                <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+                                <option value="G">G</option><option value="H">H</option><option value="I">I</option>
                             </select>
                         </div>
                         <div class="map-q-line" data-qline="17">
@@ -552,15 +267,9 @@
                             <span>Café</span>
                             <select class="map-select" id="q17" data-q="17">
                                 <option value="">–</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
-                                <option value="F">F</option>
-                                <option value="G">G</option>
-                                <option value="H">H</option>
-                                <option value="I">I</option>
+                                <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+                                <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+                                <option value="G">G</option><option value="H">H</option><option value="I">I</option>
                             </select>
                         </div>
                         <div class="map-q-line" data-qline="18">
@@ -568,15 +277,9 @@
                             <span>Black Barn</span>
                             <select class="map-select" id="q18" data-q="18">
                                 <option value="">–</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
-                                <option value="F">F</option>
-                                <option value="G">G</option>
-                                <option value="H">H</option>
-                                <option value="I">I</option>
+                                <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+                                <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+                                <option value="G">G</option><option value="H">H</option><option value="I">I</option>
                             </select>
                         </div>
                         <div class="map-q-line" data-qline="19">
@@ -584,15 +287,9 @@
                             <span>Covered picnic area</span>
                             <select class="map-select" id="q19" data-q="19">
                                 <option value="">–</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
-                                <option value="F">F</option>
-                                <option value="G">G</option>
-                                <option value="H">H</option>
-                                <option value="I">I</option>
+                                <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+                                <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+                                <option value="G">G</option><option value="H">H</option><option value="I">I</option>
                             </select>
                         </div>
                         <div class="map-q-line" data-qline="20">
@@ -600,15 +297,9 @@
                             <span>Fiddy House</span>
                             <select class="map-select" id="q20" data-q="20">
                                 <option value="">–</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
-                                <option value="F">F</option>
-                                <option value="G">G</option>
-                                <option value="H">H</option>
-                                <option value="I">I</option>
+                                <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+                                <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+                                <option value="G">G</option><option value="H">H</option><option value="I">I</option>
                             </select>
                         </div>
                     </div>
@@ -617,27 +308,21 @@
 
             <!-- ========== SECTION 3 – Questions 21–30 ========== -->
             <h2>SECTION 3 – Questions 21–30</h2>
-            <div class="instruction">
-                <strong>Choose the correct letter, A, B or C.</strong>
-            </div>
+            <div class="instruction"><strong>Choose the correct letter, A, B or C.</strong></div>
             <div class="section-block">
                 <div class="section-title">Study on Gender in Physics</div>
-
                 <div class="question-line" data-qline="21">
                     <span class="q-number">21.</span>
                     <span>The students in Akira Miyake's study were all majoring in</span>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q21" value="A" id="q21a">
-                    <label for="q21a">A physics.</label>
+                    <input type="radio" name="q21" value="A" id="q21a"><label for="q21a">A physics.</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q21" value="B" id="q21b">
-                    <label for="q21b">B psychology or physics.</label>
+                    <input type="radio" name="q21" value="B" id="q21b"><label for="q21b">B psychology or physics.</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q21" value="C" id="q21c">
-                    <label for="q21c">C science, technology, engineering or mathematics.</label>
+                    <input type="radio" name="q21" value="C" id="q21c"><label for="q21c">C science, technology, engineering or mathematics.</label>
                 </div>
 
                 <div class="question-line" data-qline="22">
@@ -645,16 +330,13 @@
                     <span>The aim of Miyake's study was to investigate</span>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q22" value="A" id="q22a">
-                    <label for="q22a">A what kind of women choose to study physics.</label>
+                    <input type="radio" name="q22" value="A" id="q22a"><label for="q22a">A what kind of women choose to study physics.</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q22" value="B" id="q22b">
-                    <label for="q22b">B a way of improving women's performance in physics.</label>
+                    <input type="radio" name="q22" value="B" id="q22b"><label for="q22b">B a way of improving women's performance in physics.</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q22" value="C" id="q22c">
-                    <label for="q22c">C whether fewer women than men study physics at college.</label>
+                    <input type="radio" name="q22" value="C" id="q22c"><label for="q22c">C whether fewer women than men study physics at college.</label>
                 </div>
 
                 <div class="question-line" data-qline="23">
@@ -662,16 +344,13 @@
                     <span>The female physics students were wrong to believe that</span>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q23" value="A" id="q23a">
-                    <label for="q23a">A the teachers marked them in an unfair way.</label>
+                    <input type="radio" name="q23" value="A" id="q23a"><label for="q23a">A the teachers marked them in an unfair way.</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q23" value="B" id="q23b">
-                    <label for="q23b">B the male students expected them to do badly.</label>
+                    <input type="radio" name="q23" value="B" id="q23b"><label for="q23b">B the male students expected them to do badly.</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q23" value="C" id="q23c">
-                    <label for="q23c">C their test results were lower than the male students'.</label>
+                    <input type="radio" name="q23" value="C" id="q23c"><label for="q23c">C their test results were lower than the male students'.</label>
                 </div>
 
                 <div class="question-line" data-qline="24">
@@ -679,16 +358,13 @@
                     <span>Miyake's team asked the students to write about</span>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q24" value="A" id="q24a">
-                    <label for="q24a">A what they enjoyed about studying physics.</label>
+                    <input type="radio" name="q24" value="A" id="q24a"><label for="q24a">A what they enjoyed about studying physics.</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q24" value="B" id="q24b">
-                    <label for="q24b">B the successful experiences of other people.</label>
+                    <input type="radio" name="q24" value="B" id="q24b"><label for="q24b">B the successful experiences of other people.</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q24" value="C" id="q24c">
-                    <label for="q24c">C something that was important to them personally.</label>
+                    <input type="radio" name="q24" value="C" id="q24c"><label for="q24c">C something that was important to them personally.</label>
                 </div>
 
                 <div class="question-line" data-qline="25">
@@ -696,16 +372,13 @@
                     <span>What was the aim of the writing exercise done by the subjects?</span>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q25" value="A" id="q25a">
-                    <label for="q25a">A to reduce stress</label>
+                    <input type="radio" name="q25" value="A" id="q25a"><label for="q25a">A to reduce stress</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q25" value="B" id="q25b">
-                    <label for="q25b">B to strengthen verbal ability</label>
+                    <input type="radio" name="q25" value="B" id="q25b"><label for="q25b">B to strengthen verbal ability</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q25" value="C" id="q25c">
-                    <label for="q25c">C to encourage logical thinking</label>
+                    <input type="radio" name="q25" value="C" id="q25c"><label for="q25c">C to encourage logical thinking</label>
                 </div>
 
                 <div class="question-line" data-qline="26">
@@ -713,16 +386,13 @@
                     <span>What surprised the researchers about the study?</span>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q26" value="A" id="q26a">
-                    <label for="q26a">A how few students managed to get A grades.</label>
+                    <input type="radio" name="q26" value="A" id="q26a"><label for="q26a">A how few students managed to get A grades.</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q26" value="B" id="q26b">
-                    <label for="q26b">B the positive impact it had on physics results for women.</label>
+                    <input type="radio" name="q26" value="B" id="q26b"><label for="q26b">B the positive impact it had on physics results for women.</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q26" value="C" id="q26c">
-                    <label for="q26c">C the difference between male and female performance.</label>
+                    <input type="radio" name="q26" value="C" id="q26c"><label for="q26c">C the difference between male and female performance.</label>
                 </div>
 
                 <div class="question-line" data-qline="27">
@@ -730,16 +400,13 @@
                     <span>Greg and Lisa think Miyake's results could have been affected by</span>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q27" value="A" id="q27a">
-                    <label for="q27a">A the length of the writing task.</label>
+                    <input type="radio" name="q27" value="A" id="q27a"><label for="q27a">A the length of the writing task.</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q27" value="B" id="q27b">
-                    <label for="q27b">B the number of students who took part.</label>
+                    <input type="radio" name="q27" value="B" id="q27b"><label for="q27b">B the number of students who took part.</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q27" value="C" id="q27c">
-                    <label for="q27c">C the information the students were given.</label>
+                    <input type="radio" name="q27" value="C" id="q27c"><label for="q27c">C the information the students were given.</label>
                 </div>
 
                 <div class="question-line" data-qline="28">
@@ -747,16 +414,13 @@
                     <span>Greg and Lisa decide that in their own project, they will compare the effects of</span>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q28" value="A" id="q28a">
-                    <label for="q28a">A two different writing tasks.</label>
+                    <input type="radio" name="q28" value="A" id="q28a"><label for="q28a">A two different writing tasks.</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q28" value="B" id="q28b">
-                    <label for="q28b">B a writing task with an oral task.</label>
+                    <input type="radio" name="q28" value="B" id="q28b"><label for="q28b">B a writing task with an oral task.</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q28" value="C" id="q28c">
-                    <label for="q28c">C two different oral tasks.</label>
+                    <input type="radio" name="q28" value="C" id="q28c"><label for="q28c">C two different oral tasks.</label>
                 </div>
 
                 <div class="question-line" data-qline="29">
@@ -764,16 +428,13 @@
                     <span>The main finding of Smolinsky's research was that class teamwork activities</span>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q29" value="A" id="q29a">
-                    <label for="q29a">A were most effective when done by all-women groups.</label>
+                    <input type="radio" name="q29" value="A" id="q29a"><label for="q29a">A were most effective when done by all-women groups.</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q29" value="B" id="q29b">
-                    <label for="q29b">B had no effect on the performance of men or women.</label>
+                    <input type="radio" name="q29" value="B" id="q29b"><label for="q29b">B had no effect on the performance of men or women.</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q29" value="C" id="q29c">
-                    <label for="q29c">C improved the results of men more than of women.</label>
+                    <input type="radio" name="q29" value="C" id="q29c"><label for="q29c">C improved the results of men more than of women.</label>
                 </div>
 
                 <div class="question-line" data-qline="30">
@@ -781,16 +442,13 @@
                     <span>What will Lisa and Greg do next?</span>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q30" value="A" id="q30a">
-                    <label for="q30a">A talk to a professor</label>
+                    <input type="radio" name="q30" value="A" id="q30a"><label for="q30a">A talk to a professor</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q30" value="B" id="q30b">
-                    <label for="q30b">B observe a science class</label>
+                    <input type="radio" name="q30" value="B" id="q30b"><label for="q30b">B observe a science class</label>
                 </div>
                 <div class="option">
-                    <input type="radio" name="q30" value="C" id="q30c">
-                    <label for="q30c">C look at the science timetable</label>
+                    <input type="radio" name="q30" value="C" id="q30c"><label for="q30c">C look at the science timetable</label>
                 </div>
             </div>
 
@@ -802,41 +460,32 @@
             </div>
             <div class="notes-block">
                 <div class="section-title">Ocean Biodiversity</div>
-
                 <p style="font-weight:bold; margin:15px 0 8px;">Biodiversity hotspots</p>
-                <div class="question-line">
-                    <span>– areas containing many different species</span>
-                </div>
+                <div class="question-line"><span>– areas containing many different species</span></div>
                 <div class="question-line" data-qline="31">
                     <span>– important for locating targets for</span>
                     <span class="q-number">31.</span>
-                    <input type="text" class="input-field" id="q31" placeholder="__________">
+                    <input type="text" class="input-field" id="q31" data-q="31" placeholder="__________">
                 </div>
-                <div class="question-line">
-                    <span>– at first only identified on land</span>
-                </div>
+                <div class="question-line"><span>– at first only identified on land</span></div>
 
                 <p style="font-weight:bold; margin:20px 0 8px;">Boris Worm, 2005</p>
-                <div class="question-line">
-                    <span>– identified hotspots for large ocean predators, e.g. sharks</span>
-                </div>
-                <div class="question-line">
-                    <span>– found that ocean hotspots:</span>
-                </div>
-                <div class="question-line" style="padding-left: 25px;" data-qline="32">
+                <div class="question-line"><span>– identified hotspots for large ocean predators, e.g. sharks</span></div>
+                <div class="question-line"><span>– found that ocean hotspots:</span></div>
+                <div class="question-line" style="padding-left:25px;" data-qline="32">
                     <span>– were not always rich in</span>
                     <span class="q-number">32.</span>
-                    <input type="text" class="input-field" id="q32" placeholder="__________">
+                    <input type="text" class="input-field" id="q32" data-q="32" placeholder="__________">
                 </div>
-                <div class="question-line" style="padding-left: 25px;" data-qline="33">
+                <div class="question-line" style="padding-left:25px;" data-qline="33">
                     <span>– had higher temperatures at the</span>
                     <span class="q-number">33.</span>
-                    <input type="text" class="input-field" id="q33" placeholder="__________">
+                    <input type="text" class="input-field" id="q33" data-q="33" placeholder="__________">
                 </div>
-                <div class="question-line" style="padding-left: 25px;" data-qline="34">
+                <div class="question-line" style="padding-left:25px;" data-qline="34">
                     <span>– had sufficient</span>
                     <span class="q-number">34.</span>
-                    <input type="text" class="input-field" id="q34" placeholder="__________">
+                    <input type="text" class="input-field" id="q34" data-q="34" placeholder="__________">
                     <span>in the water</span>
                 </div>
 
@@ -844,64 +493,48 @@
                 <div class="question-line" data-qline="35">
                     <span>– looked for hotspots for marine</span>
                     <span class="q-number">35.</span>
-                    <input type="text" class="input-field" id="q35" placeholder="__________">
+                    <input type="text" class="input-field" id="q35" data-q="35" placeholder="__________">
                 </div>
-                <div class="question-line">
-                    <span>– found these were all located where ocean currents meet</span>
-                </div>
+                <div class="question-line"><span>– found these were all located where ocean currents meet</span></div>
 
                 <p style="font-weight:bold; margin:20px 0 8px;">Census of Marine Life</p>
-                <div class="question-line">
-                    <span>– found new ocean species living:</span>
-                </div>
-                <div class="question-line" style="padding-left: 25px;" data-qline="36">
+                <div class="question-line"><span>– found new ocean species living:</span></div>
+                <div class="question-line" style="padding-left:25px;" data-qline="36">
                     <span>– under the</span>
                     <span class="q-number">36.</span>
-                    <input type="text" class="input-field" id="q36" placeholder="__________">
+                    <input type="text" class="input-field" id="q36" data-q="36" placeholder="__________">
                 </div>
-                <div class="question-line" style="padding-left: 25px;">
-                    <span>– near volcanoes on the ocean floor</span>
-                </div>
+                <div class="question-line" style="padding-left:25px;"><span>– near volcanoes on the ocean floor</span></div>
 
                 <p style="font-weight:bold; margin:20px 0 8px;">Global Marine Species Assessment</p>
-                <div class="question-line">
-                    <span>– want to list endangered ocean species, considering:</span>
-                </div>
-                <div class="question-line" style="padding-left: 25px;">
-                    <span>– population size</span>
-                </div>
-                <div class="question-line" style="padding-left: 25px;">
-                    <span>– geographical distribution</span>
-                </div>
-                <div class="question-line" style="padding-left: 25px;" data-qline="37">
+                <div class="question-line"><span>– want to list endangered ocean species, considering:</span></div>
+                <div class="question-line" style="padding-left:25px;"><span>– population size</span></div>
+                <div class="question-line" style="padding-left:25px;"><span>– geographical distribution</span></div>
+                <div class="question-line" style="padding-left:25px;" data-qline="37">
                     <span>– rate of</span>
                     <span class="q-number">37.</span>
-                    <input type="text" class="input-field" id="q37" placeholder="__________">
+                    <input type="text" class="input-field" id="q37" data-q="37" placeholder="__________">
                 </div>
                 <div class="question-line" data-qline="38">
                     <span>– Aim: to assess 20,000 species and make a distribution</span>
                     <span class="q-number">38.</span>
-                    <input type="text" class="input-field" id="q38" placeholder="__________">
+                    <input type="text" class="input-field" id="q38" data-q="38" placeholder="__________">
                     <span>for each one</span>
                 </div>
 
                 <p style="font-weight:bold; margin:20px 0 8px;">Recommendations to retain ocean biodiversity</p>
-                <div class="question-line">
-                    <span>– increase the number of ocean reserves</span>
-                </div>
+                <div class="question-line"><span>– increase the number of ocean reserves</span></div>
                 <div class="question-line" data-qline="39">
                     <span>– establish</span>
                     <span class="q-number">39.</span>
-                    <input type="text" class="input-field" id="q39" placeholder="__________">
+                    <input type="text" class="input-field" id="q39" data-q="39" placeholder="__________">
                     <span>corridors (e.g. for turtles)</span>
                 </div>
-                <div class="question-line">
-                    <span>– reduce fishing quotas</span>
-                </div>
+                <div class="question-line"><span>– reduce fishing quotas</span></div>
                 <div class="question-line" data-qline="40">
                     <span>– catch fish only for the purpose of</span>
                     <span class="q-number">40.</span>
-                    <input type="text" class="input-field" id="q40" placeholder="__________">
+                    <input type="text" class="input-field" id="q40" data-q="40" placeholder="__________">
                 </div>
             </div>
 
@@ -974,23 +607,18 @@
     </div>
 
 <script>
-// =====================================================
-// ✅ GLOBAL HELPERS
-// =====================================================
-function markAnswered(q) {
-    const indicator = document.querySelector(`.q-indicator[data-q="${q}"]`);
-    if (indicator) indicator.classList.add('answered');
-}
-function unmarkAnswered(q) {
-    const indicator = document.querySelector(`.q-indicator[data-q="${q}"]`);
-    if (indicator) indicator.classList.remove('answered');
-}
-
-// =====================================================
-// ✅ NAVIGATION BAR — CLICK JUMP + GREEN SHADING
-// =====================================================
 document.addEventListener('DOMContentLoaded', function() {
-    // Click number → jump to question
+    // ========== ✅ GLOBAL HELPERS ==========
+    window.markAnswered = function(q) {
+        const indicator = document.querySelector(`.q-indicator[data-q="${q}"]`);
+        if (indicator) indicator.classList.add('answered');
+    };
+    window.unmarkAnswered = function(q) {
+        const indicator = document.querySelector(`.q-indicator[data-q="${q}"]`);
+        if (indicator) indicator.classList.remove('answered');
+    };
+
+    // ========== ✅ CLICK NUMBER → JUMP TO QUESTION ==========
     document.querySelectorAll('.q-indicator').forEach(indicator => {
         const qNum = indicator.dataset.q;
         indicator.addEventListener('click', () => {
@@ -1001,7 +629,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Text fields — save + update shading
+    // ========== ✅ TEXT INPUTS — SAVE + GREEN SHADING ==========
     const textQs = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,31,32,33,34,35,36,37,38,39,40];
     textQs.forEach(q => {
         const field = document.getElementById('q'+q);
@@ -1013,8 +641,9 @@ document.addEventListener('DOMContentLoaded', function() {
             markAnswered(q);
         }
         field.addEventListener('input', function() {
-            localStorage.setItem('C11T1_q'+q, this.value.trim());
-            if (this.value.trim()) {
+            const val = this.value.trim();
+            localStorage.setItem('C11T1_q'+q, val);
+            if (val) {
                 this.classList.add('filled');
                 markAnswered(q);
             } else {
@@ -1024,7 +653,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Radio buttons — save + update shading
+    // ========== ✅ RADIO BUTTONS — SAVE + GREEN SHADING ==========
     const radioQs = [21,22,23,24,25,26,27,28,29,30];
     radioQs.forEach(q => {
         const saved = localStorage.getItem('C11T1_q'+q);
@@ -1043,9 +672,97 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Dropdown selects — save + update shading
+    // ========== ✅ DROPDOWNS — SAVE + GREEN SHADING ==========
     const selectQs = [15,16,17,18,19,20];
     selectQs.forEach(q => {
         const sel = document.getElementById('q'+q);
         if (!sel) return;
-        const saved = localStorage.getItem
+        const saved = localStorage.getItem('C11T1_q'+q);
+        if (saved) {
+            sel.value = saved;
+            if (saved) markAnswered(q);
+        }
+        sel.addEventListener('change', function() {
+            localStorage.setItem('C11T1_q'+q, this.value);
+            if (this.value) markAnswered(q);
+            else unmarkAnswered(q);
+        });
+    });
+
+    // ========== ✅ HIGHLIGHT FEATURE — WORKING FROM SAMPLE ==========
+    const highlightArea = document.getElementById('highlightArea');
+    const highlightTool = document.getElementById('highlightTool');
+    const removeTool = document.getElementById('removeTool');
+    let currentRange = null;
+
+    // Right-click or mouseup → show pencil
+    highlightArea.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        const sel = window.getSelection();
+        if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+        showPencil(e.clientX, e.clientY);
+    });
+
+    document.addEventListener('mouseup', () => {
+        const sel = window.getSelection();
+        if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+            highlightTool.style.display = 'none';
+            return;
+        }
+        const range = sel.getRangeAt(0);
+        if (!highlightArea.contains(range.commonAncestorContainer)) return;
+        const rect = range.getBoundingClientRect();
+        showPencil(rect.left + rect.width/2, rect.top);
+        currentRange = range;
+    });
+
+    function showPencil(x, y) {
+        highlightTool.style.left = (x + window.scrollX - 17) + 'px';
+        highlightTool.style.top = (y + window.scrollY - 40) + 'px';
+        highlightTool.style.display = 'flex';
+    }
+
+    // Click pencil → apply highlight
+    highlightTool.addEventListener('click', () => {
+        if (!currentRange) return;
+        const span = document.createElement('span');
+        span.className = 'user-highlight';
+        span.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(span);
+        window.getSelection().removeAllRanges();
+        highlightTool.style.display = 'none';
+        currentRange = null;
+    });
+
+    // Click existing highlight → show Remove button
+    document.addEventListener('click', e => {
+        if (e.target.classList.contains('user-highlight')) {
+            const rect = e.target.getBoundingClientRect();
+            removeTool.style.left = (rect.left + window.scrollX + rect.width/2 - 30) + 'px';
+            removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
+            removeTool.style.display = 'block';
+            removeTool.dataset.target = e.target;
+        } else if (!removeTool.contains(e.target)) {
+            removeTool.style.display = 'none';
+        }
+        if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target)) {
+            highlightTool.style.display = 'none';
+        }
+    });
+
+    // Click Remove → un-highlight
+    removeTool.addEventListener('click', () => {
+        const span = removeTool.dataset.target;
+        if (!span || !span.parentNode) return;
+        const text = document.createTextNode(span.textContent);
+        span.parentNode.replaceChild(text, span);
+        span.parentNode.normalize();
+        removeTool.style.display = 'none';
+        delete removeTool.dataset.target;
+    });
+});
+
+// ========== PLACEHOLDER FUNCTIONS ==========
+function checkAnswers() {
+    alert('Check
