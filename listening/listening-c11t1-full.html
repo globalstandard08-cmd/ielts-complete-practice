@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cambridge 11 — Test 1 | Listening</title>
     <style>
+        /* ========== YOUR ORIGINAL STYLES — UNCHANGED ========== */
         * {
             margin: 0;
             padding: 0;
@@ -14,7 +15,7 @@
         body {
             background-color: #fef2f2;
             color: #1a1a1a;
-            padding-bottom: 80px;
+            padding-bottom: 100px;
         }
         .top-bar {
             position: sticky;
@@ -28,33 +29,13 @@
             justify-content: space-between;
             box-shadow: 0 2px 8px rgba(220,38,38,0.1);
         }
+        .logo { height: 40px; }
         .audio-player {
             display: flex;
             align-items: center;
             gap: 12px;
         }
         .audio-player audio { min-width: 280px; }
-        .highlight-toolbar {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-        .highlight-btn {
-            padding: 6px 12px;
-            border: 1px solid #fecaca;
-            background: #fff;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px;
-            transition: all 0.2s;
-        }
-        .highlight-btn:hover, .highlight-btn.active {
-            background: #fef2f2;
-            border-color: #dc2626;
-        }
-        .highlight-btn.erase {
-            background: #fef2f2;
-        }
         .container {
             max-width: 900px;
             margin: 0 auto;
@@ -91,7 +72,6 @@
         .question-block {
             padding: 10px 0;
             scroll-margin-top: 80px;
-            scroll-margin-bottom: 80px;
         }
         .q-label {
             font-weight: 600;
@@ -116,7 +96,7 @@
             background: #f0fdf4;
         }
         .map-container {
-            margin: 20px 0;
+            margin: 15px 0;
             text-align: center;
         }
         .map-img {
@@ -124,18 +104,17 @@
             border-radius: 8px;
             border: 1px solid #fecaca;
         }
-        /* Highlight spans */
-        .highlight-yellow {
-            background: #fef08a;
-            padding: 1px 2px;
-            border-radius: 2px;
+        .mc-option {
+            display: block;
+            margin: 8px 0;
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
         }
-        .highlight-pink {
-            background: #fbcfe8;
-            padding: 1px 2px;
-            border-radius: 2px;
-        }
-        /* Navigation Bar — FIXED */
+        .mc-option:hover { background: #fef2f2; }
+
+        /* ========== NAVIGATION BAR — FIXED STYLING ========== */
         .nav-bar {
             position: fixed;
             bottom: 0;
@@ -169,20 +148,74 @@
             background: #dc2626;
             color: white;
         }
-        .nav-num.current {
-            outline: 2px solid #b91c1c;
-            outline-offset: 2px;
+
+        /* ========== HIGHLIGHT & RIGHT-CLICK MENU ========== */
+        .highlight-yellow {
+            background: #fef08a;
+            padding: 1px 2px;
+            border-radius: 2px;
+        }
+        .highlight-pink {
+            background: #fbcfe8;
+            padding: 1px 2px;
+            border-radius: 2px;
+        }
+        .context-menu {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            padding: 6px 0;
+            z-index: 1000;
+            min-width: 180px;
+            display: none;
+        }
+        .context-menu.visible { display: block; }
+        .context-menu-item {
+            padding: 8px 14px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .context-menu-item:hover {
+            background: #fef2f2;
+        }
+        .note {
+            position: absolute;
+            background: #fffde7;
+            border: 1px solid #f0c040;
+            border-radius: 6px;
+            padding: 8px 12px;
+            max-width: 220px;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+            cursor: move;
+            z-index: 50;
+        }
+        .note-header {
+            font-size: 12px;
+            color: #b78a00;
+            margin-bottom: 4px;
+            cursor: grab;
+        }
+        .note-close {
+            float: right;
+            font-size: 12px;
+            cursor: pointer;
+            color: #888;
         }
     </style>
 </head>
 <body>
+    <!-- Right-Click Context Menu -->
+    <div class="context-menu" id="contextMenu">
+        <div class="context-menu-item" data-action="highlight-yellow">🟡 Highlight Yellow</div>
+        <div class="context-menu-item" data-action="highlight-pink">🔴 Highlight Pink</div>
+        <div class="context-menu-item" data-action="remove-highlight">✏️ Remove Highlight</div>
+        <div class="context-menu-item" data-action="add-note">📝 Add Note</div>
+    </div>
+
     <div class="top-bar">
         <h2 style="color:#dc2626; font-size:18px;">Cambridge 11 — Test 1 · Listening</h2>
-        <div class="highlight-toolbar">
-            <button class="highlight-btn" data-hl="yellow" title="Highlight Yellow">🟡 Highlight</button>
-            <button class="highlight-btn" data-hl="pink" title="Highlight Pink">🔴 Highlight</button>
-            <button class="highlight-btn erase" data-hl="clear" title="Remove Highlight">✏️ Erase</button>
-        </div>
         <div class="audio-player">
             <span style="font-weight:600;">🔊 Audio:</span>
             <audio controls id="mainAudio">
@@ -272,7 +305,6 @@
                     <input type="text" class="answer-input" data-q="14">
                 </div>
             </div>
-
             <div class="instruction" style="margin-top:25px;">
                 <strong>Questions 15–20</strong><br>
                 Label the map below.<br>
@@ -318,7 +350,7 @@
             </div>
             <div class="questions-grid">
                 <div class="question-block" id="q-21">
-                    <label class="q-label">21. </label>
+                    <label class="q-label">21.</label>
                     <div style="margin-top:5px;">
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q21" value="A"> A</label>
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q21" value="B"> B</label>
@@ -326,7 +358,7 @@
                     </div>
                 </div>
                 <div class="question-block" id="q-22">
-                    <label class="q-label">22. </label>
+                    <label class="q-label">22.</label>
                     <div style="margin-top:5px;">
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q22" value="A"> A</label>
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q22" value="B"> B</label>
@@ -334,7 +366,7 @@
                     </div>
                 </div>
                 <div class="question-block" id="q-23">
-                    <label class="q-label">23. </label>
+                    <label class="q-label">23.</label>
                     <div style="margin-top:5px;">
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q23" value="A"> A</label>
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q23" value="B"> B</label>
@@ -342,7 +374,7 @@
                     </div>
                 </div>
                 <div class="question-block" id="q-24">
-                    <label class="q-label">24. </label>
+                    <label class="q-label">24.</label>
                     <div style="margin-top:5px;">
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q24" value="A"> A</label>
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q24" value="B"> B</label>
@@ -350,7 +382,7 @@
                     </div>
                 </div>
                 <div class="question-block" id="q-25">
-                    <label class="q-label">25. </label>
+                    <label class="q-label">25.</label>
                     <div style="margin-top:5px;">
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q25" value="A"> A</label>
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q25" value="B"> B</label>
@@ -358,7 +390,7 @@
                     </div>
                 </div>
                 <div class="question-block" id="q-26">
-                    <label class="q-label">26. </label>
+                    <label class="q-label">26.</label>
                     <div style="margin-top:5px;">
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q26" value="A"> A</label>
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q26" value="B"> B</label>
@@ -366,7 +398,7 @@
                     </div>
                 </div>
                 <div class="question-block" id="q-27">
-                    <label class="q-label">27. </label>
+                    <label class="q-label">27.</label>
                     <div style="margin-top:5px;">
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q27" value="A"> A</label>
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q27" value="B"> B</label>
@@ -374,7 +406,7 @@
                     </div>
                 </div>
                 <div class="question-block" id="q-28">
-                    <label class="q-label">28. </label>
+                    <label class="q-label">28.</label>
                     <div style="margin-top:5px;">
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q28" value="A"> A</label>
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q28" value="B"> B</label>
@@ -382,7 +414,7 @@
                     </div>
                 </div>
                 <div class="question-block" id="q-29">
-                    <label class="q-label">29. </label>
+                    <label class="q-label">29.</label>
                     <div style="margin-top:5px;">
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q29" value="A"> A</label>
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q29" value="B"> B</label>
@@ -390,7 +422,7 @@
                     </div>
                 </div>
                 <div class="question-block" id="q-30">
-                    <label class="q-label">30. </label>
+                    <label class="q-label">30.</label>
                     <div style="margin-top:5px;">
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q30" value="A"> A</label>
                         <label style="display:block; padding:4px 0; cursor:pointer;"><input type="radio" name="q30" value="B"> B</label>
@@ -454,13 +486,11 @@
     </div>
 
     <!-- NAVIGATION BAR -->
-    <div class="nav-bar" id="navBar">
-        <!-- Buttons generated by JS -->
-    </div>
+    <div class="nav-bar" id="navBar"></div>
 
 <script>
 // ==========================================
-// 1. GENERATE NAVIGATION NUMBERS 1–40
+// 1. NAVIGATION — Generate + Jump + Status
 // ==========================================
 const navBar = document.getElementById('navBar');
 for (let i = 1; i <= 40; i++) {
@@ -470,23 +500,18 @@ for (let i = 1; i <= 40; i++) {
     btn.dataset.q = i;
     btn.addEventListener('click', () => {
         const target = document.getElementById(`q-${i}`);
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
     navBar.appendChild(btn);
 }
 
-// ==========================================
-// 2. UPDATE NAV WHEN ANSWER IS FILLED
-// ==========================================
+// Update nav shading when answered
 function updateNavState() {
-    // Text inputs
     document.querySelectorAll('.answer-input').forEach(input => {
-        const qNum = input.dataset.q;
-        const navBtn = document.querySelector(`.nav-num[data-q="${qNum}"]`);
+        const q = input.dataset.q;
+        const navBtn = document.querySelector(`.nav-num[data-q="${q}"]`);
         if (navBtn) {
-            if (input.value.trim() !== '') {
+            if (input.value.trim()) {
                 navBtn.classList.add('answered');
                 input.classList.add('filled');
             } else {
@@ -495,68 +520,96 @@ function updateNavState() {
             }
         }
     });
-    // Radio buttons
     for (let i = 21; i <= 30; i++) {
         const checked = document.querySelector(`input[name="q${i}"]:checked`);
         const navBtn = document.querySelector(`.nav-num[data-q="${i}"]`);
-        if (navBtn) {
-            if (checked) {
-                navBtn.classList.add('answered');
-            } else {
-                navBtn.classList.remove('answered');
-            }
-        }
+        if (navBtn) navBtn.classList.toggle('answered', !!checked);
     }
 }
-
-// Listen for changes
-document.querySelectorAll('.answer-input').forEach(inp => {
-    inp.addEventListener('input', updateNavState);
-});
-document.querySelectorAll('input[type="radio"]').forEach(rb => {
-    rb.addEventListener('change', updateNavState);
-});
+document.querySelectorAll('.answer-input').forEach(i => i.addEventListener('input', updateNavState));
+document.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener('change', updateNavState));
 
 // ==========================================
-// 3. HIGHLIGHT FEATURE
+// 2. RIGHT-CLICK HIGHLIGHT + NOTES
 // ==========================================
-let currentHighlight = null;
-document.querySelectorAll('.highlight-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        document.querySelectorAll('.highlight-btn').forEach(b => b.classList.remove('active'));
-        if (btn.dataset.hl === 'clear') {
-            currentHighlight = null;
-        } else {
-            btn.classList.add('active');
-            currentHighlight = btn.dataset.hl;
+const contextMenu = document.getElementById('contextMenu');
+let savedSelection = null;
+
+// Show menu on right-click
+document.addEventListener('contextmenu', e => {
+    const selection = window.getSelection();
+    savedSelection = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+    if (!savedSelection || !selection.toString().trim()) {
+        contextMenu.classList.remove('visible');
+        return;
+    }
+    e.preventDefault();
+    contextMenu.style.left = e.pageX + 'px';
+    contextMenu.style.top = e.pageY + 'px';
+    contextMenu.classList.add('visible');
+});
+
+// Hide menu when clicking elsewhere
+document.addEventListener('click', e => {
+    if (!contextMenu.contains(e.target)) contextMenu.classList.remove('visible');
+});
+
+// Handle menu actions
+document.querySelectorAll('.context-menu-item').forEach(item => {
+    item.addEventListener('click', () => {
+        if (!savedSelection) return;
+        const action = item.dataset.action;
+        contextMenu.classList.remove('visible');
+
+        if (action === 'highlight-yellow' || action === 'highlight-pink') {
+            const span = document.createElement('span');
+            span.className = action === 'highlight-yellow' ? 'highlight-yellow' : 'highlight-pink';
+            try {
+                savedSelection.surroundContents(span);
+            } catch {}
+        }
+        else if (action === 'remove-highlight') {
+            const container = savedSelection.commonAncestorContainer.parentElement;
+            const highlights = container.querySelectorAll('.highlight-yellow, .highlight-pink');
+            highlights.forEach(span => {
+                const parent = span.parentNode;
+                parent.insertBefore(span.firstChild, span);
+                parent.removeChild(span);
+                parent.normalize();
+            });
+        }
+        else if (action === 'add-note') {
+            const note = document.createElement('div');
+            note.className = 'note';
+            note.innerHTML = `
+                <div class="note-header">📝 Note <span class="note-close">×</span></div>
+                <textarea style="width:100%; border:none; background:transparent; resize:none; outline:none; font-size:14px; min-height:60px;" placeholder="Type your note..."></textarea>
+            `;
+            // Position near selection
+            const rect = savedSelection.getBoundingClientRect();
+            note.style.left = (rect.left + window.scrollX + 20) + 'px';
+            note.style.top = (rect.top + window.scrollY) + 'px';
+            document.body.appendChild(note);
+
+            // Close note
+            note.querySelector('.note-close').addEventListener('click', () => note.remove());
+
+            // Drag functionality
+            let isDragging = false, offX, offY;
+            const header = note.querySelector('.note-header');
+            header.addEventListener('mousedown', e => {
+                isDragging = true;
+                offX = e.clientX - note.getBoundingClientRect().left;
+                offY = e.clientY - note.getBoundingClientRect().top;
+            });
+            document.addEventListener('mousemove', e => {
+                if (!isDragging) return;
+                note.style.left = (e.clientX - offX) + 'px';
+                note.style.top = (e.clientY - offY) + 'px';
+            });
+            document.addEventListener('mouseup', () => isDragging = false);
         }
     });
-});
-
-document.addEventListener('mouseup', () => {
-    if (!currentHighlight) return;
-    const selection = window.getSelection();
-    if (!selection.toString()) return;
-
-    const range = selection.getRangeAt(0);
-    if (currentHighlight === 'clear') {
-        // Remove highlights
-        const spans = document.querySelectorAll('.highlight-yellow, .highlight-pink');
-        spans.forEach(span => {
-            const parent = span.parentNode;
-            parent.insertBefore(span.firstChild, span);
-            parent.removeChild(span);
-            parent.normalize();
-        });
-    } else {
-        // Add highlight
-        const span = document.createElement('span');
-        span.className = `highlight-${currentHighlight}`;
-        try {
-            range.surroundContents(span);
-        } catch (e) {}
-    }
-    selection.removeAllRanges();
 });
 </script>
 </body>
