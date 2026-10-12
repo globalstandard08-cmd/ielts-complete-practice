@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge 11 - Test 1 - Part 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #f4f6f9;
+            padding: 20px;
+            line-height: 1.7;
+            position: relative;
+            user-select: text;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: visible;
+            position: relative;
+        }
+        .logo-section {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .logo-section img {
+            height: 120px;
+            width: auto;
+            object-fit: contain;
+        }
+        .header-bar {
+            background-color: #1f3a5f;
+            color: white;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .audio-player {
+            background: #eef2f7;
+            padding: 18px 25px;
+            margin: 20px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .audio-player h3 {
+            color: #1f3a5f;
+            margin-bottom: 12px;
+            font-size: 17px;
+        }
+        audio {
+            width: 100%;
+            max-width: 500px;
+        }
+        .content {
+            padding: 0 30px 30px;
+            position: relative;
+        }
+        h2 {
+            color: #1f3a5f;
+            margin: 25px 0 15px;
+            font-size: 22px;
+        }
+        .instruction {
+            background-color: #f8fbfe;
+            border-left: 4px solid #1f3a5f;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .questions-block {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 25px;
+            margin-bottom: 30px;
+            background-color: #fdfdfd;
+        }
+        .example-row {
+            border-bottom: 1px dashed #ddd;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            font-style: italic;
+            color: #555;
+        }
+        .question-line {
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            font-size: 16px;
+        }
+        .q-number {
+            font-weight: bold;
+            min-width: 30px;
+            color: #1f3a5f;
+        }
+        .input-field {
+            width: 180px;
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background: white;
+            transition: all 0.2s;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #1f3a5f;
+            box-shadow: 0 0 3px rgba(31, 58, 95, 0.3);
+        }
+        .input-field.filled {
+            background-color: #e6f0ff;
+            border-color: #1f3a5f;
+        }
+        /* Highlight */
+        .user-highlight {
+            background-color: #ffd700;
+            padding: 2px 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            display: inline;
+            color: #000;
+        }
+        /* Right-click Menu */
+        .context-menu {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 9999;
+            display: none;
+            min-width: 160px;
+        }
+        .context-menu div {
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .context-menu div:hover {
+            background: #f0f0f0;
+        }
+        /* Sticky Notes */
+        .sticky-note {
+            position: absolute;
+            width: 170px;
+            min-height: 70px;
+            background: #fff9c4;
+            border: 1px solid #fbc02d;
+            border-radius: 4px;
+            padding: 8px;
+            box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+            z-index: 9998;
+            font-size: 13px;
+        }
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #f57f17;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: bold;
+            color: #f57f17;
+        }
+        .note-textarea {
+            width: 100%;
+            height: 50px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 13px;
+        }
+        /* Status Bar */
+        .question-status {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 6px;
+            margin: 30px 0;
+            padding: 12px 15px;
+            background: #f0f2f5;
+            border-radius: 4px;
+            border: 1px solid #d0d5dd;
+            font-size: 12px;
+        }
+        .part-label {
+            font-size: 11px;
+            font-weight: bold;
+            color: #444;
+            margin-right: 4px;
+            margin-left: 8px;
+        }
+        .part-separator {
+            width: 12px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+        .q-indicator {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2px;
+            border: 1px solid #d1d5db;
+            background: #e5e7eb;
+            color: #333;
+        }
+        .q-indicator.answered {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+        .clear-btn {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .clear-btn:hover {
+            background-color: #b91c1c;
+        }
+        /* Navigation */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        .back-main-btn {
+            background-color: #6b7280;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .back-main-btn:hover {
+            background-color: #4b5563;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        .nav-btn {
+            width: 46px;
+            height: 46px;
+            background-color: #1f3a5f;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .nav-btn:hover {
+            background-color: #2e568c;
+        }
+    </style>
+</head>
+<body>
+    <!-- Right-click Menu -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">✅ Highlight</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
+    </div>
+
+    <div class="container">
+        <div class="logo-section">
+            <img src="ielts-logo.png" alt="IELTS Logo">
+        </div>
+        <div class="header-bar">
+            <span>Cambridge 11 — Test 1 — Part 1</span>
+            <span style="font-size:15px; opacity:0.9;">Listening</span>
+        </div>
+
+        <div class="audio-player">
+            <h3>Play Recording — Part 1</h3>
+            <audio controls preload="auto">
+                <source src="c11-t1-audio.mp3" type="audio/mpeg">
+                <source src="https://raw.githubusercontent.com/globalstandard08-cmd/ielts-complete-practice/main/listening/c11-t1-part1.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            
+        </div>
+
+        <div class="content" id="highlightArea">
+            <h2>Section 1 — Questions 1–10</h2>
+            <div class="instruction">
+                <strong>Complete the notes below.</strong><br>
+                Write <strong>ONE WORD AND/OR A NUMBER</strong> for each answer.
+            </div>
+
+            <div class="questions-block">
+                <h3 style="text-align:center; margin-bottom:20px; color:#1f3a5f;">HIRING A PUBLIC ROOM</h3>
+
+                <div class="example-row">
+                    Example: the Main Hall — seats ...............
+                    <span style="margin-left:10px; font-weight:bold;">200</span>
+                </div>
+
+                <p style="font-weight:bold; margin:15px 0 8px;">Room and cost</p>
+
+                <div class="question-line">
+                    <span class="q-number">1</span>
+                    <span>......................... Room — seats 100</span>
+                    <input type="text" class="input-field" id="q1" data-q="1" placeholder="Answer">
+                </div>
+
+                <div class="question-line">
+                    <span class="q-number">2</span>
+                    <span>Cost of Main Hall for Saturday evening: £ .........................</span>
+                    <input type="text" class="input-field" id="q2" data-q="2" placeholder="Answer">
+                </div>
+
+                <div class="question-line">
+                    <span class="q-number">3</span>
+                    <span>+ £250 deposit — ......................... payment is required</span>
+                    <input type="text" class="input-field" id="q3" data-q="3" placeholder="Answer">
+                </div>
+
+                <div class="question-line">
+                    <span class="q-number">4</span>
+                    <span>Cost includes use of tables and chairs and also .........................</span>
+                    <input type="text" class="input-field" id="q4" data-q="4" placeholder="Answer">
+                </div>
+
+                <p style="font-weight:bold; margin:20px 0 8px;">Additional charge for use of the kitchen: £25</p>
+
+                <p style="font-weight:bold; margin:20px 0 8px;">Before the event</p>
+
+                <div class="question-line">
+                    <span class="q-number">5</span>
+                    <span>Will need a ......................... licence</span>
+                    <input type="text" class="input-field" id="q5" data-q="5" placeholder="Answer">
+                </div>
+
+                <div class="question-line">
+                    <span class="q-number">6</span>
+                    <span>Need to contact caretaker (Mr Evans) in advance to arrange .........................</span>
+                    <input type="text" class="input-field" id="q6" data-q="6" placeholder="Answer">
+                </div>
+
+                <p style="font-weight:bold; margin:20px 0 8px;">During the event</p>
+
+                <p style="margin:5px 0;">• The building is no smoking</p>
+
+                <div class="question-line">
+                    <span class="q-number">7</span>
+                    <span>The band should use the ......................... door at the back</span>
+                    <input type="text" class="input-field" id="q7" data-q="7" placeholder="Answer">
+                </div>
+
+                <p style="margin:5px 0;">• Don't touch the system that controls the volume</p>
+                <p style="margin:5px 0;">• For microphones, contact the caretaker</p>
+
+                <p style="font-weight:bold; margin:20px 0 8px;">After the event</p>
+
+                <div class="question-line">
+                    <span class="q-number">8</span>
+                    <span>Need to know the ......................... for the cleaning cupboard</span>
+                    <input type="text" class="input-field" id="q8" data-q="8" placeholder="Answer">
+                </div>
+
+                <div class="question-line">
+                    <span class="q-number">9</span>
+                    <span>The ......................... must be washed and rubbish placed in black bags</span>
+                    <input type="text" class="input-field" id="q9" data-q="9" placeholder="Answer">
+                </div>
+
+                <div class="question-line">
+                    <span class="q-number">10</span>
+                    <span>All ......................... must be taken down</span>
+                    <input type="text" class="input-field" id="q10" data-q="10" placeholder="Answer">
+                </div>
+
+                <p style="margin:10px 0;">• Chairs and tables must be piled up</p>
+            </div>
+
+            <!-- Status Bar -->
+            <div class="question-status">
+                <span class="part-label">Part 1</span>
+                <div class="q-indicator" data-q="1">1</div>
+                <div class="q-indicator" data-q="2">2</div>
+                <div class="q-indicator" data-q="3">3</div>
+                <div class="q-indicator" data-q="4">4</div>
+                <div class="q-indicator" data-q="5">5</div>
+                <div class="q-indicator" data-q="6">6</div>
+                <div class="q-indicator" data-q="7">7</div>
+                <div class="q-indicator" data-q="8">8</div>
+                <div class="q-indicator" data-q="9">9</div>
+                <div class="q-indicator" data-q="10">10</div>
+                <div class="part-separator"></div>
+                <span class="part-label">Part 2</span>
+                <div class="q-indicator" data-q="11">11</div>
+                <div class="q-indicator" data-q="12">12</div>
+                <div class="q-indicator" data-q="13">13</div>
+                <div class="q-indicator" data-q="14">14</div>
+                <div class="q-indicator" data-q="15">15</div>
+                <div class="q-indicator" data-q="16">16</div>
+                <div class="q-indicator" data-q="17">17</div>
+                <div class="q-indicator" data-q="18">18</div>
+                <div class="q-indicator" data-q="19">19</div>
+                <div class="q-indicator" data-q="20">20</div>
+                <div class="part-separator"></div>
+                <span class="part-label">Part 3</span>
+                <div class="q-indicator" data-q="21">21</div>
+                <div class="q-indicator" data-q="22">22</div>
+                <div class="q-indicator" data-q="23">23</div>
+                <div class="q-indicator" data-q="24">24</div>
+                <div class="q-indicator" data-q="25">25</div>
+                <div class="q-indicator" data-q="26">26</div>
+                <div class="q-indicator" data-q="27">27</div>
+                <div class="q-indicator" data-q="28">28</div>
+                <div class="q-indicator" data-q="29">29</div>
+                <div class="q-indicator" data-q="30">30</div>
+                <div class="part-separator"></div>
+                <span class="part-label">Part 4</span>
+                <div class="q-indicator" data-q="31">31</div>
+                <div class="q-indicator" data-q="32">32</div>
+                <div class="q-indicator" data-q="33">33</div>
+                <div class="q-indicator" data-q="34">34</div>
+                <div class="q-indicator" data-q="35">35</div>
+                <div class="q-indicator" data-q="36">36</div>
+                <div class="q-indicator" data-q="37">37</div>
+                <div class="q-indicator" data-q="38">38</div>
+                <div class="q-indicator" data-q="39">39</div>
+                <div class="q-indicator" data-q="40">40</div>
+            </div>
+
+            <button class="clear-btn" onclick="clearAll()">Clear All Answers</button>
+
+            <div class="nav-container">
+                <a href="library.html" class="back-main-btn">← Library</a>
+                <div class="nav-buttons">
+                    <span style="width:46px;"></span>
+                    <a href="listeningC11T1-part2.html" class="nav-btn" title="Next Part">→</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'C11T1_Listening';
+        let lastNoteId = 0;
+        let currentRange = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load answers
+            for (let i = 1; i <= 10; i++) {
+                const field = document.getElementById('q' + i);
+                const saved = localStorage.getItem(STORAGE_KEY + '_q' + i);
+                if (saved) {
+                    field.value = saved;
+                    field.classList.add('filled');
+                    markAnswered(i);
+                }
+                field.addEventListener('input', function() {
+                    const val = this.value.trim();
+                    localStorage.setItem(STORAGE_KEY + '_q' + i, val);
+                    if (val) {
+                        this.classList.add('filled');
+                        markAnswered(i);
+                    } else {
+                        this.classList.remove('filled');
+                        unmarkAnswered(i);
+                    }
+                });
+            }
+
+            // Right-click menu
+            const area = document.getElementById('highlightArea');
+            const menu = document.getElementById('contextMenu');
+
+            area.addEventListener('contextmenu', function(e) {
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+                    menu.style.display = 'none';
+                    return;
+                }
+                e.preventDefault();
+                currentRange = sel.getRangeAt(0);
+                const rect = currentRange.getBoundingClientRect();
+                menu.style.left = (rect.left + window.scrollX) + 'px';
+                menu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+                menu.style.display = 'block';
+            });
+
+            document.addEventListener('click', e => {
+                if (!menu.contains(e.target)) menu.style.display = 'none';
+            });
+
+            // Highlight
+            document.getElementById('menuHighlight').addEventListener('click', function() {
+                if (!currentRange) return;
+                const span = document.createElement('span');
+                span.className = 'user-highlight';
+                span.textContent = currentRange.toString();
+                try {
+                    currentRange.deleteContents();
+                    currentRange.insertNode(span);
+                } catch {}
+                window.getSelection().removeAllRanges();
+                currentRange = null;
+                menu.style.display = 'none';
+            });
+
+            // Remove Highlight
+            document.getElementById('menuRemove').addEventListener('click', function() {
+                if (!currentRange) return;
+                try {
+                    let el = currentRange.commonAncestorContainer;
+                    if (el.nodeType === Node.TEXT_NODE) el = el.parentElement;
+                    if (el?.classList.contains('user-highlight')) {
+                        el.replaceWith(document.createTextNode(el.textContent));
+                        area.normalize();
+                    }
+                } catch {}
+                window.getSelection().removeAllRanges();
+                currentRange = null;
+                menu.style.display = 'none';
+            });
+
+            // Add Note
+            document.getElementById('menuNote').addEventListener('click', function() {
+                if (!currentRange) return;
+                const rect = currentRange.getBoundingClientRect();
+                const id = 'note_' + (++lastNoteId);
+                const note = document.createElement('div');
+                note.className = 'sticky-note';
+                note.id = id;
+                note.innerHTML = `
+                    <div class="note-header">Note <span class="note-close" onclick="document.getElementById('${id}')?.remove()">×</span></div>
+                    <textarea class="note-textarea" placeholder="Type your note..."></textarea>
+                `;
+                note.style.left = (rect.right + window.scrollX + 10) + 'px';
+                note.style.top = (rect.top + window.scrollY) + 'px';
+                document.body.appendChild(note);
+                window.getSelection().removeAllRanges();
+                currentRange = null;
+                menu.style.display = 'none';
+            });
+        });
+
+        function markAnswered(num) {
+            document.querySelector(`.q-indicator[data-q="${num}"]`)?.classList.add('answered');
+        }
+        function unmarkAnswered(num) {
+            document.querySelector(`.q-indicator[data-q="${num}"]`)?.classList.remove('answered');
+        }
+        function clearAll() {
+            if (!confirm("Clear ALL answers, highlights, and notes? This cannot be undone.")) return;
+            for (let i = 1; i <= 10; i++) {
+                localStorage.removeItem(STORAGE_KEY + '_q' + i);
+                const field = document.getElementById('q' + i);
+                if (field) { field.value = ''; field.classList.remove('filled'); }
+                unmarkAnswered(i);
+            }
+            document.querySelectorAll('.user-highlight').forEach(h => {
+                h.replaceWith(document.createTextNode(h.textContent));
+            });
+            document.querySelectorAll('.sticky-note').forEach(n => n.remove());
+        }
+    </script>
+</body>
+</html>
