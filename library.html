@@ -266,34 +266,35 @@
             gap: 16px;
             margin: 4px 0 12px 0;
         }
+        /* ✅ Small section buttons — same size as Reading Passage buttons */
         .section-buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            display: flex;
             gap: 8px;
-            width: 100%;
+            flex-wrap: wrap;
         }
-        .btn-start {
-            padding: 10px 0;
-            border-radius: 8px;
-            font-size: 14px;
+        .section-btn {
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 13px;
             font-weight: 600;
-            border: none;
-            cursor: pointer;
             text-decoration: none;
             text-align: center;
+            border: none;
+            transition: all 0.2s;
+        }
+        .section-btn.ready {
             background: #dc2626;
             color: white;
-            width: 100%;
-            transition: background 0.2s;
         }
-        .btn-start:hover:not(.gray) {
-            background: #b91c1c;
-        }
-        .btn-start.gray {
-            background: #9ca3af;
+        .section-btn.gray {
+            background: #fecaca;
+            color: #991b1b;
             cursor: not-allowed;
             pointer-events: none;
             opacity: 0.7;
+        }
+        .section-btn:hover:not(.gray) {
+            background: #b91c1c;
         }
         .passage-links {
             display: flex;
@@ -301,7 +302,7 @@
             margin-top: 4px;
         }
         .passage-btn {
-            padding: 6px 10px;
+            padding: 6px 14px;
             border-radius: 6px;
             font-size: 13px;
             font-weight: 600;
@@ -327,7 +328,6 @@
             .content-wrapper { flex-direction: column; }
             .sidebar { width: 100%; flex-direction: row; overflow-x: auto; border-right: none; border-bottom: 1px solid #fecaca; padding: 10px 0; }
             .tests-grid { grid-template-columns: 1fr; }
-            .section-buttons { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -430,7 +430,7 @@
                         <div class="passage-links">
                             <a href="reading/reading-passage1-C11T1.html" class="passage-btn ready">Passage 1</a>
                             <a href="reading/reading-passage2-C11T1.html" class="passage-btn ready">Passage 2</a>
-                            <a href="#" class="passage-btn gray">Passage 3</a>
+                            <a href="#" class="passage-btn">Passage 3</a>
                         </div>
                     </div>
                     <!-- Cambridge 11 - Test 2 -->
@@ -453,8 +453,8 @@
                         <div class="test-meta"><span>⏱️ ~60 min</span><span>❓ ~40 questions</span></div>
                         <div class="passage-links">
                             <a href="reading/reading-passage1-C11T3.html" class="passage-btn ready">Passage 1</a>
-                            <a href="#" class="passage-btn gray">Passage 2</a>
-                            <a href="#" class="passage-btn gray">Passage 3</a>
+                            <a href="#" class="passage-btn">Passage 2</a>
+                            <a href="#" class="passage-btn">Passage 3</a>
                         </div>
                     </div>
                     <!-- Cambridge 11 - Test 4 -->
@@ -466,7 +466,7 @@
                         <div class="passage-links">
                             <a href="reading/reading-passage1-C11T4.html" class="passage-btn ready">Passage 1</a>
                             <a href="reading/reading-passage2-C11T4.html" class="passage-btn ready">Passage 2</a>
-                            <a href="#" class="passage-btn gray">Passage 3</a>
+                            <a href="#" class="passage-btn">Passage 3</a>
                         </div>
                     </div>
                     <!-- Cambridge 12 - Test 1 -->
@@ -475,9 +475,9 @@
                         <h3 class="test-title">Cambridge 12 — Test 1</h3>
                         <p class="test-desc">Upload passages to enable.</p>
                         <div class="passage-links">
-                            <a href="#" class="passage-btn gray">Passage 1</a>
-                            <a href="#" class="passage-btn gray">Passage 2</a>
-                            <a href="#" class="passage-btn gray">Passage 3</a>
+                            <a href="#" class="passage-btn">Passage 1</a>
+                            <a href="#" class="passage-btn">Passage 2</a>
+                            <a href="#" class="passage-btn">Passage 3</a>
                         </div>
                     </div>
                     <!-- Cambridge 13 - Test 1 -->
@@ -486,9 +486,9 @@
                         <h3 class="test-title">Cambridge 13 — Test 1</h3>
                         <p class="test-desc">Upload passages to enable.</p>
                         <div class="passage-links">
-                            <a href="#" class="passage-btn gray">Passage 1</a>
-                            <a href="#" class="passage-btn gray">Passage 2</a>
-                            <a href="#" class="passage-btn gray">Passage 3</a>
+                            <a href="#" class="passage-btn">Passage 1</a>
+                            <a href="#" class="passage-btn">Passage 2</a>
+                            <a href="#" class="passage-btn">Passage 3</a>
                         </div>
                     </div>
                     <!-- Cambridge 14 - Test 1 -->
@@ -497,9 +497,9 @@
                         <h3 class="test-title">Cambridge 14 — Test 1</h3>
                         <p class="test-desc">Upload passages to enable.</p>
                         <div class="passage-links">
-                            <a href="#" class="passage-btn gray">Passage 1</a>
-                            <a href="#" class="passage-btn gray">Passage 2</a>
-                            <a href="#" class="passage-btn gray">Passage 3</a>
+                            <a href="#" class="passage-btn">Passage 1</a>
+                            <a href="#" class="passage-btn">Passage 2</a>
+                            <a href="#" class="passage-btn">Passage 3</a>
                         </div>
                     </div>
                     <!-- Cambridge 15 - Test 1 -->
@@ -508,9 +508,9 @@
                         <h3 class="test-title">Cambridge 15 — Test 1</h3>
                         <p class="test-desc">Upload passages to enable.</p>
                         <div class="passage-links">
-                            <a href="#" class="passage-btn gray">Passage 1</a>
-                            <a href="#" class="passage-btn gray">Passage 2</a>
-                            <a href="#" class="passage-btn gray">Passage 3</a>
+                            <a href="#" class="passage-btn">Passage 1</a>
+                            <a href="#" class="passage-btn">Passage 2</a>
+                            <a href="#" class="passage-btn">Passage 3</a>
                         </div>
                     </div>
                 </div>
@@ -526,41 +526,41 @@
                         <h3 class="test-title">Cambridge 10 — Test 1</h3>
                         <p class="test-desc">Full Listening · 4 Sections</p>
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
-                        <a href="listening/listening-c10t1-full.html" id="c10t1-btn" class="btn-start gray">Not Ready</a>
+                        <a href="listening/listening-c10t1-full.html" id="c10t1-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 10 — Test 2</h3>
                         <p class="test-desc">Full Listening · 4 Sections</p>
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
-                        <a href="listening/listening-c10t2-full.html" id="c10t2-btn" class="btn-start gray">Not Ready</a>
+                        <a href="listening/listening-c10t2-full.html" id="c10t2-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 10 — Test 3</h3>
                         <p class="test-desc">Full Listening · 4 Sections</p>
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
-                        <a href="listening/listening-c10t3-full.html" id="c10t3-btn" class="btn-start gray">Not Ready</a>
+                        <a href="listening/listening-c10t3-full.html" id="c10t3-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 10 — Test 4</h3>
                         <p class="test-desc">Full Listening · 4 Sections</p>
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
-                        <a href="listening/listening-c10t4-full.html" id="c10t4-btn" class="btn-start gray">Not Ready</a>
+                        <a href="listening/listening-c10t4-full.html" id="c10t4-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     
-                    <!-- ✅ C11 Test 1 — ALL 4 SECTIONS IN ONE CARD -->
+                    <!-- ✅ C11 Test 1 — 4 SMALL BUTTONS in one row -->
                     <div class="test-card full-width" data-book="11">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 11 — Test 1</h3>
                         <p class="test-desc">Full Listening · 4 Sections</p>
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
                         <div class="section-buttons">
-                            <a href="listening/listeningC11T1-part1.html" id="c11t1-btn" class="btn-start gray">Part 1</a>
-                            <a href="listening/listeningC11T1-section2.html" id="c11t1s2-btn" class="btn-start gray">Section 2</a>
-                            <a href="listening/listeningC11T1-section3.html" id="c11t1s3-btn" class="btn-start gray">Section 3</a>
-                            <a href="listening/listeningC11T1-section4.html" id="c11t1s4-btn" class="btn-start gray">Section 4</a>
+                            <a href="listening/listeningC11T1-part1.html" id="c11t1-btn" class="section-btn gray">Part 1</a>
+                            <a href="listening/listeningC11T1-section2.html" id="c11t1s2-btn" class="section-btn gray">Section 2</a>
+                            <a href="listening/listeningC11T1-section3.html" id="c11t1s3-btn" class="section-btn gray">Section 3</a>
+                            <a href="listening/listeningC11T1-section4.html" id="c11t1s4-btn" class="section-btn gray">Section 4</a>
                         </div>
                     </div>
                     
@@ -570,21 +570,21 @@
                         <h3 class="test-title">Cambridge 11 — Test 2</h3>
                         <p class="test-desc">Full Listening · 4 Sections</p>
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
-                        <a href="listening/listening-c11t2-full.html" id="c11t2-btn" class="btn-start gray">Not Ready</a>
+                        <a href="listening/listening-c11t2-full.html" id="c11t2-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="11">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 11 — Test 3</h3>
                         <p class="test-desc">Full Listening · 4 Sections</p>
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
-                        <a href="listening/listening-c11t3-full.html" id="c11t3-btn" class="btn-start gray">Not Ready</a>
+                        <a href="listening/listening-c11t3-full.html" id="c11t3-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="11">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 11 — Test 4</h3>
                         <p class="test-desc">Full Listening · 4 Sections</p>
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
-                        <a href="listening/listening-c11t4-full.html" id="c11t4-btn" class="btn-start gray">Not Ready</a>
+                        <a href="listening/listening-c11t4-full.html" id="c11t4-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     
                     <!-- C12–C15 -->
@@ -593,28 +593,28 @@
                         <h3 class="test-title">Cambridge 12 — Test 1</h3>
                         <p class="test-desc">Full Listening · 4 Sections</p>
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
-                        <a href="listening/listening-c12t1-full.html" id="c12t1-btn" class="btn-start gray">Not Ready</a>
+                        <a href="listening/listening-c12t1-full.html" id="c12t1-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="13">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 13 — Test 1</h3>
                         <p class="test-desc">Full Listening · 4 Sections</p>
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
-                        <a href="listening/listening-c13t1-full.html" id="c13t1-btn" class="btn-start gray">Not Ready</a>
+                        <a href="listening/listening-c13t1-full.html" id="c13t1-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="14">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 14 — Test 1</h3>
                         <p class="test-desc">Full Listening · 4 Sections</p>
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
-                        <a href="listening/listening-c14t1-full.html" id="c14t1-btn" class="btn-start gray">Not Ready</a>
+                        <a href="listening/listening-c14t1-full.html" id="c14t1-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="15">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 15 — Test 1</h3>
                         <p class="test-desc">Full Listening · 4 Sections</p>
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
-                        <a href="listening/listening-c15t1-full.html" id="c15t1-btn" class="btn-start gray">Not Ready</a>
+                        <a href="listening/listening-c15t1-full.html" id="c15t1-btn" class="section-btn gray">Not Ready</a>
                     </div>
                 </div>
             </div>
@@ -627,55 +627,55 @@
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 10 — Test 1</h3>
                         <p class="test-desc">Task 1 & Task 2 + Samples</p>
-                        <a href="writing/C10T1.html" id="c10t1w-btn" class="btn-start gray">Not Ready</a>
+                        <a href="writing/C10T1.html" id="c10t1w-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 10 — Test 2</h3>
                         <p class="test-desc">Task 1 & Task 2 + Samples</p>
-                        <a href="writing/C10T2.html" id="c10t2w-btn" class="btn-start gray">Not Ready</a>
+                        <a href="writing/C10T2.html" id="c10t2w-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 10 — Test 3</h3>
                         <p class="test-desc">Task 1 & Task 2 + Samples</p>
-                        <a href="writing/C10T3.html" id="c10t3w-btn" class="btn-start gray">Not Ready</a>
+                        <a href="writing/C10T3.html" id="c10t3w-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 10 — Test 4</h3>
                         <p class="test-desc">Task 1 & Task 2 + Samples</p>
-                        <a href="writing/C10T4.html" id="c10t4w-btn" class="btn-start gray">Not Ready</a>
+                        <a href="writing/C10T4.html" id="c10t4w-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="11">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 11 — Test 1</h3>
                         <p class="test-desc">Task 1 & Task 2 + Samples</p>
-                        <a href="writing/writing-C11T1.html" id="c11t1w-btn" class="btn-start gray">Not Ready</a>
+                        <a href="writing/writing-C11T1.html" id="c11t1w-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="12">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 12 — Test 1</h3>
                         <p class="test-desc">Task 1 & Task 2 + Samples</p>
-                        <a href="writing/writing-C12T1.html" id="c12t1w-btn" class="btn-start gray">Not Ready</a>
+                        <a href="writing/writing-C12T1.html" id="c12t1w-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="13">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 13 — Test 1</h3>
                         <p class="test-desc">Task 1 & Task 2 + Samples</p>
-                        <a href="writing/writing-C13T1.html" id="c13t1w-btn" class="btn-start gray">Not Ready</a>
+                        <a href="writing/writing-C13T1.html" id="c13t1w-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="14">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 14 — Test 1</h3>
                         <p class="test-desc">Task 1 & Task 2 + Samples</p>
-                        <a href="writing/writing-C14T1.html" id="c14t1w-btn" class="btn-start gray">Not Ready</a>
+                        <a href="writing/writing-C14T1.html" id="c14t1w-btn" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="15">
                         <div class="test-icon">✍️</div>
                         <h3 class="test-title">Cambridge 15 — Test 1</h3>
                         <p class="test-desc">Task 1 & Task 2 + Samples</p>
-                        <a href="writing/writing-C15T1.html" id="c15t1w-btn" class="btn-start gray">Not Ready</a>
+                        <a href="writing/writing-C15T1.html" id="c15t1w-btn" class="section-btn gray">Not Ready</a>
                     </div>
                 </div>
             </div>
@@ -688,43 +688,43 @@
                         <div class="test-icon">🎤</div>
                         <h3 class="test-title">Cambridge 10 — Test 1</h3>
                         <p class="test-desc">Topics & Cue Cards</p>
-                        <a href="speaking/speaking-C10T1.html" class="btn-start gray">Not Ready</a>
+                        <a href="speaking/speaking-C10T1.html" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="10">
                         <div class="test-icon">🎤</div>
                         <h3 class="test-title">Cambridge 10 — Test 2</h3>
                         <p class="test-desc">Topics & Cue Cards</p>
-                        <a href="speaking/speaking-C10T2.html" class="btn-start gray">Not Ready</a>
+                        <a href="speaking/speaking-C10T2.html" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="11">
                         <div class="test-icon">🎤</div>
                         <h3 class="test-title">Cambridge 11 — Test 1</h3>
                         <p class="test-desc">Topics & Cue Cards</p>
-                        <a href="speaking/speaking-C11T1.html" class="btn-start gray">Not Ready</a>
+                        <a href="speaking/speaking-C11T1.html" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="12">
                         <div class="test-icon">🎤</div>
                         <h3 class="test-title">Cambridge 12 — Test 1</h3>
                         <p class="test-desc">Topics & Cue Cards</p>
-                        <a href="speaking/speaking-C12T1.html" class="btn-start gray">Not Ready</a>
+                        <a href="speaking/speaking-C12T1.html" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="13">
                         <div class="test-icon">🎤</div>
                         <h3 class="test-title">Cambridge 13 — Test 1</h3>
                         <p class="test-desc">Topics & Cue Cards</p>
-                        <a href="speaking/speaking-C13T1.html" class="btn-start gray">Not Ready</a>
+                        <a href="speaking/speaking-C13T1.html" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="14">
                         <div class="test-icon">🎤</div>
                         <h3 class="test-title">Cambridge 14 — Test 1</h3>
                         <p class="test-desc">Topics & Cue Cards</p>
-                        <a href="speaking/speaking-C14T1.html" class="btn-start gray">Not Ready</a>
+                        <a href="speaking/speaking-C14T1.html" class="section-btn gray">Not Ready</a>
                     </div>
                     <div class="test-card" data-book="15">
                         <div class="test-icon">🎤</div>
                         <h3 class="test-title">Cambridge 15 — Test 1</h3>
                         <p class="test-desc">Topics & Cue Cards</p>
-                        <a href="speaking/speaking-C15T1.html" class="btn-start gray">Not Ready</a>
+                        <a href="speaking/speaking-C15T1.html" class="section-btn gray">Not Ready</a>
                     </div>
                 </div>
             </div>
@@ -776,9 +776,9 @@ const LISTENING_TESTS = [
   { id: "c10t3", file: "listening-c10t3-full.html" },
   { id: "c10t4", file: "listening-c10t4-full.html" },
   { id: "c11t1", file: "listeningC11T1-part1.html" },       // ✅ YOUR ORIGINAL — UNCHANGED
-  { id: "c11t1s2", file: "listeningC11T1-section2.html" },  // ✅ Section 2
-  { id: "c11t1s3", file: "listeningC11T1-section3.html" },  // ✅ Section 3
-  { id: "c11t1s4", file: "listeningC11T1-section4.html" },  // ✅ Section 4
+  { id: "c11t1s2", file: "listeningC11T1-section2.html" },
+  { id: "c11t1s3", file: "listeningC11T1-section3.html" },
+  { id: "c11t1s4", file: "listeningC11T1-section4.html" },
   { id: "c11t2", file: "listening-c11t2-full.html" },
   { id: "c11t3", file: "listening-c11t3-full.html" },
   { id: "c11t4", file: "listening-c11t4-full.html" },
@@ -802,7 +802,7 @@ async function updateListeningButtons() {
   }
 }
 // ==================================================
-// ✅ WRITING AUTO-DETECTION — matches YOUR filenames
+// ✅ WRITING AUTO-DETECTION
 // ==================================================
 const WRITING_PATH = "./writing/";
 const WRITING_TESTS = [
@@ -833,12 +833,12 @@ async function updateWritingButtons() {
 // === HELPER: Update button style ===
 function btnUpdate(btn, ready) {
   if (ready) {
-    btn.textContent = "▶ Ready";
     btn.classList.remove("gray");
+    btn.classList.add("ready");
     btn.style.pointerEvents = "auto";
     btn.style.opacity = "1";
   } else {
-    btn.textContent = "Not Ready";
+    btn.classList.remove("ready");
     btn.classList.add("gray");
     btn.style.pointerEvents = "none";
     btn.style.opacity = "0.7";
