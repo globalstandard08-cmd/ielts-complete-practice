@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge 11 — Test 2 — Section 1</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: #f4f6f9; padding: 20px; line-height: 1.7; user-select: text; }
+        .container { max-width: 1100px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: relative; overflow: hidden; }
+        .logo-section { text-align: center; padding: 20px; border-bottom: 1px solid #e5e7eb; }
+        .logo-img { max-width: 400px; width: 80%; height: auto; }
+        .header-bar { background-color: #1f3a5f; color: white; padding: 15px 25px; font-size: 18px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+        .audio-player { background: #eff6ff; padding: 20px; margin: 20px; border-radius: 10px; text-align: center; border: 1px solid #bfdbfe; }
+        .audio-player h3 { color: #1e40af; margin-bottom: 10px; font-size: 16px; }
+        audio { width: 100%; max-width: 500px; }
+        .content { padding: 0 30px 30px; position: relative; }
+        h2 { color: #1f3a5f; margin: 25px 0 15px; font-size: 22px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
+        .instruction { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        .questions-block { border: 1px solid #d1d5db; border-radius: 10px; padding: 25px; margin-bottom: 25px; background: #fafafa; }
+        .questions-block h3 { text-align: center; margin-bottom: 20px; color: #1f3a5f; font-size: 20px; }
+        .q-row { display: flex; align-items: baseline; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+        .q-num { font-weight: 700; min-width: 28px; color: #1f3a5f; flex-shrink: 0; }
+        .q-text { flex: 1; min-width: 200px; }
+        .input-field { padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 15px; background: #fff; transition: all 0.2s; min-width: 140px; text-transform: uppercase; }
+        .input-field:focus { outline: none; border-color: #1f3a5f; box-shadow: 0 0 0 3px rgba(31,58,95,0.15); }
+        .input-field.filled { background: #eef2ff; border-color: #4f46e5; }
+        .example-row { color: #4b5563; font-style: italic; border-bottom: 1px dashed #ddd; padding-bottom: 10px; margin-bottom: 15px; }
+
+        .highlight { background-color: #ffd700; padding: 2px 4px; border-radius: 2px; cursor: pointer; display: inline; position: relative; transition: background-color 0.2s; }
+        .highlight:hover { background-color: #ffeb3b; }
+        .note-marker { position: absolute; top: -8px; right: -8px; width: 18px; height: 18px; background: #1f3a5f; color: white; border-radius: 50%; font-size: 11px; font-weight: bold; display: flex; align-items: center; justify-content: center; z-index: 10; }
+        .context-menu { position: absolute; background: #fff; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 180px; }
+        .context-menu div { padding: 10px 14px; cursor: pointer; font-size: 14px; border-bottom: 1px solid #f0f0f0; }
+        .context-menu div:last-child { border-bottom: none; }
+        .context-menu div:hover { background: #f0f0f0; }
+        .note-box { position: absolute; width: 260px; min-height: 80px; background: #fffde7; border: 1px solid #f9d423; border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); z-index: 9990; display: none; }
+        .note-header { background: #f9d423; padding: 6px 10px; font-size: 13px; font-weight: bold; cursor: move; display: flex; justify-content: space-between; align-items: center; color: #333; }
+        .note-close { cursor: pointer; font-weight: bold; font-size: 16px; line-height: 1; }
+        .note-textarea { width: 100%; min-height: 60px; border: none; padding: 10px; font-size: 14px; resize: vertical; background: transparent; outline: none; }
+
+        .status-bar { display: flex; flex-wrap: wrap; gap: 6px; margin: 25px 0; padding: 15px; background: #f3f4f6; border-radius: 8px; border: 1px solid #e5e7eb; }
+        .status-label { font-size: 12px; font-weight: 600; color: #4b5563; margin-right: 8px; }
+        .q-dot { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 4px; background: #e5e7eb; color: #6b7280; font-size: 11px; font-weight: 600; }
+        .q-dot.done { background: #10b981; color: white; }
+        .clear-btn { background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; margin: 10px 0; transition: background 0.2s; }
+        .clear-btn:hover { background: #dc2626; }
+        .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #e5e7eb; }
+        .nav-link { padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; transition: all 0.2s; }
+        .nav-back { background: #e5e7eb; color: #374151; }
+        .nav-back:hover { background: #d1d5db; }
+        .nav-next { background: #1f3a5f; color: white; }
+        .nav-next:hover { background: #163050; }
+
+        @media (max-width: 768px) {
+            .content { padding: 0 15px 20px; }
+            .questions-block { padding: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">🖍️ Highlight</div>
+        <div id="menuAddNote">📝 Add Note</div>
+        <div id="menuRemove">❌ Remove Highlight & Note</div>
+    </div>
+    <div class="note-box" id="noteBox">
+        <div class="note-header" id="noteDragHandle">
+            <span>📝 Note</span>
+            <span class="note-close" id="noteClose">×</span>
+        </div>
+        <textarea class="note-textarea" id="noteText" placeholder="Type your note here…"></textarea>
+    </div>
+
+    <div class="container">
+        <div class="logo-section">
+            <img src="../ielts-logo.png" alt="IELTS Logo" class="logo-img" onerror="this.style.display='none'">
+        </div>
+        <div class="header-bar">
+            <span>Cambridge 11 — Test 2 · Section 1</span>
+            <span style="font-size:14px; opacity:0.8;">Questions 1–10</span>
+        </div>
+        <div class="audio-player">
+            <h3>🎧 Play Recording</h3>
+            <audio controls preload="auto">
+                <source src="c11-t2-audio1.mp3" type="audio/mpeg">
+                <source src="listening/c11-t2-audio1.mp3" type="audio/mpeg">
+                <source src="../c11-t2-audio1.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            
+        </div>
+        <div class="content" id="passageArea">
+            <h2>Section 1 — Questions 1–10</h2>
+            
+            <div class="instruction">
+                <strong>Questions 1–10</strong><br>
+                Complete the notes below.<br>
+                Write <strong>ONE WORD AND/OR A NUMBER</strong> for each answer.<br>
+                Right‑click selected text → choose Highlight or Add Note.
+            </div>
+
+            <div class="questions-block">
+                <h3>Enquiry about joining Youth Council</h3>
+
+                <div class="example-row">
+                    Example<br>
+                    Name: Roger <em>Brown</em>
+                </div>
+
+                <div class="q-row">
+                    <span class="q-text">Age: 18</span>
+                </div>
+
+                <div class="q-row">
+                    <span class="q-num">1</span>
+                    <span class="q-text">Currently staying in a</span>
+                    <input type="text" class="input-field" id="q1" data-q="1" placeholder="Answer">
+                    <span class="q-text">during the week</span>
+                </div>
+
+                <div class="q-row">
+                    <span class="q-num">2</span>
+                    <span class="q-text">Postal address: 17, </span>
+                    <input type="text" class="input-field" id="q2" data-q="2" placeholder="Answer">
+                    <span class="q-text">Street, Stamford, Lincs</span>
+                </div>
+
+                <div class="q-row">
+                    <span class="q-num">3</span>
+                    <span class="q-text">Postcode: </span>
+                    <input type="text" class="input-field" id="q3" data-q="3" placeholder="Answer">
+                </div>
+
+                <div class="q-row">
+                    <span class="q-num">4</span>
+                    <span class="q-text">Occupation: student and part-time job as a </span>
+                    <input type="text" class="input-field" id="q4" data-q="4" placeholder="Answer">
+                </div>
+
+                <div class="q-row">
+                    <span class="q-num">5</span>
+                    <span class="q-text">Studying </span>
+                    <input type="text" class="input-field" id="q5" data-q="5" placeholder="Answer">
+                    <span class="q-text">(major subject) and history (minor subject)</span>
+                </div>
+
+                <div class="q-row">
+                    <span class="q-num">6</span>
+                    <span class="q-text">Hobbies: does a lot of </span>
+                    <input type="text" class="input-field" id="q6" data-q="6" placeholder="Answer">
+                </div>
+
+                <div class="q-row">
+                    <span class="q-num">7</span>
+                    <span class="q-text">and is interested in the </span>
+                    <input type="text" class="input-field" id="q7" data-q="7" placeholder="Answer">
+                </div>
+
+                <div class="q-row" style="margin-top:20px; padding-top:15px; border-top:1px solid #ddd;">
+                    <span class="q-text"><strong>On Youth Council, wants to work with young people who are</strong></span>
+                </div>
+
+                <div class="q-row">
+                    <span class="q-num">8</span>
+                    <input type="text" class="input-field" id="q8" data-q="8" placeholder="Answer">
+                </div>
+
+                <div class="q-row">
+                    <span class="q-num">9</span>
+                    <span class="q-text">Will come to talk to the Elections Officer next Monday at </span>
+                    <input type="text" class="input-field" id="q9" data-q="9" placeholder="Answer">
+                    <span class="q-text">pm</span>
+                </div>
+
+                <div class="q-row">
+                    <span class="q-num">10</span>
+                    <span class="q-text">Mobile number: </span>
+                    <input type="text" class="input-field" id="q10" data-q="10" placeholder="Answer">
+                </div>
+            </div>
+            
+            <div class="status-bar" id="statusBar">
+                <span class="status-label">Section 1:</span>
+            </div>
+            <div class="nav-row">
+                <a href="../library.html" class="nav-link nav-back">← Library</a>
+                <a href="listeningC11T2-section2.html" class="nav-link nav-next">Section 2 →</a>
+            </div>
+        </div>
+        <div style="padding:0 30px 20px;">
+            <button class="clear-btn" onclick="clearAll()">🗑️ Clear All</button>
+        </div>
+    </div>
+
+<script>
+const STORAGE_KEY = 'C11T2_Section1';
+const passageId = 'c11t2-section1';
+let currentRange = null;
+let activeHighlight = null;
+
+function renderStatus() {
+    const bar = document.getElementById('statusBar');
+    if (!bar) return;
+    bar.querySelectorAll('.q-dot').forEach(d => d.remove());
+    for (let i = 1; i <= 10; i++) {
+        const val = localStorage.getItem(`${STORAGE_KEY}_q${i}`);
+        const done = val && val.trim() !== '';
+        const dot = document.createElement('span');
+        dot.className = 'q-dot' + (done ? ' done' : '');
+        dot.textContent = i;
+        bar.appendChild(dot);
+    }
+}
+function setupInput(inputEl, qNum) {
+    const saved = localStorage.getItem(`${STORAGE_KEY}_q${qNum}`);
+    if (saved) { inputEl.value = saved; inputEl.classList.add('filled'); }
+    inputEl.addEventListener('input', () => {
+        const val = inputEl.value.trim();
+        localStorage.setItem(`${STORAGE_KEY}_q${qNum}`, val);
+        val ? inputEl.classList.add('filled') : inputEl.classList.remove('filled');
+        renderStatus();
+    });
+}
+function removeHighlightClean(el) {
+    if (!el || !el.parentNode) return;
+    const cleanText = el.textContent.replace(/!$/, '');
+    const textNode = document.createTextNode(cleanText);
+    el.parentNode.replaceChild(textNode, el);
+    if (textNode.previousSibling && textNode.previousSibling.nodeType === Node.TEXT_NODE) {
+        textNode.nodeValue = textNode.previousSibling.nodeValue + textNode.nodeValue;
+        textNode.parentNode.removeChild(textNode.previousSibling);
+    }
+    if (textNode.nextSibling && textNode.nextSibling.nodeType === Node.TEXT_NODE) {
+        textNode.nodeValue = textNode.nodeValue + textNode.nextSibling.nodeValue;
+        textNode.parentNode.removeChild(textNode.nextSibling);
+    }
+}
+function saveHighlights() {
+    const highlights = document.querySelectorAll('#passageArea .highlight');
+    const data = Array.from(highlights).map(h => ({
+        text: h.textContent,
+        note: h.getAttribute('data-note') || ''
+    }));
+    localStorage.setItem(`${passageId}_highlights`, JSON.stringify(data));
+}
+function isSelectionValid(sel) {
+    if (!sel || sel.isCollapsed || !sel.toString().trim()) return false;
+    try {
+        const r = sel.getRangeAt(0);
+        const p = r.commonAncestorContainer.nodeType === Node.TEXT_NODE
+            ? r.commonAncestorContainer.parentElement : r.commonAncestorContainer;
+        const inArea = document.getElementById('passageArea').contains(p);
+        const inInput = p.closest('input,textarea,button,select,.context-menu,.note-box');
+        return inArea && !inInput;
+    } catch { return false; }
+}
+const noteBox = document.getElementById('noteBox');
+const noteText = document.getElementById('noteText');
+const noteClose = document.getElementById('noteClose');
+let isDraggingNote = false, offsetX = 0, offsetY = 0;
+noteClose.addEventListener('click', () => { noteBox.style.display = 'none'; activeHighlight = null; });
+noteText.addEventListener('input', () => {
+    if (activeHighlight) {
+        activeHighlight.setAttribute('data-note', noteText.value);
+        saveHighlights();
+    }
+});
+document.addEventListener('mousedown', e => {
+    if (!e.target.closest('.note-header')) return;
+    isDraggingNote = true;
+    const rc = noteBox.getBoundingClientRect();
+    offsetX = e.clientX - rc.left;
+    offsetY = e.clientY - rc.top;
+});
+document.addEventListener('mousemove', e => {
+    if (!isDraggingNote) return;
+    noteBox.style.left = (e.clientX - offsetX) + 'px';
+    noteBox.style.top = (e.clientY - offsetY) + 'px';
+});
+document.addEventListener('mouseup', () => isDraggingNote = false);
+
+const ctxMenu = document.getElementById('contextMenu');
+document.addEventListener('contextmenu', e => {
+    const sel = window.getSelection();
+    const targetHl = e.target.closest('.highlight');
+    ctxMenu.style.display = 'none';
+    if (targetHl) {
+        e.preventDefault();
+        activeHighlight = targetHl;
+        const rc = targetHl.getBoundingClientRect();
+        ctxMenu.style.left = (rc.left + window.scrollX) + 'px';
+        ctxMenu.style.top = (rc.bottom + window.scrollY + 5) + 'px';
+        ctxMenu.style.display = 'block';
+    } else if (isSelectionValid(sel)) {
+        e.preventDefault();
+        currentRange = sel.getRangeAt(0).cloneRange();
+        const rc = currentRange.getBoundingClientRect();
+        ctxMenu.style.left = (rc.left + window.scrollX) + 'px';
+        ctxMenu.style.top = (rc.bottom + window.scrollY + 5) + 'px';
+        ctxMenu.style.display = 'block';
+        activeHighlight = null;
+    }
+});
+document.addEventListener('click', e => { if (!ctxMenu.contains(e.target)) ctxMenu.style.display = 'none'; });
+
+document.getElementById('menuHighlight').addEventListener('click', () => {
+    if (!currentRange) return;
+    try {
+        const sp = document.createElement('span');
+        sp.className = 'highlight';
+        sp.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(sp);
+        window.getSelection().removeAllRanges();
+        saveHighlights();
+    } catch { alert('⚠️ Select smaller text please.'); }
+    ctxMenu.style.display = 'none';
+});
+document.getElementById('menuAddNote').addEventListener('click', () => {
+    ctxMenu.style.display = 'none';
+    if (!activeHighlight) {
+        if (!currentRange) return;
+        try {
+            const sp = document.createElement('span');
+            sp.className = 'highlight';
+            sp.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(sp);
+            activeHighlight = sp;
+            window.getSelection().removeAllRanges();
+            saveHighlights();
+        } catch { alert('⚠️ Select smaller text please.'); return; }
+    }
+    if (!activeHighlight.querySelector('.note-marker')) {
+        const m = document.createElement('span');
+        m.className = 'note-marker';
+        m.textContent = '!';
+        activeHighlight.appendChild(m);
+    }
+    const rc = activeHighlight.getBoundingClientRect();
+    noteBox.style.left = (rc.right + window.scrollX + 10) + 'px';
+    noteBox.style.top = (rc.top + window.scrollY) + 'px';
+    noteBox.style.display = 'block';
+    noteText.value = activeHighlight.getAttribute('data-note') || '';
+    noteText.focus();
+});
+document.getElementById('menuRemove').addEventListener('click', () => {
+    ctxMenu.style.display = 'none';
+    noteBox.style.display = 'none';
+    if (!activeHighlight) return;
+    removeHighlightClean(activeHighlight);
+    activeHighlight = null;
+    saveHighlights();
+});
+function clearAll() {
+    if (!confirm('⚠️ Clear all answers and highlights? This cannot be undone.')) return;
+    for (let i = 1; i <= 10; i++) localStorage.removeItem(`${STORAGE_KEY}_q${i}`);
+    localStorage.removeItem(`${passageId}_highlights`);
+    document.querySelectorAll('.input-field').forEach(inp => { inp.value = ''; inp.classList.remove('filled'); });
+    document.querySelectorAll('.highlight').forEach(h => removeHighlightClean(h));
+    noteBox.style.display = 'none';
+    renderStatus();
+}
+document.addEventListener('DOMContentLoaded', () => {
+    for (let i = 1; i <= 10; i++) {
+        const inp = document.getElementById('q' + i);
+        if (inp) setupInput(inp, i);
+    }
+    renderStatus();
+});
+</script>
+</body>
+</html>
