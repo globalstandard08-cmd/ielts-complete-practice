@@ -30,49 +30,76 @@
             display: flex;
             align-items: flex-start;
             gap: 12px;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
             flex-wrap: nowrap;
         }
         .q-number {
             font-weight: 700;
-            min-width: 28px;
+            min-width: 32px;
             color: #1f3a5f;
             flex-shrink: 0;
+            padding-top: 2px;
+        }
+        .q-body {
+            flex: 1;
+        }
+        .q-question {
+            margin-bottom: 8px;
         }
         .q-options {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-left: 40px;
-            margin-top: 4px;
+            gap: 10px;
         }
         .option-line {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .option-line:hover {
+            background: #eef2ff;
+        }
+        .option-line.selected {
+            background: #d7e3fc;
+            font-weight: 600;
+        }
+        .option-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #9ca3af;
+            border-radius: 50%;
+            position: relative;
+            flex-shrink: 0;
+            background: #fff;
+            transition: all 0.2s;
+        }
+        .option-line.selected .option-radio {
+            border-color: #1f3a5f;
+        }
+        .option-line.selected .option-radio::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #1f3a5f;
+            border-radius: 50%;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
         }
         .option-letter {
             min-width: 22px;
             font-weight: 600;
         }
-
-        .input-field {
-            padding: 8px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 15px;
-            background: #fff;
-            transition: all 0.2s;
-        }
-        .input-field.short {
+        .q-answer {
             min-width: 60px;
-            max-width: 60px;
-            text-align: center;
-            text-transform: uppercase;
-            flex-shrink: 0;
+            font-weight: 700;
+            color: #1f3a5f;
+            padding-top: 2px;
         }
-        .input-field:focus { outline: none; border-color: #1f3a5f; box-shadow: 0 0 0 3px rgba(31,58,95,0.15); }
-        .input-field.filled { background: #eef2ff; border-color: #4f46e5; }
 
         .user-highlight { background: #fef08a; padding: 1px 3px; border-radius: 3px; cursor: pointer; }
         .context-menu { position: absolute; background: #fff; border: 1px solid #d1d5db; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 160px; }
@@ -98,7 +125,6 @@
         @media (max-width: 768px) {
             .content { padding: 0 15px 20px; }
             .questions-block { padding: 18px; }
-            .q-options { margin-left: 28px; }
         }
     </style>
 </head>
@@ -130,140 +156,260 @@
             <div class="instruction">
                 <strong>Questions 21–30</strong><br>
                 Choose the correct letter, <strong>A, B or C</strong>.<br>
-                Write the correct letter <strong>A–C</strong> next to Questions 21–30.
+                Click your answer choice for each question.
             </div>
 
             <div class="questions-block">
                 <h3 style="text-align:center; margin-bottom:25px; color:#1f3a5f;">Study on Gender in Physics</h3>
 
-                <div class="question-line">
+                <div class="question-line" data-q="21">
                     <span class="q-number">21</span>
-                    <div>
-                        <span>The students in Akira Miyake's study were all majoring in</span>
+                    <div class="q-body">
+                        <div class="q-question">The students in Akira Miyake's study were all majoring in</div>
                         <div class="q-options">
-                            <div class="option-line"><span class="option-letter">A</span><span>physics.</span></div>
-                            <div class="option-line"><span class="option-letter">B</span><span>psychology or physics.</span></div>
-                            <div class="option-line"><span class="option-letter">C</span><span>science, technology, engineering or mathematics.</span></div>
+                            <div class="option-line" data-value="A">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">A</span>
+                                <span>physics.</span>
+                            </div>
+                            <div class="option-line" data-value="B">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">B</span>
+                                <span>psychology or physics.</span>
+                            </div>
+                            <div class="option-line" data-value="C">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">C</span>
+                                <span>science, technology, engineering or mathematics.</span>
+                            </div>
                         </div>
                     </div>
-                    <input type="text" class="input-field short" id="q21" data-q="21" placeholder="A–C">
+                    <div class="q-answer" id="ans21"></div>
                 </div>
 
-                <div class="question-line">
+                <div class="question-line" data-q="22">
                     <span class="q-number">22</span>
-                    <div>
-                        <span>The aim of Miyake's study was to investigate</span>
+                    <div class="q-body">
+                        <div class="q-question">The aim of Miyake's study was to investigate</div>
                         <div class="q-options">
-                            <div class="option-line"><span class="option-letter">A</span><span>what kind of women choose to study physics.</span></div>
-                            <div class="option-line"><span class="option-letter">B</span><span>a way of improving women's performance in physics.</span></div>
-                            <div class="option-line"><span class="option-letter">C</span><span>whether fewer women than men study physics at college.</span></div>
+                            <div class="option-line" data-value="A">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">A</span>
+                                <span>what kind of women choose to study physics.</span>
+                            </div>
+                            <div class="option-line" data-value="B">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">B</span>
+                                <span>a way of improving women's performance in physics.</span>
+                            </div>
+                            <div class="option-line" data-value="C">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">C</span>
+                                <span>whether fewer women than men study physics at college.</span>
+                            </div>
                         </div>
                     </div>
-                    <input type="text" class="input-field short" id="q22" data-q="22" placeholder="A–C">
+                    <div class="q-answer" id="ans22"></div>
                 </div>
 
-                <div class="question-line">
+                <div class="question-line" data-q="23">
                     <span class="q-number">23</span>
-                    <div>
-                        <span>The female physics students were wrong to believe that</span>
+                    <div class="q-body">
+                        <div class="q-question">The female physics students were wrong to believe that</div>
                         <div class="q-options">
-                            <div class="option-line"><span class="option-letter">A</span><span>the teachers marked them in an unfair way.</span></div>
-                            <div class="option-line"><span class="option-letter">B</span><span>the male students expected them to do badly.</span></div>
-                            <div class="option-line"><span class="option-letter">C</span><span>their test results were lower than the male students'.</span></div>
+                            <div class="option-line" data-value="A">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">A</span>
+                                <span>the teachers marked them in an unfair way.</span>
+                            </div>
+                            <div class="option-line" data-value="B">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">B</span>
+                                <span>the male students expected them to do badly.</span>
+                            </div>
+                            <div class="option-line" data-value="C">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">C</span>
+                                <span>their test results were lower than the male students'.</span>
+                            </div>
                         </div>
                     </div>
-                    <input type="text" class="input-field short" id="q23" data-q="23" placeholder="A–C">
+                    <div class="q-answer" id="ans23"></div>
                 </div>
 
-                <div class="question-line">
+                <div class="question-line" data-q="24">
                     <span class="q-number">24</span>
-                    <div>
-                        <span>Miyake's team asked the students to write about</span>
+                    <div class="q-body">
+                        <div class="q-question">Miyake's team asked the students to write about</div>
                         <div class="q-options">
-                            <div class="option-line"><span class="option-letter">A</span><span>what they enjoyed about studying physics.</span></div>
-                            <div class="option-line"><span class="option-letter">B</span><span>the successful experiences of other people.</span></div>
-                            <div class="option-line"><span class="option-letter">C</span><span>something that was important to them personally.</span></div>
+                            <div class="option-line" data-value="A">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">A</span>
+                                <span>what they enjoyed about studying physics.</span>
+                            </div>
+                            <div class="option-line" data-value="B">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">B</span>
+                                <span>the successful experiences of other people.</span>
+                            </div>
+                            <div class="option-line" data-value="C">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">C</span>
+                                <span>something that was important to them personally.</span>
+                            </div>
                         </div>
                     </div>
-                    <input type="text" class="input-field short" id="q24" data-q="24" placeholder="A–C">
+                    <div class="q-answer" id="ans24"></div>
                 </div>
 
-                <div class="question-line">
+                <div class="question-line" data-q="25">
                     <span class="q-number">25</span>
-                    <div>
-                        <span>What was the aim of the writing exercise done by the subjects?</span>
+                    <div class="q-body">
+                        <div class="q-question">What was the aim of the writing exercise done by the subjects?</div>
                         <div class="q-options">
-                            <div class="option-line"><span class="option-letter">A</span><span>to reduce stress</span></div>
-                            <div class="option-line"><span class="option-letter">B</span><span>to strengthen verbal ability</span></div>
-                            <div class="option-line"><span class="option-letter">C</span><span>to encourage logical thinking</span></div>
+                            <div class="option-line" data-value="A">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">A</span>
+                                <span>to reduce stress</span>
+                            </div>
+                            <div class="option-line" data-value="B">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">B</span>
+                                <span>to strengthen verbal ability</span>
+                            </div>
+                            <div class="option-line" data-value="C">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">C</span>
+                                <span>to encourage logical thinking</span>
+                            </div>
                         </div>
                     </div>
-                    <input type="text" class="input-field short" id="q25" data-q="25" placeholder="A–C">
+                    <div class="q-answer" id="ans25"></div>
                 </div>
 
-                <div class="question-line">
+                <div class="question-line" data-q="26">
                     <span class="q-number">26</span>
-                    <div>
-                        <span>What surprised the researchers about the study?</span>
+                    <div class="q-body">
+                        <div class="q-question">What surprised the researchers about the study?</div>
                         <div class="q-options">
-                            <div class="option-line"><span class="option-letter">A</span><span>how few students managed to get A grades</span></div>
-                            <div class="option-line"><span class="option-letter">B</span><span>the positive impact it had on physics results for women</span></div>
-                            <div class="option-line"><span class="option-letter">C</span><span>the difference between male and female performance</span></div>
+                            <div class="option-line" data-value="A">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">A</span>
+                                <span>how few students managed to get A grades</span>
+                            </div>
+                            <div class="option-line" data-value="B">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">B</span>
+                                <span>the positive impact it had on physics results for women</span>
+                            </div>
+                            <div class="option-line" data-value="C">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">C</span>
+                                <span>the difference between male and female performance</span>
+                            </div>
                         </div>
                     </div>
-                    <input type="text" class="input-field short" id="q26" data-q="26" placeholder="A–C">
+                    <div class="q-answer" id="ans26"></div>
                 </div>
 
-                <div class="question-line">
+                <div class="question-line" data-q="27">
                     <span class="q-number">27</span>
-                    <div>
-                        <span>Greg and Lisa think Miyake's results could have been affected by</span>
+                    <div class="q-body">
+                        <div class="q-question">Greg and Lisa think Miyake's results could have been affected by</div>
                         <div class="q-options">
-                            <div class="option-line"><span class="option-letter">A</span><span>the length of the writing task.</span></div>
-                            <div class="option-line"><span class="option-letter">B</span><span>the number of students who took part.</span></div>
-                            <div class="option-line"><span class="option-letter">C</span><span>the information the students were given.</span></div>
+                            <div class="option-line" data-value="A">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">A</span>
+                                <span>the length of the writing task.</span>
+                            </div>
+                            <div class="option-line" data-value="B">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">B</span>
+                                <span>the number of students who took part.</span>
+                            </div>
+                            <div class="option-line" data-value="C">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">C</span>
+                                <span>the information the students were given.</span>
+                            </div>
                         </div>
                     </div>
-                    <input type="text" class="input-field short" id="q27" data-q="27" placeholder="A–C">
+                    <div class="q-answer" id="ans27"></div>
                 </div>
 
-                <div class="question-line">
+                <div class="question-line" data-q="28">
                     <span class="q-number">28</span>
-                    <div>
-                        <span>Greg and Lisa decide that in their own project, they will compare the effects of</span>
+                    <div class="q-body">
+                        <div class="q-question">Greg and Lisa decide that in their own project, they will compare the effects of</div>
                         <div class="q-options">
-                            <div class="option-line"><span class="option-letter">A</span><span>two different writing tasks.</span></div>
-                            <div class="option-line"><span class="option-letter">B</span><span>a writing task with an oral task.</span></div>
-                            <div class="option-line"><span class="option-letter">C</span><span>two different oral tasks.</span></div>
+                            <div class="option-line" data-value="A">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">A</span>
+                                <span>two different writing tasks.</span>
+                            </div>
+                            <div class="option-line" data-value="B">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">B</span>
+                                <span>a writing task with an oral task.</span>
+                            </div>
+                            <div class="option-line" data-value="C">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">C</span>
+                                <span>two different oral tasks.</span>
+                            </div>
                         </div>
                     </div>
-                    <input type="text" class="input-field short" id="q28" data-q="28" placeholder="A–C">
+                    <div class="q-answer" id="ans28"></div>
                 </div>
 
-                <div class="question-line">
+                <div class="question-line" data-q="29">
                     <span class="q-number">29</span>
-                    <div>
-                        <span>The main finding of Smolinsky's research was that class teamwork activities</span>
+                    <div class="q-body">
+                        <div class="q-question">The main finding of Smolinsky's research was that class teamwork activities</div>
                         <div class="q-options">
-                            <div class="option-line"><span class="option-letter">A</span><span>were most effective when done by all-women groups.</span></div>
-                            <div class="option-line"><span class="option-letter">B</span><span>had no effect on the performance of men or women.</span></div>
-                            <div class="option-line"><span class="option-letter">C</span><span>improved the results of men more than of women.</span></div>
+                            <div class="option-line" data-value="A">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">A</span>
+                                <span>were most effective when done by all-women groups.</span>
+                            </div>
+                            <div class="option-line" data-value="B">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">B</span>
+                                <span>had no effect on the performance of men or women.</span>
+                            </div>
+                            <div class="option-line" data-value="C">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">C</span>
+                                <span>improved the results of men more than of women.</span>
+                            </div>
                         </div>
                     </div>
-                    <input type="text" class="input-field short" id="q29" data-q="29" placeholder="A–C">
+                    <div class="q-answer" id="ans29"></div>
                 </div>
 
-                <div class="question-line">
+                <div class="question-line" data-q="30">
                     <span class="q-number">30</span>
-                    <div>
-                        <span>What will Lisa and Greg do next?</span>
+                    <div class="q-body">
+                        <div class="q-question">What will Lisa and Greg do next?</div>
                         <div class="q-options">
-                            <div class="option-line"><span class="option-letter">A</span><span>talk to a professor</span></div>
-                            <div class="option-line"><span class="option-letter">B</span><span>observe a science class</span></div>
-                            <div class="option-line"><span class="option-letter">C</span><span>look at the science timetable</span></div>
+                            <div class="option-line" data-value="A">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">A</span>
+                                <span>talk to a professor</span>
+                            </div>
+                            <div class="option-line" data-value="B">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">B</span>
+                                <span>observe a science class</span>
+                            </div>
+                            <div class="option-line" data-value="C">
+                                <span class="option-radio"></span>
+                                <span class="option-letter">C</span>
+                                <span>look at the science timetable</span>
+                            </div>
                         </div>
                     </div>
-                    <input type="text" class="input-field short" id="q30" data-q="30" placeholder="A–C">
+                    <div class="q-answer" id="ans30"></div>
                 </div>
             </div>
 
@@ -276,44 +422,71 @@
             </div>
         </div>
         <div style="padding:0 30px 20px;">
-            <button class="clear-btn" onclick="clearAllAnswers()">🗑️ Clear Answers</button>
+            <button class="clear-btn" onclick="clearAll()">🗑️ Clear All</button>
         </div>
     </div>
 <script>
 const STORAGE_KEY = 'C11T1_Section3';
 let lastSelection = null;
+
+function saveAnswer(qNum, value) {
+    localStorage.setItem(STORAGE_KEY + '_q' + qNum, value);
+    renderStatus();
+}
+
+function loadAnswer(qNum) {
+    return localStorage.getItem(STORAGE_KEY + '_q' + qNum) || '';
+}
+
+function displayAnswer(qNum, value) {
+    const ansDiv = document.getElementById('ans' + qNum);
+    if (ansDiv) ansDiv.textContent = value || '';
+    const qLine = document.querySelector(`[data-q="${qNum}"]`);
+    if (qLine) {
+        qLine.querySelectorAll('.option-line').forEach(opt => {
+            opt.classList.toggle('selected', opt.dataset.value === value);
+        });
+    }
+}
+
 function renderStatus() {
     const bar = document.getElementById('statusBar');
     if (!bar) return;
     bar.querySelectorAll('.q-dot').forEach(d => d.remove());
     for (let i = 21; i <= 30; i++) {
-        const val = localStorage.getItem(STORAGE_KEY + '_q' + i);
-        const done = val && val.trim() !== '';
+        const val = loadAnswer(i);
         const dot = document.createElement('span');
-        dot.className = 'q-dot' + (done ? ' done' : '');
+        dot.className = 'q-dot' + (val ? ' done' : '');
         dot.textContent = i;
         bar.appendChild(dot);
     }
 }
-function setupInput(inputEl, qNum) {
-    const saved = localStorage.getItem(STORAGE_KEY + '_q' + qNum);
-    if (saved) { inputEl.value = saved; inputEl.classList.add('filled'); }
-    inputEl.addEventListener('input', () => {
-        const val = inputEl.value.trim().toUpperCase();
-        inputEl.value = val;
-        localStorage.setItem(STORAGE_KEY + '_q' + qNum, val);
-        val ? inputEl.classList.add('filled') : inputEl.classList.remove('filled');
-        renderStatus();
+
+function clearAll() {
+    if (!confirm('Clear ALL answers, highlights and notes?')) return;
+    // Clear stored answers
+    for (let i = 21; i <= 30; i++) {
+        localStorage.removeItem(STORAGE_KEY + '_q' + i);
+    }
+    // Clear UI selections
+    document.querySelectorAll('.option-line.selected').forEach(opt => {
+        opt.classList.remove('selected');
     });
-}
-function clearAllAnswers() {
-    if (!confirm('Clear all answers, highlights and notes?')) return;
-    for (let i = 21; i <= 30; i++) localStorage.removeItem(STORAGE_KEY + '_q' + i);
-    document.querySelectorAll('.input-field').forEach(inp => { inp.value = ''; inp.classList.remove('filled'); });
-    document.querySelectorAll('.user-highlight').forEach(h => { const p = h.parentNode; p.replaceChild(document.createTextNode(h.textContent), h); p.normalize(); });
-    document.querySelectorAll('.sticky-note').forEach(n => n.remove());
+    document.querySelectorAll('.q-answer').forEach(ans => {
+        ans.textContent = '';
+    });
+    // Clear highlights
+    document.querySelectorAll('.user-highlight').forEach(h => {
+        const parent = h.parentNode;
+        parent.replaceChild(document.createTextNode(h.textContent), h);
+        parent.normalize();
+    });
+    // Clear sticky notes
+    document.querySelectorAll('.sticky-note').forEach(note => note.remove());
     renderStatus();
 }
+
+// Highlight & note functions
 const contextMenu = document.getElementById('contextMenu');
 document.addEventListener('contextmenu', e => {
     const sel = window.getSelection();
@@ -322,10 +495,14 @@ document.addEventListener('contextmenu', e => {
         contextMenu.style.left = e.pageX + 'px';
         contextMenu.style.top = e.pageY + 'px';
         contextMenu.style.display = 'block';
-    } else { contextMenu.style.display = 'none'; }
+    } else {
+        contextMenu.style.display = 'none';
+    }
     e.preventDefault();
 });
-document.addEventListener('click', e => { if (!contextMenu.contains(e.target)) contextMenu.style.display = 'none'; });
+document.addEventListener('click', e => {
+    if (!contextMenu.contains(e.target)) contextMenu.style.display = 'none';
+});
 document.getElementById('menuHighlight').addEventListener('click', () => {
     if (!lastSelection) return;
     const range = lastSelection.getRangeAt(0);
@@ -336,7 +513,11 @@ document.getElementById('menuHighlight').addEventListener('click', () => {
     contextMenu.style.display = 'none'; lastSelection = null;
 });
 document.getElementById('menuRemoveHighlight').addEventListener('click', () => {
-    document.querySelectorAll('.user-highlight').forEach(h => { const p = h.parentNode; p.replaceChild(document.createTextNode(h.textContent), h); p.normalize(); });
+    document.querySelectorAll('.user-highlight').forEach(h => {
+        const p = h.parentNode;
+        p.replaceChild(document.createTextNode(h.textContent), h);
+        p.normalize();
+    });
     contextMenu.style.display = 'none';
 });
 document.getElementById('menuNote').addEventListener('click', () => {
@@ -352,9 +533,27 @@ document.getElementById('menuNote').addEventListener('click', () => {
     note.querySelector('.note-close').addEventListener('click', () => note.remove());
     contextMenu.style.display = 'none'; lastSelection = null;
 });
+
+// Option click handling
 document.addEventListener('DOMContentLoaded', () => {
-    for (let i = 21; i <= 30; i++) { const inp = document.getElementById('q'+i); if (inp) setupInput(inp, i); }
+    // Load saved answers
+    for (let i = 21; i <= 30; i++) {
+        const val = loadAnswer(i);
+        if (val) displayAnswer(i, val);
+    }
     renderStatus();
+
+    // Click to select answer
+    document.querySelectorAll('.option-line').forEach(opt => {
+        opt.addEventListener('click', () => {
+            const qLine = opt.closest('[data-q]');
+            const qNum = qLine ? parseInt(qLine.dataset.q) : null;
+            if (!qNum) return;
+            const value = opt.dataset.value;
+            saveAnswer(qNum, value);
+            displayAnswer(qNum, value);
+        });
+    });
 });
 </script>
 </body>
