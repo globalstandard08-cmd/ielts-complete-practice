@@ -76,6 +76,7 @@
             flex-shrink: 0;
             background: #fff;
             transition: all 0.2s;
+            pointer-events: none;
         }
         .option-line.selected .option-radio {
             border-color: #1f3a5f;
@@ -93,6 +94,10 @@
         .option-letter {
             min-width: 22px;
             font-weight: 600;
+            pointer-events: none;
+        }
+        .option-text {
+            pointer-events: none;
         }
         .q-answer {
             min-width: 60px;
@@ -101,26 +106,142 @@
             padding-top: 2px;
         }
 
-        .user-highlight { background: #fef08a; padding: 1px 3px; border-radius: 3px; cursor: pointer; }
-        .context-menu { position: absolute; background: #fff; border: 1px solid #d1d5db; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 160px; }
-        .context-menu div { padding: 10px 14px; cursor: pointer; font-size: 14px; }
-        .context-menu div:hover { background: #f3f4f6; }
-        .sticky-note { position: absolute; width: 180px; min-height: 70px; background: #fef9c3; border: 1px solid #facc15; border-radius: 6px; padding: 8px; box-shadow: 3px 3px 8px rgba(0,0,0,0.1); z-index: 9998; font-size: 13px; }
-        .note-header { display: flex; justify-content: space-between; align-items: center; font-weight: 600; margin-bottom: 5px; color: #854d0e; }
-        .note-close { cursor: pointer; font-weight: 700; color: #b91c1c; }
-        .note-textarea { width: 100%; height: 50px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 13px; }
-        .status-bar { display: flex; flex-wrap: wrap; gap: 6px; margin: 25px 0; padding: 15px; background: #f3f4f6; border-radius: 8px; border: 1px solid #e5e7eb; }
-        .status-label { font-size: 12px; font-weight: 600; color: #4b5563; margin-right: 8px; }
-        .q-dot { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 4px; background: #e5e7eb; color: #6b7280; font-size: 11px; font-weight: 600; }
-        .q-dot.done { background: #10b981; color: white; }
-        .clear-btn { background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; margin: 10px 0; transition: background 0.2s; }
-        .clear-btn:hover { background: #dc2626; }
-        .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #e5e7eb; }
-        .nav-link { padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; transition: all 0.2s; }
-        .nav-back { background: #e5e7eb; color: #374151; }
-        .nav-back:hover { background: #d1d5db; }
-        .nav-next { background: #1f3a5f; color: white; }
-        .nav-next:hover { background: #163050; }
+        .user-highlight {
+            background: #fef08a;
+            padding: 2px 4px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .context-menu {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 99999;
+            display: none;
+            min-width: 180px;
+        }
+        .context-menu div {
+            padding: 11px 16px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .context-menu div:hover {
+            background: #f3f4f6;
+        }
+        .sticky-note {
+            position: absolute;
+            width: 200px;
+            min-height: 80px;
+            background: #fef9c3;
+            border: 1px solid #facc15;
+            border-radius: 6px;
+            padding: 10px;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.15);
+            z-index: 99998;
+            font-size: 13px;
+        }
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #854d0e;
+        }
+        .note-close {
+            cursor: pointer;
+            font-weight: 700;
+            color: #b91c1c;
+        }
+        .note-textarea {
+            width: 100%;
+            height: 60px;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 13px;
+        }
+        .status-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 25px 0;
+            padding: 15px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .status-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #4b5563;
+            margin-right: 8px;
+        }
+        .q-dot {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            background: #e5e7eb;
+            color: #6b7280;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .q-dot.done {
+            background: #10b981;
+            color: white;
+        }
+        .clear-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 10px 0;
+            transition: background 0.2s;
+        }
+        .clear-btn:hover {
+            background: #dc2626;
+        }
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+        .nav-link {
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .nav-back {
+            background: #e5e7eb;
+            color: #374151;
+        }
+        .nav-back:hover {
+            background: #d1d5db;
+        }
+        .nav-next {
+            background: #1f3a5f;
+            color: white;
+        }
+        .nav-next:hover {
+            background: #163050;
+        }
 
         @media (max-width: 768px) {
             .content { padding: 0 15px 20px; }
@@ -131,7 +252,7 @@
 <body>
     <div class="context-menu" id="contextMenu">
         <div id="menuHighlight">🖍️ Highlight Selection</div>
-        <div id="menuRemoveHighlight">❌ Remove Highlight</div>
+        <div id="menuRemoveHighlight">❌ Remove All Highlights</div>
         <div id="menuNote">📝 Add Sticky Note</div>
     </div>
     <div class="container">
@@ -156,7 +277,7 @@
             <div class="instruction">
                 <strong>Questions 21–30</strong><br>
                 Choose the correct letter, <strong>A, B or C</strong>.<br>
-                Click your answer choice for each question.
+                Click your answer choice for each question. Right-click and select to highlight or add notes.
             </div>
 
             <div class="questions-block">
@@ -170,17 +291,17 @@
                             <div class="option-line" data-value="A">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">A</span>
-                                <span>physics.</span>
+                                <span class="option-text">physics.</span>
                             </div>
                             <div class="option-line" data-value="B">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">B</span>
-                                <span>psychology or physics.</span>
+                                <span class="option-text">psychology or physics.</span>
                             </div>
                             <div class="option-line" data-value="C">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">C</span>
-                                <span>science, technology, engineering or mathematics.</span>
+                                <span class="option-text">science, technology, engineering or mathematics.</span>
                             </div>
                         </div>
                     </div>
@@ -195,17 +316,17 @@
                             <div class="option-line" data-value="A">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">A</span>
-                                <span>what kind of women choose to study physics.</span>
+                                <span class="option-text">what kind of women choose to study physics.</span>
                             </div>
                             <div class="option-line" data-value="B">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">B</span>
-                                <span>a way of improving women's performance in physics.</span>
+                                <span class="option-text">a way of improving women's performance in physics.</span>
                             </div>
                             <div class="option-line" data-value="C">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">C</span>
-                                <span>whether fewer women than men study physics at college.</span>
+                                <span class="option-text">whether fewer women than men study physics at college.</span>
                             </div>
                         </div>
                     </div>
@@ -220,17 +341,17 @@
                             <div class="option-line" data-value="A">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">A</span>
-                                <span>the teachers marked them in an unfair way.</span>
+                                <span class="option-text">the teachers marked them in an unfair way.</span>
                             </div>
                             <div class="option-line" data-value="B">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">B</span>
-                                <span>the male students expected them to do badly.</span>
+                                <span class="option-text">the male students expected them to do badly.</span>
                             </div>
                             <div class="option-line" data-value="C">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">C</span>
-                                <span>their test results were lower than the male students'.</span>
+                                <span class="option-text">their test results were lower than the male students'.</span>
                             </div>
                         </div>
                     </div>
@@ -245,17 +366,17 @@
                             <div class="option-line" data-value="A">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">A</span>
-                                <span>what they enjoyed about studying physics.</span>
+                                <span class="option-text">what they enjoyed about studying physics.</span>
                             </div>
                             <div class="option-line" data-value="B">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">B</span>
-                                <span>the successful experiences of other people.</span>
+                                <span class="option-text">the successful experiences of other people.</span>
                             </div>
                             <div class="option-line" data-value="C">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">C</span>
-                                <span>something that was important to them personally.</span>
+                                <span class="option-text">something that was important to them personally.</span>
                             </div>
                         </div>
                     </div>
@@ -270,17 +391,17 @@
                             <div class="option-line" data-value="A">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">A</span>
-                                <span>to reduce stress</span>
+                                <span class="option-text">to reduce stress</span>
                             </div>
                             <div class="option-line" data-value="B">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">B</span>
-                                <span>to strengthen verbal ability</span>
+                                <span class="option-text">to strengthen verbal ability</span>
                             </div>
                             <div class="option-line" data-value="C">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">C</span>
-                                <span>to encourage logical thinking</span>
+                                <span class="option-text">to encourage logical thinking</span>
                             </div>
                         </div>
                     </div>
@@ -295,17 +416,17 @@
                             <div class="option-line" data-value="A">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">A</span>
-                                <span>how few students managed to get A grades</span>
+                                <span class="option-text">how few students managed to get A grades</span>
                             </div>
                             <div class="option-line" data-value="B">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">B</span>
-                                <span>the positive impact it had on physics results for women</span>
+                                <span class="option-text">the positive impact it had on physics results for women</span>
                             </div>
                             <div class="option-line" data-value="C">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">C</span>
-                                <span>the difference between male and female performance</span>
+                                <span class="option-text">the difference between male and female performance</span>
                             </div>
                         </div>
                     </div>
@@ -320,17 +441,17 @@
                             <div class="option-line" data-value="A">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">A</span>
-                                <span>the length of the writing task.</span>
+                                <span class="option-text">the length of the writing task.</span>
                             </div>
                             <div class="option-line" data-value="B">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">B</span>
-                                <span>the number of students who took part.</span>
+                                <span class="option-text">the number of students who took part.</span>
                             </div>
                             <div class="option-line" data-value="C">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">C</span>
-                                <span>the information the students were given.</span>
+                                <span class="option-text">the information the students were given.</span>
                             </div>
                         </div>
                     </div>
@@ -345,17 +466,17 @@
                             <div class="option-line" data-value="A">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">A</span>
-                                <span>two different writing tasks.</span>
+                                <span class="option-text">two different writing tasks.</span>
                             </div>
                             <div class="option-line" data-value="B">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">B</span>
-                                <span>a writing task with an oral task.</span>
+                                <span class="option-text">a writing task with an oral task.</span>
                             </div>
                             <div class="option-line" data-value="C">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">C</span>
-                                <span>two different oral tasks.</span>
+                                <span class="option-text">two different oral tasks.</span>
                             </div>
                         </div>
                     </div>
@@ -370,17 +491,17 @@
                             <div class="option-line" data-value="A">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">A</span>
-                                <span>were most effective when done by all-women groups.</span>
+                                <span class="option-text">were most effective when done by all-women groups.</span>
                             </div>
                             <div class="option-line" data-value="B">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">B</span>
-                                <span>had no effect on the performance of men or women.</span>
+                                <span class="option-text">had no effect on the performance of men or women.</span>
                             </div>
                             <div class="option-line" data-value="C">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">C</span>
-                                <span>improved the results of men more than of women.</span>
+                                <span class="option-text">improved the results of men more than of women.</span>
                             </div>
                         </div>
                     </div>
@@ -395,17 +516,17 @@
                             <div class="option-line" data-value="A">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">A</span>
-                                <span>talk to a professor</span>
+                                <span class="option-text">talk to a professor</span>
                             </div>
                             <div class="option-line" data-value="B">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">B</span>
-                                <span>observe a science class</span>
+                                <span class="option-text">observe a science class</span>
                             </div>
                             <div class="option-line" data-value="C">
                                 <span class="option-radio"></span>
                                 <span class="option-letter">C</span>
-                                <span>look at the science timetable</span>
+                                <span class="option-text">look at the science timetable</span>
                             </div>
                         </div>
                     </div>
@@ -464,78 +585,101 @@ function renderStatus() {
 
 function clearAll() {
     if (!confirm('Clear ALL answers, highlights and notes?')) return;
-    // Clear stored answers
     for (let i = 21; i <= 30; i++) {
         localStorage.removeItem(STORAGE_KEY + '_q' + i);
     }
-    // Clear UI selections
     document.querySelectorAll('.option-line.selected').forEach(opt => {
         opt.classList.remove('selected');
     });
     document.querySelectorAll('.q-answer').forEach(ans => {
         ans.textContent = '';
     });
-    // Clear highlights
-    document.querySelectorAll('.user-highlight').forEach(h => {
-        const parent = h.parentNode;
-        parent.replaceChild(document.createTextNode(h.textContent), h);
-        parent.normalize();
-    });
-    // Clear sticky notes
+    removeAllHighlights();
     document.querySelectorAll('.sticky-note').forEach(note => note.remove());
     renderStatus();
 }
 
-// Highlight & note functions
+function removeAllHighlights() {
+    document.querySelectorAll('.user-highlight').forEach(h => {
+        const parent = h.parentNode;
+        if (parent) {
+            parent.replaceChild(document.createTextNode(h.textContent), h);
+            parent.normalize();
+        }
+    });
+}
+
+// Context menu & highlight logic
 const contextMenu = document.getElementById('contextMenu');
-document.addEventListener('contextmenu', e => {
+
+document.addEventListener('contextmenu', function(e) {
     const sel = window.getSelection();
-    if (sel.toString().trim().length > 0) {
+    const selectedText = sel.toString().trim();
+    
+    if (selectedText.length > 0 && e.target.closest('.container')) {
         lastSelection = sel;
-        contextMenu.style.left = e.pageX + 'px';
-        contextMenu.style.top = e.pageY + 'px';
+        contextMenu.style.left = (e.pageX + 5) + 'px';
+        contextMenu.style.top = (e.pageY + 5) + 'px';
         contextMenu.style.display = 'block';
     } else {
         contextMenu.style.display = 'none';
     }
+    // Don't block default if outside our content
+    if (!e.target.closest('.container')) return true;
     e.preventDefault();
 });
-document.addEventListener('click', e => {
-    if (!contextMenu.contains(e.target)) contextMenu.style.display = 'none';
-});
-document.getElementById('menuHighlight').addEventListener('click', () => {
-    if (!lastSelection) return;
-    const range = lastSelection.getRangeAt(0);
-    const span = document.createElement('span');
-    span.className = 'user-highlight';
-    span.textContent = range.toString();
-    try { range.deleteContents(); range.insertNode(span); } catch(e) {}
-    contextMenu.style.display = 'none'; lastSelection = null;
-});
-document.getElementById('menuRemoveHighlight').addEventListener('click', () => {
-    document.querySelectorAll('.user-highlight').forEach(h => {
-        const p = h.parentNode;
-        p.replaceChild(document.createTextNode(h.textContent), h);
-        p.normalize();
-    });
-    contextMenu.style.display = 'none';
-});
-document.getElementById('menuNote').addEventListener('click', () => {
-    if (!lastSelection) return;
-    const range = lastSelection.getRangeAt(0);
-    const rect = range.getBoundingClientRect();
-    const note = document.createElement('div');
-    note.className = 'sticky-note';
-    note.innerHTML = `<div class="note-header">Note <span class="note-close">×</span></div><textarea class="note-textarea" placeholder="Your note..."></textarea>`;
-    note.style.left = (window.scrollX + rect.right + 15) + 'px';
-    note.style.top = (window.scrollY + rect.top) + 'px';
-    document.body.appendChild(note);
-    note.querySelector('.note-close').addEventListener('click', () => note.remove());
-    contextMenu.style.display = 'none'; lastSelection = null;
+
+document.addEventListener('mousedown', function(e) {
+    if (!contextMenu.contains(e.target)) {
+        contextMenu.style.display = 'none';
+    }
 });
 
-// Option click handling
-document.addEventListener('DOMContentLoaded', () => {
+document.getElementById('menuHighlight').addEventListener('click', function() {
+    if (!lastSelection) return;
+    try {
+        const range = lastSelection.getRangeAt(0);
+        const span = document.createElement('span');
+        span.className = 'user-highlight';
+        span.textContent = range.toString();
+        range.deleteContents();
+        range.insertNode(span);
+    } catch (err) {
+        console.log('Highlight error:', err);
+    }
+    contextMenu.style.display = 'none';
+    lastSelection = null;
+});
+
+document.getElementById('menuRemoveHighlight').addEventListener('click', function() {
+    removeAllHighlights();
+    contextMenu.style.display = 'none';
+});
+
+document.getElementById('menuNote').addEventListener('click', function() {
+    if (!lastSelection) return;
+    try {
+        const range = lastSelection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        const note = document.createElement('div');
+        note.className = 'sticky-note';
+        note.innerHTML = `
+            <div class="note-header">Note <span class="note-close">×</span></div>
+            <textarea class="note-textarea" placeholder="Your note..."></textarea>
+        `;
+        note.style.left = (window.scrollX + rect.right + 15) + 'px';
+        note.style.top = (window.scrollY + rect.top) + 'px';
+        document.body.appendChild(note);
+        note.querySelector('.note-close').addEventListener('click', () => note.remove());
+    } catch (err) {
+        console.log('Note error:', err);
+    }
+    contextMenu.style.display = 'none';
+    lastSelection = null;
+});
+
+// Answer selection
+document.addEventListener('DOMContentLoaded', function() {
     // Load saved answers
     for (let i = 21; i <= 30; i++) {
         const val = loadAnswer(i);
@@ -545,11 +689,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Click to select answer
     document.querySelectorAll('.option-line').forEach(opt => {
-        opt.addEventListener('click', () => {
-            const qLine = opt.closest('[data-q]');
-            const qNum = qLine ? parseInt(qLine.dataset.q) : null;
-            if (!qNum) return;
-            const value = opt.dataset.value;
+        opt.addEventListener('click', function() {
+            const qLine = this.closest('[data-q]');
+            if (!qLine) return;
+            const qNum = parseInt(qLine.dataset.q);
+            const value = this.dataset.value;
             saveAnswer(qNum, value);
             displayAnswer(qNum, value);
         });
