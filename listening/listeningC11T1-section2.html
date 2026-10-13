@@ -45,7 +45,7 @@
         .nav-next { background: #1f3a5f; color: white; }
         .nav-next:hover { background: #163050; }
         .map-container { text-align: center; margin: 20px 0; }
-        .map-svg { max-width: 450px; width: 100%; border: 1px solid #d1d5db; border-radius: 8px; background: #fff; }
+        .map-image { max-width: 500px; width: 100%; border: 1px solid #d1d5db; border-radius: 8px; background: #fff; }
         @media (max-width: 600px) {
             .content { padding: 0 15px 20px; }
             .questions-block { padding: 15px; }
@@ -59,26 +59,23 @@
         <div id="menuRemoveHighlight">❌ Remove Highlight</div>
         <div id="menuNote">📝 Add Sticky Note</div>
     </div>
-
     <div class="container">
         <div class="logo-section">
             <img src="../ielts-logo.png" alt="IELTS Logo" class="logo-img" onerror="this.style.display='none'">
         </div>
-
         <div class="header-bar">
             <span>Cambridge 11 — Test 1 · Section 2</span>
             <span style="font-size:14px; opacity:0.8;">Questions 11–20</span>
         </div>
-
         <div class="audio-player">
             <h3>🎧 Play Recording</h3>
             <audio controls preload="auto">
-                <source src="c11-t1-audio.mp3" type="audio/mpeg">
+                <source src="c11-t1-audio2.mp3" type="audio/mpeg">
                 <source src="https://raw.githubusercontent.com/globalstandard08-cmd/ielts-complete-practice/main/listening/c11-t1.mp3" type="audio/mpeg">
                 Your browser does not support audio playback.
             
+            <!-- ⚠️ GitHub link confirmed dead — ensure c11-t1-audio2.mp3 is in your folder -->
         </div>
-
         <div class="content">
             <h2>Section 2 — Questions 11–20</h2>
             
@@ -87,12 +84,10 @@
                 Complete the notes below.<br>
                 Write <strong>ONE WORD ONLY</strong> for each answer.
             </div>
-
             <div class="questions-block">
                 <h3 style="text-align:center; margin-bottom:20px; color:#1f3a5f;">Fiddy Working Heritage Farm</h3>
                 <p style="font-weight:bold; margin-bottom:8px;">Advice about visiting the farm</p>
                 <p style="font-style:italic; margin-bottom:15px;">Visitors should:</p>
-
                 <div class="question-line">
                     <span class="q-number">11</span>
                     <span>take care not to harm any .........................</span>
@@ -114,59 +109,16 @@
                     <input type="text" class="input-field" id="q14" data-q="14" placeholder="Answer">
                 </div>
             </div>
-
             <div class="instruction">
                 <strong>Questions 15–20</strong><br>
                 Label the map below.<br>
                 Write the correct letter <strong>A–H</strong> next to Questions 15–20.
             </div>
-
             <div class="questions-block">
                 <div class="map-container">
-                    <svg viewBox="0 0 440 400" class="map-svg">
-                        <text x="25" y="28" font-weight="bold" font-size="16">A</text>
-                        <text x="225" y="88" font-weight="bold" font-size="16">B</text>
-                        <text x="290" y="148" font-weight="bold" font-size="16">C</text>
-                        <text x="370" y="188" font-weight="bold" font-size="16">D</text>
-                        <text x="370" y="218" font-weight="bold" font-size="16">E</text>
-                        <text x="175" y="288" font-weight="bold" font-size="16">F</text>
-                        <text x="235" y="288" font-weight="bold" font-size="16">G</text>
-                        <text x="370" y="308" font-weight="bold" font-size="16">H</text>
-                        <text x="125" y="308" font-weight="bold" font-size="16">I</text>
-                        
-                        <rect x="20" y="40" width="400" height="330" fill="none" stroke="#333" stroke-width="1.5"/>
-                        <line x1="30" y1="45" x2="410" y2="45" stroke="#333" stroke-width="2"/>
-                        <text x="190" y="38" font-size="13">Road</text>
-                        
-                        <polygon points="210,60 270,60 250,100 190,100" fill="#d0d0d0" stroke="#333" stroke-width="1.5"/>
-                        <text x="215" y="85" font-size="12">Farm Yard</text>
-                        
-                        <path d="M50,80 L190,110" stroke="#888" stroke-width="1.5" stroke-dasharray="6,4"/>
-                        <text x="80" y="98" font-size="11" transform="rotate(14, 80, 98)">Footpath</text>
-                        
-                        <path d="M250,70 L300,140 L300,340" stroke="#333" stroke-width="2" fill="none"/>
-                        <text x="260" y="115" font-size="11" transform="rotate(45, 260, 115)">Main Path</text>
-                        
-                        <path d="M300,140 L370,140 L370,340" stroke="#333" stroke-width="2" fill="none"/>
-                        <text x="320" y="135" font-size="11">Side Path</text>
-                        
-                        <ellipse cx="170" cy="150" rx="50" ry="18" fill="#dbeafe" stroke="#333" stroke-width="1.5"/>
-                        <text x="145" y="155" font-size="12">Fish Pool</text>
-                        
-                        <rect x="40" y="260" width="110" height="90" fill="#f3f4f6" stroke="#333" stroke-width="1.5"/>
-                        <text x="75" y="310" font-size="12">Car Park</text>
-                        
-                        <line x1="160" y1="340" x2="410" y2="340" stroke="#333" stroke-width="2"/>
-                        <text x="100" y="355" font-size="12">Road</text>
-                        <rect x="200" y="290" width="70" height="35" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.5"/>
-                        <text x="210" y="312" font-size="12">New Barn</text>
-                        
-                        <path d="M200,325 L150,355" stroke="#333" stroke-width="2" fill="none"/>
-                        <text x="280" y="355" font-size="12">You are here →</text>
-                    </svg>
+                    <img src="c11listeningmapt1.png" alt="Fiddy Working Heritage Farm Map" class="map-image">
                 </div>
-
-                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-top:10px;">
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-top:20px;">
                     <div class="question-line">
                         <span class="q-number">15</span>
                         <span>Scarecrow</span>
@@ -199,26 +151,21 @@
                     </div>
                 </div>
             </div>
-
             <div class="status-bar" id="statusBar">
                 <span class="status-label">Section 2:</span>
             </div>
-
             <div class="nav-row">
-                <a href="listeningC11T1-section1.html" class="nav-link nav-back">← Section 1</a>
+                <a href="listeningC11T1-part1.html" class="nav-link nav-back">← Section 1</a>
                 <a href="listeningC11T1-section3.html" class="nav-link nav-next">Section 3 →</a>
             </div>
         </div>
-
         <div style="padding:0 30px 20px;">
             <button class="clear-btn" onclick="clearAllAnswers()">🗑️ Clear Answers</button>
         </div>
     </div>
-
 <script>
 const STORAGE_KEY = 'C11T1_Section2';
 let lastSelection = null;
-
 // Render status dots
 function renderStatus() {
     const bar = document.getElementById('statusBar');
@@ -233,7 +180,6 @@ function renderStatus() {
         bar.appendChild(dot);
     }
 }
-
 // Setup input
 function setupInput(inputEl, qNum) {
     const saved = localStorage.getItem(STORAGE_KEY + '_q' + qNum);
@@ -248,7 +194,6 @@ function setupInput(inputEl, qNum) {
         renderStatus();
     });
 }
-
 // Clear all
 function clearAllAnswers() {
     if (!confirm('Clear all answers, highlights and notes?')) return;
@@ -267,7 +212,6 @@ function clearAllAnswers() {
     document.querySelectorAll('.sticky-note').forEach(n => n.remove());
     renderStatus();
 }
-
 // Context Menu
 const contextMenu = document.getElementById('contextMenu');
 document.addEventListener('contextmenu', e => {
@@ -317,7 +261,6 @@ document.getElementById('menuNote').addEventListener('click', () => {
     contextMenu.style.display = 'none';
     lastSelection = null;
 });
-
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     for (let i = 11; i <= 20; i++) {
