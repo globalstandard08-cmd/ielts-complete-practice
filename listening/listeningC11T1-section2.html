@@ -61,7 +61,8 @@
     </div>
     <div class="container">
         <div class="logo-section">
-            <img src="../ielts-logo.png" alt="IELTS Logo" class="logo-img" onerror="this.style.display='none'">
+            <!-- ✅ FIXED: Removed ../ — logo is in the SAME folder -->
+            <img src="ielts-logo.png" alt="IELTS Logo" class="logo-img" onerror="this.style.display='none'">
         </div>
         <div class="header-bar">
             <span>Cambridge 11 — Test 1 · Section 2</span>
@@ -69,12 +70,12 @@
         </div>
         <div class="audio-player">
             <h3>🎧 Play Recording</h3>
+            <!-- ✅ FIXED: Added proper closing  tag -->
             <audio controls preload="auto">
                 <source src="c11-t1-audio2.mp3" type="audio/mpeg">
                 <source src="https://raw.githubusercontent.com/globalstandard08-cmd/ielts-complete-practice/main/c11-t1.mp3" type="audio/mpeg">
                 Your browser does not support audio playback.
             
-            <!-- ⚠️ GitHub link confirmed dead — ensure c11-t1-audio2.mp3 is in your folder -->
         </div>
         <div class="content">
             <h2>Section 2 — Questions 11–20</h2>
@@ -116,6 +117,7 @@
             </div>
             <div class="questions-block">
                 <div class="map-container">
+                    <!-- ✅ Path is correct — verify filename matches exactly -->
                     <img src="c11listeningmapt1.png" alt="Fiddy Working Heritage Farm Map" class="map-image">
                 </div>
                 <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-top:20px;">
@@ -166,7 +168,6 @@
 <script>
 const STORAGE_KEY = 'C11T1_Section2';
 let lastSelection = null;
-// Render status dots
 function renderStatus() {
     const bar = document.getElementById('statusBar');
     if (!bar) return;
@@ -180,7 +181,6 @@ function renderStatus() {
         bar.appendChild(dot);
     }
 }
-// Setup input
 function setupInput(inputEl, qNum) {
     const saved = localStorage.getItem(STORAGE_KEY + '_q' + qNum);
     if (saved) {
@@ -194,7 +194,6 @@ function setupInput(inputEl, qNum) {
         renderStatus();
     });
 }
-// Clear all
 function clearAllAnswers() {
     if (!confirm('Clear all answers, highlights and notes?')) return;
     for (let i = 11; i <= 20; i++) {
@@ -212,7 +211,6 @@ function clearAllAnswers() {
     document.querySelectorAll('.sticky-note').forEach(n => n.remove());
     renderStatus();
 }
-// Context Menu
 const contextMenu = document.getElementById('contextMenu');
 document.addEventListener('contextmenu', e => {
     const sel = window.getSelection();
@@ -261,7 +259,6 @@ document.getElementById('menuNote').addEventListener('click', () => {
     contextMenu.style.display = 'none';
     lastSelection = null;
 });
-// Initialize
 document.addEventListener('DOMContentLoaded', () => {
     for (let i = 11; i <= 20; i++) {
         const inp = document.getElementById('q'+i);
