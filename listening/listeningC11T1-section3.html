@@ -14,7 +14,7 @@
         .audio-player { background: #eff6ff; padding: 20px; margin: 20px; border-radius: 10px; text-align: center; border: 1px solid #bfdbfe; }
         .audio-player h3 { color: #1e40af; margin-bottom: 10px; font-size: 16px; }
         audio { width: 100%; max-width: 500px; }
-        .content { padding: 0 30px 30px; }
+        .content { padding: 0 30px 30px; position: relative; }
         h2 { color: #1f3a5f; margin: 25px 0 15px; font-size: 22px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
         .instruction { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
 
@@ -106,65 +106,52 @@
             padding-top: 2px;
         }
 
+        /* ✅ EXACT PATTERN from your working sample */
         .user-highlight {
-            background: #fef08a;
+            background-color: #ffd700;
             padding: 2px 4px;
-            border-radius: 3px;
+            border-radius: 2px;
             cursor: pointer;
+            display: inline;
+            color: #000;
         }
-        .context-menu {
+        .highlight-tool {
             position: absolute;
             background: #fff;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 99999;
+            border: 1px solid #1f3a5f;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
             display: none;
-            min-width: 180px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #1f3a5f;
+            align-items: center;
+            justify-content: center;
         }
-        .context-menu div {
-            padding: 11px 16px;
+        .highlight-tool:hover {
+            background: #eef2f7;
+        }
+        .remove-highlight {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            padding: 5px 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 9999;
+            display: none;
             cursor: pointer;
             font-size: 14px;
+            color: #dc3545;
+            font-weight: bold;
         }
-        .context-menu div:hover {
-            background: #f3f4f6;
+        .remove-highlight:hover {
+            background: #ffebee;
         }
-        .sticky-note {
-            position: absolute;
-            width: 200px;
-            min-height: 80px;
-            background: #fef9c3;
-            border: 1px solid #facc15;
-            border-radius: 6px;
-            padding: 10px;
-            box-shadow: 3px 3px 10px rgba(0,0,0,0.15);
-            z-index: 99998;
-            font-size: 13px;
-        }
-        .note-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: #854d0e;
-        }
-        .note-close {
-            cursor: pointer;
-            font-weight: 700;
-            color: #b91c1c;
-        }
-        .note-textarea {
-            width: 100%;
-            height: 60px;
-            border: none;
-            background: transparent;
-            resize: none;
-            outline: none;
-            font-family: inherit;
-            font-size: 13px;
-        }
+
         .status-bar {
             display: flex;
             flex-wrap: wrap;
@@ -250,11 +237,10 @@
     </style>
 </head>
 <body>
-    <div class="context-menu" id="contextMenu">
-        <div id="menuHighlight">🖍️ Highlight Selection</div>
-        <div id="menuRemoveHighlight">❌ Remove All Highlights</div>
-        <div id="menuNote">📝 Add Sticky Note</div>
-    </div>
+    <!-- ✅ EXACT Highlight Tool Buttons from your sample -->
+    <div class="highlight-tool" id="highlightTool" title="Highlight selected text">✏️</div>
+    <div class="remove-highlight" id="removeTool" title="Remove highlight">✖️ Remove</div>
+
     <div class="container">
         <div class="logo-section">
             <img src="../ielts-logo.png" alt="IELTS Logo" class="logo-img" onerror="this.style.display='none'">
@@ -271,13 +257,14 @@
                 Your browser does not support audio playback.
             
         </div>
-        <div class="content">
+        <!-- ✅ EXACT ID from sample -->
+        <div class="content" id="highlightArea">
             <h2>Section 3 — Questions 21–30</h2>
 
             <div class="instruction">
                 <strong>Questions 21–30</strong><br>
                 Choose the correct letter, <strong>A, B or C</strong>.<br>
-                Click your answer choice for each question. Right-click and select to highlight or add notes.
+                Select text then click the pencil to highlight.
             </div>
 
             <div class="questions-block">
@@ -546,9 +533,9 @@
             <button class="clear-btn" onclick="clearAll()">🗑️ Clear All</button>
         </div>
     </div>
+
 <script>
 const STORAGE_KEY = 'C11T1_Section3';
-let lastSelection = null;
 
 function saveAnswer(qNum, value) {
     localStorage.setItem(STORAGE_KEY + '_q' + qNum, value);
@@ -584,7 +571,7 @@ function renderStatus() {
 }
 
 function clearAll() {
-    if (!confirm('Clear ALL answers, highlights and notes?')) return;
+    if (!confirm('Clear ALL answers and highlights?')) return;
     for (let i = 21; i <= 30; i++) {
         localStorage.removeItem(STORAGE_KEY + '_q' + i);
     }
@@ -594,12 +581,7 @@ function clearAll() {
     document.querySelectorAll('.q-answer').forEach(ans => {
         ans.textContent = '';
     });
-    removeAllHighlights();
-    document.querySelectorAll('.sticky-note').forEach(note => note.remove());
-    renderStatus();
-}
-
-function removeAllHighlights() {
+    // Remove all highlights
     document.querySelectorAll('.user-highlight').forEach(h => {
         const parent = h.parentNode;
         if (parent) {
@@ -607,79 +589,84 @@ function removeAllHighlights() {
             parent.normalize();
         }
     });
+    renderStatus();
 }
 
-// Context menu & highlight logic
-const contextMenu = document.getElementById('contextMenu');
+// ✅ EXACT Highlight script pattern from your working sample
+document.addEventListener('DOMContentLoaded', function() {
+    const highlightArea = document.getElementById('highlightArea');
+    const highlightTool = document.getElementById('highlightTool');
+    const removeTool = document.getElementById('removeTool');
+    let currentRange = null;
 
-document.addEventListener('contextmenu', function(e) {
-    const sel = window.getSelection();
-    const selectedText = sel.toString().trim();
-    
-    if (selectedText.length > 0 && e.target.closest('.container')) {
-        lastSelection = sel;
-        contextMenu.style.left = (e.pageX + 5) + 'px';
-        contextMenu.style.top = (e.pageY + 5) + 'px';
-        contextMenu.style.display = 'block';
-    } else {
-        contextMenu.style.display = 'none';
+    // Right-click to show pencil
+    highlightArea.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        const sel = window.getSelection();
+        if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+        showPencil(e.clientX, e.clientY);
+    });
+
+    // Mouse up after selection
+    document.addEventListener('mouseup', function() {
+        const sel = window.getSelection();
+        if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+            highlightTool.style.display = 'none';
+            return;
+        }
+        const range = sel.getRangeAt(0);
+        if (!highlightArea.contains(range.commonAncestorContainer)) return;
+        const rect = range.getBoundingClientRect();
+        showPencil(rect.left + rect.width / 2, rect.top);
+        currentRange = range;
+    });
+
+    function showPencil(x, y) {
+        highlightTool.style.left = (x + window.scrollX - 17) + 'px';
+        highlightTool.style.top = (y + window.scrollY - 40) + 'px';
+        highlightTool.style.display = 'flex';
     }
-    // Don't block default if outside our content
-    if (!e.target.closest('.container')) return true;
-    e.preventDefault();
-});
 
-document.addEventListener('mousedown', function(e) {
-    if (!contextMenu.contains(e.target)) {
-        contextMenu.style.display = 'none';
-    }
-});
-
-document.getElementById('menuHighlight').addEventListener('click', function() {
-    if (!lastSelection) return;
-    try {
-        const range = lastSelection.getRangeAt(0);
+    // Click pencil to apply highlight
+    highlightTool.addEventListener('click', function() {
+        if (!currentRange) return;
         const span = document.createElement('span');
         span.className = 'user-highlight';
-        span.textContent = range.toString();
-        range.deleteContents();
-        range.insertNode(span);
-    } catch (err) {
-        console.log('Highlight error:', err);
-    }
-    contextMenu.style.display = 'none';
-    lastSelection = null;
-});
+        span.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(span);
+        window.getSelection().removeAllRanges();
+        highlightTool.style.display = 'none';
+        currentRange = null;
+    });
 
-document.getElementById('menuRemoveHighlight').addEventListener('click', function() {
-    removeAllHighlights();
-    contextMenu.style.display = 'none';
-});
+    // Click existing highlight → show Remove button
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('user-highlight')) {
+            const rect = e.target.getBoundingClientRect();
+            removeTool.style.left = (rect.left + window.scrollX + rect.width / 2 - 30) + 'px';
+            removeTool.style.top = (rect.top + window.scrollY - 35) + 'px';
+            removeTool.style.display = 'block';
+            removeTool.dataset.target = e.target;
+        } else if (!removeTool.contains(e.target)) {
+            removeTool.style.display = 'none';
+        }
+        if (!highlightTool.contains(e.target) && !highlightArea.contains(e.target)) {
+            highlightTool.style.display = 'none';
+        }
+    });
 
-document.getElementById('menuNote').addEventListener('click', function() {
-    if (!lastSelection) return;
-    try {
-        const range = lastSelection.getRangeAt(0);
-        const rect = range.getBoundingClientRect();
-        const note = document.createElement('div');
-        note.className = 'sticky-note';
-        note.innerHTML = `
-            <div class="note-header">Note <span class="note-close">×</span></div>
-            <textarea class="note-textarea" placeholder="Your note..."></textarea>
-        `;
-        note.style.left = (window.scrollX + rect.right + 15) + 'px';
-        note.style.top = (window.scrollY + rect.top) + 'px';
-        document.body.appendChild(note);
-        note.querySelector('.note-close').addEventListener('click', () => note.remove());
-    } catch (err) {
-        console.log('Note error:', err);
-    }
-    contextMenu.style.display = 'none';
-    lastSelection = null;
-});
+    // Remove highlight
+    removeTool.addEventListener('click', function() {
+        const span = this.dataset.target;
+        if (!span || !span.parentNode) return;
+        const text = document.createTextNode(span.textContent);
+        span.parentNode.replaceChild(text, span);
+        span.parentNode.normalize();
+        this.style.display = 'none';
+        delete this.dataset.target;
+    });
 
-// Answer selection
-document.addEventListener('DOMContentLoaded', function() {
     // Load saved answers
     for (let i = 21; i <= 30; i++) {
         const val = loadAnswer(i);
@@ -687,7 +674,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     renderStatus();
 
-    // Click to select answer
+    // Click answer selection
     document.querySelectorAll('.option-line').forEach(opt => {
         opt.addEventListener('click', function() {
             const qLine = this.closest('[data-q]');
