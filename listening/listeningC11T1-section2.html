@@ -18,10 +18,43 @@
         h2 { color: #1f3a5f; margin: 25px 0 15px; font-size: 22px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
         .instruction { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
         .questions-block { border: 1px solid #d1d5db; border-radius: 10px; padding: 25px; margin-bottom: 25px; background: #fafafa; }
-        .question-line { display: flex; align-items: center; gap: 10px; margin: 12px 0; flex-wrap: wrap; }
-        .q-number { font-weight: 700; min-width: 30px; color: #1f3a5f; }
+        
+        /* ✅ NEW: Side-by-side layout for map + questions */
+        .map-question-row {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .map-col {
+            flex: 1.2;
+            min-width: 300px;
+        }
+        .questions-col {
+            flex: 1;
+            min-width: 250px;
+        }
+        .map-container {
+            text-align: center;
+            margin: 0;
+        }
+        .map-image {
+            max-width: 100%;
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: #fff;
+        }
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px 16px;
+        }
+        
+        .question-line { display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; }
+        .q-number { font-weight: 700; min-width: 30px; color: #1f3a5f; flex-shrink: 0; }
         .input-field { padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 15px; background: #fff; transition: all 0.2s; min-width: 140px; }
-        .input-field.short { min-width: 60px; max-width: 80px; text-align: center; text-transform: uppercase; }
+        .input-field.short { min-width: 60px; max-width: 80px; text-align: center; text-transform: uppercase; flex-shrink: 0; }
         .input-field:focus { outline: none; border-color: #1f3a5f; box-shadow: 0 0 0 3px rgba(31,58,95,0.15); }
         .input-field.filled { background: #eef2ff; border-color: #4f46e5; }
         .user-highlight { background: #fef08a; padding: 1px 3px; border-radius: 3px; cursor: pointer; }
@@ -44,11 +77,10 @@
         .nav-back:hover { background: #d1d5db; }
         .nav-next { background: #1f3a5f; color: white; }
         .nav-next:hover { background: #163050; }
-        .map-container { text-align: center; margin: 20px 0; }
-        .map-image { max-width: 500px; width: 100%; border: 1px solid #d1d5db; border-radius: 8px; background: #fff; }
         @media (max-width: 600px) {
             .content { padding: 0 15px 20px; }
             .questions-block { padding: 15px; }
+            .q-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -70,12 +102,10 @@
         <div class="audio-player">
             <h3>🎧 Play Recording</h3>
             <audio controls preload="auto">
-                <!-- ✅ FIXED: Audio matches your file EXACTLY -->
                 <source src="c11-t1-audio2.mp3" type="audio/mpeg">
                 <source src="https://raw.githubusercontent.com/globalstandard08-cmd/ielts-complete-practice/main/c11-t1.mp3" type="audio/mpeg">
                 Your browser does not support audio playback.
             
-            <!-- ⚠️ GitHub link confirmed dead — ensure c11-t1-audio2.mp3 is in your folder -->
         </div>
         <div class="content">
             <h2>Section 2 — Questions 11–20</h2>
@@ -110,49 +140,59 @@
                     <input type="text" class="input-field" id="q14" data-q="14" placeholder="Answer">
                 </div>
             </div>
+            
+            <!-- ✅ Questions 15–20 — Side-by-Side Layout -->
             <div class="instruction">
                 <strong>Questions 15–20</strong><br>
                 Label the map below.<br>
                 Write the correct letter <strong>A–H</strong> next to Questions 15–20.
             </div>
             <div class="questions-block">
-                <div class="map-container">
-                    <!-- ✅ FIXED: Map matches your file EXACTLY -->
-                    <img src="c11listeningmapt1.png" alt="Fiddy Working Heritage Farm Map" class="map-image">
-                </div>
-                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-top:20px;">
-                    <div class="question-line">
-                        <span class="q-number">15</span>
-                        <span>Scarecrow</span>
-                        <input type="text" class="input-field short" id="q15" data-q="15" placeholder="A–H">
+                <div class="map-question-row">
+                    <!-- Map on the left -->
+                    <div class="map-col">
+                        <div class="map-container">
+                            <img src="c11listeningmapt1.png" alt="Fiddy Working Heritage Farm Map" class="map-image">
+                        </div>
                     </div>
-                    <div class="question-line">
-                        <span class="q-number">18</span>
-                        <span>Black Barn</span>
-                        <input type="text" class="input-field short" id="q18" data-q="18" placeholder="A–H">
-                    </div>
-                    <div class="question-line">
-                        <span class="q-number">16</span>
-                        <span>Maze</span>
-                        <input type="text" class="input-field short" id="q16" data-q="16" placeholder="A–H">
-                    </div>
-                    <div class="question-line">
-                        <span class="q-number">19</span>
-                        <span>Covered picnic area</span>
-                        <input type="text" class="input-field short" id="q19" data-q="19" placeholder="A–H">
-                    </div>
-                    <div class="question-line">
-                        <span class="q-number">17</span>
-                        <span>Café</span>
-                        <input type="text" class="input-field short" id="q17" data-q="17" placeholder="A–H">
-                    </div>
-                    <div class="question-line">
-                        <span class="q-number">20</span>
-                        <span>Fiddy House</span>
-                        <input type="text" class="input-field short" id="q20" data-q="20" placeholder="A–H">
+                    <!-- Questions on the right, 2 columns -->
+                    <div class="questions-col">
+                        <div class="q-grid">
+                            <div class="question-line">
+                                <span class="q-number">15</span>
+                                <span>Scarecrow</span>
+                                <input type="text" class="input-field short" id="q15" data-q="15" placeholder="A–H">
+                            </div>
+                            <div class="question-line">
+                                <span class="q-number">16</span>
+                                <span>Maze</span>
+                                <input type="text" class="input-field short" id="q16" data-q="16" placeholder="A–H">
+                            </div>
+                            <div class="question-line">
+                                <span class="q-number">17</span>
+                                <span>Café</span>
+                                <input type="text" class="input-field short" id="q17" data-q="17" placeholder="A–H">
+                            </div>
+                            <div class="question-line">
+                                <span class="q-number">18</span>
+                                <span>Black Barn</span>
+                                <input type="text" class="input-field short" id="q18" data-q="18" placeholder="A–H">
+                            </div>
+                            <div class="question-line">
+                                <span class="q-number">19</span>
+                                <span>Covered picnic area</span>
+                                <input type="text" class="input-field short" id="q19" data-q="19" placeholder="A–H">
+                            </div>
+                            <div class="question-line">
+                                <span class="q-number">20</span>
+                                <span>Fiddy House</span>
+                                <input type="text" class="input-field short" id="q20" data-q="20" placeholder="A–H">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            
             <div class="status-bar" id="statusBar">
                 <span class="status-label">Section 2:</span>
             </div>
@@ -168,7 +208,6 @@
 <script>
 const STORAGE_KEY = 'C11T1_Section2';
 let lastSelection = null;
-// Render status dots
 function renderStatus() {
     const bar = document.getElementById('statusBar');
     if (!bar) return;
@@ -182,7 +221,6 @@ function renderStatus() {
         bar.appendChild(dot);
     }
 }
-// Setup input
 function setupInput(inputEl, qNum) {
     const saved = localStorage.getItem(STORAGE_KEY + '_q' + qNum);
     if (saved) {
@@ -196,7 +234,6 @@ function setupInput(inputEl, qNum) {
         renderStatus();
     });
 }
-// Clear all
 function clearAllAnswers() {
     if (!confirm('Clear all answers, highlights and notes?')) return;
     for (let i = 11; i <= 20; i++) {
@@ -214,7 +251,6 @@ function clearAllAnswers() {
     document.querySelectorAll('.sticky-note').forEach(n => n.remove());
     renderStatus();
 }
-// Context Menu
 const contextMenu = document.getElementById('contextMenu');
 document.addEventListener('contextmenu', e => {
     const sel = window.getSelection();
@@ -263,7 +299,6 @@ document.getElementById('menuNote').addEventListener('click', () => {
     contextMenu.style.display = 'none';
     lastSelection = null;
 });
-// Initialize
 document.addEventListener('DOMContentLoaded', () => {
     for (let i = 11; i <= 20; i++) {
         const inp = document.getElementById('q'+i);
