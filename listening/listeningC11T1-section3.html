@@ -68,7 +68,7 @@
         .option-text { pointer-events: none; }
         .q-answer { min-width: 60px; font-weight: 700; color: #1f3a5f; padding-top: 2px; }
 
-        /* === EXACT SYSTEM FROM YOUR SAMPLE === */
+        /* === HIGHLIGHT SYSTEM — CLEAN REMOVAL FIXED === */
         .highlight {
             background-color: #ffd700;
             padding: 2px 4px;
@@ -148,7 +148,7 @@
     </style>
 </head>
 <body>
-    <!-- RIGHT-CLICK MENU & NOTE BOX — EXACT FROM SAMPLE -->
+    <!-- RIGHT-CLICK MENU & NOTE BOX -->
     <div class="context-menu" id="contextMenu">
         <div id="menuHighlight">🖍️ Highlight</div>
         <div id="menuAddNote">📝 Add Note</div>
@@ -374,10 +374,28 @@ function renderStatus() {
 function saveHighlights() {
     const highlights = document.querySelectorAll('#passageArea .highlight');
     const data = Array.from(highlights).map(h => ({
-        outerHTML: h.outerHTML,
+        text: h.textContent,
         note: h.getAttribute('data-note') || ''
     }));
     localStorage.setItem(`${passageId}_highlights`, JSON.stringify(data));
+}
+
+// === CLEAN REMOVAL FUNCTION — NO PUNCTUATION LEFTOVER ===
+function removeHighlightClean(el) {
+    if (!el || !el.parentNode) return;
+    // Get only the text content, strip any marker artifacts
+    const cleanText = el.textContent.replace(/!$/, '');
+    const textNode = document.createTextNode(cleanText);
+    el.parentNode.replaceChild(textNode, el);
+    // Merge adjacent text nodes to fix spacing/punctuation
+    if (textNode.previousSibling && textNode.previousSibling.nodeType === Node.TEXT_NODE) {
+        textNode.nodeValue = textNode.previousSibling.nodeValue + textNode.nodeValue;
+        textNode.parentNode.removeChild(textNode.previousSibling);
+    }
+    if (textNode.nextSibling && textNode.nextSibling.nodeType === Node.TEXT_NODE) {
+        textNode.nodeValue = textNode.nodeValue + textNode.nextSibling.nodeValue;
+        textNode.parentNode.removeChild(textNode.nextSibling);
+    }
 }
 
 // === SELECTION VALID ===
@@ -393,7 +411,7 @@ function isSelectionValid(sel) {
     } catch { return false; }
 }
 
-// === DRAGGABLE NOTE BOX — EXACT FROM SAMPLE ===
+// === DRAGGABLE NOTE BOX ===
 const noteBox = document.getElementById('noteBox');
 const noteText = document.getElementById('noteText');
 const noteClose = document.getElementById('noteClose');
@@ -423,7 +441,7 @@ document.addEventListener('mousemove', e => {
 });
 document.addEventListener('mouseup', () => isDraggingNote = false);
 
-// === RIGHT-CLICK CONTEXT MENU — EXACT FROM SAMPLE ===
+// === RIGHT-CLICK CONTEXT MENU ===
 const ctxMenu = document.getElementById('contextMenu');
 document.addEventListener('contextmenu', e => {
     const sel = window.getSelection();
@@ -450,7 +468,7 @@ document.addEventListener('click', e => {
     if (!ctxMenu.contains(e.target)) ctxMenu.style.display = 'none';
 });
 
-// === ACTIONS — EXACT FROM SAMPLE ===
+// === HIGHLIGHT ACTION ===
 document.getElementById('menuHighlight').addEventListener('click', () => {
     if (!currentRange) return;
     try {
@@ -465,6 +483,7 @@ document.getElementById('menuHighlight').addEventListener('click', () => {
     ctxMenu.style.display = 'none';
 });
 
+// === ADD NOTE ACTION ===
 document.getElementById('menuAddNote').addEventListener('click', () => {
     ctxMenu.style.display = 'none';
     if (!activeHighlight) {
@@ -494,15 +513,12 @@ document.getElementById('menuAddNote').addEventListener('click', () => {
     noteText.focus();
 });
 
+// === REMOVE ACTION — CLEAN VERSION, NO PUNCTUATION LEFTOVER ===
 document.getElementById('menuRemove').addEventListener('click', () => {
     ctxMenu.style.display = 'none';
     noteBox.style.display = 'none';
     if (!activeHighlight) return;
-    activeHighlight.parentNode.replaceChild(
-        document.createTextNode(activeHighlight.textContent),
-        activeHighlight
-    );
-    activeHighlight.parentNode.normalize();
+    removeHighlightClean(activeHighlight);
     activeHighlight = null;
     saveHighlights();
 });
@@ -516,10 +532,7 @@ function clearAll() {
     localStorage.removeItem(`${passageId}_highlights`);
     document.querySelectorAll('.option-line.selected').forEach(opt => opt.classList.remove('selected'));
     document.querySelectorAll('.q-answer').forEach(ans => ans.textContent = '');
-    document.querySelectorAll('.highlight').forEach(h => {
-        h.parentNode.replaceChild(document.createTextNode(h.textContent), h);
-        h.parentNode.normalize();
-    });
+    document.querySelectorAll('.highlight').forEach(h => removeHighlightClean(h));
     noteBox.style.display = 'none';
     renderStatus();
 }
