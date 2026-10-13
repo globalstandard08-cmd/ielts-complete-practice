@@ -353,9 +353,9 @@
             </div>
             <span class="book-selector-label">📚 Select Cambridge Book:</span>
             <div class="book-buttons">
-                <button class="book-btn active" data-book="all">All</button>
+                <button class="book-btn" data-book="all">All</button>
                 <button class="book-btn" data-book="10">Cambridge 10</button>
-                <button class="book-btn" data-book="11">Cambridge 11</button>
+                <button class="book-btn active" data-book="11">Cambridge 11</button>
                 <button class="book-btn" data-book="12">Cambridge 12</button>
                 <button class="book-btn" data-book="13">Cambridge 13</button>
                 <button class="book-btn" data-book="14">Cambridge 14</button>
@@ -367,8 +367,9 @@
                 <button class="tab" data-tab="writing">✍️ Writing</button>
                 <button class="tab" data-tab="speaking">🎤 Speaking</button>
             </div>
-            <!-- READING SECTION -->
-            <div class="section-content" id="reading">
+
+            <!-- ✅ READING SECTION — Only visible when Reading tab is active -->
+            <div class="section-content hidden-by-tab" id="reading">
                 <div class="tests-grid">
                     <!-- Cambridge 10 - Test 1 -->
                     <div class="test-card" data-book="10">
@@ -512,7 +513,8 @@
                     </div>
                 </div>
             </div>
-            <!-- LISTENING SECTION -->
+
+            <!-- ✅ LISTENING SECTION — Only visible when Listening tab is active (default on page load) -->
             <div class="section-content" id="listening">
                 <div class="tests-grid">
                     <!-- C10 Tests -->
@@ -544,7 +546,7 @@
                         <div class="test-meta"><span>⏱️ 30 min</span><span>❓ 40 questions</span></div>
                         <a href="listening/listening-c10t4-full.html" id="c10t4-btn" class="section-btn gray">Not Ready</a>
                     </div>
-                    <!-- ✅ C11 Test 1 — 4 Section Buttons -->
+                    <!-- C11 Test 1 -->
                     <div class="test-card" data-book="11">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 11 — Test 1</h3>
@@ -557,7 +559,7 @@
                             <a href="listening/listeningC11T1-section4.html" id="c11t1s4-btn" class="section-btn gray">Section 4</a>
                         </div>
                     </div>
-                    <!-- ✅ C11 Test 2 — 4 Section Buttons -->
+                    <!-- C11 Test 2 -->
                     <div class="test-card" data-book="11">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 11 — Test 2</h3>
@@ -570,7 +572,7 @@
                             <a href="listening/listeningC11T2-section4.html" id="c11t2s4-btn" class="section-btn gray">Section 4</a>
                         </div>
                     </div>
-                    <!-- ✅ C11 Test 3 — 4 Section Buttons (pre‑added) -->
+                    <!-- C11 Test 3 -->
                     <div class="test-card" data-book="11">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 11 — Test 3</h3>
@@ -583,7 +585,7 @@
                             <a href="listening/listeningC11T3-section4.html" id="c11t3s4-btn" class="section-btn gray">Section 4</a>
                         </div>
                     </div>
-                    <!-- ✅ C11 Test 4 — 4 Section Buttons (pre‑added) -->
+                    <!-- C11 Test 4 -->
                     <div class="test-card" data-book="11">
                         <div class="test-icon">🎧</div>
                         <h3 class="test-title">Cambridge 11 — Test 4</h3>
@@ -627,7 +629,8 @@
                     </div>
                 </div>
             </div>
-            <!-- WRITING SECTION -->
+
+            <!-- ✅ WRITING SECTION -->
             <div class="section-content hidden-by-tab" id="writing">
                 <div class="tests-grid">
                     <div class="test-card" data-book="10">
@@ -686,7 +689,8 @@
                     </div>
                 </div>
             </div>
-            <!-- SPEAKING SECTION -->
+
+            <!-- ✅ SPEAKING SECTION -->
             <div class="section-content hidden-by-tab" id="speaking">
                 <div class="tests-grid">
                     <div class="test-card" data-book="10">
@@ -735,6 +739,7 @@
             </div>
         </div>
     </div>
+
 <script>
 // === BOOK FILTER BUTTONS ===
 const bookButtons = document.querySelectorAll('.book-btn');
@@ -754,7 +759,8 @@ bookButtons.forEach(btn => {
     });
   });
 });
-// === TAB BUTTONS ===
+
+// === TAB BUTTONS — THIS IS THE KEY FIX! ===
 const tabButtons = document.querySelectorAll('.tab');
 const tabContents = document.querySelectorAll('.section-content');
 tabButtons.forEach(tab => {
@@ -771,6 +777,7 @@ tabButtons.forEach(tab => {
     });
   });
 });
+
 // === LISTENING AUTO-DETECTION ===
 const LISTENING_PATH = "./listening/";
 const LISTENING_TESTS = [
@@ -813,6 +820,7 @@ async function updateListeningButtons() {
     btnUpdate(btn, ready);
   }
 }
+
 // === WRITING AUTO-DETECTION ===
 const WRITING_PATH = "./writing/";
 const WRITING_TESTS = [
@@ -840,6 +848,7 @@ async function updateWritingButtons() {
     btnUpdate(btn, ready);
   }
 }
+
 // === HELPER: Update button style ===
 function btnUpdate(btn, ready) {
   if (ready) {
@@ -854,6 +863,7 @@ function btnUpdate(btn, ready) {
     btn.style.opacity = "0.7";
   }
 }
+
 // Run all checks on page load
 window.addEventListener("load", () => {
   updateListeningButtons();
