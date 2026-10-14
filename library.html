@@ -744,21 +744,33 @@
 // === BOOK FILTER BUTTONS ===
 const bookButtons = document.querySelectorAll('.book-btn');
 const testCards = document.querySelectorAll('.test-card');
+
+// Function to apply filtering
+function applyBookFilter(selectedBook) {
+  testCards.forEach(card => {
+    const cardBook = card.dataset.book;
+    if (selectedBook === 'all' || cardBook === selectedBook) {
+      card.classList.remove('hidden-by-book');
+    } else {
+      card.classList.add('hidden-by-book');
+    }
+  });
+}
+
 bookButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     bookButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const selectedBook = btn.dataset.book;
-    testCards.forEach(card => {
-      const cardBook = card.dataset.book;
-      if (selectedBook === 'all' || cardBook === selectedBook) {
-        card.classList.remove('hidden-by-book');
-      } else {
-        card.classList.add('hidden-by-book');
-      }
-    });
+    applyBookFilter(selectedBook);
   });
 });
+
+// ✅ FIX: Apply filter on page load for the pre-selected active book
+const activeBookBtn = document.querySelector('.book-btn.active');
+if (activeBookBtn) {
+  applyBookFilter(activeBookBtn.dataset.book);
+}
 
 // === TAB BUTTONS — THIS IS THE KEY FIX! ===
 const tabButtons = document.querySelectorAll('.tab');
@@ -777,7 +789,6 @@ tabButtons.forEach(tab => {
     });
   });
 });
-
 // === LISTENING AUTO-DETECTION ===
 const LISTENING_PATH = "./listening/";
 const LISTENING_TESTS = [
@@ -820,7 +831,6 @@ async function updateListeningButtons() {
     btnUpdate(btn, ready);
   }
 }
-
 // === WRITING AUTO-DETECTION ===
 const WRITING_PATH = "./writing/";
 const WRITING_TESTS = [
@@ -848,7 +858,6 @@ async function updateWritingButtons() {
     btnUpdate(btn, ready);
   }
 }
-
 // === HELPER: Update button style ===
 function btnUpdate(btn, ready) {
   if (ready) {
@@ -863,7 +872,6 @@ function btnUpdate(btn, ready) {
     btn.style.opacity = "0.7";
   }
 }
-
 // Run all checks on page load
 window.addEventListener("load", () => {
   updateListeningButtons();
