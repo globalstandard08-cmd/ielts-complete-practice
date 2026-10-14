@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cambridge 11 — Test 3 — Section 4</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; }
         body { background-color: #f4f6f9; padding: 20px; line-height: 1.7; user-select: text; }
         .container { max-width: 1100px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
         .logo-section { text-align: center; padding: 20px; border-bottom: 1px solid #e5e7eb; }
@@ -17,21 +17,23 @@
         .content { padding: 0 30px 30px; }
         h2 { color: #1f3a5f; margin: 25px 0 15px; font-size: 22px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
         .instruction { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
-        .questions-block { border: 1px solid #d1d5db; border-radius: 10px; padding: 25px; margin-bottom: 25px; background: #fafafa; }
-        .questions-block h3 { text-align: center; margin-bottom: 20px; color: #1f3a5f; font-size: 20px; }
 
-        /* === NOTE COMPLETION STYLE === */
-        .note-title { font-size: 22px; font-weight: 700; color: #1f3a5f; text-align: center; margin-bottom: 20px; }
-        .note-block { margin-bottom: 20px; }
-        .note-heading { font-weight: 700; color: #1f3a5f; margin: 16px 0 8px; font-size: 16px; }
-        .note-item { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
-        .q-num { font-weight: 700; min-width: 32px; display: inline-block; color: #1f3a5f; font-size: 16px; }
-        .blank {
-            border: none; border-bottom: 2px solid #374151;
-            padding: 4px 6px; text-align: center; font-size: 16px;
-            background: transparent; outline: none; min-width: 130px;
+        /* === OFFICIAL IELTS-STYLE NOTE COMPLETION === */
+        .exam-title { font-size: 24px; font-weight: 700; color: #0b3d91; text-align: center; margin: 20px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+        .exam-intro { font-style: italic; margin-bottom: 20px; color: #374151; }
+        .exam-block { border: 1px solid #1f2937; border-radius: 4px; margin: 20px 0; overflow: hidden; }
+        .exam-section-header { background: #e5e7eb; padding: 10px 18px; font-weight: 700; border-bottom: 1px solid #1f2937; }
+        .exam-row { display: flex; align-items: flex-start; border-bottom: 1px solid #1f2937; }
+        .exam-row:last-child { border-bottom: none; }
+        .q-col { width: 55px; padding: 14px 10px; font-weight: 700; text-align: center; border-right: 1px solid #1f2937; background: #f9fafb; flex-shrink: 0; }
+        .text-col { flex: 1; padding: 14px 18px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+        .blank-box {
+            width: 140px; height: 36px; border: 1px solid #1f2937; border-radius: 2px;
+            text-align: center; font-size: 16px; outline: none; background: #fff;
         }
-        .blank.filled { background: #e6fffa; border-bottom-color: #0d9488; font-weight: 600; }
+        .blank-box.filled { background: #e6fffa; border-color: #0d9488; font-weight: 600; }
+        .subheading { font-weight: 700; color: #1f3a5f; margin: 18px 0 8px; font-size: 15px; }
+        .no-q-row { padding: 10px 18px; border-bottom: 1px solid #e5e7eb; font-style: italic; color: #4b5563; }
 
         /* === HIGHLIGHT / NOTES === */
         .highlight { background: #ffd700; padding: 1px 3px; border-radius: 2px; position: relative; }
@@ -62,7 +64,8 @@
 
         @media (max-width: 768px) {
             .content { padding: 0 15px 20px; }
-            .questions-block { padding: 18px; }
+            .text-col { padding: 12px; }
+            .blank-box { width: 110px; }
         }
     </style>
 </head>
@@ -100,101 +103,128 @@
         <div class="content" id="passageArea">
             <h2>Section 4 — Questions 31–40</h2>
             <div class="instruction">
-                <strong>Ethnography in Business</strong><br>
-                Complete the notes below. Write <strong>ONE WORD ONLY</strong> for each answer.<br>
-                Right‑click selected text → choose Highlight or Remove.
+                <strong>Complete the notes below.</strong><br>
+                Write <strong>ONE WORD ONLY</strong> for each answer.
             </div>
 
-            <div class="questions-block">
-                <h3 class="note-title">ETHNOGRAPHY IN BUSINESS</h3>
+            <h3 class="exam-title">ETHNOGRAPHY IN BUSINESS</h3>
+            <p class="exam-intro">Ethnography: research which explores human cultures</p>
 
-                <div class="note-block">
-                    <p><em>Ethnography: research which explores human cultures</em></p>
-                    <p class="note-heading">It can be used in business:</p>
-                    <div class="note-item">
-                        <span class="q-num">31</span>
-                        <span>to investigate customer needs and</span>
-                        <input type="text" class="blank" data-q="31" placeholder="__________">
+            <div class="exam-block">
+                <!-- It can be used in business -->
+                <div class="exam-section-header">It can be used in business:</div>
+
+                <div class="exam-row">
+                    <div class="q-col">31</div>
+                    <div class="text-col">
+                        to investigate customer needs and
+                        <input type="text" class="blank-box" data-q="31" placeholder="__________">
                     </div>
-                    <div class="note-item">
-                        <span></span>
-                        <span>to help companies develop new designs</span>
+                </div>
+                <div class="exam-row">
+                    <div class="q-col"></div>
+                    <div class="text-col">to help companies develop new designs</div>
+                </div>
+
+                <!-- Examples -->
+                <div class="exam-section-header">Examples of ethnographic research in business</div>
+
+                <div class="no-q-row"><strong>Kitchen equipment</strong></div>
+                <div class="exam-row">
+                    <div class="q-col">32</div>
+                    <div class="text-col">
+                        Researchers found that cooks could not easily see the
+                        <input type="text" class="blank-box" data-q="32" placeholder="__________">
+                        in measuring cups.
                     </div>
                 </div>
 
-                <div class="note-block">
-                    <p class="note-heading">Examples of ethnographic research in business</p>
-
-                    <p style="font-weight:600; margin-top:12px;">Kitchen equipment</p>
-                    <div class="note-item">
-                        <span class="q-num">32</span>
-                        <span>Researchers found that cooks could not easily see the</span>
-                        <input type="text" class="blank" data-q="32" placeholder="__________">
-                        <span>in measuring cups.</span>
-                    </div>
-
-                    <p style="font-weight:600; margin-top:12px;">Cell phones</p>
-                    <div class="note-item">
-                        <span class="q-num">33</span>
-                        <span>In Uganda, customers paid to use the cell phones of entrepreneurs. These customers wanted to check the</span>
-                        <input type="text" class="blank" data-q="33" placeholder="__________">
-                        <span>used.</span>
-                    </div>
-
-                    <p style="font-weight:600; margin-top:12px;">Computer companies</p>
-                    <div class="note-item">
-                        <span class="q-num">34</span>
-                        <span>There was a need to develop</span>
-                        <input type="text" class="blank" data-q="34" placeholder="__________">
-                        <span>to improve communication between system administrators and colleagues.</span>
-                    </div>
-
-                    <p style="font-weight:600; margin-top:12px;">Hospitals</p>
-                    <div class="note-item">
-                        <span class="q-num">35</span>
-                        <span>Nurses needed to access information about</span>
-                        <input type="text" class="blank" data-q="35" placeholder="__________">
-                        <span>in different parts of the hospital.</span>
-                    </div>
-
-                    <p style="font-weight:600; margin-top:12px;">Airlines</p>
-                    <div class="note-item">
-                        <span class="q-num">36</span>
-                        <span>Respondents recorded information about their</span>
-                        <input type="text" class="blank" data-q="36" placeholder="__________">
-                        <span>while travelling.</span>
+                <div class="no-q-row"><strong>Cell phones</strong></div>
+                <div class="exam-row">
+                    <div class="q-col">33</div>
+                    <div class="text-col">
+                        In Uganda, customers paid to use the cell phones of entrepreneurs. These customers wanted to check the
+                        <input type="text" class="blank-box" data-q="33" placeholder="__________">
+                        used.
                     </div>
                 </div>
 
-                <div class="note-block">
-                    <p class="note-heading">Principles of ethnographic research in business</p>
-                    <p style="margin:8px 0;">• The researcher does not start off with a hypothesis.</p>
-                    <div class="note-item">
-                        <span class="q-num">37</span>
-                        <span>• Participants may be selected by criteria such as age,</span>
-                        <input type="text" class="blank" data-q="37" placeholder="__________">
-                        <span>or product used.</span>
+                <div class="no-q-row"><strong>Computer companies</strong></div>
+                <div class="exam-row">
+                    <div class="q-col">34</div>
+                    <div class="text-col">
+                        There was a need to develop
+                        <input type="text" class="blank-box" data-q="34" placeholder="__________">
+                        to improve communication between system administrators and colleagues.
                     </div>
-                    <div class="note-item">
-                        <span class="q-num">38</span>
-                        <span>• The participants must feel</span>
-                        <input type="text" class="blank" data-q="38" placeholder="__________">
-                        <span>about taking part in the research.</span>
+                </div>
+
+                <div class="no-q-row"><strong>Hospitals</strong></div>
+                <div class="exam-row">
+                    <div class="q-col">35</div>
+                    <div class="text-col">
+                        Nurses needed to access information about
+                        <input type="text" class="blank-box" data-q="35" placeholder="__________">
+                        in different parts of the hospital.
                     </div>
-                    <div class="note-item">
-                        <span class="q-num">39</span>
-                        <span>• There is usually direct</span>
-                        <input type="text" class="blank" data-q="39" placeholder="__________">
-                        <span>of the participants.</span>
+                </div>
+
+                <div class="no-q-row"><strong>Airlines</strong></div>
+                <div class="exam-row">
+                    <div class="q-col">36</div>
+                    <div class="text-col">
+                        Respondents recorded information about their
+                        <input type="text" class="blank-box" data-q="36" placeholder="__________">
+                        while travelling.
                     </div>
-                    <p style="margin:8px 0;">• The interview is guided by the participant.</p>
-                    <div class="note-item">
-                        <span class="q-num">40</span>
-                        <span>• A lot of time is needed for the</span>
-                        <input type="text" class="blank" data-q="40" placeholder="__________">
-                        <span>of the data.</span>
+                </div>
+
+                <!-- Principles -->
+                <div class="exam-section-header">Principles of ethnographic research in business</div>
+
+                <div class="exam-row">
+                    <div class="q-col"></div>
+                    <div class="text-col">• The researcher does not start off with a hypothesis.</div>
+                </div>
+                <div class="exam-row">
+                    <div class="q-col">37</div>
+                    <div class="text-col">
+                        • Participants may be selected by criteria such as age,
+                        <input type="text" class="blank-box" data-q="37" placeholder="__________">
+                        or product used.
                     </div>
-                    <p style="margin:8px 0;">• Researchers look for a meaningful pattern in the data.</p>
+                </div>
+                <div class="exam-row">
+                    <div class="q-col">38</div>
+                    <div class="text-col">
+                        • The participants must feel
+                        <input type="text" class="blank-box" data-q="38" placeholder="__________">
+                        about taking part in the research.
+                    </div>
+                </div>
+                <div class="exam-row">
+                    <div class="q-col">39</div>
+                    <div class="text-col">
+                        • There is usually direct
+                        <input type="text" class="blank-box" data-q="39" placeholder="__________">
+                        of the participants.
+                    </div>
+                </div>
+                <div class="exam-row">
+                    <div class="q-col"></div>
+                    <div class="text-col">• The interview is guided by the participant.</div>
+                </div>
+                <div class="exam-row">
+                    <div class="q-col">40</div>
+                    <div class="text-col">
+                        • A lot of time is needed for the
+                        <input type="text" class="blank-box" data-q="40" placeholder="__________">
+                        of the data.
+                    </div>
+                </div>
+                <div class="exam-row">
+                    <div class="q-col"></div>
+                    <div class="text-col">• Researchers look for a meaningful pattern in the data.</div>
                 </div>
             </div>
 
@@ -216,7 +246,6 @@
 const STORAGE = 'C11T3_S4';
 let currentRange = null, activeHL = null;
 
-// Status dots
 function renderStatus() {
     const bar = document.getElementById('statusBar');
     if (!bar) return;
@@ -230,8 +259,7 @@ function renderStatus() {
     });
 }
 
-// === NOTE COMPLETION HANDLING 31–40 ===
-document.querySelectorAll('.blank').forEach(input => {
+document.querySelectorAll('.blank-box').forEach(input => {
     const q = input.dataset.q;
     const saved = localStorage.getItem(`${STORAGE}_q${q}`);
     if (saved) {
@@ -251,7 +279,6 @@ document.querySelectorAll('.blank').forEach(input => {
     });
 });
 
-// === HIGHLIGHT SYSTEM ===
 function unwrapHighlight(hl) {
     if (!hl) return;
     const text = hl.textContent;
@@ -367,12 +394,11 @@ noteText.oninput = () => {
     if (activeHL) { activeHL.dataset.note = noteText.value; saveHL(); }
 };
 
-// Clear All
 document.getElementById('clearAll').onclick = () => {
     if (!confirm('⚠️ Clear all answers and highlights? This cannot be undone.')) return;
     [31,32,33,34,35,36,37,38,39,40].forEach(q => localStorage.removeItem(`${STORAGE}_q${q}`));
     localStorage.removeItem(`${STORAGE}_hl`);
-    document.querySelectorAll('.blank').forEach(el => {
+    document.querySelectorAll('.blank-box').forEach(el => {
         el.value = '';
         el.classList.remove('filled');
     });
