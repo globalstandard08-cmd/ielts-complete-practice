@@ -322,14 +322,12 @@ function setupMCOptions() {
                 opt.classList.add('checked');
             }
         }
-        // Click checkbox area to select; text area is for highlighting
+        // Click checkbox/letter to select; text is for highlighting
         opt.addEventListener('click', (e) => {
-            // Only trigger selection if clicking the checkbox or letter, NOT the text span
             if (e.target.closest('.mc-text')) return;
             
             const partnerQ = mcPairs[qBase];
             if (!partnerQ) {
-                // Single choice: replace on click
                 const current = localStorage.getItem(`${STORAGE_KEY}_q${qBase}`);
                 if (current === letter) {
                     localStorage.removeItem(`${STORAGE_KEY}_q${qBase}`);
@@ -341,7 +339,6 @@ function setupMCOptions() {
                     });
                 }
             } else {
-                // Double choice logic
                 let foundSlot = null;
                 for (const slot of [qBase, partnerQ]) {
                     if (localStorage.getItem(`${STORAGE_KEY}_q${slot}`) === letter) {
@@ -366,10 +363,13 @@ function setupMCOptions() {
     });
 }
 
-// Highlight helpers
+// === FIXED: Remove highlight properly, handles nested spans ===
 function removeHighlightClean(el) {
     if (!el || !el.parentNode) return;
-    const textNode = document.createTextNode(el.textContent.replace(/!$/, ''));
+    // Extract plain text, preserve it
+    const textContent = el.textContent || '';
+    const cleanText = textContent.replace(/!$/, '');
+    const textNode = document.createTextNode(cleanText);
     el.parentNode.replaceChild(textNode, el);
 }
 function saveHighlights() {
@@ -471,7 +471,11 @@ document.getElementById('menuAddNote').addEventListener('click', () => {
 document.getElementById('menuRemove').addEventListener('click', () => {
     ctxMenu.style.display = 'none'; noteBox.style.display = 'none';
     if (!activeHighlight) return;
-    removeHighlightClean(activeHighlight); activeHighlight = null; saveHighlights();
+    // Walk up to ensure we get the actual .highlight span
+    const hlSpan = activeHighlight.closest('.highlight') || activeHighlight;
+    removeHighlightClean(hlSpan);
+    activeHighlight = null;
+    saveHighlights();
 });
 
 function clearAll() {
@@ -479,6 +483,7 @@ function clearAll() {
     [21,22,23,24,25,26,27,28,29,30].forEach(n => localStorage.removeItem(`${STORAGE_KEY}_q${n}`));
     localStorage.removeItem(`${passageId}_highlights`);
     document.querySelectorAll('.mc-option').forEach(o => o.classList.remove('checked'));
+    // Remove ALL highlights thoroughly
     document.querySelectorAll('.highlight').forEach(h => removeHighlightClean(h));
     noteBox.style.display = 'none'; renderStatus();
 }
