@@ -20,16 +20,18 @@
         .questions-block { border: 1px solid #d1d5db; border-radius: 10px; padding: 25px; margin-bottom: 25px; background: #fafafa; }
         .questions-block h3 { text-align: center; margin-bottom: 20px; color: #1f3a5f; font-size: 20px; }
 
-        /* === COMPLETION TABLE Q21–26 === */
+        /* === IMPROVED TABLE LAYOUT Q21–26 === */
         .completion-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
         .completion-table th, .completion-table td {
-            border: 1px solid #374151; padding: 14px 16px; vertical-align: middle;
+            border: 1px solid #374151; padding: 18px 20px; vertical-align: middle;
         }
-        .completion-table th { background: #e5e7eb; font-weight: 700; text-align: left; }
-        .blank-cell { text-align: center; width: 140px; }
+        .completion-table th { background: #e5e7eb; font-weight: 700; text-align: left; font-size: 15px; }
+        .q-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 6px 0; }
+        .q-num { font-weight: 600; min-width: 28px; display: inline-block; }
         .blank {
-            width: 100%; border: none; border-bottom: 2px solid #374151;
-            padding: 4px 6px; text-align: center; font-size: 16px; background: transparent; outline: none;
+            border: none; border-bottom: 2px solid #374151;
+            padding: 4px 6px; text-align: center; font-size: 16px;
+            background: transparent; outline: none; min-width: 120px;
         }
         .blank.filled { background: #e6fffa; border-bottom-color: #0d9488; font-weight: 600; }
 
@@ -79,7 +81,7 @@
         @media (max-width: 768px) {
             .content { padding: 0 15px 20px; }
             .questions-block { padding: 18px; }
-            .completion-table th, .completion-table td { padding: 10px 8px; }
+            .completion-table th, .completion-table td { padding: 14px 12px; }
         }
     </style>
 </head>
@@ -135,16 +137,53 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>A <input type="text" class="blank" data-q="21" placeholder="__________"> surrounded by trees</td>
-                            <td>Add Malcolm and a <input type="text" class="blank" data-q="22" placeholder="__________"> noticing him</td>
+                            <td>
+                                <div class="q-row">
+                                    <span class="q-num">21</span>
+                                    <input type="text" class="blank" data-q="21" placeholder="__________">
+                                    <span>surrounded by trees</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="q-row">
+                                    <span>Add Malcolm and a</span>
+                                    <input type="text" class="blank" data-q="22" placeholder="__________">
+                                    <span>noticing him</span>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
-                            <td>People who are <input type="text" class="blank" data-q="23" placeholder="__________"> outside the forest</td>
-                            <td>Add Malcolm sitting on a tree trunk and <input type="text" class="blank" data-q="24" placeholder="__________"></td>
+                            <td>
+                                <div class="q-row">
+                                    <span class="q-num">23</span>
+                                    <span>People who are</span>
+                                    <input type="text" class="blank" data-q="23" placeholder="__________">
+                                    <span>outside the forest</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="q-row">
+                                    <span>Add Malcolm sitting on a tree trunk and</span>
+                                    <input type="text" class="blank" data-q="24" placeholder="__________">
+                                </div>
+                            </td>
                         </tr>
                         <tr>
-                            <td>Ice-skaters on <input type="text" class="blank" data-q="25" placeholder="__________"> covered with ice</td>
-                            <td>Add a <input type="text" class="blank" data-q="26" placeholder="__________"> for each person</td>
+                            <td>
+                                <div class="q-row">
+                                    <span class="q-num">25</span>
+                                    <span>Ice-skaters on</span>
+                                    <input type="text" class="blank" data-q="25" placeholder="__________">
+                                    <span>covered with ice</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="q-row">
+                                    <span>Add a</span>
+                                    <input type="text" class="blank" data-q="26" placeholder="__________">
+                                    <span>for each person</span>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -156,7 +195,7 @@
                 <div class="split-container">
                     <div class="split-left">
                         <div class="options-box">
-                            <h4 style="text-align:center; margin-bottom:12px; color:#1f3a5f; font-size:16px;">Parts of report</h4>
+                            <h4 style="text-align:center; margin-bottom:12px; color:#1f3a5f; font-size:16px;">Options</h4>
                             <div class="option-row"><strong>A</strong> Helen only</div>
                             <div class="option-row"><strong>B</strong> Jeremy only</div>
                             <div class="option-row"><strong>C</strong> both Helen and Jeremy</div>
@@ -164,7 +203,7 @@
                         </div>
                     </div>
                     <div class="split-right">
-                        <p style="font-weight:600; margin-bottom:10px;">Who writes it?</p>
+                        <p style="font-weight:600; margin-bottom:10px;">Parts of the report</p>
                         <div class="item-row" data-q="27">
                             <span><strong>27</strong> how they planned the project</span>
                             <input type="text" class="answer-box" data-q="27" maxlength="1" placeholder="A–D">
