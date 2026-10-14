@@ -20,12 +20,27 @@
         .questions-block { border: 1px solid #d1d5db; border-radius: 10px; padding: 25px; margin-bottom: 25px; background: #fafafa; }
         .questions-block h3 { text-align: center; margin-bottom: 20px; color: #1f3a5f; font-size: 20px; }
 
-        /* === MULTIPLE CHOICE === */
-        .q-group { margin-bottom: 20px; }
+        /* === EXAM-STYLE TICK BOXES === */
+        .q-group { margin-bottom: 22px; }
         .q-num { font-weight: 600; min-width: 32px; display: inline-block; }
-        .option { display: block; margin: 4px 0 4px 32px; cursor: pointer; padding: 2px 6px; border-radius: 4px; transition: background 0.15s; }
+        .option { 
+            display: flex; align-items: flex-start; gap: 10px; 
+            margin: 6px 0 6px 32px; cursor: pointer; padding: 3px 6px; 
+            border-radius: 4px; transition: background 0.15s;
+        }
         .option:hover { background: #f3f4f6; }
-        .option.selected { background: #e6fffa; color: #0d9488; font-weight: 600; }
+        .tick-circle {
+            width: 20px; height: 20px; border: 1.5px solid #374151; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+            background: #fff; transition: all 0.2s;
+        }
+        .option.selected .tick-circle {
+            background: #0d9488; border-color: #0d9488;
+        }
+        .tick-mark {
+            color: #fff; font-weight: bold; font-size: 13px; display: none;
+        }
+        .option.selected .tick-mark { display: block; }
 
         /* === SPLIT LAYOUT Q16–20 — LEFT = OPTIONS, RIGHT = QUESTIONS === */
         .split-container { display: flex; gap: 25px; margin-top: 20px; flex-wrap: wrap; }
@@ -116,37 +131,82 @@
 
                 <div class="q-group" data-q="11">
                     <p><span class="q-num">11</span> In Shona's opinion, why do fewer people use buses in Barford these days?</p>
-                    <label class="option" data-opt="A">A The buses are old and uncomfortable.</label>
-                    <label class="option" data-opt="B">B Fares have gone up too much.</label>
-                    <label class="option" data-opt="C">C There are not so many bus routes.</label>
+                    <label class="option" data-opt="A">
+                        <span class="tick-circle"><span class="tick-mark">✓</span></span>
+                        <span>A The buses are old and uncomfortable.</span>
+                    </label>
+                    <label class="option" data-opt="B">
+                        <span class="tick-circle"><span class="tick-mark">✓</span></span>
+                        <span>B Fares have gone up too much.</span>
+                    </label>
+                    <label class="option" data-opt="C">
+                        <span class="tick-circle"><span class="tick-mark">✓</span></span>
+                        <span>C There are not so many bus routes.</span>
+                    </label>
                 </div>
 
                 <div class="q-group" data-q="12">
                     <p><span class="q-num">12</span> What change in the road network is known to have benefited the town most?</p>
-                    <label class="option" data-opt="A">A the construction of a bypass</label>
-                    <label class="option" data-opt="B">B the development of cycle paths</label>
-                    <label class="option" data-opt="C">C the banning of cars from certain streets</label>
+                    <label class="option" data-opt="A">
+                        <span class="tick-circle"><span class="tick-mark">✓</span></span>
+                        <span>A the construction of a bypass</span>
+                    </label>
+                    <label class="option" data-opt="B">
+                        <span class="tick-circle"><span class="tick-mark">✓</span></span>
+                        <span>B the development of cycle paths</span>
+                    </label>
+                    <label class="option" data-opt="C">
+                        <span class="tick-circle"><span class="tick-mark">✓</span></span>
+                        <span>C the banning of cars from certain streets</span>
+                    </label>
                 </div>
 
                 <div class="q-group" data-q="13">
                     <p><span class="q-num">13</span> What is the problem affecting shopping in the town centre?</p>
-                    <label class="option" data-opt="A">A lack of parking spaces</label>
-                    <label class="option" data-opt="B">B lack of major retailers</label>
-                    <label class="option" data-opt="C">C lack of restaurants and cafés</label>
+                    <label class="option" data-opt="A">
+                        <span class="tick-circle"><span class="tick-mark">✓</span></span>
+                        <span>A lack of parking spaces</span>
+                    </label>
+                    <label class="option" data-opt="B">
+                        <span class="tick-circle"><span class="tick-mark">✓</span></span>
+                        <span>B lack of major retailers</span>
+                    </label>
+                    <label class="option" data-opt="C">
+                        <span class="tick-circle"><span class="tick-mark">✓</span></span>
+                        <span>C lack of restaurants and cafés</span>
+                    </label>
                 </div>
 
                 <div class="q-group" data-q="14">
                     <p><span class="q-num">14</span> What does Shona say about medical facilities in Barford?</p>
-                    <label class="option" data-opt="A">A There is no hospital.</label>
-                    <label class="option" data-opt="B">B New medical practices are planned.</label>
-                    <label class="option" data-opt="C">C The number of dentists is too low.</label>
+                    <label class="option" data-opt="A">
+                        <span class="tick-circle"><span class="tick-mark">✓</span></span>
+                        <span>A There is no hospital.</span>
+                    </label>
+                    <label class="option" data-opt="B">
+                        <span class="tick-circle"><span class="tick-mark">✓</span></span>
+                        <span>B New medical practices are planned.</span>
+                    </label>
+                    <label class="option" data-opt="C">
+                        <span class="tick-circle"><span class="tick-mark">✓</span></span>
+                        <span>C The number of dentists is too low.</span>
+                    </label>
                 </div>
 
                 <div class="q-group" data-q="15">
                     <p><span class="q-num">15</span> The largest number of people are employed in</p>
-                    <label class="option" data-opt="A">A manufacturing.</label>
-                    <label class="option" data-opt="B">B services.</label>
-                    <label class="option" data-opt="C">C education.</label>
+                    <label class="option" data-opt="A">
+                        <span class="tick-circle"><span class="tick-mark">✓</span></span>
+                        <span>A manufacturing.</span>
+                    </label>
+                    <label class="option" data-opt="B">
+                        <span class="tick-circle"><span class="tick-mark">✓</span></span>
+                        <span>B services.</span>
+                    </label>
+                    <label class="option" data-opt="C">
+                        <span class="tick-circle"><span class="tick-mark">✓</span></span>
+                        <span>C education.</span>
+                    </label>
                 </div>
 
                 <h3 style="margin-top:30px;">Questions 16–20</h3>
@@ -221,7 +281,7 @@ function renderStatus() {
     });
 }
 
-// === MULTIPLE CHOICE HANDLING 11–15 ===
+// === MULTIPLE CHOICE HANDLING 11–15 — TICK BOX STYLE ===
 document.querySelectorAll('.q-group[data-q]').forEach(group => {
     const q = group.dataset.q;
     const saved = localStorage.getItem(`${STORAGE}_q${q}`);
