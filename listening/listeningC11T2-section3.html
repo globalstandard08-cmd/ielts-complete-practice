@@ -19,37 +19,67 @@
         .instruction { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
         .questions-block { border: 1px solid #d1d5db; border-radius: 10px; padding: 25px; margin-bottom: 25px; background: #fafafa; }
         .questions-block h3 { text-align: center; margin-bottom: 20px; color: #1f3a5f; font-size: 20px; }
-        .questions-block h4 { margin: 20px 0 12px; color: #374151; font-size: 16px; }
 
-        /* === MULTIPLE CHOICE — fully selectable text === */
-        .mc-option { display: flex; align-items: center; margin: 8px 0; cursor: pointer; }
-        .mc-checkbox { width: 20px; height: 20px; border: 2px solid #d1d5db; border-radius: 4px; margin-right: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: #fff; transition: all 0.2s; }
+        /* === MULTIPLE CHOICE === */
+        .mc-option { display: flex; align-items: center; margin: 8px 0; }
+        .mc-checkbox { width: 20px; height: 20px; border: 2px solid #d1d5db; border-radius: 4px; margin-right: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: #fff; transition: all 0.2s; cursor: pointer; }
         .mc-option.checked .mc-checkbox { background: #1f3a5f; border-color: #1f3a5f; color: white; }
         .mc-option.checked .mc-checkbox::after { content: "✓"; font-weight: bold; font-size: 13px; }
-        .mc-letter { font-weight: 600; min-width: 24px; display: inline-block; pointer-events: none; }
-        .mc-text { pointer-events: none; }
+        .mc-letter { font-weight: 600; min-width: 24px; display: inline-block; }
+        .mc-text { }
 
-        /* === HIGHLIGHT & NOTE SYSTEM === */
-        .highlight { background-color: #ffd700; padding: 2px 4px; border-radius: 2px; cursor: pointer; display: inline; position: relative; transition: background-color 0.2s; }
-        .highlight:hover { background-color: #ffeb3b; }
-        .note-marker { position: absolute; top: -8px; right: -8px; width: 18px; height: 18px; background: #1f3a5f; color: white; border-radius: 50%; font-size: 11px; font-weight: bold; display: flex; align-items: center; justify-content: center; z-index: 10; }
-        .context-menu { position: absolute; background: #fff; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 180px; }
+        /* === HIGHLIGHT SYSTEM — WORKS EVERYWHERE === */
+        .highlight {
+            background-color: #ffd700;
+            padding: 1px 3px;
+            border-radius: 2px;
+            position: relative;
+        }
+        .note-marker {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 18px; height: 18px;
+            background: #1f3a5f; color: white;
+            border-radius: 50%; font-size: 11px; font-weight: bold;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10;
+        }
+        .context-menu {
+            position: absolute; background: #fff;
+            border: 1px solid #ccc; border-radius: 4px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+            z-index: 9999; display: none; min-width: 180px;
+        }
         .context-menu div { padding: 10px 14px; cursor: pointer; font-size: 14px; border-bottom: 1px solid #f0f0f0; }
         .context-menu div:last-child { border-bottom: none; }
         .context-menu div:hover { background: #f0f0f0; }
-        .note-box { position: absolute; width: 260px; min-height: 80px; background: #fffde7; border: 1px solid #f9d423; border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); z-index: 9990; display: none; }
-        .note-header { background: #f9d423; padding: 6px 10px; font-size: 13px; font-weight: bold; cursor: move; display: flex; justify-content: space-between; align-items: center; color: #333; }
+        .note-box {
+            position: absolute; width: 260px; min-height: 80px;
+            background: #fffde7; border: 1px solid #f9d423; border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            z-index: 9990; display: none;
+        }
+        .note-header {
+            background: #f9d423; padding: 6px 10px;
+            font-size: 13px; font-weight: bold; cursor: move;
+            display: flex; justify-content: space-between; align-items: center; color: #333;
+        }
         .note-close { cursor: pointer; font-weight: bold; font-size: 16px; line-height: 1; }
-        .note-textarea { width: 100%; min-height: 60px; border: none; padding: 10px; font-size: 14px; resize: vertical; background: transparent; outline: none; }
+        .note-textarea {
+            width: 100%; min-height: 60px; border: none;
+            padding: 10px; font-size: 14px; resize: vertical;
+            background: transparent; outline: none;
+        }
 
         .status-bar { display: flex; flex-wrap: wrap; gap: 6px; margin: 20px 0; padding: 15px; background: #f3f4f6; border-radius: 8px; border: 1px solid #e5e7eb; }
         .status-label { font-size: 12px; font-weight: 600; color: #4b5563; margin-right: 8px; }
         .q-dot { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 4px; background: #e5e7eb; color: #6b7280; font-size: 11px; font-weight: 600; }
         .q-dot.done { background: #10b981; color: white; }
-        .clear-btn { background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; transition: background 0.2s; }
+        .clear-btn { background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; }
         .clear-btn:hover { background: #dc2626; }
         .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb; }
-        .nav-link { padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; transition: all 0.2s; }
+        .nav-link { padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; }
         .nav-back { background: #e5e7eb; color: #374151; }
         .nav-back:hover { background: #d1d5db; }
         .nav-next { background: #1f3a5f; color: white; }
@@ -98,179 +128,150 @@
                 Right‑click selected text → choose Highlight or Add Note.
             </div>
 
-            <!-- ===== Q21–26: SINGLE MULTIPLE CHOICE ===== -->
             <div class="questions-block">
                 <h3>Questions 21–26</h3>
                 <p style="margin-bottom:15px;"><strong>Choose the correct letter, A, B or C.</strong></p>
 
                 <p style="margin-bottom:8px;"><strong>21</strong> What do the students agree should be included in their aims?</p>
                 <div class="mc-option" data-q="21" data-value="A">
-                    <span class="mc-checkbox"></span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
                     <span class="mc-letter">A</span>
-                    <span class="mc-text">factors affecting where organisms live</span>
+                    factors affecting where organisms live
                 </div>
                 <div class="mc-option" data-q="21" data-value="B">
-                    <span class="mc-checkbox"></span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
                     <span class="mc-letter">B</span>
-                    <span class="mc-text">the need to preserve endangered species</span>
+                    the need to preserve endangered species
                 </div>
                 <div class="mc-option" data-q="21" data-value="C">
-                    <span class="mc-checkbox"></span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
                     <span class="mc-letter">C</span>
-                    <span class="mc-text">techniques for classifying different organisms</span>
+                    techniques for classifying different organisms
                 </div>
 
                 <p style="margin:20px 0 8px;"><strong>22</strong> What equipment did they forget to take on the Field Trip?</p>
                 <div class="mc-option" data-q="22" data-value="A">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">A</span>
-                    <span class="mc-text">string</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">A</span> string
                 </div>
                 <div class="mc-option" data-q="22" data-value="B">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">B</span>
-                    <span class="mc-text">a compass</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">B</span> a compass
                 </div>
                 <div class="mc-option" data-q="22" data-value="C">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">C</span>
-                    <span class="mc-text">a ruler</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">C</span> a ruler
                 </div>
 
                 <p style="margin:20px 0 8px;"><strong>23</strong> In Helen's procedure section, Colin suggests a change in</p>
                 <div class="mc-option" data-q="23" data-value="A">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">A</span>
-                    <span class="mc-text">the order in which information is given.</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">A</span> the order in which information is given.
                 </div>
                 <div class="mc-option" data-q="23" data-value="B">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">B</span>
-                    <span class="mc-text">the way the information is divided up.</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">B</span> the way the information is divided up.
                 </div>
                 <div class="mc-option" data-q="23" data-value="C">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">C</span>
-                    <span class="mc-text">the amount of information provided.</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">C</span> the amount of information provided.
                 </div>
 
                 <p style="margin:20px 0 8px;"><strong>24</strong> What do they say about the method they used to measure wave speed?</p>
                 <div class="mc-option" data-q="24" data-value="A">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">A</span>
-                    <span class="mc-text">It provided accurate results.</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">A</span> It provided accurate results.
                 </div>
                 <div class="mc-option" data-q="24" data-value="B">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">B</span>
-                    <span class="mc-text">It was simple to carry out.</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">B</span> It was simple to carry out.
                 </div>
                 <div class="mc-option" data-q="24" data-value="C">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">C</span>
-                    <span class="mc-text">It required special equipment.</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">C</span> It required special equipment.
                 </div>
 
                 <p style="margin:20px 0 8px;"><strong>25</strong> What mistake did Helen make when first drawing the map?</p>
                 <div class="mc-option" data-q="25" data-value="A">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">A</span>
-                    <span class="mc-text">She chose the wrong scale.</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">A</span> She chose the wrong scale.
                 </div>
                 <div class="mc-option" data-q="25" data-value="B">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">B</span>
-                    <span class="mc-text">She stood in the wrong place.</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">B</span> She stood in the wrong place.
                 </div>
                 <div class="mc-option" data-q="25" data-value="C">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">C</span>
-                    <span class="mc-text">She did it at the wrong time.</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">C</span> She did it at the wrong time.
                 </div>
 
                 <p style="margin:20px 0 8px;"><strong>26</strong> What do they decide to do next with their map?</p>
                 <div class="mc-option" data-q="26" data-value="A">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">A</span>
-                    <span class="mc-text">scan it onto a computer</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">A</span> scan it onto a computer
                 </div>
                 <div class="mc-option" data-q="26" data-value="B">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">B</span>
-                    <span class="mc-text">check it using photographs</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">B</span> check it using photographs
                 </div>
                 <div class="mc-option" data-q="26" data-value="C">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">C</span>
-                    <span class="mc-text">add information from the internet</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">C</span> add information from the internet
                 </div>
             </div>
 
-            <!-- ===== Q27–28: DOUBLE MC ===== -->
             <div class="questions-block">
                 <h3>Questions 27 and 28</h3>
                 <p style="margin-bottom:15px;"><strong>Choose TWO letters, A–E.</strong></p>
                 <p style="margin-bottom:8px;">Which TWO problems affecting organisms in the splash zone are mentioned?</p>
                 <div class="mc-option" data-q="27" data-value="A">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">A</span>
-                    <span class="mc-text">lack of water</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">A</span> lack of water
                 </div>
                 <div class="mc-option" data-q="27" data-value="B">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">B</span>
-                    <span class="mc-text">strong winds</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">B</span> strong winds
                 </div>
                 <div class="mc-option" data-q="27" data-value="C">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">C</span>
-                    <span class="mc-text">lack of food</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">C</span> lack of food
                 </div>
                 <div class="mc-option" data-q="27" data-value="D">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">D</span>
-                    <span class="mc-text">high temperatures</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">D</span> high temperatures
                 </div>
                 <div class="mc-option" data-q="27" data-value="E">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">E</span>
-                    <span class="mc-text">large waves</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">E</span> large waves
                 </div>
             </div>
 
-            <!-- ===== Q29–30: DOUBLE MC ===== -->
             <div class="questions-block">
                 <h3>Questions 29 and 30</h3>
                 <p style="margin-bottom:15px;"><strong>Choose TWO letters, A–E.</strong></p>
                 <p style="margin-bottom:8px;">Which TWO reasons for possible error will they include in their report?</p>
                 <div class="mc-option" data-q="29" data-value="A">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">A</span>
-                    <span class="mc-text">inaccurate records of the habitat of organisms</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">A</span> inaccurate records of the habitat of organisms
                 </div>
                 <div class="mc-option" data-q="29" data-value="B">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">B</span>
-                    <span class="mc-text">influence on behaviour of organisms by observer</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">B</span> influence on behaviour of organisms by observer
                 </div>
                 <div class="mc-option" data-q="29" data-value="C">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">C</span>
-                    <span class="mc-text">incorrect identification of some organisms</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">C</span> incorrect identification of some organisms
                 </div>
                 <div class="mc-option" data-q="29" data-value="D">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">D</span>
-                    <span class="mc-text">making generalisations from a small sample</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">D</span> making generalisations from a small sample
                 </div>
                 <div class="mc-option" data-q="29" data-value="E">
-                    <span class="mc-checkbox"></span>
-                    <span class="mc-letter">E</span>
-                    <span class="mc-text">missing some organisms when counting</span>
+                    <span class="mc-checkbox" data-toggle="true"></span>
+                    <span class="mc-letter">E</span> missing some organisms when counting
                 </div>
             </div>
 
-            <!-- STATUS & NAV -->
             <div class="status-bar" id="statusBar"><span class="status-label">Section 3:</span></div>
             <div class="nav-row">
                 <a href="listeningC11T2-section2.html" class="nav-link nav-back">← Section 2</a>
@@ -286,31 +287,26 @@ const STORAGE_KEY = 'C11T2_Section3';
 const passageId = 'c11t2-section3';
 let currentRange = null, activeHighlight = null;
 
-// Status dots
 function renderStatus() {
     const bar = document.getElementById('statusBar'); if (!bar) return;
     bar.querySelectorAll('.q-dot').forEach(d => d.remove());
     [21,22,23,24,25,26,27,28,29,30].forEach(num => {
         const val = localStorage.getItem(`${STORAGE_KEY}_q${num}`);
-        const done = val && val.trim() !== '';
         const dot = document.createElement('span');
-        dot.className = 'q-dot' + (done ? ' done' : '');
+        dot.className = 'q-dot' + (val ? ' done' : '');
         dot.textContent = num; bar.appendChild(dot);
     });
 }
 
-// MC groups: single = self only; pairs share
-const mcPairs = {
-    27: 28,
-    29: 30
-};
+const mcPairs = {27:28, 29:30};
 
 function setupMCOptions() {
     document.querySelectorAll('.mc-option').forEach(opt => {
         const qBase = parseInt(opt.dataset.q);
         const letter = opt.dataset.value;
-        // Load saved state
         const partnerQ = mcPairs[qBase];
+        
+        // Load state
         if (partnerQ) {
             for (const slot of [qBase, partnerQ]) {
                 if (localStorage.getItem(`${STORAGE_KEY}_q${slot}`) === letter) {
@@ -322,14 +318,14 @@ function setupMCOptions() {
                 opt.classList.add('checked');
             }
         }
-        // Click checkbox/letter to select; text is for highlighting
+
+        // ONLY checkbox triggers selection — text is 100% for highlighting
         opt.addEventListener('click', (e) => {
-            if (e.target.closest('.mc-text')) return;
+            if (!e.target.hasAttribute('data-toggle')) return;
             
             const partnerQ = mcPairs[qBase];
             if (!partnerQ) {
-                const current = localStorage.getItem(`${STORAGE_KEY}_q${qBase}`);
-                if (current === letter) {
+                if (localStorage.getItem(`${STORAGE_KEY}_q${qBase}`) === letter) {
                     localStorage.removeItem(`${STORAGE_KEY}_q${qBase}`);
                     opt.classList.remove('checked');
                 } else {
@@ -349,9 +345,8 @@ function setupMCOptions() {
                     localStorage.removeItem(`${STORAGE_KEY}_q${foundSlot}`);
                     opt.classList.remove('checked');
                 } else {
-                    let targetSlot = null;
-                    if (!localStorage.getItem(`${STORAGE_KEY}_q${qBase}`)) targetSlot = qBase;
-                    else if (!localStorage.getItem(`${STORAGE_KEY}_q${partnerQ}`)) targetSlot = partnerQ;
+                    let targetSlot = !localStorage.getItem(`${STORAGE_KEY}_q${qBase}`) ? qBase :
+                                    (!localStorage.getItem(`${STORAGE_KEY}_q${partnerQ}`) ? partnerQ : null);
                     if (targetSlot) {
                         localStorage.setItem(`${STORAGE_KEY}_q${targetSlot}`, letter);
                         opt.classList.add('checked');
@@ -363,35 +358,41 @@ function setupMCOptions() {
     });
 }
 
-// === FIXED: Remove highlight properly, handles nested spans ===
+// === UNIVERSAL REMOVE — works the same everywhere ===
 function removeHighlightClean(el) {
     if (!el || !el.parentNode) return;
-    // Extract plain text, preserve it
-    const textContent = el.textContent || '';
-    const cleanText = textContent.replace(/!$/, '');
-    const textNode = document.createTextNode(cleanText);
-    el.parentNode.replaceChild(textNode, el);
+    // Find the top-level highlight span
+    const hl = el.closest('.highlight');
+    if (!hl) return;
+    // Replace with plain text node
+    const text = hl.textContent;
+    const textNode = document.createTextNode(text);
+    hl.parentNode.replaceChild(textNode, textNode);
 }
+
 function saveHighlights() {
-    const data = Array.from(document.querySelectorAll('#passageArea .highlight')).map(h => ({
+    const data = Array.from(document.querySelectorAll('.highlight')).map(h => ({
         text: h.textContent, note: h.getAttribute('data-note') || ''
     }));
     localStorage.setItem(`${passageId}_highlights`, JSON.stringify(data));
 }
+
 function isSelectionValid(sel) {
     if (!sel || sel.isCollapsed || !sel.toString().trim()) return false;
     try {
-        const p = sel.getRangeAt(0).commonAncestorContainer.nodeType === Node.TEXT_NODE
-            ? sel.getRangeAt(0).commonAncestorContainer.parentElement
-            : sel.getRangeAt(0).commonAncestorContainer;
-        return document.getElementById('passageArea').contains(p) && 
-               !p.closest('button,.context-menu,.note-box');
+        const node = sel.getRangeAt(0).commonAncestorContainer;
+        const p = node.nodeType === Node.TEXT_NODE ? node.parentElement : node;
+        return document.getElementById('passageArea').contains(p) &&
+               !p.closest('.context-menu') && !p.closest('.note-box') &&
+               !p.closest('button');
     } catch { return false; }
 }
 
-// Note drag
-const noteBox = document.getElementById('noteBox'), noteText = document.getElementById('noteText'), noteClose = document.getElementById('noteClose');
+const noteBox = document.getElementById('noteBox');
+const noteText = document.getElementById('noteText');
+const noteClose = document.getElementById('noteClose');
 let isDraggingNote = false, offsetX = 0, offsetY = 0;
+
 noteClose.addEventListener('click', () => { noteBox.style.display = 'none'; activeHighlight = null; });
 noteText.addEventListener('input', () => {
     if (activeHighlight) {
@@ -412,24 +413,27 @@ document.addEventListener('mousemove', e => {
 });
 document.addEventListener('mouseup', () => isDraggingNote = false);
 
-// Context menu
 const ctxMenu = document.getElementById('contextMenu');
 document.addEventListener('contextmenu', e => {
     const sel = window.getSelection();
     const targetHl = e.target.closest('.highlight');
     ctxMenu.style.display = 'none';
+    
     if (targetHl) {
-        e.preventDefault(); activeHighlight = targetHl;
+        e.preventDefault();
+        activeHighlight = targetHl;
         const rc = targetHl.getBoundingClientRect();
         ctxMenu.style.left = (rc.left + window.scrollX) + 'px';
         ctxMenu.style.top = (rc.bottom + window.scrollY + 5) + 'px';
         ctxMenu.style.display = 'block';
     } else if (isSelectionValid(sel)) {
-        e.preventDefault(); currentRange = sel.getRangeAt(0).cloneRange();
+        e.preventDefault();
+        currentRange = sel.getRangeAt(0).cloneRange();
         const rc = currentRange.getBoundingClientRect();
         ctxMenu.style.left = (rc.left + window.scrollX) + 'px';
         ctxMenu.style.top = (rc.bottom + window.scrollY + 5) + 'px';
-        ctxMenu.style.display = 'block'; activeHighlight = null;
+        ctxMenu.style.display = 'block';
+        activeHighlight = null;
     }
 });
 document.addEventListener('click', e => { if (!ctxMenu.contains(e.target)) ctxMenu.style.display = 'none'; });
@@ -438,10 +442,13 @@ document.getElementById('menuHighlight').addEventListener('click', () => {
     if (!currentRange) return;
     try {
         const sp = document.createElement('span');
-        sp.className = 'highlight'; sp.textContent = currentRange.toString();
-        currentRange.deleteContents(); currentRange.insertNode(sp);
-        window.getSelection().removeAllRanges(); saveHighlights();
-    } catch { alert('⚠️ Select smaller text please.'); }
+        sp.className = 'highlight';
+        sp.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(sp);
+        window.getSelection().removeAllRanges();
+        saveHighlights();
+    } catch { alert('⚠️ Select smaller text.'); }
     ctxMenu.style.display = 'none';
 });
 
@@ -451,13 +458,19 @@ document.getElementById('menuAddNote').addEventListener('click', () => {
         if (!currentRange) return;
         try {
             const sp = document.createElement('span');
-            sp.className = 'highlight'; sp.textContent = currentRange.toString();
-            currentRange.deleteContents(); currentRange.insertNode(sp);
-            activeHighlight = sp; window.getSelection().removeAllRanges(); saveHighlights();
-        } catch { alert('⚠️ Select smaller text please.'); return; }
+            sp.className = 'highlight';
+            sp.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(sp);
+            activeHighlight = sp;
+            window.getSelection().removeAllRanges();
+            saveHighlights();
+        } catch { alert('⚠️ Select smaller text.'); return; }
     }
     if (!activeHighlight.querySelector('.note-marker')) {
-        const m = document.createElement('span'); m.className = 'note-marker'; m.textContent = '!';
+        const m = document.createElement('span');
+        m.className = 'note-marker';
+        m.textContent = '!';
         activeHighlight.appendChild(m);
     }
     const rc = activeHighlight.getBoundingClientRect();
@@ -469,11 +482,10 @@ document.getElementById('menuAddNote').addEventListener('click', () => {
 });
 
 document.getElementById('menuRemove').addEventListener('click', () => {
-    ctxMenu.style.display = 'none'; noteBox.style.display = 'none';
+    ctxMenu.style.display = 'none';
+    noteBox.style.display = 'none';
     if (!activeHighlight) return;
-    // Walk up to ensure we get the actual .highlight span
-    const hlSpan = activeHighlight.closest('.highlight') || activeHighlight;
-    removeHighlightClean(hlSpan);
+    removeHighlightClean(activeHighlight);
     activeHighlight = null;
     saveHighlights();
 });
@@ -483,9 +495,13 @@ function clearAll() {
     [21,22,23,24,25,26,27,28,29,30].forEach(n => localStorage.removeItem(`${STORAGE_KEY}_q${n}`));
     localStorage.removeItem(`${passageId}_highlights`);
     document.querySelectorAll('.mc-option').forEach(o => o.classList.remove('checked'));
-    // Remove ALL highlights thoroughly
-    document.querySelectorAll('.highlight').forEach(h => removeHighlightClean(h));
-    noteBox.style.display = 'none'; renderStatus();
+    // Remove ALL highlights — works everywhere
+    document.querySelectorAll('.highlight').forEach(h => {
+        const text = h.textContent;
+        h.parentNode.replaceChild(document.createTextNode(text), h);
+    });
+    noteBox.style.display = 'none';
+    renderStatus();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
