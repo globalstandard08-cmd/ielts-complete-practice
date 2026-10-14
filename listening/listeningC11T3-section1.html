@@ -20,6 +20,21 @@
         .questions-block { border: 1px solid #d1d5db; border-radius: 10px; padding: 25px; margin-bottom: 25px; background: #fafafa; }
         .questions-block h3 { text-align: center; margin-bottom: 20px; color: #1f3a5f; font-size: 20px; }
 
+        /* Example box — clearly separated */
+        .example-box { 
+            background: #f0f4f8; 
+            border-left: 4px solid #6b7280; 
+            padding: 15px 20px; 
+            margin-bottom: 25px; 
+            border-radius: 0 8px 8px 0; 
+        }
+        .example-label { 
+            font-weight: 700; 
+            color: #4b5563; 
+            margin-bottom: 10px; 
+            font-size: 15px; 
+        }
+
         /* === MULTIPLE CHOICE STYLING === */
         .q-group { margin-bottom: 20px; }
         .q-row { margin: 10px 0; }
@@ -33,7 +48,7 @@
         .blank { display: inline-block; border-bottom: 2px solid #374151; min-width: 140px; padding: 2px 6px; margin: 0 6px; background: #fff; border-radius: 2px; }
         .blank.filled { background: #e6fffa; border-bottom-color: #0d9488; }
 
-        /* === HIGHLIGHT / NOTES — identical system === */
+        /* === HIGHLIGHT / NOTES === */
         .highlight { background: #ffd700; padding: 1px 3px; border-radius: 2px; position: relative; }
         .note-marker { position: absolute; top: -8px; right: -8px; width: 18px; height: 18px; background: #1f3a5f; color: #fff; border-radius: 50%; font-size: 11px; display: flex; align-items: center; justify-content: center; z-index: 10; }
         .context-menu { position: absolute; background: #fff; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 180px; }
@@ -106,9 +121,11 @@
 
             <div class="questions-block">
                 <h3>Questions 1–6</h3>
-                <p style="font-weight:600; margin-bottom:12px;">Example</p>
-                <div class="q-group">
-                    <p>The caller wants to find out about events on</p>
+                
+                <!-- ✅ EXAMPLE — CLEARLY SEPARATED ✅ -->
+                <div class="example-box">
+                    <p class="example-label">Example</p>
+                    <p style="margin-bottom: 10px;">The caller wants to find out about events on</p>
                     <label class="option">A 27 June.</label>
                     <label class="option">B 28 June.</label>
                     <label class="option selected">C 29 June.</label>
@@ -198,7 +215,6 @@ function renderStatus() {
     if (!bar) return;
     bar.querySelectorAll('.q-dot').forEach(d => d.remove());
     [1,2,3,4,5,6,7,8,9,10].forEach(q => {
-        const mc = localStorage.getItem(`${STORAGE}_q${q}`);
         const fill = localStorage.getItem(`${STORAGE}_q${q}`);
         const dot = document.createElement('span');
         dot.className = 'q-dot' + (fill && fill.trim() !== '' ? ' done' : '');
@@ -247,7 +263,7 @@ document.querySelectorAll('.blank').forEach(input => {
     });
 });
 
-// === HIGHLIGHT SYSTEM — EXACT SAME WORKING CODE ===
+// === HIGHLIGHT SYSTEM ===
 function unwrapHighlight(hl) {
     if (!hl) return;
     const text = hl.textContent;
