@@ -20,14 +20,17 @@
         .questions-block { border: 1px solid #d1d5db; border-radius: 10px; padding: 25px; margin-bottom: 25px; background: #fafafa; }
         .questions-block h3 { text-align: center; margin-bottom: 20px; color: #1f3a5f; font-size: 20px; }
 
-        /* === IMPROVED TABLE LAYOUT Q21–26 === */
+        /* === CLEAR TABLE LAYOUT — ALL NUMBERS VISIBLE === */
         .completion-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
         .completion-table th, .completion-table td {
-            border: 1px solid #374151; padding: 18px 20px; vertical-align: middle;
+            border: 1px solid #374151; padding: 18px 20px; vertical-align: top;
         }
         .completion-table th { background: #e5e7eb; font-weight: 700; text-align: left; font-size: 15px; }
-        .q-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 6px 0; }
-        .q-num { font-weight: 600; min-width: 28px; display: inline-block; }
+        .q-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+        .q-num { 
+            font-weight: 700; min-width: 32px; display: inline-block; 
+            color: #1f3a5f; font-size: 16px;
+        }
         .blank {
             border: none; border-bottom: 2px solid #374151;
             padding: 4px 6px; text-align: center; font-size: 16px;
@@ -136,6 +139,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- ROW 1: Q21 + Q22 -->
                         <tr>
                             <td>
                                 <div class="q-row">
@@ -146,12 +150,14 @@
                             </td>
                             <td>
                                 <div class="q-row">
+                                    <span class="q-num">22</span>
                                     <span>Add Malcolm and a</span>
                                     <input type="text" class="blank" data-q="22" placeholder="__________">
                                     <span>noticing him</span>
                                 </div>
                             </td>
                         </tr>
+                        <!-- ROW 2: Q23 + Q24 -->
                         <tr>
                             <td>
                                 <div class="q-row">
@@ -163,11 +169,13 @@
                             </td>
                             <td>
                                 <div class="q-row">
+                                    <span class="q-num">24</span>
                                     <span>Add Malcolm sitting on a tree trunk and</span>
                                     <input type="text" class="blank" data-q="24" placeholder="__________">
                                 </div>
                             </td>
                         </tr>
+                        <!-- ROW 3: Q25 + Q26 -->
                         <tr>
                             <td>
                                 <div class="q-row">
@@ -179,6 +187,7 @@
                             </td>
                             <td>
                                 <div class="q-row">
+                                    <span class="q-num">26</span>
                                     <span>Add a</span>
                                     <input type="text" class="blank" data-q="26" placeholder="__________">
                                     <span>for each person</span>
@@ -256,7 +265,7 @@ function renderStatus() {
     });
 }
 
-// === SENTENCE COMPLETION HANDLING 21–26 ===
+// === COMPLETION HANDLING 21–26 ===
 document.querySelectorAll('.blank').forEach(input => {
     const q = input.dataset.q;
     const saved = localStorage.getItem(`${STORAGE}_q${q}`);
