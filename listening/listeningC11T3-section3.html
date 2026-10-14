@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge 11 — Test 3 — Section 3</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: #f4f6f9; padding: 20px; line-height: 1.7; user-select: text; }
+        .container { max-width: 1100px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .logo-section { text-align: center; padding: 20px; border-bottom: 1px solid #e5e7eb; }
+        .logo-img { max-width: 400px; width: 80%; height: auto; }
+        .header-bar { background: #1f3a5f; color: #fff; padding: 15px 25px; font-size: 18px; font-weight: 700; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+        .audio-player { background: #eff6ff; padding: 20px; margin: 20px; border-radius: 10px; text-align: center; border: 1px solid #bfdbfe; }
+        .audio-player h3 { color: #1e40af; margin-bottom: 10px; font-size: 16px; }
+        audio { width: 100%; max-width: 500px; }
+        .content { padding: 0 30px 30px; }
+        h2 { color: #1f3a5f; margin: 25px 0 15px; font-size: 22px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
+        .instruction { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        .questions-block { border: 1px solid #d1d5db; border-radius: 10px; padding: 25px; margin-bottom: 25px; background: #fafafa; }
+        .questions-block h3 { text-align: center; margin-bottom: 20px; color: #1f3a5f; font-size: 20px; }
+
+        /* === COMPLETION TABLE Q21–26 === */
+        .completion-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        .completion-table th, .completion-table td {
+            border: 1px solid #374151; padding: 14px 16px; vertical-align: middle;
+        }
+        .completion-table th { background: #e5e7eb; font-weight: 700; text-align: left; }
+        .blank-cell { text-align: center; width: 140px; }
+        .blank {
+            width: 100%; border: none; border-bottom: 2px solid #374151;
+            padding: 4px 6px; text-align: center; font-size: 16px; background: transparent; outline: none;
+        }
+        .blank.filled { background: #e6fffa; border-bottom-color: #0d9488; font-weight: 600; }
+
+        /* === MATCHING BOX LEFT / RIGHT Q27–30 === */
+        .split-container { display: flex; gap: 25px; margin-top: 20px; flex-wrap: wrap; }
+        .split-left { flex: 1 1 280px; }
+        .split-right { flex: 1 1 340px; }
+        .options-box { border: 1px solid #374151; border-radius: 8px; padding: 18px; background: #f8fafc; }
+        .option-row { padding: 6px 4px; border-bottom: 1px solid #e5e7eb; }
+        .option-row:last-child { border-bottom: none; }
+        .item-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 6px; border-bottom: 1px solid #e5e7eb; flex-wrap: wrap; gap: 8px; }
+        .item-row:last-child { border-bottom: none; }
+        .answer-box {
+            width: 44px; height: 32px; border: 1px solid #374151; border-radius: 4px;
+            text-align: center; font-weight: 700; font-size: 16px; background: #fff;
+        }
+        .answer-box.filled { background: #e6fffa; border-color: #0d9488; color: #0d9488; }
+
+        /* === HIGHLIGHT / NOTES === */
+        .highlight { background: #ffd700; padding: 1px 3px; border-radius: 2px; position: relative; }
+        .note-marker { position: absolute; top: -8px; right: -8px; width: 18px; height: 18px; background: #1f3a5f; color: #fff; border-radius: 50%; font-size: 11px; display: flex; align-items: center; justify-content: center; z-index: 10; }
+        .context-menu { position: absolute; background: #fff; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 180px; }
+        .context-menu div { padding: 10px 14px; cursor: pointer; border-bottom: 1px solid #f0f0f0; }
+        .context-menu div:last-child { border-bottom: none; }
+        .context-menu div:hover { background: #f0f0f0; }
+        .note-box { position: absolute; width: 260px; min-height: 80px; background: #fffde7; border: 1px solid #f9d423; border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); z-index: 9990; display: none; }
+        .note-header { background: #f9d423; padding: 6px 10px; font-size: 13px; font-weight: bold; cursor: move; display: flex; justify-content: space-between; align-items: center; }
+        .note-close { cursor: pointer; font-weight: bold; font-size: 16px; }
+        .note-textarea { width: 100%; min-height: 60px; border: none; padding: 10px; font-size: 14px; resize: vertical; background: transparent; outline: none; }
+
+        .status-bar { display: flex; flex-wrap: wrap; gap: 6px; margin: 20px 0; padding: 15px; background: #f3f4f6; border-radius: 8px; border: 1px solid #e5e7eb; }
+        .status-label { font-size: 12px; font-weight: 600; color: #4b5563; margin-right: 8px; }
+        .q-dot { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 4px; background: #e5e7eb; color: #6b7280; font-size: 11px; font-weight: 600; }
+        .q-dot.done { background: #10b981; color: #fff; }
+        .clear-btn { background: #ef4444; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: background 0.2s; }
+        .clear-btn:hover { background: #dc2626; }
+        .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb; flex-wrap: wrap; gap: 12px; }
+        .nav-group { display: flex; gap: 10px; flex-wrap: wrap; }
+        .nav-link { padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: background 0.2s; }
+        .nav-back { background: #e5e7eb; color: #374151; }
+        .nav-back:hover { background: #d1d5db; }
+        .nav-lib { background: #fef3c7; color: #92400e; }
+        .nav-lib:hover { background: #fde68a; }
+        .nav-next { background: #1f3a5f; color: #fff; }
+        .nav-next:hover { background: #163050; }
+
+        @media (max-width: 768px) {
+            .content { padding: 0 15px 20px; }
+            .questions-block { padding: 18px; }
+            .completion-table th, .completion-table td { padding: 10px 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="context-menu" id="ctxMenu">
+        <div id="doHighlight">🖍️ Highlight</div>
+        <div id="doNote">📝 Add Note</div>
+        <div id="doRemove">❌ Remove Highlight</div>
+    </div>
+    <div class="note-box" id="noteBox">
+        <div class="note-header">
+            <span>📝 Note</span>
+            <span class="note-close" id="closeNote">×</span>
+        </div>
+        <textarea id="noteText" placeholder="Your note…"></textarea>
+    </div>
+
+    <div class="container">
+        <div class="logo-section">
+            <img src="../ielts-logo.png" alt="IELTS Logo" class="logo-img" onerror="this.style.display='none'">
+        </div>
+        <div class="header-bar">
+            <span>Cambridge 11 — Test 3 · Section 3</span>
+            <span>Questions 21–30</span>
+        </div>
+        <div class="audio-player">
+            <h3>🎧 Play Recording</h3>
+            <audio controls preload="auto">
+                <source src="c11-t3-audio3.mp3" type="audio/mpeg">
+                <source src="listening/c11-t3-audio3.mp3" type="audio/mpeg">
+                <source src="../c11-t3-audio3.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            
+        </div>
+        <div class="content" id="passageArea">
+            <h2>Section 3 — Questions 21–30</h2>
+            <div class="instruction">
+                <strong>Art Project — Discussion on Illustrations</strong><br>
+                Questions 21–26: Complete the table below. Write <strong>ONE WORD ONLY</strong> for each answer.<br>
+                Questions 27–30: Choose the correct letter A–D next to each question.<br>
+                Right‑click selected text → choose Highlight or Remove.
+            </div>
+
+            <div class="questions-block">
+                <h3>Questions 21–26</h3>
+
+                <table class="completion-table">
+                    <thead>
+                        <tr>
+                            <th>Subject of drawing</th>
+                            <th>Change to be made</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A <input type="text" class="blank" data-q="21" placeholder="__________"> surrounded by trees</td>
+                            <td>Add Malcolm and a <input type="text" class="blank" data-q="22" placeholder="__________"> noticing him</td>
+                        </tr>
+                        <tr>
+                            <td>People who are <input type="text" class="blank" data-q="23" placeholder="__________"> outside the forest</td>
+                            <td>Add Malcolm sitting on a tree trunk and <input type="text" class="blank" data-q="24" placeholder="__________"></td>
+                        </tr>
+                        <tr>
+                            <td>Ice-skaters on <input type="text" class="blank" data-q="25" placeholder="__________"> covered with ice</td>
+                            <td>Add a <input type="text" class="blank" data-q="26" placeholder="__________"> for each person</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="margin-top:30px;">Questions 27–30</h3>
+                <p style="margin-bottom:10px;">Who is going to write each of the following parts of the report?</p>
+
+                <!-- ✅ SPLIT LAYOUT: OPTIONS LEFT, ITEMS RIGHT ✅ -->
+                <div class="split-container">
+                    <div class="split-left">
+                        <div class="options-box">
+                            <h4 style="text-align:center; margin-bottom:12px; color:#1f3a5f; font-size:16px;">Parts of report</h4>
+                            <div class="option-row"><strong>A</strong> Helen only</div>
+                            <div class="option-row"><strong>B</strong> Jeremy only</div>
+                            <div class="option-row"><strong>C</strong> both Helen and Jeremy</div>
+                            <div class="option-row"><strong>D</strong> neither Helen nor Jeremy</div>
+                        </div>
+                    </div>
+                    <div class="split-right">
+                        <p style="font-weight:600; margin-bottom:10px;">Who writes it?</p>
+                        <div class="item-row" data-q="27">
+                            <span><strong>27</strong> how they planned the project</span>
+                            <input type="text" class="answer-box" data-q="27" maxlength="1" placeholder="A–D">
+                        </div>
+                        <div class="item-row" data-q="28">
+                            <span><strong>28</strong> how they had ideas for their stories</span>
+                            <input type="text" class="answer-box" data-q="28" maxlength="1" placeholder="A–D">
+                        </div>
+                        <div class="item-row" data-q="29">
+                            <span><strong>29</strong> an interpretation of their stories</span>
+                            <input type="text" class="answer-box" data-q="29" maxlength="1" placeholder="A–D">
+                        </div>
+                        <div class="item-row" data-q="30">
+                            <span><strong>30</strong> comments on the illustrations</span>
+                            <input type="text" class="answer-box" data-q="30" maxlength="1" placeholder="A–D">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-bar" id="statusBar"><span class="status-label">Section 3:</span></div>
+            <div class="nav-row">
+                <div class="nav-group">
+                    <a href="listeningC11T3-section2.html" class="nav-link nav-back">← Section 2</a>
+                    <a href="../library.html" class="nav-link nav-lib">📚 Library</a>
+                </div>
+                <a href="listeningC11T3-section4.html" class="nav-link nav-next">Section 4 →</a>
+            </div>
+        </div>
+        <div style="padding:0 30px 20px;">
+            <button class="clear-btn" id="clearAll">🗑️ Clear All</button>
+        </div>
+    </div>
+
+<script>
+const STORAGE = 'C11T3_S3';
+let currentRange = null, activeHL = null;
+
+// Status dots
+function renderStatus() {
+    const bar = document.getElementById('statusBar');
+    if (!bar) return;
+    bar.querySelectorAll('.q-dot').forEach(d => d.remove());
+    [21,22,23,24,25,26,27,28,29,30].forEach(q => {
+        const ans = localStorage.getItem(`${STORAGE}_q${q}`);
+        const dot = document.createElement('span');
+        dot.className = 'q-dot' + (ans && ans.trim() !== '' ? ' done' : '');
+        dot.textContent = q;
+        bar.appendChild(dot);
+    });
+}
+
+// === SENTENCE COMPLETION HANDLING 21–26 ===
+document.querySelectorAll('.blank').forEach(input => {
+    const q = input.dataset.q;
+    const saved = localStorage.getItem(`${STORAGE}_q${q}`);
+    if (saved) {
+        input.value = saved;
+        input.classList.add('filled');
+    }
+    input.addEventListener('input', () => {
+        const val = input.value.trim();
+        if (val) {
+            localStorage.setItem(`${STORAGE}_q${q}`, val);
+            input.classList.add('filled');
+        } else {
+            localStorage.removeItem(`${STORAGE}_q${q}`);
+            input.classList.remove('filled');
+        }
+        renderStatus();
+    });
+});
+
+// === MATCHING HANDLING 27–30 (A–D) ===
+document.querySelectorAll('.answer-box').forEach(box => {
+    const q = box.dataset.q;
+    const saved = localStorage.getItem(`${STORAGE}_q${q}`);
+    if (saved) {
+        box.value = saved;
+        box.classList.add('filled');
+    }
+    box.addEventListener('input', () => {
+        const val = box.value.trim().toUpperCase();
+        box.value = val;
+        if (/^[A-D]$/.test(val)) {
+            localStorage.setItem(`${STORAGE}_q${q}`, val);
+            box.classList.add('filled');
+        } else if (val === '') {
+            localStorage.removeItem(`${STORAGE}_q${q}`);
+            box.classList.remove('filled');
+        }
+        renderStatus();
+    });
+});
+
+// === HIGHLIGHT SYSTEM ===
+function unwrapHighlight(hl) {
+    if (!hl) return;
+    const text = hl.textContent;
+    const txtNode = document.createTextNode(text);
+    hl.parentNode.replaceChild(txtNode, hl);
+    if (txtNode.previousSibling && txtNode.previousSibling.nodeType === Node.TEXT_NODE) {
+        txtNode.nodeValue = txtNode.previousSibling.nodeValue + txtNode.nodeValue;
+        txtNode.parentNode.removeChild(txtNode.previousSibling);
+    }
+    if (txtNode.nextSibling && txtNode.nextSibling.nodeType === Node.TEXT_NODE) {
+        txtNode.nodeValue = txtNode.nodeValue + txtNode.nextSibling.nodeValue;
+        txtNode.parentNode.removeChild(txtNode.nextSibling);
+    }
+    saveHL();
+}
+
+function saveHL() {
+    const data = Array.from(document.querySelectorAll('.highlight')).map(h => ({
+        text: h.textContent,
+        note: h.dataset.note || ''
+    }));
+    localStorage.setItem(`${STORAGE}_hl`, JSON.stringify(data));
+}
+
+function isValidSelection(sel) {
+    if (!sel || sel.isCollapsed || !sel.toString().trim()) return false;
+    try {
+        let n = sel.getRangeAt(0).commonAncestorContainer;
+        if (n.nodeType === Node.TEXT_NODE) n = n.parentElement;
+        return document.getElementById('passageArea').contains(n) &&
+               !n.closest('.context-menu') && !n.closest('.note-box') && !n.closest('input');
+    } catch { return false; }
+}
+
+const ctx = document.getElementById('ctxMenu');
+document.addEventListener('contextmenu', e => {
+    const sel = window.getSelection();
+    const clickedHL = e.target.closest('.highlight');
+    ctx.style.display = 'none';
+
+    if (clickedHL) {
+        e.preventDefault();
+        activeHL = clickedHL;
+        const rc = clickedHL.getBoundingClientRect();
+        ctx.style.left = rc.left + window.scrollX + 'px';
+        ctx.style.top = rc.bottom + window.scrollY + 5 + 'px';
+        ctx.style.display = 'block';
+    } else if (isValidSelection(sel)) {
+        e.preventDefault();
+        currentRange = sel.getRangeAt(0).cloneRange();
+        const rc = currentRange.getBoundingClientRect();
+        ctx.style.left = rc.left + window.scrollX + 'px';
+        ctx.style.top = rc.bottom + window.scrollY + 5 + 'px';
+        ctx.style.display = 'block';
+        activeHL = null;
+    }
+});
+document.addEventListener('click', e => { if (!ctx.contains(e.target)) ctx.style.display = 'none'; });
+
+document.getElementById('doHighlight').onclick = () => {
+    if (!currentRange) return;
+    try {
+        const span = document.createElement('span');
+        span.className = 'highlight';
+        span.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(span);
+        window.getSelection().removeAllRanges();
+        saveHL();
+    } catch { alert('⚠️ Select shorter text.'); }
+    ctx.style.display = 'none';
+};
+
+document.getElementById('doRemove').onclick = () => {
+    ctx.style.display = 'none';
+    if (!activeHL) return;
+    unwrapHighlight(activeHL);
+    activeHL = null;
+};
+
+const noteBox = document.getElementById('noteBox');
+const noteText = document.getElementById('noteText');
+document.getElementById('doNote').onclick = () => {
+    ctx.style.display = 'none';
+    if (!activeHL) {
+        if (!currentRange) return;
+        try {
+            const span = document.createElement('span');
+            span.className = 'highlight';
+            span.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(span);
+            activeHL = span;
+            window.getSelection().removeAllRanges();
+            saveHL();
+        } catch { return; }
+    }
+    if (!activeHL.querySelector('.note-marker')) {
+        const m = document.createElement('span');
+        m.className = 'note-marker';
+        m.textContent = '!';
+        activeHL.appendChild(m);
+    }
+    noteText.value = activeHL.dataset.note || '';
+    const rc = activeHL.getBoundingClientRect();
+    noteBox.style.left = rc.right + window.scrollX + 10 + 'px';
+    noteBox.style.top = rc.top + window.scrollY + 'px';
+    noteBox.style.display = 'block';
+    noteText.focus();
+};
+document.getElementById('closeNote').onclick = () => { noteBox.style.display = 'none'; activeHL = null; };
+noteText.oninput = () => {
+    if (activeHL) { activeHL.dataset.note = noteText.value; saveHL(); }
+};
+
+// Clear All
+document.getElementById('clearAll').onclick = () => {
+    if (!confirm('⚠️ Clear all answers and highlights? This cannot be undone.')) return;
+    [21,22,23,24,25,26,27,28,29,30].forEach(q => localStorage.removeItem(`${STORAGE}_q${q}`));
+    localStorage.removeItem(`${STORAGE}_hl`);
+    document.querySelectorAll('.blank, .answer-box').forEach(el => {
+        el.value = '';
+        el.classList.remove('filled');
+    });
+    document.querySelectorAll('.highlight').forEach(h => unwrapHighlight(h));
+    noteBox.style.display = 'none';
+    renderStatus();
+};
+
+renderStatus();
+</script>
+</body>
+</html>
