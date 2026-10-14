@@ -21,12 +21,13 @@
         .questions-block h3 { text-align: center; margin-bottom: 20px; color: #1f3a5f; font-size: 20px; }
         .questions-block h4 { margin: 20px 0 12px; color: #374151; font-size: 16px; }
 
-        /* === MULTIPLE CHOICE STYLES — same as Section 2 === */
+        /* === MULTIPLE CHOICE — fully selectable text === */
         .mc-option { display: flex; align-items: center; margin: 8px 0; cursor: pointer; }
         .mc-checkbox { width: 20px; height: 20px; border: 2px solid #d1d5db; border-radius: 4px; margin-right: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: #fff; transition: all 0.2s; }
         .mc-option.checked .mc-checkbox { background: #1f3a5f; border-color: #1f3a5f; color: white; }
         .mc-option.checked .mc-checkbox::after { content: "✓"; font-weight: bold; font-size: 13px; }
-        .mc-letter { font-weight: 600; min-width: 24px; display: inline-block; }
+        .mc-letter { font-weight: 600; min-width: 24px; display: inline-block; pointer-events: none; }
+        .mc-text { pointer-events: none; }
 
         /* === HIGHLIGHT & NOTE SYSTEM === */
         .highlight { background-color: #ffd700; padding: 2px 4px; border-radius: 2px; cursor: pointer; display: inline; position: relative; transition: background-color 0.2s; }
@@ -103,34 +104,106 @@
                 <p style="margin-bottom:15px;"><strong>Choose the correct letter, A, B or C.</strong></p>
 
                 <p style="margin-bottom:8px;"><strong>21</strong> What do the students agree should be included in their aims?</p>
-                <div class="mc-option" data-q="21" data-value="A"><span class="mc-checkbox"></span><span class="mc-letter">A</span> factors affecting where organisms live</div>
-                <div class="mc-option" data-q="21" data-value="B"><span class="mc-checkbox"></span><span class="mc-letter">B</span> the need to preserve endangered species</div>
-                <div class="mc-option" data-q="21" data-value="C"><span class="mc-checkbox"></span><span class="mc-letter">C</span> techniques for classifying different organisms</div>
+                <div class="mc-option" data-q="21" data-value="A">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">A</span>
+                    <span class="mc-text">factors affecting where organisms live</span>
+                </div>
+                <div class="mc-option" data-q="21" data-value="B">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">B</span>
+                    <span class="mc-text">the need to preserve endangered species</span>
+                </div>
+                <div class="mc-option" data-q="21" data-value="C">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">C</span>
+                    <span class="mc-text">techniques for classifying different organisms</span>
+                </div>
 
                 <p style="margin:20px 0 8px;"><strong>22</strong> What equipment did they forget to take on the Field Trip?</p>
-                <div class="mc-option" data-q="22" data-value="A"><span class="mc-checkbox"></span><span class="mc-letter">A</span> string</div>
-                <div class="mc-option" data-q="22" data-value="B"><span class="mc-checkbox"></span><span class="mc-letter">B</span> a compass</div>
-                <div class="mc-option" data-q="22" data-value="C"><span class="mc-checkbox"></span><span class="mc-letter">C</span> a ruler</div>
+                <div class="mc-option" data-q="22" data-value="A">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">A</span>
+                    <span class="mc-text">string</span>
+                </div>
+                <div class="mc-option" data-q="22" data-value="B">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">B</span>
+                    <span class="mc-text">a compass</span>
+                </div>
+                <div class="mc-option" data-q="22" data-value="C">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">C</span>
+                    <span class="mc-text">a ruler</span>
+                </div>
 
                 <p style="margin:20px 0 8px;"><strong>23</strong> In Helen's procedure section, Colin suggests a change in</p>
-                <div class="mc-option" data-q="23" data-value="A"><span class="mc-checkbox"></span><span class="mc-letter">A</span> the order in which information is given.</div>
-                <div class="mc-option" data-q="23" data-value="B"><span class="mc-checkbox"></span><span class="mc-letter">B</span> the way the information is divided up.</div>
-                <div class="mc-option" data-q="23" data-value="C"><span class="mc-checkbox"></span><span class="mc-letter">C</span> the amount of information provided.</div>
+                <div class="mc-option" data-q="23" data-value="A">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">A</span>
+                    <span class="mc-text">the order in which information is given.</span>
+                </div>
+                <div class="mc-option" data-q="23" data-value="B">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">B</span>
+                    <span class="mc-text">the way the information is divided up.</span>
+                </div>
+                <div class="mc-option" data-q="23" data-value="C">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">C</span>
+                    <span class="mc-text">the amount of information provided.</span>
+                </div>
 
                 <p style="margin:20px 0 8px;"><strong>24</strong> What do they say about the method they used to measure wave speed?</p>
-                <div class="mc-option" data-q="24" data-value="A"><span class="mc-checkbox"></span><span class="mc-letter">A</span> It provided accurate results.</div>
-                <div class="mc-option" data-q="24" data-value="B"><span class="mc-checkbox"></span><span class="mc-letter">B</span> It was simple to carry out.</div>
-                <div class="mc-option" data-q="24" data-value="C"><span class="mc-checkbox"></span><span class="mc-letter">C</span> It required special equipment.</div>
+                <div class="mc-option" data-q="24" data-value="A">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">A</span>
+                    <span class="mc-text">It provided accurate results.</span>
+                </div>
+                <div class="mc-option" data-q="24" data-value="B">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">B</span>
+                    <span class="mc-text">It was simple to carry out.</span>
+                </div>
+                <div class="mc-option" data-q="24" data-value="C">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">C</span>
+                    <span class="mc-text">It required special equipment.</span>
+                </div>
 
                 <p style="margin:20px 0 8px;"><strong>25</strong> What mistake did Helen make when first drawing the map?</p>
-                <div class="mc-option" data-q="25" data-value="A"><span class="mc-checkbox"></span><span class="mc-letter">A</span> She chose the wrong scale.</div>
-                <div class="mc-option" data-q="25" data-value="B"><span class="mc-checkbox"></span><span class="mc-letter">B</span> She stood in the wrong place.</div>
-                <div class="mc-option" data-q="25" data-value="C"><span class="mc-checkbox"></span><span class="mc-letter">C</span> She did it at the wrong time.</div>
+                <div class="mc-option" data-q="25" data-value="A">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">A</span>
+                    <span class="mc-text">She chose the wrong scale.</span>
+                </div>
+                <div class="mc-option" data-q="25" data-value="B">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">B</span>
+                    <span class="mc-text">She stood in the wrong place.</span>
+                </div>
+                <div class="mc-option" data-q="25" data-value="C">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">C</span>
+                    <span class="mc-text">She did it at the wrong time.</span>
+                </div>
 
                 <p style="margin:20px 0 8px;"><strong>26</strong> What do they decide to do next with their map?</p>
-                <div class="mc-option" data-q="26" data-value="A"><span class="mc-checkbox"></span><span class="mc-letter">A</span> scan it onto a computer</div>
-                <div class="mc-option" data-q="26" data-value="B"><span class="mc-checkbox"></span><span class="mc-letter">B</span> check it using photographs</div>
-                <div class="mc-option" data-q="26" data-value="C"><span class="mc-checkbox"></span><span class="mc-letter">C</span> add information from the internet</div>
+                <div class="mc-option" data-q="26" data-value="A">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">A</span>
+                    <span class="mc-text">scan it onto a computer</span>
+                </div>
+                <div class="mc-option" data-q="26" data-value="B">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">B</span>
+                    <span class="mc-text">check it using photographs</span>
+                </div>
+                <div class="mc-option" data-q="26" data-value="C">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">C</span>
+                    <span class="mc-text">add information from the internet</span>
+                </div>
             </div>
 
             <!-- ===== Q27–28: DOUBLE MC ===== -->
@@ -138,11 +211,31 @@
                 <h3>Questions 27 and 28</h3>
                 <p style="margin-bottom:15px;"><strong>Choose TWO letters, A–E.</strong></p>
                 <p style="margin-bottom:8px;">Which TWO problems affecting organisms in the splash zone are mentioned?</p>
-                <div class="mc-option" data-q="27" data-value="A"><span class="mc-checkbox"></span><span class="mc-letter">A</span> lack of water</div>
-                <div class="mc-option" data-q="27" data-value="B"><span class="mc-checkbox"></span><span class="mc-letter">B</span> strong winds</div>
-                <div class="mc-option" data-q="27" data-value="C"><span class="mc-letter">C</span> lack of food</div>
-                <div class="mc-option" data-q="27" data-value="D"><span class="mc-checkbox"></span><span class="mc-letter">D</span> high temperatures</div>
-                <div class="mc-option" data-q="27" data-value="E"><span class="mc-checkbox"></span><span class="mc-letter">E</span> large waves</div>
+                <div class="mc-option" data-q="27" data-value="A">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">A</span>
+                    <span class="mc-text">lack of water</span>
+                </div>
+                <div class="mc-option" data-q="27" data-value="B">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">B</span>
+                    <span class="mc-text">strong winds</span>
+                </div>
+                <div class="mc-option" data-q="27" data-value="C">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">C</span>
+                    <span class="mc-text">lack of food</span>
+                </div>
+                <div class="mc-option" data-q="27" data-value="D">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">D</span>
+                    <span class="mc-text">high temperatures</span>
+                </div>
+                <div class="mc-option" data-q="27" data-value="E">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">E</span>
+                    <span class="mc-text">large waves</span>
+                </div>
             </div>
 
             <!-- ===== Q29–30: DOUBLE MC ===== -->
@@ -150,11 +243,31 @@
                 <h3>Questions 29 and 30</h3>
                 <p style="margin-bottom:15px;"><strong>Choose TWO letters, A–E.</strong></p>
                 <p style="margin-bottom:8px;">Which TWO reasons for possible error will they include in their report?</p>
-                <div class="mc-option" data-q="29" data-value="A"><span class="mc-checkbox"></span><span class="mc-letter">A</span> inaccurate records of the habitat of organisms</div>
-                <div class="mc-option" data-q="29" data-value="B"><span class="mc-checkbox"></span><span class="mc-letter">B</span> influence on behaviour of organisms by observer</div>
-                <div class="mc-option" data-q="29" data-value="C"><span class="mc-checkbox"></span><span class="mc-letter">C</span> incorrect identification of some organisms</div>
-                <div class="mc-option" data-q="29" data-value="D"><span class="mc-checkbox"></span><span class="mc-letter">D</span> making generalisations from a small sample</div>
-                <div class="mc-option" data-q="29" data-value="E"><span class="mc-checkbox"></span><span class="mc-letter">E</span> missing some organisms when counting</div>
+                <div class="mc-option" data-q="29" data-value="A">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">A</span>
+                    <span class="mc-text">inaccurate records of the habitat of organisms</span>
+                </div>
+                <div class="mc-option" data-q="29" data-value="B">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">B</span>
+                    <span class="mc-text">influence on behaviour of organisms by observer</span>
+                </div>
+                <div class="mc-option" data-q="29" data-value="C">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">C</span>
+                    <span class="mc-text">incorrect identification of some organisms</span>
+                </div>
+                <div class="mc-option" data-q="29" data-value="D">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">D</span>
+                    <span class="mc-text">making generalisations from a small sample</span>
+                </div>
+                <div class="mc-option" data-q="29" data-value="E">
+                    <span class="mc-checkbox"></span>
+                    <span class="mc-letter">E</span>
+                    <span class="mc-text">missing some organisms when counting</span>
+                </div>
             </div>
 
             <!-- STATUS & NAV -->
@@ -209,7 +322,11 @@ function setupMCOptions() {
                 opt.classList.add('checked');
             }
         }
-        opt.addEventListener('click', () => {
+        // Click checkbox area to select; text area is for highlighting
+        opt.addEventListener('click', (e) => {
+            // Only trigger selection if clicking the checkbox or letter, NOT the text span
+            if (e.target.closest('.mc-text')) return;
+            
             const partnerQ = mcPairs[qBase];
             if (!partnerQ) {
                 // Single choice: replace on click
@@ -268,7 +385,7 @@ function isSelectionValid(sel) {
             ? sel.getRangeAt(0).commonAncestorContainer.parentElement
             : sel.getRangeAt(0).commonAncestorContainer;
         return document.getElementById('passageArea').contains(p) && 
-               !p.closest('button,.context-menu,.note-box,.mc-option');
+               !p.closest('button,.context-menu,.note-box');
     } catch { return false; }
 }
 
