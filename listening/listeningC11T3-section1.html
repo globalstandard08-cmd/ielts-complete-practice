@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge 11 — Test 3 — Section 1</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: #f4f6f9; padding: 20px; line-height: 1.7; user-select: text; }
+        .container { max-width: 1100px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .logo-section { text-align: center; padding: 20px; border-bottom: 1px solid #e5e7eb; }
+        .logo-img { max-width: 400px; width: 80%; height: auto; }
+        .header-bar { background: #1f3a5f; color: #fff; padding: 15px 25px; font-size: 18px; font-weight: 700; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+        .audio-player { background: #eff6ff; padding: 20px; margin: 20px; border-radius: 10px; text-align: center; border: 1px solid #bfdbfe; }
+        .audio-player h3 { color: #1e40af; margin-bottom: 10px; font-size: 16px; }
+        audio { width: 100%; max-width: 500px; }
+        .content { padding: 0 30px 30px; }
+        h2 { color: #1f3a5f; margin: 25px 0 15px; font-size: 22px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
+        .instruction { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        .questions-block { border: 1px solid #d1d5db; border-radius: 10px; padding: 25px; margin-bottom: 25px; background: #fafafa; }
+        .questions-block h3 { text-align: center; margin-bottom: 20px; color: #1f3a5f; font-size: 20px; }
+
+        /* === MULTIPLE CHOICE STYLING === */
+        .q-group { margin-bottom: 20px; }
+        .q-row { margin: 10px 0; }
+        .q-num { font-weight: 600; min-width: 32px; display: inline-block; }
+        .option { display: block; margin: 4px 0 4px 32px; cursor: pointer; padding: 2px 6px; border-radius: 4px; transition: background 0.15s; }
+        .option:hover { background: #f3f4f6; }
+        .option.selected { background: #e6fffa; color: #0d9488; font-weight: 600; }
+
+        /* === SENTENCE COMPLETION === */
+        .completion-row { display: flex; align-items: baseline; margin: 10px 0; flex-wrap: wrap; row-gap: 6px; }
+        .blank { display: inline-block; border-bottom: 2px solid #374151; min-width: 140px; padding: 2px 6px; margin: 0 6px; background: #fff; border-radius: 2px; }
+        .blank.filled { background: #e6fffa; border-bottom-color: #0d9488; }
+
+        /* === HIGHLIGHT / NOTES — identical system === */
+        .highlight { background: #ffd700; padding: 1px 3px; border-radius: 2px; position: relative; }
+        .note-marker { position: absolute; top: -8px; right: -8px; width: 18px; height: 18px; background: #1f3a5f; color: #fff; border-radius: 50%; font-size: 11px; display: flex; align-items: center; justify-content: center; z-index: 10; }
+        .context-menu { position: absolute; background: #fff; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 180px; }
+        .context-menu div { padding: 10px 14px; cursor: pointer; border-bottom: 1px solid #f0f0f0; }
+        .context-menu div:last-child { border-bottom: none; }
+        .context-menu div:hover { background: #f0f0f0; }
+        .note-box { position: absolute; width: 260px; min-height: 80px; background: #fffde7; border: 1px solid #f9d423; border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); z-index: 9990; display: none; }
+        .note-header { background: #f9d423; padding: 6px 10px; font-size: 13px; font-weight: bold; cursor: move; display: flex; justify-content: space-between; align-items: center; }
+        .note-close { cursor: pointer; font-weight: bold; font-size: 16px; }
+        .note-textarea { width: 100%; min-height: 60px; border: none; padding: 10px; font-size: 14px; resize: vertical; background: transparent; outline: none; }
+
+        .status-bar { display: flex; flex-wrap: wrap; gap: 6px; margin: 20px 0; padding: 15px; background: #f3f4f6; border-radius: 8px; border: 1px solid #e5e7eb; }
+        .status-label { font-size: 12px; font-weight: 600; color: #4b5563; margin-right: 8px; }
+        .q-dot { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 4px; background: #e5e7eb; color: #6b7280; font-size: 11px; font-weight: 600; }
+        .q-dot.done { background: #10b981; color: #fff; }
+        .clear-btn { background: #ef4444; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: background 0.2s; }
+        .clear-btn:hover { background: #dc2626; }
+        .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb; flex-wrap: wrap; gap: 12px; }
+        .nav-link { padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: background 0.2s; }
+        .nav-back { background: #e5e7eb; color: #374151; }
+        .nav-back:hover { background: #d1d5db; }
+        .nav-next { background: #1f3a5f; color: #fff; }
+        .nav-next:hover { background: #163050; }
+
+        @media (max-width: 768px) {
+            .content { padding: 0 15px 20px; }
+            .questions-block { padding: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="context-menu" id="ctxMenu">
+        <div id="doHighlight">🖍️ Highlight</div>
+        <div id="doNote">📝 Add Note</div>
+        <div id="doRemove">❌ Remove Highlight</div>
+    </div>
+    <div class="note-box" id="noteBox">
+        <div class="note-header">
+            <span>📝 Note</span>
+            <span class="note-close" id="closeNote">×</span>
+        </div>
+        <textarea id="noteText" placeholder="Your note…"></textarea>
+    </div>
+
+    <div class="container">
+        <div class="logo-section">
+            <img src="../ielts-logo.png" alt="IELTS Logo" class="logo-img" onerror="this.style.display='none'">
+        </div>
+        <div class="header-bar">
+            <span>Cambridge 11 — Test 3 · Section 1</span>
+            <span>Questions 1–10</span>
+        </div>
+        <div class="audio-player">
+            <h3>🎧 Play Recording</h3>
+            <audio controls preload="auto">
+                <source src="c11-t3-audio1.mp3" type="audio/mpeg">
+                <source src="listening/c11-t3-audio1.mp3" type="audio/mpeg">
+                <source src="../c11-t3-audio1.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            
+        </div>
+        <div class="content" id="passageArea">
+            <h2>Section 1 — Questions 1–10</h2>
+            <div class="instruction">
+                <strong>Free activities in the Burnham area & Paxton Nature Reserve</strong><br>
+                Questions 1–6: Choose the correct letter, A, B or C.<br>
+                Questions 7–10: Write <strong>ONE WORD ONLY</strong> for each answer.<br>
+                Right‑click selected text → choose Highlight or Remove.
+            </div>
+
+            <div class="questions-block">
+                <h3>Questions 1–6</h3>
+                <p style="font-weight:600; margin-bottom:12px;">Example</p>
+                <div class="q-group">
+                    <p>The caller wants to find out about events on</p>
+                    <label class="option">A 27 June.</label>
+                    <label class="option">B 28 June.</label>
+                    <label class="option selected">C 29 June.</label>
+                </div>
+
+                <div class="q-group" data-q="1">
+                    <p><span class="q-num">1</span> The 'Family Welcome' event in the art gallery begins at</p>
+                    <label class="option" data-opt="A">A 10 am.</label>
+                    <label class="option" data-opt="B">B 10.30 am.</label>
+                    <label class="option" data-opt="C">C 2 pm.</label>
+                </div>
+
+                <div class="q-group" data-q="2">
+                    <p><span class="q-num">2</span> The film that is now shown in the 'Family Welcome' event is about</p>
+                    <label class="option" data-opt="A">A sculpture.</label>
+                    <label class="option" data-opt="B">B painting.</label>
+                    <label class="option" data-opt="C">C ceramics.</label>
+                </div>
+
+                <div class="q-group" data-q="3">
+                    <p><span class="q-num">3</span> When do most of the free concerts take place?</p>
+                    <label class="option" data-opt="A">A in the morning</label>
+                    <label class="option" data-opt="B">B at lunchtime</label>
+                    <label class="option" data-opt="C">C in the evening</label>
+                </div>
+
+                <div class="q-group" data-q="4">
+                    <p><span class="q-num">4</span> Where will the 4 pm concert of Latin American music take place?</p>
+                    <label class="option" data-opt="A">A in a museum</label>
+                    <label class="option" data-opt="B">B in a theatre</label>
+                    <label class="option" data-opt="C">C in a library</label>
+                </div>
+
+                <div class="q-group" data-q="5">
+                    <p><span class="q-num">5</span> The boat race begins at</p>
+                    <label class="option" data-opt="A">A Summer Pool.</label>
+                    <label class="option" data-opt="B">B Charlesworth Bridge.</label>
+                    <label class="option" data-opt="C">C Oxford Marina.</label>
+                </div>
+
+                <div class="q-group" data-q="6">
+                    <p><span class="q-num">6</span> One of the boat race teams</p>
+                    <label class="option" data-opt="A">A won a regional competition earlier this year.</label>
+                    <label class="option" data-opt="B">B has represented the region in a national competition.</label>
+                    <label class="option" data-opt="C">C has won several regional competitions.</label>
+                </div>
+
+                <h3 style="margin-top:30px;">Questions 7–10</h3>
+                <p style="font-weight:600; margin-bottom:12px;">Paxton Nature Reserve</p>
+
+                <div class="completion-row" data-q="7">
+                    <span class="q-num">7</span>
+                    Paxton is a good place for seeing rare <input type="text" class="blank" data-q="7" placeholder="__________"> all year round.
+                </div>
+                <div class="completion-row" data-q="8">
+                    <span class="q-num">8</span>
+                    This is a particularly good time for seeing certain unusual <input type="text" class="blank" data-q="8" placeholder="__________">.
+                </div>
+                <div class="completion-row" data-q="9">
+                    <span class="q-num">9</span>
+                    Visitors will be able to learn about <input type="text" class="blank" data-q="9" placeholder="__________"> and then collect some.
+                </div>
+                <div class="completion-row" data-q="10">
+                    <span class="q-num">10</span>
+                    Part of the <input type="text" class="blank" data-q="10" placeholder="__________"> has been made suitable for swimming.
+                </div>
+            </div>
+
+            <div class="status-bar" id="statusBar"><span class="status-label">Section 1:</span></div>
+            <div class="nav-row">
+                <a href="../library.html" class="nav-link nav-back">← Library</a>
+                <a href="listeningC11T3-section2.html" class="nav-link nav-next">Section 2 →</a>
+            </div>
+        </div>
+        <div style="padding:0 30px 20px;">
+            <button class="clear-btn" id="clearAll">🗑️ Clear All</button>
+        </div>
+    </div>
+
+<script>
+const STORAGE = 'C11T3_S1';
+let currentRange = null, activeHL = null;
+
+// Status dots
+function renderStatus() {
+    const bar = document.getElementById('statusBar');
+    if (!bar) return;
+    bar.querySelectorAll('.q-dot').forEach(d => d.remove());
+    [1,2,3,4,5,6,7,8,9,10].forEach(q => {
+        const mc = localStorage.getItem(`${STORAGE}_q${q}`);
+        const fill = localStorage.getItem(`${STORAGE}_q${q}`);
+        const dot = document.createElement('span');
+        dot.className = 'q-dot' + (fill && fill.trim() !== '' ? ' done' : '');
+        dot.textContent = q;
+        bar.appendChild(dot);
+    });
+}
+
+// === MULTIPLE CHOICE HANDLING ===
+document.querySelectorAll('.q-group[data-q]').forEach(group => {
+    const q = group.dataset.q;
+    const saved = localStorage.getItem(`${STORAGE}_q${q}`);
+    if (saved) {
+        group.querySelectorAll('.option').forEach(opt => {
+            opt.classList.toggle('selected', opt.dataset.opt === saved);
+        });
+    }
+    group.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', () => {
+            group.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+            opt.classList.add('selected');
+            localStorage.setItem(`${STORAGE}_q${q}`, opt.dataset.opt);
+            renderStatus();
+        });
+    });
+});
+
+// === SENTENCE COMPLETION HANDLING ===
+document.querySelectorAll('.blank').forEach(input => {
+    const q = input.dataset.q;
+    const saved = localStorage.getItem(`${STORAGE}_q${q}`);
+    if (saved) {
+        input.value = saved;
+        input.classList.add('filled');
+    }
+    input.addEventListener('input', () => {
+        const val = input.value.trim();
+        if (val) {
+            localStorage.setItem(`${STORAGE}_q${q}`, val);
+            input.classList.add('filled');
+        } else {
+            localStorage.removeItem(`${STORAGE}_q${q}`);
+            input.classList.remove('filled');
+        }
+        renderStatus();
+    });
+});
+
+// === HIGHLIGHT SYSTEM — EXACT SAME WORKING CODE ===
+function unwrapHighlight(hl) {
+    if (!hl) return;
+    const text = hl.textContent;
+    const txtNode = document.createTextNode(text);
+    hl.parentNode.replaceChild(txtNode, hl);
+    if (txtNode.previousSibling && txtNode.previousSibling.nodeType === Node.TEXT_NODE) {
+        txtNode.nodeValue = txtNode.previousSibling.nodeValue + txtNode.nodeValue;
+        txtNode.parentNode.removeChild(txtNode.previousSibling);
+    }
+    if (txtNode.nextSibling && txtNode.nextSibling.nodeType === Node.TEXT_NODE) {
+        txtNode.nodeValue = txtNode.nodeValue + txtNode.nextSibling.nodeValue;
+        txtNode.parentNode.removeChild(txtNode.nextSibling);
+    }
+    saveHL();
+}
+
+function saveHL() {
+    const data = Array.from(document.querySelectorAll('.highlight')).map(h => ({
+        text: h.textContent,
+        note: h.dataset.note || ''
+    }));
+    localStorage.setItem(`${STORAGE}_hl`, JSON.stringify(data));
+}
+
+function isValidSelection(sel) {
+    if (!sel || sel.isCollapsed || !sel.toString().trim()) return false;
+    try {
+        let n = sel.getRangeAt(0).commonAncestorContainer;
+        if (n.nodeType === Node.TEXT_NODE) n = n.parentElement;
+        return document.getElementById('passageArea').contains(n) &&
+               !n.closest('.context-menu') && !n.closest('.note-box') && !n.closest('input') && !n.closest('.option');
+    } catch { return false; }
+}
+
+const ctx = document.getElementById('ctxMenu');
+document.addEventListener('contextmenu', e => {
+    const sel = window.getSelection();
+    const clickedHL = e.target.closest('.highlight');
+    ctx.style.display = 'none';
+
+    if (clickedHL) {
+        e.preventDefault();
+        activeHL = clickedHL;
+        const rc = clickedHL.getBoundingClientRect();
+        ctx.style.left = rc.left + window.scrollX + 'px';
+        ctx.style.top = rc.bottom + window.scrollY + 5 + 'px';
+        ctx.style.display = 'block';
+    } else if (isValidSelection(sel)) {
+        e.preventDefault();
+        currentRange = sel.getRangeAt(0).cloneRange();
+        const rc = currentRange.getBoundingClientRect();
+        ctx.style.left = rc.left + window.scrollX + 'px';
+        ctx.style.top = rc.bottom + window.scrollY + 5 + 'px';
+        ctx.style.display = 'block';
+        activeHL = null;
+    }
+});
+document.addEventListener('click', e => { if (!ctx.contains(e.target)) ctx.style.display = 'none'; });
+
+document.getElementById('doHighlight').onclick = () => {
+    if (!currentRange) return;
+    try {
+        const span = document.createElement('span');
+        span.className = 'highlight';
+        span.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(span);
+        window.getSelection().removeAllRanges();
+        saveHL();
+    } catch { alert('⚠️ Select shorter text.'); }
+    ctx.style.display = 'none';
+};
+
+document.getElementById('doRemove').onclick = () => {
+    ctx.style.display = 'none';
+    if (!activeHL) return;
+    unwrapHighlight(activeHL);
+    activeHL = null;
+};
+
+const noteBox = document.getElementById('noteBox');
+const noteText = document.getElementById('noteText');
+document.getElementById('doNote').onclick = () => {
+    ctx.style.display = 'none';
+    if (!activeHL) {
+        if (!currentRange) return;
+        try {
+            const span = document.createElement('span');
+            span.className = 'highlight';
+            span.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(span);
+            activeHL = span;
+            window.getSelection().removeAllRanges();
+            saveHL();
+        } catch { return; }
+    }
+    if (!activeHL.querySelector('.note-marker')) {
+        const m = document.createElement('span');
+        m.className = 'note-marker';
+        m.textContent = '!';
+        activeHL.appendChild(m);
+    }
+    noteText.value = activeHL.dataset.note || '';
+    const rc = activeHL.getBoundingClientRect();
+    noteBox.style.left = rc.right + window.scrollX + 10 + 'px';
+    noteBox.style.top = rc.top + window.scrollY + 'px';
+    noteBox.style.display = 'block';
+    noteText.focus();
+};
+document.getElementById('closeNote').onclick = () => { noteBox.style.display = 'none'; activeHL = null; };
+noteText.oninput = () => {
+    if (activeHL) { activeHL.dataset.note = noteText.value; saveHL(); }
+};
+
+// Clear All
+document.getElementById('clearAll').onclick = () => {
+    if (!confirm('⚠️ Clear all answers and highlights? This cannot be undone.')) return;
+    [1,2,3,4,5,6,7,8,9,10].forEach(q => localStorage.removeItem(`${STORAGE}_q${q}`));
+    localStorage.removeItem(`${STORAGE}_hl`);
+    document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.blank').forEach(input => {
+        input.value = '';
+        input.classList.remove('filled');
+    });
+    document.querySelectorAll('.highlight').forEach(h => unwrapHighlight(h));
+    noteBox.style.display = 'none';
+    renderStatus();
+};
+
+renderStatus();
+</script>
+</body>
+</html>
