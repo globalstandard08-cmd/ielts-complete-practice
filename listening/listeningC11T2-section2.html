@@ -17,33 +17,31 @@
         .content { padding: 0 30px 30px; position: relative; }
         h2 { color: #1f3a5f; margin: 25px 0 15px; font-size: 22px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
         .instruction { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
-        
-        /* === QUESTION LAYOUT === */
         .questions-block { border: 1px solid #d1d5db; border-radius: 10px; padding: 25px; margin-bottom: 25px; background: #fafafa; }
         .questions-block h3 { text-align: center; margin-bottom: 20px; color: #1f3a5f; font-size: 20px; }
         .questions-block h4 { margin: 20px 0 12px; color: #374151; font-size: 16px; }
-        
-        .q-row { margin-bottom: 14px; }
-        .q-num { font-weight: 700; min-width: 32px; color: #1f3a5f; display: inline-block; }
-        
-        /* Multiple Choice Checkbox Style */
-        .mc-option { display: flex; align-items: center; margin: 8px 0 8px 40px; cursor: pointer; }
+
+        /* === MULTIPLE CHOICE STYLES === */
+        .mc-option { display: flex; align-items: center; margin: 8px 0; cursor: pointer; }
         .mc-checkbox { width: 20px; height: 20px; border: 2px solid #d1d5db; border-radius: 4px; margin-right: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: #fff; transition: all 0.2s; }
         .mc-option.checked .mc-checkbox { background: #1f3a5f; border-color: #1f3a5f; color: white; }
         .mc-option.checked .mc-checkbox::after { content: "✓"; font-weight: bold; font-size: 13px; }
-        .mc-letter { font-weight: 600; min-width: 20px; display: inline-block; }
-        
-        /* Map Labeling Style */
-        .map-container { text-align: center; margin: 20px 0; }
-        .map-img { max-width: 100%; border: 1px solid #e5e7eb; border-radius: 8px; }
-        .map-q-row { display: flex; align-items: center; margin: 10px 0; padding-left: 10px; }
-        .map-select { padding: 6px 12px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 15px; background: #fff; transition: all 0.2s; }
+        .mc-letter { font-weight: 600; min-width: 24px; display: inline-block; }
+
+        /* === MAP LAYOUT — SIDE BY SIDE === */
+        .map-section { margin-top: 10px; }
+        .map-section h4 { text-align: center; margin-bottom: 15px; font-size: 17px; color: #1f3a5f; }
+        .map-wrapper { display: flex; gap: 25px; align-items: flex-start; flex-wrap: wrap; }
+        .map-col { flex: 1.5; min-width: 320px; }
+        .map-img { width: 100%; height: auto; border: 1px solid #d1d5db; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        .answers-col { flex: 1; min-width: 250px; display: flex; flex-direction: column; gap: 14px; padding-top: 10px; }
+        .map-q-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #fff; border-radius: 8px; border: 1px solid #e5e7eb; }
+        .q-label { font-weight: 600; color: #374151; }
+        .map-select { padding: 8px 16px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 16px; background: #fff; min-width: 100px; text-align: center; transition: all 0.2s; }
         .map-select:focus { outline: none; border-color: #1f3a5f; box-shadow: 0 0 0 3px rgba(31,58,95,0.15); }
-        .map-select.filled { background: #eef2ff; border-color: #4f46e5; }
-        
-        .section-divider { margin: 25px 0; padding-top: 15px; border-top: 1px solid #ddd; }
-        
-        /* Highlight & Note Features */
+        .map-select.filled { background: #eef2ff; border-color: #4f46e5; font-weight: 600; }
+
+        /* === HIGHLIGHT & NOTE SYSTEM === */
         .highlight { background-color: #ffd700; padding: 2px 4px; border-radius: 2px; cursor: pointer; display: inline; position: relative; transition: background-color 0.2s; }
         .highlight:hover { background-color: #ffeb3b; }
         .note-marker { position: absolute; top: -8px; right: -8px; width: 18px; height: 18px; background: #1f3a5f; color: white; border-radius: 50%; font-size: 11px; font-weight: bold; display: flex; align-items: center; justify-content: center; z-index: 10; }
@@ -55,24 +53,25 @@
         .note-header { background: #f9d423; padding: 6px 10px; font-size: 13px; font-weight: bold; cursor: move; display: flex; justify-content: space-between; align-items: center; color: #333; }
         .note-close { cursor: pointer; font-weight: bold; font-size: 16px; line-height: 1; }
         .note-textarea { width: 100%; min-height: 60px; border: none; padding: 10px; font-size: 14px; resize: vertical; background: transparent; outline: none; }
-        
-        .status-bar { display: flex; flex-wrap: wrap; gap: 6px; margin: 25px 0; padding: 15px; background: #f3f4f6; border-radius: 8px; border: 1px solid #e5e7eb; }
+
+        .status-bar { display: flex; flex-wrap: wrap; gap: 6px; margin: 20px 0; padding: 15px; background: #f3f4f6; border-radius: 8px; border: 1px solid #e5e7eb; }
         .status-label { font-size: 12px; font-weight: 600; color: #4b5563; margin-right: 8px; }
         .q-dot { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 4px; background: #e5e7eb; color: #6b7280; font-size: 11px; font-weight: 600; }
         .q-dot.done { background: #10b981; color: white; }
-        .clear-btn { background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; margin: 10px 0; transition: background 0.2s; }
+        .clear-btn { background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; transition: background 0.2s; }
         .clear-btn:hover { background: #dc2626; }
-        .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #e5e7eb; }
+        .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb; }
         .nav-link { padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; transition: all 0.2s; }
         .nav-back { background: #e5e7eb; color: #374151; }
         .nav-back:hover { background: #d1d5db; }
         .nav-next { background: #1f3a5f; color: white; }
         .nav-next:hover { background: #163050; }
-        
+
         @media (max-width: 768px) {
             .content { padding: 0 15px 20px; }
             .questions-block { padding: 18px; }
-            .mc-option { margin-left: 20px; }
+            .mc-option { margin-left: 10px; }
+            .map-wrapper { flex-direction: column; }
         }
     </style>
 </head>
@@ -108,163 +107,92 @@
         </div>
         <div class="content" id="passageArea">
             <h2>Section 2 — Questions 11–20</h2>
-            
             <div class="instruction">
                 <strong>New staff at theatre</strong><br>
                 Right‑click selected text → choose Highlight or Add Note.
             </div>
-            
+
+            <!-- ===== Q11–16: MULTIPLE CHOICE ===== -->
             <div class="questions-block">
-                <h3>Questions 11–14</h3>
+                <h3>Questions 11–16</h3>
                 <p style="margin-bottom:15px;"><strong>Choose TWO letters, A–E.</strong></p>
-                <p style="margin-bottom:10px;"><strong>Questions 11 and 12</strong><br>
+                
+                <p style="margin-bottom:8px;"><strong>Questions 11 and 12</strong><br>
                 Which TWO changes have been made so far during the refurbishment of the theatre?</p>
-                
-                <!-- Q11 & 12 -->
-                <div class="mc-option" data-q="11" data-value="A">
-                    <span class="mc-checkbox"></span>
-                    <span><span class="mc-letter">A</span> Some rooms now have a different use.</span>
-                </div>
-                <div class="mc-option" data-q="11" data-value="B">
-                    <span class="mc-checkbox"></span>
-                    <span><span class="mc-letter">B</span> A different type of seating has been installed.</span>
-                </div>
-                <div class="mc-option" data-q="11" data-value="C">
-                    <span class="mc-checkbox"></span>
-                    <span><span class="mc-letter">C</span> An elevator has been installed.</span>
-                </div>
-                <div class="mc-option" data-q="11" data-value="D">
-                    <span class="mc-checkbox"></span>
-                    <span><span class="mc-letter">D</span> The outside of the building has been repaired.</span>
-                </div>
-                <div class="mc-option" data-q="11" data-value="E">
-                    <span class="mc-checkbox"></span>
-                    <span><span class="mc-letter">E</span> Extra seats have been added.</span>
-                </div>
+                <div class="mc-option" data-q="11" data-value="A"><span class="mc-checkbox"></span><span class="mc-letter">A</span> Some rooms now have a different use.</div>
+                <div class="mc-option" data-q="11" data-value="B"><span class="mc-checkbox"></span><span class="mc-letter">B</span> A different type of seating has been installed.</div>
+                <div class="mc-option" data-q="11" data-value="C"><span class="mc-checkbox"></span><span class="mc-letter">C</span> An elevator has been installed.</div>
+                <div class="mc-option" data-q="11" data-value="D"><span class="mc-checkbox"></span><span class="mc-letter">D</span> The outside of the building has been repaired.</div>
+                <div class="mc-option" data-q="11" data-value="E"><span class="mc-checkbox"></span><span class="mc-letter">E</span> Extra seats have been added.</div>
 
-                <h4 style="margin-top:25px;"><strong>Questions 13 and 14</strong><br>
-                Which TWO facilities does the theatre currently offer to the public?</h4>
-                
-                <!-- Q13 & 14 -->
-                <div class="mc-option" data-q="13" data-value="A">
-                    <span class="mc-checkbox"></span>
-                    <span><span class="mc-letter">A</span> rooms for hire</span>
-                </div>
-                <div class="mc-option" data-q="13" data-value="B">
-                    <span class="mc-checkbox"></span>
-                    <span><span class="mc-letter">B</span> backstage tours</span>
-                </div>
-                <div class="mc-option" data-q="13" data-value="C">
-                    <span class="mc-checkbox"></span>
-                    <span><span class="mc-letter">C</span> hire of costumes</span>
-                </div>
-                <div class="mc-option" data-q="13" data-value="D">
-                    <span class="mc-checkbox"></span>
-                    <span><span class="mc-letter">D</span> a bookshop</span>
-                </div>
-                <div class="mc-option" data-q="13" data-value="E">
-                    <span class="mc-checkbox"></span>
-                    <span><span class="mc-letter">E</span> a café</span>
-                </div>
+                <h4>Questions 13 and 14 — Which TWO facilities does the theatre currently offer to the public?</h4>
+                <div class="mc-option" data-q="13" data-value="A"><span class="mc-checkbox"></span><span class="mc-letter">A</span> rooms for hire</div>
+                <div class="mc-option" data-q="13" data-value="B"><span class="mc-checkbox"></span><span class="mc-letter">B</span> backstage tours</div>
+                <div class="mc-option" data-q="13" data-value="C"><span class="mc-checkbox"></span><span class="mc-letter">C</span> hire of costumes</div>
+                <div class="mc-option" data-q="13" data-value="D"><span class="mc-checkbox"></span><span class="mc-letter">D</span> a bookshop</div>
+                <div class="mc-option" data-q="13" data-value="E"><span class="mc-checkbox"></span><span class="mc-letter">E</span> a café</div>
 
-                <h4 style="margin-top:25px;"><strong>Questions 15 and 16</strong><br>
-                Which TWO workshops does the theatre currently offer?</h4>
-                
-                <!-- Q15 & 16 -->
-                <div class="mc-option" data-q="15" data-value="A">
-                    <span class="mc-checkbox"></span>
-                    <span><span class="mc-letter">A</span> sound</span>
-                </div>
-                <div class="mc-option" data-q="15" data-value="B">
-                    <span class="mc-checkbox"></span>
-                    <span><span class="mc-letter">B</span> acting</span>
-                </div>
-                <div class="mc-option" data-q="15" data-value="C">
-                    <span class="mc-checkbox"></span>
-                    <span><span class="mc-letter">C</span> making puppets</span>
-                </div>
-                <div class="mc-option" data-q="15" data-value="D">
-                    <span class="mc-checkbox"></span>
-                    <span><span class="mc-letter">D</span> make-up</span>
-                </div>
-                <div class="mc-option" data-q="15" data-value="E">
-                    <span class="mc-checkbox"></span>
-                    <span><span class="mc-letter">E</span> lighting</span>
-                </div>
+                <h4>Questions 15 and 16 — Which TWO workshops does the theatre currently offer?</h4>
+                <div class="mc-option" data-q="15" data-value="A"><span class="mc-checkbox"></span><span class="mc-letter">A</span> sound</div>
+                <div class="mc-option" data-q="15" data-value="B"><span class="mc-checkbox"></span><span class="mc-letter">B</span> acting</div>
+                <div class="mc-option" data-q="15" data-value="C"><span class="mc-checkbox"></span><span class="mc-letter">C</span> making puppets</div>
+                <div class="mc-option" data-q="15" data-value="D"><span class="mc-checkbox"></span><span class="mc-letter">D</span> make-up</div>
+                <div class="mc-option" data-q="15" data-value="E"><span class="mc-checkbox"></span><span class="mc-letter">E</span> lighting</div>
             </div>
 
-            <!-- MAP SECTION: Q17-20 -->
-            <div class="questions-block section-divider">
+            <!-- ===== Q17–20: MAP — SIDE BY SIDE ===== -->
+            <div class="questions-block map-section">
                 <h3>Questions 17–20</h3>
-                <p style="margin-bottom:15px;"><strong>Label the plan below.</strong><br>
-                Write the correct letter, A–G, next to Questions 17–20.</p>
+                <p style="text-align:center; margin-bottom:15px;"><strong>Label the plan below.</strong> Write the correct letter, A–G, next to Questions 17–20.</p>
                 
-                <div class="map-container">
-                    <p style="font-weight:bold; margin-bottom:10px;">Ground floor plan of theatre</p>
-                    <img src="../c11t2listeningmap1.png" alt="Ground floor plan of theatre" class="map-img" onerror="this.src='c11t2listeningmap1.png'">
-                </div>
-                
-                <div class="map-q-row">
-                    <span class="q-num">17</span>
-                    <span>box office &nbsp;→&nbsp;</span>
-                    <select class="map-select" id="q17" data-q="17">
-                        <option value="">Select letter</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                    </select>
-                </div>
-                <div class="map-q-row">
-                    <span class="q-num">18</span>
-                    <span>theatre manager's office &nbsp;→&nbsp;</span>
-                    <select class="map-select" id="q18" data-q="18">
-                        <option value="">Select letter</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                    </select>
-                </div>
-                <div class="map-q-row">
-                    <span class="q-num">19</span>
-                    <span>lighting box &nbsp;→&nbsp;</span>
-                    <select class="map-select" id="q19" data-q="19">
-                        <option value="">Select letter</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                    </select>
-                </div>
-                <div class="map-q-row">
-                    <span class="q-num">20</span>
-                    <span>artistic director's office &nbsp;→&nbsp;</span>
-                    <select class="map-select" id="q20" data-q="20">
-                        <option value="">Select letter</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                    </select>
+                <div class="map-wrapper">
+                    <!-- MAP ON LEFT -->
+                    <div class="map-col">
+                        <h4>Ground floor plan of theatre</h4>
+                        <img src="c11t2listeningmap1.png" alt="Ground floor plan of theatre" class="map-img" 
+                             onerror="this.src='../c11t2listeningmap1.png'; this.style.border='2px solid red';">
+                    </div>
+                    
+                    <!-- ANSWERS ON RIGHT -->
+                    <div class="answers-col">
+                        <div class="map-q-row">
+                            <span class="q-label">17. Box office</span>
+                            <select class="map-select" id="q17" data-q="17">
+                                <option value="">—</option>
+                                <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+                                <option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+                            </select>
+                        </div>
+                        <div class="map-q-row">
+                            <span class="q-label">18. Theatre manager's office</span>
+                            <select class="map-select" id="q18" data-q="18">
+                                <option value="">—</option>
+                                <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+                                <option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+                            </select>
+                        </div>
+                        <div class="map-q-row">
+                            <span class="q-label">19. Lighting box</span>
+                            <select class="map-select" id="q19" data-q="19">
+                                <option value="">—</option>
+                                <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+                                <option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+                            </select>
+                        </div>
+                        <div class="map-q-row">
+                            <span class="q-label">20. Artistic director's office</span>
+                            <select class="map-select" id="q20" data-q="20">
+                                <option value="">—</option>
+                                <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+                                <option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="status-bar" id="statusBar">
-                <span class="status-label">Section 2:</span>
-            </div>
+
+            <!-- STATUS & NAV -->
+            <div class="status-bar" id="statusBar"><span class="status-label">Section 2:</span></div>
             <div class="nav-row">
                 <a href="listeningC11T2-section1.html" class="nav-link nav-back">← Section 1</a>
                 <a href="listeningC11T2-section3.html" class="nav-link nav-next">Section 3 →</a>
@@ -277,105 +205,68 @@
 <script>
 const STORAGE_KEY = 'C11T2_Section2';
 const passageId = 'c11t2-section2';
-let currentRange = null;
-let activeHighlight = null;
+let currentRange = null, activeHighlight = null;
 
-// Status dots: Q11-16 are TWO-answer each → count as done when at least one selected
+// Status dots
 function renderStatus() {
-    const bar = document.getElementById('statusBar');
-    if (!bar) return;
+    const bar = document.getElementById('statusBar'); if (!bar) return;
     bar.querySelectorAll('.q-dot').forEach(d => d.remove());
-    
-    // Q11-16: store as comma-separated letters; done if has at least one
-    // Q17-20: single letter
-    const qNums = [11,12,13,14,15,16,17,18,19,20];
-    qNums.forEach(num => {
+    [11,12,13,14,15,16,17,18,19,20].forEach(num => {
         const val = localStorage.getItem(`${STORAGE_KEY}_q${num}`);
-        const done = val && val.trim() !== '' && val !== ',';
+        const done = val && val.trim() !== '';
         const dot = document.createElement('span');
         dot.className = 'q-dot' + (done ? ' done' : '');
-        dot.textContent = num;
-        bar.appendChild(dot);
+        dot.textContent = num; bar.appendChild(dot);
     });
 }
 
-// === MULTIPLE CHOICE HANDLING ===
-// Q11,12 share same options group; Q13,14 same; Q15,16 same
-const mcGroups = {
-    11: { pair: 12, selected: new Set() },
-    13: { pair: 14, selected: new Set() },
-    15: { pair: 16, selected: new Set() }
-};
-
-function loadMCOptions() {
-    document.querySelectorAll('.mc-option').forEach(opt => {
-        const qBase = parseInt(opt.dataset.q);
-        const letter = opt.dataset.value;
-        const saved = localStorage.getItem(`${STORAGE_KEY}_q${qBase}`);
-        const savedPair = localStorage.getItem(`${STORAGE_KEY}_q${mcGroups[qBase].pair}`);
-        
-        if ((saved && saved === letter) || (savedPair && savedPair === letter)) {
-            opt.classList.add('checked');
-            mcGroups[qBase].selected.add(letter);
-        }
-    });
-}
+// MC groups: Q11+12, Q13+14, Q15+16
+const mcPairs = {11:12, 13:14, 15:16};
 
 function setupMCOptions() {
     document.querySelectorAll('.mc-option').forEach(opt => {
-        opt.addEventListener('click', () => {
-            const qBase = parseInt(opt.dataset.q);
-            const pairQ = mcGroups[qBase].pair;
-            const letter = opt.dataset.value;
-            
-            // Find which slot is empty in this pair
-            let targetQ = null;
-            const val1 = localStorage.getItem(`${STORAGE_KEY}_q${qBase}`);
-            const val2 = localStorage.getItem(`${STORAGE_KEY}_q${pairQ}`);
-            
-            if (val1 === letter) {
-                // Unselect
-                localStorage.removeItem(`${STORAGE_KEY}_q${qBase}`);
-                opt.classList.remove('checked');
-            } else if (val2 === letter) {
-                localStorage.removeItem(`${STORAGE_KEY}_q${pairQ}`);
-                opt.classList.remove('checked');
-            } else if (!val1) {
-                targetQ = qBase;
-            } else if (!val2) {
-                targetQ = pairQ;
-            } else {
-                // Both filled — shift first to second, replace first
-                localStorage.setItem(`${STORAGE_KEY}_q${pairQ}`, val1);
-                // Update visual state for previous
-                document.querySelectorAll(`[data-q="${pairQ}"]`).forEach(o => {
-                    if (o.dataset.value === val1) o.classList.add('checked');
-                });
-                document.querySelectorAll(`[data-q="${qBase}"]`).forEach(o => {
-                    if (o.dataset.value === val1) o.classList.remove('checked');
-                });
-                targetQ = qBase;
-            }
-            
-            if (targetQ) {
-                localStorage.setItem(`${STORAGE_KEY}_q${targetQ}`, letter);
+        const qBase = parseInt(opt.dataset.q);
+        const letter = opt.dataset.value;
+        // Load saved state
+        for (const slot of [qBase, mcPairs[qBase]]) {
+            if (localStorage.getItem(`${STORAGE_KEY}_q${slot}`) === letter) {
                 opt.classList.add('checked');
             }
-            
+        }
+        opt.addEventListener('click', () => {
+            const pairQ = mcPairs[qBase];
+            // Check if already selected in either slot
+            let foundSlot = null;
+            for (const slot of [qBase, pairQ]) {
+                if (localStorage.getItem(`${STORAGE_KEY}_q${slot}`) === letter) {
+                    foundSlot = slot; break;
+                }
+            }
+            if (foundSlot) {
+                // Unselect
+                localStorage.removeItem(`${STORAGE_KEY}_q${foundSlot}`);
+                opt.classList.remove('checked');
+            } else {
+                // Find empty slot
+                let targetSlot = null;
+                if (!localStorage.getItem(`${STORAGE_KEY}_q${qBase}`)) targetSlot = qBase;
+                else if (!localStorage.getItem(`${STORAGE_KEY}_q${pairQ}`)) targetSlot = pairQ;
+                if (targetSlot) {
+                    localStorage.setItem(`${STORAGE_KEY}_q${targetSlot}`, letter);
+                    opt.classList.add('checked');
+                }
+            }
             renderStatus();
         });
     });
 }
 
-// === MAP SELECT HANDLING ===
+// Map dropdowns
 function setupMapSelects() {
     document.querySelectorAll('.map-select').forEach(sel => {
         const qNum = parseInt(sel.dataset.q);
         const saved = localStorage.getItem(`${STORAGE_KEY}_q${qNum}`);
-        if (saved) {
-            sel.value = saved;
-            sel.classList.add('filled');
-        }
+        if (saved) { sel.value = saved; sel.classList.add('filled'); }
         sel.addEventListener('change', () => {
             const val = sel.value;
             localStorage.setItem(`${STORAGE_KEY}_q${qNum}`, val);
@@ -385,44 +276,31 @@ function setupMapSelects() {
     });
 }
 
-// === HIGHLIGHT & NOTE SYSTEM (unchanged from sample) ===
+// Highlight helpers
 function removeHighlightClean(el) {
     if (!el || !el.parentNode) return;
-    const cleanText = el.textContent.replace(/!$/, '');
-    const textNode = document.createTextNode(cleanText);
+    const textNode = document.createTextNode(el.textContent.replace(/!$/, ''));
     el.parentNode.replaceChild(textNode, el);
-    if (textNode.previousSibling && textNode.previousSibling.nodeType === Node.TEXT_NODE) {
-        textNode.nodeValue = textNode.previousSibling.nodeValue + textNode.nodeValue;
-        textNode.parentNode.removeChild(textNode.previousSibling);
-    }
-    if (textNode.nextSibling && textNode.nextSibling.nodeType === Node.TEXT_NODE) {
-        textNode.nodeValue = textNode.nodeValue + textNode.nextSibling.nodeValue;
-        textNode.parentNode.removeChild(textNode.nextSibling);
-    }
 }
 function saveHighlights() {
-    const highlights = document.querySelectorAll('#passageArea .highlight');
-    const data = Array.from(highlights).map(h => ({
-        text: h.textContent,
-        note: h.getAttribute('data-note') || ''
+    const data = Array.from(document.querySelectorAll('#passageArea .highlight')).map(h => ({
+        text: h.textContent, note: h.getAttribute('data-note') || ''
     }));
     localStorage.setItem(`${passageId}_highlights`, JSON.stringify(data));
 }
 function isSelectionValid(sel) {
     if (!sel || sel.isCollapsed || !sel.toString().trim()) return false;
     try {
-        const r = sel.getRangeAt(0);
-        const p = r.commonAncestorContainer.nodeType === Node.TEXT_NODE
-            ? r.commonAncestorContainer.parentElement : r.commonAncestorContainer;
-        const inArea = document.getElementById('passageArea').contains(p);
-        const inInput = p.closest('input,textarea,button,select,.context-menu,.note-box,.mc-option');
-        return inArea && !inInput;
+        const p = sel.getRangeAt(0).commonAncestorContainer.nodeType === Node.TEXT_NODE
+            ? sel.getRangeAt(0).commonAncestorContainer.parentElement
+            : sel.getRangeAt(0).commonAncestorContainer;
+        return document.getElementById('passageArea').contains(p) && 
+               !p.closest('input,select,button,.context-menu,.note-box,.mc-option');
     } catch { return false; }
 }
 
-const noteBox = document.getElementById('noteBox');
-const noteText = document.getElementById('noteText');
-const noteClose = document.getElementById('noteClose');
+// Note drag
+const noteBox = document.getElementById('noteBox'), noteText = document.getElementById('noteText'), noteClose = document.getElementById('noteClose');
 let isDraggingNote = false, offsetX = 0, offsetY = 0;
 noteClose.addEventListener('click', () => { noteBox.style.display = 'none'; activeHighlight = null; });
 noteText.addEventListener('input', () => {
@@ -435,8 +313,7 @@ document.addEventListener('mousedown', e => {
     if (!e.target.closest('.note-header')) return;
     isDraggingNote = true;
     const rc = noteBox.getBoundingClientRect();
-    offsetX = e.clientX - rc.left;
-    offsetY = e.clientY - rc.top;
+    offsetX = e.clientX - rc.left; offsetY = e.clientY - rc.top;
 });
 document.addEventListener('mousemove', e => {
     if (!isDraggingNote) return;
@@ -445,61 +322,52 @@ document.addEventListener('mousemove', e => {
 });
 document.addEventListener('mouseup', () => isDraggingNote = false);
 
+// Context menu
 const ctxMenu = document.getElementById('contextMenu');
 document.addEventListener('contextmenu', e => {
     const sel = window.getSelection();
     const targetHl = e.target.closest('.highlight');
     ctxMenu.style.display = 'none';
     if (targetHl) {
-        e.preventDefault();
-        activeHighlight = targetHl;
+        e.preventDefault(); activeHighlight = targetHl;
         const rc = targetHl.getBoundingClientRect();
         ctxMenu.style.left = (rc.left + window.scrollX) + 'px';
         ctxMenu.style.top = (rc.bottom + window.scrollY + 5) + 'px';
         ctxMenu.style.display = 'block';
     } else if (isSelectionValid(sel)) {
-        e.preventDefault();
-        currentRange = sel.getRangeAt(0).cloneRange();
+        e.preventDefault(); currentRange = sel.getRangeAt(0).cloneRange();
         const rc = currentRange.getBoundingClientRect();
         ctxMenu.style.left = (rc.left + window.scrollX) + 'px';
         ctxMenu.style.top = (rc.bottom + window.scrollY + 5) + 'px';
-        ctxMenu.style.display = 'block';
-        activeHighlight = null;
+        ctxMenu.style.display = 'block'; activeHighlight = null;
     }
 });
 document.addEventListener('click', e => { if (!ctxMenu.contains(e.target)) ctxMenu.style.display = 'none'; });
+
 document.getElementById('menuHighlight').addEventListener('click', () => {
     if (!currentRange) return;
     try {
         const sp = document.createElement('span');
-        sp.className = 'highlight';
-        sp.textContent = currentRange.toString();
-        currentRange.deleteContents();
-        currentRange.insertNode(sp);
-        window.getSelection().removeAllRanges();
-        saveHighlights();
+        sp.className = 'highlight'; sp.textContent = currentRange.toString();
+        currentRange.deleteContents(); currentRange.insertNode(sp);
+        window.getSelection().removeAllRanges(); saveHighlights();
     } catch { alert('⚠️ Select smaller text please.'); }
     ctxMenu.style.display = 'none';
 });
+
 document.getElementById('menuAddNote').addEventListener('click', () => {
     ctxMenu.style.display = 'none';
     if (!activeHighlight) {
         if (!currentRange) return;
         try {
             const sp = document.createElement('span');
-            sp.className = 'highlight';
-            sp.textContent = currentRange.toString();
-            currentRange.deleteContents();
-            currentRange.insertNode(sp);
-            activeHighlight = sp;
-            window.getSelection().removeAllRanges();
-            saveHighlights();
+            sp.className = 'highlight'; sp.textContent = currentRange.toString();
+            currentRange.deleteContents(); currentRange.insertNode(sp);
+            activeHighlight = sp; window.getSelection().removeAllRanges(); saveHighlights();
         } catch { alert('⚠️ Select smaller text please.'); return; }
     }
     if (!activeHighlight.querySelector('.note-marker')) {
-        const m = document.createElement('span');
-        m.className = 'note-marker';
-        m.textContent = '!';
+        const m = document.createElement('span'); m.className = 'note-marker'; m.textContent = '!';
         activeHighlight.appendChild(m);
     }
     const rc = activeHighlight.getBoundingClientRect();
@@ -509,13 +377,11 @@ document.getElementById('menuAddNote').addEventListener('click', () => {
     noteText.value = activeHighlight.getAttribute('data-note') || '';
     noteText.focus();
 });
+
 document.getElementById('menuRemove').addEventListener('click', () => {
-    ctxMenu.style.display = 'none';
-    noteBox.style.display = 'none';
+    ctxMenu.style.display = 'none'; noteBox.style.display = 'none';
     if (!activeHighlight) return;
-    removeHighlightClean(activeHighlight);
-    activeHighlight = null;
-    saveHighlights();
+    removeHighlightClean(activeHighlight); activeHighlight = null; saveHighlights();
 });
 
 function clearAll() {
@@ -525,12 +391,10 @@ function clearAll() {
     document.querySelectorAll('.mc-option').forEach(o => o.classList.remove('checked'));
     document.querySelectorAll('.map-select').forEach(s => { s.value = ''; s.classList.remove('filled'); });
     document.querySelectorAll('.highlight').forEach(h => removeHighlightClean(h));
-    noteBox.style.display = 'none';
-    renderStatus();
+    noteBox.style.display = 'none'; renderStatus();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadMCOptions();
     setupMCOptions();
     setupMapSelects();
     renderStatus();
