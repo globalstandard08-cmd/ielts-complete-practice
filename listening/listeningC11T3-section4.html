@@ -5,91 +5,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cambridge 11 — Test 3 — Section 4</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
         body { background-color: #f4f6f9; padding: 20px; line-height: 1.7; user-select: text; }
-        .container { max-width: 1100px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .container { max-width: 1100px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: relative; overflow: hidden; }
         .logo-section { text-align: center; padding: 20px; border-bottom: 1px solid #e5e7eb; }
         .logo-img { max-width: 400px; width: 80%; height: auto; }
-        .header-bar { background: #1f3a5f; color: #fff; padding: 15px 25px; font-size: 18px; font-weight: 700; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+        .header-bar { background-color: #1f3a5f; color: white; padding: 15px 25px; font-size: 18px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
         .audio-player { background: #eff6ff; padding: 20px; margin: 20px; border-radius: 10px; text-align: center; border: 1px solid #bfdbfe; }
         .audio-player h3 { color: #1e40af; margin-bottom: 10px; font-size: 16px; }
         audio { width: 100%; max-width: 500px; }
-        .content { padding: 0 30px 30px; }
+        .content { padding: 0 30px 30px; position: relative; }
         h2 { color: #1f3a5f; margin: 25px 0 15px; font-size: 22px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
         .instruction { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
-
-        /* === OFFICIAL IELTS-STYLE NOTE COMPLETION === */
-        .exam-title { font-size: 24px; font-weight: 700; color: #0b3d91; text-align: center; margin: 20px 0; text-transform: uppercase; letter-spacing: 0.5px; }
-        .exam-intro { font-style: italic; margin-bottom: 20px; color: #374151; }
-        .exam-block { border: 1px solid #1f2937; border-radius: 4px; margin: 20px 0; overflow: hidden; }
-        .exam-section-header { background: #e5e7eb; padding: 10px 18px; font-weight: 700; border-bottom: 1px solid #1f2937; }
-        .exam-row { display: flex; align-items: flex-start; border-bottom: 1px solid #1f2937; }
-        .exam-row:last-child { border-bottom: none; }
-        .q-col { width: 55px; padding: 14px 10px; font-weight: 700; text-align: center; border-right: 1px solid #1f2937; background: #f9fafb; flex-shrink: 0; }
-        .text-col { flex: 1; padding: 14px 18px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
-        .blank-box {
-            width: 140px; height: 36px; border: 1px solid #1f2937; border-radius: 2px;
-            text-align: center; font-size: 16px; outline: none; background: #fff;
+        .questions-block {
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            background: #fafafa;
         }
-        .blank-box.filled { background: #e6fffa; border-color: #0d9488; font-weight: 600; }
-        .subheading { font-weight: 700; color: #1f3a5f; margin: 18px 0 8px; font-size: 15px; }
-        .no-q-row { padding: 10px 18px; border-bottom: 1px solid #e5e7eb; font-style: italic; color: #4b5563; }
+        .questions-block h3 { text-align: center; margin-bottom: 20px; color: #1f3a5f; font-size: 20px; }
+        .input-field {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 15px;
+            background: #fff;
+            transition: all 0.2s;
+            min-width: 120px;
+        }
+        .input-field:focus { outline: none; border-color: #1f3a5f; box-shadow: 0 0 0 3px rgba(31,58,95,0.15); }
+        .input-field.filled { background: #eef2ff; border-color: #4f46e5; }
 
-        /* === HIGHLIGHT / NOTES === */
-        .highlight { background: #ffd700; padding: 1px 3px; border-radius: 2px; position: relative; }
-        .note-marker { position: absolute; top: -8px; right: -8px; width: 18px; height: 18px; background: #1f3a5f; color: #fff; border-radius: 50%; font-size: 11px; display: flex; align-items: center; justify-content: center; z-index: 10; }
-        .context-menu { position: absolute; background: #fff; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 180px; }
-        .context-menu div { padding: 10px 14px; cursor: pointer; border-bottom: 1px solid #f0f0f0; }
+        /* === HIGHLIGHT & NOTE SYSTEM — SAME FIXED PATTERN === */
+        .highlight {
+            background-color: #ffd700;
+            padding: 2px 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            display: inline;
+            position: relative;
+            transition: background-color 0.2s;
+        }
+        .highlight:hover { background-color: #ffeb3b; }
+        .note-marker {
+            position: absolute;
+            top: -8px; right: -8px;
+            width: 18px; height: 18px;
+            background: #1f3a5f; color: white; border-radius: 50%;
+            font-size: 11px; font-weight: bold;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10;
+        }
+        .context-menu {
+            position: absolute;
+            background: #fff; border: 1px solid #ccc; border-radius: 4px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+            z-index: 9999; display: none; min-width: 180px;
+        }
+        .context-menu div { padding: 10px 14px; cursor: pointer; font-size: 14px; border-bottom: 1px solid #f0f0f0; }
         .context-menu div:last-child { border-bottom: none; }
         .context-menu div:hover { background: #f0f0f0; }
-        .note-box { position: absolute; width: 260px; min-height: 80px; background: #fffde7; border: 1px solid #f9d423; border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); z-index: 9990; display: none; }
-        .note-header { background: #f9d423; padding: 6px 10px; font-size: 13px; font-weight: bold; cursor: move; display: flex; justify-content: space-between; align-items: center; }
-        .note-close { cursor: pointer; font-weight: bold; font-size: 16px; }
-        .note-textarea { width: 100%; min-height: 60px; border: none; padding: 10px; font-size: 14px; resize: vertical; background: transparent; outline: none; }
-
-        .status-bar { display: flex; flex-wrap: wrap; gap: 6px; margin: 20px 0; padding: 15px; background: #f3f4f6; border-radius: 8px; border: 1px solid #e5e7eb; }
+        .note-box {
+            position: absolute; width: 260px; min-height: 80px;
+            background: #fffde7; border: 1px solid #f9d423; border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            z-index: 9990; display: none;
+        }
+        .note-header {
+            background: #f9d423; padding: 6px 10px; font-size: 13px; font-weight: bold; cursor: move;
+            display: flex; justify-content: space-between; align-items: center; color: #333;
+        }
+        .note-close { cursor: pointer; font-weight: bold; font-size: 16px; line-height: 1; }
+        .note-textarea {
+            width: 100%; min-height: 60px; border: none; padding: 10px;
+            font-size: 14px; resize: vertical; background: transparent; outline: none;
+        }
+        .status-bar {
+            display: flex; flex-wrap: wrap; gap: 6px; margin: 25px 0; padding: 15px;
+            background: #f3f4f6; border-radius: 8px; border: 1px solid #e5e7eb;
+        }
         .status-label { font-size: 12px; font-weight: 600; color: #4b5563; margin-right: 8px; }
-        .q-dot { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 4px; background: #e5e7eb; color: #6b7280; font-size: 11px; font-weight: 600; }
-        .q-dot.done { background: #10b981; color: #fff; }
-        .clear-btn { background: #ef4444; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: background 0.2s; }
+        .q-dot {
+            width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+            border-radius: 4px; background: #e5e7eb; color: #6b7280; font-size: 11px; font-weight: 600;
+        }
+        .q-dot.done { background: #10b981; color: white; }
+        .clear-btn {
+            background: #ef4444; color: white; border: none; padding: 10px 20px;
+            border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; margin: 10px 0; transition: background 0.2s;
+        }
         .clear-btn:hover { background: #dc2626; }
-        .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb; flex-wrap: wrap; gap: 12px; }
+        .nav-row {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 25px; padding-top: 20px; border-top: 1px solid #e5e7eb;
+            flex-wrap: wrap; gap: 12px;
+        }
         .nav-group { display: flex; gap: 10px; flex-wrap: wrap; }
-        .nav-link { padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: background 0.2s; }
+        .nav-link {
+            padding: 10px 20px; border-radius: 8px; text-decoration: none;
+            font-weight: 600; font-size: 14px; transition: all 0.2s;
+        }
         .nav-back { background: #e5e7eb; color: #374151; }
         .nav-back:hover { background: #d1d5db; }
         .nav-lib { background: #fef3c7; color: #92400e; }
         .nav-lib:hover { background: #fde68a; }
-        .nav-next { background: #1f3a5f; color: #fff; pointer-events: none; opacity: 0.5; cursor: not-allowed; }
-
+        .nav-next { background: #1f3a5f; color: white; pointer-events: none; opacity: 0.5; cursor: not-allowed; }
+        ul { margin: 10px 0 10px 25px; }
+        li { margin-bottom: 8px; }
         @media (max-width: 768px) {
             .content { padding: 0 15px 20px; }
-            .text-col { padding: 12px; }
-            .blank-box { width: 110px; }
+            .questions-block { padding: 18px; }
         }
     </style>
 </head>
 <body>
-    <div class="context-menu" id="ctxMenu">
-        <div id="doHighlight">🖍️ Highlight</div>
-        <div id="doNote">📝 Add Note</div>
-        <div id="doRemove">❌ Remove Highlight</div>
+    <!-- RIGHT-CLICK MENU & DRAGGABLE NOTE BOX -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">🖍️ Highlight</div>
+        <div id="menuAddNote">📝 Add Note</div>
+        <div id="menuRemove">❌ Remove Highlight & Note</div>
     </div>
     <div class="note-box" id="noteBox">
-        <div class="note-header">
+        <div class="note-header" id="noteDragHandle">
             <span>📝 Note</span>
-            <span class="note-close" id="closeNote">×</span>
+            <span class="note-close" id="noteClose">×</span>
         </div>
-        <textarea id="noteText" placeholder="Your note…"></textarea>
+        <textarea class="note-textarea" id="noteText" placeholder="Type your note here…"></textarea>
     </div>
-
     <div class="container">
         <div class="logo-section">
             <img src="../ielts-logo.png" alt="IELTS Logo" class="logo-img" onerror="this.style.display='none'">
         </div>
         <div class="header-bar">
             <span>Cambridge 11 — Test 3 · Section 4</span>
-            <span>Questions 31–40</span>
+            <span style="font-size:14px; opacity:0.8;">Questions 31–40</span>
         </div>
         <div class="audio-player">
             <h3>🎧 Play Recording</h3>
@@ -102,133 +152,66 @@
         </div>
         <div class="content" id="passageArea">
             <h2>Section 4 — Questions 31–40</h2>
+            
             <div class="instruction">
-                <strong>Complete the notes below.</strong><br>
-                Write <strong>ONE WORD ONLY</strong> for each answer.
+                <strong>Questions 31–40</strong><br>
+                Complete the notes below.<br>
+                Write <strong>ONE WORD ONLY</strong> for each answer.<br>
+                Right‑click selected text → choose Highlight or Add Note.
             </div>
+            <div class="questions-block">
+                <h3>ETHNOGRAPHY IN BUSINESS</h3>
 
-            <h3 class="exam-title">ETHNOGRAPHY IN BUSINESS</h3>
-            <p class="exam-intro">Ethnography: research which explores human cultures</p>
+                <p style="font-style:italic; margin:10px 0;">Ethnography: research which explores human cultures</p>
 
-            <div class="exam-block">
-                <!-- It can be used in business -->
-                <div class="exam-section-header">It can be used in business:</div>
+                <p style="font-weight:bold; margin:20px 0 8px;">It can be used in business:</p>
+                <ul>
+                    <li>to investigate customer needs and <strong>31</strong> <input type="text" class="input-field" id="q31" data-q="31" placeholder="Answer"></li>
+                    <li>to help companies develop new designs</li>
+                </ul>
 
-                <div class="exam-row">
-                    <div class="q-col">31</div>
-                    <div class="text-col">
-                        to investigate customer needs and
-                        <input type="text" class="blank-box" data-q="31" placeholder="__________">
-                    </div>
-                </div>
-                <div class="exam-row">
-                    <div class="q-col"></div>
-                    <div class="text-col">to help companies develop new designs</div>
-                </div>
+                <p style="font-weight:bold; margin:20px 0 8px;">Examples of ethnographic research in business</p>
 
-                <!-- Examples -->
-                <div class="exam-section-header">Examples of ethnographic research in business</div>
+                <p style="font-weight:600; margin:15px 0 5px;">Kitchen equipment</p>
+                <ul>
+                    <li>Researchers found that cooks could not easily see the <strong>32</strong> <input type="text" class="input-field" id="q32" data-q="32" placeholder="Answer"> in measuring cups.</li>
+                </ul>
 
-                <div class="no-q-row"><strong>Kitchen equipment</strong></div>
-                <div class="exam-row">
-                    <div class="q-col">32</div>
-                    <div class="text-col">
-                        Researchers found that cooks could not easily see the
-                        <input type="text" class="blank-box" data-q="32" placeholder="__________">
-                        in measuring cups.
-                    </div>
-                </div>
+                <p style="font-weight:600; margin:15px 0 5px;">Cell phones</p>
+                <ul>
+                    <li>In Uganda, customers paid to use the cell phones of entrepreneurs. These customers wanted to check the <strong>33</strong> <input type="text" class="input-field" id="q33" data-q="33" placeholder="Answer"> used.</li>
+                </ul>
 
-                <div class="no-q-row"><strong>Cell phones</strong></div>
-                <div class="exam-row">
-                    <div class="q-col">33</div>
-                    <div class="text-col">
-                        In Uganda, customers paid to use the cell phones of entrepreneurs. These customers wanted to check the
-                        <input type="text" class="blank-box" data-q="33" placeholder="__________">
-                        used.
-                    </div>
-                </div>
+                <p style="font-weight:600; margin:15px 0 5px;">Computer companies</p>
+                <ul>
+                    <li>There was a need to develop <strong>34</strong> <input type="text" class="input-field" id="q34" data-q="34" placeholder="Answer"> to improve communication between system administrators and colleagues.</li>
+                </ul>
 
-                <div class="no-q-row"><strong>Computer companies</strong></div>
-                <div class="exam-row">
-                    <div class="q-col">34</div>
-                    <div class="text-col">
-                        There was a need to develop
-                        <input type="text" class="blank-box" data-q="34" placeholder="__________">
-                        to improve communication between system administrators and colleagues.
-                    </div>
-                </div>
+                <p style="font-weight:600; margin:15px 0 5px;">Hospitals</p>
+                <ul>
+                    <li>Nurses needed to access information about <strong>35</strong> <input type="text" class="input-field" id="q35" data-q="35" placeholder="Answer"> in different parts of the hospital.</li>
+                </ul>
 
-                <div class="no-q-row"><strong>Hospitals</strong></div>
-                <div class="exam-row">
-                    <div class="q-col">35</div>
-                    <div class="text-col">
-                        Nurses needed to access information about
-                        <input type="text" class="blank-box" data-q="35" placeholder="__________">
-                        in different parts of the hospital.
-                    </div>
-                </div>
+                <p style="font-weight:600; margin:15px 0 5px;">Airlines</p>
+                <ul>
+                    <li>Respondents recorded information about their <strong>36</strong> <input type="text" class="input-field" id="q36" data-q="36" placeholder="Answer"> while travelling.</li>
+                </ul>
 
-                <div class="no-q-row"><strong>Airlines</strong></div>
-                <div class="exam-row">
-                    <div class="q-col">36</div>
-                    <div class="text-col">
-                        Respondents recorded information about their
-                        <input type="text" class="blank-box" data-q="36" placeholder="__________">
-                        while travelling.
-                    </div>
-                </div>
-
-                <!-- Principles -->
-                <div class="exam-section-header">Principles of ethnographic research in business</div>
-
-                <div class="exam-row">
-                    <div class="q-col"></div>
-                    <div class="text-col">• The researcher does not start off with a hypothesis.</div>
-                </div>
-                <div class="exam-row">
-                    <div class="q-col">37</div>
-                    <div class="text-col">
-                        • Participants may be selected by criteria such as age,
-                        <input type="text" class="blank-box" data-q="37" placeholder="__________">
-                        or product used.
-                    </div>
-                </div>
-                <div class="exam-row">
-                    <div class="q-col">38</div>
-                    <div class="text-col">
-                        • The participants must feel
-                        <input type="text" class="blank-box" data-q="38" placeholder="__________">
-                        about taking part in the research.
-                    </div>
-                </div>
-                <div class="exam-row">
-                    <div class="q-col">39</div>
-                    <div class="text-col">
-                        • There is usually direct
-                        <input type="text" class="blank-box" data-q="39" placeholder="__________">
-                        of the participants.
-                    </div>
-                </div>
-                <div class="exam-row">
-                    <div class="q-col"></div>
-                    <div class="text-col">• The interview is guided by the participant.</div>
-                </div>
-                <div class="exam-row">
-                    <div class="q-col">40</div>
-                    <div class="text-col">
-                        • A lot of time is needed for the
-                        <input type="text" class="blank-box" data-q="40" placeholder="__________">
-                        of the data.
-                    </div>
-                </div>
-                <div class="exam-row">
-                    <div class="q-col"></div>
-                    <div class="text-col">• Researchers look for a meaningful pattern in the data.</div>
-                </div>
+                <p style="font-weight:bold; margin:20px 0 8px;">Principles of ethnographic research in business</p>
+                <ul>
+                    <li>The researcher does not start off with a hypothesis.</li>
+                    <li>Participants may be selected by criteria such as age, <strong>37</strong> <input type="text" class="input-field" id="q37" data-q="37" placeholder="Answer"> or product used.</li>
+                    <li>The participants must feel <strong>38</strong> <input type="text" class="input-field" id="q38" data-q="38" placeholder="Answer"> about taking part in the research.</li>
+                    <li>There is usually direct <strong>39</strong> <input type="text" class="input-field" id="q39" data-q="39" placeholder="Answer"> of the participants.</li>
+                    <li>The interview is guided by the participant.</li>
+                    <li>A lot of time is needed for the <strong>40</strong> <input type="text" class="input-field" id="q40" data-q="40" placeholder="Answer"> of the data.</li>
+                    <li>Researchers look for a meaningful pattern in the data.</li>
+                </ul>
             </div>
-
-            <div class="status-bar" id="statusBar"><span class="status-label">Section 4:</span></div>
+            
+            <div class="status-bar" id="statusBar">
+                <span class="status-label">Section 4:</span>
+            </div>
             <div class="nav-row">
                 <div class="nav-group">
                     <a href="listeningC11T3-section3.html" class="nav-link nav-back">← Section 3</a>
@@ -238,176 +221,207 @@
             </div>
         </div>
         <div style="padding:0 30px 20px;">
-            <button class="clear-btn" id="clearAll">🗑️ Clear All</button>
+            <button class="clear-btn" onclick="clearAll()">🗑️ Clear All</button>
         </div>
     </div>
-
 <script>
-const STORAGE = 'C11T3_S4';
-let currentRange = null, activeHL = null;
+const STORAGE_KEY = 'C11T3_Section4';
+const passageId = 'c11t3-section4';
+let currentRange = null;
+let activeHighlight = null;
 
+// === ANSWER HANDLING ===
 function renderStatus() {
     const bar = document.getElementById('statusBar');
     if (!bar) return;
     bar.querySelectorAll('.q-dot').forEach(d => d.remove());
-    [31,32,33,34,35,36,37,38,39,40].forEach(q => {
-        const ans = localStorage.getItem(`${STORAGE}_q${q}`);
+    for (let i = 31; i <= 40; i++) {
+        const val = localStorage.getItem(`${STORAGE_KEY}_q${i}`);
+        const done = val && val.trim() !== '';
         const dot = document.createElement('span');
-        dot.className = 'q-dot' + (ans && ans.trim() !== '' ? ' done' : '');
-        dot.textContent = q;
+        dot.className = 'q-dot' + (done ? ' done' : '');
+        dot.textContent = i;
         bar.appendChild(dot);
-    });
-}
-
-document.querySelectorAll('.blank-box').forEach(input => {
-    const q = input.dataset.q;
-    const saved = localStorage.getItem(`${STORAGE}_q${q}`);
-    if (saved) {
-        input.value = saved;
-        input.classList.add('filled');
     }
-    input.addEventListener('input', () => {
-        const val = input.value.trim();
-        if (val) {
-            localStorage.setItem(`${STORAGE}_q${q}`, val);
-            input.classList.add('filled');
-        } else {
-            localStorage.removeItem(`${STORAGE}_q${q}`);
-            input.classList.remove('filled');
-        }
+}
+function setupInput(inputEl, qNum) {
+    const saved = localStorage.getItem(`${STORAGE_KEY}_q${qNum}`);
+    if (saved) { inputEl.value = saved; inputEl.classList.add('filled'); }
+    inputEl.addEventListener('input', () => {
+        const val = inputEl.value.trim();
+        localStorage.setItem(`${STORAGE_KEY}_q${qNum}`, val);
+        val ? inputEl.classList.add('filled') : inputEl.classList.remove('filled');
         renderStatus();
     });
-});
-
-function unwrapHighlight(hl) {
-    if (!hl) return;
-    const text = hl.textContent;
-    const txtNode = document.createTextNode(text);
-    hl.parentNode.replaceChild(txtNode, hl);
-    if (txtNode.previousSibling && txtNode.previousSibling.nodeType === Node.TEXT_NODE) {
-        txtNode.nodeValue = txtNode.previousSibling.nodeValue + txtNode.nodeValue;
-        txtNode.parentNode.removeChild(txtNode.previousSibling);
-    }
-    if (txtNode.nextSibling && txtNode.nextSibling.nodeType === Node.TEXT_NODE) {
-        txtNode.nodeValue = txtNode.nodeValue + txtNode.nextSibling.nodeValue;
-        txtNode.parentNode.removeChild(txtNode.nextSibling);
-    }
-    saveHL();
 }
 
-function saveHL() {
-    const data = Array.from(document.querySelectorAll('.highlight')).map(h => ({
+// === CLEAN REMOVAL — NO PUNCTUATION LEFTOVER ===
+function removeHighlightClean(el) {
+    if (!el || !el.parentNode) return;
+    const cleanText = el.textContent.replace(/!$/, '');
+    const textNode = document.createTextNode(cleanText);
+    el.parentNode.replaceChild(textNode, el);
+    if (textNode.previousSibling && textNode.previousSibling.nodeType === Node.TEXT_NODE) {
+        textNode.nodeValue = textNode.previousSibling.nodeValue + textNode.nodeValue;
+        textNode.parentNode.removeChild(textNode.previousSibling);
+    }
+    if (textNode.nextSibling && textNode.nextSibling.nodeType === Node.TEXT_NODE) {
+        textNode.nodeValue = textNode.nodeValue + textNode.nextSibling.nodeValue;
+        textNode.parentNode.removeChild(textNode.nextSibling);
+    }
+}
+
+// === SAVE HIGHLIGHTS ===
+function saveHighlights() {
+    const highlights = document.querySelectorAll('#passageArea .highlight');
+    const data = Array.from(highlights).map(h => ({
         text: h.textContent,
-        note: h.dataset.note || ''
+        note: h.getAttribute('data-note') || ''
     }));
-    localStorage.setItem(`${STORAGE}_hl`, JSON.stringify(data));
+    localStorage.setItem(`${passageId}_highlights`, JSON.stringify(data));
 }
 
-function isValidSelection(sel) {
+// === SELECTION VALID ===
+function isSelectionValid(sel) {
     if (!sel || sel.isCollapsed || !sel.toString().trim()) return false;
     try {
-        let n = sel.getRangeAt(0).commonAncestorContainer;
-        if (n.nodeType === Node.TEXT_NODE) n = n.parentElement;
-        return document.getElementById('passageArea').contains(n) &&
-               !n.closest('.context-menu') && !n.closest('.note-box') && !n.closest('input');
+        const r = sel.getRangeAt(0);
+        const p = r.commonAncestorContainer.nodeType === Node.TEXT_NODE
+            ? r.commonAncestorContainer.parentElement : r.commonAncestorContainer;
+        const inArea = document.getElementById('passageArea').contains(p);
+        const inInput = p.closest('input,textarea,button,select,.context-menu,.note-box');
+        return inArea && !inInput;
     } catch { return false; }
 }
 
-const ctx = document.getElementById('ctxMenu');
+// === DRAGGABLE NOTE BOX ===
+const noteBox = document.getElementById('noteBox');
+const noteText = document.getElementById('noteText');
+const noteClose = document.getElementById('noteClose');
+let isDraggingNote = false, offsetX = 0, offsetY = 0;
+noteClose.addEventListener('click', () => {
+    noteBox.style.display = 'none';
+    activeHighlight = null;
+});
+noteText.addEventListener('input', () => {
+    if (activeHighlight) {
+        activeHighlight.setAttribute('data-note', noteText.value);
+        saveHighlights();
+    }
+});
+document.addEventListener('mousedown', e => {
+    if (!e.target.closest('.note-header')) return;
+    isDraggingNote = true;
+    const rc = noteBox.getBoundingClientRect();
+    offsetX = e.clientX - rc.left;
+    offsetY = e.clientY - rc.top;
+});
+document.addEventListener('mousemove', e => {
+    if (!isDraggingNote) return;
+    noteBox.style.left = (e.clientX - offsetX) + 'px';
+    noteBox.style.top = (e.clientY - offsetY) + 'px';
+});
+document.addEventListener('mouseup', () => isDraggingNote = false);
+
+// === RIGHT-CLICK MENU ===
+const ctxMenu = document.getElementById('contextMenu');
 document.addEventListener('contextmenu', e => {
     const sel = window.getSelection();
-    const clickedHL = e.target.closest('.highlight');
-    ctx.style.display = 'none';
-
-    if (clickedHL) {
+    const targetHl = e.target.closest('.highlight');
+    ctxMenu.style.display = 'none';
+    if (targetHl) {
         e.preventDefault();
-        activeHL = clickedHL;
-        const rc = clickedHL.getBoundingClientRect();
-        ctx.style.left = rc.left + window.scrollX + 'px';
-        ctx.style.top = rc.bottom + window.scrollY + 5 + 'px';
-        ctx.style.display = 'block';
-    } else if (isValidSelection(sel)) {
+        activeHighlight = targetHl;
+        const rc = targetHl.getBoundingClientRect();
+        ctxMenu.style.left = (rc.left + window.scrollX) + 'px';
+        ctxMenu.style.top = (rc.bottom + window.scrollY + 5) + 'px';
+        ctxMenu.style.display = 'block';
+    } else if (isSelectionValid(sel)) {
         e.preventDefault();
         currentRange = sel.getRangeAt(0).cloneRange();
         const rc = currentRange.getBoundingClientRect();
-        ctx.style.left = rc.left + window.scrollX + 'px';
-        ctx.style.top = rc.bottom + window.scrollY + 5 + 'px';
-        ctx.style.display = 'block';
-        activeHL = null;
+        ctxMenu.style.left = (rc.left + window.scrollX) + 'px';
+        ctxMenu.style.top = (rc.bottom + window.scrollY + 5) + 'px';
+        ctxMenu.style.display = 'block';
+        activeHighlight = null;
     }
 });
-document.addEventListener('click', e => { if (!ctx.contains(e.target)) ctx.style.display = 'none'; });
+document.addEventListener('click', e => {
+    if (!ctxMenu.contains(e.target)) ctxMenu.style.display = 'none';
+});
 
-document.getElementById('doHighlight').onclick = () => {
+// === ACTIONS ===
+document.getElementById('menuHighlight').addEventListener('click', () => {
     if (!currentRange) return;
     try {
-        const span = document.createElement('span');
-        span.className = 'highlight';
-        span.textContent = currentRange.toString();
+        const sp = document.createElement('span');
+        sp.className = 'highlight';
+        sp.textContent = currentRange.toString();
         currentRange.deleteContents();
-        currentRange.insertNode(span);
+        currentRange.insertNode(sp);
         window.getSelection().removeAllRanges();
-        saveHL();
-    } catch { alert('⚠️ Select shorter text.'); }
-    ctx.style.display = 'none';
-};
-
-document.getElementById('doRemove').onclick = () => {
-    ctx.style.display = 'none';
-    if (!activeHL) return;
-    unwrapHighlight(activeHL);
-    activeHL = null;
-};
-
-const noteBox = document.getElementById('noteBox');
-const noteText = document.getElementById('noteText');
-document.getElementById('doNote').onclick = () => {
-    ctx.style.display = 'none';
-    if (!activeHL) {
+        saveHighlights();
+    } catch { alert('⚠️ Select smaller text please.'); }
+    ctxMenu.style.display = 'none';
+});
+document.getElementById('menuAddNote').addEventListener('click', () => {
+    ctxMenu.style.display = 'none';
+    if (!activeHighlight) {
         if (!currentRange) return;
         try {
-            const span = document.createElement('span');
-            span.className = 'highlight';
-            span.textContent = currentRange.toString();
+            const sp = document.createElement('span');
+            sp.className = 'highlight';
+            sp.textContent = currentRange.toString();
             currentRange.deleteContents();
-            currentRange.insertNode(span);
-            activeHL = span;
+            currentRange.insertNode(sp);
+            activeHighlight = sp;
             window.getSelection().removeAllRanges();
-            saveHL();
-        } catch { return; }
+            saveHighlights();
+        } catch { alert('⚠️ Select smaller text please.'); return; }
     }
-    if (!activeHL.querySelector('.note-marker')) {
+    if (!activeHighlight.querySelector('.note-marker')) {
         const m = document.createElement('span');
         m.className = 'note-marker';
         m.textContent = '!';
-        activeHL.appendChild(m);
+        activeHighlight.appendChild(m);
     }
-    noteText.value = activeHL.dataset.note || '';
-    const rc = activeHL.getBoundingClientRect();
-    noteBox.style.left = rc.right + window.scrollX + 10 + 'px';
-    noteBox.style.top = rc.top + window.scrollY + 'px';
+    const rc = activeHighlight.getBoundingClientRect();
+    noteBox.style.left = (rc.right + window.scrollX + 10) + 'px';
+    noteBox.style.top = (rc.top + window.scrollY) + 'px';
     noteBox.style.display = 'block';
+    noteText.value = activeHighlight.getAttribute('data-note') || '';
     noteText.focus();
-};
-document.getElementById('closeNote').onclick = () => { noteBox.style.display = 'none'; activeHL = null; };
-noteText.oninput = () => {
-    if (activeHL) { activeHL.dataset.note = noteText.value; saveHL(); }
-};
+});
+document.getElementById('menuRemove').addEventListener('click', () => {
+    ctxMenu.style.display = 'none';
+    noteBox.style.display = 'none';
+    if (!activeHighlight) return;
+    removeHighlightClean(activeHighlight);
+    activeHighlight = null;
+    saveHighlights();
+});
 
-document.getElementById('clearAll').onclick = () => {
+// === CLEAR ALL ===
+function clearAll() {
     if (!confirm('⚠️ Clear all answers and highlights? This cannot be undone.')) return;
-    [31,32,33,34,35,36,37,38,39,40].forEach(q => localStorage.removeItem(`${STORAGE}_q${q}`));
-    localStorage.removeItem(`${STORAGE}_hl`);
-    document.querySelectorAll('.blank-box').forEach(el => {
-        el.value = '';
-        el.classList.remove('filled');
-    });
-    document.querySelectorAll('.highlight').forEach(h => unwrapHighlight(h));
+    for (let i = 31; i <= 40; i++) {
+        localStorage.removeItem(`${STORAGE_KEY}_q${i}`);
+    }
+    localStorage.removeItem(`${passageId}_highlights`);
+    document.querySelectorAll('.input-field').forEach(inp => { inp.value = ''; inp.classList.remove('filled'); });
+    document.querySelectorAll('.highlight').forEach(h => removeHighlightClean(h));
     noteBox.style.display = 'none';
     renderStatus();
-};
+}
 
-renderStatus();
+// === INITIALIZE ===
+document.addEventListener('DOMContentLoaded', () => {
+    for (let i = 31; i <= 40; i++) {
+        const inp = document.getElementById('q' + i);
+        if (inp) setupInput(inp, i);
+    }
+    renderStatus();
+});
 </script>
 </body>
 </html>
