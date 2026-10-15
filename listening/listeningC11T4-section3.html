@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge 11 — Test 4 — Section 3</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: #f4f6f9; padding: 20px; line-height: 1.7; user-select: text; }
+        .container { max-width: 1100px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: relative; overflow: hidden; }
+        .logo-section { text-align: center; padding: 20px; border-bottom: 1px solid #e5e7eb; }
+        .logo-img { max-width: 400px; width: 80%; height: auto; }
+        .header-bar { background-color: #1f3a5f; color: white; padding: 15px 25px; font-size: 18px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+        .audio-player { background: #eff6ff; padding: 20px; margin: 20px; border-radius: 10px; text-align: center; border: 1px solid #bfdbfe; }
+        .audio-player h3 { color: #1e40af; margin-bottom: 10px; font-size: 16px; }
+        audio { width: 100%; max-width: 500px; }
+        .content { padding: 0 30px 30px; position: relative; }
+        h2 { color: #1f3a5f; margin: 25px 0 15px; font-size: 22px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
+        .instruction { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        .questions-block {
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            background: #fafafa;
+        }
+        .questions-block h3 { margin-bottom: 15px; color: #1f3a5f; font-size: 18px; }
+        .q-group { margin-bottom: 25px; }
+        .q-row { margin: 10px 0; padding: 6px 0; }
+        .q-num { font-weight: 600; color: #4b5563; min-width: 32px; display: inline-block; }
+        /* Custom checkbox style */
+        .option-row {
+            display: flex; align-items: flex-start; margin: 8px 0; padding: 4px 0; cursor: pointer;
+        }
+        .option-checkbox {
+            width: 22px; height: 22px; border: 2px solid #d1d5db; border-radius: 4px; margin-right: 12px;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+            background: #fff; transition: all 0.2s;
+        }
+        .option-checkbox.checked {
+            background: #1f3a5f; border-color: #1f3a5f; color: white; font-weight: bold;
+        }
+        .option-letter { font-weight: 700; min-width: 24px; display: inline-block; color: #1f3a5f; }
+        .answer-display {
+            margin-left: 10px; font-weight: 600; color: #4f46e5; min-width: 60px;
+        }
+        /* === HIGHLIGHT & NOTE SYSTEM === */
+        .highlight {
+            background-color: #ffd700; padding: 2px 4px; border-radius: 2px; cursor: pointer; display: inline;
+            position: relative; transition: background-color 0.2s;
+        }
+        .highlight:hover { background-color: #ffeb3b; }
+        .note-marker {
+            position: absolute; top: -8px; right: -8px; width: 18px; height: 18px;
+            background: #1f3a5f; color: white; border-radius: 50%; font-size: 11px; font-weight: bold;
+            display: flex; align-items: center; justify-content: center; z-index: 10;
+        }
+        .context-menu {
+            position: absolute; background: #fff; border: 1px solid #ccc; border-radius: 4px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 180px;
+        }
+        .context-menu div { padding: 10px 14px; cursor: pointer; font-size: 14px; border-bottom: 1px solid #f0f0f0; }
+        .context-menu div:last-child { border-bottom: none; }
+        .context-menu div:hover { background: #f0f0f0; }
+        .note-box {
+            position: absolute; width: 260px; min-height: 80px;
+            background: #fffde7; border: 1px solid #f9d423; border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15); z-index: 9990; display: none;
+        }
+        .note-header {
+            background: #f9d423; padding: 6px 10px; font-size: 13px; font-weight: bold; cursor: move;
+            display: flex; justify-content: space-between; align-items: center; color: #333;
+        }
+        .note-close { cursor: pointer; font-weight: bold; font-size: 16px; line-height: 1; }
+        .note-textarea {
+            width: 100%; min-height: 60px; border: none; padding: 10px;
+            font-size: 14px; resize: vertical; background: transparent; outline: none;
+        }
+        .status-bar {
+            display: flex; flex-wrap: wrap; gap: 6px; margin: 25px 0; padding: 15px;
+            background: #f3f4f6; border-radius: 8px; border: 1px solid #e5e7eb;
+        }
+        .status-label { font-size: 12px; font-weight: 600; color: #4b5563; margin-right: 8px; }
+        .q-dot {
+            width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+            border-radius: 4px; background: #e5e7eb; color: #6b7280; font-size: 11px; font-weight: 600;
+        }
+        .q-dot.done { background: #10b981; color: white; }
+        .clear-btn {
+            background: #ef4444; color: white; border: none; padding: 10px 20px;
+            border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; margin: 10px 0; transition: background 0.2s;
+        }
+        .clear-btn:hover { background: #dc2626; }
+        .nav-row {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 25px; padding-top: 20px; border-top: 1px solid #e5e7eb;
+            flex-wrap: wrap; gap: 12px;
+        }
+        .nav-group { display: flex; gap: 10px; flex-wrap: wrap; }
+        .nav-link {
+            padding: 10px 20px; border-radius: 8px; text-decoration: none;
+            font-weight: 600; font-size: 14px; transition: all 0.2s;
+        }
+        .nav-back { background: #e5e7eb; color: #374151; }
+        .nav-back:hover { background: #d1d5db; }
+        .nav-lib { background: #fef3c7; color: #92400e; }
+        .nav-lib:hover { background: #fde68a; }
+        .nav-next { background: #1f3a5f; color: white; }
+        .nav-next:hover { background: #2a4d7c; }
+        @media (max-width: 768px) {
+            .content { padding: 0 15px 20px; }
+            .questions-block { padding: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- RIGHT-CLICK MENU & DRAGGABLE NOTE BOX -->
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">🖍️ Highlight</div>
+        <div id="menuAddNote">📝 Add Note</div>
+        <div id="menuRemove">❌ Remove Highlight & Note</div>
+    </div>
+    <div class="note-box" id="noteBox">
+        <div class="note-header" id="noteDragHandle">
+            <span>📝 Note</span>
+            <span class="note-close" id="noteClose">×</span>
+        </div>
+        <textarea class="note-textarea" id="noteText" placeholder="Type your note here…"></textarea>
+    </div>
+    <div class="container">
+        <div class="logo-section">
+            <img src="../ielts-logo.png" alt="IELTS Logo" class="logo-img" onerror="this.style.display='none'">
+        </div>
+        <div class="header-bar">
+            <span>Cambridge 11 — Test 4 · Section 3</span>
+            <span style="font-size:14px; opacity:0.8;">Questions 21–30</span>
+        </div>
+        <div class="audio-player">
+            <h3>🎧 Play Recording</h3>
+            <audio controls preload="auto">
+                <source src="c11-t4-audio3.mp3" type="audio/mpeg">
+                <source src="listening/c11-t4-audio3.mp3" type="audio/mpeg">
+                <source src="../c11-t4-audio3.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            
+        </div>
+        <div class="content" id="passageArea">
+            <h2>Section 3 — Questions 21–30</h2>
+
+            <!-- Q21-22 -->
+            <div class="instruction">
+                <strong>Questions 21 and 22</strong><br>
+                Choose <strong>TWO</strong> letters, <strong>A–E</strong>.<br>
+                Which <strong>TWO</strong> characteristics were shared by the subjects of Joanna's psychology study?
+            </div>
+            <div class="questions-block q-group" data-qcount="2">
+                <div class="option-row" data-q="21,22" data-letter="A">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">A</span> They had all won prizes for their music.</span>
+                </div>
+                <div class="option-row" data-q="21,22" data-letter="B">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">B</span> They had all made music recordings.</span>
+                </div>
+                <div class="option-row" data-q="21,22" data-letter="C">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">C</span> They were all under 27 years old.</span>
+                </div>
+                <div class="option-row" data-q="21,22" data-letter="D">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">D</span> They had all toured internationally.</span>
+                </div>
+                <div class="option-row" data-q="21,22" data-letter="E">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">E</span> They all played a string instrument.</span>
+                </div>
+                <div style="margin-top:12px;">
+                    <strong>Answers:</strong>
+                    <span class="answer-display" id="ans21">21: —</span>
+                    <span class="answer-display" id="ans22">22: —</span>
+                </div>
+            </div>
+
+            <!-- Q23-24 -->
+            <div class="instruction">
+                <strong>Questions 23 and 24</strong><br>
+                Choose <strong>TWO</strong> letters, <strong>A–E</strong>.<br>
+                Which <strong>TWO</strong> points does Joanna make about her use of telephone interviews?
+            </div>
+            <div class="questions-block q-group" data-qcount="2">
+                <div class="option-row" data-q="23,24" data-letter="A">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">A</span> It meant rich data could be collected.</span>
+                </div>
+                <div class="option-row" data-q="23,24" data-letter="B">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">B</span> It allowed the involvement of top performers.</span>
+                </div>
+                <div class="option-row" data-q="23,24" data-letter="C">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">C</span> It led to a stressful atmosphere at times.</span>
+                </div>
+                <div class="option-row" data-q="23,24" data-letter="D">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">D</span> It meant interview times had to be limited.</span>
+                </div>
+                <div class="option-row" data-q="23,24" data-letter="E">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">E</span> It caused some technical problems.</span>
+                </div>
+                <div style="margin-top:12px;">
+                    <strong>Answers:</strong>
+                    <span class="answer-display" id="ans23">23: —</span>
+                    <span class="answer-display" id="ans24">24: —</span>
+                </div>
+            </div>
+
+            <!-- Q25-26 -->
+            <div class="instruction">
+                <strong>Questions 25 and 26</strong><br>
+                Choose <strong>TWO</strong> letters, <strong>A–E</strong>.<br>
+                Which <strong>TWO</strong> topics did Joanna originally intend to investigate in her research?
+            </div>
+            <div class="questions-block q-group" data-qcount="2">
+                <div class="option-row" data-q="25,26" data-letter="A">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">A</span> regulations concerning concert dress</span>
+                </div>
+                <div class="option-row" data-q="25,26" data-letter="B">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">B</span> audience reactions to the dress of performers</span>
+                </div>
+                <div class="option-row" data-q="25,26" data-letter="C">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">C</span> changes in performer attitudes to concert dress</span>
+                </div>
+                <div class="option-row" data-q="25,26" data-letter="D">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">D</span> how choice of dress relates to performer roles</span>
+                </div>
+                <div class="option-row" data-q="25,26" data-letter="E">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">E</span> links between musical instrument and dress choice</span>
+                </div>
+                <div style="margin-top:12px;">
+                    <strong>Answers:</strong>
+                    <span class="answer-display" id="ans25">25: —</span>
+                    <span class="answer-display" id="ans26">26: —</span>
+                </div>
+            </div>
+
+            <!-- Q27-30 -->
+            <div class="instruction">
+                <strong>Questions 27–30</strong><br>
+                Choose the correct letter, <strong>A</strong>, <strong>B</strong> or <strong>C</strong>.
+            </div>
+            <div class="questions-block q-group" data-qcount="1">
+                <div class="q-row"><strong>27</strong> Joanna concentrated on women performers because</div>
+                <div class="option-row" data-q="27" data-letter="A">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">A</span> women are more influenced by fashion.</span>
+                </div>
+                <div class="option-row" data-q="27" data-letter="B">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">B</span> women's dress has led to more controversy.</span>
+                </div>
+                <div class="option-row" data-q="27" data-letter="C">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">C</span> women's code of dress is less strict than men's.</span>
+                </div>
+                <div style="margin:8px 0 15px;"><strong>Answer:</strong> <span class="answer-display" id="ans27">—</span></div>
+
+                <div class="q-row"><strong>28</strong> Mike Frost's article suggests that in popular music, women's dress is affected by</div>
+                <div class="option-row" data-q="28" data-letter="A">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">A</span> their wish to be taken seriously.</span>
+                </div>
+                <div class="option-row" data-q="28" data-letter="B">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">B</span> their tendency to copy each other.</span>
+                </div>
+                <div class="option-row" data-q="28" data-letter="C">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">C</span> their reaction to the masculine nature of the music.</span>
+                </div>
+                <div style="margin:8px 0 15px;"><strong>Answer:</strong> <span class="answer-display" id="ans28">—</span></div>
+
+                <div class="q-row"><strong>29</strong> What did Joanna's subjects say about the audience at a performance?</div>
+                <div class="option-row" data-q="29" data-letter="A">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">A</span> The musicians' choice of clothing is linked to respect for the audience.</span>
+                </div>
+                <div class="option-row" data-q="29" data-letter="B">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">B</span> The clothing should not distract the audience from the music.</span>
+                </div>
+                <div class="option-row" data-q="29" data-letter="C">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">C</span> The audience should make the effort to dress appropriately.</span>
+                </div>
+                <div style="margin:8px 0 15px;"><strong>Answer:</strong> <span class="answer-display" id="ans29">—</span></div>
+
+                <div class="q-row"><strong>30</strong> According to the speakers, musicians could learn from sports scientists about</div>
+                <div class="option-row" data-q="30" data-letter="A">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">A</span> the importance of clothing for physical freedom.</span>
+                </div>
+                <div class="option-row" data-q="30" data-letter="B">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">B</span> the part played by clothing in improving performance.</span>
+                </div>
+                <div class="option-row" data-q="30" data-letter="C">
+                    <div class="option-checkbox"></div>
+                    <span><span class="option-letter">C</span> the way clothing may protect against physical injury.</span>
+                </div>
+                <div style="margin-top:8px;"><strong>Answer:</strong> <span class="answer-display" id="ans30">—</span></div>
+            </div>
+
+            <div class="status-bar" id="statusBar">
+                <span class="status-label">Section 3:</span>
+            </div>
+            <div class="nav-row">
+                <div class="nav-group">
+                    <a href="listeningC11T4-section2.html" class="nav-link nav-back">← Section 2</a>
+                    <a href="../library.html" class="nav-link nav-lib">📚 Library</a>
+                </div>
+                <a href="listeningC11T4-section4.html" class="nav-link nav-next">Section 4 →</a>
+            </div>
+        </div>
+        <div style="padding:0 30px 20px;">
+            <button class="clear-btn" onclick="clearAll()">🗑️ Clear All</button>
+        </div>
+    </div>
+<script>
+const STORAGE_KEY = 'C11T4_Section3';
+const passageId = 'c11t4-section3';
+let currentRange = null;
+let activeHighlight = null;
+
+// --- Answer Management ---
+function getAnswers() {
+    try { return JSON.parse(localStorage.getItem(`${STORAGE_KEY}_answers`) || '{}'); }
+    catch { return {}; }
+}
+function saveAnswers(answers) {
+    localStorage.setItem(`${STORAGE_KEY}_answers`, JSON.stringify(answers));
+}
+
+function renderStatus() {
+    const bar = document.getElementById('statusBar');
+    if (!bar) return;
+    bar.querySelectorAll('.q-dot').forEach(d => d.remove());
+    const answers = getAnswers();
+    for (let i = 21; i <= 30; i++) {
+        const done = !!answers[i];
+        const dot = document.createElement('span');
+        dot.className = 'q-dot' + (done ? ' done' : '');
+        dot.textContent = i;
+        bar.appendChild(dot);
+    }
+}
+
+function updateAnswerDisplay(qNum, letter) {
+    const el = document.getElementById(`ans${qNum}`);
+    if (el) el.textContent = `${qNum}: ${letter || '—'}`;
+}
+
+// --- Checkbox Logic ---
+document.querySelectorAll('.option-row').forEach(row => {
+    const checkbox = row.querySelector('.option-checkbox');
+    const qList = row.dataset.q.split(',').map(Number);
+    const letter = row.dataset.letter;
+    const group = row.closest('.q-group');
+    const perGroup = parseInt(group.dataset.qcount);
+
+    // Load saved state
+    const answers = getAnswers();
+    qList.forEach(qNum => {
+        if (answers[qNum] === letter) {
+            checkbox.classList.add('checked');
+            checkbox.textContent = '✓';
+            updateAnswerDisplay(qNum, letter);
+        }
+    });
+
+    row.addEventListener('click', () => {
+        const answers = getAnswers();
+        
+        if (perGroup === 1) {
+            // Single choice — deselect siblings
+            group.querySelectorAll('.option-row').forEach(sib => {
+                const sibQ = sib.dataset.q.split(',').map(Number)[0];
+                const sibBox = sib.querySelector('.option-checkbox');
+                sibBox.classList.remove('checked');
+                sibBox.textContent = '';
+                answers[sibQ] = null;
+                updateAnswerDisplay(sibQ, '—');
+            });
+            // Select this
+            checkbox.classList.add('checked');
+            checkbox.textContent = '✓';
+            answers[qList[0]] = letter;
+            updateAnswerDisplay(qList[0], letter);
+        } else {
+            // Multi-choice — assign to first empty slot or remove if re-clicked
+            if (checkbox.classList.contains('checked')) {
+                checkbox.classList.remove('checked');
+                checkbox.textContent = '';
+                qList.forEach(qNum => {
+                    if (answers[qNum] === letter) {
+                        answers[qNum] = null;
+                        updateAnswerDisplay(qNum, '—');
+                    }
+                });
+            } else {
+                const emptySlot = qList.find(qNum => !answers[qNum]);
+                if (emptySlot) {
+                    checkbox.classList.add('checked');
+                    checkbox.textContent = '✓';
+                    answers[emptySlot] = letter;
+                    updateAnswerDisplay(emptySlot, letter);
+                }
+            }
+        }
+        saveAnswers(answers);
+        renderStatus();
+    });
+});
+
+function removeHighlightClean(el) {
+    if (!el || !el.parentNode) return;
+    const cleanText = el.textContent.replace(/!$/, '');
+    const textNode = document.createTextNode(cleanText);
+    el.parentNode.replaceChild(textNode, el);
+    if (textNode.previousSibling && textNode.previousSibling.nodeType === Node.TEXT_NODE) {
+        textNode.nodeValue = textNode.previousSibling.nodeValue + textNode.nodeValue;
+        textNode.parentNode.removeChild(textNode.previousSibling);
+    }
+    if (textNode.nextSibling && textNode.nextSibling.nodeType === Node.TEXT_NODE) {
+        textNode.nodeValue = textNode.nodeValue + textNode.nextSibling.nodeValue;
+        textNode.parentNode.removeChild(textNode.nextSibling);
+    }
+}
+
+function saveHighlights() {
+    const highlights = document.querySelectorAll('#passageArea .highlight');
+    const data = Array.from(highlights).map(h => ({
+        text: h.textContent,
+        note: h.getAttribute('data-note') || ''
+    }));
+    localStorage.setItem(`${passageId}_highlights`, JSON.stringify(data));
+}
+
+function isSelectionValid(sel) {
+    if (!sel || sel.isCollapsed || !sel.toString().trim()) return false;
+    try {
+        const r = sel.getRangeAt(0);
+        const p = r.commonAncestorContainer.nodeType === Node.TEXT_NODE
+            ? r.commonAncestorContainer.parentElement : r.commonAncestorContainer;
+        const inArea = document.getElementById('passageArea').contains(p);
+        const inInput = p.closest('.option-checkbox,button,.context-menu,.note-box');
+        return inArea && !inInput;
+    } catch { return false; }
+}
+
+const noteBox = document.getElementById('noteBox');
+const noteText = document.getElementById('noteText');
+const noteClose = document.getElementById('noteClose');
+let isDraggingNote = false, offsetX = 0, offsetY = 0;
+
+noteClose.addEventListener('click', () => {
+    noteBox.style.display = 'none';
+    activeHighlight = null;
+});
+
+noteText.addEventListener('input', () => {
+    if (activeHighlight) {
+        activeHighlight.setAttribute('data-note', noteText.value);
+        saveHighlights();
+    }
+});
+
+document.addEventListener('mousedown', e => {
+    if (!e.target.closest('.note-header')) return;
+    isDraggingNote = true;
+    const rc = noteBox.getBoundingClientRect();
+    offsetX = e.clientX - rc.left;
+    offsetY = e.clientY - rc.top;
+});
+
+document.addEventListener('mousemove', e => {
+    if (!isDraggingNote) return;
+    noteBox.style.left = (e.clientX - offsetX) + 'px';
+    noteBox.style.top = (e.clientY - offsetY) + 'px';
+});
+
+document.addEventListener('mouseup', () => isDraggingNote = false);
+
+const ctxMenu = document.getElementById('contextMenu');
+document.addEventListener('contextmenu', e => {
+    const sel = window.getSelection();
+    const targetHl = e.target.closest('.highlight');
+    ctxMenu.style.display = 'none';
+    if (targetHl) {
+        e.preventDefault();
+        activeHighlight = targetHl;
+        const rc = targetHl.getBoundingClientRect();
+        ctxMenu.style.left = (rc.left + window.scrollX) + 'px';
+        ctxMenu.style.top = (rc.bottom + window.scrollY + 5) + 'px';
+        ctxMenu.style.display = 'block';
+    } else if (isSelectionValid(sel)) {
+        e.preventDefault();
+        currentRange = sel.getRangeAt(0).cloneRange();
+        const rc = currentRange.getBoundingClientRect();
+        ctxMenu.style.left = (rc.left + window.scrollX) + 'px';
+        ctxMenu.style.top = (rc.bottom + window.scrollY + 5) + 'px';
+        ctxMenu.style.display = 'block';
+        activeHighlight = null;
+    }
+});
+
+document.addEventListener('click', e => {
+    if (!ctxMenu.contains(e.target)) ctxMenu.style.display = 'none';
+});
+
+document.getElementById('menuHighlight').addEventListener('click', () => {
+    if (!currentRange) return;
+    try {
+        const sp = document.createElement('span');
+        sp.className = 'highlight';
+        sp.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(sp);
+        window.getSelection().removeAllRanges();
+        saveHighlights();
+    } catch { alert('⚠️ Select smaller text please.'); }
+    ctxMenu.style.display = 'none';
+});
+
+document.getElementById('menuAddNote').addEventListener('click', () => {
+    ctxMenu.style.display = 'none';
+    if (!activeHighlight) {
+        if (!currentRange) return;
+        try {
+            const sp = document.createElement('span');
+            sp.className = 'highlight';
+            sp.textContent = currentRange.toString();
+            currentRange.deleteContents();
+            currentRange.insertNode(sp);
+            activeHighlight = sp;
+            window.getSelection().removeAllRanges();
+            saveHighlights();
+        } catch { alert('⚠️ Select smaller text please.'); return; }
+    }
+    if (!activeHighlight.querySelector('.note-marker')) {
+        const m = document.createElement('span');
+        m.className = 'note-marker';
+        m.textContent = '!';
+        activeHighlight.appendChild(m);
+    }
+    const rc = activeHighlight.getBoundingClientRect();
+    noteBox.style.left = (rc.right + window.scrollX + 10) + 'px';
+    noteBox.style.top = (rc.top + window.scrollY) + 'px';
+    noteBox.style.display = 'block';
+    noteText.value = activeHighlight.getAttribute('data-note') || '';
+    noteText.focus();
+});
+
+document.getElementById('menuRemove').addEventListener('click', () => {
+    ctxMenu.style.display = 'none';
+    noteBox.style.display = 'none';
+    if (!activeHighlight) return;
+    removeHighlightClean(activeHighlight);
+    activeHighlight = null;
+    saveHighlights();
+});
+
+function clearAll() {
+    if (!confirm('⚠️ Clear all answers and highlights? This cannot be undone.')) return;
+    localStorage.removeItem(`${STORAGE_KEY}_answers`);
+    localStorage.removeItem(`${passageId}_highlights`);
+    document.querySelectorAll('.option-checkbox').forEach(cb => {
+        cb.classList.remove('checked');
+        cb.textContent = '';
+    });
+    for (let i = 21; i <= 30; i++) {
+        updateAnswerDisplay(i, '—');
+    }
+    document.querySelectorAll('.highlight').forEach(h => removeHighlightClean(h));
+    noteBox.style.display = 'none';
+    renderStatus();
+}
+
+document.addEventListener('DOMContentLoaded', renderStatus);
+</script>
+</body>
+</html>
