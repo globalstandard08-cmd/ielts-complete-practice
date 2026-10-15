@@ -7,7 +7,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
         body { background-color: #f4f6f9; padding: 20px; line-height: 1.7; user-select: text; }
-        .container { max-width: 1100px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: relative; overflow: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: relative; overflow: hidden; }
         .logo-section { text-align: center; padding: 20px; border-bottom: 1px solid #e5e7eb; }
         .logo-img { max-width: 400px; width: 80%; height: auto; }
         .header-bar { background-color: #1f3a5f; color: white; padding: 15px 25px; font-size: 18px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
@@ -36,43 +36,34 @@
         }
         .input-field:focus { outline: none; border-color: #1f3a5f; box-shadow: 0 0 0 3px rgba(31,58,95,0.15); }
         .input-field.filled { background: #eef2ff; border-color: #4f46e5; }
-        /* Two-column layout for Q11-16 */
+        /* Q11-16: choices left, questions right */
         .two-col { display: flex; gap: 25px; flex-wrap: wrap; }
-        .col-left { flex: 1; min-width: 280px; }
-        .col-right { flex: 1; min-width: 280px; }
+        .col-left { flex: 1; min-width: 260px; }
+        .col-right { flex: 1; min-width: 260px; }
         .option-row { padding: 4px 0; }
         .option-letter { display: inline-block; width: 26px; font-weight: 700; color: #1f3a5f; }
         .q-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #eee; }
         .q-num { font-weight: 600; color: #4b5563; min-width: 28px; }
-        /* Map styling */
-        .map-container { text-align: center; margin: 20px 0; }
-        .map-img { max-width: 100%; height: auto; border: 1px solid #d1d5db; border-radius: 8px; }
-        .map-legend { margin-top: 15px; text-align: left; display: inline-block; }
+        /* Q17-20: map LEFT, questions RIGHT — side by side */
+        .map-question-layout { display: flex; gap: 25px; align-items: flex-start; flex-wrap: wrap; }
+        .map-col { flex: 1.2; min-width: 320px; }
+        .q-col { flex: 1; min-width: 240px; padding-top: 10px; }
+        .map-img { width: 100%; height: auto; border: 1px solid #d1d5db; border-radius: 8px; object-fit: contain; }
+        .map-q-row { margin: 14px 0; display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: #fff; border-radius: 6px; border: 1px solid #e5e7eb; }
         /* === HIGHLIGHT & NOTE SYSTEM === */
         .highlight {
-            background-color: #ffd700;
-            padding: 2px 4px;
-            border-radius: 2px;
-            cursor: pointer;
-            display: inline;
-            position: relative;
-            transition: background-color 0.2s;
+            background-color: #ffd700; padding: 2px 4px; border-radius: 2px; cursor: pointer; display: inline;
+            position: relative; transition: background-color 0.2s;
         }
         .highlight:hover { background-color: #ffeb3b; }
         .note-marker {
-            position: absolute;
-            top: -8px; right: -8px;
-            width: 18px; height: 18px;
-            background: #1f3a5f; color: white; border-radius: 50%;
-            font-size: 11px; font-weight: bold;
-            display: flex; align-items: center; justify-content: center;
-            z-index: 10;
+            position: absolute; top: -8px; right: -8px; width: 18px; height: 18px;
+            background: #1f3a5f; color: white; border-radius: 50%; font-size: 11px; font-weight: bold;
+            display: flex; align-items: center; justify-content: center; z-index: 10;
         }
         .context-menu {
-            position: absolute;
-            background: #fff; border: 1px solid #ccc; border-radius: 4px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-            z-index: 9999; display: none; min-width: 180px;
+            position: absolute; background: #fff; border: 1px solid #ccc; border-radius: 4px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 180px;
         }
         .context-menu div { padding: 10px 14px; cursor: pointer; font-size: 14px; border-bottom: 1px solid #f0f0f0; }
         .context-menu div:last-child { border-bottom: none; }
@@ -80,8 +71,7 @@
         .note-box {
             position: absolute; width: 260px; min-height: 80px;
             background: #fffde7; border: 1px solid #f9d423; border-radius: 6px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-            z-index: 9990; display: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15); z-index: 9990; display: none;
         }
         .note-header {
             background: #f9d423; padding: 6px 10px; font-size: 13px; font-weight: bold; cursor: move;
@@ -163,6 +153,7 @@
         <div class="content" id="passageArea">
             <h2>Section 2 — Questions 11–20</h2>
             
+            <!-- Q11-16: Choices left, Questions right -->
             <div class="instruction">
                 <strong>Questions 11–16</strong><br>
                 What does the speaker say about each of the following collections?<br>
@@ -210,21 +201,36 @@
                 </div>
             </div>
 
+            <!-- Q17-20: Map LEFT, Questions RIGHT — side by side -->
             <div class="instruction">
                 <strong>Questions 17–20</strong><br>
                 Label the plan below.<br>
                 Write the correct letter, <strong>A–H</strong>, next to Questions 17–20.
             </div>
             <div class="questions-block">
-                <h3>Basement of museum</h3>
-                <div class="map-container">
-                    <img src="map-C11T4-section2-basement.png" alt="Basement of museum plan" class="map-img" onerror="this.alt='Map image: map-C11T4-section2-basement.png not found'">
-                </div>
-                <div class="map-legend">
-                    <p style="margin:6px 0;"><strong>17</strong>&nbsp; restaurant &nbsp; &nbsp; <input type="text" class="input-field" id="q17" data-q="17" placeholder="A-H"></p>
-                    <p style="margin:6px 0;"><strong>18</strong>&nbsp; café &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" class="input-field" id="q18" data-q="18" placeholder="A-H"></p>
-                    <p style="margin:6px 0;"><strong>19</strong>&nbsp; baby-changing facilities &nbsp; <input type="text" class="input-field" id="q19" data-q="19" placeholder="A-H"></p>
-                    <p style="margin:6px 0;"><strong>20</strong>&nbsp; cloakroom &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" class="input-field" id="q20" data-q="20" placeholder="A-H"></p>
+                <h3 style="margin-bottom:15px;">Basement of museum</h3>
+                <div class="map-question-layout">
+                    <div class="map-col">
+                        <img src="map-C11T4-section2-basement.png" alt="Basement of museum plan" class="map-img" onerror="this.alt='Map image: map-C11T4-section2-basement.png not found'">
+                    </div>
+                    <div class="q-col">
+                        <div class="map-q-row">
+                            <span><strong>17</strong> restaurant</span>
+                            <input type="text" class="input-field" id="q17" data-q="17" placeholder="A-H">
+                        </div>
+                        <div class="map-q-row">
+                            <span><strong>18</strong> café</span>
+                            <input type="text" class="input-field" id="q18" data-q="18" placeholder="A-H">
+                        </div>
+                        <div class="map-q-row">
+                            <span><strong>19</strong> baby-changing facilities</span>
+                            <input type="text" class="input-field" id="q19" data-q="19" placeholder="A-H">
+                        </div>
+                        <div class="map-q-row">
+                            <span><strong>20</strong> cloakroom</span>
+                            <input type="text" class="input-field" id="q20" data-q="20" placeholder="A-H">
+                        </div>
+                    </div>
                 </div>
             </div>
             
