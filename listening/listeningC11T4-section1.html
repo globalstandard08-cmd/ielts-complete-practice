@@ -39,8 +39,7 @@
         table { width: 100%; border-collapse: collapse; margin: 15px 0 25px; }
         th, td { border: 1px solid #d1d5db; padding: 12px 15px; text-align: left; vertical-align: middle; }
         th { background: #eef2ff; font-weight: 600; color: #1f3a5f; }
-        .option-label { display: inline-block; width: 28px; font-weight: 600; }
-        /* === HIGHLIGHT & NOTE SYSTEM — SAME FIXED PATTERN === */
+        /* === HIGHLIGHT & NOTE SYSTEM === */
         .highlight {
             background-color: #ffd700;
             padding: 2px 4px;
@@ -161,8 +160,7 @@
             <div class="instruction">
                 <strong>Questions 1–7</strong><br>
                 Complete the table below.<br>
-                Write <strong>ONE WORD AND/OR A NUMBER</strong> for each answer.<br>
-                Right‑click selected text → choose Highlight or Add Note.
+                Write <strong>ONE WORD AND/OR A NUMBER</strong> for each answer.
             </div>
             <div class="questions-block">
                 <table>
@@ -204,8 +202,7 @@
                 <br>
                 <strong>A</strong> mainly for children<br>
                 <strong>B</strong> mainly for adults<br>
-                <strong>C</strong> suitable for people of all ages<br>
-                Right‑click selected text → choose Highlight or Add Note.
+                <strong>C</strong> suitable for people of all ages
             </div>
             <div class="questions-block">
                 <h3>Plays</h3>
@@ -234,7 +231,7 @@ const STORAGE_KEY = 'C11T4_Section1';
 const passageId = 'c11t4-section1';
 let currentRange = null;
 let activeHighlight = null;
-// === ANSWER HANDLING ===
+
 function renderStatus() {
     const bar = document.getElementById('statusBar');
     if (!bar) return;
@@ -248,6 +245,7 @@ function renderStatus() {
         bar.appendChild(dot);
     }
 }
+
 function setupInput(inputEl, qNum) {
     const saved = localStorage.getItem(`${STORAGE_KEY}_q${qNum}`);
     if (saved) { inputEl.value = saved; inputEl.classList.add('filled'); }
@@ -258,7 +256,7 @@ function setupInput(inputEl, qNum) {
         renderStatus();
     });
 }
-// === CLEAN REMOVAL — NO PUNCTUATION LEFTOVER ===
+
 function removeHighlightClean(el) {
     if (!el || !el.parentNode) return;
     const cleanText = el.textContent.replace(/!$/, '');
@@ -273,7 +271,7 @@ function removeHighlightClean(el) {
         textNode.parentNode.removeChild(textNode.nextSibling);
     }
 }
-// === SAVE HIGHLIGHTS ===
+
 function saveHighlights() {
     const highlights = document.querySelectorAll('#passageArea .highlight');
     const data = Array.from(highlights).map(h => ({
@@ -282,7 +280,7 @@ function saveHighlights() {
     }));
     localStorage.setItem(`${passageId}_highlights`, JSON.stringify(data));
 }
-// === SELECTION VALID ===
+
 function isSelectionValid(sel) {
     if (!sel || sel.isCollapsed || !sel.toString().trim()) return false;
     try {
@@ -294,21 +292,24 @@ function isSelectionValid(sel) {
         return inArea && !inInput;
     } catch { return false; }
 }
-// === DRAGGABLE NOTE BOX ===
+
 const noteBox = document.getElementById('noteBox');
 const noteText = document.getElementById('noteText');
 const noteClose = document.getElementById('noteClose');
 let isDraggingNote = false, offsetX = 0, offsetY = 0;
+
 noteClose.addEventListener('click', () => {
     noteBox.style.display = 'none';
     activeHighlight = null;
 });
+
 noteText.addEventListener('input', () => {
     if (activeHighlight) {
         activeHighlight.setAttribute('data-note', noteText.value);
         saveHighlights();
     }
 });
+
 document.addEventListener('mousedown', e => {
     if (!e.target.closest('.note-header')) return;
     isDraggingNote = true;
@@ -316,13 +317,15 @@ document.addEventListener('mousedown', e => {
     offsetX = e.clientX - rc.left;
     offsetY = e.clientY - rc.top;
 });
+
 document.addEventListener('mousemove', e => {
     if (!isDraggingNote) return;
     noteBox.style.left = (e.clientX - offsetX) + 'px';
     noteBox.style.top = (e.clientY - offsetY) + 'px';
 });
+
 document.addEventListener('mouseup', () => isDraggingNote = false);
-// === RIGHT-CLICK MENU ===
+
 const ctxMenu = document.getElementById('contextMenu');
 document.addEventListener('contextmenu', e => {
     const sel = window.getSelection();
@@ -345,10 +348,11 @@ document.addEventListener('contextmenu', e => {
         activeHighlight = null;
     }
 });
+
 document.addEventListener('click', e => {
     if (!ctxMenu.contains(e.target)) ctxMenu.style.display = 'none';
 });
-// === ACTIONS ===
+
 document.getElementById('menuHighlight').addEventListener('click', () => {
     if (!currentRange) return;
     try {
@@ -362,6 +366,7 @@ document.getElementById('menuHighlight').addEventListener('click', () => {
     } catch { alert('⚠️ Select smaller text please.'); }
     ctxMenu.style.display = 'none';
 });
+
 document.getElementById('menuAddNote').addEventListener('click', () => {
     ctxMenu.style.display = 'none';
     if (!activeHighlight) {
@@ -390,6 +395,7 @@ document.getElementById('menuAddNote').addEventListener('click', () => {
     noteText.value = activeHighlight.getAttribute('data-note') || '';
     noteText.focus();
 });
+
 document.getElementById('menuRemove').addEventListener('click', () => {
     ctxMenu.style.display = 'none';
     noteBox.style.display = 'none';
@@ -398,7 +404,7 @@ document.getElementById('menuRemove').addEventListener('click', () => {
     activeHighlight = null;
     saveHighlights();
 });
-// === CLEAR ALL ===
+
 function clearAll() {
     if (!confirm('⚠️ Clear all answers and highlights? This cannot be undone.')) return;
     for (let i = 1; i <= 10; i++) {
@@ -410,7 +416,7 @@ function clearAll() {
     noteBox.style.display = 'none';
     renderStatus();
 }
-// === INITIALIZE ===
+
 document.addEventListener('DOMContentLoaded', () => {
     for (let i = 1; i <= 10; i++) {
         const inp = document.getElementById('q' + i);
