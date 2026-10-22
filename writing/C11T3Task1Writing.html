@@ -39,7 +39,7 @@
             font-size: 15px;
         }
 
-        /* Resizable Grid Container */
+        /* Resizable Container */
         .content-grid {
             display: flex;
             gap: 0;
@@ -47,7 +47,7 @@
             min-height: 700px;
         }
 
-        /* Left: Scrollable + Resizable Question Panel */
+        /* LEFT: ✅ Scrollable + Resizable Question Panel */
         .question-panel {
             background: #ffffff;
             border-radius: 10px;
@@ -55,12 +55,12 @@
             padding: 25px;
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.08);
             height: 700px;
-            overflow-y: auto;
+            overflow-y: auto; /* ✅ Vertical scrollbar always active when needed */
             width: 50%;
             min-width: 300px;
         }
 
-        /* Resizer Handle */
+        /* Resizer Divider — ✅ Drag left/right to expand */
         .resizer {
             width: 8px;
             background: #fecaca;
@@ -73,7 +73,7 @@
             background: #dc2626;
         }
 
-        /* Right: Writing Panel */
+        /* RIGHT: Writing Panel — stays fixed while scrolling */
         .write-panel {
             background: #ffffff;
             border-radius: 10px;
@@ -239,7 +239,7 @@
 
                 <div class="chart-container">
                     <p style="font-weight: 600; margin-bottom: 10px;">Average carbon dioxide (CO₂) emissions per person, 1967–2007</p>
-                    <img src="C11T3Task1Writing.png" alt="CO₂ emissions per person line graph: UK, Sweden, Italy, Portugal" class="chart-img">
+                    <img src="C11T3Task1Writing.png" alt="CO₂ emissions line graph: UK, Sweden, Italy, Portugal" class="chart-img">
                 </div>
             </div>
 
@@ -277,7 +277,7 @@ textarea.addEventListener('input', () => {
     counter.textContent = text ? text.split(/\s+/).filter(word => word.length > 0).length : '0';
 });
 
-// Resizable panels
+// ✅ Drag-to-Resize Panels
 const leftPanel = document.getElementById('leftPanel');
 const rightPanel = document.getElementById('rightPanel');
 const resizer = document.getElementById('resizer');
@@ -299,9 +299,11 @@ document.addEventListener('mousemove', (e) => {
     const leftWidth = e.clientX - containerRect.left;
     const containerWidth = containerRect.width;
     
+    // Minimum width protection on both sides
     if (leftWidth >= 300 && containerWidth - leftWidth - 8 >= 300) {
-        leftPanel.style.width = `${(leftWidth / containerWidth) * 100}%`;
-        rightPanel.style.width = `calc(100% - ${leftPanel.style.width} - 8px)`;
+        const leftPercent = (leftWidth / containerWidth) * 100;
+        leftPanel.style.width = `${leftPercent}%`;
+        rightPanel.style.width = `${100 - leftPercent - 2}%`;
     }
 });
 
