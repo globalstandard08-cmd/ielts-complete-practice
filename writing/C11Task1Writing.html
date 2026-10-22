@@ -3,347 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C11 Task 2 — Writing</title>
+    <title>C11 Test 1 — Writing Task 1</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        body {
-            background-color: #f0f4f8;
-            color: #1a1a1a;
-            line-height: 1.6;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(31, 58, 95, 0.10);
-            overflow: hidden;
-        }
-        .header {
-            padding: 20px 25px 15px;
-            border-bottom: 1px solid #c5d2e3;
-        }
-        .ielts-logo {
-            display: block;
-            max-width: 220px;
-            height: auto;
-        }
-        .intro-section {
-            padding: 18px 25px;
-            background: #f8fafc;
-            border-bottom: 1px solid #e2e8f0;
-            text-align: center;
-        }
-        .intro-section h1 {
-            color: #1f3a5f;
-            font-size: 19px;
-            margin-bottom: 6px;
-        }
-        .intro-section p {
-            color: #4a5568;
-            font-size: 14px;
-            font-style: italic;
-        }
-        .split-layout {
-            display: flex;
-            align-items: stretch;
-            gap: 0;
-            min-height: 600px;
-        }
-        .question-panel {
-            width: 48%;
-            padding: 20px 25px 25px;
-            background-color: #fefefe;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            min-width: 300px;
-        }
-        .question-panel h2 {
-            font-size: 20px;
-            font-weight: bold;
-            margin: 0 0 15px;
-            color: #1f3a5f;
-        }
-        .instruction-box {
-            border: 1px solid #c5d2e3;
-            background: #f8fafc;
-            padding: 20px;
-            margin: 0;
-            font-size: 15px;
-            border-radius: 6px;
-            line-height: 1.8;
-        }
-        .divider {
-            width: 6px;
-            background-color: #c5d2e3;
-            cursor: col-resize;
-            position: relative;
-            transition: background-color 0.15s;
-            flex-shrink: 0;
-        }
-        .divider:hover, .divider.dragging {
-            background-color: #1f3a5f;
-        }
-        .divider::after {
-            content: '⟷';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 14px;
-            color: #6b7280;
-            pointer-events: none;
-            opacity: 0.5;
-        }
-        .divider:hover::after, .divider.dragging::after {
-            color: #ffffff;
-            opacity: 1;
-        }
-        .writing-panel {
-            flex: 1;
-            min-width: 300px;
-            padding: 20px 25px;
-            display: flex;
-            flex-direction: column;
-        }
-        textarea {
-            width: 100%;
-            flex: 1;
-            min-height: 550px;
-            padding: 18px;
-            border: 1px solid #c5d2e3;
-            border-radius: 6px;
-            font-size: 15px;
-            line-height: 1.6;
-            background: #ffffff;
-            resize: none;
-            margin-bottom: 10px;
-            spellcheck: false;
-        }
-        textarea:focus {
-            outline: none;
-            border-color: #1f3a5f;
-            box-shadow: 0 0 0 2px rgba(31, 58, 95, 0.15);
-        }
-        .word-count {
-            text-align: left;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 10px;
-            color: #1f3a5f;
-        }
-        .save-note {
-            font-size: 12px;
-            color: #006600;
-            margin-bottom: 15px;
-            display: none;
-        }
-        .btn-row {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .export-btn {
-            padding: 8px 16px;
-            background: #f0f4f8;
-            color: #1f3a5f;
-            border: 1px solid #c5d2e3;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        .export-btn:hover {
-            background: #e2eaf3;
-        }
-        .clear-all-btn {
-            padding: 8px 16px;
-            background: #fff0f0;
-            border: 1px solid #fecaca;
-            color: #dc2626;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        .clear-all-btn:hover {
-            background: #fee2e2;
-        }
-        .nav-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 25px;
-            border-top: 1px solid #e2e8f0;
-            background: #ffffff;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .nav-btn {
-            background: #f0f4f8;
-            border: 1px solid #c5d2e3;
-            color: #1f3a5f;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .nav-btn:hover {
-            background: #e2eaf3;
-        }
-        .task-indicator {
-            font-weight: bold;
-            color: #1f3a5f;
-        }
-        @media (max-width: 900px) {
-            .split-layout {
-                flex-direction: column;
-            }
-            .divider {
-                width: 100%;
-                height: 6px;
-                cursor: row-resize;
-            }
-            .divider::after {
-                content: '↕';
-            }
-            .question-panel, .writing-panel {
-                width: 100% !important;
-                border-right: none;
-                border-bottom: 1px solid #e2e8f0;
-            }
-            textarea {
-                min-height: 300px;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background: #fef2f2; padding: 30px; line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 3px 12px rgba(220,38,38,0.07); }
+        h1 { color: #dc2626; font-size: 24px; margin-bottom: 10px; }
+        .task-time { color: #7f1d1d; font-weight: 500; margin-bottom: 20px; }
+        .task-box { border: 1px solid #fecaca; padding: 20px; border-radius: 10px; background: #fef2f2; margin-bottom: 24px; }
+        .instruction { font-weight: 600; margin: 15px 0; }
+        .chart-container { text-align: center; margin: 25px 0; }
+        .chart-img { max-width: 100%; height: auto; border-radius: 8px; border: 1px solid #fecaca; }
+        .word-count { margin-top: 15px; font-weight: 500; color: #991b1b; }
+        .back-link { display: inline-block; margin-top: 25px; color: #dc2626; text-decoration: none; font-weight: 600; }
+        .back-link:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <img src="ielts-logo.png" alt="IELTS Logo" class="ielts-logo">
-    </div>
-    <div class="intro-section">
-        <h1>WRITING — TASK 2</h1>
-        <p>You should spend about 40 minutes on this task.</p>
-    </div>
-    <div class="split-layout" id="splitLayout">
-        <div class="question-panel" id="questionPanel">
-            <h2>WRITING TASK 2</h2>
-            <div class="instruction-box">
-                Write about the following topic:<br><br>
-                <strong>[Paste the exact Task 2 prompt from Cambridge 11 Test 1 here]</strong><br><br>
-                Give reasons for your answer and include any relevant examples from your own knowledge or experience.<br><br>
-                <strong>Write at least 250 words.</strong>
-            </div>
-        </div>
-        <div class="divider" id="divider"></div>
-        <div class="writing-panel">
-            <textarea 
-                id="writingTask2" 
-                placeholder="Write your essay here..."
-                spellcheck="false"
-                autocomplete="off"
-                autocorrect="off"
-                autocapitalize="off"
-            ></textarea>
-            <div class="word-count" id="wordCount">Words: 0 / 250 minimum</div>
-            <div class="save-note" id="saveNote">✅ Auto-saved</div>
-            <div class="btn-row">
-                <button class="export-btn" onclick="exportAnswer('writingTask2', 'C11T1_WritingTask2.txt')">📄 Save Task 2</button>
-                <button class="clear-all-btn" onclick="clearAllAnswers()">🗑️ Clear Answer</button>
-            </div>
-        </div>
-    </div>
-    <div class="nav-bar">
-        <a href="C11Task1Writing.html" class="nav-btn">⬅️ Task 1</a>
-        <div class="task-indicator">C11 — Test 1 — Task 2 of 2</div>
-        <a href="../library.html" class="nav-btn">Library 🏠</a>
-    </div>
-</div>
-<script>
-const STORAGE_KEY = 'C11T1_Writing';
+    <div class="container">
+        <h1>WRITING TASK 1</h1>
+        <p class="task-time">You should spend about 20 minutes on this task.</p>
 
-const questionPanel = document.getElementById('questionPanel');
-const divider = document.getElementById('divider');
-const splitLayout = document.getElementById('splitLayout');
-let isDragging = false;
-function startDrag(e) {
-    if (window.innerWidth <= 900) return;
-    isDragging = true;
-    divider.classList.add('dragging');
-    document.body.style.cursor = 'col-resize';
-    document.body.style.userSelect = 'none';
-}
-function doDrag(e) {
-    if (!isDragging || window.innerWidth <= 900) return;
-    const rect = splitLayout.getBoundingClientRect();
-    const newWidth = ((e.clientX - rect.left) / rect.width) * 100;
-    if (newWidth >= 25 && newWidth <= 75) {
-        questionPanel.style.width = newWidth + '%';
-    }
-}
-function endDrag() {
-    isDragging = false;
-    divider.classList.remove('dragging');
-    document.body.style.cursor = '';
-    document.body.style.userSelect = '';
-}
-divider.addEventListener('mousedown', startDrag);
-document.addEventListener('mousemove', doDrag);
-document.addEventListener('mouseup', endDrag);
-document.addEventListener('mouseleave', endDrag);
+        <div class="task-box">
+            <p>The charts below show the percentage of water used for different purposes in six areas of the world.</p>
+            
+            <p class="instruction">Summarise the information by selecting and reporting the main features, and make comparisons where relevant.</p>
+            
+            <p class="word-count">Write at least 150 words.</p>
 
-function countWords(id, countId, min) {
-    const text = document.getElementById(id).value.trim();
-    const num = text ? text.replace(/\s+/g, ' ').split(' ').length : 0;
-    const counter = document.getElementById(countId);
-    counter.textContent = `Words: ${num} / ${min} minimum`;
-    counter.style.color = num < min ? '#dc2626' : num < min + 20 ? '#b45309' : '#166534';
-}
-function autoSave(id, noteId) {
-    localStorage.setItem(STORAGE_KEY + '_' + id, document.getElementById(id).value);
-    const note = document.getElementById(noteId);
-    note.style.display = 'inline';
-    setTimeout(() => note.style.display = 'none', 1500);
-}
-function loadSaved(id) {
-    document.getElementById(id).value = localStorage.getItem(STORAGE_KEY + '_' + id) || '';
-}
-function exportAnswer(inputId, fileName) {
-    const text = document.getElementById(inputId).value.trim();
-    if (!text) return alert("Please write your answer first!");
-    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = fileName;
-    link.click();
-    URL.revokeObjectURL(link.href);
-}
-function clearAllAnswers() {
-    if (!confirm('⚠️ Are you sure you want to clear your essay?\n\nThis cannot be undone.')) return;
-    localStorage.removeItem(STORAGE_KEY + '_writingTask2');
-    document.getElementById('writingTask2').value = '';
-    countWords('writingTask2','wordCount',250);
-    alert('✅ Answer cleared!');
-}
-window.onload = () => {
-    loadSaved('writingTask2');
-    countWords('writingTask2','wordCount',250);
-};
-document.getElementById('writingTask2').addEventListener('input', () => {
-    countWords('writingTask2','wordCount',250);
-    autoSave('writingTask2','saveNote');
-});
-</script>
+            <div class="chart-container">
+                <h3>Percentage of water used for different purposes in six areas of the world</h3>
+                <img src="C11Task1Writing.png" alt="Water usage by region pie charts" class="chart-img">
+            </div>
+
+            <p style="margin-top: 15px; font-size: 14px; color: #7f1d1d;">
+                ⬜ Industrial use &nbsp;&nbsp; 
+                ▓ Agricultural use &nbsp;&nbsp; 
+                🔵 Domestic use
+            </p>
+        </div>
+
+        <a href="../library.html" class="back-link">← Back to Practice Library</a>
+    </div>
 </body>
 </html>
