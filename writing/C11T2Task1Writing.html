@@ -44,7 +44,7 @@
             gap: 20px;
             align-items: start;
         }
-        /* Left: Scrollable Question Panel */
+        /* Left: Scrollable Question Panel — FIXED */
         .question-panel {
             background: #ffffff;
             border-radius: 10px;
@@ -52,7 +52,7 @@
             padding: 25px;
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.08);
             height: 700px;
-            overflow-y: auto;
+            overflow-y: auto; /* ✅ Scrollbar appears when content overflows */
         }
         .panel-title {
             font-size: 18px;
@@ -110,8 +110,9 @@
             margin-top: 15px;
             font-weight: 600;
             color: #991b1b;
+            margin-bottom: 20px;
         }
-        /* Right: Writing Panel */
+        /* Right: Fixed Writing Panel */
         .write-panel {
             background: #ffffff;
             border-radius: 10px;
@@ -122,7 +123,7 @@
             flex-direction: column;
             height: 700px;
             position: sticky;
-            top: 20px;
+            top: 20px; /* Stays visible while scrolling left panel */
         }
         .write-area {
             flex: 1;
@@ -230,7 +231,7 @@
                 </div>
             </div>
 
-            <!-- RIGHT: Writing Panel -->
+            <!-- RIGHT: Fixed Writing Panel -->
             <div class="write-panel">
                 <h2 class="panel-title">Your Answer</h2>
                 <textarea 
