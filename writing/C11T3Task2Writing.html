@@ -12,7 +12,7 @@
             font-family: Arial, Helvetica, sans-serif;
         }
         body {
-            background-color: #f0f4f8;
+            background-color: #fdf2f4;
             color: #1a1a1a;
             line-height: 1.6;
             padding: 20px;
@@ -22,12 +22,12 @@
             margin: 0 auto;
             background: #ffffff;
             border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(31, 58, 95, 0.10);
+            border: 1px solid #fadadd;
             overflow: hidden;
         }
         .header {
             padding: 20px 25px 15px;
-            border-bottom: 1px solid #c5d2e3;
+            border-bottom: 1px solid #fadadd;
         }
         .ielts-logo {
             display: block;
@@ -36,19 +36,18 @@
         }
         .intro-section {
             padding: 18px 25px;
-            background: #f8fafc;
-            border-bottom: 1px solid #e2e8f0;
-            text-align: center;
+            background: #fef4f6;
+            border-bottom: 1px solid #fadadd;
         }
         .intro-section h1 {
-            color: #1f3a5f;
-            font-size: 19px;
-            margin-bottom: 6px;
+            color: #b32424;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 4px;
         }
         .intro-section p {
-            color: #4a5568;
-            font-size: 14px;
-            font-style: italic;
+            color: #993333;
+            font-size: 15px;
         }
         .split-layout {
             display: flex;
@@ -58,27 +57,29 @@
         }
         .question-panel {
             width: 48%;
-            padding: 20px 25px 25px;
-            background-color: #fefefe;
+            padding: 25px;
+            background-color: #ffffff;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
             min-width: 300px;
+            border-right: 1px solid #fadadd;
         }
         .question-panel h2 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             margin: 0 0 15px;
-            color: #1f3a5f;
+            color: #b32424;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #fadadd;
         }
         .instruction-box {
-            border: 1px solid #c5d2e3;
-            background: #f8fafc;
-            padding: 20px;
+            background: #fef4f6;
+            padding: 18px;
             margin: 0;
             font-size: 15px;
-            border-radius: 6px;
             line-height: 1.8;
+            border-radius: 6px;
         }
         .instruction-box p {
             margin-bottom: 12px;
@@ -90,14 +91,14 @@
         /* ===== RESIZABLE DIVIDER ===== */
         .divider {
             width: 6px;
-            background-color: #c5d2e3;
+            background-color: #fadadd;
             cursor: col-resize;
             position: relative;
             transition: background-color 0.15s;
             flex-shrink: 0;
         }
         .divider:hover, .divider.dragging {
-            background-color: #1f3a5f;
+            background-color: #b32424;
         }
         .divider::after {
             content: '⟷';
@@ -106,7 +107,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             font-size: 14px;
-            color: #6b7280;
+            color: #cc8888;
             pointer-events: none;
             opacity: 0.5;
         }
@@ -118,16 +119,25 @@
         .writing-panel {
             flex: 1;
             min-width: 300px;
-            padding: 20px 25px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
+            background-color: #fef4f6;
+        }
+        .writing-panel h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 0 15px;
+            color: #b32424;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #fadadd;
         }
         textarea {
             width: 100%;
             flex: 1;
             min-height: 550px;
             padding: 18px;
-            border: 1px solid #c5d2e3;
+            border: 1px solid #f5c8d0;
             border-radius: 6px;
             font-size: 15px;
             line-height: 1.8;
@@ -138,21 +148,15 @@
         }
         textarea:focus {
             outline: none;
-            border-color: #1f3a5f;
-            box-shadow: 0 0 0 2px rgba(31, 58, 95, 0.15);
+            border-color: #b32424;
+            box-shadow: 0 0 0 2px rgba(179, 36, 36, 0.10);
         }
         .word-count {
             text-align: left;
             font-size: 14px;
             font-weight: 500;
             margin-bottom: 10px;
-            color: #1f3a5f;
-        }
-        .save-note {
-            font-size: 12px;
-            color: #006600;
-            margin-bottom: 15px;
-            display: none;
+            color: #b32424;
         }
         .btn-row {
             display: flex;
@@ -161,42 +165,42 @@
         }
         .export-btn {
             padding: 8px 16px;
-            background: #f0f4f8;
-            color: #1f3a5f;
-            border: 1px solid #c5d2e3;
+            background: #fadadd;
+            color: #993333;
+            border: 1px solid #f5c8d0;
             font-size: 14px;
             cursor: pointer;
             border-radius: 4px;
         }
         .export-btn:hover {
-            background: #e2eaf3;
+            background: #f8d8e0;
         }
         .clear-all-btn {
             padding: 8px 16px;
-            background: #fff0f0;
-            border: 1px solid #fecaca;
-            color: #dc2626;
+            background: #fadadd;
+            border: 1px solid #f5c8d0;
+            color: #b32424;
             font-size: 14px;
             cursor: pointer;
             border-radius: 4px;
         }
         .clear-all-btn:hover {
-            background: #fee2e2;
+            background: #f8d8e0;
         }
         .nav-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 25px;
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid #fadadd;
             background: #ffffff;
             flex-wrap: wrap;
             gap: 10px;
         }
         .nav-btn {
-            background: #f0f4f8;
-            border: 1px solid #c5d2e3;
-            color: #1f3a5f;
+            background: #fadadd;
+            border: 1px solid #f5c8d0;
+            color: #993333;
             padding: 8px 16px;
             border-radius: 4px;
             cursor: pointer;
@@ -207,11 +211,11 @@
             gap: 6px;
         }
         .nav-btn:hover {
-            background: #e2eaf3;
+            background: #f8d8e0;
         }
         .task-indicator {
             font-weight: bold;
-            color: #1f3a5f;
+            color: #b32424;
         }
         @media (max-width: 900px) {
             .split-layout {
@@ -228,7 +232,7 @@
             .question-panel, .writing-panel {
                 width: 100% !important;
                 border-right: none;
-                border-bottom: 1px solid #e2e8f0;
+                border-bottom: 1px solid #fadadd;
             }
             textarea {
                 min-height: 300px;
@@ -238,17 +242,16 @@
 </head>
 <body>
 <div class="container">
-    <div class="header">
-        <img src="ielts-logo.png" alt="IELTS Logo" class="ielts-logo">
-    </div>
     <div class="intro-section">
-        <h1>WRITING — TASK 2</h1>
-        <p>You should spend about 40 minutes on this task.</p>
+        <h1>Cambridge 11 — Test 3</h1>
+        <p>Writing Task 2 · Academic</p>
     </div>
     <div class="split-layout" id="splitLayout">
         <div class="question-panel" id="questionPanel">
-            <h2>WRITING TASK 2</h2>
+            <h2>Task Instructions</h2>
+            <h3 style="color:#b32424; font-size:17px; margin-bottom:10px;">WRITING TASK 2</h3>
             <div class="instruction-box">
+                <p style="color:#993333; font-style:italic; margin-bottom:15px;">You should spend about 40 minutes on this task.</p>
                 <p><strong>Some people say that the only reason for learning a foreign language is in order to travel to or work in a foreign country. Others say that these are not the only reasons why someone should learn a foreign language.</strong></p>
                 <p>Discuss both these views and give your own opinion.</p>
                 <p>Give reasons for your answer and include any relevant examples from your own knowledge or experience.</p>
@@ -260,30 +263,29 @@
         <div class="divider" id="divider"></div>
         
         <div class="writing-panel">
+            <h2>Your Answer</h2>
             <textarea 
                 id="writingTask2" 
-                placeholder="Write your response here..."
+                placeholder="Begin writing your Task 2 response here..."
                 spellcheck="false"
                 autocomplete="off"
                 autocorrect="off"
                 autocapitalize="off"
             ></textarea>
             <div class="word-count" id="wordCount">Words: 0 / 250 minimum</div>
-            <div class="save-note" id="saveNote">✅ Auto-saved</div>
             <div class="btn-row">
-                <button class="export-btn" onclick="exportAnswer('writingTask2', 'Writing_Task2_C11T2_Learning_Language.txt')">📄 Save Task 2</button>
+                <button class="export-btn" onclick="exportAnswer('writingTask2', 'Writing_Task2_C11T3_Learning_Language.txt')">📄 Save Task 2</button>
                 <button class="clear-all-btn" onclick="clearAllAnswers()">🗑️ Clear Answer</button>
             </div>
         </div>
     </div>
        <div class="nav-bar">
-        <a href="C11T2Task1Writing.html" class="nav-btn">⬅️ Previous</a>
+        <a href="C11T3Task1Writing.html" class="nav-btn">⬅️ Previous</a>
         <div class="task-indicator">Task 2 of 2</div>
         <a href="answer-review.html" class="nav-btn">📋 Review Answers →</a>
     </div>
 </div>
 <script>
-const STORAGE_KEY = 'Cambridge11_Test2_Writing_Task2';
 // ===== PANEL RESIZING =====
 const questionPanel = document.getElementById('questionPanel');
 const divider = document.getElementById('divider');
@@ -319,23 +321,15 @@ document.addEventListener('mousemove', doDrag);
 document.addEventListener('mouseup', endDrag);
 document.addEventListener('mouseleave', endDrag);
 
-// ===== WORD COUNT & AUTO-SAVE =====
+// ===== WORD COUNT =====
 function countWords(id, countId, min) {
     const text = document.getElementById(id).value.trim();
     const num = text ? text.replace(/\s+/g, ' ').split(' ').length : 0;
     const counter = document.getElementById(countId);
     counter.textContent = `Words: ${num} / ${min} minimum`;
-    counter.style.color = num < min ? '#dc2626' : num < min + 20 ? '#b45309' : '#166534';
+    counter.style.color = num < min ? '#b32424' : num < min + 20 ? '#b36b00' : '#006600';
 }
-function autoSave(id, noteId) {
-    localStorage.setItem(STORAGE_KEY + '_' + id, document.getElementById(id).value);
-    const note = document.getElementById(noteId);
-    note.style.display = 'inline';
-    setTimeout(() => note.style.display = 'none', 1500);
-}
-function loadSaved(id) {
-    document.getElementById(id).value = localStorage.getItem(STORAGE_KEY + '_' + id) || '';
-}
+
 function exportAnswer(inputId, fileName) {
     const text = document.getElementById(inputId).value.trim();
     if (!text) return alert("Please write your answer first!");
@@ -347,19 +341,13 @@ function exportAnswer(inputId, fileName) {
     URL.revokeObjectURL(link.href);
 }
 function clearAllAnswers() {
-    if (!confirm('⚠️ Are you sure you want to clear your writing answer?\n\nThis will erase your text and cannot be undone.')) return;
-    localStorage.removeItem(STORAGE_KEY + '_writingTask2');
+    if (!confirm('⚠️ Are you sure you want to clear your writing answer?\n\nThis cannot be undone.')) return;
     document.getElementById('writingTask2').value = '';
     countWords('writingTask2','wordCount',250);
     alert('✅ Answer cleared!');
 }
-window.onload = () => {
-    loadSaved('writingTask2');
-    countWords('writingTask2','wordCount',250);
-};
 document.getElementById('writingTask2').addEventListener('input', () => {
     countWords('writingTask2','wordCount',250);
-    autoSave('writingTask2','saveNote');
 });
 </script>
 </body>
