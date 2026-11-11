@@ -47,14 +47,13 @@
             min-height: 600px;
         }
         .question-panel {
-            width: 48%;
+            width: 50%;
             padding: 25px;
             background-color: #ffffff;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
-            min-width: 300px;
-            border-right: 1px solid #fadadd;
+            min-width: 280px;
         }
         .question-panel h2 {
             font-size: 18px;
@@ -79,37 +78,37 @@
             margin-bottom: 0;
         }
         
-        /* ===== RESIZABLE DIVIDER — FULLY RESTORED ===== */
+        /* ========== RESIZABLE DIVIDER — CLEAR & VISIBLE ========== */
         .divider {
-            width: 6px;
-            background-color: #fadadd;
+            width: 10px;
+            background-color: #f5c8d0;
             cursor: col-resize;
             position: relative;
-            transition: background-color 0.15s;
             flex-shrink: 0;
+            z-index: 10;
         }
         .divider:hover, .divider.dragging {
             background-color: #b32424;
         }
         .divider::after {
-            content: '⟷';
+            content: '|||';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 14px;
-            color: #cc8888;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #993333;
             pointer-events: none;
-            opacity: 0.5;
+            line-height: 1;
         }
         .divider:hover::after, .divider.dragging::after {
             color: #ffffff;
-            opacity: 1;
         }
         
         .writing-panel {
             flex: 1;
-            min-width: 300px;
+            min-width: 280px;
             padding: 25px;
             display: flex;
             flex-direction: column;
@@ -214,16 +213,15 @@
             }
             .divider {
                 width: 100%;
-                height: 6px;
+                height: 10px;
                 cursor: row-resize;
             }
             .divider::after {
-                content: '↕';
+                content: '▼ ▲';
+                font-size: 8px;
             }
             .question-panel, .writing-panel {
                 width: 100% !important;
-                border-right: none;
-                border-bottom: 1px solid #fadadd;
             }
             textarea {
                 min-height: 300px;
@@ -234,7 +232,6 @@
 <body>
 <div class="container">
     <div class="intro-section">
-        <!-- ✅ TITLE FIXED: Test 3 -->
         <h1>Cambridge 11 — Test 3</h1>
         <p>Writing Task 2 · Academic</p>
     </div>
@@ -251,7 +248,7 @@
             </div>
         </div>
         
-        <!-- ✅ RESIZABLE DIVIDER RESTORED -->
+        <!-- ========== DIVIDER — CLEARLY VISIBLE ========== -->
         <div class="divider" id="divider"></div>
         
         <div class="writing-panel">
@@ -278,28 +275,31 @@
     </div>
 </div>
 <script>
-// ===== PANEL RESIZING — FULLY RESTORED =====
+// ===== RESIZABLE DIVIDER SCRIPT =====
 const questionPanel = document.getElementById('questionPanel');
 const divider = document.getElementById('divider');
 const splitLayout = document.getElementById('splitLayout');
 let isDragging = false;
+let startX = 0;
+let startWidth = 0;
 
 function startDrag(e) {
     if (window.innerWidth <= 900) return;
     isDragging = true;
     divider.classList.add('dragging');
+    startX = e.clientX;
+    startWidth = questionPanel.offsetWidth;
     document.body.style.cursor = 'col-resize';
     document.body.style.userSelect = 'none';
 }
 function doDrag(e) {
     if (!isDragging) return;
     if (window.innerWidth <= 900) return;
-    
-    const rect = splitLayout.getBoundingClientRect();
-    const newWidth = ((e.clientX - rect.left) / rect.width) * 100;
-    
-    if (newWidth >= 25 && newWidth <= 75) {
-        questionPanel.style.width = newWidth + '%';
+    const deltaX = e.clientX - startX;
+    const containerWidth = splitLayout.offsetWidth;
+    const newWidthPercent = ((startWidth + deltaX) / containerWidth) * 100;
+    if (newWidthPercent >= 25 && newWidthPercent <= 75) {
+        questionPanel.style.width = newWidthPercent + '%';
     }
 }
 function endDrag() {
