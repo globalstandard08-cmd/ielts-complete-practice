@@ -77,87 +77,17 @@
         .instruction-box p:last-child {
             margin-bottom: 0;
         }
-        .data-container {
-            border: 1px solid #fadadd;
-            border-radius: 6px;
-            padding: 15px;
-            background: #fff;
-        }
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        .data-table th, .data-table td {
-            border: 1px solid #f5c8d0;
-            padding: 10px;
+        .image-container {
             text-align: center;
-            font-size: 14px;
-        }
-        .data-table th {
-            background: #fef4f6;
-            color: #b32424;
-        }
-        .charts-container {
-            display: flex;
-            justify-content: space-around;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        .chart-box {
-            text-align: center;
-            flex: 1;
-            min-width: 180px;
-        }
-        .chart-title {
-            font-size: 13px;
-            font-weight: bold;
-            color: #b32424;
-            margin-bottom: 8px;
-        }
-        .pie-chart-placeholder {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            border: 1px solid #f5c8d0;
-            margin: 0 auto;
-            position: relative;
-            background: conic-gradient(
-                #333 0 40%,
-                #666 40% 70%,
-                #ddd 70% 85%,
-                #bbb 85% 95%,
-                #fff 95% 100%
-            );
-        }
-        .pie-chart-placeholder.after {
-            background: conic-gradient(
-                #333 0 40%,
-                #666 40% 75%,
-                #ddd 75% 90%,
-                #bbb 90% 95%,
-                #fff 95% 100%
-            );
-        }
-        .chart-labels {
             margin-top: 10px;
-            text-align: left;
-            font-size: 12px;
-            padding-left: 25px;
         }
-        .chart-labels div {
-            margin-bottom: 3px;
-        }
-        .legend-box {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border: 1px solid #999;
-            margin-right: 6px;
-            vertical-align: middle;
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
         }
         
-        /* ===== RESIZABLE DIVIDER — SAME AS YOUR SAMPLE ===== */
+        /* ===== RESIZABLE DIVIDER — EXACT WORKING CODE ===== */
         .divider {
             width: 6px;
             background-color: #fadadd;
@@ -304,10 +234,6 @@
             textarea {
                 min-height: 300px;
             }
-            .charts-container {
-                flex-direction: column;
-                align-items: center;
-            }
         }
     </style>
 </head>
@@ -327,28 +253,13 @@
                 <p><strong>Write at least 150 words.</strong></p>
             </div>
             
-            <div class="data-container">
-                <table class="data-table">
-                    <caption style="font-weight:bold; color:#b32424; margin-bottom:10px;">Total number of visitors to Ashdown Museum</caption>
-                    <tr>
-                        <td>During the year before refurbishment:</td>
-                        <td><strong>74,000</strong></td>
-                    </tr>
-                    <tr>
-                        <td>During the year after refurbishment:</td>
-                        <td><strong>92,000</strong></td>
-                    </tr>
-                </table>
-                
-                <h4 style="text-align:center; color:#b32424; margin-bottom:15px;">Results of surveys of visitor satisfaction</h4>
-                               <div style="text-align: center; margin-top: 10px;">
-                    <img src="C11T4Task1Writing.png" alt="Ashdown Museum visitor numbers and satisfaction surveys" style="max-width: 100%; height: auto; border-radius: 4px;">
-                </div>
-
+            <!-- YOUR UPLOADED IMAGE -->
+            <div class="image-container">
+                <img src="C11T4Task1Writing.png" alt="Ashdown Museum visitor numbers and satisfaction surveys">
             </div>
         </div>
         
-        <!-- DRAGGABLE DIVIDER -->
+        <!-- RESIZABLE DIVIDER -->
         <div class="divider" id="divider"></div>
         
         <div class="writing-panel">
@@ -375,8 +286,9 @@
         <a href="C11T4Task2Writing.html" class="nav-btn">Task 2 ➡️</a>
     </div>
 </div>
+
 <script>
-// ===== PANEL RESIZING =====
+// ===== PANEL RESIZING — EXACT WORKING SCRIPT =====
 const questionPanel = document.getElementById('questionPanel');
 const divider = document.getElementById('divider');
 const splitLayout = document.getElementById('splitLayout');
@@ -421,8 +333,6 @@ function countWords(id, countId, min) {
 }
 
 function exportAnswer(inputId, fileName) {
-    const text = document.getElementById
-(inputId, fileName) {
     const text = document.getElementById(inputId).value.trim();
     if (!text) return alert("Please write your answer first!");
     const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
