@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing — Task 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+            background-color: #fdf2f4;
+            color: #1a1a1a;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #fadadd;
+            overflow: hidden;
+        }
+        .intro-section {
+            padding: 18px 25px;
+            background: #fef4f6;
+            border-bottom: 1px solid #fadadd;
+            text-align: left;
+        }
+        .intro-section h1 {
+            color: #b32424;
+            font-size: 19px;
+            margin-bottom: 6px;
+        }
+        .intro-section p {
+            color: #993333;
+            font-size: 14px;
+            font-style: italic;
+        }
+        .split-layout {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            min-height: 600px;
+        }
+        .question-panel {
+            width: 50%;
+            padding: 20px 25px 25px;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            min-width: 300px;
+        }
+        .question-panel h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 0 15px;
+            color: #b32424;
+        }
+        .instruction-box {
+            border: 1px solid #fadadd;
+            background: #fef4f6;
+            padding: 20px;
+            margin: 0;
+            font-size: 15px;
+            border-radius: 6px;
+            line-height: 1.8;
+        }
+        .instruction-box p {
+            margin-bottom: 12px;
+        }
+        .instruction-box p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* ===== RESIZABLE DIVIDER ===== */
+        .divider {
+            width: 6px;
+            background-color: #fadadd;
+            cursor: col-resize;
+            position: relative;
+            transition: background-color 0.15s;
+            flex-shrink: 0;
+        }
+        .divider:hover, .divider.dragging {
+            background-color: #b32424;
+        }
+        .divider::after {
+            content: '⟷';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            color: #cc8888;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        .divider:hover::after, .divider.dragging::after {
+            color: #ffffff;
+            opacity: 1;
+        }
+        
+        .writing-panel {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px 25px;
+            display: flex;
+            flex-direction: column;
+            background-color: #fef4f6;
+        }
+        .writing-panel h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 0 15px;
+            color: #b32424;
+        }
+        textarea {
+            width: 100%;
+            flex: 1;
+            min-height: 550px;
+            padding: 18px;
+            border: 1px solid #fadadd;
+            border-radius: 6px;
+            font-size: 15px;
+            line-height: 1.8;
+            background: #ffffff;
+            resize: none;
+            margin-bottom: 10px;
+            spellcheck: false;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #b32424;
+            box-shadow: 0 0 0 2px rgba(179, 36, 36, 0.10);
+        }
+        .word-count {
+            text-align: left;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: #b32424;
+        }
+        .btn-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .export-btn {
+            padding: 8px 16px;
+            background: #fadadd;
+            color: #993333;
+            border: 1px solid #f5c8d0;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .export-btn:hover {
+            background: #f8d8e0;
+        }
+        .clear-all-btn {
+            padding: 8px 16px;
+            background: #fadadd;
+            border: 1px solid #f5c8d0;
+            color: #b32424;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .clear-all-btn:hover {
+            background: #f8d8e0;
+        }
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            border-top: 1px solid #fadadd;
+            background: #ffffff;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .nav-btn {
+            background: #fadadd;
+            border: 1px solid #f5c8d0;
+            color: #993333;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-btn:hover {
+            background: #f8d8e0;
+        }
+        .task-indicator {
+            font-weight: bold;
+            color: #b32424;
+        }
+        @media (max-width: 900px) {
+            .split-layout {
+                flex-direction: column;
+            }
+            .divider {
+                width: 100%;
+                height: 6px;
+                cursor: row-resize;
+            }
+            .divider::after {
+                content: '↕';
+            }
+            .question-panel, .writing-panel {
+                width: 100% !important;
+                border-right: none;
+                border-bottom: 1px solid #fadadd;
+            }
+            textarea {
+                min-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="intro-section">
+        <h1>Cambridge 11 — Test 4</h1>
+        <p>Writing Task 2 · Academic</p>
+    </div>
+    <div class="split-layout" id="splitLayout">
+        <div class="question-panel" id="questionPanel">
+            <h2>WRITING TASK 2</h2>
+            <div class="instruction-box">
+                <p style="color:#993333; font-style:italic;">You should spend about 40 minutes on this task.</p>
+                <p style="margin-top:15px;"><strong>Many governments think that economic progress is their most important goal. Some people, however, think that other types of progress are equally important for a country.</strong></p>
+                <p style="margin-top:15px;">Discuss both these views and give your own opinion.</p>
+                <p>Give reasons for your answer and include any relevant examples from your own knowledge or experience.</p>
+                <p style="margin-top:15px;"><strong>Write at least 250 words.</strong></p>
+            </div>
+        </div>
+        
+        <!-- RESIZABLE DIVIDER -->
+        <div class="divider" id="divider"></div>
+        
+        <div class="writing-panel">
+            <h2>Your Answer</h2>
+            <textarea 
+                id="writingTask2" 
+                placeholder="Begin writing your Task 2 response here..."
+                spellcheck="false"
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+            ></textarea>
+            <div class="word-count" id="wordCount">Words: 0 / 250 minimum</div>
+            <div class="btn-row">
+                <button class="export-btn" onclick="exportAnswer('writingTask2', 'Writing_Task2_C11T4_Economic_Progress.txt')">📄 Save Task 2</button>
+                <button class="clear-all-btn" onclick="clearAllAnswers()">🗑️ Clear Answer</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="nav-bar">
+        <a href="C11T4Task1Writing.html" class="nav-btn">⬅️ Previous</a>
+        <div class="task-indicator">Task 2 of 2</div>
+        <a href="answer-review.html" class="nav-btn">📋 Review Answers →</a>
+    </div>
+</div>
+
+<script>
+// ===== PANEL RESIZING =====
+const questionPanel = document.getElementById('questionPanel');
+const divider = document.getElementById('divider');
+const splitLayout = document.getElementById('splitLayout');
+let isDragging = false;
+
+function startDrag(e) {
+    if (window.innerWidth <= 900) return;
+    isDragging = true;
+    divider.classList.add('dragging');
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+}
+function doDrag(e) {
+    if (!isDragging) return;
+    if (window.innerWidth <= 900) return;
+    
+    const rect = splitLayout.getBoundingClientRect();
+    const newWidth = ((e.clientX - rect.left) / rect.width) * 100;
+    
+    if (newWidth >= 25 && newWidth <= 75) {
+        questionPanel.style.width = newWidth + '%';
+    }
+}
+function endDrag() {
+    isDragging = false;
+    divider.classList.remove('dragging');
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+}
+divider.addEventListener('mousedown', startDrag);
+document.addEventListener('mousemove', doDrag);
+document.addEventListener('mouseup', endDrag);
+document.addEventListener('mouseleave', endDrag);
+
+// ===== WORD COUNT =====
+function countWords(id, countId, min) {
+    const text = document.getElementById(id).value.trim();
+    const num = text ? text.replace(/\s+/g, ' ').split(' ').length : 0;
+    const counter = document.getElementById(countId);
+    counter.textContent = `Words: ${num} / ${min} minimum`;
+    counter.style.color = num < min ? '#b32424' : num < min + 20 ? '#b36b00' : '#006600';
+}
+
+function exportAnswer(inputId, fileName) {
+    const text = document.getElementById(inputId).value.trim();
+    if (!text) return alert("Please write your answer first!");
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+    link.click();
+    URL.revokeObjectURL(link.href);
+}
+function clearAllAnswers() {
+    if (!confirm('⚠️ Are you sure you want to clear your answer?\n\nThis cannot be undone.')) return;
+    document.getElementById('writingTask2').value = '';
+    countWords('writingTask2','wordCount',250);
+    alert('✅ Answer cleared!');
+}
+document.getElementById('writingTask2').addEventListener('input', () => {
+    countWords('writingTask2','wordCount',250);
+});
+</script>
+</body>
+</html>
