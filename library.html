@@ -830,6 +830,36 @@ const WRITING_TESTS = [
   { id: "c15t1w-t1", file: "C15Task1Writing.html" },
   { id: "c15t1w-t2", file: "C15Task2Writing.html" },
 ];
+const LISTENING_PATH = "./listening/";
+const LISTENING_TESTS = [
+  // C11 Tests 1–4
+  { id: "c11t1s1", file: "listeningC11T1-part1.html" },
+  { id: "c11t1s2", file: "listeningC11T1-section2.html" },
+  { id: "c11t1s3", file: "listeningC11T1-section3.html" },
+  { id: "c11t1s4", file: "listeningC11T1-section4.html" },
+  { id: "c11t2s1", file: "listeningC11T2-section1.html" },
+  { id: "c11t2s2", file: "listeningC11T2-section2.html" },
+  { id: "c11t2s3", file: "listeningC11T2-section3.html" },
+  { id: "c11t2s4", file: "listeningC11T2-section4.html" },
+  { id: "c11t3s1", file: "listeningC11T3-section1.html" },
+  { id: "c11t3s2", file: "listeningC11T3-section2.html" },
+  { id: "c11t3s3", file: "listeningC11T3-section3.html" },
+  { id: "c11t3s4", file: "listeningC11T3-section4.html" },
+  { id: "c11t4s1", file: "listeningC11T4-section1.html" },
+  { id: "c11t4s2", file: "listeningC11T4-section2.html" },
+  { id: "c11t4s3", file: "listeningC11T4-section3.html" },
+  { id: "c11t4s4", file: "listeningC11T4-section4.html" },
+  // C10
+  { id: "c10t1l", file: "listening-c10t1-full.html" },
+  { id: "c10t2l", file: "listening-c10t2-full.html" },
+  { id: "c10t3l", file: "listening-c10t3-full.html" },
+  { id: "c10t4l", file: "listening-c10t4-full.html" },
+  // C12–C15
+  { id: "c12t1l", file: "listening-c12t1-full.html" },
+  { id: "c13t1l", file: "listening-c13t1-full.html" },
+  { id: "c14t1l", file: "listening-c14t1-full.html" },
+  { id: "c15t1l", file: "listening-c15t1-full.html" },
+];
 
 async function checkWritingTest(testConfig) {
   try {
@@ -846,6 +876,23 @@ async function updateWritingButtons() {
     btnUpdate(btn, ready);
   }
 }
+    
+async function checkListeningSection(testConfig) {
+  try {
+    const res = await fetch(`${LISTENING_PATH}${testConfig.file}`, { method: "HEAD" });
+    return res.ok;
+  } catch { return false; }
+}
+
+async function updateListeningButtons() {
+  for (const t of LISTENING_TESTS) {
+    const ready = await checkListeningSection(t);
+    const btn = document.getElementById(`${t.id}-btn`);
+    if (!btn) continue;
+    btnUpdate(btn, ready);
+  }
+}
+
 
 // === HELPER: Update button style ===
 function btnUpdate(btn, ready) {
@@ -865,6 +912,8 @@ function btnUpdate(btn, ready) {
 // Run checks on page load
 window.addEventListener("load", () => {
   updateWritingButtons();
+  updateListeningButtons();
 });
+
 </script>
 </body>
