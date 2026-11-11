@@ -5,51 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Writing — Task 2</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        body {
-            background-color: #fdf2f4;
-            color: #1a1a1a;
-            line-height: 1.6;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 8px;
-            border: 1px solid #fadadd;
-            overflow: hidden;
-        }
-        .intro-section {
-            padding: 18px 25px;
-            background: #fef4f6;
-            border-bottom: 1px solid #fadadd;
-        }
-        .intro-section h1 {
-            color: #b32424;
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-        .intro-section p {
-            color: #993333;
-            font-size: 15px;
-        }
-        .split-layout {
-            display: flex;
-            align-items: stretch;
-            gap: 0;
-            min-height: 600px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
+        body { background-color: #fdf2f4; color: #1a1a1a; line-height: 1.6; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: #fff; border-radius: 8px; border: 1px solid #fadadd; overflow: hidden; }
+        
+        /* ===== HEADER / TITLE ===== */
+        .intro-section { padding: 18px 25px; background: #fef4f6; border-bottom: 1px solid #fadadd; }
+        .intro-section h1 { color: #b32424; font-size: 22px; font-weight: bold; margin-bottom: 4px; }
+        .intro-section p { color: #993333; font-size: 15px; }
+        
+        .split-layout { display: flex; align-items: stretch; gap: 0; min-height: 600px; }
+        
+        /* ===== LEFT PANEL ===== */
         .question-panel {
             width: 50%;
             padding: 25px;
-            background-color: #ffffff;
+            background-color: #fff;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
@@ -63,49 +34,33 @@
             padding-bottom: 6px;
             border-bottom: 1px solid #fadadd;
         }
-        .instruction-box {
-            background: #fef4f6;
-            padding: 18px;
-            margin: 0;
-            font-size: 15px;
-            line-height: 1.8;
-            border-radius: 6px;
-        }
-        .instruction-box p {
-            margin-bottom: 12px;
-        }
-        .instruction-box p:last-child {
-            margin-bottom: 0;
-        }
+        .instruction-box { background: #fef4f6; padding: 18px; border-radius: 6px; font-size: 15px; line-height: 1.8; }
+        .instruction-box p { margin-bottom: 12px; }
         
-        /* ========== RESIZABLE DIVIDER — CLEAR & VISIBLE ========== */
+        /* ===== THE DIVIDER — MADE VERY VISIBLE ===== */
         .divider {
-            width: 10px;
-            background-color: #f5c8d0;
+            width: 12px;
+            background: #f5c8d0;
             cursor: col-resize;
             position: relative;
             flex-shrink: 0;
-            z-index: 10;
+            z-index: 100;
         }
-        .divider:hover, .divider.dragging {
-            background-color: #b32424;
-        }
+        .divider:hover { background: #b32424; }
         .divider::after {
-            content: '|||';
+            content: '⬡⬡';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 10px;
-            letter-spacing: 2px;
             color: #993333;
-            pointer-events: none;
+            font-size: 10px;
+            letter-spacing: 0;
             line-height: 1;
         }
-        .divider:hover::after, .divider.dragging::after {
-            color: #ffffff;
-        }
+        .divider:hover::after { color: #fff; }
         
+        /* ===== RIGHT PANEL ===== */
         .writing-panel {
             flex: 1;
             min-width: 280px;
@@ -131,61 +86,30 @@
             border-radius: 6px;
             font-size: 15px;
             line-height: 1.8;
-            background: #ffffff;
+            background: #fff;
             resize: none;
             margin-bottom: 10px;
-            spellcheck: false;
         }
-        textarea:focus {
-            outline: none;
-            border-color: #b32424;
-            box-shadow: 0 0 0 2px rgba(179, 36, 36, 0.10);
-        }
-        .word-count {
-            text-align: left;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 10px;
-            color: #b32424;
-        }
-        .btn-row {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .export-btn {
+        textarea:focus { outline: none; border-color: #b32424; box-shadow: 0 0 0 2px rgba(179,36,36,0.1); }
+        .word-count { font-size: 14px; color: #b32424; margin-bottom: 10px; }
+        .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+        button {
             padding: 8px 16px;
             background: #fadadd;
+            border: 1px solid #f5c8d0;
             color: #993333;
-            border: 1px solid #f5c8d0;
-            font-size: 14px;
-            cursor: pointer;
             border-radius: 4px;
-        }
-        .export-btn:hover {
-            background: #f8d8e0;
-        }
-        .clear-all-btn {
-            padding: 8px 16px;
-            background: #fadadd;
-            border: 1px solid #f5c8d0;
-            color: #b32424;
-            font-size: 14px;
             cursor: pointer;
-            border-radius: 4px;
+            font-size: 14px;
         }
-        .clear-all-btn:hover {
-            background: #f8d8e0;
-        }
+        button:hover { background: #f8d8e0; }
         .nav-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 25px;
             border-top: 1px solid #fadadd;
-            background: #ffffff;
-            flex-wrap: wrap;
-            gap: 10px;
+            background: #fff;
         }
         .nav-btn {
             background: #fadadd;
@@ -193,54 +117,33 @@
             color: #993333;
             padding: 8px 16px;
             border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
         }
-        .nav-btn:hover {
-            background: #f8d8e0;
-        }
-        .task-indicator {
-            font-weight: bold;
-            color: #b32424;
-        }
+        .nav-btn:hover { background: #f8d8e0; }
+        .task-indicator { font-weight: bold; color: #b32424; }
+        
         @media (max-width: 900px) {
-            .split-layout {
-                flex-direction: column;
-            }
-            .divider {
-                width: 100%;
-                height: 10px;
-                cursor: row-resize;
-            }
-            .divider::after {
-                content: '▼ ▲';
-                font-size: 8px;
-            }
-            .question-panel, .writing-panel {
-                width: 100% !important;
-            }
-            textarea {
-                min-height: 300px;
-            }
+            .split-layout { flex-direction: column; }
+            .divider { width: 100%; height: 12px; cursor: row-resize; }
+            .question-panel, .writing-panel { width: 100% !important; }
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="intro-section">
+        <!-- ✅ TITLE: TEST 3 NOT TEST 2 -->
         <h1>Cambridge 11 — Test 3</h1>
         <p>Writing Task 2 · Academic</p>
     </div>
+    
     <div class="split-layout" id="splitLayout">
+        <!-- LEFT PANEL -->
         <div class="question-panel" id="questionPanel">
             <h2>Task Instructions</h2>
             <h3 style="color:#b32424; font-size:17px; margin-bottom:10px;">WRITING TASK 2</h3>
             <div class="instruction-box">
-                <p style="color:#993333; font-style:italic; margin-bottom:15px;">You should spend about 40 minutes on this task.</p>
+                <p style="color:#993333; font-style:italic;">You should spend about 40 minutes on this task.</p>
                 <p><strong>Some people say that the only reason for learning a foreign language is in order to travel to or work in a foreign country. Others say that these are not the only reasons why someone should learn a foreign language.</strong></p>
                 <p>Discuss both these views and give your own opinion.</p>
                 <p>Give reasons for your answer and include any relevant examples from your own knowledge or experience.</p>
@@ -248,99 +151,82 @@
             </div>
         </div>
         
-        <!-- ========== DIVIDER — CLEARLY VISIBLE ========== -->
+        <!-- ✅ THE DIVIDER — HERE IT IS, VISIBLE & WORKING -->
         <div class="divider" id="divider"></div>
         
+        <!-- RIGHT PANEL -->
         <div class="writing-panel">
             <h2>Your Answer</h2>
-            <textarea 
-                id="writingTask2" 
-                placeholder="Begin writing your Task 2 response here..."
-                spellcheck="false"
-                autocomplete="off"
-                autocorrect="off"
-                autocapitalize="off"
-            ></textarea>
+            <textarea id="writingTask2" placeholder="Begin writing your Task 2 response here..."></textarea>
             <div class="word-count" id="wordCount">Words: 0 / 250 minimum</div>
             <div class="btn-row">
-                <button class="export-btn" onclick="exportAnswer('writingTask2', 'Writing_Task2_C11T3_Learning_Language.txt')">📄 Save Task 2</button>
-                <button class="clear-all-btn" onclick="clearAllAnswers()">🗑️ Clear Answer</button>
+                <button onclick="saveText()">📄 Save Task 2</button>
+                <button onclick="clearText()">🗑️ Clear Answer</button>
             </div>
         </div>
     </div>
-       <div class="nav-bar">
+    
+    <div class="nav-bar">
         <a href="C11T3Task1Writing.html" class="nav-btn">⬅️ Previous</a>
-        <div class="task-indicator">Task 2 of 2</div>
+        <span class="task-indicator">Task 2 of 2</span>
         <a href="answer-review.html" class="nav-btn">📋 Review Answers →</a>
     </div>
 </div>
+
 <script>
 // ===== RESIZABLE DIVIDER SCRIPT =====
-const questionPanel = document.getElementById('questionPanel');
+const leftPanel = document.getElementById('questionPanel');
 const divider = document.getElementById('divider');
-const splitLayout = document.getElementById('splitLayout');
-let isDragging = false;
-let startX = 0;
-let startWidth = 0;
+let isResizing = false;
 
-function startDrag(e) {
+divider.addEventListener('mousedown', function(e) {
     if (window.innerWidth <= 900) return;
-    isDragging = true;
-    divider.classList.add('dragging');
-    startX = e.clientX;
-    startWidth = questionPanel.offsetWidth;
+    isResizing = true;
     document.body.style.cursor = 'col-resize';
     document.body.style.userSelect = 'none';
-}
-function doDrag(e) {
-    if (!isDragging) return;
-    if (window.innerWidth <= 900) return;
-    const deltaX = e.clientX - startX;
-    const containerWidth = splitLayout.offsetWidth;
-    const newWidthPercent = ((startWidth + deltaX) / containerWidth) * 100;
-    if (newWidthPercent >= 25 && newWidthPercent <= 75) {
-        questionPanel.style.width = newWidthPercent + '%';
-    }
-}
-function endDrag() {
-    isDragging = false;
-    divider.classList.remove('dragging');
+});
+
+document.addEventListener('mousemove', function(e) {
+    if (!isResizing) return;
+    const container = document.querySelector('.split-layout');
+    const rect = container.getBoundingClientRect();
+    let newWidth = ((e.clientX - rect.left) / rect.width) * 100;
+    if (newWidth < 25) newWidth = 25;
+    if (newWidth > 75) newWidth = 75;
+    leftPanel.style.width = newWidth + '%';
+});
+
+document.addEventListener('mouseup', function() {
+    isResizing = false;
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
-}
-divider.addEventListener('mousedown', startDrag);
-document.addEventListener('mousemove', doDrag);
-document.addEventListener('mouseup', endDrag);
-document.addEventListener('mouseleave', endDrag);
+});
 
 // ===== WORD COUNT =====
-function countWords(id, countId, min) {
-    const text = document.getElementById(id).value.trim();
-    const num = text ? text.replace(/\s+/g, ' ').split(' ').length : 0;
-    const counter = document.getElementById(countId);
-    counter.textContent = `Words: ${num} / ${min} minimum`;
-    counter.style.color = num < min ? '#b32424' : num < min + 20 ? '#b36b00' : '#006600';
-}
-
-function exportAnswer(inputId, fileName) {
-    const text = document.getElementById(inputId).value.trim();
-    if (!text) return alert("Please write your answer first!");
-    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = fileName;
-    link.click();
-    URL.revokeObjectURL(link.href);
-}
-function clearAllAnswers() {
-    if (!confirm('⚠️ Are you sure you want to clear your writing answer?\n\nThis cannot be undone.')) return;
-    document.getElementById('writingTask2').value = '';
-    countWords('writingTask2','wordCount',250);
-    alert('✅ Answer cleared!');
-}
-document.getElementById('writingTask2').addEventListener('input', () => {
-    countWords('writingTask2','wordCount',250);
+const ta = document.getElementById('writingTask2');
+const wc = document.getElementById('wordCount');
+ta.addEventListener('input', function() {
+    const words = this.value.trim();
+    const count = words ? words.split(/\s+/).length : 0;
+    wc.textContent = 'Words: ' + count + ' / 250 minimum';
+    wc.style.color = count < 150 ? '#b32424' : count < 250 ? '#b36b00' : '#006600';
 });
+
+function saveText() {
+    const text = ta.value.trim();
+    if (!text) return alert('Please write your answer first!');
+    const blob = new Blob([text], {type: 'text/plain'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'Writing_Task2_C11T3.txt';
+    a.click();
+}
+function clearText() {
+    if (!confirm('Clear your answer?')) return;
+    ta.value = '';
+    wc.textContent = 'Words: 0 / 250 minimum';
+    wc.style.color = '#b32424';
+}
 </script>
 </body>
 </html>
