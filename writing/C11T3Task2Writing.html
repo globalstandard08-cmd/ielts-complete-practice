@@ -25,15 +25,6 @@
             border: 1px solid #fadadd;
             overflow: hidden;
         }
-        .header {
-            padding: 20px 25px 15px;
-            border-bottom: 1px solid #fadadd;
-        }
-        .ielts-logo {
-            display: block;
-            max-width: 220px;
-            height: auto;
-        }
         .intro-section {
             padding: 18px 25px;
             background: #fef4f6;
@@ -88,7 +79,7 @@
             margin-bottom: 0;
         }
         
-        /* ===== RESIZABLE DIVIDER ===== */
+        /* ===== RESIZABLE DIVIDER — FULLY RESTORED ===== */
         .divider {
             width: 6px;
             background-color: #fadadd;
@@ -243,6 +234,7 @@
 <body>
 <div class="container">
     <div class="intro-section">
+        <!-- ✅ TITLE FIXED: Test 3 -->
         <h1>Cambridge 11 — Test 3</h1>
         <p>Writing Task 2 · Academic</p>
     </div>
@@ -259,7 +251,7 @@
             </div>
         </div>
         
-        <!-- DRAGGABLE DIVIDER -->
+        <!-- ✅ RESIZABLE DIVIDER RESTORED -->
         <div class="divider" id="divider"></div>
         
         <div class="writing-panel">
@@ -286,7 +278,7 @@
     </div>
 </div>
 <script>
-// ===== PANEL RESIZING =====
+// ===== PANEL RESIZING — FULLY RESTORED =====
 const questionPanel = document.getElementById('questionPanel');
 const divider = document.getElementById('divider');
 const splitLayout = document.getElementById('splitLayout');
