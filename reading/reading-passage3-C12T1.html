@@ -198,6 +198,10 @@
             width: 100%; min-height: 60px; border: none; padding: 10px; 
             font-size: 14px; resize: vertical; background: transparent; outline: none; 
         }
+        .radio-option { display:inline-flex; align-items:center; gap:5px; margin:0 8px; cursor:pointer; }
+        .radio-option input { width:18px; height:18px; cursor:pointer; }
+        .radio-label { font-size:14px; }
+
     </style>
 </head>
 <body>
@@ -298,54 +302,72 @@ It is at this point that 'Arson for Profit' becomes supremely relevant. That cou
                 <h3>Questions 33–36</h3>
                 <div class="instruction">Complete the summary below.<br><br>Choose <strong>NO MORE THAN TWO WORDS</strong> from the passage for each answer.<br><br>Write your answers in boxes 33–36 on your answer sheet.</div>
                 
-                <div style="background:#f9f9f9; padding:15px; border-radius:4px; margin:10px 0;">
+                                <div style="background:#f9f9f9; padding:15px; border-radius:4px; margin:10px 0;">
                     <strong>The 'Arson for Profit' course</strong><br><br>
-                    This is a university course intended for students who are undergraduates and who are studying <span style="border-bottom:1px solid #999; padding:0 15px;">&nbsp;</span> (33). The expectation is that they will become <span style="border-bottom:1px solid #999; padding:0 15px;">&nbsp;</span> (34) specialising in arson. The course will help them to detect cases of arson and find <span style="border-bottom:1px solid #999; padding:0 15px;">&nbsp;</span> (35) of criminal intent, leading to successful <span style="border-bottom:1px solid #999; padding:0 15px;">&nbsp;</span> (36) in the courts.
+                    <div class="q-row" id="q33" style="margin:8px 0; flex-wrap:nowrap;">
+                        <span class="q-num">33</span>
+                        <span>This is a university course intended for students who are undergraduates and who are studying</span>
+                        <input type="text" class="input-answer" id="ans33" placeholder="Answer" style="width:140px;">
+                    </div>
+                    <div class="q-row" id="q34" style="margin:8px 0; flex-wrap:nowrap;">
+                        <span class="q-num">34</span>
+                        <span>The expectation is that they will become ____________ specialising in arson.</span>
+                        <input type="text" class="input-answer" id="ans34" placeholder="Answer" style="width:140px;">
+                    </div>
+                    <div class="q-row" id="q35" style="margin:8px 0; flex-wrap:nowrap;">
+                        <span class="q-num">35</span>
+                        <span>The course will help them to detect cases of arson and find ____________ of criminal intent,</span>
+                        <input type="text" class="input-answer" id="ans35" placeholder="Answer" style="width:140px;">
+                    </div>
+                    <div class="q-row" id="q36" style="margin:8px 0; flex-wrap:nowrap;">
+                        <span class="q-num">36</span>
+                        <span>leading to successful ____________ in the courts.</span>
+                        <input type="text" class="input-answer" id="ans36" placeholder="Answer" style="width:140px;">
+                    </div>
                 </div>
-                
-                <div class="q-row" id="q33">
-                    <span class="q-num">33</span>
-                    <input type="text" class="input-answer" id="ans33" placeholder="Answer">
-                </div>
-                <div class="q-row" id="q34">
-                    <span class="q-num">34</span>
-                    <input type="text" class="input-answer" id="ans34" placeholder="Answer">
-                </div>
-                <div class="q-row" id="q35">
-                    <span class="q-num">35</span>
-                    <input type="text" class="input-answer" id="ans35" placeholder="Answer">
-                </div>
-                <div class="q-row" id="q36">
-                    <span class="q-num">36</span>
-                    <input type="text" class="input-answer" id="ans36" placeholder="Answer">
-                </div>
-            </div>
+
 
             <div class="questions-block">
                 <h3>Questions 37–40</h3>
                 <div class="instruction">Do the following statements agree with the views of the writer in Reading Passage 3?<br><br>In boxes 37–40 on your answer sheet, write:<br><br><strong>YES</strong> &nbsp;&nbsp; if the statement agrees with the views of the writer<br><strong>NO</strong> &nbsp;&nbsp; if the statement contradicts the views of the writer<br><strong>NOT GIVEN</strong> &nbsp; if it is impossible to say what the writer thinks about this</div>
                 
-                <div class="q-row" id="q37">
+                                <div class="q-row" id="q37">
                     <span class="q-num">37</span>
                     <span>It is difficult to attract students onto courses that do not focus on a career.</span>
-                    <input type="text" class="input-answer" id="ans37" placeholder="Y / N / NG" style="width:100px;">
+                    <div style="margin-left:auto; display:flex; gap:4px;">
+                        <label class="radio-option"><input type="radio" name="q37" value="YES"> <span class="radio-label">Yes</span></label>
+                        <label class="radio-option"><input type="radio" name="q37" value="NO"> <span class="radio-label">No</span></label>
+                        <label class="radio-option"><input type="radio" name="q37" value="NOT GIVEN"> <span class="radio-label">NG</span></label>
+                    </div>
                 </div>
                 <div class="q-row" id="q38">
                     <span class="q-num">38</span>
                     <span>The 'Arson for Profit' course would be useful for people intending to set fire to buildings.</span>
-                    <input type="text" class="input-answer" id="ans38" placeholder="Y / N / NG" style="width:100px;">
+                    <div style="margin-left:auto; display:flex; gap:4px;">
+                        <label class="radio-option"><input type="radio" name="q38" value="YES"> <span class="radio-label">Yes</span></label>
+                        <label class="radio-option"><input type="radio" name="q38" value="NO"> <span class="radio-label">No</span></label>
+                        <label class="radio-option"><input type="radio" name="q38" value="NOT GIVEN"> <span class="radio-label">NG</span></label>
+                    </div>
                 </div>
                 <div class="q-row" id="q39">
                     <span class="q-num">39</span>
                     <span>Fire science courses are too academic to help people to be good at the job of firefighting.</span>
-                    <input type="text" class="input-answer" id="ans39" placeholder="Y / N / NG" style="width:100px;">
+                    <div style="margin-left:auto; display:flex; gap:4px;">
+                        <label class="radio-option"><input type="radio" name="q39" value="YES"> <span class="radio-label">Yes</span></label>
+                        <label class="radio-option"><input type="radio" name="q39" value="NO"> <span class="radio-label">No</span></label>
+                        <label class="radio-option"><input type="radio" name="q39" value="NOT GIVEN"> <span class="radio-label">NG</span></label>
+                    </div>
                 </div>
                 <div class="q-row" id="q40">
                     <span class="q-num">40</span>
                     <span>The writer's fire science students provided a detailed definition of the purpose of their studies.</span>
-                    <input type="text" class="input-answer" id="ans40" placeholder="Y / N / NG" style="width:100px;">
+                    <div style="margin-left:auto; display:flex; gap:4px;">
+                        <label class="radio-option"><input type="radio" name="q40" value="YES"> <span class="radio-label">Yes</span></label>
+                        <label class="radio-option"><input type="radio" name="q40" value="NO"> <span class="radio-label">No</span></label>
+                        <label class="radio-option"><input type="radio" name="q40" value="NOT GIVEN"> <span class="radio-label">NG</span></label>
+                    </div>
                 </div>
-            </div>
+
         </div>
     </div>
     <div class="bottom-nav">
@@ -670,6 +692,8 @@ function clearAllData() {
         parent.removeChild(hl);
         parent.normalize();
     });
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+
     location.reload();
 }
 document.getElementById('clearAllBtn').addEventListener('click', clearAllData);
