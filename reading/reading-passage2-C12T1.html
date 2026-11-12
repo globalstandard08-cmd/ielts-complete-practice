@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Reading — Passage 2</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        html, body { background-color: #ffffff; height: 100%; overflow-y: auto; }
+        
+        .top-bar { 
+            background-color: #ffffff; 
+            padding: 10px 25px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .logo { height: 55px; width: auto; }
+        
+        .main-grid { display: flex; min-height: calc(100vh - 75px - 48px); }
+        
+        .passage-pane { 
+            width: calc(50% - 6px); 
+            background: #ffffff; 
+            overflow-y: auto; 
+            padding: 25px; 
+            max-height: calc(100vh - 75px - 48px); 
+            position: sticky; 
+            top: 75px; 
+        }
+        .exam-title {
+            text-align: center;
+            color: #1f3a5f;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1f3a5f;
+        }
+        .instruction { 
+            background-color: #f9f9f9; 
+            border-left: 3px solid #1f3a5f; 
+            padding: 12px; 
+            margin-bottom: 18px; 
+            border-radius: 4px; 
+            font-weight: 500; 
+            font-size: 15px; 
+            line-height: 1.6;
+        }
+        .bottom-nav { 
+            min-height: 48px; 
+            border-top: 1px solid #eee; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 8px 15px; 
+            position: sticky; 
+            bottom: 0; 
+            background: #fff; 
+            z-index: 90; 
+            flex-wrap: wrap;
+            gap: 6px 12px;
+        }
+        .nav-group {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            flex-wrap: wrap;
+        }
+        .q-indicator {
+            width: 26px;
+            height: 26px;
+            line-height: 24px;
+            font-size: 11px;
+            border: 1px solid #ddd;
+            background: #fff;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .q-indicator.current { background: #eaf1fa; border-color: #1f3a5f; border-width: 2px; font-weight: bold; }
+        .q-indicator.answered { background: #10b981; color: #fff; border-color: #10b981; }
+        .part-label {
+            font-size: 10px;
+            margin: 0 4px;
+            color: #1f3a5f;
+            white-space: nowrap;
+        }
+        .next-passage-btn {
+            padding: 8px 16px;
+            background: #10b981;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .back-btn, .clear-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .back-btn { background: #6b7280; color: #fff; }
+        .clear-btn { background: #ef4444; color: #fff; margin-left: 8px; }
+
+        .passage-text { font-size: 16px; line-height: 1.7; }
+        .passage-text p { margin-bottom: 16px; text-align: justify; }
+        .passage-text h2, .passage-text h3 { color: #1f3a5f; margin: 24px 0 12px; }
+        .passage-text h2 { font-size: 22px; text-align: center; }
+        
+        .divider {
+            width: 12px;
+            background-color: #e0e0e0;
+            cursor: col-resize;
+            flex-shrink: 0;
+            position: relative;
+            border-left: 1px solid #d0d0d0;
+            border-right: 1px solid #d0d0d0;
+        }
+        .divider:hover, .divider.active { background-color: #b8b8b8; }
+        .divider::after {
+            content: "⋮⋮";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #888;
+            font-size: 10px;
+            letter-spacing: -2px;
+            pointer-events: none;
+        }
+        
+        .questions-pane { 
+            width: calc(50% - 6px); 
+            background: #ffffff; 
+            overflow-y: auto; 
+            padding: 25px; 
+            max-height: calc(100vh - 75px - 48px); 
+            position: sticky; 
+            top: 75px; 
+        }
+        .questions-block { margin-bottom: 35px; }
+        .questions-block h3 { color: #1f3a5f; margin-bottom: 10px; font-size: 18px; }
+        .q-row { display: flex; align-items: flex-start; gap: 10px; margin: 14px 0; font-size: 16px; flex-wrap: wrap; }
+        .q-row.current { 
+            background-color: #eaf1fa; 
+            padding: 10px 8px; 
+            border-radius: 4px;
+            margin-left: -8px;
+            margin-right: -8px;
+        }
+        .q-num { font-weight: bold; min-width: 28px; color: #1f3a5f; flex-shrink: 0; }
+        .input-answer {
+            width: 220px; padding: 7px 10px; border: 1px solid #ddd; border-radius: 4px;
+            font-size: 16px; background: #fff;
+        }
+        .input-answer:focus { outline: none; border-color: #1f3a5f; }
+        .input-answer.filled { background-color: #f5f8ff; border-color: #1f3a5f; }
+        
+        .highlight { 
+            background-color: #ffd700; padding: 1px 3px; border-radius: 2px; 
+            cursor: pointer; display: inline; color: #000; position: relative; 
+        }
+        .context-menu { 
+            position: absolute; background: #fff; border: 1px solid #ddd; 
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1); z-index: 9999; display: none; min-width: 180px; 
+        }
+        .context-menu div { padding: 10px 14px; cursor: pointer; font-size: 14px; border-bottom: 1px solid #f5f5f5; }
+        .context-menu div:last-child { border-bottom: none; }
+        .context-menu div:hover { background: #f5f5f5; }
+        
+        .note-box { 
+            position: absolute; width: 260px; min-height: 80px; 
+            background: #fffde7; border: 1px solid #f9d423; border-radius: 6px; 
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1); z-index: 9990; display: none; 
+        }
+        .note-header { 
+            background: #f9d423; padding: 6px 10px; cursor: move; 
+            display: flex; justify-content: space-between; align-items: center; font-weight: bold; 
+        }
+        .note-close { cursor: pointer; font-size: 16px; }
+        .note-textarea { 
+            width: 100%; min-height: 60px; border: none; padding: 10px; 
+            font-size: 14px; resize: vertical; background: transparent; outline: none; 
+        }
+    </style>
+</head>
+<body>
+    <div class="context-menu" id="contextMenu">
+        <div id="menuHighlight">🖍️ Highlight</div>
+        <div id="menuAddNote">📝 Add Note</div>
+        <div id="menuRemove">❌ Remove Highlight</div>
+    </div>
+    
+    <div class="note-box" id="noteBox">
+        <div class="note-header" id="noteDragHandle">
+            <span>📝 Note</span>
+            <span class="note-close" id="noteClose">×</span>
+        </div>
+        <textarea class="note-textarea" id="noteText" placeholder="Type your note here…"></textarea>
+    </div>
+    
+    <div class="top-bar">
+        <img src="ielts-logo.png" alt="IELTS Logo" class="logo">
+    </div>
+    <div class="main-grid" id="mainGrid">
+        <div class="passage-pane" id="passagePane">
+            <div class="exam-title">READING — CAMBRIDGE TEST</div>
+            <h2>READING PASSAGE 2</h2>
+            <div class="instruction">You should spend about 20 minutes on Questions 14–26, which are based on Reading Passage 2 below.</div>
+            <h3 style="color:#1f3a5f; margin:15px 0; font-size:22px; text-align:center;">COLLECTING AS A HOBBY</h3>
+            <div class="passage-text" id="passageArea">
+<p>Collecting must be one of the most varied of human activities, and it's one that many of us psychologists find fascinating. Many forms of collecting have been dignified with a technical name: an arctophilist collects teddy bears, a philatelist collects postage stamps, a deltiologist collects postcards. Amassing hundreds or even thousands of postcards, chocolate wrappers or whatever, takes time, energy and money that could surely be put to much more productive use. And yet there are millions of collectors around the world. Why do they do it?</p>
+
+<p>There are the people who collect because they want to make money – this could be called an instrumental reason for collecting; that is, collecting as a means to an end. They'll look for, say, antiques that they can buy cheaply and expect to be able to sell at a profit. But there may well be a psychological element, too – buying cheap and selling dear can give the collector a sense of triumph. And as selling online is so easy, more and more people are joining in.</p>
+
+<p>Many collectors collect to develop their social life, attending meetings of a group of collectors and exchanging information on items. This is a variant on joining a bridge club or a gym, and similarly brings them into contact with like-minded people.</p>
+
+<p>Another motive for collecting is the desire to find something special, or a particular example of the collected item, such as a rare early recording by a particular singer. Some may spend their whole lives in a hunt for this. Psychologically, this can give a purpose to a life that otherwise feels aimless. There is a danger, though, that if the individual is ever lucky enough to find what they're looking for, rather than celebrating their success, they may feel empty, now that the goal that drove them on has gone.</p>
+
+<p>If you think about collecting postage stamps, another potential reason for it – or, perhaps, a result of collecting – is its educational value. Stamp collecting opens a window to other countries, and to the plants, animals, or famous people shown on their stamps. Similarly, in the 19<sup>th</sup> century, many collectors amassed fossils, animals and plants from around the globe, and their collections provided a vast amount of information about the natural world. Without those collections, our understanding would be greatly inferior to what it is.</p>
+
+<p>In the past – and nowadays, too, though to a lesser extent – a popular form of collecting, particularly among boys and men, was trainspotting. This might involve trying to see every locomotive of a particular type, using published data that identifies each one, and ticking off each engine as it is seen. Trainspotters exchange information, these days often by mobile phone, so they can work out where to go to, to see a particular engine. As a by-product, many practitioners of the hobby become very knowledgeable about railway operations, or the technical specifications of different engine types.</p>
+
+<p>Similarly, people who collect dolls may go beyond simply enlarging their collection, and develop an interest in the way that dolls are made, or the materials that are used. These have changed over the centuries from the wood that was standard in 16<sup>th</sup> century Europe, through the wax and porcelain of later centuries, to the plastics of today's dolls. Or collectors might be inspired to study how dolls reflect notions of what children like, or ought to like.</p>
+
+<p>Not all collectors are interested in learning from their hobby, though, so what we might call a psychological reason for collecting is the need for a sense of control, perhaps as a way of dealing with insecurity. Stamp collectors, for instance, arrange their stamps in albums, usually very neatly, organising their collection according to certain commonplace principles – perhaps by country in alphabetical order, or grouping stamps by what they depict – people, birds, maps, and so on.</p>
+
+<p>One reason, conscious or not, for what someone chooses to collect is to show the collector's individualism. Someone who decides to collect something as unexpected as dog collars, for instance, may be conveying their belief that they must be interesting themselves. And believe it or not, there is at least one dog collar museum in existence, and it grew out of a personal collection.</p>
+
+<p>Of course, all hobbies give pleasure, but the common factor in collecting is usually passion: pleasure is putting it far too mildly. More than most other hobbies, collecting can be totally engrossing, and can give a strong sense of personal fulfilment. To non-collectors it may appear an eccentric, if harmless, way of spending time, but potentially, collecting has a lot going for it.</p>
+            </div>
+        </div>
+        <div class="divider" id="divider"></div>
+        <div class="questions-pane" id="questionsPane">
+            <div class="questions-block" id="questionsArea">
+                <h3>Questions 14–21</h3>
+                <div class="instruction">Complete the sentences below.<br><br>Choose <strong>ONE WORD ONLY</strong> from the passage for each answer.<br><br>Write your answers in boxes 14–21 on your answer sheet.</div>
+                
+                <div class="q-row" id="q14">
+                    <span class="q-num">14</span>
+                    <span>The writer mentions collecting ...................... as an example of collecting in order to make money.</span>
+                    <input type="text" class="input-answer" id="ans14" placeholder="ONE WORD">
+                </div>
+                <div class="q-row" id="q15">
+                    <span class="q-num">15</span>
+                    <span>Collectors may get a feeling of ...................... from buying and selling items.</span>
+                    <input type="text" class="input-answer" id="ans15" placeholder="ONE WORD">
+                </div>
+                <div class="q-row" id="q16">
+                    <span class="q-num">16</span>
+                    <span>Collectors' clubs provide opportunities to share ...................... .</span>
+                    <input type="text" class="input-answer" id="ans16" placeholder="ONE WORD">
+                </div>
+                <div class="q-row" id="q17">
+                    <span class="q-num">17</span>
+                    <span>Collectors' clubs offer ...................... with people who have similar interests.</span>
+                    <input type="text" class="input-answer" id="ans17" placeholder="ONE WORD">
+                </div>
+                <div class="q-row" id="q18">
+                    <span class="q-num">18</span>
+                    <span>Collecting sometimes involves a life-long ...................... for a special item.</span>
+                    <input type="text" class="input-answer" id="ans18" placeholder="ONE WORD">
+                </div>
+                <div class="q-row" id="q19">
+                    <span class="q-num">19</span>
+                    <span>Searching for something particular may prevent people from feeling their life is completely ...................... .</span>
+                    <input type="text" class="input-answer" id="ans19" placeholder="ONE WORD">
+                </div>
+                <div class="q-row" id="q20">
+                    <span class="q-num">20</span>
+                    <span>Stamp collecting may be ...................... because it provides facts about different countries.</span>
+                    <input type="text" class="input-answer" id="ans20" placeholder="ONE WORD">
+                </div>
+                <div class="q-row" id="q21">
+                    <span class="q-num">21</span>
+                    <span>...................... tends to be mostly a male hobby.</span>
+                    <input type="text" class="input-answer" id="ans21" placeholder="ONE WORD">
+                </div>
+            </div>
+
+            <div class="questions-block">
+                <h3>Questions 22–26</h3>
+                <div class="instruction">Do the following statements agree with the information given in the passage on pages 20 and 21?<br><br>In boxes 22–26 on your answer sheet, write:<br><br><strong>TRUE</strong> &nbsp;&nbsp; if the statement agrees with the information<br><strong>FALSE</strong> &nbsp; if the statement contradicts the information<br><strong>NOT GIVEN</strong> &nbsp; if there is no information on this</div>
+                
+                <div class="q-row" id="q22">
+                    <span class="q-num">22</span>
+                    <span>The number of people buying dolls has grown over the centuries.</span>
+                    <input type="text" class="input-answer" id="ans22" placeholder="T / F / NG" style="width:100px;">
+                </div>
+                <div class="q-row" id="q23">
+                    <span class="q-num">23</span>
+                    <span>Sixteenth century European dolls were normally made of wax and porcelain.</span>
+                    <input type="text" class="input-answer" id="ans23" placeholder="T / F / NG" style="width:100px;">
+                </div>
+                <div class="q-row" id="q24">
+                    <span class="q-num">24</span>
+                    <span>Arranging a stamp collection by the size of the stamps is less common than other methods.</span>
+                    <input type="text" class="input-answer" id="ans24" placeholder="T / F / NG" style="width:100px;">
+                </div>
+                <div class="q-row" id="q25">
+                    <span class="q-num">25</span>
+                    <span>Someone who collects unusual objects may want others to think he or she is also unusual.</span>
+                    <input type="text" class="input-answer" id="ans25" placeholder="T / F / NG" style="width:100px;">
+                </div>
+                <div class="q-row" id="q26">
+                    <span class="q-num">26</span>
+                    <span>Collecting gives a feeling that other hobbies are unlikely to inspire.</span>
+                    <input type="text" class="input-answer" id="ans26" placeholder="T / F / NG" style="width:100px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-nav">
+        <div style="display:flex; gap:8px; align-items:center;">
+            <a href="reading-passage1.html" class="back-btn">← Back</a>
+            <button class="clear-btn" id="clearAllBtn">🗑️ Clear</button>
+        </div>
+        <div class="nav-group">
+            <span class="part-label">P1:</span>
+            <div class="q-indicator" data-q="1">1</div>
+            <div class="q-indicator" data-q="2">2</div>
+            <div class="q-indicator" data-q="3">3</div>
+            <div class="q-indicator" data-q="4">4</div>
+            <div class="q-indicator" data-q="5">5</div>
+            <div class="q-indicator" data-q="6">6</div>
+            <div class="q-indicator" data-q="7">7</div>
+            <div class="q-indicator" data-q="8">8</div>
+            <div class="q-indicator" data-q="9">9</div>
+            <div class="q-indicator" data-q="10">10</div>
+            <div class="q-indicator" data-q="11">11</div>
+            <div class="q-indicator" data-q="12">12</div>
+            <div class="q-indicator" data-q="13">13</div>
+            <span class="part-label">P2:</span>
+            <div class="q-indicator current" data-q="14">14</div>
+            <div class="q-indicator" data-q="15">15</div>
+            <div class="q-indicator" data-q="16">16</div>
+            <div class="q-indicator" data-q="17">17</div>
+            <div class="q-indicator" data-q="18">18</div>
+            <div class="q-indicator" data-q="19">19</div>
+            <div class="q-indicator" data-q="20">20</div>
+            <div class="q-indicator" data-q="21">21</div>
+            <div class="q-indicator" data-q="22">22</div>
+            <div class="q-indicator" data-q="23">23</div>
+            <div class="q-indicator" data-q="24">24</div>
+            <div class="q-indicator" data-q="25">25</div>
+            <div class="q-indicator" data-q="26">26</div>
+            <span class="part-label">P3:</span>
+            <div class="q-indicator" data-q="27">27</div>
+            <div class="q-indicator" data-q="28">28</div>
+            <div class="q-indicator" data-q="29">29</div>
+            <div class="q-indicator" data-q="30">30</div>
+            <div class="q-indicator" data-q="31">31</div>
+            <div class="q-indicator" data-q="32">32</div>
+            <div class="q-indicator" data-q="33">33</div>
+            <div class="q-indicator" data-q="34">34</div>
+            <div class="q-indicator" data-q="35">35</div>
+            <div class="q-indicator" data-q="36">36</div>
+            <div class="q-indicator" data-q="37">37</div>
+            <div class="q-indicator" data-q="38">38</div>
+            <div class="q-indicator" data-q="39">39</div>
+            <div class="q-indicator" data-q="40">40</div>
+        </div>
+        <a href="reading-passage3.html" class="next-passage-btn">Next →</a>
+    </div>
+<script>
+const STORAGE_KEY = 'Cambridge20_Test1_Reading';
+const passageId = 'reading-passage2';
+
+// --- Draggable Divider ---
+const divider = document.getElementById('divider');
+const passagePane = document.getElementById('passagePane');
+const questionsPane = document.getElementById('questionsPane');
+const MIN_WIDTH = 25, MAX_WIDTH = 75;
+let savedSplit = localStorage.getItem(`${STORAGE_KEY}_split`);
+let passagePercent = savedSplit ? parseFloat(savedSplit) : 50;
+
+function applySplit() {
+    passagePane.style.width = `calc(${passagePercent}% - 6px)`;
+    questionsPane.style.width = `calc(${100 - passagePercent}% - 6px)`;
+}
+applySplit();
+
+let isDraggingDivider = false;
+divider.addEventListener('mousedown', e => {
+    isDraggingDivider = true;
+    divider.classList.add('active');
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+});
+document.addEventListener('mousemove', e => {
+    if (!isDraggingDivider) return;
+    const rect = document.getElementById('mainGrid').getBoundingClientRect();
+    let newPercent = ((e.clientX - rect.left) / rect.width) * 100;
+    newPercent = Math.max(MIN_WIDTH, Math.min(MAX_WIDTH, newPercent));
+    passagePercent = newPercent;
+    applySplit();
+});
+document.addEventListener('mouseup', () => {
+    if (isDraggingDivider) {
+        isDraggingDivider = false;
+        divider.classList.remove('active');
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+        localStorage.setItem(`${STORAGE_KEY}_split`, passagePercent);
+    }
+});
+
+// --- Highlight & Note System ---
+const noteBox = document.getElementById('noteBox');
+const noteText = document.getElementById('noteText');
+const noteClose = document.getElementById('noteClose');
+const contextMenu = document.getElementById('contextMenu');
+let currentRange = null, activeHighlight = null;
+const highlightAreas = ['passageArea', 'questionsArea'];
+
+function isInHighlightArea(node) {
+    return highlightAreas.some(id => {
+        const el = document.getElementById(id);
+        return el && el.contains(node);
+    });
+}
+
+function isSelectionValid(sel) {
+    if (!sel || sel.isCollapsed || !sel.toString().trim()) return false;
+    try {
+        return isInHighlightArea(sel.getRangeAt(0).commonAncestorContainer);
+    } catch { return false; }
+}
+
+function saveHighlightsData() {
+    const highlights = [];
+    document.querySelectorAll('.highlight').forEach(hl => {
+        highlights.push({
+            text: hl.textContent,
+            note: hl.getAttribute('data-note') || ''
+        });
+    });
+    localStorage.setItem(`${passageId}_highlights`, JSON.stringify(highlights));
+}
+
+document.addEventListener('contextmenu', e => {
+    let el = e.target, clickedHighlight = null;
+    while (el) {
+        if (el.classList && el.classList.contains('highlight')) {
+            clickedHighlight = el; break;
+        }
+        el = el.parentElement;
+    }
+    if (clickedHighlight) {
+        activeHighlight = clickedHighlight;
+        currentRange = null;
+        contextMenu.style.left = e.pageX + 'px';
+        contextMenu.style.top = e.pageY + 'px';
+        contextMenu.style.display = 'block';
+        e.preventDefault();
+        return;
+    }
+    const sel = window.getSelection();
+    if (isSelectionValid(sel)) {
+        currentRange = sel.getRangeAt(0).cloneRange();
+        activeHighlight = null;
+        contextMenu.style.left = e.pageX + 'px';
+        contextMenu.style.top = e.pageY + 'px';
+        contextMenu.style.display = 'block';
+        e.preventDefault();
+    } else {
+        contextMenu.style.display = 'none';
+    }
+});
+
+document.addEventListener('click', e => {
+    if (!contextMenu.contains(e.target)) contextMenu.style.display = 'none';
+});
+
+document.getElementById('menuHighlight').addEventListener('click', () => {
+    contextMenu.style.display = 'none';
+    if (!currentRange) return;
+    try {
+        const span = document.createElement('span');
+        span.className = 'highlight';
+        span.setAttribute('data-note', '');
+        currentRange.surroundContents(span);
+        window.getSelection().removeAllRanges();
+        saveHighlightsData();
+    } catch { alert('⚠️ Please select smaller sections of text.'); }
+});
+
+document.getElementById('menuAddNote').addEventListener('click', () => {
+    contextMenu.style.display = 'none';
+    if (!activeHighlight && currentRange) {
+        try {
+            const span = document.createElement('span');
+            span.className = 'highlight';
+            span.setAttribute('data-note', '');
+            currentRange.surroundContents(span);
+            activeHighlight = span;
+            window.getSelection().removeAllRanges();
+        } catch { alert('⚠️ Please select smaller sections of text.'); return; }
+    }
+    if (!activeHighlight) return;
+    const rect = activeHighlight.getBoundingClientRect();
+    noteBox.style.left = (rect.right + 10) + 'px';
+    noteBox.style.top = rect.top + 'px';
+    noteBox.style.display = 'block';
+    noteText.value = activeHighlight.getAttribute('data-note') || '';
+    noteText.focus();
+});
+
+document.getElementById('menuRemove').addEventListener('click', () => {
+    contextMenu.style.display = 'none';
+    if (!activeHighlight) return;
+    const parent = activeHighlight.parentNode;
+    while (activeHighlight.firstChild) {
+        parent.insertBefore(activeHighlight.firstChild, activeHighlight);
+    }
+    parent.removeChild(activeHighlight);
+    parent.normalize();
+    activeHighlight = null;
+    saveHighlightsData();
+});
+
+noteClose.addEventListener('click', () => {
+    if (activeHighlight) {
+        activeHighlight.setAttribute('data-note', noteText.value);
+        saveHighlightsData();
+    }
+    noteBox.style.display = 'none';
+    activeHighlight = null;
+});
+
+// Drag note box
+let isDraggingNote = false, noteOffsetX = 0, noteOffsetY = 0;
+document.getElementById('noteDragHandle').addEventListener('mousedown', e => {
+    isDraggingNote = true;
+    const rect = noteBox.getBoundingClientRect();
+    noteOffsetX = e.clientX - rect.left;
+    noteOffsetY = e.clientY - rect.top;
+});
+document.addEventListener('mousemove', e => {
+    if (!isDraggingNote) return;
+    noteBox.style.left = (e.clientX - noteOffsetX) + 'px';
+    noteBox.style.top = (e.clientY - noteOffsetY) + 'px';
+});
+document.addEventListener('mouseup', () => isDraggingNote = false);
+
+// --- Answers & Navigation ---
+let currentQuestionNum = 14;
+
+function setCurrentQuestion(qNum) {
+    document.querySelectorAll('.q-row.current').forEach(r => r.classList.remove('current'));
+    document.querySelectorAll('.q-indicator.current').forEach(b => b.classList.remove('current'));
+    currentQuestionNum = qNum;
+    const row = document.getElementById(`q${qNum}`);
+    const indicator = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
+    if (row) row.classList.add('current');
+    if (indicator) indicator.classList.add('current');
+}
+
+function updateStatus() {
+    for (let q = 1; q <= 40; q++) {
+        const btn = document.querySelector(`.q-indicator[data-q="${q}"]`);
+        if (!btn) continue;
+        const val = localStorage.getItem(`${STORAGE_KEY}_q${q}`) || '';
+        btn.classList.toggle('answered', val.trim().length > 0);
+    }
+}
+
+document.querySelectorAll('.q-indicator').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const qNum = parseInt(btn.dataset.q);
+        setCurrentQuestion(qNum);
+        const target = document.getElementById(`q${qNum}`);
+        if (target) target.scrollIntoView({behavior:'smooth', block:'center'});
+    });
+});
+
+function saveAnswer(q, val) {
+    localStorage.setItem(`${STORAGE_KEY}_q${q}`, val.trim());
+    updateStatus();
+}
+
+// Q14–21
+for (let q = 14; q <= 21; q++) {
+    const box = document.getElementById(`ans${q}`);
+    box.addEventListener('input', () => {
+        const val = box.value.trim();
+        box.value = val;
+        box.classList.toggle('filled', val !== '');
+        saveAnswer(q, val);
+    });
+}
+
+// Q22–26 uppercase
+for (let q = 22; q <= 26; q++) {
+    const box = document.getElementById(`ans${q}`);
+    box.addEventListener('input', () => {
+        let val = box.value.toUpperCase().trim();
+        if (val === 'T') val = 'TRUE';
+        if (val === 'F') val = 'FALSE';
+        if (val === 'N' || val === 'NG') val = 'NOT GIVEN';
+        box.value = val;
+        box.classList.toggle('filled', val !== '');
+        saveAnswer(q, val);
+    });
+}
+
+function clearAllData() {
+    if (!confirm('⚠️ Are you sure you want to clear ALL answers, highlights, and notes? This cannot be undone.')) return;
+    for (let q = 1; q <= 40; q++) localStorage.removeItem(`${STORAGE_KEY}_q${q}`);
+    localStorage.removeItem(`${passageId}_highlights`);
+    localStorage.removeItem(`${STORAGE_KEY}_split`);
+    document.querySelectorAll('input').forEach(i => { i.value = ''; i.classList.remove('filled'); });
+    document.querySelectorAll('.highlight').forEach(hl => {
+        const parent = hl.parentNode;
+        while (hl.firstChild) parent.insertBefore(hl.firstChild, hl);
+        parent.removeChild(hl);
+        parent.normalize();
+    });
+    location.reload();
+}
+document.getElementById('clearAllBtn').addEventListener('click', clearAllData);
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Load saved answers
+    for (let q = 14; q <= 21; q++) {
+        const box = document.getElementById(`ans${q}`);
+        const saved = localStorage.getItem(`${STORAGE_KEY}_q${q}`) || '';
+        if (saved) { box.value = saved; box.classList.add('filled'); }
+    }
+    for (let q = 22; q <= 26; q++) {
+        const box = document.getElementById(`ans${q}`);
+        const saved = localStorage.getItem(`${STORAGE_KEY}_q${q}`) || '';
+        if (saved) { box.value = saved; box.classList.add('filled'); }
+    }
+    
+    setCurrentQuestion(14);
+    updateStatus();
+});
+</script>
+</body>
+</html>
+   
