@@ -3,723 +3,246 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IELTS Reading — Passage 3</title>
+    <title>Cambridge 12 Test 1 — Reading Passage 3</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
-        html, body { background-color: #ffffff; height: 100%; overflow-y: auto; }
-        
-        .top-bar { 
-            background-color: #ffffff; 
-            padding: 10px 25px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-            border-bottom: 1px solid #e5e5e5;
-        }
-        .logo { height: 55px; width: auto; }
-        
-        .main-grid { display: flex; min-height: calc(100vh - 75px - 48px); }
-        
-        .passage-pane { 
-            width: calc(50% - 6px); 
-            background: #ffffff; 
-            overflow-y: auto; 
-            padding: 25px; 
-            max-height: calc(100vh - 75px - 48px); 
-            position: sticky; 
-            top: 75px; 
-        }
-        .exam-title {
-            text-align: center;
-            color: #1f3a5f;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #1f3a5f;
-        }
-        .instruction { 
-            background-color: #f9f9f9; 
-            border-left: 3px solid #1f3a5f; 
-            padding: 12px; 
-            margin-bottom: 18px; 
-            border-radius: 4px; 
-            font-weight: 500; 
-            font-size: 15px; 
-            line-height: 1.6;
-        }
-        .bottom-nav { 
-            min-height: 48px; 
-            border-top: 1px solid #eee; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            padding: 8px 15px; 
-            position: sticky; 
-            bottom: 0; 
-            background: #fff; 
-            z-index: 90; 
-            flex-wrap: wrap;
-            gap: 6px 12px;
-        }
-        .nav-group {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            flex-wrap: wrap;
-        }
-        .q-indicator {
-            width: 26px;
-            height: 26px;
-            line-height: 24px;
-            font-size: 11px;
-            border: 1px solid #ddd;
-            background: #fff;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 3px;
-        }
-        .q-indicator.current { background: #eaf1fa; border-color: #1f3a5f; border-width: 2px; font-weight: bold; }
-        .q-indicator.answered { background: #10b981; color: #fff; border-color: #10b981; }
-        .part-label {
-            font-size: 10px;
-            margin: 0 4px;
-            color: #1f3a5f;
-            white-space: nowrap;
-        }
-        .library-btn {
-            padding: 8px 16px;
-            background: #1f3a5f;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            text-decoration: none;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-        .back-btn, .clear-btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            text-decoration: none;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-        .back-btn { background: #6b7280; color: #fff; }
-        .clear-btn { background: #ef4444; color: #fff; margin-left: 8px; }
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif;}
+        body {background-color: #fef2f2; color: #1a1a1a; line-height: 1.6;}
 
-        .passage-text { font-size: 16px; line-height: 1.7; }
-        .passage-text p { margin-bottom: 16px; text-align: justify; }
-        .passage-text h2, .passage-text h3 { color: #1f3a5f; margin: 24px 0 12px; }
-        .passage-text h2 { font-size: 22px; text-align: center; }
-        .passage-text strong { color: #1f3a5f; }
-        
-        .divider {
-            width: 12px;
-            background-color: #e0e0e0;
-            cursor: col-resize;
-            flex-shrink: 0;
-            position: relative;
-            border-left: 1px solid #d0d0d0;
-            border-right: 1px solid #d0d0d0;
-        }
-        .divider:hover, .divider.active { background-color: #b8b8b8; }
-        .divider::after {
-            content: "⋮⋮";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #888;
-            font-size: 10px;
-            letter-spacing: -2px;
-            pointer-events: none;
-        }
-        
-        .questions-pane { 
-            width: calc(50% - 6px); 
-            background: #ffffff; 
-            overflow-y: auto; 
-            padding: 25px; 
-            max-height: calc(100vh - 75px - 48px); 
-            position: sticky; 
-            top: 75px; 
-        }
-        .questions-block { margin-bottom: 35px; }
-        .questions-block h3 { color: #1f3a5f; margin-bottom: 10px; font-size: 18px; }
-        .q-row { display: flex; align-items: flex-start; gap: 10px; margin: 14px 0; font-size: 16px; flex-wrap: wrap; }
-        .q-row.current { 
-            background-color: #eaf1fa; 
-            padding: 10px 8px; 
-            border-radius: 4px;
-            margin-left: -8px;
-            margin-right: -8px;
-        }
-        .q-num { font-weight: bold; min-width: 28px; color: #1f3a5f; flex-shrink: 0; }
-        .input-answer {
-            width: 220px; padding: 7px 10px; border: 1px solid #ddd; border-radius: 4px;
-            font-size: 16px; background: #fff;
-        }
-        .input-answer:focus { outline: none; border-color: #1f3a5f; }
-        .input-answer.filled { background-color: #f5f8ff; border-color: #1f3a5f; }
-        
-        .highlight { 
-            background-color: #ffd700; padding: 1px 3px; border-radius: 2px; 
-            cursor: pointer; display: inline; color: #000; position: relative; 
-        }
-        .context-menu { 
-            position: absolute; background: #fff; border: 1px solid #ddd; 
-            box-shadow: 0 2px 12px rgba(0,0,0,0.1); z-index: 9999; display: none; min-width: 180px; 
-        }
-        .context-menu div { padding: 10px 14px; cursor: pointer; font-size: 14px; border-bottom: 1px solid #f5f5f5; }
-        .context-menu div:last-child { border-bottom: none; }
-        .context-menu div:hover { background: #f5f5f5; }
-        
-        .note-box { 
-            position: absolute; width: 260px; min-height: 80px; 
-            background: #fffde7; border: 1px solid #f9d423; border-radius: 6px; 
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1); z-index: 9990; display: none; 
-        }
-        .note-header { 
-            background: #f9d423; padding: 6px 10px; cursor: move; 
-            display: flex; justify-content: space-between; align-items: center; font-weight: bold; 
-        }
-        .note-close { cursor: pointer; font-size: 16px; }
-        .note-textarea { 
-            width: 100%; min-height: 60px; border: none; padding: 10px; 
-            font-size: 14px; resize: vertical; background: transparent; outline: none; 
-        }
-        .radio-option { display:inline-flex; align-items:center; gap:5px; margin:0 8px; cursor:pointer; }
-        .radio-option input { width:18px; height:18px; cursor:pointer; }
-        .radio-label { font-size:14px; }
+        .logo-container {width: 100%; background: #ffffff; border-bottom: 2px solid #dc2626; padding: 4px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 6px;}
+        .logo {width: 22%; max-width: 180px; height: auto; display: block;}
 
+        .main-wrapper {display: flex; gap: 12px; padding: 0 12px 8px; height: calc(100vh - 130px);}
+        .passage-column, .questions-column {flex: 1; background: #ffffff; border-radius: 10px; border: 1px solid #fecaca; padding: 14px; overflow-y: auto;}
+        h1 {color: #dc2626; font-size: 17px; margin-bottom: 2px; text-align: center;}
+        h2.subtitle {color: #7f1d1d; font-size: 13px; text-align: center; margin-bottom: 12px; font-weight: 500;}
+        h3 {color: #7f1d1d; font-size: 15px; margin: 16px 0 8px;}
+        .passage-text p {margin-bottom: 12px; font-size: 14.5px; line-height: 1.75;}
+        .passage-text strong {color: #b91c1c;}
+        .highlight {background-color: #ffd700; padding: 1px 3px; border-radius: 2px; display: inline; color: #000;}
+        .questions-section h2 {color: #991b1b; font-size: 16px; margin: 14px 0 8px; border-bottom: 1px solid #fecaca; padding-bottom: 3px;}
+        .question-block {margin-bottom: 14px; scroll-margin-top: 12px;}
+        .question-block p {font-weight: 500; margin-bottom: 6px; font-size: 14px; line-height: 1.6;}
+        .answer-input {width: 100%; max-width: 280px; padding: 6px 10px; border: 1px solid #fecaca; border-radius: 6px; font-size: 14px; background: #fef2f2;}
+        table {width: 100%; border-collapse: collapse; margin: 8px 0;}
+        table, th, td {border: 1px solid #ddd;}
+        th, td {padding: 7px 9px; font-size: 14px; vertical-align: top;}
+        .context-menu {position: absolute; background: #ffffff; border: 1px solid #bbb; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 9999; display: none; min-width: 160px;}
+        .context-menu div {padding: 10px 14px; cursor: pointer; font-size: 14px;}
+        .context-menu div:hover {background: #fef2f2;}
+        .sticky-note {position: absolute; width: 170px; min-height: 65px; background: #fff380; border: 1px solid #e6c200; border-radius: 4px; padding: 6px; box-shadow: 3px 3px 8px rgba(0,0,0,0.15); z-index: 9998; font-size: 12px; user-select: none;}
+        .note-header {display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 4px; font-size: 11px; color: #886a00; cursor: move;}
+        .note-close {cursor: pointer; font-weight: bold; color: #886a00; user-select: none; font-size: 14px; line-height: 1;}
+        .note-textarea {width: 100%; height: 48px; border: none; background: transparent; resize: none; outline: none; font-family: inherit; font-size: 12px;}
+        .bottom-container {margin: 8px 12px 16px; padding: 10px; background: #ffffff; border-radius: 8px; border: 1px solid #fecaca;}
+
+        .question-nav {display: flex; flex-wrap: wrap; align-items: center; gap: 2px; margin-bottom: 10px;}
+        .nav-label {font-weight: 600; color: #991b1b; font-size: 12px; margin-right: 4px;}
+        .q-indicator {width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 3px; border: 1px solid #ddd; background: #e5e7eb; color: #333; font-size: 11px; cursor: pointer; transition: all 0.2s;}
+        .q-indicator:hover {opacity: 0.85;}
+        .q-indicator.answered {background: #198754; color: #ffffff; border-color: #198754;}
+        .q-indicator.current {border: 2px solid #dc2626;}
+        .q-indicator.passage-gap {margin-left: 8px; background: #fef2f2; border: none; color: #991b1b; font-weight: bold; font-size: 10px;}
+        .q-indicator.future {opacity: 0.45; cursor: not-allowed;}
+
+        .btn-group {display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap;}
+        .back-btn, .next-btn, .clear-btn {padding: 7px 14px; text-decoration: none; border-radius: 6px; border: 1px solid; font-weight: 500; font-size: 13px; display: inline-block; cursor: pointer;}
+        .back-btn {background: #fef2f2; color: #dc2626; border-color: #fecaca;}
+        .back-btn:hover {background: #ffffff;}
+        .next-btn {background: #dc2626; color: #ffffff; border-color: #dc2626;}
+        .next-btn:hover {background: #b91c1c;}
+        .clear-btn {background: #fff0f0; color: #b91c1c; border-color: #fecaca;}
+        .clear-btn:hover {background: #ffe0e0;}
+        em {color: #555;}
+        
+        .instruction {background: #f9f9f9; border-left: 3px solid #dc2626; padding: 10px 14px; margin: 10px 0; border-radius: 4px; font-size: 14px;}
+        .box-table {border: 1px solid #ddd; padding: 12px; margin: 10px 0; border-radius: 4px;}
+        .radio-option {display: inline-flex; align-items: center; gap: 6px; margin-right: 16px; cursor: pointer;}
     </style>
 </head>
 <body>
+    <div class="logo-container">
+        <img src="ielts-logo.png" alt="Global Standard English Learning Center" class="logo">
+    </div>
     <div class="context-menu" id="contextMenu">
-        <div id="menuHighlight">🖍️ Highlight</div>
-        <div id="menuAddNote">📝 Add Note</div>
+        <div id="menuHighlight">✅ Highlight Selection</div>
         <div id="menuRemove">❌ Remove Highlight</div>
+        <div id="menuNote">📝 Add Note</div>
     </div>
-    
-    <div class="note-box" id="noteBox">
-        <div class="note-header" id="noteDragHandle">
-            <span>📝 Note</span>
-            <span class="note-close" id="noteClose">×</span>
-        </div>
-        <textarea class="note-textarea" id="noteText" placeholder="Type your note here…"></textarea>
-    </div>
-    
-    <div class="top-bar">
-        <img src="ielts-logo.png" alt="IELTS Logo" class="logo">
-    </div>
-    <div class="main-grid" id="mainGrid">
-        <div class="passage-pane" id="passagePane">
-            <div class="exam-title">READING — CAMBRIDGE 12 TEST 1</div>
-            <h2>READING PASSAGE 3</h2>
-            <div class="instruction">You should spend about 20 minutes on Questions 27–40, which are based on Reading Passage 3 on pages 24 and 25.</div>
-            <h3 style="color:#1f3a5f; margin:15px 0; font-size:22px; text-align:center;">What's the purpose of gaining knowledge?</h3>
-            <div class="passage-text" id="passageArea">
-<p><strong>Section A</strong><br>
-'I would found an institution where any person can find instruction in any subject.' That was the founder's motto for Cornell University, and it seems an apt characterization of the different university, also in the USA, where I currently teach philosophy. A student can prepare for a career in resort management, engineering, interior design, accounting, music, law enforcement, you name it. But what would the founders of these two institutions have thought of a course called 'Arson for Profit'? I kid you not: we have it on the books. Any undergraduates who have met the academic requirements can sign up for the course in our program in 'fire science'.</p>
+<h2>Questions 37–40</h2>
+<p><em>Do the following statements agree with the views of the writer in Reading Passage 3?</em></p>
+<p><em>In boxes 37–40 on your answer sheet, write:</em></p>
+<p><strong>YES</strong> &nbsp;&nbsp;&nbsp; if the statement agrees with the views of the writer<br>
+<strong>NO</strong> &nbsp;&nbsp;&nbsp; if the statement contradicts the views of the writer<br>
+<strong>NOT GIVEN</strong> &nbsp; if it is impossible to say what the writer thinks about this</p>
 
-<p><strong>Section B</strong><br>
-Naturally, the course is intended for prospective arson investigators, who can learn all the tricks of the trade for detecting whether a fire was deliberately set, discovering who did it, and establishing a chain of evidence for effective prosecution in a court of law. But wouldn't this also be the perfect course for prospective arsonists to sign up for? My point is not to criticize academic programs in fire science: they are highly welcome as part of the increasing professionalization of this and many other occupations. However, it's not unknown for a firefighter to torch a building. This example suggests how dishonest and illegal behavior, with the help of higher education, can creep into every aspect of public and business life.</p>
+<div class="question-block" id="q37">
+    <p><strong>37.</strong> It is difficult to attract students onto courses that do not focus
+on a career.</p>
+    <input type="text" class="answer-input" name="q37" placeholder="YES / NO / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q38">
+    <p><strong>38.</strong> The 'Arson for Profit' course would be useful for people intending to set fire to buildings.</p>
+    <input type="text" class="answer-input" name="q38" placeholder="YES / NO / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q39">
+    <p><strong>39.</strong> Fire science courses are too academic to help people to be good at the job of firefighting.</p>
+    <input type="text" class="answer-input" name="q39" placeholder="YES / NO / NOT GIVEN" oninput="updateNavStatus()">
+</div>
+<div class="question-block" id="q40">
+    <p><strong>40.</strong> The writer's fire science students provided a detailed definition of the purpose of their studies.</p>
+    <input type="text" class="answer-input" name="q40" placeholder="YES / NO / NOT GIVEN" oninput="updateNavStatus()">
+</div>
 
-<p><strong>Section C</strong><br>
-I realized this anew when I was invited to speak before a class in marketing, which is another of our degree programs. The regular instructor is a colleague who appreciates the kind of ethical perspective I can bring as a philosopher. There are endless ways I could have approached this assignment, but I took my cue from the title of the course: 'Principles of Marketing'. It made me think to ask the students, 'Is marketing principled?' After all, a subject matter can have principles in the sense of being codified, having rules, as with football or chess, without being principled in the sense of being ethical. Many of the students immediately assumed that the answer to my question about marketing principles was obvious: no. Just look at the ways in which everything under the sun has been marketed; obviously it need not be done in a (ethical) fashion.</p>
-
-<p><strong>Section D</strong><br>
-Is that obvious? I made the suggestion, which may sound downright crazy in light of the evidence, that perhaps marketing is by definition principled. My inspiration for this judgement is the philosopher Immanuel Kant, who argued that any body of knowledge consists of an end (or purpose) and a means.</p>
-
-<p><strong>Section E</strong><br>
-Let us apply both the terms 'means' and 'end' to marketing. The students have signed up for a course in order to learn how to market effectively. But to what end? There seem to be two main attitudes toward that question. One is that the purpose of marketing is to sell things and to make money. The other attitude is that the purpose of marketing is irrelevant: Each person comes to the program and course with his or her own plans, and these need not even concern the acquisition of marketing expertise as such. My proposal, which I believe would also be Kant's, is that neither of these attitudes captures the significance of the end to the means for marketing. A field of knowledge or a professional endeavor is defined by both the means and the end; hence both deserve scrutiny. Students need to study how to achieve X, and also what X is.</p>
-
-<p><strong>Section F</strong><br>
-It is at this point that 'Arson for Profit' becomes supremely relevant. That course is presumably all about means: how to detect and prosecute criminal activity. It is therefore assumed that the end is good in an ethical sense. When I ask fire science students to articulate the end, or purpose, of their field, they eventually generalize to something like, 'The safety and welfare of society,' which seems right. As we have seen, someone could use the very same knowledge of means to achieve a much less noble end, such as personal profit via destructive, dangerous, reckless activity. But we would not call that firefighting. We have a separate word for it: arson. Similarly, if you employed the 'principles of marketing' in an unprincipled way, you would not be doing marketing. You have another term for it: fraud. Kant gives the example of a doctor and a murderer, who use the identical knowledge to achieve their divergent ends. We would say that one is practicing medicine, the other, murder.</p>
             </div>
         </div>
-        <div class="divider" id="divider"></div>
-        <div class="questions-pane" id="questionsPane">
-            <div class="questions-block" id="questionsArea">
-                <h3>Questions 27–32</h3>
-                <div class="instruction">Reading Passage 3 has six sections, A–F.<br><br>Choose the correct heading for each section from the list of headings below.<br><br>Write the correct roman numeral, i–viii, in boxes 27–32 on your answer sheet.</div>
-                
-                <div style="border:1px solid #ddd; padding:15px; margin:10px 0; border-radius:4px;">
-                    <strong>List of Headings</strong><br><br>
-                    i &nbsp;&nbsp; Courses that require a high level of commitment<br>
-                    ii &nbsp; A course title with two meanings<br>
-                    iii &nbsp;The equal importance of two key issues<br>
-                    iv &nbsp;Applying a theory in an unexpected context<br>
-                    v &nbsp;&nbsp;The financial benefits of studying<br>
-                    vi &nbsp; A surprising course title<br>
-                    vii &nbsp;Different names for different outcomes<br>
-                    viii &nbsp;The possibility of attracting the wrong kind of student
-                </div>
-                
-                <div class="q-row" id="q27">
-                    <span class="q-num">27</span>
-                    <span>Section A</span>
-                    <input type="text" class="input-answer" id="ans27" placeholder="i–viii" style="width:100px;">
-                </div>
-                <div class="q-row" id="q28">
-                    <span class="q-num">28</span>
-                    <span>Section B</span>
-                    <input type="text" class="input-answer" id="ans28" placeholder="i–viii" style="width:100px;">
-                </div>
-                <div class="q-row" id="q29">
-                    <span class="q-num">29</span>
-                    <span>Section C</span>
-                    <input type="text" class="input-answer" id="ans29" placeholder="i–viii" style="width:100px;">
-                </div>
-                <div class="q-row" id="q30">
-                    <span class="q-num">30</span>
-                    <span>Section D</span>
-                    <input type="text" class="input-answer" id="ans30" placeholder="i–viii" style="width:100px;">
-                </div>
-                <div class="q-row" id="q31">
-                    <span class="q-num">31</span>
-                    <span>Section E</span>
-                    <input type="text" class="input-answer" id="ans31" placeholder="i–viii" style="width:100px;">
-                </div>
-                <div class="q-row" id="q32">
-                    <span class="q-num">32</span>
-                    <span>Section F</span>
-                    <input type="text" class="input-answer" id="ans32" placeholder="i–viii" style="width:100px;">
-                </div>
-            </div>
-
-            <div class="questions-block">
-                <h3>Questions 33–36</h3>
-                <div class="instruction">Complete the summary below.<br><br>Choose <strong>NO MORE THAN TWO WORDS</strong> from the passage for each answer.<br><br>Write your answers in boxes 33–36 on your answer sheet.</div>
-                
-                <div style="background:#f9f9f9; padding:18px; border-radius:4px; margin:15px 0;">
-                    <strong>The 'Arson for Profit' course</strong><br><br>
-                    
-                    <div style="display:flex; align-items:center; margin:12px 0; flex-wrap:wrap; gap:8px;">
-                        <span style="min-width:28px; font-weight:bold;">33</span>
-                        <span style="flex:1;">This is a university course intended for students who are undergraduates and who are studying</span>
-                        <input type="text" class="input-answer" id="ans33" placeholder="Answer" style="width:140px; flex-shrink:0;">
-                    </div>
-                    
-                    <div style="display:flex; align-items:center; margin:12px 0; flex-wrap:wrap; gap:8px;">
-                        <span style="min-width:28px; font-weight:bold;">34</span>
-                        <span style="flex:1;">The expectation is that they will become ____________ specialising in arson.</span>
-                        <input type="text" class="input-answer" id="ans34" placeholder="Answer" style="width:140px; flex-shrink:0;">
-                    </div>
-                    
-                    <div style="display:flex; align-items:center; margin:12px 0; flex-wrap:wrap; gap:8px;">
-                        <span style="min-width:28px; font-weight:bold;">35</span>
-                        <span style="flex:1;">The course will help them to detect cases of arson and find ____________ of criminal intent,</span>
-                        <input type="text" class="input-answer" id="ans35" placeholder="Answer" style="width:140px; flex-shrink:0;">
-                    </div>
-                    
-                    <div style="display:flex; align-items:center; margin:12px 0; flex-wrap:wrap; gap:8px;">
-                        <span style="min-width:28px; font-weight:bold;">36</span>
-                        <span style="flex:1;">leading to successful ____________ in the courts.</span>
-                        <input type="text" class="input-answer" id="ans36" placeholder="Answer" style="width:140px; flex-shrink:0;">
-                    </div>
-                </div>
-
-
-
-            <div class="questions-block">
-                <h3>Questions 37–40</h3>
-                <div class="instruction">Do the following statements agree with the views of the writer in Reading Passage 3?<br><br>In boxes 37–40 on your answer sheet, write:<br><br><strong>YES</strong> &nbsp;&nbsp; if the statement agrees with the views of the writer<br><strong>NO</strong> &nbsp;&nbsp; if the statement contradicts the views of the writer<br><strong>NOT GIVEN</strong> &nbsp; if it is impossible to say what the writer thinks about this</div>
-                
-                                               <div class="q-row" id="q37" style="display:flex; align-items:flex-start; gap:10px; margin:16px 0; flex-wrap:wrap;">
-                    <span class="q-num" style="min-width:28px; font-weight:bold; padding-top:3px;">37</span>
-                    <span style="flex:1; min-width:250px;">It is difficult to attract students onto courses that do not focus on a career.</span>
-                    <div style="display:flex; gap:16px; padding-top:3px; flex-shrink:0;">
-                        <label style="display:flex; align-items:center; gap:4px; cursor:pointer;"><input type="radio" name="q37" value="YES"> Yes</label>
-                        <label style="display:flex; align-items:center; gap:4px; cursor:pointer;"><input type="radio" name="q37" value="NO"> No</label>
-                        <label style="display:flex; align-items:center; gap:4px; cursor:pointer;"><input type="radio" name="q37" value="NOT GIVEN"> NG</label>
-                    </div>
-                </div>
-
-                <div class="q-row" id="q38" style="display:flex; align-items:flex-start; gap:10px; margin:16px 0; flex-wrap:wrap;">
-                    <span class="q-num" style="min-width:28px; font-weight:bold; padding-top:3px;">38</span>
-                    <span style="flex:1; min-width:250px;">The 'Arson for Profit' course would be useful for people intending to set fire to buildings.</span>
-                    <div style="display:flex; gap:16px; padding-top:3px; flex-shrink:0;">
-                        <label style="display:flex; align-items:center; gap:4px; cursor:pointer;"><input type="radio" name="q38" value="YES"> Yes</label>
-                        <label style="display:flex; align-items:center; gap:4px; cursor:pointer;"><input type="radio" name="q38" value="NO"> No</label>
-                        <label style="display:flex; align-items:center; gap:4px; cursor:pointer;"><input type="radio" name="q38" value="NOT GIVEN"> NG</label>
-                    </div>
-                </div>
-
-                <div class="q-row" id="q39" style="display:flex; align-items:flex-start; gap:10px; margin:16px 0; flex-wrap:wrap;">
-                    <span class="q-num" style="min-width:28px; font-weight:bold; padding-top:3px;">39</span>
-                    <span style="flex:1; min-width:250px;">Fire science courses are too academic to help people to be good at the job of firefighting.</span>
-                    <div style="display:flex; gap:16px; padding-top:3px; flex-shrink:0;">
-                        <label style="display:flex; align-items:center; gap:4px; cursor:pointer;"><input type="radio" name="q39" value="YES"> Yes</label>
-                        <label style="display:flex; align-items:center; gap:4px; cursor:pointer;"><input type="radio" name="q39" value="NO"> No</label>
-                        <label style="display:flex; align-items:center; gap:4px; cursor:pointer;"><input type="radio" name="q39" value="NOT GIVEN"> NG</label>
-                    </div>
-                </div>
-
-                <div class="q-row" id="q40" style="display:flex; align-items:flex-start; gap:10px; margin:16px 0; flex-wrap:wrap;">
-                    <span class="q-num" style="min-width:28px; font-weight:bold; padding-top:3px;">40</span>
-                    <span style="flex:1; min-width:250px;">The writer's fire science students provided a detailed definition of the purpose of their studies.</span>
-                    <div style="display:flex; gap:16px; padding-top:3px; flex-shrink:0;">
-                        <label style="display:flex; align-items:center; gap:4px; cursor:pointer;"><input type="radio" name="q40" value="YES"> Yes</label>
-                        <label style="display:flex; align-items:center; gap:4px; cursor:pointer;"><input type="radio" name="q40" value="NO"> No</label>
-                        <label style="display:flex; align-items:center; gap:4px; cursor:pointer;"><input type="radio" name="q40" value="NOT GIVEN"> NG</label>
-                     </div><!-- end Q40 row -->
-                </div><!-- close Q37-40 q-row -->
-            </div><!-- close questions-block -->
-        </div><!-- close questionsPane -->
-    </div><!-- ✅ close mainGrid — THIS is the key one! -->
-
-    <div class="bottom-nav">
-        <div style="display:flex; gap:8px; align-items:center;">
+    </div>
+    <div class="bottom-container">
+        <div class="question-nav" id="questionNav">
+            <span class="nav-label">Q:</span>
+        </div>
+        <div class="btn-group">
             <a href="reading-passage2-C12T1.html" class="back-btn">← Back</a>
-            <button class="clear-btn" id="clearAllBtn">🗑️ Clear</button>
+            <a href="../index.html" class="back-btn">← Library</a>
+            <button class="clear-btn" onclick="clearAllData()">🗑️ Clear</button>
         </div>
-        <div class="nav-group">
-            <span class="part-label">P1:</span>
-            <div class="q-indicator" data-q="1">1</div>
-            <div class="q-indicator" data-q="2">2</div>
-            <div class="q-indicator" data-q="3">3</div>
-            <div class="q-indicator" data-q="4">4</div>
-            <div class="q-indicator" data-q="5">5</div>
-            <div class="q-indicator" data-q="6">6</div>
-            <div class="q-indicator" data-q="7">7</div>
-            <div class="q-indicator" data-q="8">8</div>
-            <div class="q-indicator" data-q="9">9</div>
-            <div class="q-indicator" data-q="10">10</div>
-            <div class="q-indicator" data-q="11">11</div>
-            <div class="q-indicator" data-q="12">12</div>
-            <div class="q-indicator" data-q="13">13</div>
-            <span class="part-label">P2:</span>
-            <div class="q-indicator" data-q="14">14</div>
-            <div class="q-indicator" data-q="15">15</div>
-            <div class="q-indicator" data-q="16">16</div>
-            <div class="q-indicator" data-q="17">17</div>
-            <div class="q-indicator" data-q="18">18</div>
-            <div class="q-indicator" data-q="19">19</div>
-            <div class="q-indicator" data-q="20">20</div>
-            <div class="q-indicator" data-q="21">21</div>
-            <div class="q-indicator" data-q="22">22</div>
-            <div class="q-indicator" data-q="23">23</div>
-            <div class="q-indicator" data-q="24">24</div>
-            <div class="q-indicator" data-q="25">25</div>
-            <div class="q-indicator" data-q="26">26</div>
-            <span class="part-label">P3:</span>
-            <div class="q-indicator current" data-q="27">27</div>
-            <div class="q-indicator" data-q="28">28</div>
-            <div class="q-indicator" data-q="29">29</div>
-            <div class="q-indicator" data-q="30">30</div>
-            <div class="q-indicator" data-q="31">31</div>
-            <div class="q-indicator" data-q="32">32</div>
-            <div class="q-indicator" data-q="33">33</div>
-            <div class="q-indicator" data-q="34">34</div>
-            <div class="q-indicator" data-q="35">35</div>
-            <div class="q-indicator" data-q="36">36</div>
-            <div class="q-indicator" data-q="37">37</div>
-            <div class="q-indicator" data-q="38">38</div>
-            <div class="q-indicator" data-q="39">39</div>
-            <div class="q-indicator" data-q="40">40</div>
-        </div>
-        <a href="../index.html" class="library-btn">← Library</a>
     </div>
-</body>
-</html>
+
 <script>
-const STORAGE_KEY = 'Cambridge12_Test1_Reading';
-const passageId = 'reading-passage3-C12T1';
+const TOTAL_QUESTIONS = 40;
+const PASSAGE3_RANGE = { start: 27, end: 40 };
+let lastNoteId = 0;
 
-// --- Draggable Divider ---
-const divider = document.getElementById('divider');
-const passagePane = document.getElementById('passagePane');
-const questionsPane = document.getElementById('questionsPane');
-const MIN_WIDTH = 25, MAX_WIDTH = 75;
-let savedSplit = localStorage.getItem(`${STORAGE_KEY}_split`);
-let passagePercent = savedSplit ? parseFloat(savedSplit) : 50;
+function initQuestionNav() {
+    const navContainer = document.getElementById('questionNav');
+    navContainer.innerHTML = '<span class="nav-label">Q:</span>';
 
-function applySplit() {
-    passagePane.style.width = `calc(${passagePercent}% - 6px)`;
-    questionsPane.style.width = `calc(${100 - passagePercent}% - 6px)`;
-}
-applySplit();
+    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+        if (i === 14) addGapLabel(navContainer, 'P2');
+        if (i === 27) addGapLabel(navContainer, 'P3');
 
-let isDraggingDivider = false;
-divider.addEventListener('mousedown', e => {
-    isDraggingDivider = true;
-    divider.classList.add('active');
-    document.body.style.cursor = 'col-resize';
-    document.body.style.userSelect = 'none';
-});
-document.addEventListener('mousemove', e => {
-    if (!isDraggingDivider) return;
-    const rect = document.getElementById('mainGrid').getBoundingClientRect();
-    let newPercent = ((e.clientX - rect.left) / rect.width) * 100;
-    newPercent = Math.max(MIN_WIDTH, Math.min(MAX_WIDTH, newPercent));
-    passagePercent = newPercent;
-    applySplit();
-});
-document.addEventListener('mouseup', () => {
-    if (isDraggingDivider) {
-        isDraggingDivider = false;
-        divider.classList.remove('active');
-        document.body.style.cursor = '';
-        document.body.style.userSelect = '';
-        localStorage.setItem(`${STORAGE_KEY}_split`, passagePercent);
+        const btn = document.createElement('div');
+        btn.className = 'q-indicator';
+        btn.textContent = i;
+        btn.id = 'nav' + i;
+
+        if (i < PASSAGE3_RANGE.start || i > PASSAGE3_RANGE.end) {
+            btn.classList.add('future');
+        } else {
+            btn.onclick = () => jumpToQuestion(i);
+        }
+        navContainer.appendChild(btn);
     }
-});
-
-// --- Highlight & Note System ---
-const noteBox = document.getElementById('noteBox');
-const noteText = document.getElementById('noteText');
-const noteClose = document.getElementById('noteClose');
-const contextMenu = document.getElementById('contextMenu');
-let currentRange = null, activeHighlight = null;
-const highlightAreas = ['passageArea', 'questionsArea'];
-
-function isInHighlightArea(node) {
-    return highlightAreas.some(id => {
-        const el = document.getElementById(id);
-        return el && el.contains(node);
-    });
 }
+
+function addGapLabel(container, label) {
+    const gap = document.createElement('div');
+    gap.className = 'q-indicator passage-gap';
+    gap.textContent = label;
+    container.appendChild(gap);
+}
+
+function jumpToQuestion(qNum) {
+    document.querySelectorAll('.q-indicator').forEach(el => el.classList.remove('current'));
+    document.getElementById('nav' + qNum)?.classList.add('current');
+    document.getElementById('q' + qNum)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function updateNavStatus() {
+    for (let q = PASSAGE3_RANGE.start; q <= PASSAGE3_RANGE.end; q++) {
+        const input = document.querySelector(`input[name="q${q}"]`);
+        const navBtn = document.getElementById('nav' + q);
+        if (input && navBtn) {
+            navBtn.classList.toggle('answered', input.value.trim() !== '');
+        }
+    }
+}
+
+function clearAllData() {
+    if (!confirm('Clear ALL answers and highlights? This cannot be undone!')) return;
+    document.querySelectorAll('.answer-input').forEach(input => { input.value = ''; });
+    document.querySelectorAll('.highlight').forEach(span => {
+        const textNode = document.createTextNode(span.textContent);
+        span.parentNode.replaceChild(textNode, span);
+        textNode.parentNode.normalize();
+    });
+    document.querySelectorAll('.sticky-note').forEach(note => note.remove());
+    updateNavStatus();
+}
+
+const contextMenu = document.getElementById('contextMenu');
+let currentRange = null;
 
 function isSelectionValid(sel) {
-    if (!sel || sel.isCollapsed || !sel.toString().trim()) return false;
+    if (!sel || sel.isCollapsed || sel.toString().trim() === '') return false;
     try {
-        return isInHighlightArea(sel.getRangeAt(0).commonAncestorContainer);
+        const r = sel.getRangeAt(0);
+        let p = r.commonAncestorContainer;
+        p = p.nodeType === Node.TEXT_NODE ? p.parentElement : p;
+        const inArea = document.getElementById('passageArea').contains(p) || document.getElementById('questionsArea').contains(p);
+        const inInput = p.closest('input, textarea, button, select') !== null;
+        return inArea && !inInput;
     } catch { return false; }
 }
 
-function saveHighlightsData() {
-    const highlights = [];
-    document.querySelectorAll('.highlight').forEach(hl => {
-        highlights.push({
-            text: hl.textContent,
-            note: hl.getAttribute('data-note') || ''
-        });
-    });
-    localStorage.setItem(`${passageId}_highlights`, JSON.stringify(highlights));
-}
-
 document.addEventListener('contextmenu', e => {
-    let el = e.target, clickedHighlight = null;
-    while (el) {
-        if (el.classList && el.classList.contains('highlight')) {
-            clickedHighlight = el; break;
-        }
-        el = el.parentElement;
-    }
-    if (clickedHighlight) {
-        activeHighlight = clickedHighlight;
-        currentRange = null;
-        contextMenu.style.left = e.pageX + 'px';
-        contextMenu.style.top = e.pageY + 'px';
-        contextMenu.style.display = 'block';
-        e.preventDefault();
-        return;
-    }
     const sel = window.getSelection();
-    if (isSelectionValid(sel)) {
-        currentRange = sel.getRangeAt(0).cloneRange();
-        activeHighlight = null;
-        contextMenu.style.left = e.pageX + 'px';
-        contextMenu.style.top = e.pageY + 'px';
-        contextMenu.style.display = 'block';
-        e.preventDefault();
-    } else {
-        contextMenu.style.display = 'none';
-    }
+    if (!isSelectionValid(sel)) { contextMenu.style.display = 'none'; return; }
+    e.preventDefault();
+    currentRange = sel.getRangeAt(0).cloneRange();
+    const rc = currentRange.getBoundingClientRect();
+    contextMenu.style.left = (rc.left + window.scrollX) + 'px';
+    contextMenu.style.top = (rc.bottom + window.scrollY + 8) + 'px';
+    contextMenu.style.display = 'block';
 });
 
-document.addEventListener('click', e => {
-    if (!contextMenu.contains(e.target)) contextMenu.style.display = 'none';
-});
+document.addEventListener('click', () => { contextMenu.style.display = 'none'; currentRange = null; });
 
-document.getElementById('menuHighlight').addEventListener('click', () => {
-    contextMenu.style.display = 'none';
+document.getElementById('menuHighlight').onclick = () => {
     if (!currentRange) return;
     try {
         const span = document.createElement('span');
         span.className = 'highlight';
-        span.setAttribute('data-note', '');
-        currentRange.surroundContents(span);
+        span.textContent = currentRange.toString();
+        currentRange.deleteContents();
+        currentRange.insertNode(span);
         window.getSelection().removeAllRanges();
-        saveHighlightsData();
-    } catch { alert('⚠️ Please select smaller sections of text.'); }
-});
+    } catch { alert('Please select less text to highlight.'); }
+};
 
-document.getElementById('menuAddNote').addEventListener('click', () => {
-    contextMenu.style.display = 'none';
-    if (!activeHighlight && currentRange) {
-        try {
-            const span = document.createElement('span');
-            span.className = 'highlight';
-            span.setAttribute('data-note', '');
-            currentRange.surroundContents(span);
-            activeHighlight = span;
-            window.getSelection().removeAllRanges();
-        } catch { alert('⚠️ Please select smaller sections of text.'); return; }
-    }
-    if (!activeHighlight) return;
-    const rect = activeHighlight.getBoundingClientRect();
-    noteBox.style.left = (rect.right + 10) + 'px';
-    noteBox.style.top = rect.top + 'px';
-    noteBox.style.display = 'block';
-    noteText.value = activeHighlight.getAttribute('data-note') || '';
-    noteText.focus();
-});
+document.getElementById('menuRemove').onclick = () => {
+    if (!currentRange) return;
+    try {
+        const selectedText = currentRange.toString().trim();
+        if (!selectedText) return;
+        const highlights = document.querySelectorAll('.highlight');
+        for (const span of highlights) {
+            if (span.textContent.trim() === selectedText || span.textContent.includes(selectedText)) {
+                const textNode = document.createTextNode(span.textContent);
+                span.parentNode.replaceChild(textNode, span);
+                textNode.parentNode.normalize();
+                break;
+            }
+        }
+        window.getSelection().removeAllRanges();
+        currentRange = null;
+    } catch { alert('Could not remove highlight.'); }
+};
 
-document.getElementById('menuRemove').addEventListener('click', () => {
-    contextMenu.style.display = 'none';
-    if (!activeHighlight) return;
-    const parent = activeHighlight.parentNode;
-    while (activeHighlight.firstChild) {
-        parent.insertBefore(activeHighlight.firstChild, activeHighlight);
-    }
-    parent.removeChild(activeHighlight);
-    parent.normalize();
-    activeHighlight = null;
-    saveHighlightsData();
-});
+document.getElementById('menuNote').onclick = () => {
+    if (!currentRange) return;
+    const rc = currentRange.getBoundingClientRect();
+    const noteId = 'note_' + (++lastNoteId);
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.id = noteId;
+    note.style.left = (rc.right + window.scrollX + 10) + 'px';
+    note.style.top = (rc.top + window.scrollY) + 'px';
+    note.innerHTML = `<div class="note-header">Note <span class="note-close" onclick="document.getElementById('${noteId}').remove()">×</span></div><textarea class="note-textarea" placeholder="Type your note..."></textarea>`;
+    document.body.appendChild(note);
+    window.getSelection().removeAllRanges();
+};
 
-noteClose.addEventListener('click', () => {
-    if (activeHighlight) {
-        activeHighlight.setAttribute('data-note', noteText.value);
-        saveHighlightsData();
-    }
-    noteBox.style.display = 'none';
-    activeHighlight = null;
-});
-
-// Drag note box
-let isDraggingNote = false, noteOffsetX = 0, noteOffsetY = 0;
-document.getElementById('noteDragHandle').addEventListener('mousedown', e => {
-    isDraggingNote = true;
-    const rect = noteBox.getBoundingClientRect();
-    noteOffsetX = e.clientX - rect.left;
-    noteOffsetY = e.clientY - rect.top;
-});
-document.addEventListener('mousemove', e => {
-    if (!isDraggingNote) return;
-    noteBox.style.left = (e.clientX - noteOffsetX) + 'px';
-    noteBox.style.top = (e.clientY - noteOffsetY) + 'px';
-});
-document.addEventListener('mouseup', () => isDraggingNote = false);
-
-// --- Answers & Navigation ---
-let currentQuestionNum = 27;
-
-function setCurrentQuestion(qNum) {
-    document.querySelectorAll('.q-row.current').forEach(r => r.classList.remove('current'));
-    document.querySelectorAll('.q-indicator.current').forEach(b => b.classList.remove('current'));
-    currentQuestionNum = qNum;
-    const row = document.getElementById(`q${qNum}`);
-    const indicator = document.querySelector(`.q-indicator[data-q="${qNum}"]`);
-    if (row) row.classList.add('current');
-    if (indicator) indicator.classList.add('current');
-}
-
-function updateStatus() {
-    for (let q = 1; q <= 40; q++) {
-        const btn = document.querySelector(`.q-indicator[data-q="${q}"]`);
-        if (!btn) continue;
-        const val = localStorage.getItem(`${STORAGE_KEY}_q${q}`) || '';
-        btn.classList.toggle('answered', val.trim().length > 0);
-    }
-}
-
-document.querySelectorAll('.q-indicator').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const qNum = parseInt(btn.dataset.q);
-        setCurrentQuestion(qNum);
-        const target = document.getElementById(`q${qNum}`);
-        if (target) target.scrollIntoView({behavior:'smooth', block:'center'});
-    });
-});
-
-function saveAnswer(q, val) {
-    localStorage.setItem(`${STORAGE_KEY}_q${q}`, val.trim());
-    updateStatus();
-}
-
-// Q27–32 (headings: i–viii)
-for (let q = 27; q <= 32; q++) {
-    const box = document.getElementById(`ans${q}`);
-    box.addEventListener('input', () => {
-        let val = box.value.toLowerCase().trim();
-        const map = {
-            '1': 'i', '2': 'ii', '3': 'iii', '4': 'iv',
-            '5': 'v', '6': 'vi', '7': 'vii', '8': 'viii'
-        };
-        if (map[val]) val = map[val];
-        box.value = val;
-        box.classList.toggle('filled', val !== '');
-        saveAnswer(q, val);
-    });
-}
-
-// Q33–36 (summary completion)
-for (let q = 33; q <= 36; q++) {
-    const box = document.getElementById(`ans${q}`);
-    box.addEventListener('input', () => {
-        const val = box.value.trim();
-        box.value = val;
-        box.classList.toggle('filled', val !== '');
-        saveAnswer(q, val);
-    });
-}
-
-// Q37–40 (Y/N/NG)
-for (let q = 37; q <= 40; q++) {
-    const box = document.getElementById(`ans${q}`);
-    box.addEventListener('input', () => {
-        let val = box.value.toUpperCase().trim();
-        if (val === 'Y') val = 'YES';
-        if (val === 'N') val = 'NO';
-        if (val === 'NG' || val === 'NOT GIVEN') val = 'NOT GIVEN';
-        box.value = val;
-        box.classList.toggle('filled', val !== '');
-        saveAnswer(q, val);
-    });
-}
-
-function clearAllData() {
-    if (!confirm('⚠️ Are you sure you want to clear ALL answers, highlights, and notes? This cannot be undone.')) return;
-    for (let q = 1; q <= 40; q++) localStorage.removeItem(`${STORAGE_KEY}_q${q}`);
-    localStorage.removeItem(`${passageId}_highlights`);
-    localStorage.removeItem(`${STORAGE_KEY}_split`);
-    document.querySelectorAll('input').forEach(i => { i.value = ''; i.classList.remove('filled'); });
-    document.querySelectorAll('.highlight').forEach(hl => {
-        const parent = hl.parentNode;
-        while (hl.firstChild) parent.insertBefore(hl.firstChild, hl);
-        parent.removeChild(hl);
-        parent.normalize();
-    });
-    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
-
-    location.reload();
-}
-document.getElementById('clearAllBtn').addEventListener('click', clearAllData);
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Load saved answers
-    for (let q = 27; q <= 40; q++) {
-        const box = document.getElementById(`ans${q}`);
-        const saved = localStorage.getItem(`${STORAGE_KEY}_q${q}`) || '';
-        if (saved) { box.value = saved; box.classList.add('filled'); }
-    }
-    
-    setCurrentQuestion(27);
-    updateStatus();
-});
+window.onload = initQuestionNav;
 </script>
 </body>
 </html>
