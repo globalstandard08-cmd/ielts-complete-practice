@@ -30,25 +30,46 @@
         .subhead { text-align: center; font-style: italic; color: #555; margin-bottom: 15px; }
 
         .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            padding: 0 20px 20px;
-            position: relative;
-        }
-
-        .box {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-            max-height: 80vh;
-            overflow-y: auto;
-            background: #fff;
-            position: relative;
-            resize: vertical;
-            min-height: 300px;   
+    display: flex;
+    gap: 0;
+    padding: 0 20px 20px;
+    position: relative;
+    height: calc(100vh - 220px);
+    min-height: 500px;
 }
 
+        .box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    overflow-y: auto;
+    background: #fff;
+    position: relative;
+    height: 100%;
+}
+
+#passageBox {
+    width: 50%;
+    min-width: 250px;
+}
+
+#questionsBox {
+    width: 50%;
+    min-width: 250px;
+}
+       /* === Resizer bar between boxes === */
+.resizer {
+    width: 8px;
+    background: #ddd;
+    cursor: col-resize;
+    margin: 0 4px;
+    border-radius: 4px;
+    transition: background-color 0.15s;
+}
+.resizer:hover, .resizer.active {
+    background: #007bff;
+}
+ 
         /* Custom scrollbar */
         .box::-webkit-scrollbar { width: 14px; }
         .box::-webkit-scrollbar-track { background: #f1f1f1; }
@@ -211,7 +232,7 @@
             color: #28a745;
             font-weight: bold;
             margin-top: 4px;
-            display: block;
+            display: none;
         }
 
         /* Bottom controls & navigation */
@@ -219,7 +240,7 @@
             padding: 15px 20px;
             border-top: 1px solid #eee;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
             gap: 15px;
             background: #fff;
@@ -256,6 +277,7 @@
         .nav {
             display: flex;
             gap: 10px;
+            margin-left: auto;
         }
         .nav a, .nav span { 
             padding: 8px 16px; 
@@ -302,6 +324,11 @@
 
             <p>The classic cork stopper does however have several advantages, however. Firstly, its traditional image is more in keeping with that of the type of high quality goods with which it has long been associated. Secondly – and very importantly – cork is a sustainable product that can be recycled without difficulty. Moreover, cork forests are a resource which support local biodiversity, and prevent desertification in the regions where they are planted. So, given the current concerns about environmental issues, the future of this ancient material once again looks promising.</p>
         </div>
+                </div>  <!-- End of Passage Box -->
+
+        <div class="resizer" id="dragResizer"></div>  <!-- ← PASTE HERE -->
+
+
         <!-- Questions Box -->
         <div class="box" id="questionsBox">
             <h3 style="margin-bottom:15px;">Questions 1–13</h3>
@@ -738,6 +765,45 @@
                 el.addEventListener('input', saveAnswers);
             });
         };
+        // === Vertical Resizer between Passage & Questions ===
+const resizer = document.getElementById('dragResizer');
+const leftBox = document.getElementById('passageBox');
+const rightBox = document.getElementById('questionsBox');
+let isResizing = false;
+
+resizer.addEventListener('mousedown', function(e) {
+    isResizing = true;
+    resizer.classList.add('active');
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+});
+
+document.addEventListener('mousemove', function(e) {
+    if (!isResizing) return;
+    
+    const container = leftBox.parentElement;
+    const containerRect = container.getBoundingClientRect();
+    const containerLeft = containerRect.left;
+    const containerWidth = containerRect.width;
+    
+    let newLeftWidth = e.clientX - containerLeft - 8; // 8px = resizer width
+    const minW = 250;
+    
+    if (newLeftWidth < minW) newLeftWidth = minW;
+    if (newLeftWidth > containerWidth - minW - 8) newLeftWidth = containerWidth - minW - 8;
+    
+    const percent = (newLeftWidth / containerWidth) * 100;
+    leftBox.style.width = percent + '%';
+    rightBox.style.width = 'calc(100% - ' + percent + '% - 16px)';
+});
+
+document.addEventListener('mouseup', function() {
+    isResizing = false;
+    resizer.classList.remove('active');
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+});
+
     </script>
 </body>
 </html>
