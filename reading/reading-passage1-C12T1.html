@@ -32,10 +32,11 @@
         .container {
     display: flex;
     gap: 0;
-    padding: 0 20px 20px;
+    padding: 0;
     position: relative;
     height: calc(100vh - 220px);
     min-height: 500px;
+    align-items: stretch;
 }
 
         .box {
@@ -44,30 +45,45 @@
     padding: 20px;
     overflow-y: auto;
     background: #fff;
-    position: relative;
     height: 100%;
 }
 
 #passageBox {
     width: 50%;
-    min-width: 250px;
+    min-width: 300px;
 }
 
 #questionsBox {
-    width: 50%;
-    min-width: 250px;
+    flex: 1;
+    min-width: 300px;
 }
-       /* === Resizer bar between boxes === */
-.resizer {
-    width: 8px;
-    background: #ddd;
+
+     /* ===== RESIZABLE DIVIDER — from your working sample ===== */
+.divider {
+    width: 6px;
+    background-color: #ddd;
     cursor: col-resize;
-    margin: 0 4px;
-    border-radius: 4px;
+    position: relative;
     transition: background-color 0.15s;
+    flex-shrink: 0;
 }
-.resizer:hover, .resizer.active {
-    background: #007bff;
+.divider:hover, .divider.dragging {
+    background-color: #007bff;
+}
+.divider::after {
+    content: '⟷';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: #999;
+    pointer-events: none;
+    opacity: 0.5;
+}
+.divider:hover::after, .divider.dragging::after {
+    color: #ffffff;
+    opacity: 1;
 }
  
         /* Custom scrollbar */
@@ -326,7 +342,7 @@
         </div>
                 </div>  <!-- End of Passage Box -->
 
-        <div class="resizer" id="dragResizer"></div>  <!-- ← PASTE HERE -->
+        <div class="divider" id="divider"></div>  
 
 
         <!-- Questions Box -->
@@ -765,44 +781,40 @@
                 el.addEventListener('input', saveAnswers);
             });
         };
-        // === Vertical Resizer between Passage & Questions ===
-const resizer = document.getElementById('dragResizer');
-const leftBox = document.getElementById('passageBox');
-const rightBox = document.getElementById('questionsBox');
-let isResizing = false;
+        // ===== PANEL RESIZING — from your working sample =====
+const passageBox = document.getElementById('passageBox');
+const divider = document.getElementById('divider');
+const container = passageBox.parentElement;
+let isDragging = false;
 
-resizer.addEventListener('mousedown', function(e) {
-    isResizing = true;
-    resizer.classList.add('active');
+function startDrag(e) {
+    if (window.innerWidth <= 900) return;
+    isDragging = true;
+    divider.classList.add('dragging');
     document.body.style.cursor = 'col-resize';
     document.body.style.userSelect = 'none';
-});
-
-document.addEventListener('mousemove', function(e) {
-    if (!isResizing) return;
+}
+function doDrag(e) {
+    if (!isDragging) return;
+    if (window.innerWidth <= 900) return;
     
-    const container = leftBox.parentElement;
-    const containerRect = container.getBoundingClientRect();
-    const containerLeft = containerRect.left;
-    const containerWidth = containerRect.width;
+    const rect = container.getBoundingClientRect();
+    const newWidth = ((e.clientX - rect.left) / rect.width) * 100;
     
-    let newLeftWidth = e.clientX - containerLeft - 8; // 8px = resizer width
-    const minW = 250;
-    
-    if (newLeftWidth < minW) newLeftWidth = minW;
-    if (newLeftWidth > containerWidth - minW - 8) newLeftWidth = containerWidth - minW - 8;
-    
-    const percent = (newLeftWidth / containerWidth) * 100;
-    leftBox.style.width = percent + '%';
-    rightBox.style.width = 'calc(100% - ' + percent + '% - 16px)';
-});
-
-document.addEventListener('mouseup', function() {
-    isResizing = false;
-    resizer.classList.remove('active');
+    if (newWidth >= 25 && newWidth <= 75) {
+        passageBox.style.width = newWidth + '%';
+    }
+}
+function endDrag() {
+    isDragging = false;
+    divider.classList.remove('dragging');
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
-});
+}
+divider.addEventListener('mousedown', startDrag);
+document.addEventListener('mousemove', doDrag);
+document.addEventListener('mouseup', endDrag);
+document.addEventListener('mouseleave', endDrag);
 
     </script>
 </body>
