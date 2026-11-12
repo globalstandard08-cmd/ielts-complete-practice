@@ -45,7 +45,9 @@
             overflow-y: auto;
             background: #fff;
             position: relative;
-        }
+            resize: vertical;
+            min-height: 300px;   
+}
 
         /* Custom scrollbar */
         .box::-webkit-scrollbar { width: 14px; }
@@ -209,7 +211,7 @@
             color: #28a745;
             font-weight: bold;
             margin-top: 4px;
-            display: none;
+            display: block;
         }
 
         /* Bottom controls & navigation */
@@ -707,11 +709,6 @@
             });
         }
 
-        function toggleAnswers() {
-            document.querySelectorAll('.correct-answer').forEach(ans => {
-                ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
-            });
-        }
 
         function clearAll() {
             if (!confirm("⚠️ Clear ALL answers, flags, highlights and notes for the ENTIRE test?")) return;
