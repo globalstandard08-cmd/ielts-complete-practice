@@ -759,7 +759,7 @@ document.addEventListener('mouseup', () => isDraggingNote = false);
 let currentQuestionNum = 27;
 
 function setCurrentQuestion(qNum) {
-    document.querySelectorAll('.heading-row.current, .summary-row.current, .ynng-row.current').forEach(r => r.classList.remove('current'));
+        document.querySelectorAll('.heading-row.current, .ynng-row.current').forEach(r => r.classList.remove('current'));
     document.querySelectorAll('.q-indicator.current').forEach(b => b.classList.remove('current'));
     currentQuestionNum = qNum;
     const row = document.getElementById(`q${qNum}`);
