@@ -635,7 +635,11 @@ function isInHighlightArea(node) {
 function isSelectionValid(sel) {
     if (!sel || sel.isCollapsed || !sel.toString().trim()) return false;
     try {
-        return isInHighlightArea(sel.getRangeAt(0).commonAncestorContainer);
+        const container = sel.getRangeAt(0).commonAncestorContainer;
+        const el = container.nodeType === Node.TEXT_NODE 
+            ? container.parentElement 
+            : container;
+        return isInHighlightArea(el);
     } catch { return false; }
 }
 
@@ -687,7 +691,7 @@ document.addEventListener('click', e => {
 document.getElementById('menuHighlight').addEventListener('click', () => {
     contextMenu.style.display = 'none';
     if (!currentRange) return;
-    try {
+     try {
         const span = document.createElement('span');
         span.className = 'highlight';
         span.setAttribute('data-note', '');
@@ -864,7 +868,19 @@ document.addEventListener('DOMContentLoaded', () => {
             opt.classList.add('checked');
         }
     }
-    
+        // --- Load Saved Highlights & Notes ---
+    const savedHighlights = localStorage.getItem(`${passageId}_highlights`);
+    if (savedHighlights) {
+        try {
+            const highlights = JSON.parse(savedHighlights);
+            // Note: Full text-position restoration requires a more complex system
+            // This placeholder confirms data loads correctly
+            console.log(`✅ ${highlights.length} highlight(s) saved — ready for position-based restoration`);
+        } catch (e) {
+            console.warn('⚠️ Could not load saved highlights');
+        }
+    }
+
     setCurrentQuestion(27);
     updateStatus();
 });
